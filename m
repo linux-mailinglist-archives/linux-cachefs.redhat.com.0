@@ -2,70 +2,82 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0664455183
-	for <lists+linux-cachefs@lfdr.de>; Tue, 25 Jun 2019 16:22:19 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id 014AF5517F
+	for <lists+linux-cachefs@lfdr.de>; Tue, 25 Jun 2019 16:22:09 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2C166307CB52;
-	Tue, 25 Jun 2019 14:21:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 139615D71B;
+	by mx1.redhat.com (Postfix) with ESMTPS id 7880B30C31A1;
 	Tue, 25 Jun 2019 14:21:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBC3C5C236;
+	Tue, 25 Jun 2019 14:21:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D4938206D4;
-	Tue, 25 Jun 2019 14:21:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B3267206D3;
+	Tue, 25 Jun 2019 14:21:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5PCCdWi013680 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 25 Jun 2019 08:12:39 -0400
+	id x5PDUZgY021552 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 25 Jun 2019 09:30:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E8A29600D1; Tue, 25 Jun 2019 12:12:38 +0000 (UTC)
+	id DE8265D96F; Tue, 25 Jun 2019 13:30:35 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4043600CD
-	for <linux-cachefs@redhat.com>; Tue, 25 Jun 2019 12:12:34 +0000 (UTC)
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
-	[209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx05.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80DC45D9DC;
+	Tue, 25 Jun 2019 13:30:25 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6DB3580F81
-	for <linux-cachefs@redhat.com>; Tue, 25 Jun 2019 12:12:34 +0000 (UTC)
-Received: by mail-ot1-f71.google.com with SMTP id m16so7359909otq.13
-	for <linux-cachefs@redhat.com>; Tue, 25 Jun 2019 05:12:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=xtX13vSVbmx57mGL/Q0hXK8kpnRo7HFPa5oOdLxipaM=;
-	b=rLMFk0bLG1FibaI6nxyVHU3ztN5apxJd49DRLMWVLMHYzc1K1Y9PXgHoa4EIl3Cum/
-	vEhoFIF43o7MyJWd4382Q1pvNvrkeq57L0C4Dh29D4gbEBe0qFpaBxAL6RuNTOKQVdB4
-	Z9XqpeZuW4dLFrP/4qJjw+6xDmvh2U8KQmUCNCo6dgoe0vdKPtx3mtyVVD3JD9YHiXB+
-	Rh8jvJjpppAiwhDVUurIop7prGot8ZLXRHooaMyGUXL74hs/ArnrZT6bnK5gogXalww5
-	yuWowAQT99MC086mN0sQAPON7Rb/l5iA1L5SFYVoUnQyrd0bRL+4zZJlfh3OKv4j5Pda
-	4KMg==
-X-Gm-Message-State: APjAAAXP9aVv/3Aa8dvgtAXnzlrtzPtpGCzyYRCMKlNM5XzHO8mwYxEG
-	/69mpCGnNMzYB7N255wCa44yLts1Kmja9IK5QvQo0x1cbYUd/hll8eRCkKuJ3jJ/D78cFuwzdk6
-	hm553hhJpyTdRMHdRNb6GcE+Pd05yATunO7H6Ew==
-X-Received: by 2002:aca:b58b:: with SMTP id
-	e133mr14183015oif.147.1561464753901; 
-	Tue, 25 Jun 2019 05:12:33 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzIF0shhnL3kTWbxYnFTIfJoQ9NWdzzlYJbdr7wT1RELz57W5jZU6ihqAiJYZbsgta0nM0Q5SDLuZyhNwwIoP0=
-X-Received: by 2002:aca:b58b:: with SMTP id
-	e133mr14182998oif.147.1561464753642; 
-	Tue, 25 Jun 2019 05:12:33 -0700 (PDT)
-MIME-Version: 1.0
+	by mx1.redhat.com (Postfix) with ESMTPS id 631E790901;
+	Tue, 25 Jun 2019 13:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20170209;
+	h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=vCL2IOPiHU9kJW2bBZYOqxawmR17SekCCFnRDcOOjFE=;
+	b=g0ITzi4aEbR6lSdnqiy2ElfSg
+	g779gyAaI7Ux0091eXAVoKggjsFo/t+M6NWIocT8AMgHmAAh0yh80ypR6Qbrn/+LZz95Bc5tDvCen
+	z4EMW1PvzMzmn7ebko6NG+ty+dz11z5vxAH09EtqjAX8ydZyEpvMqdktJcGUrgc2Dgx66WDRoalDB
+	qnMzX1ROanw2yW2oUXHPcEvjQ3b3DC0dOeSFFur1rAygN3R9e1t4x90/HNJodZAxXJkupMEfn77Fm
+	hpkVJrCMUlq/fbnIZCSHsL7NRYfw+QRUFFHQvO2QCLXRHQbEJ1FO9NQzzkv9ouNrzplrkLdnx7Roh
+	OV0fobmDw==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+	helo=hirez.programming.kicks-ass.net)
+	by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
+	id 1hflU2-0000AO-GD; Tue, 25 Jun 2019 13:27:38 +0000
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+	id ED4AC209FCA10; Tue, 25 Jun 2019 15:27:36 +0200 (CEST)
+Date: Tue, 25 Jun 2019 15:27:36 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Message-ID: <20190625132736.GZ3419@hirez.programming.kicks-ass.net>
 References: <20190624165012.GH3436@hirez.programming.kicks-ass.net>
 	<CAHc6FU7j5iW7WQoxN_OSfvK4zxv_MxTWJpiNsqFW8TEDMX1rjw@mail.gmail.com>
 	<20190625103430.GW3402@hirez.programming.kicks-ass.net>
-In-Reply-To: <20190625103430.GW3402@hirez.programming.kicks-ass.net>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 25 Jun 2019 14:12:22 +0200
-Message-ID: <CAHc6FU6zUCdQZ1AfN2KYcPYVKc5bwvc0bD7=-KZpFXws+F9QZQ@mail.gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	<CAHc6FU6zUCdQZ1AfN2KYcPYVKc5bwvc0bD7=-KZpFXws+F9QZQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAHc6FU6zUCdQZ1AfN2KYcPYVKc5bwvc0bD7=-KZpFXws+F9QZQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.29]); Tue, 25 Jun 2019 13:30:16 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]);
+	Tue, 25 Jun 2019 13:30:16 +0000 (UTC) for IP:'198.137.202.133'
+	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
+	FROM:'peterz@infradead.org' RCPT:''
+X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
+	bombadil.infradead.org <peterz@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.29
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Tue, 25 Jun 2019 10:21:03 -0400
 Cc: Martin Brandenburg <martin@omnibond.com>, linux-cachefs@redhat.com,
@@ -123,62 +135,29 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Tue, 25 Jun 2019 14:22:17 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Tue, 25 Jun 2019 14:22:07 +0000 (UTC)
 
-On Tue, 25 Jun 2019 at 12:36, Peter Zijlstra <peterz@infradead.org> wrote:
-> On Tue, Jun 25, 2019 at 11:19:35AM +0200, Andreas Gruenbacher wrote:
-> > > diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-> > > index cf4c767005b1..666629ea5da7 100644
-> > > --- a/fs/gfs2/glops.c
-> > > +++ b/fs/gfs2/glops.c
-> > > @@ -227,6 +227,7 @@ static void gfs2_clear_glop_pending(struct gfs2_inode *ip)
-> > >                 return;
-> > >
-> > >         clear_bit_unlock(GIF_GLOP_PENDING, &ip->i_flags);
-> > > +       smp_mb__after_atomic();
-> > >         wake_up_bit(&ip->i_flags, GIF_GLOP_PENDING);
+On Tue, Jun 25, 2019 at 02:12:22PM +0200, Andreas Gruenbacher wrote:
+
+> > Only if we do as David suggested and make clean_and_wake_up_bit()
+> > provide the RELEASE barrier.
+> 
+> (It's clear_and_wake_up_bit, not clean_and_wake_up_bit.)
+
+Yes, typing hard.
+
+> > That is, currently clear_and_wake_up_bit() is
 > >
-> > This should become clear_and_wake_up_bit as well, right? There are
-> > several more instances of the same pattern.
->
-> Only if we do as David suggested and make clean_and_wake_up_bit()
-> provide the RELEASE barrier.
+> >         clear_bit()
+> >         smp_mb__after_atomic();
+> >         wake_up_bit();
+> >
 
-(It's clear_and_wake_up_bit, not clean_and_wake_up_bit.)
+> Now I'm confused because clear_and_wake_up_bit() in mainline does use
+> clear_bit_unlock(), so it's the exact opposite of what you just said.
 
-> That is, currently clear_and_wake_up_bit() is
->
->         clear_bit()
->         smp_mb__after_atomic();
->         wake_up_bit();
->
-> But the above is:
->
->         clear_bit_unlock();
->         smp_mb__after_atomic();
->         wake_up_bit()
->
-> the difference is that _unlock() uses RELEASE semantics, where
-> clear_bit() does not.
->
-> The difference is illustrated with something like:
->
->         cond = true;
->         clear_bit()
->         smp_mb__after_atomic();
->         wake_up_bit();
->
-> In this case, a remote CPU can first observe the clear_bit() and then
-> the 'cond = true' store. When we use clear_bit_unlock() this is not
-> possible, because the RELEASE barrier ensures that everything before,
-> stays before.
-
-Now I'm confused because clear_and_wake_up_bit() in mainline does use
-clear_bit_unlock(), so it's the exact opposite of what you just said.
-
-Thanks,
-Andreas
+Argh; clearly I couldn't read. And then yes, you're right.
 
 --
 Linux-cachefs mailing list
