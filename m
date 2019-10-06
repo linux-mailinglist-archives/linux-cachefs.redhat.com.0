@@ -2,88 +2,91 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55D58AD97F
-	for <lists+linux-cachefs@lfdr.de>; Mon,  9 Sep 2019 14:58:40 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id C77F6CD6D1
+	for <lists+linux-cachefs@lfdr.de>; Sun,  6 Oct 2019 19:51:25 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EB3B0300DA3A;
-	Mon,  9 Sep 2019 12:58:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D36C16012D;
-	Mon,  9 Sep 2019 12:58:38 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2715659465;
+	Sun,  6 Oct 2019 17:51:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E23F260C05;
+	Sun,  6 Oct 2019 17:51:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B348724F30;
-	Mon,  9 Sep 2019 12:58:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 028291803518;
+	Sun,  6 Oct 2019 17:51:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x89CwaoY018567 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 9 Sep 2019 08:58:36 -0400
+	id x96HpDZT021216 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 6 Oct 2019 13:51:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8FC6160BF3; Mon,  9 Sep 2019 12:58:36 +0000 (UTC)
+	id 0F17660127; Sun,  6 Oct 2019 17:51:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A02060BE2
-	for <linux-cachefs@redhat.com>; Mon,  9 Sep 2019 12:58:34 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
-	[209.85.128.66])
+Received: from mx1.redhat.com (ext-mx29.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.70])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09AE5600C8
+	for <linux-cachefs@redhat.com>; Sun,  6 Oct 2019 17:51:10 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+	[209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id AAAE6308427D
-	for <linux-cachefs@redhat.com>; Mon,  9 Sep 2019 12:58:32 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id n10so14573154wmj.0
-	for <linux-cachefs@redhat.com>; Mon, 09 Sep 2019 05:58:32 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id F080418C8911
+	for <linux-cachefs@redhat.com>; Sun,  6 Oct 2019 17:51:09 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id 205so7154579pfw.2
+	for <linux-cachefs@redhat.com>; Sun, 06 Oct 2019 10:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to; 
-	bh=STwRsrSKAt8kUvh7h/tHrOrLaqwQp0Z1Y8I/B385tnI=;
-	b=YupjZuQ1rXvd0vMHoxIhQLcRpPQe6buVHwUvpPjR1/wpvxRHcWPJO/A8I46B+hWL71
-	7qswMB87DQOPQM7YoPCGGA/yawhTwL6DrRDkz5F+HHSJwizOFDA182aOUY0Pb0jwCO7d
-	A+b69mmkEzjK6e6qtRVCuQSpC5lE/rjQRFDfsrTEkDhdeA5/SS71o11pQKHw2/CCYFGN
-	IeauwqgjsuRINyGFFiyiZQLVbDuB90CZBBmQieUDT2cZKl4N/ghNsC2Tp0BZ8E1/HBN5
-	mw1ZEKoTFH+TJfrIXIQ4NcW7kkZ6JpTuE0Q/S7prDAddQHbaCMV58BK2MbIAIXqhHU2X
-	9UiQ==
+	h=from:mime-version:subject:message-id:date:to;
+	bh=88HqJ6GnUXw7ahrmtDN1ifCJ9uuyQSoD8vT/axn+cYo=;
+	b=Y7XXToRAhOuvITpBQsUtDAMAoY+vioO/hQ3djA0QzYjsxtNs1Hj69I2V00ztClUPzt
+	eLydtVOYWhKH2rcBADzvRm32hXVQSUGHe/AZD6I+I4hEogYKqcQE5ewlINQOfVZqu2H6
+	zetRuPRharSqhGiakeBWomb1BF8/pXynTlWCmT+ZwzIkSX6OOcnMs9ht6ju6zAVTCfp/
+	WBTNRnR2sAfJ/9WlkL/d7xMxmkcXvKfsTBwHx/8jaQbRN35Jr9K8al7Hctb9BQFTScEE
+	+IMfjJrAjgirWuUY2cG5W9RCHQFlSVQzIUh4cthL53fOJKCPfoy2qcgWojLECV0nQ1BK
+	PUVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=STwRsrSKAt8kUvh7h/tHrOrLaqwQp0Z1Y8I/B385tnI=;
-	b=U+6KwNh3gy6agRSe63ftC5zoKg6IhLCsbA3fhddVnajZgSwHFgIedkHbwu7HyyEmp8
-	GI6AhYMv0mm6Y5G0xIFSOopD0OYOiH3ZycfbTlgEGb2+4dwzymtvFFadzYufXQjrmKdT
-	Js+0qKxMa72MltlCJTfqH7C0U0ERg2trG3WHfSRkBXolgKSK8ykGPV42KS+4HSlxY41Y
-	nozc1e1pUWAnBTRt5ezE5v7FhjC3Pu4JGSIRkulSO57h5jfeR3wc1SLaki+wBUndiYP0
-	yJkGsoKSY2F21Jp4hD62kmw5EDZx+N3rnf8ZB/QXlsK8Utjb4ENl1eyHubuT62mXyb1f
-	7TFQ==
-X-Gm-Message-State: APjAAAUBYxWJfJWzGFtbnA1QsU7R6HeOeZ967ge3gE7XkufRtZceUMRB
-	Uy+tzmyA7xzcQOFZ1U8o/McMno/4JMLxihmcD2DsdQ==
-X-Google-Smtp-Source: APXvYqw/wFm+1os0T7iuG+qLxDlNJHCzM1XTRHdaISkB1uGz/8LWzvVXdcxuRcq6cTy41Okp+bo0xTJRi05t1kWfjaA=
-X-Received: by 2002:a1c:c013:: with SMTP id q19mr17159493wmf.87.1568033911040; 
-	Mon, 09 Sep 2019 05:58:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAB3bAB8a+bXvWPNBFss7K79qVy6UnFC69q+fv4eF9Mog1uQH=Q@mail.gmail.com>
-In-Reply-To: <CAB3bAB8a+bXvWPNBFss7K79qVy6UnFC69q+fv4eF9Mog1uQH=Q@mail.gmail.com>
-From: Daire Byrne <daire.byrne@gmail.com>
-Date: Mon, 9 Sep 2019 13:58:19 +0100
-Message-ID: <CAB3bAB9G3aTd9ZW_UJomMARo3_8nwrDkFhYbyPcS8FJNSDDWdQ@mail.gmail.com>
+	h=x-gm-message-state:from:mime-version:subject:message-id:date:to;
+	bh=88HqJ6GnUXw7ahrmtDN1ifCJ9uuyQSoD8vT/axn+cYo=;
+	b=TpjZR37wWVarFOjlzZFrqMrze7Lm42JJxK/0RIBhh39JYUwaVZdETWTtfL7CWkTpoh
+	wVFIlDgQyeRd5FpVV0hC0Hs7Zq6c+Af70ah8K5Z3L1wUKhDcRJ+kI/fcCO51gRjwMDhE
+	SkEFXTa4nAb1yxTgQ1e+ToabBlBkqp4R/10AYcVoPGGYZIhAGJd79X9ngeFYPY0OC0a/
+	Dsb9wnZRXefzIVHNV4085BCUdFGJyFXLbhEPfOky2kb5gOuDzpSFl34OKQeINKAbdSQc
+	xZN6ghGS98wiKa6SX0KwLMzmDXHQjl7uyLxJAfi/8PsOhTJGzlEWYYyQ5+ZnyGaJJlne
+	cLeQ==
+X-Gm-Message-State: APjAAAVxJpquVcGU7KgVXPehIgHcmJjk1SzFiDK6UOfAQCPRv8S0G+Gk
+	swXreJ7Pw421JSR5fzPyvum0GOe8
+X-Google-Smtp-Source: APXvYqyB0mXwROe2uTfjnf/GKfmFQQHmRBguQGf7OVtoC72uAyoTYd0xowQYT8V0OxG90ThTXogJTQ==
+X-Received: by 2002:a17:90a:65c8:: with SMTP id
+	i8mr28520908pjs.51.1570384268713; 
+	Sun, 06 Oct 2019 10:51:08 -0700 (PDT)
+Received: from ?IPv6:2601:602:8000:188:b456:2625:9656:fe4b?
+	([2601:602:8000:188:b456:2625:9656:fe4b])
+	by smtp.gmail.com with ESMTPSA id 2sm12764428pfo.91.2019.10.06.10.51.07
+	for <linux-cachefs@redhat.com>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Sun, 06 Oct 2019 10:51:07 -0700 (PDT)
+From: jake buchholz <tomalok@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Message-Id: <CEECFFB3-8A63-4475-B7B9-C78AA6C7CB12@gmail.com>
+Date: Sun, 6 Oct 2019 10:51:07 -0700
 To: linux-cachefs@redhat.com
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.40]);
-	Mon, 09 Sep 2019 12:58:33 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
-	Mon, 09 Sep 2019 12:58:33 +0000 (UTC) for IP:'209.85.128.66'
-	DOMAIN:'mail-wm1-f66.google.com' HELO:'mail-wm1-f66.google.com'
-	FROM:'daire.byrne@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.124  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.66 mail-wm1-f66.google.com 209.85.128.66
-	mail-wm1-f66.google.com <daire.byrne@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
+	(mx1.redhat.com [10.5.110.70]);
+	Sun, 06 Oct 2019 17:51:10 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]);
+	Sun, 06 Oct 2019 17:51:10 +0000 (UTC) for IP:'209.85.210.173'
+	DOMAIN:'mail-pf1-f173.google.com'
+	HELO:'mail-pf1-f173.google.com' FROM:'tomalok@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.098  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, HTML_MESSAGE, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.210.173 mail-pf1-f173.google.com 209.85.210.173
+	mail-pf1-f173.google.com <tomalok@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.70
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: linux-cachefs@redhat.com
 X-Content-Filtered-By: Mailman/MimeDel 2.1.12
-Subject: Re: [Linux-cachefs] nfsv4 client not reading the cache?
+Subject: [Linux-cachefs] cachefilesd-inotify
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,41 +98,18 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Mon, 09 Sep 2019 12:58:39 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Sun, 06 Oct 2019 17:51:24 +0000 (UTC)
 
-Hi,
-
-I still see this on 5.2.11. On further testing it seem like the RHEL7
-kernels work as expected with vers=nfs4,fsc but the mainline kernels do
-not. It writes the cache but then never reads from it again so we just keep
-re-writing the cache.
-
-Daire
-
-On Sat, Apr 6, 2019 at 10:15 AM Daire Byrne <daire.byrne@gmail.com> wrote:
-
-> Hi,
->
-> I'm using the 5.0.5 ml kernel to mount a Linux server with nfsv4. When I
-> enable fscache, it caches the reads to disk as expected. But as soon as I
-> drop_caches on the client and re-read the same data, it caches to disk
-> again, seemingly overwriting the previously cached files.
->
-> It works as expected if I mount using nfsv3 instead - after dropping
-> caches (or rebooting), it correctly reads the cached files from disk
-> without re-writing them again.
->
-> I am using the 5.0.5 kernel on a Centos 7.4 installation. The mount
-> command is "mount -o vers=4.2,fsc blah:/thing /thing".
->
-> Daire
->
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://www.redhat.com/mailman/listinfo/linux-cachefs
+SeKAmXZlIHVwZGF0ZWQgdGhlIGNhY2hlZmlsZXNkIHVzZXJzcGFjZSBkYWVtb24gdG8gdXNlIElO
+T1RJRlkgaW5zdGVhZCBvZiB0aGUgZGVwcmVjYXRlZCBETk9USUZZLgoKTm90IHN1cmUgd2hhdCB0
+aGUgcHJvY2VzcyBtaWdodCBiZSB0byBnZXQgaXQgb2ZmaWNpYWxseSBtZXJnZWQsIGJ1dCBJ4oCZ
+dmUgZ290IGEgcGF0Y2hlZCBmb3JrIGF2YWlsYWJsZSBhdCBodHRwczovL2dpdGxhYi5jb20vdG9t
+YWxvay9jYWNoZWZpbGVzZC1pbm90aWZ5IDxodHRwczovL2dpdGxhYi5jb20vdG9tYWxvay9jYWNo
+ZWZpbGVzZC1pbm90aWZ5PiBmb3IgcmV2aWV3L2NvbnNpZGVyYXRpb24uCgpUaGFua3MsCmpha2UK
+LS0KTGludXgtY2FjaGVmcyBtYWlsaW5nIGxpc3QKTGludXgtY2FjaGVmc0ByZWRoYXQuY29tCmh0
+dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZz
