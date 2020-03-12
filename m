@@ -1,76 +1,81 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 3921517E491
-	for <lists+linux-cachefs@lfdr.de>; Mon,  9 Mar 2020 17:19:10 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 35058186634
+	for <lists+linux-cachefs@lfdr.de>; Mon, 16 Mar 2020 09:20:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583770749;
+	s=mimecast20190719; t=1584346809;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=slqeDNvN0rwhdQfvSlDyAKSjSkCoBLgIhUHy28uFAZ4=;
-	b=YQR/6i30smESjCwDIh83XhMy0bo6GQFLR+KoTO1cgEOLSO9dtoAcvhpmFAt1vQVASuh74s
-	VvlaOwGX6ycohWKJ2hru1Hh/foCZEo6nizNtUyf5MU+LRvj4U1dUGUnYOM3XgsP83wJ+gU
-	vBQnsM43CxK9IMyJ4F6HM0taGHzHwGI=
+	bh=a14G/77Bmy+tLkL57gzfd9M1ip66mfx/JgyQP2D/r1E=;
+	b=ONmsANxIaU1v++BzUoNfHaAzO/eLBRhzPhwpPtvcga8Dy5pgxnn4iDKP7K3wjQ6mH3p2Mi
+	OHbWAutjqnWWgeRihvADHHHVL5+MU89nsL4BXMbASSGDvkrX6N6AbJc6yF4pleXzIReHay
+	6ePslDOcCCmSmuncAqGHVilDtCmXC4c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-465-Trizyk8zOvuVop9bNMcomA-1; Mon, 09 Mar 2020 12:19:06 -0400
-X-MC-Unique: Trizyk8zOvuVop9bNMcomA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-306-t5Rv4LrRMLOw6BuOC0pY0w-1; Mon, 16 Mar 2020 04:20:07 -0400
+X-MC-Unique: t5Rv4LrRMLOw6BuOC0pY0w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5F402800D5A;
-	Mon,  9 Mar 2020 16:19:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58F131001925;
-	Mon,  9 Mar 2020 16:18:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C03B801E6C;
+	Mon, 16 Mar 2020 08:20:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F7F892F94;
+	Mon, 16 Mar 2020 08:20:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3548418089C8;
-	Mon,  9 Mar 2020 16:18:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A0AA886FE2;
+	Mon, 16 Mar 2020 08:19:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 029GGovV020217 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 9 Mar 2020 12:16:50 -0400
+	id 02CFsWxh027134 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 12 Mar 2020 11:54:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9F0A81000D9A; Mon,  9 Mar 2020 16:16:50 +0000 (UTC)
+	id D454A2063208; Thu, 12 Mar 2020 15:54:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AED010031EF
-	for <linux-cachefs@redhat.com>; Mon,  9 Mar 2020 16:16:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFDD32026D67
+	for <linux-cachefs@redhat.com>; Thu, 12 Mar 2020 15:54:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B5E18BA537
-	for <linux-cachefs@redhat.com>; Mon,  9 Mar 2020 16:16:48 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-36-Of-RSy1XPAaJ4ES04tT8dg-1;
-	Mon, 09 Mar 2020 12:16:46 -0400
-X-MC-Unique: Of-RSy1XPAaJ4ES04tT8dg-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 17E1BAB92;
-	Mon,  9 Mar 2020 16:16:45 +0000 (UTC)
-Received: from localhost (webern.olymp [local])
-	by webern.olymp (OpenSMTPD) with ESMTPA id 2bb7b078;
-	Mon, 9 Mar 2020 16:16:43 +0000 (WET)
-Date: Mon, 9 Mar 2020 16:16:43 +0000
-From: Luis Henriques <lhenriques@suse.com>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20200309161643.GA92486@suse.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A51EA800A18
+	for <linux-cachefs@redhat.com>; Thu, 12 Mar 2020 15:54:30 +0000 (UTC)
+Received: from www.hovedpuden.dk (mail.hovedpuden.dk [93.162.70.158]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-148-b0poImdxMPKt7v2omLza9Q-1; Thu, 12 Mar 2020 11:54:26 -0400
+X-MC-Unique: b0poImdxMPKt7v2omLza9Q-1
+Received: from [192.168.1.78] ([130.226.24.3]) (authenticated bits=0)
+	by www.hovedpuden.dk (8.15.2/8.15.2) with ESMTPSA id 02CFkN5a102827
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO)
+	for <linux-cachefs@redhat.com>; Thu, 12 Mar 2020 16:46:29 +0100
+To: linux-cachefs@redhat.com
+From: =?UTF-8?Q?John_Damm_S=c3=b8rensen?= <john@hovedpuden.dk>
+Message-ID: <83da0eec-7688-c56c-65f1-de4539cede88@hovedpuden.dk>
+Date: Thu, 12 Mar 2020 16:46:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Content-Language: da
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2
+	(www.hovedpuden.dk [192.168.1.100]);
+	Thu, 12 Mar 2020 16:46:35 +0100 (CET)
+X-Spam-Status: No, score=-102.9 required=4.3 tests=ALL_TRUSTED,BAYES_00,
+	USER_IN_WHITELIST autolearn=ham autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on www.hovedpuden.dk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 029GGovV020217
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02CFsWxh027134
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Mon, 09 Mar 2020 12:18:51 -0400
-Cc: linux-cachefs@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH] fscache: drop fscache_cookie_put on
- duplicated cookies in the hash
+X-Mailman-Approved-At: Mon, 16 Mar 2020 04:19:49 -0400
+Subject: [Linux-cachefs] Is anybody working on cachefilesd issues?
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,35 +89,25 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-When there's a collision due to a duplicate cookie, __fscache_register_netfs
-will do an fscache_cookie_put.  This, however, isn't required as
-fscache_cookie_get hasn't been executed, and will lead to a NULL pointer as
-fscache_unhash_cookie will be called.
+Hello,
 
-Signed-off-by: Luis Henriques <lhenriques@suse.com>
----
- fs/fscache/netfs.c | 1 -
- 1 file changed, 1 deletion(-)
+I recently filed a bug for the cachefilesd used with Centos 7 but it 
+seems like nobody has been assigned to the bug.
 
-diff --git a/fs/fscache/netfs.c b/fs/fscache/netfs.c
-index cce92216fa28..07a55371f0a4 100644
---- a/fs/fscache/netfs.c
-+++ b/fs/fscache/netfs.c
-@@ -52,7 +52,6 @@ int __fscache_register_netfs(struct fscache_netfs *netfs)
- 	return 0;
- 
- already_registered:
--	fscache_cookie_put(candidate, fscache_cookie_put_dup_netfs);
- 	_leave(" = -EEXIST");
- 	return -EEXIST;
- }
+Is cachefilesd no longer an active project?
+
+https://bugs.centos.org/view.php?id=17112
+
+
+Best
+
+John
 
 
 --
