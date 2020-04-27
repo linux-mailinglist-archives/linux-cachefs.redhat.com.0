@@ -1,9 +1,9 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 5DCEA1BB017
-	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Apr 2020 23:17:45 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 058C91BB016
+	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Apr 2020 23:17:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1588022264;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,71 +12,71 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=XSm5IX1nidIlJm1MDLx4aqrO6gAjXTk+CHvay8r/klI=;
-	b=Y6aduLvqRYEd9BJT9LHuS0pBRx7Ft2XpV7qWeHisgPLvjHX3Yae0er+W1QaOzd1vLXkEcm
-	1twTTM8fI3aR432pZP8i4oSx7rfOfAX8UAsYpWevKBR9hBBRr8VOgARi4rQ7Q1Nfv11dOR
-	/EMqkikWzpEybvz/MDJ3H9qaRPgHncQ=
+	bh=GDLBqwU1x7CY7tq8k9UJXTZqfS3UPLo8gdyGyTDcdnA=;
+	b=Ekwg677tBY44C1DijC7vuJcLj4kz1eWO52V0POtC8t2W9Q50j6VeEDLbu+mqSnvTWuMVHy
+	t6nkTlm/roNafnfOwqp6NPKwc9dUyvc7n9gIIsdKe2F2gXjCi+jO3puTCtI/9IJss8oQYw
+	kCFT4CiOqQmQyc6dWJskD87h9tTwcuM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-455-cEzy2DulMKOupvu3k1GViA-1; Mon, 27 Apr 2020 17:17:42 -0400
-X-MC-Unique: cEzy2DulMKOupvu3k1GViA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-78-huC2XZUwN7ORtAw7_bzZgA-1; Mon, 27 Apr 2020 17:17:41 -0400
+X-MC-Unique: huC2XZUwN7ORtAw7_bzZgA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3CA02835B43;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 04EBC18FF663;
 	Mon, 27 Apr 2020 21:17:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1884C5C1B2;
-	Mon, 27 Apr 2020 21:17:39 +0000 (UTC)
-Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 970A01809557;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B22A60BF4;
 	Mon, 27 Apr 2020 21:17:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 045DA4E561;
+	Mon, 27 Apr 2020 21:17:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03RLHWZN026032 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 27 Apr 2020 17:17:33 -0400
+	id 03RLHWSi026023 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 27 Apr 2020 17:17:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CF5A32166B27; Mon, 27 Apr 2020 21:17:32 +0000 (UTC)
+	id 33D392026FFE; Mon, 27 Apr 2020 21:17:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA2102166B28
-	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:30 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F63C2026D69
+	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:32 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07EEA101A525
-	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CBC285A59E
+	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-499-OAYBVaGpP6W6qW8pszTp8w-1;
-	Mon, 27 Apr 2020 17:17:25 -0400
-X-MC-Unique: OAYBVaGpP6W6qW8pszTp8w-1
+	by relay.mimecast.com with ESMTP id us-mta-132-wrgcYIswM-W5FpeY77B4-A-1;
+	Mon, 27 Apr 2020 17:17:27 -0400
+X-MC-Unique: wrgcYIswM-W5FpeY77B4-A-1
 Received: from mail.kernel.org (ip5f5ad5c5.dynamic.kabel-deutschland.de
 	[95.90.213.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 06D2D2087E;
+	by mail.kernel.org (Postfix) with ESMTPSA id 12C2520B80;
 	Mon, 27 Apr 2020 21:17:24 +0000 (UTC)
 Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
 	(envelope-from <mchehab@kernel.org>)
-	id 1jTB7y-000Hjz-80; Mon, 27 Apr 2020 23:17:22 +0200
+	id 1jTB7y-000Hk4-9d; Mon, 27 Apr 2020 23:17:22 +0200
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Mon, 27 Apr 2020 23:16:57 +0200
-Message-Id: <eec0cfc268e8dca348f760224685100c9c2caba6.1588021877.git.mchehab+huawei@kernel.org>
+Date: Mon, 27 Apr 2020 23:16:58 +0200
+Message-Id: <5d0a61abaa87bfe913b9e2f321e74ef7af0f3dfc.1588021877.git.mchehab+huawei@kernel.org>
 In-Reply-To: <cover.1588021877.git.mchehab+huawei@kernel.org>
 References: <cover.1588021877.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 03RLHWZN026032
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03RLHWSi026023
 X-loop: linux-cachefs@redhat.com
 Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linux-cachefs@redhat.com,
 	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>
-Subject: [Linux-cachefs] [PATCH v3 05/29] docs: filesystems:
-	caching/cachefiles.txt: convert to ReST
+Subject: [Linux-cachefs] [PATCH v3 06/29] docs: filesystems:
+	caching/backend-api.txt: convert it to ReST
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,462 +90,704 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 - Add a SPDX header;
-- Adjust document title;
+- Adjust document and section titles;
+- Some whitespace fixes and new line breaks;
 - Mark literal blocks as such;
 - Add table markups;
-- Comment out text ToC for html/pdf output;
-- Add lists markups;
 - Add it to filesystems/caching/index.rst.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- .../{cachefiles.txt => cachefiles.rst}        | 139 ++++++++----------
+ .../{backend-api.txt => backend-api.rst}      | 165 +++++++++---------
+ Documentation/filesystems/caching/fscache.rst |   2 +-
  Documentation/filesystems/caching/index.rst   |   1 +
- MAINTAINERS                                   |   2 +-
- fs/cachefiles/Kconfig                         |   4 +-
- 4 files changed, 65 insertions(+), 81 deletions(-)
- rename Documentation/filesystems/caching/{cachefiles.txt => cachefiles.rst} (90%)
+ fs/fscache/cache.c                            |   8 +-
+ fs/fscache/object.c                           |   2 +-
+ include/linux/fscache-cache.h                 |   4 +-
+ 6 files changed, 92 insertions(+), 90 deletions(-)
+ rename Documentation/filesystems/caching/{backend-api.txt => backend-api.rst} (87%)
 
-diff --git a/Documentation/filesystems/caching/cachefiles.txt b/Documentation/filesystems/caching/cachefiles.rst
-similarity index 90%
-rename from Documentation/filesystems/caching/cachefiles.txt
-rename to Documentation/filesystems/caching/cachefiles.rst
-index 28aefcbb1442..65d3db476765 100644
---- a/Documentation/filesystems/caching/cachefiles.txt
-+++ b/Documentation/filesystems/caching/cachefiles.rst
-@@ -1,8 +1,10 @@
--	       ===============================================
--	       CacheFiles: CACHE ON ALREADY MOUNTED FILESYSTEM
--	       ===============================================
+diff --git a/Documentation/filesystems/caching/backend-api.txt b/Documentation/filesystems/caching/backend-api.rst
+similarity index 87%
+rename from Documentation/filesystems/caching/backend-api.txt
+rename to Documentation/filesystems/caching/backend-api.rst
+index c418280c915f..19fbf6b9aa36 100644
+--- a/Documentation/filesystems/caching/backend-api.txt
++++ b/Documentation/filesystems/caching/backend-api.rst
+@@ -1,6 +1,8 @@
+-			  ==========================
+-			  FS-CACHE CACHE BACKEND API
+-			  ==========================
 +.. SPDX-License-Identifier: GPL-2.0
- 
--Contents:
-+===============================================
-+CacheFiles: CACHE ON ALREADY MOUNTED FILESYSTEM
-+===============================================
 +
-+.. Contents:
++==========================
++FS-Cache Cache backend API
++==========================
  
-  (*) Overview.
+ The FS-Cache system provides an API by which actual caches can be supplied to
+ FS-Cache for it to then serve out to network filesystems and other interested
+@@ -9,15 +11,14 @@ parties.
+ This API is declared in <linux/fscache-cache.h>.
  
-@@ -27,8 +29,8 @@ Contents:
-  (*) Debugging.
+ 
+-====================================
+-INITIALISING AND REGISTERING A CACHE
++Initialising and Registering a Cache
+ ====================================
+ 
+ To start off, a cache definition must be initialised and registered for each
+ cache the backend wants to make available.  For instance, CacheFS does this in
+ the fill_super() operation on mounting.
+ 
+-The cache definition (struct fscache_cache) should be initialised by calling:
++The cache definition (struct fscache_cache) should be initialised by calling::
+ 
+ 	void fscache_init_cache(struct fscache_cache *cache,
+ 				struct fscache_cache_ops *ops,
+@@ -26,17 +27,17 @@ The cache definition (struct fscache_cache) should be initialised by calling:
+ 
+ Where:
+ 
+- (*) "cache" is a pointer to the cache definition;
++   * "cache" is a pointer to the cache definition;
+ 
+- (*) "ops" is a pointer to the table of operations that the backend supports on
++   * "ops" is a pointer to the table of operations that the backend supports on
+      this cache; and
+ 
+- (*) "idfmt" is a format and printf-style arguments for constructing a label
++   * "idfmt" is a format and printf-style arguments for constructing a label
+      for the cache.
+ 
+ 
+ The cache should then be registered with FS-Cache by passing a pointer to the
+-previously initialised cache definition to:
++previously initialised cache definition to::
+ 
+ 	int fscache_add_cache(struct fscache_cache *cache,
+ 			      struct fscache_object *fsdef,
+@@ -44,12 +45,12 @@ previously initialised cache definition to:
+ 
+ Two extra arguments should also be supplied:
+ 
+- (*) "fsdef" which should point to the object representation for the FS-Cache
++   * "fsdef" which should point to the object representation for the FS-Cache
+      master index in this cache.  Netfs primary index entries will be created
+      here.  FS-Cache keeps the caller's reference to the index object if
+      successful and will release it upon withdrawal of the cache.
+ 
+- (*) "tagname" which, if given, should be a text string naming this cache.  If
++   * "tagname" which, if given, should be a text string naming this cache.  If
+      this is NULL, the identifier will be used instead.  For CacheFS, the
+      identifier is set to name the underlying block device and the tag can be
+      supplied by mount.
+@@ -58,20 +59,18 @@ This function may return -ENOMEM if it ran out of memory or -EEXIST if the tag
+ is already in use.  0 will be returned on success.
+ 
+ 
+-=====================
+-UNREGISTERING A CACHE
++Unregistering a Cache
+ =====================
+ 
+ A cache can be withdrawn from the system by calling this function with a
+-pointer to the cache definition:
++pointer to the cache definition::
+ 
+ 	void fscache_withdraw_cache(struct fscache_cache *cache);
+ 
+ In CacheFS's case, this is called by put_super().
  
  
 -========
--OVERVIEW
-+
-+Overview
+-SECURITY
++Security
  ========
  
- CacheFiles is a caching backend that's meant to use as a cache a directory on
-@@ -58,8 +60,8 @@ spare space and automatically contract when the set of data requires more
- space.
+ The cache methods are executed one of two contexts:
+@@ -89,8 +88,7 @@ be masqueraded for the duration of the cache driver's access to the cache.
+ This is left to the cache to handle; FS-Cache makes no effort in this regard.
  
  
--============
--REQUIREMENTS
+-===================================
+-CONTROL AND STATISTICS PRESENTATION
++Control and Statistics Presentation
+ ===================================
+ 
+ The cache may present data to the outside world through FS-Cache's interfaces
+@@ -101,11 +99,10 @@ is enabled.  This is accessible through the kobject struct fscache_cache::kobj
+ and is for use by the cache as it sees fit.
+ 
+ 
+-========================
+-RELEVANT DATA STRUCTURES
++Relevant Data Structures
+ ========================
+ 
+- (*) Index/Data file FS-Cache representation cookie:
++   * Index/Data file FS-Cache representation cookie::
+ 
+ 	struct fscache_cookie {
+ 		struct fscache_object_def	*def;
+@@ -121,7 +118,7 @@ RELEVANT DATA STRUCTURES
+      cache operations.
+ 
+ 
+- (*) In-cache object representation:
++   * In-cache object representation::
+ 
+ 	struct fscache_object {
+ 		int				debug_id;
+@@ -150,7 +147,7 @@ RELEVANT DATA STRUCTURES
+      initialised by calling fscache_object_init(object).
+ 
+ 
+- (*) FS-Cache operation record:
++   * FS-Cache operation record::
+ 
+ 	struct fscache_operation {
+ 		atomic_t		usage;
+@@ -173,7 +170,7 @@ RELEVANT DATA STRUCTURES
+      an operation needs more processing time, it should be enqueued again.
+ 
+ 
+- (*) FS-Cache retrieval operation record:
++   * FS-Cache retrieval operation record::
+ 
+ 	struct fscache_retrieval {
+ 		struct fscache_operation op;
+@@ -198,7 +195,7 @@ RELEVANT DATA STRUCTURES
+      it sees fit.
+ 
+ 
+- (*) FS-Cache storage operation record:
++   * FS-Cache storage operation record::
+ 
+ 	struct fscache_storage {
+ 		struct fscache_operation op;
+@@ -212,16 +209,17 @@ RELEVANT DATA STRUCTURES
+      storage.
+ 
+ 
+-================
+-CACHE OPERATIONS
++Cache Operations
+ ================
+ 
+ The cache backend provides FS-Cache with a table of operations that can be
+ performed on the denizens of the cache.  These are held in a structure of type:
+ 
+-	struct fscache_cache_ops
++	::
+ 
+- (*) Name of cache provider [mandatory]:
++	    struct fscache_cache_ops
 +
-+Requirements
- ============
++   * Name of cache provider [mandatory]::
  
- The use of CacheFiles and its daemon requires the following features to be
-@@ -79,84 +81,70 @@ It is strongly recommended that the "dir_index" option is enabled on Ext3
- filesystems being used as a cache.
+ 	const char *name
+ 
+@@ -229,7 +227,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      the backend.
  
  
--=============
--CONFIGURATION
-+Configuration
- =============
+- (*) Allocate a new object [mandatory]:
++   * Allocate a new object [mandatory]::
  
- The cache is configured by a script in /etc/cachefilesd.conf.  These commands
- set up cache ready for use.  The following script commands are available:
+ 	struct fscache_object *(*alloc_object)(struct fscache_cache *cache,
+ 					       struct fscache_cookie *cookie)
+@@ -244,7 +242,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      form once lookup is complete or aborted.
  
-- (*) brun <N>%
-- (*) bcull <N>%
-- (*) bstop <N>%
-- (*) frun <N>%
-- (*) fcull <N>%
-- (*) fstop <N>%
--
-+ brun <N>%, bcull <N>%, bstop <N>%, frun <N>%, fcull <N>%, fstop <N>%
- 	Configure the culling limits.  Optional.  See the section on culling
- 	The defaults are 7% (run), 5% (cull) and 1% (stop) respectively.
  
- 	The commands beginning with a 'b' are file space (block) limits, those
- 	beginning with an 'f' are file count limits.
+- (*) Look up and create object [mandatory]:
++   * Look up and create object [mandatory]::
  
-- (*) dir <path>
--
-+ dir <path>
- 	Specify the directory containing the root of the cache.  Mandatory.
+ 	void (*lookup_object)(struct fscache_object *object)
  
-- (*) tag <name>
--
-+ tag <name>
- 	Specify a tag to FS-Cache to use in distinguishing multiple caches.
- 	Optional.  The default is "CacheFiles".
+@@ -263,7 +261,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      to abort the lookup of that object.
  
-- (*) debug <mask>
--
-+ debug <mask>
- 	Specify a numeric bitmask to control debugging in the kernel module.
- 	Optional.  The default is zero (all off).  The following values can be
- 	OR'd into the mask to collect various information:
  
-+		==	=================================================
- 		1	Turn on trace of function entry (_enter() macros)
- 		2	Turn on trace of function exit (_leave() macros)
- 		4	Turn on trace of internal debug points (_debug())
-+		==	=================================================
+- (*) Release lookup data [mandatory]:
++   * Release lookup data [mandatory]::
  
--	This mask can also be set through sysfs, eg:
-+	This mask can also be set through sysfs, eg::
+ 	void (*lookup_complete)(struct fscache_object *object)
  
- 		echo 5 >/sys/modules/cachefiles/parameters/debug
+@@ -271,7 +269,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      using to perform a lookup.
+ 
+ 
+- (*) Increment object refcount [mandatory]:
++   * Increment object refcount [mandatory]::
+ 
+ 	struct fscache_object *(*grab_object)(struct fscache_object *object)
+ 
+@@ -280,7 +278,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      It should return the object pointer if successful.
+ 
+ 
+- (*) Lock/Unlock object [mandatory]:
++   * Lock/Unlock object [mandatory]::
+ 
+ 	void (*lock_object)(struct fscache_object *object)
+ 	void (*unlock_object)(struct fscache_object *object)
+@@ -289,7 +287,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      to schedule with the lock held, so a spinlock isn't sufficient.
+ 
+ 
+- (*) Pin/Unpin object [optional]:
++   * Pin/Unpin object [optional]::
+ 
+ 	int (*pin_object)(struct fscache_object *object)
+ 	void (*unpin_object)(struct fscache_object *object)
+@@ -299,7 +297,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      enough space in the cache to permit this.
+ 
+ 
+- (*) Check coherency state of an object [mandatory]:
++   * Check coherency state of an object [mandatory]::
+ 
+ 	int (*check_consistency)(struct fscache_object *object)
+ 
+@@ -308,7 +306,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      if they're consistent and -ESTALE otherwise.  -ENOMEM and -ERESTARTSYS
+      may also be returned.
+ 
+- (*) Update object [mandatory]:
++   * Update object [mandatory]::
+ 
+ 	int (*update_object)(struct fscache_object *object)
+ 
+@@ -317,7 +315,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      obtained by calling object->cookie->def->get_aux()/get_attr().
+ 
+ 
+- (*) Invalidate data object [mandatory]:
++   * Invalidate data object [mandatory]::
+ 
+ 	int (*invalidate_object)(struct fscache_operation *op)
+ 
+@@ -329,7 +327,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      fscache_op_complete() must be called on op before returning.
+ 
+ 
+- (*) Discard object [mandatory]:
++   * Discard object [mandatory]::
+ 
+ 	void (*drop_object)(struct fscache_object *object)
+ 
+@@ -341,7 +339,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      caller.  The caller will invoke the put_object() method as appropriate.
+ 
+ 
+- (*) Release object reference [mandatory]:
++   * Release object reference [mandatory]::
+ 
+ 	void (*put_object)(struct fscache_object *object)
+ 
+@@ -349,7 +347,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      be freed when all the references to it are released.
+ 
+ 
+- (*) Synchronise a cache [mandatory]:
++   * Synchronise a cache [mandatory]::
+ 
+ 	void (*sync)(struct fscache_cache *cache)
+ 
+@@ -357,7 +355,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      device.
+ 
+ 
+- (*) Dissociate a cache [mandatory]:
++   * Dissociate a cache [mandatory]::
+ 
+ 	void (*dissociate_pages)(struct fscache_cache *cache)
+ 
+@@ -365,7 +363,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      cache withdrawal.
+ 
+ 
+- (*) Notification that the attributes on a netfs file changed [mandatory]:
++   * Notification that the attributes on a netfs file changed [mandatory]::
+ 
+ 	int (*attr_changed)(struct fscache_object *object);
+ 
+@@ -386,7 +384,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      execution of this operation.
+ 
+ 
+- (*) Reserve cache space for an object's data [optional]:
++   * Reserve cache space for an object's data [optional]::
+ 
+ 	int (*reserve_space)(struct fscache_object *object, loff_t size);
+ 
+@@ -404,7 +402,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      size if larger than that already.
+ 
+ 
+- (*) Request page be read from cache [mandatory]:
++   * Request page be read from cache [mandatory]::
+ 
+ 	int (*read_or_alloc_page)(struct fscache_retrieval *op,
+ 				  struct page *page,
+@@ -446,7 +444,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      with.  This will complete the operation when all pages are dealt with.
+ 
+ 
+- (*) Request pages be read from cache [mandatory]:
++   * Request pages be read from cache [mandatory]::
+ 
+ 	int (*read_or_alloc_pages)(struct fscache_retrieval *op,
+ 				   struct list_head *pages,
+@@ -457,7 +455,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      of pages instead of one page.  Any pages on which a read operation is
+      started must be added to the page cache for the specified mapping and also
+      to the LRU.  Such pages must also be removed from the pages list and
+-     *nr_pages decremented per page.
++     ``*nr_pages`` decremented per page.
+ 
+      If there was an error such as -ENOMEM, then that should be returned; else
+      if one or more pages couldn't be read or allocated, then -ENOBUFS should
+@@ -466,7 +464,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      returned.
+ 
+ 
+- (*) Request page be allocated in the cache [mandatory]:
++   * Request page be allocated in the cache [mandatory]::
+ 
+ 	int (*allocate_page)(struct fscache_retrieval *op,
+ 			     struct page *page,
+@@ -482,7 +480,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      allocated, then the netfs page should be marked and 0 returned.
+ 
+ 
+- (*) Request pages be allocated in the cache [mandatory]:
++   * Request pages be allocated in the cache [mandatory]::
+ 
+ 	int (*allocate_pages)(struct fscache_retrieval *op,
+ 			      struct list_head *pages,
+@@ -493,7 +491,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      nr_pages should be treated as for the read_or_alloc_pages() method.
+ 
+ 
+- (*) Request page be written to cache [mandatory]:
++   * Request page be written to cache [mandatory]::
+ 
+ 	int (*write_page)(struct fscache_storage *op,
+ 			  struct page *page);
+@@ -514,7 +512,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      appropriately.
+ 
+ 
+- (*) Discard retained per-page metadata [mandatory]:
++   * Discard retained per-page metadata [mandatory]::
+ 
+ 	void (*uncache_page)(struct fscache_object *object, struct page *page)
+ 
+@@ -523,13 +521,12 @@ performed on the denizens of the cache.  These are held in a structure of type:
+      maintains for this page.
  
  
 -==================
--STARTING THE CACHE
-+Starting the Cache
+-FS-CACHE UTILITIES
++FS-Cache Utilities
  ==================
  
- The cache is started by running the daemon.  The daemon opens the cache device,
- configures the cache and tells it to begin caching.  At that point the cache
- binds to fscache and the cache becomes live.
+ FS-Cache provides some utilities that a cache backend may make use of:
  
--The daemon is run as follows:
-+The daemon is run as follows::
+- (*) Note occurrence of an I/O error in a cache:
++   * Note occurrence of an I/O error in a cache::
  
- 	/sbin/cachefilesd [-d]* [-s] [-n] [-f <configfile>]
+ 	void fscache_io_error(struct fscache_cache *cache)
  
- The flags are:
+@@ -541,7 +538,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      This does not actually withdraw the cache.  That must be done separately.
  
-- (*) -d
+ 
+- (*) Invoke the retrieval I/O completion function:
++   * Invoke the retrieval I/O completion function::
+ 
+ 	void fscache_end_io(struct fscache_retrieval *op, struct page *page,
+ 			    int error);
+@@ -550,8 +547,8 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      error value should be 0 if successful and an error otherwise.
+ 
+ 
+- (*) Record that one or more pages being retrieved or allocated have been dealt
+-     with:
++   * Record that one or more pages being retrieved or allocated have been dealt
++     with::
+ 
+ 	void fscache_retrieval_complete(struct fscache_retrieval *op,
+ 					int n_pages);
+@@ -562,7 +559,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      completed.
+ 
+ 
+- (*) Record operation completion:
++   * Record operation completion::
+ 
+ 	void fscache_op_complete(struct fscache_operation *op);
+ 
+@@ -571,7 +568,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      one or more pending operations to start running.
+ 
+ 
+- (*) Set highest store limit:
++   * Set highest store limit::
+ 
+ 	void fscache_set_store_limit(struct fscache_object *object,
+ 				     loff_t i_size);
+@@ -581,7 +578,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      rejected by fscache_read_alloc_page() and co with -ENOBUFS.
+ 
+ 
+- (*) Mark pages as being cached:
++   * Mark pages as being cached::
+ 
+ 	void fscache_mark_pages_cached(struct fscache_retrieval *op,
+ 				       struct pagevec *pagevec);
+@@ -590,7 +587,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      the netfs must call fscache_uncache_page() to unmark the pages.
+ 
+ 
+- (*) Perform coherency check on an object:
++   * Perform coherency check on an object::
+ 
+ 	enum fscache_checkaux fscache_check_aux(struct fscache_object *object,
+ 						const void *data,
+@@ -603,29 +600,26 @@ FS-Cache provides some utilities that a cache backend may make use of:
+ 
+      One of three values will be returned:
+ 
+-	(*) FSCACHE_CHECKAUX_OKAY
 -
-+ ``-d``
- 	Increase the debugging level.  This can be specified multiple times and
- 	is cumulative with itself.
++	FSCACHE_CHECKAUX_OKAY
+ 	    The coherency data indicates the object is valid as is.
  
-- (*) -s
+-	(*) FSCACHE_CHECKAUX_NEEDS_UPDATE
 -
-+ ``-s``
- 	Send messages to stderr instead of syslog.
++	FSCACHE_CHECKAUX_NEEDS_UPDATE
+ 	    The coherency data needs updating, but otherwise the object is
+ 	    valid.
  
-- (*) -n
+-	(*) FSCACHE_CHECKAUX_OBSOLETE
 -
-+ ``-n``
- 	Don't daemonise and go into background.
- 
-- (*) -f <configfile>
--
-+ ``-f <configfile>``
- 	Use an alternative configuration file rather than the default one.
++	FSCACHE_CHECKAUX_OBSOLETE
+ 	    The coherency data indicates that the object is obsolete and should
+ 	    be discarded.
  
  
--===============
--THINGS TO AVOID
-+Things to Avoid
- ===============
+- (*) Initialise a freshly allocated object:
++   * Initialise a freshly allocated object::
  
- Do not mount other things within the cache as this will cause problems.  The
-@@ -179,8 +167,7 @@ Do not chmod files in the cache.  The module creates things with minimal
- permissions to prevent random users being able to access them directly.
+ 	void fscache_object_init(struct fscache_object *object);
+ 
+      This initialises all the fields in an object representation.
  
  
--=============
--CACHE CULLING
-+Cache Culling
- =============
+- (*) Indicate the destruction of an object:
++   * Indicate the destruction of an object::
  
- The cache may need culling occasionally to make space.  This involves
-@@ -192,27 +179,21 @@ Cache culling is done on the basis of the percentage of blocks and the
- percentage of files available in the underlying filesystem.  There are six
- "limits":
+ 	void fscache_object_destroyed(struct fscache_cache *cache);
  
-- (*) brun
-- (*) frun
--
-+ brun, frun
-      If the amount of free space and the number of available files in the cache
-      rises above both these limits, then culling is turned off.
- 
-- (*) bcull
-- (*) fcull
--
-+ bcull, fcull
-      If the amount of available space or the number of available files in the
-      cache falls below either of these limits, then culling is started.
- 
-- (*) bstop
-- (*) fstop
--
-+ bstop, fstop
-      If the amount of available space or the number of available files in the
-      cache falls below either of these limits, then no further allocation of
-      disk space or files is permitted until culling has raised things above
-      these limits again.
- 
--These must be configured thusly:
-+These must be configured thusly::
- 
- 	0 <= bstop < bcull < brun < 100
- 	0 <= fstop < fcull < frun < 100
-@@ -226,16 +207,14 @@ started as soon as space is made in the table.  Objects will be skipped if
- their atimes have changed or if the kernel module says it is still using them.
+@@ -635,7 +629,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      all the objects.
  
  
--===============
--CACHE STRUCTURE
-+Cache Structure
- ===============
+- (*) Indicate negative lookup on an object:
++   * Indicate negative lookup on an object::
  
- The CacheFiles module will create two directories in the directory it was
- given:
+ 	void fscache_object_lookup_negative(struct fscache_object *object);
  
-- (*) cache/
--
-- (*) graveyard/
-+ * cache/
-+ * graveyard/
- 
- The active cache objects all reside in the first directory.  The CacheFiles
- kernel module moves any retired or culled objects that it can't simply unlink
-@@ -261,10 +240,10 @@ If an object has children, then it will be represented as a directory.
- Immediately in the representative directory are a collection of directories
- named for hash values of the child object keys with an '@' prepended.  Into
- this directory, if possible, will be placed the representations of the child
--objects:
-+objects::
- 
--	INDEX     INDEX      INDEX                             DATA FILES
--	========= ========== ================================= ================
-+	 /INDEX    /INDEX     /INDEX                            /DATA FILES
-+	/=========/==========/=================================/================
- 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400
- 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...DB1ry
- 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...N22ry
-@@ -275,7 +254,7 @@ If the key is so long that it exceeds NAME_MAX with the decorations added on to
- it, then it will be cut into pieces, the first few of which will be used to
- make a nest of directories, and the last one of which will be the objects
- inside the last directory.  The names of the intermediate directories will have
--'+' prepended:
-+'+' prepended::
- 
- 	J1223/@23/+xy...z/+kl...m/Epqr
- 
-@@ -288,11 +267,13 @@ To handle this, CacheFiles will use a suitably printable filename directly and
- "base-64" encode ones that aren't directly suitable.  The two versions of
- object filenames indicate the encoding:
- 
-+	===============	===============	===============
- 	OBJECT TYPE	PRINTABLE	ENCODED
- 	===============	===============	===============
- 	Index		"I..."		"J..."
- 	Data		"D..."		"E..."
- 	Special		"S..."		"T..."
-+	===============	===============	===============
- 
- Intermediate directories are always "@" or "+" as appropriate.
- 
-@@ -307,8 +288,7 @@ Note that CacheFiles will erase from the cache any file it doesn't recognise or
- any file of an incorrect type (such as a FIFO file or a device file).
+@@ -650,7 +644,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      significant - all subsequent calls are ignored.
  
  
--==========================
--SECURITY MODEL AND SELINUX
-+Security Model and SELinux
- ==========================
+- (*) Indicate an object has been obtained:
++   * Indicate an object has been obtained::
  
- CacheFiles is implemented to deal properly with the LSM security features of
-@@ -331,26 +311,26 @@ When the CacheFiles module is asked to bind to its cache, it:
+ 	void fscache_obtained_object(struct fscache_object *object);
  
-  (1) Finds the security label attached to the root cache directory and uses
-      that as the security label with which it will create files.  By default,
--     this is:
-+     this is::
- 
- 	cachefiles_var_t
- 
-  (2) Finds the security label of the process which issued the bind request
--     (presumed to be the cachefilesd daemon), which by default will be:
-+     (presumed to be the cachefilesd daemon), which by default will be::
- 
- 	cachefilesd_t
- 
-      and asks LSM to supply a security ID as which it should act given the
--     daemon's label.  By default, this will be:
-+     daemon's label.  By default, this will be::
- 
- 	cachefiles_kernel_t
- 
-      SELinux transitions the daemon's security ID to the module's security ID
--     based on a rule of this form in the policy.
-+     based on a rule of this form in the policy::
- 
- 	type_transition <daemon's-ID> kernel_t : process <module's-ID>;
- 
--     For instance:
-+     For instance::
- 
- 	type_transition cachefilesd_t kernel_t : process cachefiles_kernel_t;
- 
-@@ -370,7 +350,7 @@ There are policy source files available in:
- 
- 	http://people.redhat.com/~dhowells/fscache/cachefilesd-0.8.tar.bz2
- 
--and later versions.  In that tarball, see the files:
-+and later versions.  In that tarball, see the files::
- 
- 	cachefilesd.te
- 	cachefilesd.fc
-@@ -379,7 +359,7 @@ and later versions.  In that tarball, see the files:
- They are built and installed directly by the RPM.
- 
- If a non-RPM based system is being used, then copy the above files to their own
--directory and run:
-+directory and run::
- 
- 	make -f /usr/share/selinux/devel/Makefile
- 	semodule -i cachefilesd.pp
-@@ -394,7 +374,7 @@ an auxiliary policy must be installed to label the alternate location of the
- cache.
- 
- For instructions on how to add an auxiliary policy to enable the cache to be
--located elsewhere when SELinux is in enforcing mode, please see:
-+located elsewhere when SELinux is in enforcing mode, please see::
- 
- 	/usr/share/doc/cachefilesd-*/move-cache.txt
- 
-@@ -402,8 +382,7 @@ When the cachefilesd rpm is installed; alternatively, the document can be found
- in the sources.
+@@ -667,7 +661,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+         (2) that writes may now proceed against this object.
  
  
--==================
--A NOTE ON SECURITY
-+A Note on Security
- ==================
+- (*) Indicate that object lookup failed:
++   * Indicate that object lookup failed::
  
- CacheFiles makes use of the split security in the task_struct.  It allocates
-@@ -445,17 +424,18 @@ for CacheFiles to run in a context of a specific security label, or to create
- files and directories with another security label.
+ 	void fscache_object_lookup_error(struct fscache_object *object);
+ 
+@@ -676,7 +670,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      as possible.
  
  
--=======================
--STATISTICAL INFORMATION
-+Statistical Information
- =======================
+- (*) Indicate that a stale object was found and discarded:
++   * Indicate that a stale object was found and discarded::
  
--If FS-Cache is compiled with the following option enabled:
-+If FS-Cache is compiled with the following option enabled::
+ 	void fscache_object_retrying_stale(struct fscache_object *object);
  
- 	CONFIG_CACHEFILES_HISTOGRAM=y
+@@ -685,7 +679,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      discarded from the cache and the lookup will be performed again.
  
- then it will gather certain statistics and display them through a proc file.
  
-- (*) /proc/fs/cachefiles/histogram
-+ /proc/fs/cachefiles/histogram
+- (*) Indicate that the caching backend killed an object:
++   * Indicate that the caching backend killed an object::
+ 
+ 	void fscache_object_mark_killed(struct fscache_object *object,
+ 					enum fscache_why_object_killed why);
+@@ -693,13 +687,20 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      This is called to indicate that the cache backend preemptively killed an
+      object.  The why parameter should be set to indicate the reason:
+ 
+-	FSCACHE_OBJECT_IS_STALE - the object was stale and needs discarding.
+-	FSCACHE_OBJECT_NO_SPACE - there was insufficient cache space
+-	FSCACHE_OBJECT_WAS_RETIRED - the object was retired when relinquished.
+-	FSCACHE_OBJECT_WAS_CULLED - the object was culled to make space.
++	FSCACHE_OBJECT_IS_STALE
++	    - the object was stale and needs discarding.
+ 
++	FSCACHE_OBJECT_NO_SPACE
++	    - there was insufficient cache space
+ 
+- (*) Get and release references on a retrieval record:
++	FSCACHE_OBJECT_WAS_RETIRED
++	    - the object was retired when relinquished.
 +
-+     ::
++	FSCACHE_OBJECT_WAS_CULLED
++	    - the object was culled to make space.
++
++
++   * Get and release references on a retrieval record::
  
- 	cat /proc/fs/cachefiles/histogram
- 	JIFS  SECS  LOOKUPS   MKDIRS    CREATES
-@@ -465,36 +445,39 @@ then it will gather certain statistics and display them through a proc file.
-      between 0 jiffies and HZ-1 jiffies a variety of tasks took to run.  The
-      columns are as follows:
- 
-+	=======		=======================================================
- 	COLUMN		TIME MEASUREMENT
- 	=======		=======================================================
- 	LOOKUPS		Length of time to perform a lookup on the backing fs
- 	MKDIRS		Length of time to perform a mkdir on the backing fs
- 	CREATES		Length of time to perform a create on the backing fs
-+	=======		=======================================================
- 
-      Each row shows the number of events that took a particular range of times.
-      Each step is 1 jiffy in size.  The JIFS column indicates the particular
-      jiffy range covered, and the SECS field the equivalent number of seconds.
+ 	void fscache_get_retrieval(struct fscache_retrieval *op);
+ 	void fscache_put_retrieval(struct fscache_retrieval *op);
+@@ -708,7 +709,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      asynchronous data retrieval and block allocation.
  
  
--=========
--DEBUGGING
-+Debugging
- =========
+- (*) Enqueue a retrieval record for processing.
++   * Enqueue a retrieval record for processing::
  
- If CONFIG_CACHEFILES_DEBUG is enabled, the CacheFiles facility can have runtime
--debugging enabled by adjusting the value in:
-+debugging enabled by adjusting the value in::
+ 	void fscache_enqueue_retrieval(struct fscache_retrieval *op);
  
- 	/sys/module/cachefiles/parameters/debug
+@@ -718,7 +719,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
+      within the callback function.
  
- This is a bitmask of debugging streams to enable:
  
-+	=======	=======	===============================	=======================
- 	BIT	VALUE	STREAM				POINT
- 	=======	=======	===============================	=======================
- 	0	1	General				Function entry trace
- 	1	2					Function exit trace
- 	2	4					General
-+	=======	=======	===============================	=======================
+- (*) List of object state names:
++   * List of object state names::
  
- The appropriate set of values should be OR'd together and the result written to
--the control file.  For example:
-+the control file.  For example::
+ 	const char *fscache_object_states[];
  
- 	echo $((1|4|8)) >/sys/module/cachefiles/parameters/debug
+diff --git a/Documentation/filesystems/caching/fscache.rst b/Documentation/filesystems/caching/fscache.rst
+index dd1297d884d0..70de86922b6a 100644
+--- a/Documentation/filesystems/caching/fscache.rst
++++ b/Documentation/filesystems/caching/fscache.rst
+@@ -187,7 +187,7 @@ The netfs API to FS-Cache can be found in:
  
+ The cache backend API to FS-Cache can be found in:
+ 
+-	Documentation/filesystems/caching/backend-api.txt
++	Documentation/filesystems/caching/backend-api.rst
+ 
+ A description of the internal representations and object state machine can be
+ found in:
 diff --git a/Documentation/filesystems/caching/index.rst b/Documentation/filesystems/caching/index.rst
-index 75492b7c8ea0..a2cf35f89e28 100644
+index a2cf35f89e28..033da7ac7c6e 100644
 --- a/Documentation/filesystems/caching/index.rst
 +++ b/Documentation/filesystems/caching/index.rst
-@@ -8,5 +8,6 @@ Filesystem Caching
+@@ -8,6 +8,7 @@ Filesystem Caching
  
     fscache
     object
-+   cachefiles
++   backend-api
+    cachefiles
     netfs-api
     operations
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a1558eb34c45..7efea3593ff5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3733,7 +3733,7 @@ CACHEFILES: FS-CACHE BACKEND FOR CACHING ON MOUNTED FILESYSTEMS
- M:	David Howells <dhowells@redhat.com>
- L:	linux-cachefs@redhat.com (moderated for non-subscribers)
- S:	Supported
--F:	Documentation/filesystems/caching/cachefiles.txt
-+F:	Documentation/filesystems/caching/cachefiles.rst
- F:	fs/cachefiles/
- 
- CADENCE MIPI-CSI2 BRIDGES
-diff --git a/fs/cachefiles/Kconfig b/fs/cachefiles/Kconfig
-index ae559ed5b3b3..ff9ca55a9ae9 100644
---- a/fs/cachefiles/Kconfig
-+++ b/fs/cachefiles/Kconfig
-@@ -8,7 +8,7 @@ config CACHEFILES
- 	  filesystems - primarily networking filesystems - thus allowing fast
- 	  local disk to enhance the speed of slower devices.
- 
--	  See Documentation/filesystems/caching/cachefiles.txt for more
-+	  See Documentation/filesystems/caching/cachefiles.rst for more
- 	  information.
- 
- config CACHEFILES_DEBUG
-@@ -36,5 +36,5 @@ config CACHEFILES_HISTOGRAM
- 	  bouncing between CPUs.  On the other hand, the histogram may be
- 	  useful for debugging purposes.  Saying 'N' here is recommended.
- 
--	  See Documentation/filesystems/caching/cachefiles.txt for more
-+	  See Documentation/filesystems/caching/cachefiles.rst for more
- 	  information.
+diff --git a/fs/fscache/cache.c b/fs/fscache/cache.c
+index f78793f3d21e..fcc136361415 100644
+--- a/fs/fscache/cache.c
++++ b/fs/fscache/cache.c
+@@ -172,7 +172,7 @@ struct fscache_cache *fscache_select_cache_for_object(
+  *
+  * Initialise a record of a cache and fill in the name.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ void fscache_init_cache(struct fscache_cache *cache,
+@@ -207,7 +207,7 @@ EXPORT_SYMBOL(fscache_init_cache);
+  *
+  * Add a cache to the system, making it available for netfs's to use.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ int fscache_add_cache(struct fscache_cache *cache,
+@@ -307,7 +307,7 @@ EXPORT_SYMBOL(fscache_add_cache);
+  * Note that an I/O error occurred in a cache and that it should no longer be
+  * used for anything.  This also reports the error into the kernel log.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ void fscache_io_error(struct fscache_cache *cache)
+@@ -355,7 +355,7 @@ static void fscache_withdraw_all_objects(struct fscache_cache *cache,
+  * Withdraw a cache from service, unbinding all its cache objects from the
+  * netfs cookies they're currently representing.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ void fscache_withdraw_cache(struct fscache_cache *cache)
+diff --git a/fs/fscache/object.c b/fs/fscache/object.c
+index efaa003b8323..cb2146e02cd5 100644
+--- a/fs/fscache/object.c
++++ b/fs/fscache/object.c
+@@ -295,7 +295,7 @@ static void fscache_object_work_func(struct work_struct *work)
+  *
+  * Initialise a cache object description to its basic values.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ void fscache_object_init(struct fscache_object *object,
+diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
+index 5b6072e4a7ab..3f0b19dcfae7 100644
+--- a/include/linux/fscache-cache.h
++++ b/include/linux/fscache-cache.h
+@@ -6,7 +6,7 @@
+  *
+  * NOTE!!! See:
+  *
+- *	Documentation/filesystems/caching/backend-api.txt
++ *	Documentation/filesystems/caching/backend-api.rst
+  *
+  * for a description of the cache backend interface declared here.
+  */
+@@ -454,7 +454,7 @@ static inline void fscache_object_lookup_error(struct fscache_object *object)
+  * Set the maximum size an object is permitted to reach, implying the highest
+  * byte that may be written.  Intended to be called by the attr_changed() op.
+  *
+- * See Documentation/filesystems/caching/backend-api.txt for a complete
++ * See Documentation/filesystems/caching/backend-api.rst for a complete
+  * description.
+  */
+ static inline
 -- 
 2.25.4
 
