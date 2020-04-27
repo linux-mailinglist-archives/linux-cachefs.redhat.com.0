@@ -1,8 +1,8 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id B4B1B1BB018
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5DCEA1BB017
 	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Apr 2020 23:17:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1588022264;
@@ -12,71 +12,71 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=V1COsw/h1RLcGpkhpHx5gBIxz9Eja2IXwyHnMBe2AZo=;
-	b=eB4QfaAz8NSm7dcs7b0g7Ix9ViB5YRk2i60JCOTjTeH/44ZK5YcLgzA3M+DKHG3a+i6zmf
-	XwYBluKnZ57Zt0Pwks7AIKetXcxJppSYjorJJdzivuGtZeaGMPJ2/8ItLA9UfkpJdq4Clr
-	erV72WycoN9+raQDipVmhMWPZLfIPaY=
+	bh=XSm5IX1nidIlJm1MDLx4aqrO6gAjXTk+CHvay8r/klI=;
+	b=Y6aduLvqRYEd9BJT9LHuS0pBRx7Ft2XpV7qWeHisgPLvjHX3Yae0er+W1QaOzd1vLXkEcm
+	1twTTM8fI3aR432pZP8i4oSx7rfOfAX8UAsYpWevKBR9hBBRr8VOgARi4rQ7Q1Nfv11dOR
+	/EMqkikWzpEybvz/MDJ3H9qaRPgHncQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-453-DyN_hZx8PjazLm5dbmpyjw-1; Mon, 27 Apr 2020 17:17:42 -0400
-X-MC-Unique: DyN_hZx8PjazLm5dbmpyjw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-455-cEzy2DulMKOupvu3k1GViA-1; Mon, 27 Apr 2020 17:17:42 -0400
+X-MC-Unique: cEzy2DulMKOupvu3k1GViA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 053CC464;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3CA02835B43;
 	Mon, 27 Apr 2020 21:17:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EE165D9DD;
-	Mon, 27 Apr 2020 21:17:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1884C5C1B2;
+	Mon, 27 Apr 2020 21:17:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C587E18095FF;
-	Mon, 27 Apr 2020 21:17:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 970A01809557;
+	Mon, 27 Apr 2020 21:17:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03RLHUAw025996 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 27 Apr 2020 17:17:30 -0400
+	id 03RLHWZN026032 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 27 Apr 2020 17:17:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3E7172026D69; Mon, 27 Apr 2020 21:17:30 +0000 (UTC)
+	id CF5A32166B27; Mon, 27 Apr 2020 21:17:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 399C92026971
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA2102166B28
 	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:30 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1435B1049881
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07EEA101A525
 	for <linux-cachefs@redhat.com>; Mon, 27 Apr 2020 21:17:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-460-X6W7ZM2lPbKFriUjOrytFA-1;
+	by relay.mimecast.com with ESMTP id us-mta-499-OAYBVaGpP6W6qW8pszTp8w-1;
 	Mon, 27 Apr 2020 17:17:25 -0400
-X-MC-Unique: X6W7ZM2lPbKFriUjOrytFA-1
+X-MC-Unique: OAYBVaGpP6W6qW8pszTp8w-1
 Received: from mail.kernel.org (ip5f5ad5c5.dynamic.kabel-deutschland.de
 	[95.90.213.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id E077F2078C;
-	Mon, 27 Apr 2020 21:17:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 06D2D2087E;
+	Mon, 27 Apr 2020 21:17:24 +0000 (UTC)
 Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
 	(envelope-from <mchehab@kernel.org>)
-	id 1jTB7y-000Hju-6R; Mon, 27 Apr 2020 23:17:22 +0200
+	id 1jTB7y-000Hjz-80; Mon, 27 Apr 2020 23:17:22 +0200
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Mon, 27 Apr 2020 23:16:56 +0200
-Message-Id: <97e71cc598a4f61df484ebda3ec06b63530ceb62.1588021877.git.mchehab+huawei@kernel.org>
+Date: Mon, 27 Apr 2020 23:16:57 +0200
+Message-Id: <eec0cfc268e8dca348f760224685100c9c2caba6.1588021877.git.mchehab+huawei@kernel.org>
 In-Reply-To: <cover.1588021877.git.mchehab+huawei@kernel.org>
 References: <cover.1588021877.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 03RLHUAw025996
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03RLHWZN026032
 X-loop: linux-cachefs@redhat.com
 Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linux-cachefs@redhat.com,
 	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>
-Subject: [Linux-cachefs] [PATCH v3 04/29] docs: filesystems:
-	caching/operations.txt: convert it to ReST
+Subject: [Linux-cachefs] [PATCH v3 05/29] docs: filesystems:
+	caching/cachefiles.txt: convert to ReST
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,201 +90,462 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 - Add a SPDX header;
-- Adjust document and section titles;
-- Comment out text ToC for html/pdf output;
+- Adjust document title;
 - Mark literal blocks as such;
+- Add table markups;
+- Comment out text ToC for html/pdf output;
+- Add lists markups;
 - Add it to filesystems/caching/index.rst.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- Documentation/filesystems/caching/index.rst   |  1 +
- .../{operations.txt => operations.rst}        | 45 +++++++++----------
- fs/fscache/operation.c                        |  2 +-
- 3 files changed, 23 insertions(+), 25 deletions(-)
- rename Documentation/filesystems/caching/{operations.txt => operations.rst} (90%)
+ .../{cachefiles.txt => cachefiles.rst}        | 139 ++++++++----------
+ Documentation/filesystems/caching/index.rst   |   1 +
+ MAINTAINERS                                   |   2 +-
+ fs/cachefiles/Kconfig                         |   4 +-
+ 4 files changed, 65 insertions(+), 81 deletions(-)
+ rename Documentation/filesystems/caching/{cachefiles.txt => cachefiles.rst} (90%)
 
-diff --git a/Documentation/filesystems/caching/index.rst b/Documentation/filesystems/caching/index.rst
-index d0651db450fb..75492b7c8ea0 100644
---- a/Documentation/filesystems/caching/index.rst
-+++ b/Documentation/filesystems/caching/index.rst
-@@ -9,3 +9,4 @@ Filesystem Caching
-    fscache
-    object
-    netfs-api
-+   operations
-diff --git a/Documentation/filesystems/caching/operations.txt b/Documentation/filesystems/caching/operations.rst
+diff --git a/Documentation/filesystems/caching/cachefiles.txt b/Documentation/filesystems/caching/cachefiles.rst
 similarity index 90%
-rename from Documentation/filesystems/caching/operations.txt
-rename to Documentation/filesystems/caching/operations.rst
-index d8976c434718..f7ddcc028939 100644
---- a/Documentation/filesystems/caching/operations.txt
-+++ b/Documentation/filesystems/caching/operations.rst
-@@ -1,10 +1,12 @@
--		       ================================
--		       ASYNCHRONOUS OPERATIONS HANDLING
--		       ================================
+rename from Documentation/filesystems/caching/cachefiles.txt
+rename to Documentation/filesystems/caching/cachefiles.rst
+index 28aefcbb1442..65d3db476765 100644
+--- a/Documentation/filesystems/caching/cachefiles.txt
++++ b/Documentation/filesystems/caching/cachefiles.rst
+@@ -1,8 +1,10 @@
+-	       ===============================================
+-	       CacheFiles: CACHE ON ALREADY MOUNTED FILESYSTEM
+-	       ===============================================
 +.. SPDX-License-Identifier: GPL-2.0
-+
-+================================
-+Asynchronous Operations Handling
-+================================
- 
- By: David Howells <dhowells@redhat.com>
  
 -Contents:
++===============================================
++CacheFiles: CACHE ON ALREADY MOUNTED FILESYSTEM
++===============================================
++
 +.. Contents:
  
   (*) Overview.
  
-@@ -17,8 +19,7 @@ Contents:
-  (*) Asynchronous callback.
+@@ -27,8 +29,8 @@ Contents:
+  (*) Debugging.
  
  
 -========
 -OVERVIEW
++
 +Overview
  ========
  
- FS-Cache has an asynchronous operations handling facility that it uses for its
-@@ -33,11 +34,10 @@ backend for completion.
- To make use of this facility, <linux/fscache-cache.h> should be #included.
+ CacheFiles is a caching backend that's meant to use as a cache a directory on
+@@ -58,8 +60,8 @@ spare space and automatically contract when the set of data requires more
+ space.
  
  
--===============================
--OPERATION RECORD INITIALISATION
-+Operation Record Initialisation
- ===============================
+-============
+-REQUIREMENTS
++
++Requirements
+ ============
  
--An operation is recorded in an fscache_operation struct:
-+An operation is recorded in an fscache_operation struct::
- 
- 	struct fscache_operation {
- 		union {
-@@ -50,7 +50,7 @@ An operation is recorded in an fscache_operation struct:
- 	};
- 
- Someone wanting to issue an operation should allocate something with this
--struct embedded in it.  They should initialise it by calling:
-+struct embedded in it.  They should initialise it by calling::
- 
- 	void fscache_operation_init(struct fscache_operation *op,
- 				    fscache_operation_release_t release);
-@@ -67,8 +67,7 @@ FSCACHE_OP_WAITING may be set in op->flags prior to each submission of the
- operation and waited for afterwards.
+ The use of CacheFiles and its daemon requires the following features to be
+@@ -79,84 +81,70 @@ It is strongly recommended that the "dir_index" option is enabled on Ext3
+ filesystems being used as a cache.
  
  
--==========
--PARAMETERS
-+Parameters
- ==========
+-=============
+-CONFIGURATION
++Configuration
+ =============
  
- There are a number of parameters that can be set in the operation record's flag
-@@ -87,7 +86,7 @@ operations:
+ The cache is configured by a script in /etc/cachefilesd.conf.  These commands
+ set up cache ready for use.  The following script commands are available:
  
-      If this option is to be used, FSCACHE_OP_WAITING must be set in op->flags
-      before submitting the operation, and the operating thread must wait for it
--     to be cleared before proceeding:
-+     to be cleared before proceeding::
+- (*) brun <N>%
+- (*) bcull <N>%
+- (*) bstop <N>%
+- (*) frun <N>%
+- (*) fcull <N>%
+- (*) fstop <N>%
+-
++ brun <N>%, bcull <N>%, bstop <N>%, frun <N>%, fcull <N>%, fstop <N>%
+ 	Configure the culling limits.  Optional.  See the section on culling
+ 	The defaults are 7% (run), 5% (cull) and 1% (stop) respectively.
  
- 		wait_on_bit(&op->flags, FSCACHE_OP_WAITING,
- 			    TASK_UNINTERRUPTIBLE);
-@@ -101,7 +100,7 @@ operations:
-      page to a netfs page after the backing fs has read the page in.
+ 	The commands beginning with a 'b' are file space (block) limits, those
+ 	beginning with an 'f' are file count limits.
  
-      If this option is used, op->fast_work and op->processor must be
--     initialised before submitting the operation:
-+     initialised before submitting the operation::
+- (*) dir <path>
+-
++ dir <path>
+ 	Specify the directory containing the root of the cache.  Mandatory.
  
- 		INIT_WORK(&op->fast_work, do_some_work);
+- (*) tag <name>
+-
++ tag <name>
+ 	Specify a tag to FS-Cache to use in distinguishing multiple caches.
+ 	Optional.  The default is "CacheFiles".
  
-@@ -114,7 +113,7 @@ operations:
-      pages that have just been fetched from a remote server.
+- (*) debug <mask>
+-
++ debug <mask>
+ 	Specify a numeric bitmask to control debugging in the kernel module.
+ 	Optional.  The default is zero (all off).  The following values can be
+ 	OR'd into the mask to collect various information:
  
-      If this option is used, op->slow_work and op->processor must be
--     initialised before submitting the operation:
-+     initialised before submitting the operation::
++		==	=================================================
+ 		1	Turn on trace of function entry (_enter() macros)
+ 		2	Turn on trace of function exit (_leave() macros)
+ 		4	Turn on trace of internal debug points (_debug())
++		==	=================================================
  
- 		fscache_operation_init_slow(op, processor)
+-	This mask can also be set through sysfs, eg:
++	This mask can also be set through sysfs, eg::
  
-@@ -132,8 +131,7 @@ Furthermore, operations may be one of two types:
-      operations running at the same time.
+ 		echo 5 >/sys/modules/cachefiles/parameters/debug
+ 
+ 
+-==================
+-STARTING THE CACHE
++Starting the Cache
+ ==================
+ 
+ The cache is started by running the daemon.  The daemon opens the cache device,
+ configures the cache and tells it to begin caching.  At that point the cache
+ binds to fscache and the cache becomes live.
+ 
+-The daemon is run as follows:
++The daemon is run as follows::
+ 
+ 	/sbin/cachefilesd [-d]* [-s] [-n] [-f <configfile>]
+ 
+ The flags are:
+ 
+- (*) -d
+-
++ ``-d``
+ 	Increase the debugging level.  This can be specified multiple times and
+ 	is cumulative with itself.
+ 
+- (*) -s
+-
++ ``-s``
+ 	Send messages to stderr instead of syslog.
+ 
+- (*) -n
+-
++ ``-n``
+ 	Don't daemonise and go into background.
+ 
+- (*) -f <configfile>
+-
++ ``-f <configfile>``
+ 	Use an alternative configuration file rather than the default one.
+ 
+ 
+-===============
+-THINGS TO AVOID
++Things to Avoid
+ ===============
+ 
+ Do not mount other things within the cache as this will cause problems.  The
+@@ -179,8 +167,7 @@ Do not chmod files in the cache.  The module creates things with minimal
+ permissions to prevent random users being able to access them directly.
+ 
+ 
+-=============
+-CACHE CULLING
++Cache Culling
+ =============
+ 
+ The cache may need culling occasionally to make space.  This involves
+@@ -192,27 +179,21 @@ Cache culling is done on the basis of the percentage of blocks and the
+ percentage of files available in the underlying filesystem.  There are six
+ "limits":
+ 
+- (*) brun
+- (*) frun
+-
++ brun, frun
+      If the amount of free space and the number of available files in the cache
+      rises above both these limits, then culling is turned off.
+ 
+- (*) bcull
+- (*) fcull
+-
++ bcull, fcull
+      If the amount of available space or the number of available files in the
+      cache falls below either of these limits, then culling is started.
+ 
+- (*) bstop
+- (*) fstop
+-
++ bstop, fstop
+      If the amount of available space or the number of available files in the
+      cache falls below either of these limits, then no further allocation of
+      disk space or files is permitted until culling has raised things above
+      these limits again.
+ 
+-These must be configured thusly:
++These must be configured thusly::
+ 
+ 	0 <= bstop < bcull < brun < 100
+ 	0 <= fstop < fcull < frun < 100
+@@ -226,16 +207,14 @@ started as soon as space is made in the table.  Objects will be skipped if
+ their atimes have changed or if the kernel module says it is still using them.
+ 
+ 
+-===============
+-CACHE STRUCTURE
++Cache Structure
+ ===============
+ 
+ The CacheFiles module will create two directories in the directory it was
+ given:
+ 
+- (*) cache/
+-
+- (*) graveyard/
++ * cache/
++ * graveyard/
+ 
+ The active cache objects all reside in the first directory.  The CacheFiles
+ kernel module moves any retired or culled objects that it can't simply unlink
+@@ -261,10 +240,10 @@ If an object has children, then it will be represented as a directory.
+ Immediately in the representative directory are a collection of directories
+ named for hash values of the child object keys with an '@' prepended.  Into
+ this directory, if possible, will be placed the representations of the child
+-objects:
++objects::
+ 
+-	INDEX     INDEX      INDEX                             DATA FILES
+-	========= ========== ================================= ================
++	 /INDEX    /INDEX     /INDEX                            /DATA FILES
++	/=========/==========/=================================/================
+ 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400
+ 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...DB1ry
+ 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...N22ry
+@@ -275,7 +254,7 @@ If the key is so long that it exceeds NAME_MAX with the decorations added on to
+ it, then it will be cut into pieces, the first few of which will be used to
+ make a nest of directories, and the last one of which will be the objects
+ inside the last directory.  The names of the intermediate directories will have
+-'+' prepended:
++'+' prepended::
+ 
+ 	J1223/@23/+xy...z/+kl...m/Epqr
+ 
+@@ -288,11 +267,13 @@ To handle this, CacheFiles will use a suitably printable filename directly and
+ "base-64" encode ones that aren't directly suitable.  The two versions of
+ object filenames indicate the encoding:
+ 
++	===============	===============	===============
+ 	OBJECT TYPE	PRINTABLE	ENCODED
+ 	===============	===============	===============
+ 	Index		"I..."		"J..."
+ 	Data		"D..."		"E..."
+ 	Special		"S..."		"T..."
++	===============	===============	===============
+ 
+ Intermediate directories are always "@" or "+" as appropriate.
+ 
+@@ -307,8 +288,7 @@ Note that CacheFiles will erase from the cache any file it doesn't recognise or
+ any file of an incorrect type (such as a FIFO file or a device file).
+ 
+ 
+-==========================
+-SECURITY MODEL AND SELINUX
++Security Model and SELinux
+ ==========================
+ 
+ CacheFiles is implemented to deal properly with the LSM security features of
+@@ -331,26 +311,26 @@ When the CacheFiles module is asked to bind to its cache, it:
+ 
+  (1) Finds the security label attached to the root cache directory and uses
+      that as the security label with which it will create files.  By default,
+-     this is:
++     this is::
+ 
+ 	cachefiles_var_t
+ 
+  (2) Finds the security label of the process which issued the bind request
+-     (presumed to be the cachefilesd daemon), which by default will be:
++     (presumed to be the cachefilesd daemon), which by default will be::
+ 
+ 	cachefilesd_t
+ 
+      and asks LSM to supply a security ID as which it should act given the
+-     daemon's label.  By default, this will be:
++     daemon's label.  By default, this will be::
+ 
+ 	cachefiles_kernel_t
+ 
+      SELinux transitions the daemon's security ID to the module's security ID
+-     based on a rule of this form in the policy.
++     based on a rule of this form in the policy::
+ 
+ 	type_transition <daemon's-ID> kernel_t : process <module's-ID>;
+ 
+-     For instance:
++     For instance::
+ 
+ 	type_transition cachefilesd_t kernel_t : process cachefiles_kernel_t;
+ 
+@@ -370,7 +350,7 @@ There are policy source files available in:
+ 
+ 	http://people.redhat.com/~dhowells/fscache/cachefilesd-0.8.tar.bz2
+ 
+-and later versions.  In that tarball, see the files:
++and later versions.  In that tarball, see the files::
+ 
+ 	cachefilesd.te
+ 	cachefilesd.fc
+@@ -379,7 +359,7 @@ and later versions.  In that tarball, see the files:
+ They are built and installed directly by the RPM.
+ 
+ If a non-RPM based system is being used, then copy the above files to their own
+-directory and run:
++directory and run::
+ 
+ 	make -f /usr/share/selinux/devel/Makefile
+ 	semodule -i cachefilesd.pp
+@@ -394,7 +374,7 @@ an auxiliary policy must be installed to label the alternate location of the
+ cache.
+ 
+ For instructions on how to add an auxiliary policy to enable the cache to be
+-located elsewhere when SELinux is in enforcing mode, please see:
++located elsewhere when SELinux is in enforcing mode, please see::
+ 
+ 	/usr/share/doc/cachefilesd-*/move-cache.txt
+ 
+@@ -402,8 +382,7 @@ When the cachefilesd rpm is installed; alternatively, the document can be found
+ in the sources.
+ 
+ 
+-==================
+-A NOTE ON SECURITY
++A Note on Security
+ ==================
+ 
+ CacheFiles makes use of the split security in the task_struct.  It allocates
+@@ -445,17 +424,18 @@ for CacheFiles to run in a context of a specific security label, or to create
+ files and directories with another security label.
+ 
+ 
+-=======================
+-STATISTICAL INFORMATION
++Statistical Information
+ =======================
+ 
+-If FS-Cache is compiled with the following option enabled:
++If FS-Cache is compiled with the following option enabled::
+ 
+ 	CONFIG_CACHEFILES_HISTOGRAM=y
+ 
+ then it will gather certain statistics and display them through a proc file.
+ 
+- (*) /proc/fs/cachefiles/histogram
++ /proc/fs/cachefiles/histogram
++
++     ::
+ 
+ 	cat /proc/fs/cachefiles/histogram
+ 	JIFS  SECS  LOOKUPS   MKDIRS    CREATES
+@@ -465,36 +445,39 @@ then it will gather certain statistics and display them through a proc file.
+      between 0 jiffies and HZ-1 jiffies a variety of tasks took to run.  The
+      columns are as follows:
+ 
++	=======		=======================================================
+ 	COLUMN		TIME MEASUREMENT
+ 	=======		=======================================================
+ 	LOOKUPS		Length of time to perform a lookup on the backing fs
+ 	MKDIRS		Length of time to perform a mkdir on the backing fs
+ 	CREATES		Length of time to perform a create on the backing fs
++	=======		=======================================================
+ 
+      Each row shows the number of events that took a particular range of times.
+      Each step is 1 jiffy in size.  The JIFS column indicates the particular
+      jiffy range covered, and the SECS field the equivalent number of seconds.
  
  
 -=========
--PROCEDURE
-+Procedure
+-DEBUGGING
++Debugging
  =========
  
- Operations are used through the following procedure:
-@@ -143,7 +141,7 @@ Operations are used through the following procedure:
-      generic op embedded within.
+ If CONFIG_CACHEFILES_DEBUG is enabled, the CacheFiles facility can have runtime
+-debugging enabled by adjusting the value in:
++debugging enabled by adjusting the value in::
  
-  (2) The submitting thread must then submit the operation for processing using
--     one of the following two functions:
-+     one of the following two functions::
+ 	/sys/module/cachefiles/parameters/debug
  
- 	int fscache_submit_op(struct fscache_object *object,
- 			      struct fscache_operation *op);
-@@ -164,7 +162,7 @@ Operations are used through the following procedure:
-      operation of conflicting exclusivity is in progress on the object.
+ This is a bitmask of debugging streams to enable:
  
-      If the operation is asynchronous, the manager will retain a reference to
--     it, so the caller should put their reference to it by passing it to:
-+     it, so the caller should put their reference to it by passing it to::
++	=======	=======	===============================	=======================
+ 	BIT	VALUE	STREAM				POINT
+ 	=======	=======	===============================	=======================
+ 	0	1	General				Function entry trace
+ 	1	2					Function exit trace
+ 	2	4					General
++	=======	=======	===============================	=======================
  
- 	void fscache_put_operation(struct fscache_operation *op);
+ The appropriate set of values should be OR'd together and the result written to
+-the control file.  For example:
++the control file.  For example::
  
-@@ -179,12 +177,12 @@ Operations are used through the following procedure:
-  (4) The operation holds an effective lock upon the object, preventing other
-      exclusive ops conflicting until it is released.  The operation can be
-      enqueued for further immediate asynchronous processing by adjusting the
--     CPU time provisioning option if necessary, eg:
-+     CPU time provisioning option if necessary, eg::
+ 	echo $((1|4|8)) >/sys/module/cachefiles/parameters/debug
  
- 	op->flags &= ~FSCACHE_OP_TYPE;
- 	op->flags |= ~FSCACHE_OP_FAST;
+diff --git a/Documentation/filesystems/caching/index.rst b/Documentation/filesystems/caching/index.rst
+index 75492b7c8ea0..a2cf35f89e28 100644
+--- a/Documentation/filesystems/caching/index.rst
++++ b/Documentation/filesystems/caching/index.rst
+@@ -8,5 +8,6 @@ Filesystem Caching
  
--     and calling:
-+     and calling::
+    fscache
+    object
++   cachefiles
+    netfs-api
+    operations
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a1558eb34c45..7efea3593ff5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3733,7 +3733,7 @@ CACHEFILES: FS-CACHE BACKEND FOR CACHING ON MOUNTED FILESYSTEMS
+ M:	David Howells <dhowells@redhat.com>
+ L:	linux-cachefs@redhat.com (moderated for non-subscribers)
+ S:	Supported
+-F:	Documentation/filesystems/caching/cachefiles.txt
++F:	Documentation/filesystems/caching/cachefiles.rst
+ F:	fs/cachefiles/
  
- 	void fscache_enqueue_operation(struct fscache_operation *op)
+ CADENCE MIPI-CSI2 BRIDGES
+diff --git a/fs/cachefiles/Kconfig b/fs/cachefiles/Kconfig
+index ae559ed5b3b3..ff9ca55a9ae9 100644
+--- a/fs/cachefiles/Kconfig
++++ b/fs/cachefiles/Kconfig
+@@ -8,7 +8,7 @@ config CACHEFILES
+ 	  filesystems - primarily networking filesystems - thus allowing fast
+ 	  local disk to enhance the speed of slower devices.
  
-@@ -192,13 +190,12 @@ Operations are used through the following procedure:
-      pools.
+-	  See Documentation/filesystems/caching/cachefiles.txt for more
++	  See Documentation/filesystems/caching/cachefiles.rst for more
+ 	  information.
  
+ config CACHEFILES_DEBUG
+@@ -36,5 +36,5 @@ config CACHEFILES_HISTOGRAM
+ 	  bouncing between CPUs.  On the other hand, the histogram may be
+ 	  useful for debugging purposes.  Saying 'N' here is recommended.
  
--=====================
--ASYNCHRONOUS CALLBACK
-+Asynchronous Callback
- =====================
- 
- When used in asynchronous mode, the worker thread pool will invoke the
- processor method with a pointer to the operation.  This should then get at the
--container struct by using container_of():
-+container struct by using container_of()::
- 
- 	static void fscache_write_op(struct fscache_operation *_op)
- 	{
-diff --git a/fs/fscache/operation.c b/fs/fscache/operation.c
-index 1a22a55f75a0..4a5651d4904e 100644
---- a/fs/fscache/operation.c
-+++ b/fs/fscache/operation.c
-@@ -4,7 +4,7 @@
-  * Copyright (C) 2008 Red Hat, Inc. All Rights Reserved.
-  * Written by David Howells (dhowells@redhat.com)
-  *
-- * See Documentation/filesystems/caching/operations.txt
-+ * See Documentation/filesystems/caching/operations.rst
-  */
- 
- #define FSCACHE_DEBUG_LEVEL OPERATION
+-	  See Documentation/filesystems/caching/cachefiles.txt for more
++	  See Documentation/filesystems/caching/cachefiles.rst for more
+ 	  information.
 -- 
 2.25.4
 
