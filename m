@@ -1,48 +1,48 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A80991CBA85
-	for <lists+linux-cachefs@lfdr.de>; Sat,  9 May 2020 00:17:04 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 052611CBA8A
+	for <lists+linux-cachefs@lfdr.de>; Sat,  9 May 2020 00:17:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588976223;
+	s=mimecast20190719; t=1588976234;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=IOeo6KgAMR0NsXGKJff/FRCkBs01G33QTlmTw7jF8+o=;
-	b=Rs5jbAI1rb4ZedSOFl9sPHLQMzVwRTA7EuRKq2LbTE0q1mW/BUA1uxxIk04h2T081wJxak
-	hby3mZaaImsUaT7PERp9P0j6GivWcjp9+9DLNEDwS4coba1WY6feePnZ4biXrt//omVeEF
-	IganMQE0Y/X2cxlV1glc/gfabi/9OQs=
+	bh=v4AIhqC2OtRkQr31z9zGHsoe2aW445ZngzF3lDeYnpk=;
+	b=Bv95/PYRzYJdTns/v2fGP3hXpdXNn6DuYXhxohyj8q9EOTM405crNnC+WtLIWj2h1DLaCx
+	seDFs01tzmMjPpqRe3xHZBVKIzCHqKNyztfzxN8P9dNulVNYZNDDOyKWs8ZigOy4T6XRm9
+	aRjKuPVRAT9hwnppun4TC5v9J2IQT/0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-161-vd2Dqek_Md-N1HFb_ve-lw-1; Fri, 08 May 2020 18:17:02 -0400
-X-MC-Unique: vd2Dqek_Md-N1HFb_ve-lw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-9-u_Y4aFRgN-yvWMAETyAfwg-1; Fri, 08 May 2020 18:17:11 -0400
+X-MC-Unique: u_Y4aFRgN-yvWMAETyAfwg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 828661800D42;
-	Fri,  8 May 2020 22:16:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34211EC1A0;
+	Fri,  8 May 2020 22:17:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70A446E713;
-	Fri,  8 May 2020 22:16:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 220681CD;
+	Fri,  8 May 2020 22:17:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 507311809543;
-	Fri,  8 May 2020 22:16:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 02B231809543;
+	Fri,  8 May 2020 22:17:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 048MGvu9023755 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 8 May 2020 18:16:57 -0400
+	id 048MH7fv023791 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 8 May 2020 18:17:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 75CF55C5FA; Fri,  8 May 2020 22:16:57 +0000 (UTC)
+	id E63812E188; Fri,  8 May 2020 22:17:07 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-118-225.rdu2.redhat.com
 	[10.10.118.225])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7DF775C28E;
-	Fri,  8 May 2020 22:16:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 99BAF2E183;
+	Fri,  8 May 2020 22:17:03 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -50,19 +50,19 @@ Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 From: David Howells <dhowells@redhat.com>
 To: torvalds@linux-foundation.org,
 	Trond Myklebust <trond.myklebust@hammerspace.com>
-Date: Fri, 08 May 2020 23:16:49 +0100
-Message-ID: <158897620966.1119820.74747109024841084.stgit@warthog.procyon.org.uk>
+Date: Fri, 08 May 2020 23:17:02 +0100
+Message-ID: <158897622270.1119820.974990693177541039.stgit@warthog.procyon.org.uk>
 In-Reply-To: <158897619675.1119820.2203023452686054109.stgit@warthog.procyon.org.uk>
 References: <158897619675.1119820.2203023452686054109.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.21
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: linux-cachefs@redhat.com
-Cc: linux-nfs@vger.kernel.org, Carlos Maiolino <cmaiolino@redhat.com>,
-	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
-	linux-fsdevel@vger.kernel.org, Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 1/5] cachefiles: Fix corruption of the
- return value in cachefiles_read_or_alloc_pages()
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+	Anna Schumaker <anna.schumaker@netapp.com>
+Subject: [Linux-cachefs] [PATCH 2/5] NFS: Fix fscache super_cookie index_key
+ from changing after umount
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,91 +76,73 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The patch which changed cachefiles from calling ->bmap() to using the
-bmap() wrapper overwrote the running return value with the result of
-calling bmap().  This causes an assertion failure elsewhere in the code.
+From: Dave Wysochanski <dwysocha@redhat.com>
 
-Fix this by using ret2 rather than ret to hold the return value.
+Commit 402cb8dda949 ("fscache: Attach the index key and aux data to
+the cookie") added the index_key and index_key_len parameters to
+fscache_acquire_cookie(), and updated the callers in the NFS client.
+One of the callers was inside nfs_fscache_get_super_cookie()
+and was changed to use the full struct nfs_fscache_key as the
+index_key.  However, a couple members of this structure contain
+pointers and thus will change each time the same NFS share is
+remounted.  Since index_key is used for fscache_cookie->key_hash
+and this subsequently is used to compare cookies, the effectiveness
+of fscache with NFS is reduced to the point at which a umount
+occurs.   Any subsequent remount of the same share will cause a
+unique NFS super_block index_key and key_hash to be generated for
+the same data, rendering any prior fscache data unable to be
+found.  A simple reproducer demonstrates the problem.
 
-The oops looks like:
+1. Mount share with 'fsc', create a file, drop page cache
+systemctl start cachefilesd
+mount -o vers=3,fsc 127.0.0.1:/export /mnt
+dd if=/dev/zero of=/mnt/file1.bin bs=4096 count=1
+echo 3 > /proc/sys/vm/drop_caches
 
-	kernel BUG at fs/nfs/fscache.c:468!
-	...
-	RIP: 0010:__nfs_readpages_from_fscache+0x18b/0x190 [nfs]
-	...
-	Call Trace:
-	 nfs_readpages+0xbf/0x1c0 [nfs]
-	 ? __alloc_pages_nodemask+0x16c/0x320
-	 read_pages+0x67/0x1a0
-	 __do_page_cache_readahead+0x1cf/0x1f0
-	 ondemand_readahead+0x172/0x2b0
-	 page_cache_async_readahead+0xaa/0xe0
-	 generic_file_buffered_read+0x852/0xd50
-	 ? mem_cgroup_commit_charge+0x6e/0x140
-	 ? nfs4_have_delegation+0x19/0x30 [nfsv4]
-	 generic_file_read_iter+0x100/0x140
-	 ? nfs_revalidate_mapping+0x176/0x2b0 [nfs]
-	 nfs_file_read+0x6d/0xc0 [nfs]
-	 new_sync_read+0x11a/0x1c0
-	 __vfs_read+0x29/0x40
-	 vfs_read+0x8e/0x140
-	 ksys_read+0x61/0xd0
-	 __x64_sys_read+0x1a/0x20
-	 do_syscall_64+0x60/0x1e0
-	 entry_SYSCALL_64_after_hwframe+0x44/0xa9
-	RIP: 0033:0x7f5d148267e0
+2. Read file into page cache and fscache, then unmount
+dd if=/mnt/file1.bin of=/dev/null bs=4096 count=1
+umount /mnt
 
-Fixes: 10d83e11a582 ("cachefiles: drop direct usage of ->bmap method.")
-Reported-by: David Wysochanski <dwysocha@redhat.com>
+3. Remount and re-read which should come from fscache
+mount -o vers=3,fsc 127.0.0.1:/export /mnt
+echo 3 > /proc/sys/vm/drop_caches
+dd if=/mnt/file1.bin of=/dev/null bs=4096 count=1
+
+4. Check for READ ops in mountstats - there should be none
+grep READ: /proc/self/mountstats
+
+Looking at the history and the removed function, nfs_super_get_key(),
+we should only use nfs_fscache_key.key plus any uniquifier, for
+the fscache index_key.
+
+Fixes: 402cb8dda949 ("fscache: Attach the index key and aux data to the cookie")
+Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
 Signed-off-by: David Howells <dhowells@redhat.com>
-Tested-by: David Wysochanski <dwysocha@redhat.com>
-cc: Carlos Maiolino <cmaiolino@redhat.com>
 ---
 
- fs/cachefiles/rdwr.c |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ fs/nfs/fscache.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
-index 1dc97f2d6201..d3d78176b23c 100644
---- a/fs/cachefiles/rdwr.c
-+++ b/fs/cachefiles/rdwr.c
-@@ -398,7 +398,7 @@ int cachefiles_read_or_alloc_page(struct fscache_retrieval *op,
- 	struct inode *inode;
- 	sector_t block;
- 	unsigned shift;
--	int ret;
-+	int ret, ret2;
- 
- 	object = container_of(op->op.object,
- 			      struct cachefiles_object, fscache);
-@@ -430,8 +430,8 @@ int cachefiles_read_or_alloc_page(struct fscache_retrieval *op,
- 	block = page->index;
- 	block <<= shift;
- 
--	ret = bmap(inode, &block);
--	ASSERT(ret < 0);
-+	ret2 = bmap(inode, &block);
-+	ASSERT(ret2 == 0);
- 
- 	_debug("%llx -> %llx",
- 	       (unsigned long long) (page->index << shift),
-@@ -739,8 +739,8 @@ int cachefiles_read_or_alloc_pages(struct fscache_retrieval *op,
- 		block = page->index;
- 		block <<= shift;
- 
--		ret = bmap(inode, &block);
--		ASSERT(!ret);
-+		ret2 = bmap(inode, &block);
-+		ASSERT(ret2 == 0);
- 
- 		_debug("%llx -> %llx",
- 		       (unsigned long long) (page->index << shift),
+diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
+index 1abf126c2df4..8eff1fd806b1 100644
+--- a/fs/nfs/fscache.c
++++ b/fs/nfs/fscache.c
+@@ -188,7 +188,8 @@ void nfs_fscache_get_super_cookie(struct super_block *sb, const char *uniq, int
+ 	/* create a cache index for looking up filehandles */
+ 	nfss->fscache = fscache_acquire_cookie(nfss->nfs_client->fscache,
+ 					       &nfs_fscache_super_index_def,
+-					       key, sizeof(*key) + ulen,
++					       &key->key,
++					       sizeof(key->key) + ulen,
+ 					       NULL, 0,
+ 					       nfss, 0, true);
+ 	dfprintk(FSCACHE, "NFS: get superblock cookie (0x%p/0x%p)\n",
 
 
 --
