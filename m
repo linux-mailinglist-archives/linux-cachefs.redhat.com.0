@@ -2,75 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 1AD581CBA3C
-	for <lists+linux-cachefs@lfdr.de>; Fri,  8 May 2020 23:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 466FE1CBA1A
+	for <lists+linux-cachefs@lfdr.de>; Fri,  8 May 2020 23:51:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588974893;
+	s=mimecast20190719; t=1588974666;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GdA0Sx46CJYSi3OzYo/Ngz0z25rcIEe6U2gWnVd0TH0=;
-	b=cxZS++8luXzrV/l3hgmhXfstxsDaCs5z0KxWW8kPPJzhbSd8eIgnDDAQqy5f1ZQv76P4fs
-	k3yS6DbuZwfvZugkUtIUYgg3A2qC08oSa8neR+tlm4UgYeQWGOae9JLIy9lE5wU4wd19Du
-	H/T6fquGuzjOJzd5MvApqLZUUBHYPhU=
+	bh=d3Sn9CaRluvfntZC8RiReQhXZSKRL9UINULpPIxRvxU=;
+	b=Cluxn6lYWm2amu5frwvjnBnUEgR8BSK1hA6Fb3hWRh8PNrcG0JlipAMoN7zJ9MGtP3hV3i
+	mO8Lzpp6ndc9LTD3tr/onREb2Qydx73tsYla0rJvuWrcIc+IH3VadFvPrQqDWg68AdgkhQ
+	n1kfSeiRrdnZR//dPKT2pcZqHPsG9vI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-205-YHvn6r_wPTGO5nb4obrpEw-1; Fri, 08 May 2020 17:54:50 -0400
-X-MC-Unique: YHvn6r_wPTGO5nb4obrpEw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-231-837wQEq1OT6_WUlMj7pD0A-1; Fri, 08 May 2020 17:51:04 -0400
+X-MC-Unique: 837wQEq1OT6_WUlMj7pD0A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C954872FE0;
-	Fri,  8 May 2020 21:54:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 610A95D9CC;
-	Fri,  8 May 2020 21:54:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F277E80183C;
+	Fri,  8 May 2020 21:51:01 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96AD770467;
+	Fri,  8 May 2020 21:50:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3EAAD4CAA0;
-	Fri,  8 May 2020 21:54:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F1BDF1809543;
+	Fri,  8 May 2020 21:50:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 047IwgcS016772 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 7 May 2020 14:58:42 -0400
+	id 048LooiZ021663 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 8 May 2020 17:50:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C69E2156A2E; Thu,  7 May 2020 18:58:42 +0000 (UTC)
+	id D80225C663; Fri,  8 May 2020 21:50:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 082692157F26
-	for <linux-cachefs@redhat.com>; Thu,  7 May 2020 18:58:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8387811E77
-	for <linux-cachefs@redhat.com>; Thu,  7 May 2020 18:58:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-467-IIyQ12VSPBiQQrenteIBsg-1;
-	Thu, 07 May 2020 14:58:34 -0400
-X-MC-Unique: IIyQ12VSPBiQQrenteIBsg-1
-Received: from embeddedor (unknown [189.207.59.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 7608D21BE5;
-	Thu,  7 May 2020 18:48:40 +0000 (UTC)
-Date: Thu, 7 May 2020 13:53:07 -0500
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20200507185307.GA14353@embeddedor>
+Received: from warthog.procyon.org.uk (ovpn-118-225.rdu2.redhat.com
+	[10.10.118.225])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5B5CE5C3FD;
+	Fri,  8 May 2020 21:50:43 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: torvalds@linux-foundation.org,
+	Trond Myklebust <trond.myklebust@hammerspace.com>
+Date: Fri, 08 May 2020 22:50:42 +0100
+Message-ID: <158897464246.1116213.8184341356151224705.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.21
 MIME-Version: 1.0
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 047IwgcS016772
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Fri, 08 May 2020 17:54:46 -0400
-Cc: linux-cachefs@redhat.com, linux-kernel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH] FS-Cache: Replace zero-length array with
-	flexible-array
+Cc: linux-nfs@vger.kernel.org, Carlos Maiolino <cmaiolino@redhat.com>,
+	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org, Anna Schumaker <anna.schumaker@netapp.com>
+Subject: [Linux-cachefs] [PATCH 0/4] cachefiles, nfs: Fixes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,66 +68,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-The current codebase makes use of the zero-length array language
-extension to the C90 standard, but the preferred mechanism to declare
-variable-length types such as these ones is a flexible array member[1][2],
-introduced in C99:
 
-struct foo {
-        int stuff;
-        struct boo array[];
-};
+Hi Linus, Trond, Anna,
 
-By making use of the mechanism above, we will get a compiler warning
-in case the flexible array does not occur last in the structure, which
-will help us prevent some kind of undefined behavior bugs from being
-inadvertently introduced[3] to the codebase from now on.
+Can you pull these fixes for cachefiles and NFS's use of fscache?  Should
+they go through the NFS tree or directly upstream?  The things fixed are:
 
-Also, notice that, dynamic memory allocations won't be affected by
-this change:
+ (1) The reorganisation of bmap() use accidentally caused the return value
+     of cachefiles_read_or_alloc_pages() to get corrupted.
 
-"Flexible array members have incomplete type, and so the sizeof operator
-may not be applied. As a quirk of the original implementation of
-zero-length arrays, sizeof evaluates to zero."[1]
+ (2) The NFS superblock index key accidentally got changed to include a
+     number of kernel pointers - meaning that the key isn't matchable after
+     a reboot.
 
-sizeof(flexible-array-member) triggers a warning because flexible array
-members have incomplete type[1]. There are some instances of code in
-which the sizeof operator is being incorrectly/erroneously applied to
-zero-length arrays and the result is zero. Such instances may be hiding
-some bugs. So, this work (flexible-array member conversions) will also
-help to get completely rid of those sorts of issues.
+ (3) A redundant check in nfs_fscache_get_super_cookie().
 
-This issue was found with the help of Coccinelle.
+ (4) The NFS change_attr sometimes set in the auxiliary data for the
+     caching of an file and sometimes not, which causes the cache to get
+     discarded when it shouldn't.
 
-[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-[2] https://github.com/KSPP/linux/issues/21
-[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+The patches are tagged here:
 
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+	git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
+	tag fscache-fixes-20200508
+
+Thanks,
+David
 ---
- include/linux/fscache-cache.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Dave Wysochanski (3):
+      NFS: Fix fscache super_cookie index_key from changing after umount
+      NFS: Fix fscache super_cookie allocation
+      NFSv4: Fix fscache cookie aux_data to ensure change_attr is included
 
-diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
-index d5ba431b5d63..5b6072e4a7ab 100644
---- a/include/linux/fscache-cache.h
-+++ b/include/linux/fscache-cache.h
-@@ -46,7 +46,7 @@ struct fscache_cache_tag {
- 	unsigned long		flags;
- #define FSCACHE_TAG_RESERVED	0		/* T if tag is reserved for a cache */
- 	atomic_t		usage;
--	char			name[0];	/* tag name */
-+	char			name[];	/* tag name */
- };
- 
- /*
+David Howells (1):
+      cachefiles: Fix corruption of the return value in cachefiles_read_or_alloc_pages()
+
+
+ fs/cachefiles/rdwr.c |   10 +++++-----
+ fs/nfs/fscache.c     |   39 ++++++++++++++++++---------------------
+ fs/nfs/super.c       |    1 -
+ 3 files changed, 23 insertions(+), 27 deletions(-)
 
 
 --
