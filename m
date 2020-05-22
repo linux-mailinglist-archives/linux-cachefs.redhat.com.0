@@ -2,7 +2,7 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 1ABEF1E21C5
+	by mail.lfdr.de (Postfix) with ESMTP id 2EC541E21C6
 	for <lists+linux-cachefs@lfdr.de>; Tue, 26 May 2020 14:25:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1590495943;
@@ -12,69 +12,69 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=w/rQlDQI7Y9F15eTIJptlj9EtQAv04REP0WguaQvDEQ=;
-	b=LItY0b727hijmwcQZqRIIGRknUIPpRPBtPFz6zY6IumKFJEhtR9NWePbmFioP0lYKcMJHh
-	dRkziokK39EAikWHZev5mXhs9kO1R3LePu1TUK2kM/v1yXiQhA8jH24Fx8PXA2bmDk9TNG
-	Xvb1KoEFJUWZnIKvnOPMYt42UX9iAhI=
+	bh=7enho5cThyl8LknHMbGtyVMmKzGyC0rFR3/FqUu+IbU=;
+	b=Meiy/Jo9oc4mqN8JZOBi6TbcRNHNoiqTO2R1M5CMLhpVLRd5qH0L1htZiqazpdPWCj4AtV
+	1SnkSgQ9PBi96uCi28qFDJz4wFkAWlSKzLfv+0wb8LlPDcm5fNBLsI/d++UGBLOPX/vUPq
+	jziq/2RwAYcIFU15wFXuunGoex6d8Tw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-307-4hH9RgNgNae4AGYJHKxy3A-1; Tue, 26 May 2020 08:25:41 -0400
-X-MC-Unique: 4hH9RgNgNae4AGYJHKxy3A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-401-FC4JYkeGNX2k_Pw7duwICQ-1; Tue, 26 May 2020 08:25:41 -0400
+X-MC-Unique: FC4JYkeGNX2k_Pw7duwICQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 258BE1005510;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9674353;
 	Tue, 26 May 2020 12:25:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A32C710013D7;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A266A60C47;
 	Tue, 26 May 2020 12:25:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 904AB1809547;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8EF4A1809541;
 	Tue, 26 May 2020 12:25:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04MEoWE8009074 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 22 May 2020 10:50:32 -0400
+	id 04MEpDBQ009167 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 22 May 2020 10:51:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9062B11921A7; Fri, 22 May 2020 14:50:32 +0000 (UTC)
+	id F37DF10ABC82; Fri, 22 May 2020 14:51:12 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BD1011921AA
-	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:50:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EDF9A10ABCA3
+	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:51:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDE921859160
-	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:50:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C5648007B1
+	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:51:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-379-2sn1DDhsMw26TaBLojdEZA-1;
-	Fri, 22 May 2020 10:50:24 -0400
-X-MC-Unique: 2sn1DDhsMw26TaBLojdEZA-1
+	by relay.mimecast.com with ESMTP id us-mta-467-N48CGYGFN0GBtcdQV7N2sw-1;
+	Fri, 22 May 2020 10:51:05 -0400
+X-MC-Unique: N48CGYGFN0GBtcdQV7N2sw-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id BECF8221FA;
-	Fri, 22 May 2020 14:50:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 5D5F6223E0;
+	Fri, 22 May 2020 14:51:03 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 22 May 2020 10:49:38 -0400
-Message-Id: <20200522144959.434379-21-sashal@kernel.org>
-In-Reply-To: <20200522144959.434379-1-sashal@kernel.org>
-References: <20200522144959.434379-1-sashal@kernel.org>
+Date: Fri, 22 May 2020 10:50:29 -0400
+Message-Id: <20200522145044.434677-17-sashal@kernel.org>
+In-Reply-To: <20200522145044.434677-1-sashal@kernel.org>
+References: <20200522145044.434677-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEoWE8009074
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEpDBQ009167
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Tue, 26 May 2020 08:25:31 -0400
 Cc: Sasha Levin <sashal@kernel.org>, Lei Xue <carmark.dlut@gmail.com>,
 	linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [PATCH AUTOSEL 5.6 21/41] cachefiles: Fix race
+Subject: [Linux-cachefs] [PATCH AUTOSEL 5.4 17/32] cachefiles: Fix race
 	between read_waiter and read_copier involving op->to_do
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -89,7 +89,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -198,7 +198,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
-index d3d78176b23c..e7726f5f1241 100644
+index 44a3ce1e4ce4..ad057ed2b30b 100644
 --- a/fs/cachefiles/rdwr.c
 +++ b/fs/cachefiles/rdwr.c
 @@ -60,9 +60,9 @@ static int cachefiles_read_waiter(wait_queue_entry_t *wait, unsigned mode,
