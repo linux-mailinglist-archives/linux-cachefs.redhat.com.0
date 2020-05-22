@@ -1,100 +1,81 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id D06C01CE83B
-	for <lists+linux-cachefs@lfdr.de>; Tue, 12 May 2020 00:38:52 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 1ABEF1E21C5
+	for <lists+linux-cachefs@lfdr.de>; Tue, 26 May 2020 14:25:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589236731;
+	s=mimecast20190719; t=1590495943;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=bVAUOJuzhe8o4D7HFqa8Yx+jY18ibO/CRfLddzolHCo=;
-	b=HIAseQfKvg1GzDvmKaTCJOibJOcyE3SbI4ob5l7u6rpxT4A6GsMkGVcFhCkxAbQDRdjnp+
-	EqyXV/S+D6386Gik5RUAFP0Qs2/RJt9Cso7tavW/VU82ruxvAaCncA4EBhWwtOWYLlC2mm
-	iGBH4/aXZv7OTxT+dXA/2t5Kcx6AKTY=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=w/rQlDQI7Y9F15eTIJptlj9EtQAv04REP0WguaQvDEQ=;
+	b=LItY0b727hijmwcQZqRIIGRknUIPpRPBtPFz6zY6IumKFJEhtR9NWePbmFioP0lYKcMJHh
+	dRkziokK39EAikWHZev5mXhs9kO1R3LePu1TUK2kM/v1yXiQhA8jH24Fx8PXA2bmDk9TNG
+	Xvb1KoEFJUWZnIKvnOPMYt42UX9iAhI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-415-vFMuAAQNM42pjaXerWKsNA-1; Mon, 11 May 2020 18:38:49 -0400
-X-MC-Unique: vFMuAAQNM42pjaXerWKsNA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-307-4hH9RgNgNae4AGYJHKxy3A-1; Tue, 26 May 2020 08:25:41 -0400
+X-MC-Unique: 4hH9RgNgNae4AGYJHKxy3A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F1A7E107ACCD;
-	Mon, 11 May 2020 22:38:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 258BE1005510;
+	Tue, 26 May 2020 12:25:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FFE05C1B5;
-	Mon, 11 May 2020 22:38:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A32C710013D7;
+	Tue, 26 May 2020 12:25:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F35A01809541;
-	Mon, 11 May 2020 22:38:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 904AB1809547;
+	Tue, 26 May 2020 12:25:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04BMcYu5015935 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 11 May 2020 18:38:34 -0400
+	id 04MEoWE8009074 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 22 May 2020 10:50:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D0E82026FFE; Mon, 11 May 2020 22:38:34 +0000 (UTC)
+	id 9062B11921A7; Fri, 22 May 2020 14:50:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 591B12026E1C
-	for <linux-cachefs@redhat.com>; Mon, 11 May 2020 22:38:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BD1011921AA
+	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:50:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E7EF8008A3
-	for <linux-cachefs@redhat.com>; Mon, 11 May 2020 22:38:31 +0000 (UTC)
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=dkim.mimecast.com; s=201903; t=1589236711;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	in-reply-to:in-reply-to:references:references;
-	bh=Dye8FtfVkLe+MEGjgCFo1EuzmoAy7E+fsKmWbODkcXk=;
-	b=NUK7gIy/Pz3iYOX2v4lFFNaQow9O+CPHgyxjvRQJbejrWdf6wamiToOmWAVTLklYdcENlZ
-	6X/UjtkrQPkrg0k9oIldEmbni1178l1plziC2LtcdAxjSG2danDzPkHqn7L9b7iY9CFBmS
-	sYyxSUa0HDESg5SVysHB7doZUjOYmEMEe7eeeZv4t2dgBkD92ug5MqWjeQuOte4ZYCmhgN
-	14s4hOFK9wQGA/AzYzH8zywaLDwD8Qc665KbADBREzFOkduj/m0NPQ6VNywFvFq0TeCehk
-	t6MD/cd+LGoTCDiSYPyAD8gUIb4lbcR0Zx66l0euu8rVsw3ZAu+22PrtEikmLw==
-ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1589236711; a=rsa-sha256;
-	cv=none;
-	b=h5vbemhsXXiy28spHzHFuAqx56NxITzLqeRLAIU+qWoThjtOzsm0K0FAN2rB5OLNxkEpj9
-	Tr3aAsF99VtOWVYe+yVKfc3owatueGShCRMgO/6uF0bEEg/0Gs79SDjhcGnw+Q8n5IJiJF
-	rZlPcQTeE92iAT4PSZFqrmKodghkyB30vYSK4vP3rWc3MwdDoT6IgbtbYUX17WPwVFiBXJ
-	OIGLDdP0FoV64tNc9foLoKzz6dmytB37RZuqg7LBXX5oHgOZ2YKmZERJP3pLpbJwsnR3lG
-	5ZEbprq/qnY3cOQaOcflGVY15dDJEr938/CK1AUZKqzVeeaboLiajjmsSDqBSQ==
-ARC-Authentication-Results: i=1; relay.mimecast.com; dkim=none; dmarc=none;
-	spf=pass (relay.mimecast.com: domain of neilb@suse.de designates
-	195.135.220.15 as permitted sender) smtp.mailfrom=neilb@suse.de
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-6-vvNic1ZUONi8nm0ge1elQA-1;
-	Mon, 11 May 2020 18:38:23 -0400
-X-MC-Unique: vvNic1ZUONi8nm0ge1elQA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 39062AD89;
-	Mon, 11 May 2020 22:38:23 +0000 (UTC)
-From: NeilBrown <neilb@suse.de>
-To: David Howells <dhowells@redhat.com>, torvalds@linux-foundation.org,
-	Trond Myklebust <trond.myklebust@hammerspace.com>
-Date: Tue, 12 May 2020 08:38:10 +1000
-In-Reply-To: <158897619675.1119820.2203023452686054109.stgit@warthog.procyon.org.uk>
-References: <158897619675.1119820.2203023452686054109.stgit@warthog.procyon.org.uk>
-Message-ID: <87ftc6ayi5.fsf@notabene.neil.brown.name>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDE921859160
+	for <linux-cachefs@redhat.com>; Fri, 22 May 2020 14:50:29 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-379-2sn1DDhsMw26TaBLojdEZA-1;
+	Fri, 22 May 2020 10:50:24 -0400
+X-MC-Unique: 2sn1DDhsMw26TaBLojdEZA-1
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+	[73.47.72.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id BECF8221FA;
+	Fri, 22 May 2020 14:50:22 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 22 May 2020 10:49:38 -0400
+Message-Id: <20200522144959.434379-21-sashal@kernel.org>
+In-Reply-To: <20200522144959.434379-1-sashal@kernel.org>
+References: <20200522144959.434379-1-sashal@kernel.org>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com; dkim=none; dmarc=none;
-	spf=pass (relay.mimecast.com: domain of neilb@suse.de
-	designates 195.135.220.15 as permitted sender)
-	smtp.mailfrom=neilb@suse.de
-X-Mimecast-Spam-Score: 0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04MEoWE8009074
 X-loop: linux-cachefs@redhat.com
-Cc: linux-nfs@vger.kernel.org, Lei Xue <carmark.dlut@gmail.com>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
-	linux-fsdevel@vger.kernel.org, Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH 0/5] cachefiles, nfs: Fixes
+X-Mailman-Approved-At: Tue, 26 May 2020 08:25:31 -0400
+Cc: Sasha Levin <sashal@kernel.org>, Lei Xue <carmark.dlut@gmail.com>,
+	linux-cachefs@redhat.com
+Subject: [Linux-cachefs] [PATCH AUTOSEL 5.6 21/41] cachefiles: Fix race
+	between read_waiter and read_copier involving op->to_do
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,101 +87,137 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9078318529905507370=="
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
---===============9078318529905507370==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
+From: Lei Xue <carmark.dlut@gmail.com>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit 7bb0c5338436dae953622470d52689265867f032 ]
 
-On Fri, May 08 2020, David Howells wrote:
+There is a potential race in fscache operation enqueuing for reading and
+copying multiple pages from cachefiles to netfs.  The problem can be seen
+easily on a heavy loaded system (for example many processes reading files
+continually on an NFS share covered by fscache triggered this problem within
+a few minutes).
 
-> Hi Linus, Trond, Anna,
->
-> Can you pull these fixes for cachefiles and NFS's use of fscache?  Should
-> they go through the NFS tree or directly upstream?  The things fixed are:
+The race is due to cachefiles_read_waiter() adding the op to the monitor
+to_do list and then then drop the object->work_lock spinlock before
+completing fscache_enqueue_operation().  Once the lock is dropped,
+cachefiles_read_copier() grabs the op, completes processing it, and
+makes it through fscache_retrieval_complete() which sets the op->state to
+the final state of FSCACHE_OP_ST_COMPLETE(4).  When cachefiles_read_waiter()
+finally gets through the remainder of fscache_enqueue_operation()
+it sees the invalid state, and hits the ASSERTCMP and the following
+oops is seen:
+[ 2259.612361] FS-Cache:
+[ 2259.614785] FS-Cache: Assertion failed
+[ 2259.618639] FS-Cache: 4 == 5 is false
+[ 2259.622456] ------------[ cut here ]------------
+[ 2259.627190] kernel BUG at fs/fscache/operation.c:70!
+...
+[ 2259.791675] RIP: 0010:[<ffffffffc061b4cf>]  [<ffffffffc061b4cf>] fscache_enqueue_operation+0xff/0x170 [fscache]
+[ 2259.802059] RSP: 0000:ffffa0263d543be0  EFLAGS: 00010046
+[ 2259.807521] RAX: 0000000000000019 RBX: ffffa01a4d390480 RCX: 0000000000000006
+[ 2259.814847] RDX: 0000000000000000 RSI: 0000000000000046 RDI: ffffa0263d553890
+[ 2259.822176] RBP: ffffa0263d543be8 R08: 0000000000000000 R09: ffffa0263c2d8708
+[ 2259.829502] R10: 0000000000001e7f R11: 0000000000000000 R12: ffffa01a4d390480
+[ 2259.844483] R13: ffff9fa9546c5920 R14: ffffa0263d543c80 R15: ffffa0293ff9bf10
+[ 2259.859554] FS:  00007f4b6efbd700(0000) GS:ffffa0263d540000(0000) knlGS:0000000000000000
+[ 2259.875571] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 2259.889117] CR2: 00007f49e1624ff0 CR3: 0000012b38b38000 CR4: 00000000007607e0
+[ 2259.904015] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[ 2259.918764] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+[ 2259.933449] PKRU: 55555554
+[ 2259.943654] Call Trace:
+[ 2259.953592]  <IRQ>
+[ 2259.955577]  [<ffffffffc03a7c12>] cachefiles_read_waiter+0x92/0xf0 [cachefiles]
+[ 2259.978039]  [<ffffffffa34d3942>] __wake_up_common+0x82/0x120
+[ 2259.991392]  [<ffffffffa34d3a63>] __wake_up_common_lock+0x83/0xc0
+[ 2260.004930]  [<ffffffffa34d3510>] ? task_rq_unlock+0x20/0x20
+[ 2260.017863]  [<ffffffffa34d3ab3>] __wake_up+0x13/0x20
+[ 2260.030230]  [<ffffffffa34c72a0>] __wake_up_bit+0x50/0x70
+[ 2260.042535]  [<ffffffffa35bdcdb>] unlock_page+0x2b/0x30
+[ 2260.054495]  [<ffffffffa35bdd09>] page_endio+0x29/0x90
+[ 2260.066184]  [<ffffffffa368fc81>] mpage_end_io+0x51/0x80
 
-hi David,
-thanks for these fscache fixes.  Here is another for your consideration.
+CPU1
+cachefiles_read_waiter()
+ 20 static int cachefiles_read_waiter(wait_queue_entry_t *wait, unsigned mode,
+ 21                                   int sync, void *_key)
+ 22 {
+...
+ 61         spin_lock(&object->work_lock);
+ 62         list_add_tail(&monitor->op_link, &op->to_do);
+ 63         spin_unlock(&object->work_lock);
+<begin race window>
+ 64
+ 65         fscache_enqueue_retrieval(op);
+182 static inline void fscache_enqueue_retrieval(struct fscache_retrieval *op)
+183 {
+184         fscache_enqueue_operation(&op->op);
+185 }
+ 58 void fscache_enqueue_operation(struct fscache_operation *op)
+ 59 {
+ 60         struct fscache_cookie *cookie = op->object->cookie;
+ 61
+ 62         _enter("{OBJ%x OP%x,%u}",
+ 63                op->object->debug_id, op->debug_id, atomic_read(&op->usage));
+ 64
+ 65         ASSERT(list_empty(&op->pend_link));
+ 66         ASSERT(op->processor != NULL);
+ 67         ASSERT(fscache_object_is_available(op->object));
+ 68         ASSERTCMP(atomic_read(&op->usage), >, 0);
+<end race window>
 
-NeilBrown
+CPU2
+cachefiles_read_copier()
+168         while (!list_empty(&op->to_do)) {
+...
+202                 fscache_end_io(op, monitor->netfs_page, error);
+203                 put_page(monitor->netfs_page);
+204                 fscache_retrieval_complete(op, 1);
 
+CPU1
+ 58 void fscache_enqueue_operation(struct fscache_operation *op)
+ 59 {
+...
+ 69         ASSERTIFCMP(op->state != FSCACHE_OP_ST_IN_PROGRESS,
+ 70                     op->state, ==,  FSCACHE_OP_ST_CANCELLED);
 
-From: NeilBrown <neilb@suse.de>
-Date: Tue, 12 May 2020 08:32:25 +1000
-Subject: [PATCH] cachefiles: fix inverted ASSERTion.
-
-bmap() returns a negative result precisely when a_ops->bmap is NULL.
-
-A recent patch converted
-
-       ASSERT(inode->i_mapping->a_ops->bmap);
-
-to an assertion that bmap(inode, ...) returns a negative number.
-This inverts the sense of the assertion.
-So change it back : ASSERT(ret =3D=3D 0)
-
-Fixes: 10d83e11a582 ("cachefiles: drop direct usage of ->bmap method.")
-Signed-off-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Lei Xue <carmark.dlut@gmail.com>
+Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/cachefiles/rdwr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
-index 1dc97f2d6201..a4573c96660c 100644
+index d3d78176b23c..e7726f5f1241 100644
 --- a/fs/cachefiles/rdwr.c
 +++ b/fs/cachefiles/rdwr.c
-@@ -431,7 +431,7 @@ int cachefiles_read_or_alloc_page(struct fscache_retrie=
-val *op,
- =09block <<=3D shift;
-=20
- =09ret =3D bmap(inode, &block);
--=09ASSERT(ret < 0);
-+=09ASSERT(ret =3D=3D 0);
-=20
- =09_debug("%llx -> %llx",
- =09       (unsigned long long) (page->index << shift),
---=20
-2.26.2
+@@ -60,9 +60,9 @@ static int cachefiles_read_waiter(wait_queue_entry_t *wait, unsigned mode,
+ 	object = container_of(op->op.object, struct cachefiles_object, fscache);
+ 	spin_lock(&object->work_lock);
+ 	list_add_tail(&monitor->op_link, &op->to_do);
++	fscache_enqueue_retrieval(op);
+ 	spin_unlock(&object->work_lock);
+ 
+-	fscache_enqueue_retrieval(op);
+ 	fscache_put_retrieval(op);
+ 	return 0;
+ }
+-- 
+2.25.1
 
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAl6509IACgkQOeye3VZi
-gbnDKQ/+MIO9eK9pP/A6zoofl4dfmmO2wUUM1+DX2Oh1H/8wxdkOM3q9WtX9xL7N
-F3e7t1v3nGngJ0UqlXbO/Xu7j6dGCvj/m/nO1+1QlViPF5w0wYw+BJSr5fV/sXh+
-ZOxnNEZTyoj8/xjc+5h76a8tuwV0XKbKfGvkZ+AVH8E3YqMhGuAj/5E+oGoA0ida
-cCBs1rSWMXtYbcDAGcV6CoI4lHqMg62UPeX6fLush5nxDVu9wmQ3Gc0pSZ7lPNif
-nA3e363xgE4BVpZOnc9NEKfnBa+dRKFed6Br+K+kGvaFhao7ntVePSaKW6R/S7gJ
-H+yJpA5kAObGKsdF0KLHOFNeVZF+HfY4E/47Mwqboua5+1Y+REMnUa1TyYqK+TT3
-c9jI4MpaJFOLWBsR8t+NVCcEpJSpoKoK2zp2UL+r9/LCwCuUOIjxV92D9BCnwPLT
-QSG7pqfuHOnHkqugpjuQexljB+cYiklY+1KS6hxFNuktzL4i76EfISwj3wDRUHKd
-PpIUmelidrqdo9YX9y/hxbhTFjxzJNhvVLRqDHjKTEaPTDdT68U3gqlJdbLl25NM
-laUoAvufTQHsgNfTD1FKEVy2rsYkvJSOSRhP8OTykmLmGaAihgJhlnd4/O0uynqP
-1OD3A8TD1oaCQOW2Y6uShEwcnd57Omhvj6Cvl26MwcIWXbx0KV4=
-=shc0
------END PGP SIGNATURE-----
---=-=-=--
-
-
---===============9078318529905507370==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
 https://www.redhat.com/mailman/listinfo/linux-cachefs
---===============9078318529905507370==--
 
