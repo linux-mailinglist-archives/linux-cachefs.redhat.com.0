@@ -1,52 +1,53 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 5013D215A3A
-	for <lists+linux-cachefs@lfdr.de>; Mon,  6 Jul 2020 17:02:43 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id BE39D215A35
+	for <lists+linux-cachefs@lfdr.de>; Mon,  6 Jul 2020 17:02:40 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-66-etASxSF-PESQkk0jY-fTxA-1; Mon, 06 Jul 2020 11:02:40 -0400
-X-MC-Unique: etASxSF-PESQkk0jY-fTxA-1
+ us-mta-484-w0ZOLf8OMv60E-UXjUuILg-1; Mon, 06 Jul 2020 11:02:37 -0400
+X-MC-Unique: w0ZOLf8OMv60E-UXjUuILg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3FEF510059B1;
-	Mon,  6 Jul 2020 15:02:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6E253800432;
+	Mon,  6 Jul 2020 15:02:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FA3F5D9D7;
-	Mon,  6 Jul 2020 15:02:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E5BA5D9D7;
+	Mon,  6 Jul 2020 15:02:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 19DF672F53;
-	Mon,  6 Jul 2020 15:02:36 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5D1E6C9FF;
+	Mon,  6 Jul 2020 15:02:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 063NKllA008781 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 3 Jul 2020 19:20:47 -0400
+	id 063MAedp001266 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 3 Jul 2020 18:10:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1FB97201B0C7; Fri,  3 Jul 2020 23:20:47 +0000 (UTC)
+	id 04C9A218ADC8; Fri,  3 Jul 2020 22:10:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AD672051AD0
-	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 23:20:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 000B1218ADC4
+	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 22:10:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A84B8007A4
-	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 23:20:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 045DB800260
+	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 22:10:38 +0000 (UTC)
 Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-11-oqw_9MycNpC5VdFQ6mK94A-1; Fri, 03 Jul 2020 19:20:43 -0400
-X-MC-Unique: oqw_9MycNpC5VdFQ6mK94A-1
+	us-mta-204-G8HoLDFmOXOFOke1Fsig9w-1; Fri, 03 Jul 2020 18:10:36 -0400
+X-MC-Unique: G8HoLDFmOXOFOke1Fsig9w-1
 Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
 	by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1jrTTI-0006uZ-4I; Fri, 03 Jul 2020 21:43:48 +0000
+	id 1jrTTN-0006uZ-95; Fri, 03 Jul 2020 21:43:53 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  3 Jul 2020 14:43:18 -0700
-Message-Id: <20200703214325.31036-4-rdunlap@infradead.org>
+Date: Fri,  3 Jul 2020 14:43:19 -0700
+Message-Id: <20200703214325.31036-5-rdunlap@infradead.org>
 In-Reply-To: <20200703214325.31036-1-rdunlap@infradead.org>
 References: <20200703214325.31036-1-rdunlap@infradead.org>
 MIME-Version: 1.0
@@ -62,8 +63,8 @@ Cc: Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
 	Joel Becker <jlbec@evilplan.org>, linux-fsdevel@vger.kernel.org,
 	"Theodore Y . Ts'o" <tytso@mit.edu>,
 	Christoph Hellwig <hch@lst.de>, Ian Kent <raven@themaw.net>
-Subject: [Linux-cachefs] [PATCH 03/10] Documentation: filesystems: configfs:
-	drop doubled word
+Subject: [Linux-cachefs] [PATCH 04/10] Documentation: filesystems:
+	directory-locking: drop doubled word
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,28 +86,37 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Drop the doubled word "be".
+Drop the doubled word "the".
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: linux-doc@vger.kernel.org
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Christoph Hellwig <hch@lst.de>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org
 ---
- Documentation/filesystems/configfs.rst |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/filesystems/directory-locking.rst |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- linux-next-20200701.orig/Documentation/filesystems/configfs.rst
-+++ linux-next-20200701/Documentation/filesystems/configfs.rst
-@@ -226,7 +226,7 @@ filename.  configfs_attribute->ca_mode s
- If an attribute is readable and provides a ->show method, that method will
- be called whenever userspace asks for a read(2) on the attribute.  If an
- attribute is writable and provides a ->store  method, that method will be
--be called whenever userspace asks for a write(2) on the attribute.
-+called whenever userspace asks for a write(2) on the attribute.
+--- linux-next-20200701.orig/Documentation/filesystems/directory-locking.rst
++++ linux-next-20200701/Documentation/filesystems/directory-locking.rst
+@@ -28,7 +28,7 @@ RENAME_EXCHANGE in flags argument) lock
+ if the target already exists, lock it.  If the source is a non-directory,
+ lock it.  If we need to lock both, lock them in inode pointer order.
+ Then call the method.  All locks are exclusive.
+-NB: we might get away with locking the the source (and target in exchange
++NB: we might get away with locking the source (and target in exchange
+ case) shared.
  
- struct configfs_bin_attribute
- =============================
+ 5) link creation.  Locking rules:
+@@ -56,7 +56,7 @@ rules:
+ 	* call the method.
+ 
+ All ->i_rwsem are taken exclusive.  Again, we might get away with locking
+-the the source (and target in exchange case) shared.
++the source (and target in exchange case) shared.
+ 
+ The rules above obviously guarantee that all directories that are going to be
+ read, modified or removed by method will be locked by caller.
 
 --
 Linux-cachefs mailing list
