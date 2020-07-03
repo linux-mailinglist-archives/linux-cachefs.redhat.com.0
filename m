@@ -1,67 +1,68 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F4F321594B
-	for <lists+linux-cachefs@lfdr.de>; Mon,  6 Jul 2020 16:24:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1594045445;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=xxfVs4HorG+R/Ia9D5wzxmTs88SH0dT104x/n36ycvo=;
-	b=Ev6LG/1uECscbGov/XUUwbTUKIN5Nkt8omsP8I3NS7g95PKoEjGZWsL7kvNyOgG9eJix6N
-	jJ+4Yd+dpVQujqOK41DMXHSwWLNJ4zAyRvBpM5Cnp/YbmQDrkyltcRi3Q7InYa4FTmppcs
-	EQ2waCkT2I3qwMP468RdER+9rhP65xE=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 8E7EB215A33
+	for <lists+linux-cachefs@lfdr.de>; Mon,  6 Jul 2020 17:02:40 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-39-jIqVNY7fNVCCcMHjZhX5Bg-1; Mon, 06 Jul 2020 10:24:03 -0400
-X-MC-Unique: jIqVNY7fNVCCcMHjZhX5Bg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-318-xH79BY0AOCuFDIGiV7QnJA-1; Mon, 06 Jul 2020 11:02:37 -0400
+X-MC-Unique: xH79BY0AOCuFDIGiV7QnJA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5B008014D4;
-	Mon,  6 Jul 2020 14:24:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FAC610059D2;
+	Mon,  6 Jul 2020 15:02:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEE115C241;
-	Mon,  6 Jul 2020 14:23:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E940CFE00;
+	Mon,  6 Jul 2020 15:02:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 169616C9DA;
-	Mon,  6 Jul 2020 14:23:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92F746C9FD;
+	Mon,  6 Jul 2020 15:02:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 066EN7DB019558 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 6 Jul 2020 10:23:07 -0400
+	id 063M2k7N000586 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 3 Jul 2020 18:02:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DA3AD60C87; Mon,  6 Jul 2020 14:23:07 +0000 (UTC)
+	id EE4FF10073B6; Fri,  3 Jul 2020 22:02:45 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-112-113.rdu2.redhat.com
-	[10.10.112.113])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 592D060C84;
-	Mon,  6 Jul 2020 14:23:04 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20200705224324.16090-1-Jason@zx2c4.com>
-References: <20200705224324.16090-1-Jason@zx2c4.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D47EA10073B2
+	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 22:02:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE4D0185A797
+	for <linux-cachefs@redhat.com>; Fri,  3 Jul 2020 22:02:43 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-295-19w9YgQCPYmnp3oFaTKFgQ-1; Fri, 03 Jul 2020 18:02:42 -0400
+X-MC-Unique: 19w9YgQCPYmnp3oFaTKFgQ-1
+Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
+	by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1jrTT2-0006uZ-8p; Fri, 03 Jul 2020 21:43:32 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Date: Fri,  3 Jul 2020 14:43:15 -0700
+Message-Id: <20200703214325.31036-1-rdunlap@infradead.org>
 MIME-Version: 1.0
-Content-ID: <2918158.1594045383.1@warthog.procyon.org.uk>
-Date: Mon, 06 Jul 2020 15:23:03 +0100
-Message-ID: <2918159.1594045383@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 066EN7DB019558
+X-Mimecast-Spam-Signature: yes
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cachefs@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-cachefs] [PATCH] fscache: replace open-coded
-	pr_warn_once() with actual call
+X-Mailman-Approved-At: Mon, 06 Jul 2020 11:02:32 -0400
+Cc: Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	autofs@vger.kernel.org, linux-unionfs@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	linux-fscrypt@vger.kernel.org, linux-cachefs@redhat.com,
+	Joel Becker <jlbec@evilplan.org>, linux-fsdevel@vger.kernel.org,
+	"Theodore Y . Ts'o" <tytso@mit.edu>,
+	Christoph Hellwig <hch@lst.de>, Ian Kent <raven@themaw.net>
+Subject: [Linux-cachefs] [PATCH 00/10] Documentation: filesystems: eliminate
+	duplicated words
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +76,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,16 +84,37 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Jason A. Donenfeld <Jason@zx2c4.com> wrote:
+Fix doubled words in filesystems files.
 
-> There's no reason to open code this here, so instead replace it with
-> pr_warn_once, which amounts to exactly the same thing.
 
-Note that this file is set to be entirely deleted here:
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org
+Cc: Ian Kent <raven@themaw.net>
+Cc: autofs@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>
+Cc: linux-cachefs@redhat.com
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: Theodore Y. Ts'o <tytso@mit.edu>
+Cc: linux-fscrypt@vger.kernel.org
+Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-unionfs@vger.kernel.org
 
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-iter
 
-David
+ Documentation/filesystems/autofs-mount-control.rst |    6 +++---
+ Documentation/filesystems/caching/operations.rst   |    2 +-
+ Documentation/filesystems/configfs.rst             |    2 +-
+ Documentation/filesystems/directory-locking.rst    |    4 ++--
+ Documentation/filesystems/fsverity.rst             |    2 +-
+ Documentation/filesystems/mount_api.rst            |    4 ++--
+ Documentation/filesystems/overlayfs.rst            |    2 +-
+ Documentation/filesystems/path-lookup.rst          |    2 +-
+ Documentation/filesystems/sysfs-tagging.rst        |    2 +-
+ Documentation/filesystems/vfs.rst                  |    4 ++--
+ 10 files changed, 15 insertions(+), 15 deletions(-)
 
 --
 Linux-cachefs mailing list
