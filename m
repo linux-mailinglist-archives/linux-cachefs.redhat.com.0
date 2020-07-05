@@ -1,81 +1,72 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id BF0761F2528
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Jun 2020 01:25:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591658745;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=w/rQlDQI7Y9F15eTIJptlj9EtQAv04REP0WguaQvDEQ=;
-	b=bIV2212bjkvjJAkBv9BOOeEahuysJAwu57gECH0rViHB3F7a1yRSAMuYO43P2HeMVTQUrg
-	jrd7k5c3OoF3mfLer38GBoefAVRMaNks2snzrn1sV6irEncVUY3WL0dK07BmbK/vGeuAK2
-	0MF04CwkJIji3JkcJ3pByEz+9hom/QQ=
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 2B8EA214FA1
+	for <lists+linux-cachefs@lfdr.de>; Sun,  5 Jul 2020 22:53:11 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-UX-OcvufPquC75B56OTNmw-1; Mon, 08 Jun 2020 19:25:43 -0400
-X-MC-Unique: UX-OcvufPquC75B56OTNmw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-112-Ut6ANyBrPEW2p0Sgb6Ua1w-1; Sun, 05 Jul 2020 16:53:07 -0400
+X-MC-Unique: Ut6ANyBrPEW2p0Sgb6Ua1w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BA2E800053;
-	Mon,  8 Jun 2020 23:25:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 701ED8064BB;
+	Sun,  5 Jul 2020 20:53:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DECB35C1C3;
-	Mon,  8 Jun 2020 23:25:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2176D872F9;
+	Sun,  5 Jul 2020 20:53:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C879B3490;
-	Mon,  8 Jun 2020 23:25:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4954B6C9F4;
+	Sun,  5 Jul 2020 20:52:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 058NPU1j000529 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 8 Jun 2020 19:25:30 -0400
+	id 065KpEHk027823 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 5 Jul 2020 16:51:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A3D90202683D; Mon,  8 Jun 2020 23:25:30 +0000 (UTC)
+	id E868D2166BA0; Sun,  5 Jul 2020 20:51:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9148E2026D69
-	for <linux-cachefs@redhat.com>; Mon,  8 Jun 2020 23:25:25 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E48452166B27
+	for <linux-cachefs@redhat.com>; Sun,  5 Jul 2020 20:51:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39464803137
-	for <linux-cachefs@redhat.com>; Mon,  8 Jun 2020 23:25:25 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-174-Iw1zNPsKPeCR2_NU-htxVA-1;
-	Mon, 08 Jun 2020 19:25:17 -0400
-X-MC-Unique: Iw1zNPsKPeCR2_NU-htxVA-1
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
-	[73.47.72.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58CE8924902
+	for <linux-cachefs@redhat.com>; Sun,  5 Jul 2020 20:51:08 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-26-cGtwcF19M1OGUsmSMiJhRA-1;
+	Sun, 05 Jul 2020 16:51:06 -0400
+X-MC-Unique: cGtwcF19M1OGUsmSMiJhRA-1
+Received: from lwn.net (localhost [127.0.0.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id AA51B2078D;
-	Mon,  8 Jun 2020 23:17:39 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon,  8 Jun 2020 19:06:33 -0400
-Message-Id: <20200608231211.3363633-268-sashal@kernel.org>
-In-Reply-To: <20200608231211.3363633-1-sashal@kernel.org>
-References: <20200608231211.3363633-1-sashal@kernel.org>
+	by ms.lwn.net (Postfix) with ESMTPSA id CB3FB2E4;
+	Sun,  5 Jul 2020 20:44:50 +0000 (UTC)
+Date: Sun, 5 Jul 2020 14:44:49 -0600
+From: Jonathan Corbet <corbet@lwn.net>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <20200705144449.5cf9c163@lwn.net>
+In-Reply-To: <20200703214325.31036-1-rdunlap@infradead.org>
+References: <20200703214325.31036-1-rdunlap@infradead.org>
+Organization: LWN.net
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 058NPU1j000529
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 065KpEHk027823
 X-loop: linux-cachefs@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, Lei Xue <carmark.dlut@gmail.com>,
-	linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [PATCH AUTOSEL 5.6 268/606] cachefiles: Fix race
-	between read_waiter and read_copier involving op->to_do
+Cc: Eric Biggers <ebiggers@kernel.org>, "Theodore Y . Ts'o" <tytso@mit.edu>,
+	linux-doc@vger.kernel.org, autofs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-unionfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>,
+	linux-fscrypt@vger.kernel.org, linux-cachefs@redhat.com,
+	Joel Becker <jlbec@evilplan.org>, linux-fsdevel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, Ian Kent <raven@themaw.net>
+Subject: Re: [Linux-cachefs] [PATCH 00/10] Documentation: filesystems:
+ eliminate duplicated words
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,131 +80,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Lei Xue <carmark.dlut@gmail.com>
+On Fri,  3 Jul 2020 14:43:15 -0700
+Randy Dunlap <rdunlap@infradead.org> wrote:
 
-[ Upstream commit 7bb0c5338436dae953622470d52689265867f032 ]
+> Fix doubled words in filesystems files.
+> 
+> 
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: linux-doc@vger.kernel.org
+> Cc: Ian Kent <raven@themaw.net>
+> Cc: autofs@vger.kernel.org
+> Cc: David Howells <dhowells@redhat.com>
+> Cc: linux-cachefs@redhat.com
+> Cc: Joel Becker <jlbec@evilplan.org>
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: Eric Biggers <ebiggers@kernel.org>
+> Cc: Theodore Y. Ts'o <tytso@mit.edu>
+> Cc: linux-fscrypt@vger.kernel.org
+> Cc: Miklos Szeredi <miklos@szeredi.hu>
+> Cc: linux-unionfs@vger.kernel.org
+> 
+> 
+>  Documentation/filesystems/autofs-mount-control.rst |    6 +++---
+>  Documentation/filesystems/caching/operations.rst   |    2 +-
+>  Documentation/filesystems/configfs.rst             |    2 +-
+>  Documentation/filesystems/directory-locking.rst    |    4 ++--
+>  Documentation/filesystems/fsverity.rst             |    2 +-
+>  Documentation/filesystems/mount_api.rst            |    4 ++--
+>  Documentation/filesystems/overlayfs.rst            |    2 +-
+>  Documentation/filesystems/path-lookup.rst          |    2 +-
+>  Documentation/filesystems/sysfs-tagging.rst        |    2 +-
+>  Documentation/filesystems/vfs.rst                  |    4 ++--
+>  10 files changed, 15 insertions(+), 15 deletions(-)
+> 
+Applied, thanks.
 
-There is a potential race in fscache operation enqueuing for reading and
-copying multiple pages from cachefiles to netfs.  The problem can be seen
-easily on a heavy loaded system (for example many processes reading files
-continually on an NFS share covered by fscache triggered this problem within
-a few minutes).
-
-The race is due to cachefiles_read_waiter() adding the op to the monitor
-to_do list and then then drop the object->work_lock spinlock before
-completing fscache_enqueue_operation().  Once the lock is dropped,
-cachefiles_read_copier() grabs the op, completes processing it, and
-makes it through fscache_retrieval_complete() which sets the op->state to
-the final state of FSCACHE_OP_ST_COMPLETE(4).  When cachefiles_read_waiter()
-finally gets through the remainder of fscache_enqueue_operation()
-it sees the invalid state, and hits the ASSERTCMP and the following
-oops is seen:
-[ 2259.612361] FS-Cache:
-[ 2259.614785] FS-Cache: Assertion failed
-[ 2259.618639] FS-Cache: 4 == 5 is false
-[ 2259.622456] ------------[ cut here ]------------
-[ 2259.627190] kernel BUG at fs/fscache/operation.c:70!
-...
-[ 2259.791675] RIP: 0010:[<ffffffffc061b4cf>]  [<ffffffffc061b4cf>] fscache_enqueue_operation+0xff/0x170 [fscache]
-[ 2259.802059] RSP: 0000:ffffa0263d543be0  EFLAGS: 00010046
-[ 2259.807521] RAX: 0000000000000019 RBX: ffffa01a4d390480 RCX: 0000000000000006
-[ 2259.814847] RDX: 0000000000000000 RSI: 0000000000000046 RDI: ffffa0263d553890
-[ 2259.822176] RBP: ffffa0263d543be8 R08: 0000000000000000 R09: ffffa0263c2d8708
-[ 2259.829502] R10: 0000000000001e7f R11: 0000000000000000 R12: ffffa01a4d390480
-[ 2259.844483] R13: ffff9fa9546c5920 R14: ffffa0263d543c80 R15: ffffa0293ff9bf10
-[ 2259.859554] FS:  00007f4b6efbd700(0000) GS:ffffa0263d540000(0000) knlGS:0000000000000000
-[ 2259.875571] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 2259.889117] CR2: 00007f49e1624ff0 CR3: 0000012b38b38000 CR4: 00000000007607e0
-[ 2259.904015] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[ 2259.918764] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[ 2259.933449] PKRU: 55555554
-[ 2259.943654] Call Trace:
-[ 2259.953592]  <IRQ>
-[ 2259.955577]  [<ffffffffc03a7c12>] cachefiles_read_waiter+0x92/0xf0 [cachefiles]
-[ 2259.978039]  [<ffffffffa34d3942>] __wake_up_common+0x82/0x120
-[ 2259.991392]  [<ffffffffa34d3a63>] __wake_up_common_lock+0x83/0xc0
-[ 2260.004930]  [<ffffffffa34d3510>] ? task_rq_unlock+0x20/0x20
-[ 2260.017863]  [<ffffffffa34d3ab3>] __wake_up+0x13/0x20
-[ 2260.030230]  [<ffffffffa34c72a0>] __wake_up_bit+0x50/0x70
-[ 2260.042535]  [<ffffffffa35bdcdb>] unlock_page+0x2b/0x30
-[ 2260.054495]  [<ffffffffa35bdd09>] page_endio+0x29/0x90
-[ 2260.066184]  [<ffffffffa368fc81>] mpage_end_io+0x51/0x80
-
-CPU1
-cachefiles_read_waiter()
- 20 static int cachefiles_read_waiter(wait_queue_entry_t *wait, unsigned mode,
- 21                                   int sync, void *_key)
- 22 {
-...
- 61         spin_lock(&object->work_lock);
- 62         list_add_tail(&monitor->op_link, &op->to_do);
- 63         spin_unlock(&object->work_lock);
-<begin race window>
- 64
- 65         fscache_enqueue_retrieval(op);
-182 static inline void fscache_enqueue_retrieval(struct fscache_retrieval *op)
-183 {
-184         fscache_enqueue_operation(&op->op);
-185 }
- 58 void fscache_enqueue_operation(struct fscache_operation *op)
- 59 {
- 60         struct fscache_cookie *cookie = op->object->cookie;
- 61
- 62         _enter("{OBJ%x OP%x,%u}",
- 63                op->object->debug_id, op->debug_id, atomic_read(&op->usage));
- 64
- 65         ASSERT(list_empty(&op->pend_link));
- 66         ASSERT(op->processor != NULL);
- 67         ASSERT(fscache_object_is_available(op->object));
- 68         ASSERTCMP(atomic_read(&op->usage), >, 0);
-<end race window>
-
-CPU2
-cachefiles_read_copier()
-168         while (!list_empty(&op->to_do)) {
-...
-202                 fscache_end_io(op, monitor->netfs_page, error);
-203                 put_page(monitor->netfs_page);
-204                 fscache_retrieval_complete(op, 1);
-
-CPU1
- 58 void fscache_enqueue_operation(struct fscache_operation *op)
- 59 {
-...
- 69         ASSERTIFCMP(op->state != FSCACHE_OP_ST_IN_PROGRESS,
- 70                     op->state, ==,  FSCACHE_OP_ST_CANCELLED);
-
-Signed-off-by: Lei Xue <carmark.dlut@gmail.com>
-Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cachefiles/rdwr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
-index d3d78176b23c..e7726f5f1241 100644
---- a/fs/cachefiles/rdwr.c
-+++ b/fs/cachefiles/rdwr.c
-@@ -60,9 +60,9 @@ static int cachefiles_read_waiter(wait_queue_entry_t *wait, unsigned mode,
- 	object = container_of(op->op.object, struct cachefiles_object, fscache);
- 	spin_lock(&object->work_lock);
- 	list_add_tail(&monitor->op_link, &op->to_do);
-+	fscache_enqueue_retrieval(op);
- 	spin_unlock(&object->work_lock);
- 
--	fscache_enqueue_retrieval(op);
- 	fscache_put_retrieval(op);
- 	return 0;
- }
--- 
-2.25.1
+jon
 
 
 --
