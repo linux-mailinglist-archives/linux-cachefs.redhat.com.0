@@ -2,87 +2,70 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 94898215A3C
-	for <lists+linux-cachefs@lfdr.de>; Mon,  6 Jul 2020 17:02:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9461A219FE3
+	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Jul 2020 14:19:57 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-jiYAFkvTOq2DDFzmM6StpQ-1; Mon, 06 Jul 2020 11:02:40 -0400
-X-MC-Unique: jiYAFkvTOq2DDFzmM6StpQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-77-EefCMYJxPTG6_qOf5UP3_g-1; Thu, 09 Jul 2020 08:19:55 -0400
+X-MC-Unique: EefCMYJxPTG6_qOf5UP3_g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 157B5107ACF3;
-	Mon,  6 Jul 2020 15:02:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 037D010021B3;
-	Mon,  6 Jul 2020 15:02:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DE1AC107ACF5;
+	Thu,  9 Jul 2020 12:19:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D7B490E71;
+	Thu,  9 Jul 2020 12:19:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E10881809561;
-	Mon,  6 Jul 2020 15:02:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E401284342;
+	Thu,  9 Jul 2020 12:19:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0660LOvl015630 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 5 Jul 2020 20:21:24 -0400
+	id 067IKQs7022211 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 7 Jul 2020 14:20:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F2A702084823; Mon,  6 Jul 2020 00:21:23 +0000 (UTC)
+	id 400331004049; Tue,  7 Jul 2020 18:20:26 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE8EC2084824
-	for <linux-cachefs@redhat.com>; Mon,  6 Jul 2020 00:21:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BB47100405F
+	for <linux-cachefs@redhat.com>; Tue,  7 Jul 2020 18:20:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E71B685A33D
-	for <linux-cachefs@redhat.com>; Mon,  6 Jul 2020 00:21:20 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
-	[66.111.4.230]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-256-TM49oHTKOOqDAML4R-8vzg-1; Sun, 05 Jul 2020 20:21:19 -0400
-X-MC-Unique: TM49oHTKOOqDAML4R-8vzg-1
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-	by mailnew.nyi.internal (Postfix) with ESMTP id 70398580332;
-	Sun,  5 Jul 2020 20:15:31 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-	by compute2.internal (MEProxy); Sun, 05 Jul 2020 20:15:31 -0400
-X-ME-Sender: <xms:IW0CXwKVeu8lGbzOlq64_A5_uFFV9vNkIYm7mP0MSrimI9UB2WhDKw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddvgdeftdcutefuodetggdotefrodftvf
-	curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-	uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-	fjughrpefkuffhvfffjghftggfggfgsehtjeertddtreejnecuhfhrohhmpefkrghnucfm
-	vghnthcuoehrrghvvghnsehthhgvmhgrfidrnhgvtheqnecuggftrfgrthhtvghrnhepfe
-	efteetvdeguddvveefveeftedtffduudehueeihfeuvefgveehffeludeggfejnecukfhp
-	peehkedrjedrvdeftddrvddttdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
-	epmhgrihhlfhhrohhmpehrrghvvghnsehthhgvmhgrfidrnhgvth
-X-ME-Proxy: <xmx:IW0CXwJa33pPbyJKs5j5yJJp8AVsGxsC2lc_Vn_Nn0WgjWxj9WfMHw>
-	<xmx:IW0CXwt3L6lJEFZ-a435eMSG900UwVrgynIIndkpxdWRcto6-JaobA>
-	<xmx:IW0CX9b9MDt0t9FCouBcea7zpCeNwSyaB2nZBRofypQ8--PuHp992A>
-	<xmx:I20CX1CVjYZahSNs5yLT8Fa4eKR0D2nZXYQ0LYQaLxjYF-xToCoL_g>
-Received: from mickey.themaw.net (58-7-230-200.dyn.iinet.net.au [58.7.230.200])
-	by mail.messagingengine.com (Postfix) with ESMTPA id 7F2713280063;
-	Sun,  5 Jul 2020 20:15:24 -0400 (EDT)
-Message-ID: <c0488eb9932989a0d932ee5ec6d66429db18db4d.camel@themaw.net>
-From: Ian Kent <raven@themaw.net>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Date: Mon, 06 Jul 2020 08:15:21 +0800
-In-Reply-To: <20200703214325.31036-2-rdunlap@infradead.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2C3B804ACB
+	for <linux-cachefs@redhat.com>; Tue,  7 Jul 2020 18:20:22 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-341-QLJTSaU9Mh-TZyn4yADLFw-1;
+	Tue, 07 Jul 2020 14:20:16 -0400
+X-MC-Unique: QLJTSaU9Mh-TZyn4yADLFw-1
+Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
+	[107.3.166.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 6656420708;
+	Tue,  7 Jul 2020 18:10:09 +0000 (UTC)
+Date: Tue, 7 Jul 2020 11:10:08 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <20200707181008.GC839@sol.localdomain>
 References: <20200703214325.31036-1-rdunlap@infradead.org>
-	<20200703214325.31036-2-rdunlap@infradead.org>
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31)
+	<20200703214325.31036-6-rdunlap@infradead.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20200703214325.31036-6-rdunlap@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Mon, 06 Jul 2020 11:02:32 -0400
-Cc: Jonathan Corbet <corbet@lwn.net>, Eric Biggers <ebiggers@kernel.org>,
-	linux-doc@vger.kernel.org, autofs@vger.kernel.org, Miklos,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-unionfs@vger.kernel.org, Szeredi <miklos@szeredi.hu>,
+X-Mailman-Approved-At: Thu, 09 Jul 2020 08:19:41 -0400
+Cc: Jonathan Corbet <corbet@lwn.net>, "Theodore Y . Ts'o" <tytso@mit.edu>,
+	linux-doc@vger.kernel.org, autofs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-unionfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>,
 	linux-fscrypt@vger.kernel.org, linux-cachefs@redhat.com,
 	Joel Becker <jlbec@evilplan.org>, linux-fsdevel@vger.kernel.org,
-	"Theodore Y . Ts'o" <tytso@mit.edu>, Hellwig <hch@lst.de>, Christoph
-Subject: Re: [Linux-cachefs] [PATCH 01/10] Documentation: filesystems:
- autofs-mount-control: drop doubled words
+	Christoph Hellwig <hch@lst.de>, Ian Kent <raven@themaw.net>
+Subject: Re: [Linux-cachefs] [PATCH 05/10] Documentation: filesystems:
+ fsverity: drop doubled word
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,72 +79,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Fri, 2020-07-03 at 14:43 -0700, Randy Dunlap wrote:
-> Drop the doubled words "the" and "and".
+On Fri, Jul 03, 2020 at 02:43:20PM -0700, Randy Dunlap wrote:
+> Drop the doubled word "the".
 > 
 > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 > Cc: Jonathan Corbet <corbet@lwn.net>
 > Cc: linux-doc@vger.kernel.org
-> Cc: Ian Kent <raven@themaw.net>
-
-Acked-by: Ian Kent <raven@themaw.net>
-
-> Cc: autofs@vger.kernel.org
+> Cc: Eric Biggers <ebiggers@kernel.org>
+> Cc: Theodore Y. Ts'o <tytso@mit.edu>
+> Cc: linux-fscrypt@vger.kernel.org
 > ---
->  Documentation/filesystems/autofs-mount-control.rst |    6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  Documentation/filesystems/fsverity.rst |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> --- linux-next-20200701.orig/Documentation/filesystems/autofs-mount-
-> control.rst
-> +++ linux-next-20200701/Documentation/filesystems/autofs-mount-
-> control.rst
-> @@ -391,7 +391,7 @@ variation uses the path and optionally i
->  set to an autofs mount type. The call returns 1 if this is a mount
-> point
->  and sets out.devid field to the device number of the mount and
-> out.magic
->  field to the relevant super block magic number (described below) or
-> 0 if
-> -it isn't a mountpoint. In both cases the the device number (as
-> returned
-> +it isn't a mountpoint. In both cases the device number (as returned
->  by new_encode_dev()) is returned in out.devid field.
+> --- linux-next-20200701.orig/Documentation/filesystems/fsverity.rst
+> +++ linux-next-20200701/Documentation/filesystems/fsverity.rst
+> @@ -659,7 +659,7 @@ weren't already directly answered in oth
+>        retrofit existing filesystems with new consistency mechanisms.
+>        Data journalling is available on ext4, but is very slow.
 >  
->  If supplied with a file descriptor we're looking for a specific
-> mount,
-> @@ -399,12 +399,12 @@ not necessarily at the top of the mounte
->  the descriptor corresponds to is considered a mountpoint if it is
-> itself
->  a mountpoint or contains a mount, such as a multi-mount without a
-> root
->  mount. In this case we return 1 if the descriptor corresponds to a
-> mount
-> -point and and also returns the super magic of the covering mount if
-> there
-> +point and also returns the super magic of the covering mount if
-> there
->  is one or 0 if it isn't a mountpoint.
->  
->  If a path is supplied (and the ioctlfd field is set to -1) then the
-> path
->  is looked up and is checked to see if it is the root of a mount. If
-> a
->  type is also given we are looking for a particular autofs mount and
-> if
-> -a match isn't found a fail is returned. If the the located path is
-> the
-> +a match isn't found a fail is returned. If the located path is the
->  root of a mount 1 is returned along with the super magic of the
-> mount
->  or 0 otherwise.
+> -    - Rebuilding the the Merkle tree after every write, which would be
+> +    - Rebuilding the Merkle tree after every write, which would be
+>        extremely inefficient.  Alternatively, a different authenticated
+>        dictionary structure such as an "authenticated skiplist" could
+>        be used.  However, this would be far more complex.
+
+Acked-by: Eric Biggers <ebiggers@google.com>
 
 --
 Linux-cachefs mailing list
