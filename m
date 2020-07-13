@@ -1,48 +1,48 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 71E6621DC2F
-	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Jul 2020 18:31:14 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id DD14821DC38
+	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Jul 2020 18:31:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1594657873;
+	s=mimecast20190719; t=1594657887;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=j/+WBglhULnxC0wRntTurx4trxyjDZLQmzmVm+ruphA=;
-	b=ez6bMuCZJsbmDCCsg79vK2BJXcK+GJsKGvHSQ9iPqQCtScwMqr/a9XrwJXMWKhSHr+7ick
-	/JqYUbMmDYYs1pDd2u9p3XBh2gIBGIu0a5YKQi526d5GzLho+0j638K7O8aLGnia9SD7c9
-	mpJC3/R1jmd9d3i5tyxAldkxNJgz2Lg=
+	bh=QbChax3QkvdmL/3ru8/LvPo5U+aV8yxrlluMK5gYcn8=;
+	b=arFAiBM02+fBQxbuEvsChzkfnWRrcsucGETj28pYMsuKcoBQlvb/FZP9KSrbY+WEgN9hXQ
+	mGbd+m0JxTfR0zVCI4xVPmE8BiRk8Ki7Xj+agaMNE5Ms0p9jEzLkdCgVF7lG8XYc+AsgvS
+	hlBbcdqPAnSVzQLvxmBbu177frZ9IDU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-65-bwbVWJssNuKO6ivE67DkTw-1; Mon, 13 Jul 2020 12:31:11 -0400
-X-MC-Unique: bwbVWJssNuKO6ivE67DkTw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-159-sgqE3cMgMCuoqf9Hoj0aUg-1; Mon, 13 Jul 2020 12:31:25 -0400
+X-MC-Unique: sgqE3cMgMCuoqf9Hoj0aUg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 42120805723;
-	Mon, 13 Jul 2020 16:31:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30BFF5BAD5;
-	Mon, 13 Jul 2020 16:31:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 04EBC8015F4;
+	Mon, 13 Jul 2020 16:31:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E67C810021B3;
+	Mon, 13 Jul 2020 16:31:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 19098180954D;
-	Mon, 13 Jul 2020 16:31:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CF6BA94EF2;
+	Mon, 13 Jul 2020 16:31:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06DGV7sf026819 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 13 Jul 2020 12:31:07 -0400
+	id 06DGVJFT026879 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 13 Jul 2020 12:31:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 73E4C19C66; Mon, 13 Jul 2020 16:31:07 +0000 (UTC)
+	id 00D82100E870; Mon, 13 Jul 2020 16:31:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-112-113.rdu2.redhat.com
 	[10.10.112.113])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE2412B6DD;
-	Mon, 13 Jul 2020 16:31:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7AFAB10013C0;
+	Mon, 13 Jul 2020 16:31:13 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -52,21 +52,21 @@ To: Trond Myklebust <trondmy@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	Steve French <sfrench@samba.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
 	Matthew Wilcox <willy@infradead.org>
-Date: Mon, 13 Jul 2020 17:31:04 +0100
-Message-ID: <159465786405.1376674.15704703594171055681.stgit@warthog.procyon.org.uk>
+Date: Mon, 13 Jul 2020 17:31:12 +0100
+Message-ID: <159465787270.1376674.9709773455326854521.stgit@warthog.procyon.org.uk>
 In-Reply-To: <159465784033.1376674.18106463693989811037.stgit@warthog.procyon.org.uk>
 References: <159465784033.1376674.18106463693989811037.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.22
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: linux-cachefs@redhat.com
 Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
 	linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH 02/32] vm: Add wait/unlock functions for
-	PG_fscache
+Subject: [Linux-cachefs] [PATCH 03/32] vfs: Export rw_verify_area() for use
+	by cachefiles
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,85 +80,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add functions to unlock and wait for unlock of PG_fscache analogously with
-those for PG_lock.
+Export rw_verify_area() for so that cachefiles can use it before issuing
+call_read_iter() and call_write_iter() to effect async DIO operations
+against the cache.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 ---
 
- include/linux/pagemap.h |   14 ++++++++++++++
- mm/filemap.c            |   18 ++++++++++++++++++
- 2 files changed, 32 insertions(+)
+ fs/internal.h      |    5 -----
+ fs/read_write.c    |    1 +
+ include/linux/fs.h |    1 +
+ 3 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index cf2468da68e9..0b917990dc1e 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -501,6 +501,7 @@ extern int __lock_page_killable(struct page *page);
- extern int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
- 				unsigned int flags);
- extern void unlock_page(struct page *page);
-+extern void unlock_page_fscache(struct page *page);
+diff --git a/fs/internal.h b/fs/internal.h
+index 9b863a7bd708..8213a29a972f 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -156,11 +156,6 @@ extern char *simple_dname(struct dentry *, char *, int);
+ extern void dput_to_list(struct dentry *, struct list_head *);
+ extern void shrink_dentry_list(struct list_head *);
  
+-/*
+- * read_write.c
+- */
+-extern int rw_verify_area(int, struct file *, const loff_t *, size_t);
+-
  /*
-  * Return true if the page was successfully locked
-@@ -575,6 +576,19 @@ static inline int wait_on_page_locked_killable(struct page *page)
- 	return wait_on_page_bit_killable(compound_head(page), PG_locked);
+  * pipe.c
+  */
+diff --git a/fs/read_write.c b/fs/read_write.c
+index bbfa9b12b15e..eb18270a1e14 100644
+--- a/fs/read_write.c
++++ b/fs/read_write.c
+@@ -400,6 +400,7 @@ int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t
+ 	return security_file_permission(file,
+ 				read_write == READ ? MAY_READ : MAY_WRITE);
  }
++EXPORT_SYMBOL(rw_verify_area);
  
-+/**
-+ * wait_on_page_fscache - Wait for PG_fscache to be cleared on a page
-+ * @page: The page
-+ *
-+ * Wait for the fscache mark to be removed from a page, usually signifying the
-+ * completion of a write from that page to the cache.
-+ */
-+static inline void wait_on_page_fscache(struct page *page)
-+{
-+	if (PagePrivate2(page))
-+		wait_on_page_bit(compound_head(page), PG_fscache);
-+}
-+
- extern void put_and_wait_on_page_locked(struct page *page);
+ static ssize_t new_sync_read(struct file *filp, char __user *buf, size_t len, loff_t *ppos)
+ {
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 3f881a892ea7..aa3e3af92220 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2905,6 +2905,7 @@ extern int notify_change(struct dentry *, struct iattr *, struct inode **);
+ extern int inode_permission(struct inode *, int);
+ extern int generic_permission(struct inode *, int);
+ extern int __check_sticky(struct inode *dir, struct inode *inode);
++extern int rw_verify_area(int, struct file *, const loff_t *, size_t);
  
- void wait_on_page_writeback(struct page *page);
-diff --git a/mm/filemap.c b/mm/filemap.c
-index f0ae9a6308cb..4894e9705d34 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1293,6 +1293,24 @@ void unlock_page(struct page *page)
- }
- EXPORT_SYMBOL(unlock_page);
- 
-+/**
-+ * unlock_page_fscache - Unlock a page pinned with PG_fscache
-+ * @page: The page
-+ *
-+ * Unlocks the page and wakes up sleepers in wait_on_page_fscache().  Also
-+ * wakes those waiting for the lock and writeback bits because the wakeup
-+ * mechanism is shared.  But that's OK - those sleepers will just go back to
-+ * sleep.
-+ */
-+void unlock_page_fscache(struct page *page)
-+{
-+	page = compound_head(page);
-+	VM_BUG_ON_PAGE(!PagePrivate2(page), page);
-+	clear_bit_unlock(PG_fscache, &page->flags);
-+	wake_up_page_bit(page, PG_fscache);
-+}
-+EXPORT_SYMBOL(unlock_page_fscache);
-+
- /**
-  * end_page_writeback - end writeback against a page
-  * @page: the page
+ static inline bool execute_ok(struct inode *inode)
+ {
 
 
 --
