@@ -1,63 +1,65 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 85D3323468B
-	for <lists+linux-cachefs@lfdr.de>; Fri, 31 Jul 2020 15:05:32 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id B9129234671
+	for <lists+linux-cachefs@lfdr.de>; Fri, 31 Jul 2020 15:04:41 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-498-m1j1pvngM9eZIcWOiwpk4Q-1; Fri, 31 Jul 2020 09:05:29 -0400
-X-MC-Unique: m1j1pvngM9eZIcWOiwpk4Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-269-RQPpKmRQO3G9ZlblY5KNJg-1; Fri, 31 Jul 2020 09:04:39 -0400
+X-MC-Unique: RQPpKmRQO3G9ZlblY5KNJg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87B2B106B242;
-	Fri, 31 Jul 2020 13:05:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78E3A7C0E7;
-	Fri, 31 Jul 2020 13:05:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BEF79E91A;
+	Fri, 31 Jul 2020 13:04:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85A2F73027;
+	Fri, 31 Jul 2020 13:04:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 63A881809557;
-	Fri, 31 Jul 2020 13:05:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7302095A6C;
+	Fri, 31 Jul 2020 13:04:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06VD4U9Y009879 for <linux-cachefs@listman.util.phx.redhat.com>;
+	id 06VD4Um6009878 for <linux-cachefs@listman.util.phx.redhat.com>;
 	Fri, 31 Jul 2020 09:04:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 08E7F2166B27; Fri, 31 Jul 2020 13:04:30 +0000 (UTC)
+	id F30982029F83; Fri, 31 Jul 2020 13:04:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEB332166BA4
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFC1E2018283
 	for <linux-cachefs@redhat.com>; Fri, 31 Jul 2020 13:04:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E8D2801180
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C318800260
 	for <linux-cachefs@redhat.com>; Fri, 31 Jul 2020 13:04:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-139-YFr2U6OJNemG-Nf6aft-kA-1;
+	by relay.mimecast.com with ESMTP id us-mta-282-sM2hje_7Nn6NaxRw8FjRwQ-1;
 	Fri, 31 Jul 2020 09:04:24 -0400
-X-MC-Unique: YFr2U6OJNemG-Nf6aft-kA-1
+X-MC-Unique: sM2hje_7Nn6NaxRw8FjRwQ-1
 Received: from tleilax.com (68-20-15-154.lightspeed.rlghnc.sbcglobal.net
 	[68.20.15.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id D859B2245C;
-	Fri, 31 Jul 2020 13:04:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 7108722B3F;
+	Fri, 31 Jul 2020 13:04:23 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: ceph-devel@vger.kernel.org
-Date: Fri, 31 Jul 2020 09:04:10 -0400
-Message-Id: <20200731130421.127022-1-jlayton@kernel.org>
+Date: Fri, 31 Jul 2020 09:04:11 -0400
+Message-Id: <20200731130421.127022-2-jlayton@kernel.org>
+In-Reply-To: <20200731130421.127022-1-jlayton@kernel.org>
+References: <20200731130421.127022-1-jlayton@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 06VD4U9Y009879
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 06VD4Um6009878
 X-loop: linux-cachefs@redhat.com
 Cc: idryomov@gmail.com, linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [RFC PATCH v2 00/11] ceph: convert to new FSCache
-	API
+Subject: [Linux-cachefs] [RFC PATCH v2 01/11] ceph: break out writeback of
+	incompatible snap context to separate function
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,65 +73,152 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This patchset converts ceph to use the new (not yet merged) FSCache API.
-Trying to use fscache+ceph today usually results in oopses. With this
-series, it seems to be quite stable.
+When dirtying a page, we have to flush incompatible contexts. Move that
+into a separate function.
 
-Where possible, I've converted the code to use the new read helper,
-which hides away a lot of the gory details of page handling, which I think
-makes the resulting code clearer than it was.
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/ceph/addr.c | 96 +++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 60 insertions(+), 36 deletions(-)
 
-It starts with a few cleanup/reorganization patches to prepare the code. I then
-rip out most of the old ceph fscache helpers and replace them with new
-ones for the new API.
-
-The rest of the series then plugs buffered read/write caching support
-back into the code, with the most of the read-side routines using the
-fscache_read_helper.
-
-This passes xfstests' quick group run with the cache disabled. With it
-enabled, it passed most of it, but I hit some OOM kills on generic/531.
-Still tracking that bit down, but we suspect the problem is in
-fscache/cachefiles code and not in these patches.
-
-This is based on top of David's latest fscache-iter branch:
-
-    https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-iter
-
-...my branch is here:
-
-    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/log/?h=ceph-fscache-iter
-
-Jeff Layton (11):
-  ceph: break out writeback of incompatible snap context to separate
-    function
-  ceph: don't call ceph_update_writeable_page from page_mkwrite
-  ceph: fold ceph_sync_readpages into ceph_readpage
-  ceph: fold ceph_sync_writepages into writepage_nounlock
-  ceph: fold ceph_update_writeable_page into ceph_write_begin
-  ceph: conversion to new fscache API
-  ceph: convert readpage to fscache read helper
-  ceph: plug write_begin into read helper
-  ceph: convert readpages to fscache_read_helper
-  ceph: add fscache writeback support
-  ceph: re-enable fscache support
-
- fs/ceph/Kconfig |   4 +-
- fs/ceph/addr.c  | 939 +++++++++++++++++++++++++++---------------------
- fs/ceph/cache.c | 290 ++++-----------
- fs/ceph/cache.h | 106 ++----
- fs/ceph/caps.c  |  11 +-
- fs/ceph/file.c  |  13 +-
- fs/ceph/inode.c |  14 +-
- fs/ceph/super.h |   1 -
- 8 files changed, 645 insertions(+), 733 deletions(-)
-
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 6ea761c84494..d8a8803f0e65 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -1299,40 +1299,34 @@ static int context_is_writeable_or_written(struct inode *inode,
+ 	return ret;
+ }
+ 
+-/*
+- * We are only allowed to write into/dirty the page if the page is
+- * clean, or already dirty within the same snap context.
++/**
++ * ceph_find_incompatible - find an incompatible context and return it
++ * @inode: inode associated with page
++ * @page: page being dirtied
+  *
+- * called with page locked.
+- * return success with page locked,
+- * or any failure (incl -EAGAIN) with page unlocked.
++ * Returns NULL on success, negative error code on error, and a snapc ref that should be
++ * waited on otherwise.
+  */
+-static int ceph_update_writeable_page(struct file *file,
+-			    loff_t pos, unsigned len,
+-			    struct page *page)
++static struct ceph_snap_context *
++ceph_find_incompatible(struct inode *inode, struct page *page)
+ {
+-	struct inode *inode = file_inode(file);
+ 	struct ceph_fs_client *fsc = ceph_inode_to_client(inode);
+ 	struct ceph_inode_info *ci = ceph_inode(inode);
+-	loff_t page_off = pos & PAGE_MASK;
+-	int pos_in_page = pos & ~PAGE_MASK;
+-	int end_in_page = pos_in_page + len;
+-	loff_t i_size;
+-	int r;
+-	struct ceph_snap_context *snapc, *oldest;
+ 
+ 	if (READ_ONCE(fsc->mount_state) == CEPH_MOUNT_SHUTDOWN) {
+ 		dout(" page %p forced umount\n", page);
+-		unlock_page(page);
+-		return -EIO;
++		return ERR_PTR(-EIO);
+ 	}
+ 
+-retry_locked:
+-	/* writepages currently holds page lock, but if we change that later, */
+-	wait_on_page_writeback(page);
++	for (;;) {
++		struct ceph_snap_context *snapc, *oldest;
++
++		wait_on_page_writeback(page);
++
++		snapc = page_snap_context(page);
++		if (!snapc || snapc == ci->i_head_snapc)
++			break;
+ 
+-	snapc = page_snap_context(page);
+-	if (snapc && snapc != ci->i_head_snapc) {
+ 		/*
+ 		 * this page is already dirty in another (older) snap
+ 		 * context!  is it writeable now?
+@@ -1347,26 +1341,56 @@ static int ceph_update_writeable_page(struct file *file,
+ 			 * be writeable or written
+ 			 */
+ 			snapc = ceph_get_snap_context(snapc);
+-			unlock_page(page);
+-			ceph_queue_writeback(inode);
+-			r = wait_event_killable(ci->i_cap_wq,
+-			       context_is_writeable_or_written(inode, snapc));
+-			ceph_put_snap_context(snapc);
+-			if (r == -ERESTARTSYS)
+-				return r;
+-			return -EAGAIN;
++			return snapc;
+ 		}
+ 		ceph_put_snap_context(oldest);
+ 
+ 		/* yay, writeable, do it now (without dropping page lock) */
+ 		dout(" page %p snapc %p not current, but oldest\n",
+ 		     page, snapc);
+-		if (!clear_page_dirty_for_io(page))
+-			goto retry_locked;
+-		r = writepage_nounlock(page, NULL);
+-		if (r < 0)
++		if (clear_page_dirty_for_io(page)) {
++			int r = writepage_nounlock(page, NULL);
++			if (r < 0)
++				return ERR_PTR(r);
++		}
++	}
++	return NULL;
++}
++
++/*
++ * We are only allowed to write into/dirty the page if the page is
++ * clean, or already dirty within the same snap context.
++ *
++ * called with page locked.
++ * return success with page locked,
++ * or any failure (incl -EAGAIN) with page unlocked.
++ */
++static int ceph_update_writeable_page(struct file *file,
++			    loff_t pos, unsigned len,
++			    struct page *page)
++{
++	struct inode *inode = file_inode(file);
++	struct ceph_inode_info *ci = ceph_inode(inode);
++	struct ceph_snap_context *snapc;
++	loff_t page_off = pos & PAGE_MASK;
++	int pos_in_page = pos & ~PAGE_MASK;
++	int end_in_page = pos_in_page + len;
++	loff_t i_size;
++	int r;
++
++retry_locked:
++	snapc = ceph_find_incompatible(inode, page);
++	if (snapc) {
++		if (IS_ERR(snapc)) {
++			r = PTR_ERR(snapc);
+ 			goto fail_unlock;
+-		goto retry_locked;
++		}
++		unlock_page(page);
++		ceph_queue_writeback(inode);
++		r = wait_event_killable(ci->i_cap_wq,
++					context_is_writeable_or_written(inode, snapc));
++		ceph_put_snap_context(snapc);
++		return -EAGAIN;
+ 	}
+ 
+ 	if (PageUptodate(page)) {
 -- 
 2.26.2
 
