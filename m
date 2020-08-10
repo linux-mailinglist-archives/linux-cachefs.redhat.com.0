@@ -1,91 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id ABCBE23FFA7
-	for <lists+linux-cachefs@lfdr.de>; Sun,  9 Aug 2020 20:08:56 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id E7E2924047D
+	for <lists+linux-cachefs@lfdr.de>; Mon, 10 Aug 2020 12:09:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1596996535;
+	s=mimecast20190719; t=1597054171;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=roVnu9oipjNEkIdu0uw5JGP8JKWwX6bKCS2ViZNkqZg=;
-	b=X7BpUCp26peeBQjPBH7FYPweXkXJzJ5vNMPUaYRydBRvm0M/6IhYQaR0QnV1i+/FxwEuD6
-	oKXv4TKEPYyWoCRAD8Jzra+iWaqhc9lNaAmPowwjsJd5PuONuu0/O1Sj2ehSdjr7qdprho
-	kK9opaP/qVV6Gkf9yqUOinbGpH471Gk=
+	bh=9ytdeBM8OiOIzq/fC5RM5M3ebjpDHXUoc119dU7xv3w=;
+	b=Zt3jES+3zIiCsA09hioZ2HEKynTjz6yWvMPy3GL2O+J2GUb7gFRn2hxX3gHouK7JeWKfco
+	wjlRDLVhOC4MqRkMGy04pVY37em24iIhte+v7udk/gt3V5+8lAMBm+xTxEBWGr8XrEYDVX
+	+Zbui1oKP/f1yazrJ4uClmHQZqmn82k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-347-yCA8F8esP8motcZiuXIHgA-1; Sun, 09 Aug 2020 14:08:53 -0400
-X-MC-Unique: yCA8F8esP8motcZiuXIHgA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-357-xU-X35ahMPy22DZLYIqvKA-1; Mon, 10 Aug 2020 06:09:30 -0400
+X-MC-Unique: xU-X35ahMPy22DZLYIqvKA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DE7E18FF697;
-	Sun,  9 Aug 2020 18:08:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B3768AD1C;
-	Sun,  9 Aug 2020 18:08:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22B0E1902EAE;
+	Mon, 10 Aug 2020 10:09:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 55ACE5D9D7;
+	Mon, 10 Aug 2020 10:09:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4506097529;
-	Sun,  9 Aug 2020 18:08:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 782DA1809554;
+	Mon, 10 Aug 2020 10:09:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 079I6k8s011553 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 9 Aug 2020 14:06:46 -0400
+	id 07AA9KVr030664 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 10 Aug 2020 06:09:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E4E7520316D5; Sun,  9 Aug 2020 18:06:45 +0000 (UTC)
+	id 8276B8BD63; Mon, 10 Aug 2020 10:09:20 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E07432026D5D
-	for <linux-cachefs@redhat.com>; Sun,  9 Aug 2020 18:06:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC1CF80067A
-	for <linux-cachefs@redhat.com>; Sun,  9 Aug 2020 18:06:42 +0000 (UTC)
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
-	[209.85.218.71]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-328-iXpQzbsXM3m6oQZU458DgQ-1; Sun, 09 Aug 2020 14:06:41 -0400
-X-MC-Unique: iXpQzbsXM3m6oQZU458DgQ-1
-Received: by mail-ej1-f71.google.com with SMTP id r14so3039369eji.16
-	for <linux-cachefs@redhat.com>; Sun, 09 Aug 2020 11:06:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=ATZD93zD/5kml4N0Lur3x9hiFQeSGJ6fJZXGFW41Qjo=;
-	b=VV5bcN5GYHHJ16vCTotnttmN7+PJS5cs2eL3ecbnS4xGv4oHPyCg8skpcB9O2YBQFy
-	41SrDmi1FoNwzWFlL5Gxc94YEswiOoZSmlVhTr4OXP9kIeIdvj11iC+VvOXLH2KGPAuj
-	MwwbCDTWybtDLZ8qdzs62zbL4vDcMhBZywohKO5OU7822a8U7bsoJDTWr3B/Oq4fm2Pc
-	16Kb6SETyWRY8B0HZcMnmiqDQc1+oXSOQpgmn8e1NhCsbQOkulRrUCcEk7roycutCZzT
-	NhBmaPwTzNnbm6p8zbzbRmaBFU2EzpCPJS966076e7POdavXBNWMtf4muN44cpIYejJf
-	7Kjg==
-X-Gm-Message-State: AOAM531ffWyR4kRZy4JwpeVfhh5i2QmaabZw1D0GLb6pJ9cCQEYAZy44
-	W7KGetZ+8DqRFkUl0DT2FaV/0jTN140gqq5G7Y5LpyF0Vmwgxw82+3YpSrQCIL8+PePPoTP+rqT
-	Tl4SwclvGOnF6loIH6VHDpXn2oQuAO2jcUB79hQ==
-X-Received: by 2002:a17:906:a4b:: with SMTP id
-	x11mr19396735ejf.83.1596996399761; 
-	Sun, 09 Aug 2020 11:06:39 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxLqdQu7vRltloFG/05zd/F+9/oFGFtH6vc2JCkVRf4G+cJVzGcg3eChnWvhKhTz+um6uw1MSAHMU0xmWl5wbc=
-X-Received: by 2002:a17:906:a4b:: with SMTP id
-	x11mr19396716ejf.83.1596996399490; 
-	Sun, 09 Aug 2020 11:06:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200731130421.127022-1-jlayton@kernel.org>
+Received: from warthog.procyon.org.uk (ovpn-113-69.rdu2.redhat.com
+	[10.10.113.69])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 98F505F1EA;
+	Mon, 10 Aug 2020 10:09:16 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CALF+zOnQ6diJv4bMbf-HSYmHusT_iE1dAqp-j_kjuqyLqfp-nw@mail.gmail.com>
+References: <CALF+zOnQ6diJv4bMbf-HSYmHusT_iE1dAqp-j_kjuqyLqfp-nw@mail.gmail.com>
+	<20200731130421.127022-1-jlayton@kernel.org>
 	<20200731130421.127022-10-jlayton@kernel.org>
-In-Reply-To: <20200731130421.127022-10-jlayton@kernel.org>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Sun, 9 Aug 2020 14:06:03 -0400
-Message-ID: <CALF+zOnQ6diJv4bMbf-HSYmHusT_iE1dAqp-j_kjuqyLqfp-nw@mail.gmail.com>
-To: Jeff Layton <jlayton@kernel.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+To: David Wysochanski <dwysocha@redhat.com>
+MIME-Version: 1.0
+Content-ID: <526037.1597054155.1@warthog.procyon.org.uk>
+Date: Mon, 10 Aug 2020 11:09:15 +0100
+Message-ID: <526038.1597054155@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: linux-cachefs@redhat.com
-Cc: ceph-devel@vger.kernel.org, linux-cachefs@redhat.com, idryomov@gmail.com
+Cc: ceph-devel@vger.kernel.org, linux-cachefs@redhat.com,
+	Jeff Layton <jlayton@kernel.org>, idryomov@gmail.com
 Subject: Re: [Linux-cachefs] [RFC PATCH v2 09/11] ceph: convert readpages to
 	fscache_read_helper
 X-BeenThere: linux-cachefs@redhat.com
@@ -101,7 +76,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -109,33 +84,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 31, 2020 at 9:05 AM Jeff Layton <jlayton@kernel.org> wrote:
-> +static int ceph_readpages(struct file *file, struct address_space *mapping,
-> +                         struct list_head *page_list, unsigned nr_pages)
->  {
-...
-> +       int max = fsc->mount_options->rsize >> PAGE_SHIFT;
-...
-> +               ret = fscache_read_helper_page_list(&req->fscache_req, page_list, max);
+David Wysochanski <dwysocha@redhat.com> wrote:
 
-Looks like the root of my problems is that the 'max_pages' parameter
-given to fscache_read_helper_page_list() does not work for purposes of
-limiting the IO to the 'rsize'.  That is, the fscache_io_request.nr_pages
-exceeds 'max_pages' and becomes readahead_size.  So even though
-max_pages is based on 'rsize', when issue_op() is called, it is for a
-fscache_io_request that exceeds 'rsize', resulting in multiple NFS
-reads that go over the wire and multiple completions, each of
-which end up calling back into io_done() which blows up
-because fscache does not expect this.  Looks like
-fscache_shape_request() overrides any 'max_pages'
-value (actually it is cachefiles_shape_request) , so it's
-unclear why the netfs would pass in a 'max_pages' if it is
-not honored - seems like a bug maybe or it's not obvious
-what the purpose is there.  I tried a custom 'shape' method
-and got further, but it blew up on another test, so I'm not sure.
+> Looks like fscache_shape_request() overrides any 'max_pages' value (actually
+> it is cachefiles_shape_request) , so it's unclear why the netfs would pass
+> in a 'max_pages' if it is not honored - seems like a bug maybe or it's not
+> obvious
 
-It would be good to know if this somehow works for you but my guess is
-you'll see similar failures when rsize < readahead_size == size_of_readpages.
+I think the problem is that cachefiles_shape_request() is applying the limit
+too early.  It's using it to cut down the number of pages in the original
+request (only applicable to readpages), but then the shaping to fit cache
+granules can exceed that, so it needs to be applied later also.
+
+Does the attached patch help?
+
+David
+---
+diff --git a/fs/cachefiles/content-map.c b/fs/cachefiles/content-map.c
+index 2bfba2e41c39..ce05cf1d9a6e 100644
+--- a/fs/cachefiles/content-map.c
++++ b/fs/cachefiles/content-map.c
+@@ -134,7 +134,8 @@ void cachefiles_shape_request(struct fscache_object *obj,
+ 	_enter("{%lx,%lx,%x},%llx,%d",
+ 	       start, end, max_pages, i_size, shape->for_write);
+ 
+-	if (start >= CACHEFILES_SIZE_LIMIT / PAGE_SIZE) {
++	if (start >= CACHEFILES_SIZE_LIMIT / PAGE_SIZE ||
++	    max_pages < CACHEFILES_GRAN_PAGES) {
+ 		shape->to_be_done = FSCACHE_READ_FROM_SERVER;
+ 		return;
+ 	}
+@@ -144,10 +145,6 @@ void cachefiles_shape_request(struct fscache_object *obj,
+ 	if (shape->i_size > CACHEFILES_SIZE_LIMIT)
+ 		i_size = CACHEFILES_SIZE_LIMIT;
+ 
+-	max_pages = round_down(max_pages, CACHEFILES_GRAN_PAGES);
+-	if (end - start > max_pages)
+-		end = start + max_pages;
+-
+ 	granule = start / CACHEFILES_GRAN_PAGES;
+ 	if (granule / 8 >= object->content_map_size) {
+ 		cachefiles_expand_content_map(object, i_size);
+@@ -185,6 +182,10 @@ void cachefiles_shape_request(struct fscache_object *obj,
+ 		start = round_down(start, CACHEFILES_GRAN_PAGES);
+ 		end   = round_up(end, CACHEFILES_GRAN_PAGES);
+ 
++		/* Trim to the maximum size the netfs supports */
++		if (end - start > max_pages)
++			end = round_down(start + max_pages, CACHEFILES_GRAN_PAGES);
++
+ 		/* But trim to the end of the file and the starting page */
+ 		eof = (i_size + PAGE_SIZE - 1) >> PAGE_SHIFT;
+ 		if (eof <= shape->proposed_start)
 
 --
 Linux-cachefs mailing list
