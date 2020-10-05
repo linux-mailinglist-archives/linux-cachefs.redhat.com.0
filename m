@@ -1,58 +1,85 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D29A28088A
-	for <lists+linux-cachefs@lfdr.de>; Thu,  1 Oct 2020 22:39:53 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B79B02835F1
+	for <lists+linux-cachefs@lfdr.de>; Mon,  5 Oct 2020 14:54:51 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-56-visx9Pf-MAqm-i178cwmXQ-1; Thu, 01 Oct 2020 16:39:51 -0400
-X-MC-Unique: visx9Pf-MAqm-i178cwmXQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-511-r28KfgeKNZmvwwshxHauAg-1; Mon, 05 Oct 2020 08:54:49 -0400
+X-MC-Unique: r28KfgeKNZmvwwshxHauAg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BD37A873115;
-	Thu,  1 Oct 2020 20:39:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D700D1018F7A;
+	Mon,  5 Oct 2020 12:54:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45F3260BFA;
-	Thu,  1 Oct 2020 20:39:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2548E5C221;
+	Mon,  5 Oct 2020 12:54:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 823C344A4C;
-	Thu,  1 Oct 2020 20:39:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4210644A5F;
+	Mon,  5 Oct 2020 12:54:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08PDo7r8009456 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 25 Sep 2020 09:50:08 -0400
+	id 095CsdaG005072 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 5 Oct 2020 08:54:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D04742156A2D; Fri, 25 Sep 2020 13:50:07 +0000 (UTC)
+	id D62B920235B7; Mon,  5 Oct 2020 12:54:39 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAEDF2156A23
-	for <linux-cachefs@redhat.com>; Fri, 25 Sep 2020 13:50:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFE98202451D
+	for <linux-cachefs@redhat.com>; Mon,  5 Oct 2020 12:54:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF78780351B
-	for <linux-cachefs@redhat.com>; Fri, 25 Sep 2020 13:50:03 +0000 (UTC)
-Received: from r3-25.sinamail.sina.com.cn (r3-25.sinamail.sina.com.cn
-	[202.108.3.25]) by relay.mimecast.com with ESMTP id
-	us-mta-521-WAkcgeaoOOyJmHtl0EadOQ-1; Fri, 25 Sep 2020 09:49:59 -0400
-X-MC-Unique: WAkcgeaoOOyJmHtl0EadOQ-1
-Received: from unknown (HELO localhost.localdomain)([221.219.2.146])
-	by sina.com with ESMTP
-	id 5F6DF4F100034098; Fri, 25 Sep 2020 21:47:32 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-X-SMAIL-MID: 31956454919407
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+2d0585e5efcd43d113c2@syzkaller.appspotmail.com>
-Date: Fri, 25 Sep 2020 21:47:19 +0800
-Message-Id: <20200925134719.11444-1-hdanton@sina.com>
-In-Reply-To: <000000000000e32a8b05b01f808a@google.com>
-References: <000000000000e32a8b05b01f808a@google.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80C01186E143
+	for <linux-cachefs@redhat.com>; Mon,  5 Oct 2020 12:54:37 +0000 (UTC)
+Received: from natter.dneg.com (natter.dneg.com [193.203.89.68]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-394-UzYT5EeoMwOAGURMednmDA-1;
+	Mon, 05 Oct 2020 08:54:35 -0400
+X-MC-Unique: UzYT5EeoMwOAGURMednmDA-1
+Received: from localhost (localhost [127.0.0.1])
+	by natter.dneg.com (Postfix) with ESMTP id CDF7B16F0EE2;
+	Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+X-Virus-Scanned: amavisd-new at mx-dneg
+Received: from natter.dneg.com ([127.0.0.1])
+	by localhost (natter.dneg.com [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id tOXNZCBJWmB4; Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Received: from zrozimbrai.dneg.com (zrozimbrai.dneg.com [10.11.20.12])
+	by natter.dneg.com (Postfix) with ESMTPS id A9E5516EF899;
+	Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Received: from localhost (localhost [127.0.0.1])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id 9A2B78178CC3;
+	Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Received: from zrozimbrai.dneg.com ([127.0.0.1])
+	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id KO54H1WMuRwe; Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Received: from localhost (localhost [127.0.0.1])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id 7DE758178CAC;
+	Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+X-Virus-Scanned: amavisd-new at zimbra-dneg
+Received: from zrozimbrai.dneg.com ([127.0.0.1])
+	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 53AKmjuviyNA; Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Received: from zrozimbra1.dneg.com (zrozimbra1.dneg.com [10.11.16.16])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id 6211B8178CC3;
+	Mon,  5 Oct 2020 13:54:33 +0100 (BST)
+Date: Mon, 5 Oct 2020 13:54:33 +0100 (BST)
+From: Daire Byrne <daire@dneg.com>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <1106572445.58581277.1601902473249.JavaMail.zimbra@dneg.com>
+In-Reply-To: <3243730b0661de0ac0864a9bb5375f894b266220.camel@kernel.org>
+References: <943482310.31162206.1599499860595.JavaMail.zimbra@dneg.com>
+	<1155061727.42788071.1600777874179.JavaMail.zimbra@dneg.com>
+	<97eff1ee2886c14bcd7972b17330f18ceacdef78.camel@kernel.org>
+	<1309604906.55950004.1601510969548.JavaMail.zimbra@dneg.com>
+	<3243730b0661de0ac0864a9bb5375f894b266220.camel@kernel.org>
 MIME-Version: 1.0
+Thread-Topic: Adventures in NFS re-exporting
+Thread-Index: SJYUJ1ENNzjjKc9SpmlFRz6CAFOPCQ==
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,14 +88,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Thu, 01 Oct 2020 16:39:46 -0400
-Cc: Hillf Danton <hdanton@sina.com>, linux-cachefs@redhat.com,
-	syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-cachefs] KASAN: use-after-free Read in
-	fscache_alloc_cookie
+Cc: linux-nfs <linux-nfs@vger.kernel.org>,
+	linux-cachefs <linux-cachefs@redhat.com>
+Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +106,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,150 +114,116 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+----- On 1 Oct, 2020, at 11:36, Jeff Layton jlayton@kernel.org wrote:
 
-Fri, 25 Sep 2020 01:57:16 -0700
-> syzbot found the following issue on:
+> On Thu, 2020-10-01 at 01:09 +0100, Daire Byrne wrote:
+>> ----- On 30 Sep, 2020, at 20:30, Jeff Layton jlayton@kernel.org wrote:
+>> 
+>> > On Tue, 2020-09-22 at 13:31 +0100, Daire Byrne wrote:
+>> > > Hi,
+>> > > 
+>> > > I just thought I'd flesh out the other two issues I have found with re-exporting
+>> > > that are ultimately responsible for the biggest performance bottlenecks. And
+>> > > both of them revolve around the caching of metadata file lookups in the NFS
+>> > > client.
+>> > > 
+>> > > Especially for the case where we are re-exporting a server many milliseconds
+>> > > away (i.e. on-premise -> cloud), we want to be able to control how much the
+>> > > client caches metadata and file data so that it's many LAN clients all benefit
+>> > > from the re-export server only having to do the WAN lookups once (within a
+>> > > specified coherency time).
+>> > > 
+>> > > Keeping the file data in the vfs page cache or on disk using fscache/cachefiles
+>> > > is fairly straightforward, but keeping the metadata cached is particularly
+>> > > difficult. And without the cached metadata we introduce long delays before we
+>> > > can serve the already present and locally cached file data to many waiting
+>> > > clients.
+>> > > 
+>> > > ----- On 7 Sep, 2020, at 18:31, Daire Byrne daire@dneg.com wrote:
+>> > > > 2) If we cache metadata on the re-export server using actimeo=3600,nocto we can
+>> > > > cut the network packets back to the origin server to zero for repeated lookups.
+>> > > > However, if a client of the re-export server walks paths and memory maps those
+>> > > > files (i.e. loading an application), the re-export server starts issuing
+>> > > > unexpected calls back to the origin server again, ignoring/invalidating the
+>> > > > re-export server's NFS client cache. We worked around this this by patching an
+>> > > > inode/iversion validity check in inode.c so that the NFS client cache on the
+>> > > > re-export server is used. I'm not sure about the correctness of this patch but
+>> > > > it works for our corner case.
+>> > > 
+>> > > If we use actimeo=3600,nocto (say) to mount a remote software volume on the
+>> > > re-export server, we can successfully cache the loading of applications and
+>> > > walking of paths directly on the re-export server such that after a couple of
+>> > > runs, there are practically zero packets back to the originating NFS server
+>> > > (great!). But, if we then do the same thing on a client which is mounting that
+>> > > re-export server, the re-export server now starts issuing lots of calls back to
+>> > > the originating server and invalidating it's client cache (bad!).
+>> > > 
+>> > > I'm not exactly sure why, but the iversion of the inode gets changed locally
+>> > > (due to atime modification?) most likely via invocation of method
+>> > > inode_inc_iversion_raw. Each time it gets incremented the following call to
+>> > > validate attributes detects changes causing it to be reloaded from the
+>> > > originating server.
+>> > > 
+>> > 
+>> > I'd expect the change attribute to track what's in actual inode on the
+>> > "home" server. The NFS client is supposed to (mostly) keep the raw
+>> > change attribute in its i_version field.
+>> > 
+>> > The only place we call inode_inc_iversion_raw is in
+>> > nfs_inode_add_request, which I don't think you'd be hitting unless you
+>> > were writing to the file while holding a write delegation.
+>> > 
+>> > What sort of server is hosting the actual data in your setup?
+>> 
+>> We mostly use RHEL7.6 NFS servers with XFS backed filesystems and a couple of
+>> (older) Netapps too. The re-export server is running the latest mainline
+>> kernel(s).
+>> 
+>> As far as I can make out, both these originating (home) server types exhibit a
+>> similar (but not exactly the same) effect on the Linux NFS client cache when it
+>> is being re-exported and accessed by other clients. I can replicate it when
+>> only using a read-only mount at every hop so I don't think that writes are
+>> related.
+>> 
+>> Our RHEL7 NFS servers actually mount XFS with noatime too so any atime updates
+>> that might be causing this client invalidation (which is what I initially
+>> thought) are ultimately a wasted effort.
+>> 
 > 
-> HEAD commit:    171d4ff7 Merge tag 'mmc-v5.9-rc4-2' of git://git.kernel.or..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=17d457b5900000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=5f4c828c9e3cef97
-> dashboard link: https://syzkaller.appspot.com/bug?extid=2d0585e5efcd43d113c2
-> compiler:       gcc (GCC) 10.1.0-syz 20200507
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a33ad3900000
+> Ok. I suspect there is a bug here somewhere, but with such a complicated
+> setup though it's not clear to me where that bug would be though. You
+> might need to do some packet sniffing and look at what the servers are
+> sending for change attributes.
 > 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+2d0585e5efcd43d113c2@syzkaller.appspotmail.com
+> nfsd4_change_attribute does mix in the ctime, so your hunch about the
+> atime may be correct. atime updates imply a ctime update and that could
+> cause nfsd to continually send a new one, even on files that aren't
+> being changed.
 > 
-> ==================================================================
-> BUG: KASAN: use-after-free in memcpy include/linux/string.h:406 [inline]
-> BUG: KASAN: use-after-free in fscache_set_key fs/fscache/cookie.c:93 [inline]
-> BUG: KASAN: use-after-free in fscache_alloc_cookie+0xff/0x730 fs/fscache/cookie.c:153
-> Read of size 10 at addr ffff8880a6c28200 by task kworker/1:6/8760
-> 
-> CPU: 1 PID: 8760 Comm: kworker/1:6 Not tainted 5.9.0-rc6-syzkaller #0
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> Workqueue: afs afs_manage_cell
-> Call Trace:
->  __dump_stack lib/dump_stack.c:77 [inline]
->  dump_stack+0x198/0x1fd lib/dump_stack.c:118
->  print_address_description.constprop.0.cold+0xae/0x497 mm/kasan/report.c:383
->  __kasan_report mm/kasan/report.c:513 [inline]
->  kasan_report.cold+0x1f/0x37 mm/kasan/report.c:530
->  check_memory_region_inline mm/kasan/generic.c:186 [inline]
->  check_memory_region+0x13d/0x180 mm/kasan/generic.c:192
->  memcpy+0x20/0x60 mm/kasan/common.c:105
->  memcpy include/linux/string.h:406 [inline]
->  fscache_set_key fs/fscache/cookie.c:93 [inline]
->  fscache_alloc_cookie+0xff/0x730 fs/fscache/cookie.c:153
->  __fscache_acquire_cookie+0x16c/0x610 fs/fscache/cookie.c:288
->  fscache_acquire_cookie include/linux/fscache.h:334 [inline]
->  afs_activate_cell fs/afs/cell.c:609 [inline]
->  afs_manage_cell+0x4fa/0x11c0 fs/afs/cell.c:697
->  process_one_work+0x94c/0x1670 kernel/workqueue.c:2269
->  worker_thread+0x64c/0x1120 kernel/workqueue.c:2415
->  kthread+0x3b5/0x4a0 kernel/kthread.c:292
->  ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
-> 
-> Allocated by task 10197:
->  kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
->  kasan_set_track mm/kasan/common.c:56 [inline]
->  __kasan_kmalloc.constprop.0+0xbf/0xd0 mm/kasan/common.c:461
->  __do_kmalloc mm/slab.c:3655 [inline]
->  __kmalloc+0x1b0/0x360 mm/slab.c:3664
->  kmalloc include/linux/slab.h:559 [inline]
->  afs_alloc_cell fs/afs/cell.c:157 [inline]
->  afs_lookup_cell+0x5e9/0x1440 fs/afs/cell.c:262
->  afs_parse_source fs/afs/super.c:290 [inline]
->  afs_parse_param+0x404/0x8c0 fs/afs/super.c:326
->  vfs_parse_fs_param fs/fs_context.c:117 [inline]
->  vfs_parse_fs_param+0x203/0x550 fs/fs_context.c:98
->  vfs_parse_fs_string+0xe6/0x150 fs/fs_context.c:161
->  generic_parse_monolithic+0x16f/0x1f0 fs/fs_context.c:201
->  do_new_mount fs/namespace.c:2871 [inline]
->  path_mount+0x133f/0x20a0 fs/namespace.c:3192
->  do_mount fs/namespace.c:3205 [inline]
->  __do_sys_mount fs/namespace.c:3413 [inline]
->  __se_sys_mount fs/namespace.c:3390 [inline]
->  __x64_sys_mount+0x27f/0x300 fs/namespace.c:3390
->  do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> 
-> Freed by task 16:
->  kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
->  kasan_set_track+0x1c/0x30 mm/kasan/common.c:56
->  kasan_set_free_info+0x1b/0x30 mm/kasan/generic.c:355
->  __kasan_slab_free+0xd8/0x120 mm/kasan/common.c:422
->  __cache_free mm/slab.c:3418 [inline]
->  kfree+0x10e/0x2b0 mm/slab.c:3756
->  afs_cell_destroy+0x1b0/0x240 fs/afs/cell.c:500
->  rcu_do_batch kernel/rcu/tree.c:2428 [inline]
->  rcu_core+0x5ca/0x1130 kernel/rcu/tree.c:2656
->  __do_softirq+0x1f8/0xb23 kernel/softirq.c:298
-> 
-> The buggy address belongs to the object at ffff8880a6c28200
->  which belongs to the cache kmalloc-32 of size 32
-> The buggy address is located 0 bytes inside of
->  32-byte region [ffff8880a6c28200, ffff8880a6c28220)
-> The buggy address belongs to the page:
-> page:00000000c2f50dc7 refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff8880a6c28fc1 pfn:0xa6c28
-> flags: 0xfffe0000000200(slab)
-> raw: 00fffe0000000200 ffffea00028969c8 ffffea00025ca748 ffff8880aa040100
-> raw: ffff8880a6c28fc1 ffff8880a6c28000 000000010000003f 0000000000000000
-> page dumped because: kasan: bad access detected
-> 
-> Memory state around the buggy address:
->  ffff8880a6c28100: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
->  ffff8880a6c28180: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-> >ffff8880a6c28200: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
->                    ^
->  ffff8880a6c28280: 00 00 00 00 fc fc fc fc 00 fc fc fc fc fc fc fc
->  ffff8880a6c28300: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-> ==================================================================
+> It might be interesting to doctor nfsd4_change_attribute() to not mix in
+> the ctime and see whether that improves things. If it does, then we may
+> want to teach nfsd how to avoid doing that for certain types of
+> filesystems.
 
-Flush the manager work before releasing cell's resources to avoid uaf.
-To that end, add the AFS_CELL_DESTROYING cell state to infom the kworker
-that there's no more job to do.
+Okay, I started to run back through all my tests again with various combinations of server, client mount options, NFS version etc. with the intention of packet capturing as Jeff has suggested.
 
---- a/fs/afs/internal.h
-+++ b/fs/afs/internal.h
-@@ -344,6 +344,7 @@ enum afs_cell_state {
- 	AFS_CELL_DEACTIVATING,
- 	AFS_CELL_INACTIVE,
- 	AFS_CELL_FAILED,
-+	AFS_CELL_DESTROYING,
- };
- 
- /*
---- a/fs/afs/cell.c
-+++ b/fs/afs/cell.c
-@@ -493,6 +493,7 @@ static void afs_cell_destroy(struct rcu_
- 
- 	ASSERTCMP(atomic_read(&cell->usage), ==, 0);
- 
-+	flush_work(&cell->manager);
- 	afs_put_volume(cell->net, cell->root_volume, afs_volume_trace_put_cell_root);
- 	afs_put_vlserverlist(cell->net, rcu_access_pointer(cell->vl_servers));
- 	afs_put_cell(cell->net, cell->alias_of);
-@@ -672,13 +673,17 @@ static void afs_manage_cell(struct work_
- again:
- 	_debug("state %u", cell->state);
- 	switch (cell->state) {
-+	case AFS_CELL_DESTROYING:
-+		return;
- 	case AFS_CELL_INACTIVE:
- 	case AFS_CELL_FAILED:
- 		write_seqlock(&net->cells_lock);
- 		usage = 1;
- 		deleted = atomic_try_cmpxchg_relaxed(&cell->usage, &usage, 0);
--		if (deleted)
-+		if (deleted) {
- 			rb_erase(&cell->net_node, &net->cells);
-+			cell->state = AFS_CELL_DESTROYING;
-+		}
- 		write_sequnlock(&net->cells_lock);
- 		if (deleted)
- 			goto final_destruction;
+But I quickly realised that I had mixed up some previous results before I reported them here. The summary is that using an NFS RHEL76 server, a client mounting with a recent mainline kernel and re-exporting using NFSv4.x all the way through does NOT invalidate the re-export server's NFS client cache (great!) like I had assumed before. It does when we mount the originating RHEL7 server using NFSv3 and re-export, but not with any version of NFSv4 on Linux.
+
+But I think I know how I got confused - the Netapp NFSv4 case is different. When we mount our (old) 7-mode Netapp using NFSv4.0 and re-export that, the re-export server's client cache is invalidated often in the same way as for an NFSv3 server. On top of that, I think I wrongly mistook some of the NFSv4 client's natural dropping of metadata from page cache as client invalidations caused by the re-export and client access (without vfs_cache_pressure=0 and see my #3 bullet point).
+
+Both of these conspired to make me think that both NFSv3 AND NFSv4 re-exporting showed the same issue when in fact, it's just NFSv3 and the Netapp's v4.0 that require my "hack" to stop the client cache being invalidated. Sorry for any confusion (it is indeed a complicated setup!). Let me summarise then once and for all:
+
+rhel76 server (xfs noatime) -> re-export server (vers=4.x,nocto,actimeo=3600,ro; vfs_cache_pressure=0) = good client cache metadata performance, my hacky patch is not required.
+rhel76 server (xfs noatime) -> re-export server (vers=3,nocto,actimeo=3600,ro; vfs_cache_pressure=0) = bad performance (new lookups & getattrs), my hacky patch is required for better performance.
+netapp (7-mode) -> re-export server (vers=4.0,nocto,actimeo=3600,ro; vfs_cache_pressure=0) = bad performance, my hacky patch is required for better performance.
+
+So for Jeff's original intention of proxying a NFSv3 server -> NFSv4 clients by re-exporting, the metadata lookup performance will degrade severely as more clients access the same files because the re-export server's client cache is not being used as effectively (re-exported) and lookups are happening for the same files many times within the re-export server's actimeo even with vfs_cache_pressure=0.
+
+For our particular use case, we could live without NFSv3 (and my horrible hack) except for the fact that the Netapp shows similar behaviour with NFSv4.0 (but Linux servers do not). I don't know if turning off atime updates on the Netapp volume will change anything - I might try it. Of course, re-exporting NFSv3 with good meatadata cache performance is still a nice thing to have too.
+
+I'll now see if I can decipher the network calls back to the Netapp (NFSv4.0) as suggested by Jeff to see why it is different.
+
+Daire
 
 --
 Linux-cachefs mailing list
