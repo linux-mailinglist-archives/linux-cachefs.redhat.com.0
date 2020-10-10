@@ -2,55 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 241A628AE5B
+	by mail.lfdr.de (Postfix) with ESMTP id C5D6428AE5C
 	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Oct 2020 08:50:25 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-111-VVTiwdDqPcatnRvvvnEmlA-1; Mon, 12 Oct 2020 02:50:22 -0400
-X-MC-Unique: VVTiwdDqPcatnRvvvnEmlA-1
+ us-mta-111-taBQLaSPPROfxSImFHwvhw-1; Mon, 12 Oct 2020 02:50:22 -0400
+X-MC-Unique: taBQLaSPPROfxSImFHwvhw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7ABEB8030AD;
-	Mon, 12 Oct 2020 06:50:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0090561177;
-	Mon, 12 Oct 2020 06:50:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F2811074643;
+	Mon, 12 Oct 2020 06:50:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F14760C17;
+	Mon, 12 Oct 2020 06:50:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C116E181A050;
-	Mon, 12 Oct 2020 06:50:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 783789231D;
+	Mon, 12 Oct 2020 06:50:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09A10M8h022694 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 9 Oct 2020 21:00:23 -0400
+	id 09A1UlPs027055 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 9 Oct 2020 21:30:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D3FB72166BA0; Sat, 10 Oct 2020 01:00:22 +0000 (UTC)
+	id A7F90207ABFA; Sat, 10 Oct 2020 01:30:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF8AA2166B28
-	for <linux-cachefs@redhat.com>; Sat, 10 Oct 2020 01:00:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A223D205EB18
+	for <linux-cachefs@redhat.com>; Sat, 10 Oct 2020 01:30:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5AC9800296
-	for <linux-cachefs@redhat.com>; Sat, 10 Oct 2020 01:00:20 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-409-h31tG6leP4qtSdueqSQO6g-1; Fri, 09 Oct 2020 21:00:16 -0400
-X-MC-Unique: h31tG6leP4qtSdueqSQO6g-1
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1kR2vS-0004My-FJ; Sat, 10 Oct 2020 00:39:54 +0000
-Date: Sat, 10 Oct 2020 01:39:54 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <20201010003954.GW20115@casper.infradead.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51C42800296
+	for <linux-cachefs@redhat.com>; Sat, 10 Oct 2020 01:30:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-377-Lgn7pDmePpKElyG0Nnf2hw-1;
+	Fri, 09 Oct 2020 21:30:41 -0400
+X-MC-Unique: Lgn7pDmePpKElyG0Nnf2hw-1
+Received: from sol.localdomain (172-10-235-113.lightspeed.sntcca.sbcglobal.net
+	[172.10.235.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 4E006206D9;
+	Sat, 10 Oct 2020 01:30:38 +0000 (UTC)
+Date: Fri, 9 Oct 2020 18:30:36 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20201010013036.GD1122@sol.localdomain>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
 	<20201009195033.3208459-23-ira.weiny@intel.com>
 	<20201009213434.GA839@sol.localdomain>
+	<20201010003954.GW20115@casper.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20201009213434.GA839@sol.localdomain>
+In-Reply-To: <20201010003954.GW20115@casper.infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -59,7 +64,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Mon, 12 Oct 2020 02:50:08 -0400
 Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
@@ -115,34 +120,47 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 09, 2020 at 02:34:34PM -0700, Eric Biggers wrote:
-> On Fri, Oct 09, 2020 at 12:49:57PM -0700, ira.weiny@intel.com wrote:
-> > The kmap() calls in this FS are localized to a single thread.  To avoid
-> > the over head of global PKRS updates use the new kmap_thread() call.
-> >
-> > @@ -2410,12 +2410,12 @@ static inline struct page *f2fs_pagecache_get_page(
-> >  
-> >  static inline void f2fs_copy_page(struct page *src, struct page *dst)
-> >  {
-> > -	char *src_kaddr = kmap(src);
-> > -	char *dst_kaddr = kmap(dst);
-> > +	char *src_kaddr = kmap_thread(src);
-> > +	char *dst_kaddr = kmap_thread(dst);
-> >  
-> >  	memcpy(dst_kaddr, src_kaddr, PAGE_SIZE);
-> > -	kunmap(dst);
-> > -	kunmap(src);
-> > +	kunmap_thread(dst);
-> > +	kunmap_thread(src);
-> >  }
+On Sat, Oct 10, 2020 at 01:39:54AM +0100, Matthew Wilcox wrote:
+> On Fri, Oct 09, 2020 at 02:34:34PM -0700, Eric Biggers wrote:
+> > On Fri, Oct 09, 2020 at 12:49:57PM -0700, ira.weiny@intel.com wrote:
+> > > The kmap() calls in this FS are localized to a single thread.  To avoid
+> > > the over head of global PKRS updates use the new kmap_thread() call.
+> > >
+> > > @@ -2410,12 +2410,12 @@ static inline struct page *f2fs_pagecache_get_page(
+> > >  
+> > >  static inline void f2fs_copy_page(struct page *src, struct page *dst)
+> > >  {
+> > > -	char *src_kaddr = kmap(src);
+> > > -	char *dst_kaddr = kmap(dst);
+> > > +	char *src_kaddr = kmap_thread(src);
+> > > +	char *dst_kaddr = kmap_thread(dst);
+> > >  
+> > >  	memcpy(dst_kaddr, src_kaddr, PAGE_SIZE);
+> > > -	kunmap(dst);
+> > > -	kunmap(src);
+> > > +	kunmap_thread(dst);
+> > > +	kunmap_thread(src);
+> > >  }
+> > 
+> > Wouldn't it make more sense to switch cases like this to kmap_atomic()?
+> > The pages are only mapped to do a memcpy(), then they're immediately unmapped.
 > 
-> Wouldn't it make more sense to switch cases like this to kmap_atomic()?
-> The pages are only mapped to do a memcpy(), then they're immediately unmapped.
+> Maybe you missed the earlier thread from Thomas trying to do something
+> similar for rather different reasons ...
+> 
+> https://lore.kernel.org/lkml/20200919091751.011116649@linutronix.de/
 
-Maybe you missed the earlier thread from Thomas trying to do something
-similar for rather different reasons ...
+I did miss it.  I'm not subscribed to any of the mailing lists it was sent to.
 
-https://lore.kernel.org/lkml/20200919091751.011116649@linutronix.de/
+Anyway, it shouldn't matter.  Patchsets should be standalone, and not require
+reading random prior threads on linux-kernel to understand.
+
+And I still don't really understand.  After this patchset, there is still code
+nearly identical to the above (doing a temporary mapping just for a memcpy) that
+would still be using kmap_atomic().  Is the idea that later, such code will be
+converted to use kmap_thread() instead?  If not, why use one over the other?
+
+- Eric
 
 --
 Linux-cachefs mailing list
