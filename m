@@ -2,73 +2,106 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EE8C928AE61
+	by mail.lfdr.de (Postfix) with ESMTP id 2D54228AE5E
 	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Oct 2020 08:50:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-177-bTAY_mhdPrWDuN43BcV7nw-1; Mon, 12 Oct 2020 02:50:24 -0400
-X-MC-Unique: bTAY_mhdPrWDuN43BcV7nw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-331-JRxkeJjaPpy3houJrvJ5zg-1; Mon, 12 Oct 2020 02:50:23 -0400
+X-MC-Unique: JRxkeJjaPpy3houJrvJ5zg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A1FF1017DC2;
-	Mon, 12 Oct 2020 06:50:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8ACD67666B;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1463E1074642;
+	Mon, 12 Oct 2020 06:50:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 006B210027AA;
 	Mon, 12 Oct 2020 06:50:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77FB492317;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF581181A06D;
 	Mon, 12 Oct 2020 06:50:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09BCSBMa026787 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 11 Oct 2020 08:28:11 -0400
+	id 09C2VXTx022564 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 11 Oct 2020 22:31:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0473A2017DCB; Sun, 11 Oct 2020 12:28:11 +0000 (UTC)
+	id 1EF982166BCC; Mon, 12 Oct 2020 02:31:33 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2EF9206401F
-	for <linux-cachefs@redhat.com>; Sun, 11 Oct 2020 12:28:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 184042166BA3
+	for <linux-cachefs@redhat.com>; Mon, 12 Oct 2020 02:31:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 94AFE85828F
-	for <linux-cachefs@redhat.com>; Sun, 11 Oct 2020 12:28:08 +0000 (UTC)
-Received: from mail-il1-f208.google.com (mail-il1-f208.google.com
-	[209.85.166.208]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-544-O5GbSggcONy8ydeg833ehg-1; Sun, 11 Oct 2020 08:28:06 -0400
-X-MC-Unique: O5GbSggcONy8ydeg833ehg-1
-Received: by mail-il1-f208.google.com with SMTP id e3so10500581ilq.18
-	for <linux-cachefs@redhat.com>; Sun, 11 Oct 2020 05:28:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
-	:from:to;
-	bh=EDB5NZGw8qQ43rEg6l7KdvPf4RNp1vg5LBmECT+lt9E=;
-	b=M84lnpwVAMDh0wZ7HdBqaAQbXVGXpR5aLgwMlFizpqgeoSPEHFZ/WmpcKnrGuIHy2J
-	0iaMd0g8a7cTABeOAxmz18v3u2iA0qcCzrFIQEnbwpOGeBoKkijdxmYznVA3h0Q1y7y2
-	6TgFukphSrSY1pzoss4UknChVOBfCmGDr0CgBr4sZV31eic1bbfqD+/slmjgqEJhCRm2
-	1+4mYvH8B6oOKAuRjKI2dnI5X6AMot5DEmvQQvIl79ZnvIEExUHjjUO/wfDzbTtLaKWm
-	b4jw6wYX6CUli+U6daHQMkkTZeLy+yBznTOWg/4o0XYSzcMSKHRjT9NzwCfDkniPS5kI
-	+mRg==
-X-Gm-Message-State: AOAM531ENOAwBW0Dau1CeMZc7Zzo/Echxcpo/5lvs7W8dLrEFXm8mqvc
-	T9Iur2ZaMY7qMW6K4pv1nX0ffCQz+oSiQHkRhb4OxpU6Se47
-X-Google-Smtp-Source: ABdhPJxKSG8HAsmoVPNeZb5m/PDhpBKzzO/MJ5ApKW3AfuxtHLoUiUgm7uB+jBFbva8PBG/P6NibIxqN5tm9YBayUTh7p2qHB5nn
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2333811E76
+	for <linux-cachefs@redhat.com>; Mon, 12 Oct 2020 02:31:30 +0000 (UTC)
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-351-MM1U_W32PTC5xvaBygye-Q-1; Sun, 11 Oct 2020 22:31:28 -0400
+X-MC-Unique: MM1U_W32PTC5xvaBygye-Q-1
+IronPort-SDR: otNXfCl468GV2kaRfPMurNEzzb+5DTvHbKamj2s+8BDLocQWr4zuQ3M3i+IKAljLE0jNxd9VpM
+	cO+rQZXBC3hCB4USGfnGA9ogfGdhVarakItuizW2Gy++p8Z+M6RlhT6/ZGAyh4Bb4soyndVApS
+	t1CbgZ/xItk8xcO9aKd2ojIIDU+T0Z2LVw84K7kBp34/4Smmy1km93xm3x16vuxVWJ3+pskOv3
+	siKun/r5wc2+puveLQmD3LIou+hiTE8AMRzhJ76wz/XN32b0xaH0DxtBNrPj7bQ2z+DqpFhCU+
+	uec=
+X-IronPort-AV: E=Sophos;i="5.77,365,1596470400"; d="scan'208";a="150813289"
+Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
+	NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
+	by ob1.hgst.iphmx.com with ESMTP; 12 Oct 2020 10:30:21 +0800
+Received: from BL0PR04MB6514.namprd04.prod.outlook.com (2603:10b6:208:1ca::23)
+	by MN2PR04MB6928.namprd04.prod.outlook.com (2603:10b6:208:1e3::8)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.24;
+	Mon, 12 Oct 2020 02:30:19 +0000
+Received: from BL0PR04MB6514.namprd04.prod.outlook.com
+	([fe80::4c3e:2b29:1dc5:1a85]) by
+	BL0PR04MB6514.namprd04.prod.outlook.com
+	([fe80::4c3e:2b29:1dc5:1a85%6]) with mapi id 15.20.3455.029;
+	Mon, 12 Oct 2020 02:30:19 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: "ira.weiny@intel.com" <ira.weiny@intel.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo
+	Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Andy Lutomirski
+	<luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Thread-Topic: [PATCH RFC PKS/PMEM 26/58] fs/zonefs: Utilize new kmap_thread()
+Thread-Index: AQHWnnW5LYLzak05pEGSI1gzotA84w==
+Date: Mon, 12 Oct 2020 02:30:18 +0000
+Message-ID: <BL0PR04MB65146627753E6A8125C30044E7070@BL0PR04MB6514.namprd04.prod.outlook.com>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+	<20201009195033.3208459-27-ira.weiny@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2400:2411:43c0:6000:dbd:ddb3:86a4:b7da]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 2d8e38c9-c661-47b4-955c-08d86e56c300
+x-ms-traffictypediagnostic: MN2PR04MB6928:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR04MB69281462D64954D72F6383A1E7070@MN2PR04MB6928.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:2089
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: nb7ZZkrOcnI45uzu82g63ZPDCw/m4UEa+T14BlRir04UDAmgqTKjBKFQ/1tq3q95aFreC/myPH7bQVuOZygHUtANTgMCUzT/Pyur4q2rkZgxQjgu2tK2/9wVp2h2SQ2PIehISfjlFkUmEohfWX26Cg+7Fw+ncYVUGCA3GBq/iNQrWxbeF5GIkE4ciKI2Ta+JMFg530FWmVV/3MNOdO5PIr93+nS5dgdzR8tDl4fNZNcda6K0U+RBmBhAF6G4PiHCwu4dLKAqHtEtpN1w+lsxrk7joY78vLDxPGvR8dOWqU93TlxExhLGaLZNWnYKeI3pA3QpzCWmAeR04Ul6/pWdYg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:BL0PR04MB6514.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(8936002)(71200400001)(86362001)(186003)(91956017)(4326008)(66446008)(64756008)(66556008)(76116006)(7366002)(52536014)(8676002)(4744005)(5660300002)(33656002)(6506007)(7406005)(7416002)(478600001)(66946007)(66476007)(9686003)(53546011)(55016002)(7696005)(316002)(110136005)(54906003)(2906002)(83380400001);
+	DIR:OUT; SFP:1102
+x-ms-exchange-antispam-messagedata: jjLBIa8rzP8PSUzUPRNNjZPO+F9m4B6rNx2BP5Hxn4hovZp8mG8VwNQRMnSFbWOz3vIBGGbrlwmZ2h/rrQ3LAnV478QA8TsJeEWgnROLCLR26e3M2EbbogZuJfrd8ZHepR6teHHrbin/rSSMJcyuivIccqO+Io91CjJtVLKGT+IxxyJeBxmaC3EM+JLu8Rm3Kx8m967TzWpRyeGTzqzgeKyG0yThTif6ugu1X+cS2L5ObX1F/fl2leT5khZ92kjaRHmV42QjfDSDQBRJ5T2sWkjLqL6qZdGMf2A7TG8LiEhWaSnE+PmptdxY4alKupBmftgWegPnh18eZ3klScKVzKqPJWtLa3seT93Q56fQAqIthA5+kX5qt7UatZBhg0gKm0KkBt+EXNCPEi6hfwJXTcKfMhrLXdmO4xo5z+sSfQStIvDc5rcmkS1pZ7oYknbDJlJtS3SQSqbBQQUJPafcSH0MKoCCaLHQYYEZElvKn9S/oXh/zKwEQ9/zN4tqic4ypaC6xgod9dW89WUn6IRtPbzsXwH70beu1D6sABibklUQzTXk4zAezxU4pLpXOEpjFmzQIZ8wo7n5pOvKphLu99Aqpkh/XR9us5YFAynE0SXyaG0lSyNOUkHX4czg41/a9jardublYq7n+2PgYlLtR3YEH/hKmOGAbSLFeveqJxrdOEFzmYAfv7w/UdGZFRYD9O0jto4jXaOrMeEBD/8QJw==
 MIME-Version: 1.0
-X-Received: by 2002:a92:ba1c:: with SMTP id o28mr15291963ili.182.1602419285649;
-	Sun, 11 Oct 2020 05:28:05 -0700 (PDT)
-Date: Sun, 11 Oct 2020 05:28:05 -0700
-In-Reply-To: <000000000000e32a8b05b01f808a@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000004d719705b164508d@google.com>
-From: syzbot <syzbot+2d0585e5efcd43d113c2@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, hdanton@sina.com, linux-afs@lists.infradead.org,
-	linux-cachefs-bounces@redhat.com, linux-cachefs@redhat.com,
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com,
-	viro@zeniv.linux.org.uk
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR04MB6514.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8e38c9-c661-47b4-955c-08d86e56c300
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2020 02:30:18.8981 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FtNVgLbLUqLnCuOwFgwFyh+Wo2k/+4LOuBCyiRJEYABushz8+FxnNx4RRBUxLG0y9/lhxKLevLpPI63mq8apww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6928
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,11 +110,64 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09C2VXTx022564
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Mon, 12 Oct 2020 02:50:08 -0400
-Subject: Re: [Linux-cachefs] KASAN: use-after-free Read in
-	fscache_alloc_cookie
+Cc: "linux-aio@kvack.org" <linux-aio@kvack.org>,
+	"linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"kexec@lists.infradead.org" <kexec@lists.infradead.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+	"linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+	Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>,
+	"linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+	"linux-afs@lists.infradead.org" <linux-afs@lists.infradead.org>,
+	"cluster-devel@redhat.com" <cluster-devel@redhat.com>,
+	"linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	"devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>,
+	"linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"ecryptfs@vger.kernel.org" <ecryptfs@vger.kernel.org>,
+	"linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
+	"reiserfs-devel@vger.kernel.org" <reiserfs-devel@vger.kernel.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
+	"drbd-dev@lists.linbit.com" <drbd-dev@tron.linbit.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-ntfs-dev@lists.sourceforge.net"
+	<linux-ntfs-dev@lists.sourceforge.net>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Subject: Re: [Linux-cachefs] [PATCH RFC PKS/PMEM 26/58] fs/zonefs: Utilize
+	new kmap_thread()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,35 +181,59 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-syzbot has bisected this issue to:
+On 2020/10/10 4:52, ira.weiny@intel.com wrote:
+> From: Ira Weiny <ira.weiny@intel.com>
+> 
+> The kmap() calls in this FS are localized to a single thread.  To avoid
+> the over head of global PKRS updates use the new kmap_thread() call.
+> 
+> Cc: Damien Le Moal <damien.lemoal@wdc.com>
+> Cc: Naohiro Aota <naohiro.aota@wdc.com>
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> ---
+>  fs/zonefs/super.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
+> index 8ec7c8f109d7..2fd6c86beee1 100644
+> --- a/fs/zonefs/super.c
+> +++ b/fs/zonefs/super.c
+> @@ -1297,7 +1297,7 @@ static int zonefs_read_super(struct super_block *sb)
+>  	if (ret)
+>  		goto free_page;
+>  
+> -	super = kmap(page);
+> +	super = kmap_thread(page);
+>  
+>  	ret = -EINVAL;
+>  	if (le32_to_cpu(super->s_magic) != ZONEFS_MAGIC)
+> @@ -1349,7 +1349,7 @@ static int zonefs_read_super(struct super_block *sb)
+>  	ret = 0;
+>  
+>  unmap:
+> -	kunmap(page);
+> +	kunmap_thread(page);
+>  free_page:
+>  	__free_page(page);
+>  
+> 
 
-commit c99c2171fc61476afac0dfb59fb2c447a01fb1e0
-Author: David Howells <dhowells@redhat.com>
-Date:   Thu Nov 1 23:07:27 2018 +0000
+acked-by: Damien Le Moal <damien.lemoal@wdc.com>
 
-    afs: Use fs_context to pass parameters over automount
+-- 
+Damien Le Moal
+Western Digital Research
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17960d58500000
-start commit:   171d4ff7 Merge tag 'mmc-v5.9-rc4-2' of git://git.kernel.or..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=14560d58500000
-console output: https://syzkaller.appspot.com/x/log.txt?x=10560d58500000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5f4c828c9e3cef97
-dashboard link: https://syzkaller.appspot.com/bug?extid=2d0585e5efcd43d113c2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a33ad3900000
 
-Reported-by: syzbot+2d0585e5efcd43d113c2@syzkaller.appspotmail.com
-Fixes: c99c2171fc61 ("afs: Use fs_context to pass parameters over automount")
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
 --
 Linux-cachefs mailing list
