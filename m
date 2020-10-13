@@ -1,72 +1,57 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F323C28D566
-	for <lists+linux-cachefs@lfdr.de>; Tue, 13 Oct 2020 22:31:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6BDDB28D560
+	for <lists+linux-cachefs@lfdr.de>; Tue, 13 Oct 2020 22:31:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-498-PZeKrPpWNXiNYn32sWLynQ-1; Tue, 13 Oct 2020 16:31:16 -0400
-X-MC-Unique: PZeKrPpWNXiNYn32sWLynQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-301-55W_GkzjNlq7ByP1wG2Ejg-1; Tue, 13 Oct 2020 16:31:13 -0400
+X-MC-Unique: 55W_GkzjNlq7ByP1wG2Ejg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56EC81084D6E;
-	Tue, 13 Oct 2020 20:31:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 439C45C230;
-	Tue, 13 Oct 2020 20:31:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77CAE64092;
+	Tue, 13 Oct 2020 20:31:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 685A07666D;
+	Tue, 13 Oct 2020 20:31:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E8151826D3E;
-	Tue, 13 Oct 2020 20:31:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5112358126;
+	Tue, 13 Oct 2020 20:31:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09DIilKA020480 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 13 Oct 2020 14:44:48 -0400
+	id 09DJbr3k027501 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 13 Oct 2020 15:37:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C8BA1103BD30; Tue, 13 Oct 2020 18:44:47 +0000 (UTC)
+	id 7F12A2DF7B1; Tue, 13 Oct 2020 19:37:53 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C45771033C46
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 18:44:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A0FF2D7A87
+	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 19:37:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A058B811E79
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 18:44:44 +0000 (UTC)
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
-	[209.85.208.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-300-arh_BcbhMsOCzaEj3Y5n_A-1; Tue, 13 Oct 2020 14:44:42 -0400
-X-MC-Unique: arh_BcbhMsOCzaEj3Y5n_A-1
-Received: by mail-ed1-f68.google.com with SMTP id dg9so493413edb.12
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 11:44:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=ACWQZXFIYAYZvPtA0kqqET9/h2VeNuWUmvFkuiSdGDk=;
-	b=D8J1NJOL/N5hXKsuUvUbQs01TVV1gwVuhkFDjG1W07TcEhjGebzyw1euPoa6y9tssk
-	7dmn7w1Nur36T4/SyPXiyzLxfhcCrMUZY/8a0EvZseH5Ml5axxoKaKS6WokYHgTVXpG/
-	RxCZcWR48YRXFDrykImFG8JOrIWmBPzLwzJ6FFVb85onEOMiQjMfU1UkZFNaj0HQ93hm
-	nejNYmm2q2HoYq1ZspmDGITJdZ4vdgtPiet9J15fZzEELpMCKCAhFWyUgb+8ZCIojNHa
-	s8cRIWWHC7uBkpUKlDW3WE0NDRrBLGZy6Nis1bVO8HXHVu5CXMfZpPMGcSsYZ7o2oS6m
-	doOg==
-X-Gm-Message-State: AOAM533iSX37DYXYMzyj02m6D4d62vqSvpV99hFrTvntqm5HbZwtHt8d
-	Rtl8sjpqwbbKSstNvMfBnpYgZ6lrfHFdPD+JWbS6Nw==
-X-Google-Smtp-Source: ABdhPJx/D4CFI8iBKDneanR6scqyHSM4b5ae7bBsGU7JbHG59bZqw8grXz+3fxsJ2hpJPfBR1HipQc3XH+/A2xgb2Ys=
-X-Received: by 2002:a50:8e1e:: with SMTP id 30mr1027503edw.354.1602614681174; 
-	Tue, 13 Oct 2020 11:44:41 -0700 (PDT)
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 55876811E83
+	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 19:37:51 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-308-mr3yd5hIPyybAqyZJDZj8A-1; Tue, 13 Oct 2020 15:37:48 -0400
+X-MC-Unique: mr3yd5hIPyybAqyZJDZj8A-1
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1kSQ6F-000768-Gq; Tue, 13 Oct 2020 19:36:43 +0000
+Date: Tue, 13 Oct 2020 20:36:43 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20201013193643.GK20115@casper.infradead.org>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
 	<20201009195033.3208459-34-ira.weiny@intel.com>
-In-Reply-To: <20201009195033.3208459-34-ira.weiny@intel.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Tue, 13 Oct 2020 11:44:29 -0700
-Message-ID: <CAPcyv4gL3jfw4d+SJGPqAD3Dp4F_K=X3domuN4ndAA1FQDGcPg@mail.gmail.com>
-To: "Weiny, Ira" <ira.weiny@intel.com>
+	<CAPcyv4gL3jfw4d+SJGPqAD3Dp4F_K=X3domuN4ndAA1FQDGcPg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAPcyv4gL3jfw4d+SJGPqAD3Dp4F_K=X3domuN4ndAA1FQDGcPg@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Tue, 13 Oct 2020 16:31:08 -0400
 Cc: linux-aio@kvack.org, linux-efi <linux-efi@vger.kernel.org>,
@@ -86,7 +71,8 @@ Cc: linux-aio@kvack.org, linux-efi <linux-efi@vger.kernel.org>,
 	Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
 	Linux MM <linux-mm@kvack.org>, target-devel@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
-	samba-technical@lists.samba.org, ceph-devel@vger.kernel.org,
+	samba-technical@lists.samba.org, "Weiny,
+	Ira" <ira.weiny@intel.com>, ceph-devel@vger.kernel.org,
 	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
 	linux-nilfs@vger.kernel.org, linux-scsi <linux-scsi@vger.kernel.org>,
 	linux-nvdimm <linux-nvdimm@lists.01.org>,
@@ -128,42 +114,56 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 9, 2020 at 12:52 PM <ira.weiny@intel.com> wrote:
->
-> From: Ira Weiny <ira.weiny@intel.com>
->
-> The kmap() calls in this FS are localized to a single thread.  To avoid
-> the over head of global PKRS updates use the new kmap_thread() call.
->
-> Cc: Nicolas Pitre <nico@fluxnic.net>
-> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-> ---
->  fs/cramfs/inode.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
-> index 912308600d39..003c014a42ed 100644
-> --- a/fs/cramfs/inode.c
-> +++ b/fs/cramfs/inode.c
-> @@ -247,8 +247,8 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
->                 struct page *page = pages[i];
->
->                 if (page) {
-> -                       memcpy(data, kmap(page), PAGE_SIZE);
-> -                       kunmap(page);
-> +                       memcpy(data, kmap_thread(page), PAGE_SIZE);
-> +                       kunmap_thread(page);
+On Tue, Oct 13, 2020 at 11:44:29AM -0700, Dan Williams wrote:
+> On Fri, Oct 9, 2020 at 12:52 PM <ira.weiny@intel.com> wrote:
+> >
+> > From: Ira Weiny <ira.weiny@intel.com>
+> >
+> > The kmap() calls in this FS are localized to a single thread.  To avoid
+> > the over head of global PKRS updates use the new kmap_thread() call.
+> >
+> > Cc: Nicolas Pitre <nico@fluxnic.net>
+> > Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> > ---
+> >  fs/cramfs/inode.c | 10 +++++-----
+> >  1 file changed, 5 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+> > index 912308600d39..003c014a42ed 100644
+> > --- a/fs/cramfs/inode.c
+> > +++ b/fs/cramfs/inode.c
+> > @@ -247,8 +247,8 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+> >                 struct page *page = pages[i];
+> >
+> >                 if (page) {
+> > -                       memcpy(data, kmap(page), PAGE_SIZE);
+> > -                       kunmap(page);
+> > +                       memcpy(data, kmap_thread(page), PAGE_SIZE);
+> > +                       kunmap_thread(page);
+> 
+> Why does this need a sleepable kmap? This looks like a textbook
+> kmap_atomic() use case.
 
-Why does this need a sleepable kmap? This looks like a textbook
-kmap_atomic() use case.
+There's a lot of code of this form.  Could we perhaps have:
+
+static inline void copy_to_highpage(struct page *to, void *vfrom, unsigned int size)
+{
+	char *vto = kmap_atomic(to);
+
+	memcpy(vto, vfrom, size);
+	kunmap_atomic(vto);
+}
+
+in linux/highmem.h ?
 
 --
 Linux-cachefs mailing list
