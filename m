@@ -2,84 +2,93 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CA3E528DA59
-	for <lists+linux-cachefs@lfdr.de>; Wed, 14 Oct 2020 09:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1247628E1A5
+	for <lists+linux-cachefs@lfdr.de>; Wed, 14 Oct 2020 15:49:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1602683370;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=OPOtB6+jGM2n/oSSW8h7zduzCJxNCtpgooB1ZwQr3XI=;
+	b=NP9W88q9ah8umOGrp+/q4XKcXlStXSoZpuH9S0ri4KCXMbBYU6F8LD8LUnh93/7iJfSRaj
+	iXAhf3G71rK0ZrfzHgAHUgF+l2jysfIp+SpbTJq+1Qx3opnB2GroG+zLkCALdcyEC72MdZ
+	eh1NihI8UwJIOnAs0x2rpfEx+Ffpn00=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-396-xKNfzJ7SNeO9m9zzCjwtPA-1; Wed, 14 Oct 2020 03:15:30 -0400
-X-MC-Unique: xKNfzJ7SNeO9m9zzCjwtPA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-182-tHlXuJM2P36OFf9CnlGg2g-1; Wed, 14 Oct 2020 09:49:27 -0400
+X-MC-Unique: tHlXuJM2P36OFf9CnlGg2g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DA2131074669;
-	Wed, 14 Oct 2020 07:15:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CF87018A8251;
+	Wed, 14 Oct 2020 13:49:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9A035D9D5;
-	Wed, 14 Oct 2020 07:15:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5ABE27666A;
+	Wed, 14 Oct 2020 13:49:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B2816181A06B;
-	Wed, 14 Oct 2020 07:15:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A1F0318095FF;
+	Wed, 14 Oct 2020 13:49:19 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09DNMJnB021820 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 13 Oct 2020 19:22:19 -0400
+	id 09EDnG8D004102 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 14 Oct 2020 09:49:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0A18C117A97B; Tue, 13 Oct 2020 23:22:19 +0000 (UTC)
+	id 8A2BD1009A33; Wed, 14 Oct 2020 13:49:16 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05B4D117A960
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 23:22:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8602C10921BC
+	for <linux-cachefs@redhat.com>; Wed, 14 Oct 2020 13:49:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D8192811E79
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 23:22:15 +0000 (UTC)
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
-	[209.85.166.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-288-PJaQUT6mOG2Bw5Dg5TUQmA-1; Tue, 13 Oct 2020 19:22:11 -0400
-X-MC-Unique: PJaQUT6mOG2Bw5Dg5TUQmA-1
-Received: by mail-io1-f72.google.com with SMTP id t187so1125325iof.22
-	for <linux-cachefs@redhat.com>; Tue, 13 Oct 2020 16:22:10 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02DDF800161
+	for <linux-cachefs@redhat.com>; Wed, 14 Oct 2020 13:49:12 +0000 (UTC)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+	[209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-96-AZV5ltMTP_y4LsFB6xtn8w-1; Wed, 14 Oct 2020 09:49:10 -0400
+X-MC-Unique: AZV5ltMTP_y4LsFB6xtn8w-1
+Received: by mail-ed1-f72.google.com with SMTP id j6so1230363edh.4
+	for <linux-cachefs@redhat.com>; Wed, 14 Oct 2020 06:49:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
-	:from:to;
-	bh=CLuWVMOjTHLbVNABKCSg2IFm2uuzV5Q3xX78MVcxpa4=;
-	b=bMcyG4Z4cP/GXQYdLLuC4+1i9rvws95Q/l0RoEFS5q3jivO1O1ldAAt3LBKhuDvnZQ
-	E2aFvMaAbj+y+xZZI0m6yelxKPkzLIEdzrwdBVFFp9MFdcUCaEkswRND972jG/m8ccpU
-	IKmTBTdC2KgbAfKa6DQFCXRcN1arRdiDbsj3ry4IIXoRLB5BWHocXSf+eJCtroDLsZqx
-	ZwagMe6Gcmsf5IvktmVyFsv8RRaxJMsI7k/+ZokfT2Y2WhcfF88mI0aa25A2o5p5mnHF
-	JS6kZsXo8yzc51z9sXvjg+9tI6+ZhUVpSOCY07E5aZdQPCMDdPVdAJvbX0b1T0b7TH++
-	sDBg==
-X-Gm-Message-State: AOAM531eyDEa6qnX0+uN2RE/eOGH4t79Ce93EtCPkMFYWIJ3yfP4gL4i
-	AT5j3wvEmaf2m8yGVxYhFE5HUntFIi6wqRXImpZdmPw6Ejvy
-X-Google-Smtp-Source: ABdhPJytMsqmWbNomF8life4uIsoh57pgRfO8LWK7P/0il52Zr6aq3csqgwDl0EGu6aQpKwHDoshMH+2UFz2BT0T3chWMPkfCFqf
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=oSNs1Z4597yqqSr/izsI9vDVqZKwJUb3kL7SxhQKXlY=;
+	b=AHmv/5I0W+I5OuRZflHnYflIvtugHONhN+jNkte6Xe27j9YXlW8wk/1Vduk3ypSfde
+	dhmTN6eTD+u6FGAMmEDRK9csbPjw2Jkff6/90M2YtwkSVpxsl3W4SSYV2cLQk0/+RNXD
+	8CvL/9RQJX/a1RHT4nQy5mNH5+H6CCQLiLFUzR28r8UushEaCEW636BfMcfj+Sj3aS0q
+	glWve5+yFJeUDah9McweWuZ9SyRlmwh1WsLbZgsL812odagJmT5K1E5YTohEclOmELTl
+	gvq3BxPb1tF2KLzcIbyQJDIIi+MeibuVCJRCRJEvSQ0a1+LGhFIyTQc90/NqkfjsDDVD
+	VQSA==
+X-Gm-Message-State: AOAM533Gd+BxzxtHz8pdDi5lIHvsTij1j15m6Ql1yAfEJR0bS7qE0jnv
+	KUQvVrYzBF+D95eGvP4jJ7lpYDpGEjXHKqbWnwdMGe450gVjCx7aDU1634xzkKq+uAwLkk7Ib+o
+	ssHVP81J/qm1/GoE0/Fk6rhlBFRHaMUMXkJKeZw==
+X-Received: by 2002:a17:906:564d:: with SMTP id
+	v13mr5671383ejr.217.1602683348562; 
+	Wed, 14 Oct 2020 06:49:08 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzuDBNJnuCIVopNCRDD7xc3d1K1H0uj6mOIIcRgMvx/filL7NU3n8TF2yUT5NzNIGDqSlXeB98NLDgx3q7QzdI=
+X-Received: by 2002:a17:906:564d:: with SMTP id
+	v13mr5671356ejr.217.1602683348286; 
+	Wed, 14 Oct 2020 06:49:08 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a5d:9842:: with SMTP id p2mr850448ios.113.1602631330275;
-	Tue, 13 Oct 2020 16:22:10 -0700 (PDT)
-Date: Tue, 13 Oct 2020 16:22:10 -0700
-In-Reply-To: <157941.1602619974@warthog.procyon.org.uk>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000025a54905b195af3d@google.com>
-From: syzbot <syzbot+2d0585e5efcd43d113c2@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, linux-cachefs@redhat.com,
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+References: <20200827142724.15032-1-tiwai@suse.de>
+In-Reply-To: <20200827142724.15032-1-tiwai@suse.de>
+From: David Wysochanski <dwysocha@redhat.com>
+Date: Wed, 14 Oct 2020 09:48:32 -0400
+Message-ID: <CALF+zOn5Pzuf1zv1_bR_MbX8oJ5UZ-FpCd8KkkMzWOE9n3p7EQ@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Wed, 14 Oct 2020 03:15:19 -0400
-Subject: Re: [Linux-cachefs] KASAN: use-after-free Read in
-	fscache_alloc_cookie
+Cc: linux-cachefs@redhat.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-cachefs] [PATCH] fs/cachefiles: Drop superfluous
+ readpages aops NULL check
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +102,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,57 +110,55 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hello,
+On Thu, Aug 27, 2020 at 11:10 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> After the recent actions to convert readpages aops to readahead, the
+> NULL checks of readpages aops in cachefiles_read_or_alloc_page() may
+> hit falsely.  More badly, it's an ASSERT() call, and this panics.
+>
+> Drop the superfluous NULL checks for fixing this regression.
+>
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208883
+> BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1175245
+> Cc: <stable@vger.kernel.org> # v5.8
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  fs/cachefiles/rdwr.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
+> index 3080cda9e824..5b4cee71fa32 100644
+> --- a/fs/cachefiles/rdwr.c
+> +++ b/fs/cachefiles/rdwr.c
+> @@ -412,7 +412,6 @@ int cachefiles_read_or_alloc_page(struct fscache_retrieval *op,
+>
+>         inode = d_backing_inode(object->backer);
+>         ASSERT(S_ISREG(inode->i_mode));
+> -       ASSERT(inode->i_mapping->a_ops->readpages);
+>
+>         /* calculate the shift required to use bmap */
+>         shift = PAGE_SHIFT - inode->i_sb->s_blocksize_bits;
+> @@ -712,7 +711,6 @@ int cachefiles_read_or_alloc_pages(struct fscache_retrieval *op,
+>
+>         inode = d_backing_inode(object->backer);
+>         ASSERT(S_ISREG(inode->i_mode));
+> -       ASSERT(inode->i_mapping->a_ops->readpages);
+>
+>         /* calculate the shift required to use bmap */
+>         shift = PAGE_SHIFT - inode->i_sb->s_blocksize_bits;
+> --
+> 2.16.4
+>
+> --
+> Linux-cachefs mailing list
+> Linux-cachefs@redhat.com
+> https://www.redhat.com/mailman/listinfo/linux-cachefs
+>
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING: proc registration bug in afs_manage_cell_work
+Agree this should go in as fscache (I am testing with NFS) becomes
+unusable without it after 5.8.
 
-------------[ cut here ]------------
-proc_dir_entry 'afs/^]$[+%]0${' already registered
-WARNING: CPU: 0 PID: 8309 at fs/proc/generic.c:371 proc_register+0x34c/0x700 fs/proc/generic.c:371
-Kernel panic - not syncing: panic_on_warn set ...
-CPU: 0 PID: 8309 Comm: kworker/0:4 Not tainted 5.9.0-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Workqueue: afs afs_manage_cell_work
-Call Trace:
- __dump_stack lib/dump_stack.c:77 [inline]
- dump_stack+0x198/0x1fd lib/dump_stack.c:118
- panic+0x382/0x7fb kernel/panic.c:231
- __warn.cold+0x20/0x4b kernel/panic.c:600
- report_bug+0x1bd/0x210 lib/bug.c:198
- handle_bug+0x38/0x90 arch/x86/kernel/traps.c:234
- exc_invalid_op+0x14/0x40 arch/x86/kernel/traps.c:254
- asm_exc_invalid_op+0x12/0x20 arch/x86/include/asm/idtentry.h:536
-RIP: 0010:proc_register+0x34c/0x700 fs/proc/generic.c:371
-Code: df 48 89 f9 48 c1 e9 03 80 3c 01 00 0f 85 5d 03 00 00 48 8b 44 24 28 48 c7 c7 a0 62 9a 88 48 8b b0 d8 00 00 00 e8 46 03 5d ff <0f> 0b 48 c7 c7 e0 f6 1e 8a e8 36 df 3d 06 48 8b 4c 24 38 48 b8 00
-RSP: 0018:ffffc90009dffac8 EFLAGS: 00010282
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff8880923a4480 RSI: ffffffff815f5a55 RDI: fffff520013bff4b
-RBP: ffff888088829b88 R08: 0000000000000001 R09: ffff8880ae4318e7
-R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880904699d8
-R13: ffff8880931d3340 R14: dffffc0000000000 R15: 000000000000000a
- proc_mkdir_data+0x140/0x1a0 fs/proc/generic.c:487
- proc_net_mkdir include/linux/proc_fs.h:201 [inline]
- afs_proc_cell_setup+0xb2/0x1f0 fs/afs/proc.c:619
- afs_activate_cell fs/afs/cell.c:684 [inline]
- afs_manage_cell fs/afs/cell.c:768 [inline]
- afs_manage_cell_work+0x5b7/0x11c0 fs/afs/cell.c:832
- process_one_work+0x94c/0x1670 kernel/workqueue.c:2269
- worker_thread+0x64c/0x1120 kernel/workqueue.c:2415
- kthread+0x3b5/0x4a0 kernel/kthread.c:292
- ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
-Kernel Offset: disabled
-Rebooting in 86400 seconds..
-
-
-Tested on:
-
-commit:         f8eb8d1c afs: Add tracing for cell refcount and active use..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1414b0d8500000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=302928762dfb5528
-dashboard link: https://syzkaller.appspot.com/bug?extid=2d0585e5efcd43d113c2
-compiler:       gcc (GCC) 10.1.0-syz 20200507
+It may have flown under the radar due to the in-progress FS-Cache rewrite.
 
 --
 Linux-cachefs mailing list
