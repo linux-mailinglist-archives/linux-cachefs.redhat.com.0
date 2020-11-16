@@ -2,53 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4FC272B48F9
-	for <lists+linux-cachefs@lfdr.de>; Mon, 16 Nov 2020 16:19:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A7D572B4981
+	for <lists+linux-cachefs@lfdr.de>; Mon, 16 Nov 2020 16:36:40 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-385-ohUdbB67NcGIuhobsGyeog-1; Mon, 16 Nov 2020 10:19:13 -0500
-X-MC-Unique: ohUdbB67NcGIuhobsGyeog-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-17-xm9of7vAO2epamOOV6N9Dg-1; Mon, 16 Nov 2020 10:36:37 -0500
+X-MC-Unique: xm9of7vAO2epamOOV6N9Dg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0196B5F9C0;
-	Mon, 16 Nov 2020 15:19:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B29515C5B7;
-	Mon, 16 Nov 2020 15:19:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6386083DCAE;
+	Mon, 16 Nov 2020 15:36:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 525865D9D2;
+	Mon, 16 Nov 2020 15:36:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EDC11183D020;
-	Mon, 16 Nov 2020 15:19:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E72275812C;
+	Mon, 16 Nov 2020 15:36:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGFIvQx020533 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:18:58 -0500
+	id 0AGFaURT022111 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:36:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DE650201EE2E; Mon, 16 Nov 2020 15:18:57 +0000 (UTC)
+	id CA7012157F4F; Mon, 16 Nov 2020 15:36:30 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8470205F3B0
-	for <linux-cachefs@redhat.com>; Mon, 16 Nov 2020 15:18:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5F812157F4A
+	for <linux-cachefs@redhat.com>; Mon, 16 Nov 2020 15:36:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DF6790E42F
-	for <linux-cachefs@redhat.com>; Mon, 16 Nov 2020 15:18:54 +0000 (UTC)
-Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-42-l8vYl4rAN8S7mN8YZNMMig-1;
-	Mon, 16 Nov 2020 10:18:51 -0500
-X-MC-Unique: l8vYl4rAN8S7mN8YZNMMig-1
-Received: by fieldses.org (Postfix, from userid 2815)
-	id 0E2DA7EC; Mon, 16 Nov 2020 10:18:50 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 0E2DA7EC
-Date: Mon, 16 Nov 2020 10:18:50 -0500
-From: bfields <bfields@fieldses.org>
-To: Daire Byrne <daire@dneg.com>
-Message-ID: <20201116151850.GD898@fieldses.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB91690E434
+	for <linux-cachefs@redhat.com>; Mon, 16 Nov 2020 15:36:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-227-PKGvcshUMzOuI6efdSnwFQ-1;
+	Mon, 16 Nov 2020 10:36:21 -0500
+X-MC-Unique: PKGvcshUMzOuI6efdSnwFQ-1
+Received: from tleilax.poochiereds.net
+	(68-20-15-154.lightspeed.rlghnc.sbcglobal.net [68.20.15.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id BA7762078E;
+	Mon, 16 Nov 2020 15:29:30 +0000 (UTC)
+Message-ID: <b0d61b4053442ba46fd2c707ee7e0608704c2598.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: bfields <bfields@fieldses.org>, Daire Byrne <daire@dneg.com>
+Date: Mon, 16 Nov 2020 10:29:29 -0500
+In-Reply-To: <20201113222600.GC1299@fieldses.org>
 References: <943482310.31162206.1599499860595.JavaMail.zimbra@dneg.com>
+	<279389889.68934777.1603124383614.JavaMail.zimbra@dneg.com>
+	<635679406.70384074.1603272832846.JavaMail.zimbra@dneg.com>
+	<20201109160256.GB11144@fieldses.org>
 	<1744768451.86186596.1605186084252.JavaMail.zimbra@dneg.com>
 	<20201112135733.GA9243@fieldses.org>
 	<444227972.86442677.1605206025305.JavaMail.zimbra@dneg.com>
@@ -56,10 +63,8 @@ References: <943482310.31162206.1599499860595.JavaMail.zimbra@dneg.com>
 	<883314904.86570901.1605222357023.JavaMail.zimbra@dneg.com>
 	<20201113145050.GB1299@fieldses.org>
 	<20201113222600.GC1299@fieldses.org>
-	<217712894.87456370.1605358643862.JavaMail.zimbra@dneg.com>
+User-Agent: Evolution 3.38.1 (3.38.1-1.fc33)
 MIME-Version: 1.0
-In-Reply-To: <217712894.87456370.1605358643862.JavaMail.zimbra@dneg.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -68,11 +73,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AGFaURT022111
 X-loop: linux-cachefs@redhat.com
 Cc: linux-nfs <linux-nfs@vger.kernel.org>,
-	linux-cachefs <linux-cachefs@redhat.com>, jlayton@kernel.org,
+	linux-cachefs <linux-cachefs@redhat.com>,
 	Trond Myklebust <trondmy@hammerspace.com>
 Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
 X-BeenThere: linux-cachefs@redhat.com
@@ -88,105 +94,98 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Jeff, does something like this look reasonable?
-
---b.
-
-On Sat, Nov 14, 2020 at 12:57:24PM +0000, Daire Byrne wrote:
-> ----- On 13 Nov, 2020, at 22:26, bfields bfields@fieldses.org wrote:
-> > On Fri, Nov 13, 2020 at 09:50:50AM -0500, bfields wrote:
-> >> Ah-hah!  So, it's inode_query_iversion() that's modifying a nfs inode's
-> >> i_version.  That's a special thing that only nfsd would do.
-> >> 
-> >> I think that's totally fixable, we'll just have to think a little about
-> >> how....
-> > 
-> > I wonder if something like this helps?--b.
-> > 
-> > commit 0add88a9ccc5
-> > Author: J. Bruce Fields <bfields@redhat.com>
-> > Date:   Fri Nov 13 17:03:04 2020 -0500
-> > 
-> >    nfs: don't mangle i_version on NFS
-> >    
-> >    The i_version on NFS has pretty much opaque to the client, so we don't
-> >    want to give the low bit any special interpretation.
-> >    
-> >    Define a new FS_PRIVATE_I_VERSION flag for filesystems that manage the
-> >    i_version on their own.
-> >    
-> >    Signed-off-by: J. Bruce Fields <bfields@redhat.com>
-> > 
-> > diff --git a/fs/nfs/fs_context.c b/fs/nfs/fs_context.c
-> > index 29ec8b09a52d..9b8dd5b713a7 100644
-> > --- a/fs/nfs/fs_context.c
-> > +++ b/fs/nfs/fs_context.c
-> > @@ -1488,7 +1488,8 @@ struct file_system_type nfs_fs_type = {
-> > 	.init_fs_context	= nfs_init_fs_context,
-> > 	.parameters		= nfs_fs_parameters,
-> > 	.kill_sb		= nfs_kill_super,
-> > -	.fs_flags		= FS_RENAME_DOES_D_MOVE|FS_BINARY_MOUNTDATA,
-> > +	.fs_flags		= FS_RENAME_DOES_D_MOVE|FS_BINARY_MOUNTDATA|
-> > +				  FS_PRIVATE_I_VERSION,
-> > };
-> > MODULE_ALIAS_FS("nfs");
-> > EXPORT_SYMBOL_GPL(nfs_fs_type);
-> > @@ -1500,7 +1501,8 @@ struct file_system_type nfs4_fs_type = {
-> > 	.init_fs_context	= nfs_init_fs_context,
-> > 	.parameters		= nfs_fs_parameters,
-> > 	.kill_sb		= nfs_kill_super,
-> > -	.fs_flags		= FS_RENAME_DOES_D_MOVE|FS_BINARY_MOUNTDATA,
-> > +	.fs_flags		= FS_RENAME_DOES_D_MOVE|FS_BINARY_MOUNTDATA|
-> > +				  FS_PRIVATE_I_VERSION,
-> > };
-> > MODULE_ALIAS_FS("nfs4");
-> > MODULE_ALIAS("nfs4");
-> > diff --git a/include/linux/fs.h b/include/linux/fs.h
-> > index 21cc971fd960..c5bb4268228b 100644
-> > --- a/include/linux/fs.h
-> > +++ b/include/linux/fs.h
-> > @@ -2217,6 +2217,7 @@ struct file_system_type {
-> > #define FS_HAS_SUBTYPE		4
-> > #define FS_USERNS_MOUNT		8	/* Can be mounted by userns root */
-> > #define FS_DISALLOW_NOTIFY_PERM	16	/* Disable fanotify permission events */
-> > +#define FS_PRIVATE_I_VERSION	32	/* i_version managed by filesystem */
-> > #define FS_THP_SUPPORT		8192	/* Remove once all fs converted */
-> > #define FS_RENAME_DOES_D_MOVE	32768	/* FS will handle d_move() during rename()
-> > internally. */
-> > 	int (*init_fs_context)(struct fs_context *);
-> > diff --git a/include/linux/iversion.h b/include/linux/iversion.h
-> > index 2917ef990d43..52c790a847de 100644
-> > --- a/include/linux/iversion.h
-> > +++ b/include/linux/iversion.h
-> > @@ -307,6 +307,8 @@ inode_query_iversion(struct inode *inode)
-> > 	u64 cur, old, new;
-> > 
-> > 	cur = inode_peek_iversion_raw(inode);
-> > +	if (inode->i_sb->s_type->fs_flags & FS_PRIVATE_I_VERSION)
-> > +		return cur;
-> > 	for (;;) {
-> > 		/* If flag is already set, then no need to swap */
-> >  		if (cur & I_VERSION_QUERIED) {
-> 
-> Yes, I can confirm that this absolutely helps! I replaced our (brute force) iversion patch with this (much nicer) patch and we got the same improvement; nfsd and it's clients no longer cause the re-export server's client cache to constantly be re-validated. The re-export server can now serve the same results to many clients from cache. Thanks so much for spending the time to track this down. If merged, future (crazy) NFS re-exporters will benefit from the metadata performance improvement/acceleration!
-> 
-> Now if anyone has any ideas why all the read calls to the originating server are limited to a maximum of 128k (with rsize=1M) when coming via the re-export server's nfsd threads, I see that as the next biggest performance issue. Reading directly on the re-export server with a userspace process issues 1MB reads as expected. It doesn't happen for writes (wsize=1MB all the way through) but I'm not sure if that has more to do with async and write back caching helping to build up the size before commit?
-> 
-> I figure the other remaining items on my (wish) list are probably more in the "won't fix" or "can't fix" category (except maybe the NFSv4.0 input/output errors?).
-> 
-> Daire
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://www.redhat.com/mailman/listinfo/linux-cachefs
+T24gRnJpLCAyMDIwLTExLTEzIGF0IDE3OjI2IC0wNTAwLCBiZmllbGRzIHdyb3RlOgo+IE9uIEZy
+aSwgTm92IDEzLCAyMDIwIGF0IDA5OjUwOjUwQU0gLTA1MDAsIGJmaWVsZHMgd3JvdGU6Cj4gPiBP
+biBUaHUsIE5vdiAxMiwgMjAyMCBhdCAxMTowNTo1N1BNICswMDAwLCBEYWlyZSBCeXJuZSB3cm90
+ZToKPiA+ID4gU28sIEkgY2FuJ3QgbGF5IGNsYWltIHRvIGlkZW50aWZ5aW5nIHRoZSBleGFjdCBv
+cHRpbWlzYXRpb24vaGFjayB0aGF0Cj4gPiA+IGltcHJvdmVzIHRoZSByZXRlbnRpb24gb2YgdGhl
+IHJlLWV4cG9ydCBzZXJ2ZXIncyBjbGllbnQgY2FjaGUgd2hlbgo+ID4gPiByZS1leHBvcnRpbmcg
+YW4gTkZTdjMgc2VydmVyICh3aGljaCBpcyB0aGVuIHJlYWQgYnkgbWFueSBjbGllbnRzKS4gV2UK
+PiA+ID4gd2VyZSB3b3JraW5nIHdpdGggYW4gZW5naW5lZXIgYXQgdGhlIHRpbWUgd2hvIHNob3dl
+ZCBhbiBpbnRlcmVzdCBpbgo+ID4gPiBvdXIgdXNlIGNhc2UgYW5kIGFmdGVyIHdlIHN1cHBsaWVk
+IGEgcmVwcm9kdWNlciBoZSBzdWdnZXN0ZWQgbW9kaWZ5aW5nCj4gPiA+IHRoZSBuZnMvaW5vZGUu
+Ywo+ID4gPiAKPiA+ID4gLQkJaWYgKCFpbm9kZV9lcV9pdmVyc2lvbl9yYXcoaW5vZGUsIGZhdHRy
+LT5jaGFuZ2VfYXR0cikpIHsKPiA+ID4gKwkJaWYgKGlub2RlX3BlZWtfaXZlcnNpb25fcmF3KGlu
+b2RlKSA8IGZhdHRyLT5jaGFuZ2VfYXR0cikKPiA+ID4gewo+ID4gPiAKPiA+ID4gSGlzIHJlYXNv
+bmluZyBhdCB0aGUgdGltZSB3YXM6Cj4gPiA+IAo+ID4gPiAiRml4ZXMgaW5vZGUgaW52YWxpZGF0
+aW9uIGNhdXNlZCBieSByZWFkIGFjY2Vzcy4gVGhlIGxlYXN0IGltcG9ydGFudAo+ID4gPiBiaXQg
+aXMgT1JlZCB3aXRoIDEgYW5kIGNhdXNlcyB0aGUgaW5vZGUgdmVyc2lvbiB0byBkaWZmZXIgZnJv
+bSB0aGUgb25lCj4gPiA+IHNlZW4gb24gdGhlIE5GUyBzaGFyZS4gVGhpcyBpbiB0dXJuIGNhdXNl
+cyB1bm5lY2Vzc2FyeSByZS1kb3dubG9hZAo+ID4gPiBpbXBhY3RpbmcgdGhlIHBlcmZvcm1hbmNl
+IHNpZ25pZmljYW50bHkuIFRoaXMgZml4IG1ha2VzIGl0IG9ubHkKPiA+ID4gcmUtZmV0Y2ggZmls
+ZSBjb250ZW50IGlmIGlub2RlIHZlcnNpb24gc2VlbiBvbiB0aGUgc2VydmVyIGlzIG5ld2VyCj4g
+PiA+IHRoYW4gdGhlIG9uZSBvbiB0aGUgY2xpZW50LiIKPiA+ID4gCj4gPiA+IEJ1dCBJJ3ZlIGFs
+d2F5cyBiZWVuIHB1enpsZWQgYnkgd2h5IHRoaXMgb25seSBzZWVtcyB0byBiZSB0aGUgY2FzZQo+
+ID4gPiB3aGVuIHVzaW5nIGtuZnNkIHRvIHJlLWV4cG9ydCB0aGUgKE5GU3YzKSBjbGllbnQgbW91
+bnQuIFVzaW5nIG11bHRpcGxlCj4gPiA+IHByb2Nlc3NlcyBvbiBhIHN0YW5kYXJkIGNsaWVudCBt
+b3VudCBuZXZlciBjYXVzZXMgYW55IHNpbWlsYXIKPiA+ID4gcmUtdmFsaWRhdGlvbnMuIEFuZCB0
+aGlzIGhhcHBlbnMgd2l0aCBhIGNvbXBsZXRlbHkgcmVhZC1vbmx5IHNoYXJlCj4gPiA+IHdoaWNo
+IGlzIHdoeSBJIHN0YXJ0ZWQgdG8gdGhpbmsgaXQgaGFzIHNvbWV0aGluZyB0byBkbyB3aXRoIGF0
+aW1lcyBhcwo+ID4gPiB0aGF0IGNvdWxkIHBlcmhhcHMgc3RpbGwgY2F1c2UgYSAid3JpdGUiIG1v
+ZGlmaWNhdGlvbiBldmVuIHdoZW4KPiA+ID4gcmVhZC1vbmx5Pwo+ID4gCj4gPiBBaC1oYWghICBT
+bywgaXQncyBpbm9kZV9xdWVyeV9pdmVyc2lvbigpIHRoYXQncyBtb2RpZnlpbmcgYSBuZnMgaW5v
+ZGUncwo+ID4gaV92ZXJzaW9uLiAgVGhhdCdzIGEgc3BlY2lhbCB0aGluZyB0aGF0IG9ubHkgbmZz
+ZCB3b3VsZCBkby4KPiA+IAo+ID4gSSB0aGluayB0aGF0J3MgdG90YWxseSBmaXhhYmxlLCB3ZSds
+bCBqdXN0IGhhdmUgdG8gdGhpbmsgYSBsaXR0bGUgYWJvdXQKPiA+IGhvdy4uLi4KPiAKPiBJIHdv
+bmRlciBpZiBzb21ldGhpbmcgbGlrZSB0aGlzIGhlbHBzPy0tYi4KPiAKPiBjb21taXQgMGFkZDg4
+YTljY2M1Cj4gQXV0aG9yOiBKLiBCcnVjZSBGaWVsZHMgPGJmaWVsZHNAcmVkaGF0LmNvbT4KPiBE
+YXRlOiAgIEZyaSBOb3YgMTMgMTc6MDM6MDQgMjAyMCAtMDUwMAo+IAo+IMKgwqDCoMKgbmZzOiBk
+b24ndCBtYW5nbGUgaV92ZXJzaW9uIG9uIE5GUwo+IMKgwqDCoMKgCj4gCj4gwqDCoMKgwqBUaGUg
+aV92ZXJzaW9uIG9uIE5GUyBoYXMgcHJldHR5IG11Y2ggb3BhcXVlIHRvIHRoZSBjbGllbnQsIHNv
+IHdlIGRvbid0Cj4gwqDCoMKgwqB3YW50IHRvIGdpdmUgdGhlIGxvdyBiaXQgYW55IHNwZWNpYWwg
+aW50ZXJwcmV0YXRpb24uCj4gwqDCoMKgwqAKPiAKPiDCoMKgwqDCoERlZmluZSBhIG5ldyBGU19Q
+UklWQVRFX0lfVkVSU0lPTiBmbGFnIGZvciBmaWxlc3lzdGVtcyB0aGF0IG1hbmFnZSB0aGUKPiDC
+oMKgwqDCoGlfdmVyc2lvbiBvbiB0aGVpciBvd24uCj4gwqDCoMKgwqAKPiAKPiDCoMKgwqDCoFNp
+Z25lZC1vZmYtYnk6IEouIEJydWNlIEZpZWxkcyA8YmZpZWxkc0ByZWRoYXQuY29tPgo+IAo+IGRp
+ZmYgLS1naXQgYS9mcy9uZnMvZnNfY29udGV4dC5jIGIvZnMvbmZzL2ZzX2NvbnRleHQuYwo+IGlu
+ZGV4IDI5ZWM4YjA5YTUyZC4uOWI4ZGQ1YjcxM2E3IDEwMDY0NAo+IC0tLSBhL2ZzL25mcy9mc19j
+b250ZXh0LmMKPiArKysgYi9mcy9uZnMvZnNfY29udGV4dC5jCj4gQEAgLTE0ODgsNyArMTQ4OCw4
+IEBAIHN0cnVjdCBmaWxlX3N5c3RlbV90eXBlIG5mc19mc190eXBlID0gewo+IMKgCS5pbml0X2Zz
+X2NvbnRleHQJPSBuZnNfaW5pdF9mc19jb250ZXh0LAo+IMKgCS5wYXJhbWV0ZXJzCQk9IG5mc19m
+c19wYXJhbWV0ZXJzLAo+IMKgCS5raWxsX3NiCQk9IG5mc19raWxsX3N1cGVyLAo+IC0JLmZzX2Zs
+YWdzCQk9IEZTX1JFTkFNRV9ET0VTX0RfTU9WRXxGU19CSU5BUllfTU9VTlREQVRBLAo+ICsJLmZz
+X2ZsYWdzCQk9IEZTX1JFTkFNRV9ET0VTX0RfTU9WRXxGU19CSU5BUllfTU9VTlREQVRBfAo+ICsJ
+CQkJICBGU19QUklWQVRFX0lfVkVSU0lPTiwKPiDCoH07Cj4gwqBNT0RVTEVfQUxJQVNfRlMoIm5m
+cyIpOwo+IMKgRVhQT1JUX1NZTUJPTF9HUEwobmZzX2ZzX3R5cGUpOwo+IEBAIC0xNTAwLDcgKzE1
+MDEsOCBAQCBzdHJ1Y3QgZmlsZV9zeXN0ZW1fdHlwZSBuZnM0X2ZzX3R5cGUgPSB7Cj4gwqAJLmlu
+aXRfZnNfY29udGV4dAk9IG5mc19pbml0X2ZzX2NvbnRleHQsCj4gwqAJLnBhcmFtZXRlcnMJCT0g
+bmZzX2ZzX3BhcmFtZXRlcnMsCj4gwqAJLmtpbGxfc2IJCT0gbmZzX2tpbGxfc3VwZXIsCj4gLQku
+ZnNfZmxhZ3MJCT0gRlNfUkVOQU1FX0RPRVNfRF9NT1ZFfEZTX0JJTkFSWV9NT1VOVERBVEEsCj4g
+KwkuZnNfZmxhZ3MJCT0gRlNfUkVOQU1FX0RPRVNfRF9NT1ZFfEZTX0JJTkFSWV9NT1VOVERBVEF8
+Cj4gKwkJCQkgIEZTX1BSSVZBVEVfSV9WRVJTSU9OLAo+IMKgfTsKPiDCoE1PRFVMRV9BTElBU19G
+UygibmZzNCIpOwo+IMKgTU9EVUxFX0FMSUFTKCJuZnM0Iik7Cj4gZGlmZiAtLWdpdCBhL2luY2x1
+ZGUvbGludXgvZnMuaCBiL2luY2x1ZGUvbGludXgvZnMuaAo+IGluZGV4IDIxY2M5NzFmZDk2MC4u
+YzViYjQyNjgyMjhiIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvZnMuaAo+ICsrKyBiL2lu
+Y2x1ZGUvbGludXgvZnMuaAo+IEBAIC0yMjE3LDYgKzIyMTcsNyBAQCBzdHJ1Y3QgZmlsZV9zeXN0
+ZW1fdHlwZSB7Cj4gwqAjZGVmaW5lIEZTX0hBU19TVUJUWVBFCQk0Cj4gwqAjZGVmaW5lIEZTX1VT
+RVJOU19NT1VOVAkJOAkvKiBDYW4gYmUgbW91bnRlZCBieSB1c2VybnMgcm9vdCAqLwo+IMKgI2Rl
+ZmluZSBGU19ESVNBTExPV19OT1RJRllfUEVSTQkxNgkvKiBEaXNhYmxlIGZhbm90aWZ5IHBlcm1p
+c3Npb24gZXZlbnRzICovCj4gKyNkZWZpbmUgRlNfUFJJVkFURV9JX1ZFUlNJT04JMzIJLyogaV92
+ZXJzaW9uIG1hbmFnZWQgYnkgZmlsZXN5c3RlbSAqLwo+IMKgI2RlZmluZSBGU19USFBfU1VQUE9S
+VAkJODE5MgkvKiBSZW1vdmUgb25jZSBhbGwgZnMgY29udmVydGVkICovCj4gwqAjZGVmaW5lIEZT
+X1JFTkFNRV9ET0VTX0RfTU9WRQkzMjc2OAkvKiBGUyB3aWxsIGhhbmRsZSBkX21vdmUoKSBkdXJp
+bmcgcmVuYW1lKCkgaW50ZXJuYWxseS4gKi8KPiDCoAlpbnQgKCppbml0X2ZzX2NvbnRleHQpKHN0
+cnVjdCBmc19jb250ZXh0ICopOwo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9u
+LmggYi9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgKPiBpbmRleCAyOTE3ZWY5OTBkNDMuLjUyYzc5
+MGE4NDdkZSAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgKPiArKysgYi9p
+bmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgKPiBAQCAtMzA3LDYgKzMwNyw4IEBAIGlub2RlX3F1ZXJ5
+X2l2ZXJzaW9uKHN0cnVjdCBpbm9kZSAqaW5vZGUpCj4gwqAJdTY0IGN1ciwgb2xkLCBuZXc7Cj4g
+wqAKPiAKPiDCoAljdXIgPSBpbm9kZV9wZWVrX2l2ZXJzaW9uX3Jhdyhpbm9kZSk7Cj4gKwlpZiAo
+aW5vZGUtPmlfc2ItPnNfdHlwZS0+ZnNfZmxhZ3MgJiBGU19QUklWQVRFX0lfVkVSU0lPTikKPiAr
+CQlyZXR1cm4gY3VyOwo+IMKgCWZvciAoOzspIHsKPiDCoAkJLyogSWYgZmxhZyBpcyBhbHJlYWR5
+IHNldCwgdGhlbiBubyBuZWVkIHRvIHN3YXAgKi8KPiDCoAkJaWYgKGN1ciAmIElfVkVSU0lPTl9R
+VUVSSUVEKSB7CgoKSXQncyBwcm9iYWJseSBtb3JlIGNvcnJlY3QgdG8ganVzdCBjaGVjayB0aGUg
+YWxyZWFkeS1leGlzdGluZwpTQl9JX1ZFUlNJT04gZmxhZyBoZXJlICh0aG91Z2ggaW4gaGluZHNp
+Z2h0IGEgZnN0eXBlIGZsYWcgbWlnaHQgaGF2ZQptYWRlIG1vcmUgc2Vuc2UpLgoKLS0gCkplZmYg
+TGF5dG9uIDxqbGF5dG9uQGtlcm5lbC5vcmc+CgoKLS0KTGludXgtY2FjaGVmcyBtYWlsaW5nIGxp
+c3QKTGludXgtY2FjaGVmc0ByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1jYWNoZWZz
 
