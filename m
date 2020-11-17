@@ -1,57 +1,57 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 24CEA2B69F9
-	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Nov 2020 17:25:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 45CBE2B6ABA
+	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Nov 2020 17:55:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-551-hQ-qc1ElPceHuuM0Jd5e7w-1; Tue, 17 Nov 2020 11:24:59 -0500
-X-MC-Unique: hQ-qc1ElPceHuuM0Jd5e7w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-108-HHYepYZsNJOasTzoXC3g7w-1; Tue, 17 Nov 2020 11:55:31 -0500
+X-MC-Unique: HHYepYZsNJOasTzoXC3g7w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 421111074664;
-	Tue, 17 Nov 2020 16:24:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 401B4802B61;
+	Tue, 17 Nov 2020 16:55:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 97CE85DA8F;
-	Tue, 17 Nov 2020 16:24:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09E801001E73;
+	Tue, 17 Nov 2020 16:55:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D4BDF86BE8;
-	Tue, 17 Nov 2020 16:24:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5B3A5813B;
+	Tue, 17 Nov 2020 16:55:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AHEEFro002121 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 17 Nov 2020 09:14:15 -0500
+	id 0AHFPi5Y020001 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 17 Nov 2020 10:25:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C397207A642; Tue, 17 Nov 2020 14:14:15 +0000 (UTC)
+	id 23671110F0B4; Tue, 17 Nov 2020 15:25:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 274D8207A641
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 14:14:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F1E6110F0B0
+	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:25:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4D66801184
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 14:14:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9C5058015A6
+	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:25:41 +0000 (UTC)
 Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-265-LxsuD5fmPHCnBWd1Fg9jMw-1;
-	Tue, 17 Nov 2020 09:14:07 -0500
-X-MC-Unique: LxsuD5fmPHCnBWd1Fg9jMw-1
+	relay.mimecast.com with ESMTP id us-mta-501-lcj4Xf3fPcewwLxRTWePrg-1;
+	Tue, 17 Nov 2020 10:25:38 -0500
+X-MC-Unique: lcj4Xf3fPcewwLxRTWePrg-1
 Received: by fieldses.org (Postfix, from userid 2815)
-	id 29B131CE6; Tue, 17 Nov 2020 09:14:05 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 29B131CE6
-Date: Tue, 17 Nov 2020 09:14:05 -0500
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20201117141405.GA4556@fieldses.org>
+	id 6A7201C21; Tue, 17 Nov 2020 10:25:37 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 6A7201C21
+Date: Tue, 17 Nov 2020 10:25:37 -0500
+To: "J. Bruce Fields" <bfields@redhat.com>
+Message-ID: <20201117152537.GB4556@fieldses.org>
 References: <20201117031601.GB10526@fieldses.org>
 	<1605583086-19869-1-git-send-email-bfields@redhat.com>
-	<1605583086-19869-3-git-send-email-bfields@redhat.com>
-	<4be708fffc15a27560c378af20314212e8594f85.camel@kernel.org>
+	<1605583086-19869-2-git-send-email-bfields@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <4be708fffc15a27560c378af20314212e8594f85.camel@kernel.org>
+In-Reply-To: <1605583086-19869-2-git-send-email-bfields@redhat.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 From: bfields@fieldses.org (J. Bruce Fields)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -63,15 +63,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AHEEFro002121
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
 Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
-	"J. Bruce Fields" <bfields@redhat.com>,
-	linux-nfs <linux-nfs@vger.kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, linux-nfs <linux-nfs@vger.kernel.org>,
 	Trond Myklebust <trondmy@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH 3/4] nfs: don't mangle i_version on NFS
+Subject: Re: [Linux-cachefs] [PATCH 2/4] nfsd: pre/post attr is using wrong
+	change attribute
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,61 +83,220 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gVHVlLCBOb3YgMTcsIDIwMjAgYXQgMDc6Mjc6MDNBTSAtMDUwMCwgSmVmZiBMYXl0b24gd3Jv
-dGU6Cj4gT24gTW9uLCAyMDIwLTExLTE2IGF0IDIyOjE4IC0wNTAwLCBKLiBCcnVjZSBGaWVsZHMg
-d3JvdGU6Cj4gPiBGcm9tOiAiSi4gQnJ1Y2UgRmllbGRzIiA8YmZpZWxkc0ByZWRoYXQuY29tPgo+
-ID4gCj4gPiBUaGUgaV92ZXJzaW9uIG9uIE5GUyBoYXMgcHJldHR5IG11Y2ggb3BhcXVlIHRvIHRo
-ZSBjbGllbnQsIHNvIHdlIGRvbid0Cj4gPiB3YW50IHRvIGdpdmUgdGhlIGxvdyBiaXQgYW55IHNw
-ZWNpYWwgaW50ZXJwcmV0YXRpb24uCj4gPiAKPiA+IERlZmluZSBhIG5ldyBGU19QUklWQVRFX0lf
-VkVSU0lPTiBmbGFnIGZvciBmaWxlc3lzdGVtcyB0aGF0IG1hbmFnZSB0aGUKPiA+IGlfdmVyc2lv
-biBvbiB0aGVpciBvd24uCj4gPiAKPiAKPiBEZXNjcmlwdGlvbiBoZXJlIGRvZXNuJ3QgcXVpdGUg
-bWF0Y2ggdGhlIHBhdGNoLi4uCgpPb3BzLCB0aGFua3MuLS1iLgoKPiAKPiA+IFNpZ25lZC1vZmYt
-Ynk6IEouIEJydWNlIEZpZWxkcyA8YmZpZWxkc0ByZWRoYXQuY29tPgo+ID4gLS0tCj4gPiDCoGZz
-L25mcy9leHBvcnQuYyAgICAgICAgICB8IDEgKwo+ID4gwqBpbmNsdWRlL2xpbnV4L2V4cG9ydGZz
-LmggfCAxICsKPiA+IMKgaW5jbHVkZS9saW51eC9pdmVyc2lvbi5oIHwgNCArKysrCj4gPiDCoDMg
-ZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9mcy9u
-ZnMvZXhwb3J0LmMgYi9mcy9uZnMvZXhwb3J0LmMKPiA+IGluZGV4IDM0MzBkNjg5MWU4OS4uYzJl
-YjkxNWE1NGNhIDEwMDY0NAo+ID4gLS0tIGEvZnMvbmZzL2V4cG9ydC5jCj4gPiArKysgYi9mcy9u
-ZnMvZXhwb3J0LmMKPiA+IEBAIC0xNzEsNCArMTcxLDUgQEAgY29uc3Qgc3RydWN0IGV4cG9ydF9v
-cGVyYXRpb25zIG5mc19leHBvcnRfb3BzID0gewo+ID4gwqAJLmVuY29kZV9maCA9IG5mc19lbmNv
-ZGVfZmgsCj4gPiDCoAkuZmhfdG9fZGVudHJ5ID0gbmZzX2ZoX3RvX2RlbnRyeSwKPiA+IMKgCS5n
-ZXRfcGFyZW50ID0gbmZzX2dldF9wYXJlbnQsCj4gPiArCS5mZXRjaF9pdmVyc2lvbiA9IGlub2Rl
-X3BlZWtfaXZlcnNpb25fcmF3LAo+ID4gwqB9Owo+ID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGlu
-dXgvZXhwb3J0ZnMuaCBiL2luY2x1ZGUvbGludXgvZXhwb3J0ZnMuaAo+ID4gaW5kZXggM2NlYjcy
-YjY3YTdhLi42MDAwMTIxYTIwMWYgMTAwNjQ0Cj4gPiAtLS0gYS9pbmNsdWRlL2xpbnV4L2V4cG9y
-dGZzLmgKPiA+ICsrKyBiL2luY2x1ZGUvbGludXgvZXhwb3J0ZnMuaAo+ID4gQEAgLTIxMyw2ICsy
-MTMsNyBAQCBzdHJ1Y3QgZXhwb3J0X29wZXJhdGlvbnMgewo+ID4gwqAJCQkgIGJvb2wgd3JpdGUs
-IHUzMiAqZGV2aWNlX2dlbmVyYXRpb24pOwo+ID4gwqAJaW50ICgqY29tbWl0X2Jsb2Nrcykoc3Ry
-dWN0IGlub2RlICppbm9kZSwgc3RydWN0IGlvbWFwICppb21hcHMsCj4gPiDCoAkJCSAgICAgaW50
-IG5yX2lvbWFwcywgc3RydWN0IGlhdHRyICppYXR0cik7Cj4gPiArCXU2NCAoKmZldGNoX2l2ZXJz
-aW9uKShjb25zdCBzdHJ1Y3QgaW5vZGUgKik7Cj4gPiDCoH07Cj4gPiDCoAo+ID4gCj4gPiAKPiA+
-IAo+ID4gCj4gPiAKPiA+IAo+ID4gCj4gPiDCoGV4dGVybiBpbnQgZXhwb3J0ZnNfZW5jb2RlX2lu
-b2RlX2ZoKHN0cnVjdCBpbm9kZSAqaW5vZGUsIHN0cnVjdCBmaWQgKmZpZCwKPiA+IGRpZmYgLS1n
-aXQgYS9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmggYi9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgK
-PiA+IGluZGV4IDI5MTdlZjk5MGQ0My4uNDgxYjNkZWJmNmJiIDEwMDY0NAo+ID4gLS0tIGEvaW5j
-bHVkZS9saW51eC9pdmVyc2lvbi5oCj4gPiArKysgYi9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgK
-PiA+IEBAIC0zLDYgKzMsNyBAQAo+ID4gwqAjZGVmaW5lIF9MSU5VWF9JVkVSU0lPTl9ICj4gPiDC
-oAo+ID4gCj4gPiAKPiA+IAo+ID4gCj4gPiAKPiA+IAo+ID4gCj4gPiDCoCNpbmNsdWRlIDxsaW51
-eC9mcy5oPgo+ID4gKyNpbmNsdWRlIDxsaW51eC9leHBvcnRmcy5oPgo+ID4gwqAKPiA+IAo+ID4g
-Cj4gPiAKPiA+IAo+ID4gCj4gPiAKPiA+IAo+ID4gwqAvKgo+ID4gwqDCoCogVGhlIGlub2RlLT5p
-X3ZlcnNpb24gZmllbGQ6Cj4gPiBAQCAtMzA2LDYgKzMwNyw5IEBAIGlub2RlX3F1ZXJ5X2l2ZXJz
-aW9uKHN0cnVjdCBpbm9kZSAqaW5vZGUpCj4gPiDCoHsKPiA+IMKgCXU2NCBjdXIsIG9sZCwgbmV3
-Owo+ID4gwqAKPiA+IAo+ID4gCj4gPiAKPiA+IAo+ID4gCj4gPiAKPiA+IAo+ID4gKwlpZiAoaW5v
-ZGUtPmlfc2ItPnNfZXhwb3J0X29wLT5mZXRjaF9pdmVyc2lvbikKPiA+ICsJCXJldHVybiBpbm9k
-ZS0+aV9zYi0+c19leHBvcnRfb3AtPmZldGNoX2l2ZXJzaW9uKGlub2RlKTsKPiA+ICsKPiAKPiBU
-aGlzIGxvb2tzIGRhbmdlcm91cyAtLSBzX2V4cG9ydF9vcCBjb3VsZCBiZSBhIE5VTEwgcG9pbnRl
-ci4KPiAKPiA+IMKgCWN1ciA9IGlub2RlX3BlZWtfaXZlcnNpb25fcmF3KGlub2RlKTsKPiA+IMKg
-CWZvciAoOzspIHsKPiA+IMKgCQkvKiBJZiBmbGFnIGlzIGFscmVhZHkgc2V0LCB0aGVuIG5vIG5l
-ZWQgdG8gc3dhcCAqLwo+IAo+IC0tIAo+IEplZmYgTGF5dG9uIDxqbGF5dG9uQGtlcm5lbC5vcmc+
-CgoKLS0KTGludXgtY2FjaGVmcyBtYWlsaW5nIGxpc3QKTGludXgtY2FjaGVmc0ByZWRoYXQuY29t
-Cmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZz
+On Mon, Nov 16, 2020 at 10:18:04PM -0500, J. Bruce Fields wrote:
+> From: "J. Bruce Fields" <bfields@redhat.com>
+> 
+> fill_{pre/post}_attr are unconditionally using i_version even when the
+> underlying filesystem doesn't have proper support for i_version.
+
+Actually, I didn't have this quite right....
+
+These values are queried, but they aren't used, thanks to the
+"change_supported" field of nfsd4_change_info; in set_change_info():
+
+	cinfo->change_supported = IS_I_VERSION(d_inode(fhp->fh_dentry));
+
+and then later on encode_cinfo() chooses to use stored change attribute
+or ctime values depending on how change_supported.
+
+But as of the ctime changes, just querying the change attribute here has
+side effects.
+
+So, that explains why Daire's team was seeing a performance regression,
+while no one was complaining about our returned change info being
+garbage.
+
+Anyway.
+
+--b.
+
+> 
+> Move the code that chooses which i_version to use to the common
+> nfsd4_change_attribute().
+> 
+> The NFSEXP_V4ROOT case probably doesn't matter (the pseudoroot
+> filesystem is usually read-only and unlikely to see operations with pre
+> and post change attributes), but let's put it in the same place anyway
+> for consistency.
+> 
+> Fixes: c654b8a9cba6 ("nfsd: support ext4 i_version")
+> Signed-off-by: J. Bruce Fields <bfields@redhat.com>
+> ---
+>  fs/nfsd/nfs4xdr.c | 11 +----------
+>  fs/nfsd/nfsfh.c   | 11 +++++++----
+>  fs/nfsd/nfsfh.h   | 23 -----------------------
+>  fs/nfsd/vfs.c     | 32 ++++++++++++++++++++++++++++++++
+>  fs/nfsd/vfs.h     |  3 +++
+>  5 files changed, 43 insertions(+), 37 deletions(-)
+> 
+> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+> index 833a2c64dfe8..6806207b6d18 100644
+> --- a/fs/nfsd/nfs4xdr.c
+> +++ b/fs/nfsd/nfs4xdr.c
+> @@ -2295,16 +2295,7 @@ nfsd4_decode_compound(struct nfsd4_compoundargs *argp)
+>  static __be32 *encode_change(__be32 *p, struct kstat *stat, struct inode *inode,
+>  			     struct svc_export *exp)
+>  {
+> -	if (exp->ex_flags & NFSEXP_V4ROOT) {
+> -		*p++ = cpu_to_be32(convert_to_wallclock(exp->cd->flush_time));
+> -		*p++ = 0;
+> -	} else if (IS_I_VERSION(inode)) {
+> -		p = xdr_encode_hyper(p, nfsd4_change_attribute(stat, inode));
+> -	} else {
+> -		*p++ = cpu_to_be32(stat->ctime.tv_sec);
+> -		*p++ = cpu_to_be32(stat->ctime.tv_nsec);
+> -	}
+> -	return p;
+> +	return xdr_encode_hyper(p, nfsd4_change_attribute(stat, inode, exp));
+>  }
+>  
+>  /*
+> diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
+> index b3b4e8809aa9..4fbe1413e767 100644
+> --- a/fs/nfsd/nfsfh.c
+> +++ b/fs/nfsd/nfsfh.c
+> @@ -719,6 +719,7 @@ void fill_pre_wcc(struct svc_fh *fhp)
+>  {
+>  	struct inode    *inode;
+>  	struct kstat	stat;
+> +	struct svc_export *exp = fhp->fh_export;
+>  	__be32 err;
+>  
+>  	if (fhp->fh_pre_saved)
+> @@ -736,7 +737,7 @@ void fill_pre_wcc(struct svc_fh *fhp)
+>  	fhp->fh_pre_mtime = stat.mtime;
+>  	fhp->fh_pre_ctime = stat.ctime;
+>  	fhp->fh_pre_size  = stat.size;
+> -	fhp->fh_pre_change = nfsd4_change_attribute(&stat, inode);
+> +	fhp->fh_pre_change = nfsd4_change_attribute(&stat, inode, exp);
+>  	fhp->fh_pre_saved = true;
+>  }
+>  
+> @@ -746,17 +747,19 @@ void fill_pre_wcc(struct svc_fh *fhp)
+>  void fill_post_wcc(struct svc_fh *fhp)
+>  {
+>  	__be32 err;
+> +	struct inode *inode = d_inode(fhp->fh_dentry);
+> +	struct svc_export *exp = fhp->fh_export;
+>  
+>  	if (fhp->fh_post_saved)
+>  		printk("nfsd: inode locked twice during operation.\n");
+>  
+>  	err = fh_getattr(fhp, &fhp->fh_post_attr);
+> -	fhp->fh_post_change = nfsd4_change_attribute(&fhp->fh_post_attr,
+> -						     d_inode(fhp->fh_dentry));
+> +	fhp->fh_post_change =
+> +			nfsd4_change_attribute(&fhp->fh_post_attr, inode, exp);
+>  	if (err) {
+>  		fhp->fh_post_saved = false;
+>  		/* Grab the ctime anyway - set_change_info might use it */
+> -		fhp->fh_post_attr.ctime = d_inode(fhp->fh_dentry)->i_ctime;
+> +		fhp->fh_post_attr.ctime = inode->i_ctime;
+>  	} else
+>  		fhp->fh_post_saved = true;
+>  }
+> diff --git a/fs/nfsd/nfsfh.h b/fs/nfsd/nfsfh.h
+> index 56cfbc361561..547aef9b3265 100644
+> --- a/fs/nfsd/nfsfh.h
+> +++ b/fs/nfsd/nfsfh.h
+> @@ -245,29 +245,6 @@ fh_clear_wcc(struct svc_fh *fhp)
+>  	fhp->fh_pre_saved = false;
+>  }
+>  
+> -/*
+> - * We could use i_version alone as the change attribute.  However,
+> - * i_version can go backwards after a reboot.  On its own that doesn't
+> - * necessarily cause a problem, but if i_version goes backwards and then
+> - * is incremented again it could reuse a value that was previously used
+> - * before boot, and a client who queried the two values might
+> - * incorrectly assume nothing changed.
+> - *
+> - * By using both ctime and the i_version counter we guarantee that as
+> - * long as time doesn't go backwards we never reuse an old value.
+> - */
+> -static inline u64 nfsd4_change_attribute(struct kstat *stat,
+> -					 struct inode *inode)
+> -{
+> -	u64 chattr;
+> -
+> -	chattr =  stat->ctime.tv_sec;
+> -	chattr <<= 30;
+> -	chattr += stat->ctime.tv_nsec;
+> -	chattr += inode_query_iversion(inode);
+> -	return chattr;
+> -}
+> -
+>  extern void fill_pre_wcc(struct svc_fh *fhp);
+>  extern void fill_post_wcc(struct svc_fh *fhp);
+>  #else
+> diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+> index 1ecaceebee13..2c71b02dd1fe 100644
+> --- a/fs/nfsd/vfs.c
+> +++ b/fs/nfsd/vfs.c
+> @@ -2390,3 +2390,35 @@ nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
+>  
+>  	return err? nfserrno(err) : 0;
+>  }
+> +
+> +/*
+> + * We could use i_version alone as the change attribute.  However,
+> + * i_version can go backwards after a reboot.  On its own that doesn't
+> + * necessarily cause a problem, but if i_version goes backwards and then
+> + * is incremented again it could reuse a value that was previously used
+> + * before boot, and a client who queried the two values might
+> + * incorrectly assume nothing changed.
+> + *
+> + * By using both ctime and the i_version counter we guarantee that as
+> + * long as time doesn't go backwards we never reuse an old value.
+> + */
+> +u64 nfsd4_change_attribute(struct kstat *stat, struct inode *inode,
+> +					 struct svc_export *exp)
+> +{
+> +	u64 chattr;
+> +
+> +	if (exp->ex_flags & NFSEXP_V4ROOT) {
+> +		chattr = cpu_to_be32(convert_to_wallclock(exp->cd->flush_time));
+> +		chattr <<= 32;
+> +	} else if (IS_I_VERSION(inode)) {
+> +		chattr = stat->ctime.tv_sec;
+> +		chattr <<= 30;
+> +		chattr += stat->ctime.tv_nsec;
+> +		chattr += inode_query_iversion(inode);
+> +	} else {
+> +		chattr = stat->ctime.tv_sec;
+> +		chattr <<= 32;
+> +		chattr += stat->ctime.tv_nsec;
+> +	}
+> +	return chattr;
+> +}
+> diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
+> index a2442ebe5acf..26ed15256340 100644
+> --- a/fs/nfsd/vfs.h
+> +++ b/fs/nfsd/vfs.h
+> @@ -132,6 +132,9 @@ __be32		nfsd_statfs(struct svc_rqst *, struct svc_fh *,
+>  __be32		nfsd_permission(struct svc_rqst *, struct svc_export *,
+>  				struct dentry *, int);
+>  
+> +u64		nfsd4_change_attribute(struct kstat *stat, struct inode *inode,
+> +				struct svc_export *exp);
+> +
+>  static inline int fh_want_write(struct svc_fh *fh)
+>  {
+>  	int ret;
+> -- 
+> 2.28.0
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cachefs
 
