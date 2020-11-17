@@ -2,56 +2,57 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 45CBE2B6ABA
-	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Nov 2020 17:55:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 248222B6ABB
+	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Nov 2020 17:55:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-108-HHYepYZsNJOasTzoXC3g7w-1; Tue, 17 Nov 2020 11:55:31 -0500
-X-MC-Unique: HHYepYZsNJOasTzoXC3g7w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-562-qtS01xk4P_yfhogE8eZJGA-1; Tue, 17 Nov 2020 11:55:33 -0500
+X-MC-Unique: qtS01xk4P_yfhogE8eZJGA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 401B4802B61;
-	Tue, 17 Nov 2020 16:55:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09E801001E73;
-	Tue, 17 Nov 2020 16:55:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7D132802B66;
+	Tue, 17 Nov 2020 16:55:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3ED2F5B4A3;
+	Tue, 17 Nov 2020 16:55:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5B3A5813B;
-	Tue, 17 Nov 2020 16:55:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E3FAE181A06B;
+	Tue, 17 Nov 2020 16:55:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AHFPi5Y020001 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 17 Nov 2020 10:25:44 -0500
+	id 0AHFQib9020298 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 17 Nov 2020 10:26:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 23671110F0B4; Tue, 17 Nov 2020 15:25:44 +0000 (UTC)
+	id 740BB2086F68; Tue, 17 Nov 2020 15:26:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F1E6110F0B0
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:25:41 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E63E2086F64
+	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:26:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9C5058015A6
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:25:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E37EC811E94
+	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 15:26:40 +0000 (UTC)
 Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-501-lcj4Xf3fPcewwLxRTWePrg-1;
-	Tue, 17 Nov 2020 10:25:38 -0500
-X-MC-Unique: lcj4Xf3fPcewwLxRTWePrg-1
+	relay.mimecast.com with ESMTP id us-mta-526-XR3zaVBoPB6eOL_Wm3lDvg-1;
+	Tue, 17 Nov 2020 10:26:37 -0500
+X-MC-Unique: XR3zaVBoPB6eOL_Wm3lDvg-1
 Received: by fieldses.org (Postfix, from userid 2815)
-	id 6A7201C21; Tue, 17 Nov 2020 10:25:37 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 6A7201C21
-Date: Tue, 17 Nov 2020 10:25:37 -0500
-To: "J. Bruce Fields" <bfields@redhat.com>
-Message-ID: <20201117152537.GB4556@fieldses.org>
+	id 194D31C21; Tue, 17 Nov 2020 10:26:36 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 194D31C21
+Date: Tue, 17 Nov 2020 10:26:36 -0500
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20201117152636.GC4556@fieldses.org>
 References: <20201117031601.GB10526@fieldses.org>
 	<1605583086-19869-1-git-send-email-bfields@redhat.com>
 	<1605583086-19869-2-git-send-email-bfields@redhat.com>
+	<a5704a8f7a6ebdfa60d4fa996a4d9ebaacc7daaf.camel@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <1605583086-19869-2-git-send-email-bfields@redhat.com>
+In-Reply-To: <a5704a8f7a6ebdfa60d4fa996a4d9ebaacc7daaf.camel@kernel.org>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 From: bfields@fieldses.org (J. Bruce Fields)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -63,10 +64,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
 Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
-	Jeff Layton <jlayton@kernel.org>, linux-nfs <linux-nfs@vger.kernel.org>,
+	"J. Bruce Fields" <bfields@redhat.com>,
+	linux-nfs <linux-nfs@vger.kernel.org>,
 	Trond Myklebust <trondmy@hammerspace.com>
 Subject: Re: [Linux-cachefs] [PATCH 2/4] nfsd: pre/post attr is using wrong
 	change attribute
@@ -83,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,208 +94,26 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2020 at 10:18:04PM -0500, J. Bruce Fields wrote:
-> From: "J. Bruce Fields" <bfields@redhat.com>
+On Tue, Nov 17, 2020 at 07:34:49AM -0500, Jeff Layton wrote:
+> I don't think I described what I was thinking well. Let me try again...
 > 
-> fill_{pre/post}_attr are unconditionally using i_version even when the
-> underlying filesystem doesn't have proper support for i_version.
+> There should be no need to change the code in iversion.h -- I think we
+> can do this in a way that's confined to just nfsd/export code.
+> 
+> What I would suggest is to have nfsd4_change_attribute call the
+> fetch_iversion op if it exists, instead of checking IS_I_VERSION and
+> doing the stuff in that block. If fetch_iversion is NULL, then just use
+> the ctime.
+> 
+> Then, you just need to make sure that the filesystems' export_ops have
+> an appropriate fetch_iversion vector. xfs, ext4 and btrfs can just call
+> inode_query_iversion, and NFS and Ceph can call inode_peek_iversion_raw.
+> The rest of the filesystems can leave fetch_iversion as NULL (since we
+> don't want to use it on them).
 
-Actually, I didn't have this quite right....
-
-These values are queried, but they aren't used, thanks to the
-"change_supported" field of nfsd4_change_info; in set_change_info():
-
-	cinfo->change_supported = IS_I_VERSION(d_inode(fhp->fh_dentry));
-
-and then later on encode_cinfo() chooses to use stored change attribute
-or ctime values depending on how change_supported.
-
-But as of the ctime changes, just querying the change attribute here has
-side effects.
-
-So, that explains why Daire's team was seeing a performance regression,
-while no one was complaining about our returned change info being
-garbage.
-
-Anyway.
+Thanks for your patience, that makes sense, I'll try it.
 
 --b.
-
-> 
-> Move the code that chooses which i_version to use to the common
-> nfsd4_change_attribute().
-> 
-> The NFSEXP_V4ROOT case probably doesn't matter (the pseudoroot
-> filesystem is usually read-only and unlikely to see operations with pre
-> and post change attributes), but let's put it in the same place anyway
-> for consistency.
-> 
-> Fixes: c654b8a9cba6 ("nfsd: support ext4 i_version")
-> Signed-off-by: J. Bruce Fields <bfields@redhat.com>
-> ---
->  fs/nfsd/nfs4xdr.c | 11 +----------
->  fs/nfsd/nfsfh.c   | 11 +++++++----
->  fs/nfsd/nfsfh.h   | 23 -----------------------
->  fs/nfsd/vfs.c     | 32 ++++++++++++++++++++++++++++++++
->  fs/nfsd/vfs.h     |  3 +++
->  5 files changed, 43 insertions(+), 37 deletions(-)
-> 
-> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-> index 833a2c64dfe8..6806207b6d18 100644
-> --- a/fs/nfsd/nfs4xdr.c
-> +++ b/fs/nfsd/nfs4xdr.c
-> @@ -2295,16 +2295,7 @@ nfsd4_decode_compound(struct nfsd4_compoundargs *argp)
->  static __be32 *encode_change(__be32 *p, struct kstat *stat, struct inode *inode,
->  			     struct svc_export *exp)
->  {
-> -	if (exp->ex_flags & NFSEXP_V4ROOT) {
-> -		*p++ = cpu_to_be32(convert_to_wallclock(exp->cd->flush_time));
-> -		*p++ = 0;
-> -	} else if (IS_I_VERSION(inode)) {
-> -		p = xdr_encode_hyper(p, nfsd4_change_attribute(stat, inode));
-> -	} else {
-> -		*p++ = cpu_to_be32(stat->ctime.tv_sec);
-> -		*p++ = cpu_to_be32(stat->ctime.tv_nsec);
-> -	}
-> -	return p;
-> +	return xdr_encode_hyper(p, nfsd4_change_attribute(stat, inode, exp));
->  }
->  
->  /*
-> diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-> index b3b4e8809aa9..4fbe1413e767 100644
-> --- a/fs/nfsd/nfsfh.c
-> +++ b/fs/nfsd/nfsfh.c
-> @@ -719,6 +719,7 @@ void fill_pre_wcc(struct svc_fh *fhp)
->  {
->  	struct inode    *inode;
->  	struct kstat	stat;
-> +	struct svc_export *exp = fhp->fh_export;
->  	__be32 err;
->  
->  	if (fhp->fh_pre_saved)
-> @@ -736,7 +737,7 @@ void fill_pre_wcc(struct svc_fh *fhp)
->  	fhp->fh_pre_mtime = stat.mtime;
->  	fhp->fh_pre_ctime = stat.ctime;
->  	fhp->fh_pre_size  = stat.size;
-> -	fhp->fh_pre_change = nfsd4_change_attribute(&stat, inode);
-> +	fhp->fh_pre_change = nfsd4_change_attribute(&stat, inode, exp);
->  	fhp->fh_pre_saved = true;
->  }
->  
-> @@ -746,17 +747,19 @@ void fill_pre_wcc(struct svc_fh *fhp)
->  void fill_post_wcc(struct svc_fh *fhp)
->  {
->  	__be32 err;
-> +	struct inode *inode = d_inode(fhp->fh_dentry);
-> +	struct svc_export *exp = fhp->fh_export;
->  
->  	if (fhp->fh_post_saved)
->  		printk("nfsd: inode locked twice during operation.\n");
->  
->  	err = fh_getattr(fhp, &fhp->fh_post_attr);
-> -	fhp->fh_post_change = nfsd4_change_attribute(&fhp->fh_post_attr,
-> -						     d_inode(fhp->fh_dentry));
-> +	fhp->fh_post_change =
-> +			nfsd4_change_attribute(&fhp->fh_post_attr, inode, exp);
->  	if (err) {
->  		fhp->fh_post_saved = false;
->  		/* Grab the ctime anyway - set_change_info might use it */
-> -		fhp->fh_post_attr.ctime = d_inode(fhp->fh_dentry)->i_ctime;
-> +		fhp->fh_post_attr.ctime = inode->i_ctime;
->  	} else
->  		fhp->fh_post_saved = true;
->  }
-> diff --git a/fs/nfsd/nfsfh.h b/fs/nfsd/nfsfh.h
-> index 56cfbc361561..547aef9b3265 100644
-> --- a/fs/nfsd/nfsfh.h
-> +++ b/fs/nfsd/nfsfh.h
-> @@ -245,29 +245,6 @@ fh_clear_wcc(struct svc_fh *fhp)
->  	fhp->fh_pre_saved = false;
->  }
->  
-> -/*
-> - * We could use i_version alone as the change attribute.  However,
-> - * i_version can go backwards after a reboot.  On its own that doesn't
-> - * necessarily cause a problem, but if i_version goes backwards and then
-> - * is incremented again it could reuse a value that was previously used
-> - * before boot, and a client who queried the two values might
-> - * incorrectly assume nothing changed.
-> - *
-> - * By using both ctime and the i_version counter we guarantee that as
-> - * long as time doesn't go backwards we never reuse an old value.
-> - */
-> -static inline u64 nfsd4_change_attribute(struct kstat *stat,
-> -					 struct inode *inode)
-> -{
-> -	u64 chattr;
-> -
-> -	chattr =  stat->ctime.tv_sec;
-> -	chattr <<= 30;
-> -	chattr += stat->ctime.tv_nsec;
-> -	chattr += inode_query_iversion(inode);
-> -	return chattr;
-> -}
-> -
->  extern void fill_pre_wcc(struct svc_fh *fhp);
->  extern void fill_post_wcc(struct svc_fh *fhp);
->  #else
-> diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-> index 1ecaceebee13..2c71b02dd1fe 100644
-> --- a/fs/nfsd/vfs.c
-> +++ b/fs/nfsd/vfs.c
-> @@ -2390,3 +2390,35 @@ nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
->  
->  	return err? nfserrno(err) : 0;
->  }
-> +
-> +/*
-> + * We could use i_version alone as the change attribute.  However,
-> + * i_version can go backwards after a reboot.  On its own that doesn't
-> + * necessarily cause a problem, but if i_version goes backwards and then
-> + * is incremented again it could reuse a value that was previously used
-> + * before boot, and a client who queried the two values might
-> + * incorrectly assume nothing changed.
-> + *
-> + * By using both ctime and the i_version counter we guarantee that as
-> + * long as time doesn't go backwards we never reuse an old value.
-> + */
-> +u64 nfsd4_change_attribute(struct kstat *stat, struct inode *inode,
-> +					 struct svc_export *exp)
-> +{
-> +	u64 chattr;
-> +
-> +	if (exp->ex_flags & NFSEXP_V4ROOT) {
-> +		chattr = cpu_to_be32(convert_to_wallclock(exp->cd->flush_time));
-> +		chattr <<= 32;
-> +	} else if (IS_I_VERSION(inode)) {
-> +		chattr = stat->ctime.tv_sec;
-> +		chattr <<= 30;
-> +		chattr += stat->ctime.tv_nsec;
-> +		chattr += inode_query_iversion(inode);
-> +	} else {
-> +		chattr = stat->ctime.tv_sec;
-> +		chattr <<= 32;
-> +		chattr += stat->ctime.tv_nsec;
-> +	}
-> +	return chattr;
-> +}
-> diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
-> index a2442ebe5acf..26ed15256340 100644
-> --- a/fs/nfsd/vfs.h
-> +++ b/fs/nfsd/vfs.h
-> @@ -132,6 +132,9 @@ __be32		nfsd_statfs(struct svc_rqst *, struct svc_fh *,
->  __be32		nfsd_permission(struct svc_rqst *, struct svc_export *,
->  				struct dentry *, int);
->  
-> +u64		nfsd4_change_attribute(struct kstat *stat, struct inode *inode,
-> +				struct svc_export *exp);
-> +
->  static inline int fh_want_write(struct svc_fh *fh)
->  {
->  	int ret;
-> -- 
-> 2.28.0
 
 --
 Linux-cachefs mailing list
