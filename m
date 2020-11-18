@@ -2,62 +2,65 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D6DF52B7BFD
-	for <lists+linux-cachefs@lfdr.de>; Wed, 18 Nov 2020 12:02:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4BA502B7CF2
+	for <lists+linux-cachefs@lfdr.de>; Wed, 18 Nov 2020 12:44:36 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605697366;
+	s=mimecast20190719; t=1605699875;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=K+QyPdllGz2rgg7RJkf+T58SCfUTm4dndJVLapAPcMk=;
-	b=NVy/E5PZUQlLDuV/YtcWWGQoXbwETAqzgZkCkJf79HKV6/SxpnEnPaOa+dSyHVccyD14oB
-	jAPXWfN4f84Inb5aV2AUpzB/NfvOQeQpPsiJFMf85loW5RWZrptVpSHH9vOf8LmCGkNe5F
-	B4NEDxvISBZ4oAWloaL2fvFxyKqqITM=
+	bh=dNBxbcMPoxPJcZDJUwtRSDcohD/3Kxg/4oqhdrPld40=;
+	b=KHaVst7qUdBkkDZWtYdei+x08TLtOgqIKS6GzAsixmRGKWi0F3Dz/xs0shH29Sv76zPq7h
+	H2gLI//AmqlMXnHiWJ5y6i3cvfCLE0vw0Ie7TNCmwFeNgpwz8fBydULn++Kgh3/Q+98qkY
+	S3JFnCCQee6GSzvSGzo0OwFoQVNYYJo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-252-oKLUOX5ZONG3fkxnX_cMuA-1; Wed, 18 Nov 2020 06:02:43 -0500
-X-MC-Unique: oKLUOX5ZONG3fkxnX_cMuA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-534-hHQEvPQZMruxdACtBaUOBw-1; Wed, 18 Nov 2020 06:44:33 -0500
+X-MC-Unique: hHQEvPQZMruxdACtBaUOBw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60E291084C83;
-	Wed, 18 Nov 2020 11:02:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BCCB61882FBE;
+	Wed, 18 Nov 2020 11:44:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D31C15C1A3;
-	Wed, 18 Nov 2020 11:02:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10B6D55761;
+	Wed, 18 Nov 2020 11:44:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 46E2B180B658;
-	Wed, 18 Nov 2020 11:02:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92E93180B658;
+	Wed, 18 Nov 2020 11:44:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AIB2Xhj005723 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 18 Nov 2020 06:02:33 -0500
+	id 0AIBhcrn010311 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 18 Nov 2020 06:43:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 11BBA5C1BB; Wed, 18 Nov 2020 11:02:33 +0000 (UTC)
+	id EDE335D9D2; Wed, 18 Nov 2020 11:43:38 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-112-246.rdu2.redhat.com
 	[10.10.112.246])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 426CC5C1D7;
-	Wed, 18 Nov 2020 11:02:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 38F7A5D9CA;
+	Wed, 18 Nov 2020 11:43:34 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
+In-Reply-To: <1514086.1605697347@warthog.procyon.org.uk>
+References: <1514086.1605697347@warthog.procyon.org.uk>
 To: Dominique Martinet <asmadeus@codewreck.org>
 MIME-Version: 1.0
-Date: Wed, 18 Nov 2020 11:02:27 +0000
-Message-ID: <1514086.1605697347@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Date: Wed, 18 Nov 2020 11:43:33 +0000
+Message-ID: <1517306.1605699813@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AIB2Xhj005723
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AIBhcrn010311
 X-loop: linux-cachefs@redhat.com
 Cc: Latchesar Ionkov <lucho@ionkov.net>, linux-cachefs@redhat.com,
 	linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net
-Subject: [Linux-cachefs] [PATCH] 9p: Convert to new fscache API
+Subject: Re: [Linux-cachefs] [PATCH] 9p: Convert to new fscache API
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,70 +74,17 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <1514085.1605697347.1@warthog.procyon.org.uk>
+Content-ID: <1517305.1605699813.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Dominique,
-
-Here's a rough draft of a patch to convert 9P to use the rewritten fscache
-API.  It compiles, but I've no way to test it.  This is built on top of my
-fscache-iter branch:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-iter
-
-Notes:
-
- (*) I've switched to use ITER_XATTR rather than ITER_BVEC in some places.
-
- (*) I've added a pair of helper functions to get the cookie:
-
-	v9fs_inode_cookie()
-	v9fs_session_cache()
-
-     These return NULL if CONFIG_9P_FSCACHE=n.
-
- (*) I've moved some of the fscache accesses inline.  Using the above helper
-     functions, it all compiles away due to NULL pointer checks in the header
-     file if fscache is disabled.
-
- (*) 9P's readpage and readpages now just jump into the netfs helpers, as does
-     write_begin.  v9fs_req_issue_op() initiates the I/O on behalf of the
-     helpers.
-
- (*) v9fs_write_begin() now returns the subpage and v9fs_write_end() goes back
-     out to the head page.  thp_size() is also used.  This should mean you
-     handle transparent huge pages (THPs) and can turn that on.
-
- (*) I have made an assumption that 9p_client_read() and write can handle I/Os
-     larger than a page.  If this is not the case, v9fs_req_ops will need
-     clamp_length() implementing.
-
- (*) The expand_readahead() and clamp_length() ops should perhaps be
-     implemented to align and trim with respect to maximum I/O size.
-
- (*) iget and evict acquire and relinquish a cookie.
-
- (*) open and release use and unuse that cookie.
-
- (*) writepage writes the dirty data to the cache.
-
- (*) setattr resizes the cache if necessary.
-
- (*) The cache needs to be invalidated if a 3rd-party change happens, but I
-     haven't done that.
-
- (*) With these changes, 9p should cache local changes too, not just data
-     read.
-
- (*) If 9p supports DIO writes, it should invalidate a cache object with
-     FSCACHE_INVAL_DIO_WRITE when one happens - thereby stopping caching for
-     that file until all file handles on it are closed.
+Apologies, I forgot to commit all the changes to my patch before posting it.
+There are a couple of additional changes to v9fs_write_end.
 
 David
 ---
@@ -651,7 +601,7 @@ index 7b763776306e..b248586d7a2c 100644
  
  struct p9_fid *v9fs_session_init(struct v9fs_session_info *, const char *,
 diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index cce9ace651a2..ae093672c986 100644
+index cce9ace651a2..c0882ad0f3bb 100644
 --- a/fs/9p/vfs_addr.c
 +++ b/fs/9p/vfs_addr.c
 @@ -19,7 +19,7 @@
@@ -904,7 +854,7 @@ index cce9ace651a2..ae093672c986 100644
  	return 0;
  }
  
-@@ -256,35 +272,24 @@ static int v9fs_write_begin(struct file *filp, struct address_space *mapping,
+@@ -256,44 +272,35 @@ static int v9fs_write_begin(struct file *filp, struct address_space *mapping,
  			    loff_t pos, unsigned len, unsigned flags,
  			    struct page **pagep, void **fsdata)
  {
@@ -951,9 +901,12 @@ index cce9ace651a2..ae093672c986 100644
  	return retval;
  }
  
-@@ -293,7 +298,8 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
- 			  struct page *page, void *fsdata)
+ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
+ 			  loff_t pos, unsigned len, unsigned copied,
+-			  struct page *page, void *fsdata)
++			  struct page *subpage, void *fsdata)
  {
++	struct page *page = thp_head(subpage);
  	loff_t last_pos = pos + copied;
 -	struct inode *inode = page->mapping->host;
 +	struct inode *inode = mapping->host;
@@ -961,7 +914,16 @@ index cce9ace651a2..ae093672c986 100644
  
  	p9_debug(P9_DEBUG_VFS, "filp %p, mapping %p\n", filp, mapping);
  
-@@ -312,6 +318,7 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
+@@ -301,7 +308,7 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
+ 		if (unlikely(copied < len)) {
+ 			copied = 0;
+ 			goto out;
+-		} else if (len == PAGE_SIZE) {
++		} else if (len == thp_size(page)) {
+ 			SetPageUptodate(page);
+ 		}
+ 	}
+@@ -312,6 +319,7 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
  	if (last_pos > inode->i_size) {
  		inode_add_bytes(inode, last_pos - inode->i_size);
  		i_size_write(inode, last_pos);
@@ -969,7 +931,7 @@ index cce9ace651a2..ae093672c986 100644
  	}
  	set_page_dirty(page);
  out:
-@@ -324,7 +331,7 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
+@@ -324,7 +332,7 @@ static int v9fs_write_end(struct file *filp, struct address_space *mapping,
  
  const struct address_space_operations v9fs_addr_operations = {
  	.readpage = v9fs_vfs_readpage,
