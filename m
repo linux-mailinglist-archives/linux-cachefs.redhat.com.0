@@ -1,68 +1,63 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EF72A2BB91E
-	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 23:39:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605911976;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=s33x1+Kld+NqNLyVQEZWisp3jqw7/dJ7x5tCcud6qno=;
-	b=T9DW3Ygnvtq+SUWUDyg6qTetNHaXVRRM+Nj3hCymoob19xD8OCBAdhGvxT7oLIQD+JRfbc
-	ANclRklhI8nxk/o5DuF+bzHgvgY4nc/9WPuruJLpNW7a/vAO9KB72xfH6k0HDfV+XjZpnH
-	cBcCRX1yJAyv+b/1Rb3kouFVkROZJnU=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9BB0E2BB94A
+	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 23:44:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-567-aFLWGZ-yMLOfK3iDPS7r-w-1; Fri, 20 Nov 2020 17:39:34 -0500
-X-MC-Unique: aFLWGZ-yMLOfK3iDPS7r-w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-172-yiieBqsRNaKKHufTd4hqAg-1; Fri, 20 Nov 2020 17:44:50 -0500
+X-MC-Unique: yiieBqsRNaKKHufTd4hqAg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 65CD0425DA;
-	Fri, 20 Nov 2020 22:39:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 54EAE19D80;
-	Fri, 20 Nov 2020 22:39:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7EA01107AD34;
+	Fri, 20 Nov 2020 22:44:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B8785D6AD;
+	Fri, 20 Nov 2020 22:44:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B30D4A7C7;
-	Fri, 20 Nov 2020 22:39:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D7C65180954D;
+	Fri, 20 Nov 2020 22:44:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AKMdUuR019104 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 17:39:30 -0500
+	id 0AKMijkE019591 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 17:44:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C6A9F1033; Fri, 20 Nov 2020 22:39:30 +0000 (UTC)
+	id 88CC2115D355; Fri, 20 Nov 2020 22:44:45 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27338F103E
-	for <linux-cachefs@redhat.com>; Fri, 20 Nov 2020 22:39:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84806115D354
+	for <linux-cachefs@redhat.com>; Fri, 20 Nov 2020 22:44:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F5F5185A7BC
-	for <linux-cachefs@redhat.com>; Fri, 20 Nov 2020 22:39:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C9C2185A7BC
+	for <linux-cachefs@redhat.com>; Fri, 20 Nov 2020 22:44:43 +0000 (UTC)
 Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-453-XhoZxe_9PCysykEv2YriGg-1;
-	Fri, 20 Nov 2020 17:39:25 -0500
-X-MC-Unique: XhoZxe_9PCysykEv2YriGg-1
+	relay.mimecast.com with ESMTP id us-mta-513-_FkxUlC-PFCasULVG6jd_w-1;
+	Fri, 20 Nov 2020 17:44:39 -0500
+X-MC-Unique: _FkxUlC-PFCasULVG6jd_w-1
 Received: by fieldses.org (Postfix, from userid 2815)
-	id 6EB4B6E9B; Fri, 20 Nov 2020 17:39:22 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 6EB4B6E9B
-From: "J. Bruce Fields" <bfields@redhat.com>
+	id 44A836E9D; Fri, 20 Nov 2020 17:44:38 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 44A836E9D
+Date: Fri, 20 Nov 2020 17:44:38 -0500
+From: "J. Bruce Fields" <bfields@fieldses.org>
 To: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 20 Nov 2020 17:39:20 -0500
-Message-Id: <1605911960-12516-8-git-send-email-bfields@redhat.com>
-In-Reply-To: <1605911960-12516-1-git-send-email-bfields@redhat.com>
-References: <20201120223831.GB7705@fieldses.org>
-	<1605911960-12516-1-git-send-email-bfields@redhat.com>
+Message-ID: <20201120224438.GC7705@fieldses.org>
+References: <20201117031601.GB10526@fieldses.org>
+	<1605583086-19869-1-git-send-email-bfields@redhat.com>
+	<1605583086-19869-2-git-send-email-bfields@redhat.com>
+	<a5704a8f7a6ebdfa60d4fa996a4d9ebaacc7daaf.camel@kernel.org>
+	<20201117152636.GC4556@fieldses.org>
+	<725499c144317aac1a03f0334a22005588dbdefc.camel@kernel.org>
+	<20201120223831.GB7705@fieldses.org>
+MIME-Version: 1.0
+In-Reply-To: <20201120223831.GB7705@fieldses.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,14 +66,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
 Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
 	"J. Bruce Fields" <bfields@redhat.com>,
 	linux-nfs <linux-nfs@vger.kernel.org>,
 	Trond Myklebust <trondmy@hammerspace.com>
-Subject: [Linux-cachefs] [PATCH 8/8] Revert "nfsd4: support change_attr_type
-	attribute"
+Subject: Re: [Linux-cachefs] [PATCH 2/4] nfsd: pre/post attr is using wrong
+	change attribute
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,100 +85,77 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: "J. Bruce Fields" <bfields@redhat.com>
+On Fri, Nov 20, 2020 at 05:38:31PM -0500, J. Bruce Fields wrote:
+> On Tue, Nov 17, 2020 at 10:34:57AM -0500, Jeff Layton wrote:
+> > On Tue, 2020-11-17 at 10:26 -0500, J. Bruce Fields wrote:
+> > > On Tue, Nov 17, 2020 at 07:34:49AM -0500, Jeff Layton wrote:
+> > > > I don't think I described what I was thinking well. Let me try again...
+> > > > 
+> > > > There should be no need to change the code in iversion.h -- I think we
+> > > > can do this in a way that's confined to just nfsd/export code.
+> > > > 
+> > > > What I would suggest is to have nfsd4_change_attribute call the
+> > > > fetch_iversion op if it exists, instead of checking IS_I_VERSION and
+> > > > doing the stuff in that block. If fetch_iversion is NULL, then just use
+> > > > the ctime.
+> > > > 
+> > > > Then, you just need to make sure that the filesystems' export_ops have
+> > > > an appropriate fetch_iversion vector. xfs, ext4 and btrfs can just call
+> > > > inode_query_iversion, and NFS and Ceph can call inode_peek_iversion_raw.
+> > > > The rest of the filesystems can leave fetch_iversion as NULL (since we
+> > > > don't want to use it on them).
+> > > 
+> > > Thanks for your patience, that makes sense, I'll try it.
+> > > 
+> > 
+> > There is one gotcha in here though... ext4 needs to also handle the case
+> > where SB_I_VERSION is not set. The simple fix might be to just have
+> > different export ops for ext4 based on whether it was mounted with -o
+> > iversion or not, but maybe there is some better way to do it?
+> 
+> I was thinking ext4's export op could check for I_VERSION on its own and
+> vary behavior based on that.
+> 
+> I'll follow up with new patches in a moment.
+> 
+> I think the first one's all that's needed to fix the problem Daire
+> identified.  I'm a little less sure of the rest.
+> 
+> Lightly tested, just by running them through my usual regression tests
+> (which don't re-export) and then running connectathon on a 4.2 re-export
+> of a 4.2 mount.
+> 
+> The latter triggered a crash preceded by a KASAN use-after free warning.
+> Looks like it might be a problem with blocking lock notifications,
+> probably not related to these patches.
 
-This reverts commit a85857633b04d57f4524cca0a2bfaf87b2543f9f.
+Another nit I ran across:
 
-We're still factoring ctime into our change attribute even in the
-IS_I_VERSION case.  If someone sets the system time backwards, a client
-could see the change attribute go backwards.  Maybe we can just say
-"well, don't do that", but there's some question whether that's good
-enough, or whether we need a better guarantee.
+Some NFSv4 directory-modifying operations return pre- and post- change
+attributes together with an "atomic" flag that's supposed to indicate
+whether the change attributes were read atomically with the operation.
+It looks like we're setting the atomic flag under the assumptions that
+local vfs locks are sufficient to guarantee atomicity, which isn't right
+when we're exporting a distributed filesystem.
 
-Also, the client still isn't actually using the attribute.
+In the case we're reexporting NFS I guess ideal would be to use the pre-
+and post- attributes that the original server returned and also save
+having to do extra getattr calls.  Not sure how we'd do that,
+though--more export operations?  Maybe for now we could just figure out
+when to turn off the atomic bit.
 
-While we're still figuring this out, let's just stop returning this
-attribute.
-
-Signed-off-by: J. Bruce Fields <bfields@redhat.com>
----
- fs/nfsd/nfs4xdr.c    | 10 ----------
- fs/nfsd/nfsd.h       |  1 -
- include/linux/nfs4.h |  8 --------
- 3 files changed, 19 deletions(-)
-
-diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index 182190684792..c33838caf8c6 100644
---- a/fs/nfsd/nfs4xdr.c
-+++ b/fs/nfsd/nfs4xdr.c
-@@ -3183,16 +3183,6 @@ nfsd4_encode_fattr(struct xdr_stream *xdr, struct svc_fh *fhp,
- 			goto out;
- 	}
- 
--	if (bmval2 & FATTR4_WORD2_CHANGE_ATTR_TYPE) {
--		p = xdr_reserve_space(xdr, 4);
--		if (!p)
--			goto out_resource;
--		if (IS_I_VERSION(d_inode(dentry))
--			*p++ = cpu_to_be32(NFS4_CHANGE_TYPE_IS_MONOTONIC_INCR);
--		else
--			*p++ = cpu_to_be32(NFS4_CHANGE_TYPE_IS_TIME_METADATA);
--	}
--
- #ifdef CONFIG_NFSD_V4_SECURITY_LABEL
- 	if (bmval2 & FATTR4_WORD2_SECURITY_LABEL) {
- 		status = nfsd4_encode_security_label(xdr, rqstp, context,
-diff --git a/fs/nfsd/nfsd.h b/fs/nfsd/nfsd.h
-index cb742e17e04a..40cb40ac0a65 100644
---- a/fs/nfsd/nfsd.h
-+++ b/fs/nfsd/nfsd.h
-@@ -387,7 +387,6 @@ void		nfsd_lockd_shutdown(void);
- 
- #define NFSD4_2_SUPPORTED_ATTRS_WORD2 \
- 	(NFSD4_1_SUPPORTED_ATTRS_WORD2 | \
--	FATTR4_WORD2_CHANGE_ATTR_TYPE | \
- 	FATTR4_WORD2_MODE_UMASK | \
- 	NFSD4_2_SECURITY_ATTRS | \
- 	FATTR4_WORD2_XATTR_SUPPORT)
-diff --git a/include/linux/nfs4.h b/include/linux/nfs4.h
-index 9dc7eeac924f..5b4c67c91f56 100644
---- a/include/linux/nfs4.h
-+++ b/include/linux/nfs4.h
-@@ -385,13 +385,6 @@ enum lock_type4 {
- 	NFS4_WRITEW_LT = 4
- };
- 
--enum change_attr_type4 {
--	NFS4_CHANGE_TYPE_IS_MONOTONIC_INCR = 0,
--	NFS4_CHANGE_TYPE_IS_VERSION_COUNTER = 1,
--	NFS4_CHANGE_TYPE_IS_VERSION_COUNTER_NOPNFS = 2,
--	NFS4_CHANGE_TYPE_IS_TIME_METADATA = 3,
--	NFS4_CHANGE_TYPE_IS_UNDEFINED = 4
--};
- 
- /* Mandatory Attributes */
- #define FATTR4_WORD0_SUPPORTED_ATTRS    (1UL << 0)
-@@ -459,7 +452,6 @@ enum change_attr_type4 {
- #define FATTR4_WORD2_LAYOUT_BLKSIZE     (1UL << 1)
- #define FATTR4_WORD2_MDSTHRESHOLD       (1UL << 4)
- #define FATTR4_WORD2_CLONE_BLKSIZE	(1UL << 13)
--#define FATTR4_WORD2_CHANGE_ATTR_TYPE	(1UL << 15)
- #define FATTR4_WORD2_SECURITY_LABEL     (1UL << 16)
- #define FATTR4_WORD2_MODE_UMASK		(1UL << 17)
- #define FATTR4_WORD2_XATTR_SUPPORT	(1UL << 18)
--- 
-2.28.0
+--b.
 
 --
 Linux-cachefs mailing list
