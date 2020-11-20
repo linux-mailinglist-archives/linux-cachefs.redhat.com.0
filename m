@@ -1,48 +1,48 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D06052BAD2D
-	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 16:13:11 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 664E52BAD2E
+	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 16:13:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605885190;
+	s=mimecast20190719; t=1605885198;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fMxnJ1QWzD+vmXJd2no5HGngmBkdAG3Xgl5081H6J6w=;
-	b=ZVI+ifkkyqYkoJYR5LO/a+xqYQZJfrMrgUG+I9Y28XybMhGWgqeVu+xdKab4/ZoFaYk8gq
-	Ci46er/7PRJXRkAKcfb4nGjDWkIYWmB8tdiq41ATgel86Yj4hg6sDFF9MpHBu6qyEOLtUW
-	qs4AG6oYutyOC2Rb+pxfstAD1TwVA20=
+	bh=OJfGqWznZDZLPdtsHFbR2NTEs4zKPH0f8AERukTxk5o=;
+	b=L9/OmEe/JHYpcXV8jCqLKpuxKcPnr2tjPeDj3wFJhJDv4zqMWYXlEpHCvpR5QUrW5hrI2u
+	TZsJYgF3VU0Ue5ROLArIq0lvrxOjYruZtieBvT2JdPYzsqf8P960tOmnNlqD1SGHEpvqbO
+	37XX3LrVGTKyYwAHekVy6IKN6EtSwfE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-J2RWH2psOcOsxz4vRrYyng-1; Fri, 20 Nov 2020 10:13:08 -0500
-X-MC-Unique: J2RWH2psOcOsxz4vRrYyng-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-253-bFh-BWSrOjKVVx4DQZWqyw-1; Fri, 20 Nov 2020 10:13:15 -0500
+X-MC-Unique: bFh-BWSrOjKVVx4DQZWqyw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3E610814406;
-	Fri, 20 Nov 2020 15:13:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F5B76064B;
-	Fri, 20 Nov 2020 15:13:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC4FF801B20;
+	Fri, 20 Nov 2020 15:13:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BEC415D9D0;
+	Fri, 20 Nov 2020 15:13:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1884D1809C9F;
-	Fri, 20 Nov 2020 15:13:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A89254E58F;
+	Fri, 20 Nov 2020 15:13:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AKFCwCM014796 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 10:12:58 -0500
+	id 0AKFDAuC014833 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 10:13:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8002F10023AD; Fri, 20 Nov 2020 15:12:58 +0000 (UTC)
+	id A74DD60867; Fri, 20 Nov 2020 15:13:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-112-246.rdu2.redhat.com
 	[10.10.112.246])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4979410021B3;
-	Fri, 20 Nov 2020 15:12:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8DF8360853;
+	Fri, 20 Nov 2020 15:13:04 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -52,13 +52,13 @@ To: Trond Myklebust <trondmy@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	Steve French <sfrench@samba.org>,
 	Dominique Martinet <asmadeus@codewreck.org>
-Date: Fri, 20 Nov 2020 15:12:51 +0000
-Message-ID: <160588517154.3465195.3972712335234937475.stgit@warthog.procyon.org.uk>
+Date: Fri, 20 Nov 2020 15:13:03 +0000
+Message-ID: <160588518372.3465195.15930838383494185851.stgit@warthog.procyon.org.uk>
 In-Reply-To: <160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk>
 References: <160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
 Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -66,8 +66,7 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [RFC PATCH 48/76] fscache: Always create
- /proc/fs/fscache/stats if configured
+Subject: [Linux-cachefs] [RFC PATCH 49/76] netfs: Stats
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,481 +88,315 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Split the fscache initialisation so that /proc/fs/fscache/stats is always
-created, if FSCACHE_STATS=y, thereby allowing it to be used if the read
-helper is enabled, but not the rest of the caching infrastructure.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
 ---
 
- fs/fscache/Makefile     |    3 +
- fs/fscache/cache_init.c |  139 +++++++++++++++++++++++++++++++++++++++++++++++
- fs/fscache/internal.h   |   12 +++-
- fs/fscache/main.c       |  115 ++++-----------------------------------
- fs/fscache/proc.c       |   52 +-----------------
- fs/fscache/stats.c      |    8 +++
- 6 files changed, 174 insertions(+), 155 deletions(-)
- create mode 100644 fs/fscache/cache_init.c
+ fs/netfs/Kconfig       |   15 ++++++++++++++
+ fs/netfs/Makefile      |    3 +--
+ fs/netfs/internal.h    |   34 +++++++++++++++++++++++++++++++
+ fs/netfs/read_helper.c |   32 +++++++++++++++++++++++++++--
+ fs/netfs/stats.c       |   53 ++++++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h  |    1 +
+ 6 files changed, 134 insertions(+), 4 deletions(-)
+ create mode 100644 fs/netfs/stats.c
 
-diff --git a/fs/fscache/Makefile b/fs/fscache/Makefile
-index 3caf66810e7b..5d3284f6fe2d 100644
---- a/fs/fscache/Makefile
-+++ b/fs/fscache/Makefile
-@@ -5,6 +5,7 @@
+diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
+index 2ebf90e6ca95..578112713703 100644
+--- a/fs/netfs/Kconfig
++++ b/fs/netfs/Kconfig
+@@ -6,3 +6,18 @@ config NETFS_SUPPORT
+ 	  This option enables support for network filesystems, including
+ 	  helpers for high-level buffered I/O, abstracting out read
+ 	  segmentation, local caching and transparent huge page support.
++
++config NETFS_STATS
++	bool "Gather statistical information on local caching"
++	depends on NETFS_SUPPORT && PROC_FS
++	help
++	  This option causes statistical information to be gathered on local
++	  caching and exported through file:
++
++		/proc/fs/fscache/stats
++
++	  The gathering of statistics adds a certain amount of overhead to
++	  execution as there are a quite a few stats gathered, and on a
++	  multi-CPU system these may be on cachelines that keep bouncing
++	  between CPUs.  On the other hand, the stats are very useful for
++	  debugging purposes.  Saying 'Y' here is recommended.
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index 4b4eff2ba369..c15bfc966d96 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
  
- fscache-y := \
- 	cache.o \
-+	cache_init.o \
- 	cookie.o \
- 	dispatcher.o \
- 	fsdef.o \
-@@ -15,8 +16,8 @@ fscache-y := \
- 	object_bits.o
+-netfs-y := \
+-	read_helper.o
++netfs-y := read_helper.o stats.o
  
- fscache-$(CONFIG_PROC_FS) += proc.o
--fscache-$(CONFIG_FSCACHE_STATS) += stats.o
- fscache-$(CONFIG_FSCACHE_HISTOGRAM) += histogram.o
- fscache-$(CONFIG_FSCACHE_OBJECT_LIST) += object-list.o
-+fscache-$(CONFIG_FSCACHE_STATS) += stats.o
+ obj-$(CONFIG_NETFS_SUPPORT) := netfs.o
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index b07f43f9130e..d83317b1eb9d 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -16,8 +16,42 @@
+  */
+ extern unsigned int netfs_debug;
  
- obj-$(CONFIG_FSCACHE) := fscache.o
-diff --git a/fs/fscache/cache_init.c b/fs/fscache/cache_init.c
++/*
++ * stats.c
++ */
++#ifdef CONFIG_NETFS_STATS
++extern atomic_t netfs_n_rh_readahead;
++extern atomic_t netfs_n_rh_readpage;
++extern atomic_t netfs_n_rh_rreq;
++extern atomic_t netfs_n_rh_sreq;
++extern atomic_t netfs_n_rh_download;
++extern atomic_t netfs_n_rh_download_done;
++extern atomic_t netfs_n_rh_download_failed;
++extern atomic_t netfs_n_rh_download_instead;
++extern atomic_t netfs_n_rh_read;
++extern atomic_t netfs_n_rh_read_done;
++extern atomic_t netfs_n_rh_read_failed;
++extern atomic_t netfs_n_rh_zero;
++extern atomic_t netfs_n_rh_short_read;
++extern atomic_t netfs_n_rh_write;
++extern atomic_t netfs_n_rh_write_done;
++extern atomic_t netfs_n_rh_write_failed;
++
++
++static inline void netfs_stat(atomic_t *stat)
++{
++	atomic_inc(stat);
++}
++
++static inline void netfs_stat_d(atomic_t *stat)
++{
++	atomic_dec(stat);
++}
++
++#else
+ #define netfs_stat(x) do {} while(0)
+ #define netfs_stat_d(x) do {} while(0)
++#endif
+ 
+ /*****************************************************************************/
+ /*
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 21d3578c6979..e1ce197d8d18 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -55,6 +55,7 @@ static struct netfs_read_request *netfs_alloc_read_request(
+ 		refcount_set(&rreq->usage, 1);
+ 		__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
+ 		ops->init_rreq(rreq, file);
++		netfs_stat(&netfs_n_rh_rreq);
+ 	}
+ 
+ 	return rreq;
+@@ -86,6 +87,7 @@ static void netfs_put_read_request(struct netfs_read_request *rreq)
+ 		fscache_end_operation(&rreq->cache_resources);
+ 		trace_netfs_rreq(rreq, netfs_rreq_trace_free);
+ 		kfree(rreq);
++		netfs_stat_d(&netfs_n_rh_rreq);
+ 	}
+ }
+ 
+@@ -102,6 +104,7 @@ static struct netfs_read_subrequest *netfs_alloc_subrequest(
+ 		INIT_LIST_HEAD(&subreq->rreq_link);
+ 		refcount_set(&subreq->usage, 2);
+ 		subreq->rreq = rreq;
++		netfs_stat(&netfs_n_rh_sreq);
+ 	}
+ 
+ 	return subreq;
+@@ -117,6 +120,7 @@ static void __netfs_put_subrequest(struct netfs_read_subrequest *subreq)
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_free);
+ 	netfs_put_read_request(subreq->rreq);
+ 	kfree(subreq);
++	netfs_stat_d(&netfs_n_rh_sreq);
+ }
+ 
+ /*
+@@ -153,6 +157,7 @@ static void netfs_read_from_cache(struct netfs_read_request *rreq,
+ 			subreq->start + subreq->transferred,
+ 			subreq->len   - subreq->transferred);
+ 
++	netfs_stat(&netfs_n_rh_read);
+ 	fscache_read(&rreq->cache_resources, subreq->start, &iter, seek_data,
+ 		     netfs_cache_read_terminated, subreq);
+ }
+@@ -163,6 +168,7 @@ static void netfs_read_from_cache(struct netfs_read_request *rreq,
+ static void netfs_fill_with_zeroes(struct netfs_read_request *rreq,
+ 				   struct netfs_read_subrequest *subreq)
+ {
++	netfs_stat(&netfs_n_rh_zero);
+ 	__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
+ 	netfs_subreq_terminated(subreq, 0);
+ }
+@@ -186,6 +192,7 @@ static void netfs_fill_with_zeroes(struct netfs_read_request *rreq,
+ static void netfs_read_from_server(struct netfs_read_request *rreq,
+ 				   struct netfs_read_subrequest *subreq)
+ {
++	netfs_stat(&netfs_n_rh_download);
+ 	rreq->netfs_ops->issue_op(subreq);
+ }
+ 
+@@ -240,10 +247,13 @@ static void netfs_rreq_copy_terminated(void *priv, ssize_t transferred_or_error)
+ 	struct netfs_read_subrequest *subreq = priv;
+ 	struct netfs_read_request *rreq = subreq->rreq;
+ 
+-	if (IS_ERR_VALUE(transferred_or_error))
++	if (IS_ERR_VALUE(transferred_or_error)) {
+ 		subreq->error = transferred_or_error;
+-	else
++		netfs_stat(&netfs_n_rh_write_failed);
++	} else {
+ 		subreq->error = 0;
++		netfs_stat(&netfs_n_rh_write_done);
++	}
+ 
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_write_term);
+ 
+@@ -288,6 +298,7 @@ static void netfs_rreq_do_write_to_cache(struct netfs_read_request *rreq)
+ 			netfs_put_subrequest(next);
+ 		}
+ 
++		netfs_stat(&netfs_n_rh_write);
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_write);
+ 
+ 		iov_iter_xarray(&iter, WRITE, &rreq->mapping->i_pages,
+@@ -415,6 +426,7 @@ static void netfs_rreq_short_read(struct netfs_read_request *rreq,
+ 	__clear_bit(NETFS_SREQ_SHORT_READ, &subreq->flags);
+ 	__set_bit(NETFS_SREQ_SEEK_DATA_READ, &subreq->flags);
+ 
++	netfs_stat(&netfs_n_rh_short_read);
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_resubmit_short);
+ 
+ 	netfs_get_read_subrequest(subreq);
+@@ -449,6 +461,7 @@ static bool netfs_rreq_perform_resubmissions(struct netfs_read_request *rreq)
+ 				break;
+ 			subreq->source = NETFS_DOWNLOAD_FROM_SERVER;
+ 			subreq->error = 0;
++			netfs_stat(&netfs_n_rh_download_instead);
+ 			trace_netfs_sreq(subreq, netfs_sreq_trace_download_instead);
+ 			netfs_get_read_subrequest(subreq);
+ 			atomic_inc(&rreq->nr_rd_ops);
+@@ -563,6 +576,17 @@ void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
+ 	       subreq->debug_index, subreq->start, subreq->flags,
+ 	       transferred_or_error);
+ 
++	switch (subreq->source) {
++	case NETFS_READ_FROM_CACHE:
++		netfs_stat(&netfs_n_rh_read_done);
++		break;
++	case NETFS_DOWNLOAD_FROM_SERVER:
++		netfs_stat(&netfs_n_rh_download_done);
++		break;
++	default:
++		break;
++	}
++
+ 	if (IS_ERR_VALUE(transferred_or_error)) {
+ 		subreq->error = transferred_or_error;
+ 		goto failed;
+@@ -616,8 +640,10 @@ void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
+ 
+ failed:
+ 	if (subreq->source == NETFS_READ_FROM_CACHE) {
++		netfs_stat(&netfs_n_rh_read_failed);
+ 		set_bit(NETFS_RREQ_INCOMPLETE_IO, &rreq->flags);
+ 	} else {
++		netfs_stat(&netfs_n_rh_download_failed);
+ 		set_bit(NETFS_RREQ_FAILED, &rreq->flags);
+ 		rreq->error = subreq->error;
+ 	}
+@@ -822,6 +848,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ 	rreq->start	= readahead_pos(ractl);
+ 	rreq->len	= readahead_length(ractl);
+ 
++	netfs_stat(&netfs_n_rh_readahead);
+ 	trace_netfs_read(rreq, readahead_pos(ractl), readahead_length(ractl),
+ 			 netfs_read_trace_readahead);
+ 
+@@ -897,6 +924,7 @@ int netfs_readpage(struct file *file,
+ 	rreq->start		= page->index * PAGE_SIZE;
+ 	rreq->len		= thp_size(page);
+ 
++	netfs_stat(&netfs_n_rh_readpage);
+ 	trace_netfs_read(rreq, page->index * PAGE_SIZE, thp_size(page),
+ 			 netfs_read_trace_readpage);
+ 
+diff --git a/fs/netfs/stats.c b/fs/netfs/stats.c
 new file mode 100644
-index 000000000000..8cade2e00050
+index 000000000000..3a7a3c10e1cd
 --- /dev/null
-+++ b/fs/fscache/cache_init.c
-@@ -0,0 +1,139 @@
++++ b/fs/netfs/stats.c
+@@ -0,0 +1,53 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+/* General filesystem local caching manager
++/* Netfs support statistics
 + *
-+ * Copyright (C) 2004-2007 Red Hat, Inc. All Rights Reserved.
++ * Copyright (C) 2020 Red Hat, Inc. All Rights Reserved.
 + * Written by David Howells (dhowells@redhat.com)
 + */
 +
-+#define FSCACHE_DEBUG_LEVEL CACHE
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/sched.h>
-+#include <linux/completion.h>
-+#include <linux/slab.h>
 +#include <linux/seq_file.h>
-+#define CREATE_TRACE_POINTS
++#include <linux/netfs.h>
 +#include "internal.h"
 +
-+struct kobject *fscache_root;
-+struct workqueue_struct *fscache_op_wq;
++atomic_t netfs_n_rh_readahead;
++atomic_t netfs_n_rh_readpage;
++atomic_t netfs_n_rh_rreq;
++atomic_t netfs_n_rh_sreq;
++atomic_t netfs_n_rh_download;
++atomic_t netfs_n_rh_download_done;
++atomic_t netfs_n_rh_download_failed;
++atomic_t netfs_n_rh_download_instead;
++atomic_t netfs_n_rh_read;
++atomic_t netfs_n_rh_read_done;
++atomic_t netfs_n_rh_read_failed;
++atomic_t netfs_n_rh_zero;
++atomic_t netfs_n_rh_short_read;
++atomic_t netfs_n_rh_write;
++atomic_t netfs_n_rh_write_done;
++atomic_t netfs_n_rh_write_failed;
 +
-+/* these values serve as lower bounds, will be adjusted in fscache_init() */
-+static unsigned fscache_object_max_active = 4;
-+static unsigned fscache_op_max_active = 2;
-+
-+#ifdef CONFIG_SYSCTL
-+static struct ctl_table_header *fscache_sysctl_header;
-+
-+static int fscache_max_active_sysctl(struct ctl_table *table, int write,
-+				     void *buffer, size_t *lenp, loff_t *ppos)
++void netfs_stats_show(struct seq_file *m)
 +{
-+	struct workqueue_struct **wqp = table->extra1;
-+	unsigned int *datap = table->data;
-+	int ret;
-+
-+	ret = proc_dointvec(table, write, buffer, lenp, ppos);
-+	if (ret == 0)
-+		workqueue_set_max_active(*wqp, *datap);
-+	return ret;
++	seq_printf(m, "RdHelp : RA=%u RP=%u rr=%u sr=%u\n",
++		   atomic_read(&netfs_n_rh_readahead),
++		   atomic_read(&netfs_n_rh_readpage),
++		   atomic_read(&netfs_n_rh_rreq),
++		   atomic_read(&netfs_n_rh_sreq));
++	seq_printf(m, "RdHelp : ZR=%u sh=%u\n",
++		   atomic_read(&netfs_n_rh_zero),
++		   atomic_read(&netfs_n_rh_short_read));
++	seq_printf(m, "RdHelp : DL=%u ds=%u df=%u di=%u\n",
++		   atomic_read(&netfs_n_rh_download),
++		   atomic_read(&netfs_n_rh_download_done),
++		   atomic_read(&netfs_n_rh_download_failed),
++		   atomic_read(&netfs_n_rh_download_instead));
++	seq_printf(m, "RdHelp : RD=%u rs=%u rf=%u\n",
++		   atomic_read(&netfs_n_rh_read),
++		   atomic_read(&netfs_n_rh_read_done),
++		   atomic_read(&netfs_n_rh_read_failed));
++	seq_printf(m, "RdHelp : WR=%u ws=%u wf=%u\n",
++		   atomic_read(&netfs_n_rh_write),
++		   atomic_read(&netfs_n_rh_write_done),
++		   atomic_read(&netfs_n_rh_write_failed));
 +}
-+
-+static struct ctl_table fscache_sysctls[] = {
-+	{
-+		.procname	= "operation_max_active",
-+		.data		= &fscache_op_max_active,
-+		.maxlen		= sizeof(unsigned),
-+		.mode		= 0644,
-+		.proc_handler	= fscache_max_active_sysctl,
-+		.extra1		= &fscache_op_wq,
-+	},
-+	{}
-+};
-+
-+static struct ctl_table fscache_sysctls_root[] = {
-+	{
-+		.procname	= "fscache",
-+		.mode		= 0555,
-+		.child		= fscache_sysctls,
-+	},
-+	{}
-+};
-+#endif
-+
-+/*
-+ * Initialise the caching code.
-+ */
-+int __init fscache_init_caching(void)
-+{
-+	int ret;
-+
-+	fscache_op_max_active =
-+		clamp_val(fscache_object_max_active / 2,
-+			  fscache_op_max_active, WQ_UNBOUND_MAX_ACTIVE);
-+
-+	ret = -ENOMEM;
-+	fscache_op_wq = alloc_workqueue("fscache_operation", WQ_UNBOUND,
-+					fscache_op_max_active);
-+	if (!fscache_op_wq)
-+		goto error_op_wq;
-+
-+	ret = fscache_init_dispatchers();
-+	if (ret < 0)
-+		goto error_dispatchers;
-+
-+	ret = fscache_proc_caching_init();
-+	if (ret < 0)
-+		goto error_proc;
-+
-+#ifdef CONFIG_SYSCTL
-+	ret = -ENOMEM;
-+	fscache_sysctl_header = register_sysctl_table(fscache_sysctls_root);
-+	if (!fscache_sysctl_header)
-+		goto error_sysctl;
-+#endif
-+
-+	fscache_cookie_jar = kmem_cache_create("fscache_cookie_jar",
-+					       sizeof(struct fscache_cookie),
-+					       0, 0, NULL);
-+	if (!fscache_cookie_jar) {
-+		pr_notice("Failed to allocate a cookie jar\n");
-+		ret = -ENOMEM;
-+		goto error_cookie_jar;
-+	}
-+
-+	fscache_root = kobject_create_and_add("fscache", kernel_kobj);
-+	if (!fscache_root)
-+		goto error_kobj;
-+
-+	return 0;
-+
-+error_kobj:
-+	kmem_cache_destroy(fscache_cookie_jar);
-+error_cookie_jar:
-+#ifdef CONFIG_SYSCTL
-+	unregister_sysctl_table(fscache_sysctl_header);
-+error_sysctl:
-+#endif
-+	fscache_kill_dispatchers();
-+error_dispatchers:
-+error_proc:
-+	destroy_workqueue(fscache_op_wq);
-+error_op_wq:
-+	return ret;
-+}
-+
-+/*
-+ * clean up on module removal
-+ */
-+void __exit fscache_exit_caching(void)
-+{
-+	_enter("");
-+
-+	kobject_put(fscache_root);
-+	kmem_cache_destroy(fscache_cookie_jar);
-+#ifdef CONFIG_SYSCTL
-+	unregister_sysctl_table(fscache_sysctl_header);
-+#endif
-+	fscache_kill_dispatchers();
-+	destroy_workqueue(fscache_op_wq);
-+}
-diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-index ae05f636faac..1721823b8cac 100644
---- a/fs/fscache/internal.h
-+++ b/fs/fscache/internal.h
-@@ -56,6 +56,12 @@ static inline void fscache_put_cache_tag(struct fscache_cache_tag *tag)
- 		kfree(tag);
- }
++EXPORT_SYMBOL(netfs_stats_show);
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index c4276eb9914d..d9cd9a1d1f6d 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -98,5 +98,6 @@ extern int netfs_readpage(struct file *,
+ 			  void *);
  
-+/*
-+ * cache_init.c
-+ */
-+extern int __init fscache_init_caching(void);
-+extern void __exit fscache_exit_caching(void);
-+
- /*
-  * cookie.c
-  */
-@@ -164,11 +170,9 @@ extern void fscache_objlist_remove(struct fscache_object *);
-  * proc.c
-  */
- #ifdef CONFIG_PROC_FS
--extern int __init fscache_proc_init(void);
--extern void fscache_proc_cleanup(void);
-+extern int __init fscache_proc_caching_init(void);
- #else
- #define fscache_proc_init()	(0)
--#define fscache_proc_cleanup()	do {} while (0)
- #endif
+ extern void netfs_subreq_terminated(struct netfs_read_subrequest *, ssize_t);
++extern void netfs_stats_show(struct seq_file *);
  
- /*
-@@ -230,11 +234,13 @@ static inline void fscache_stat_d(atomic_t *stat)
- #define __fscache_stat(stat) (stat)
- 
- int fscache_stats_show(struct seq_file *m, void *v);
-+extern int __init fscache_proc_stats_init(void);
- #else
- 
- #define __fscache_stat(stat) (NULL)
- #define fscache_stat(stat) do {} while (0)
- #define fscache_stat_d(stat) do {} while (0)
-+#define fscache_proc_stats_init(void) 0
- #endif
- 
- static inline
-diff --git a/fs/fscache/main.c b/fs/fscache/main.c
-index 003e53d17245..9bdcd9557aa6 100644
---- a/fs/fscache/main.c
-+++ b/fs/fscache/main.c
-@@ -11,8 +11,7 @@
- #include <linux/sched.h>
- #include <linux/completion.h>
- #include <linux/slab.h>
--#include <linux/seq_file.h>
--#define CREATE_TRACE_POINTS
-+#include <linux/proc_fs.h>
- #include "internal.h"
- 
- MODULE_DESCRIPTION("FS Cache Manager");
-@@ -25,115 +24,31 @@ module_param_named(debug, fscache_debug, uint,
- MODULE_PARM_DESC(fscache_debug,
- 		 "FS-Cache debugging mask");
- 
--struct kobject *fscache_root;
--struct workqueue_struct *fscache_op_wq;
--
--/* these values serve as lower bounds, will be adjusted in fscache_init() */
--static unsigned fscache_object_max_active = 4;
--static unsigned fscache_op_max_active = 2;
--
--#ifdef CONFIG_SYSCTL
--static struct ctl_table_header *fscache_sysctl_header;
--
--static int fscache_max_active_sysctl(struct ctl_table *table, int write,
--				     void *buffer, size_t *lenp, loff_t *ppos)
--{
--	struct workqueue_struct **wqp = table->extra1;
--	unsigned int *datap = table->data;
--	int ret;
--
--	ret = proc_dointvec(table, write, buffer, lenp, ppos);
--	if (ret == 0)
--		workqueue_set_max_active(*wqp, *datap);
--	return ret;
--}
--
--static struct ctl_table fscache_sysctls[] = {
--	{
--		.procname	= "operation_max_active",
--		.data		= &fscache_op_max_active,
--		.maxlen		= sizeof(unsigned),
--		.mode		= 0644,
--		.proc_handler	= fscache_max_active_sysctl,
--		.extra1		= &fscache_op_wq,
--	},
--	{}
--};
--
--static struct ctl_table fscache_sysctls_root[] = {
--	{
--		.procname	= "fscache",
--		.mode		= 0555,
--		.child		= fscache_sysctls,
--	},
--	{}
--};
--#endif
--
- /*
-- * initialise the fs caching module
-+ * Initialise the module
-  */
- static int __init fscache_init(void)
- {
- 	int ret;
- 
--	fscache_op_max_active =
--		clamp_val(fscache_object_max_active / 2,
--			  fscache_op_max_active, WQ_UNBOUND_MAX_ACTIVE);
--
--	ret = -ENOMEM;
--	fscache_op_wq = alloc_workqueue("fscache_operation", WQ_UNBOUND,
--					fscache_op_max_active);
--	if (!fscache_op_wq)
--		goto error_op_wq;
-+	if (!proc_mkdir("fs/fscache", NULL))
-+		return -ENOMEM;
- 
--	ret = fscache_init_dispatchers();
-+	ret = fscache_proc_stats_init();
- 	if (ret < 0)
--		goto error_dispatchers;
-+		goto error;
- 
--	ret = fscache_proc_init();
-+	ret = fscache_init_caching();
- 	if (ret < 0)
--		goto error_proc;
--
--#ifdef CONFIG_SYSCTL
--	ret = -ENOMEM;
--	fscache_sysctl_header = register_sysctl_table(fscache_sysctls_root);
--	if (!fscache_sysctl_header)
--		goto error_sysctl;
--#endif
--
--	fscache_cookie_jar = kmem_cache_create("fscache_cookie_jar",
--					       sizeof(struct fscache_cookie),
--					       0, 0, NULL);
--	if (!fscache_cookie_jar) {
--		pr_notice("Failed to allocate a cookie jar\n");
--		ret = -ENOMEM;
--		goto error_cookie_jar;
--	}
--
--	fscache_root = kobject_create_and_add("fscache", kernel_kobj);
--	if (!fscache_root)
--		goto error_kobj;
-+		goto error;
- 
- 	pr_notice("Loaded\n");
- 	return 0;
- 
--error_kobj:
--	kmem_cache_destroy(fscache_cookie_jar);
--error_cookie_jar:
--#ifdef CONFIG_SYSCTL
--	unregister_sysctl_table(fscache_sysctl_header);
--error_sysctl:
--#endif
--	fscache_kill_dispatchers();
--error_dispatchers:
--	fscache_proc_cleanup();
--error_proc:
--	destroy_workqueue(fscache_op_wq);
--error_op_wq:
-+error:
-+	remove_proc_subtree("fs/fscache", NULL);
- 	return ret;
- }
--
- fs_initcall(fscache_init);
- 
- /*
-@@ -143,14 +58,8 @@ static void __exit fscache_exit(void)
- {
- 	_enter("");
- 
--	kobject_put(fscache_root);
--	kmem_cache_destroy(fscache_cookie_jar);
--#ifdef CONFIG_SYSCTL
--	unregister_sysctl_table(fscache_sysctl_header);
--#endif
--	fscache_proc_cleanup();
--	fscache_kill_dispatchers();
--	destroy_workqueue(fscache_op_wq);
-+	remove_proc_subtree("fs/fscache", NULL);
-+	fscache_exit_caching();
- 	pr_notice("Unloaded\n");
- }
- 
-diff --git a/fs/fscache/proc.c b/fs/fscache/proc.c
-index 729d083f1e91..7e156b21bb1d 100644
---- a/fs/fscache/proc.c
-+++ b/fs/fscache/proc.c
-@@ -14,67 +14,23 @@
- /*
-  * initialise the /proc/fs/fscache/ directory
-  */
--int __init fscache_proc_init(void)
-+int __init fscache_proc_caching_init(void)
- {
--	if (!proc_mkdir("fs/fscache", NULL))
--		goto error_dir;
--
- 	if (!proc_create_seq("fs/fscache/cookies", S_IFREG | 0444, NULL,
- 			     &fscache_cookies_seq_ops))
--		goto error_cookies;
--
--#ifdef CONFIG_FSCACHE_STATS
--	if (!proc_create_single("fs/fscache/stats", S_IFREG | 0444, NULL,
--			fscache_stats_show))
--		goto error_stats;
--#endif
-+		return -ENOMEM;
- 
- #ifdef CONFIG_FSCACHE_HISTOGRAM
- 	if (!proc_create_seq("fs/fscache/histogram", S_IFREG | 0444, NULL,
- 			 &fscache_histogram_ops))
--		goto error_histogram;
-+		return -ENOMEM;
- #endif
- 
- #ifdef CONFIG_FSCACHE_OBJECT_LIST
- 	if (!proc_create("fs/fscache/objects", S_IFREG | 0444, NULL,
- 			 &fscache_objlist_proc_ops))
--		goto error_objects;
-+		return -ENOMEM;
- #endif
- 
- 	return 0;
--
--#ifdef CONFIG_FSCACHE_OBJECT_LIST
--error_objects:
--#endif
--#ifdef CONFIG_FSCACHE_HISTOGRAM
--	remove_proc_entry("fs/fscache/histogram", NULL);
--error_histogram:
--#endif
--#ifdef CONFIG_FSCACHE_STATS
--	remove_proc_entry("fs/fscache/stats", NULL);
--error_stats:
--#endif
--	remove_proc_entry("fs/fscache/cookies", NULL);
--error_cookies:
--	remove_proc_entry("fs/fscache", NULL);
--error_dir:
--	return -ENOMEM;
--}
--
--/*
-- * clean up the /proc/fs/fscache/ directory
-- */
--void fscache_proc_cleanup(void)
--{
--#ifdef CONFIG_FSCACHE_OBJECT_LIST
--	remove_proc_entry("fs/fscache/objects", NULL);
--#endif
--#ifdef CONFIG_FSCACHE_HISTOGRAM
--	remove_proc_entry("fs/fscache/histogram", NULL);
--#endif
--#ifdef CONFIG_FSCACHE_STATS
--	remove_proc_entry("fs/fscache/stats", NULL);
--#endif
--	remove_proc_entry("fs/fscache/cookies", NULL);
--	remove_proc_entry("fs/fscache", NULL);
- }
-diff --git a/fs/fscache/stats.c b/fs/fscache/stats.c
-index dffe6925aadb..bf2935571de5 100644
---- a/fs/fscache/stats.c
-+++ b/fs/fscache/stats.c
-@@ -115,3 +115,11 @@ int fscache_stats_show(struct seq_file *m, void *v)
- 		   atomic_read(&fscache_n_cache_culled_objects));
- 	return 0;
- }
-+
-+int __init fscache_proc_stats_init(void)
-+{
-+	if (!proc_create_single("fs/fscache/stats", S_IFREG | 0444, NULL,
-+			fscache_stats_show))
-+		return -ENOMEM;
-+	return 0;
-+}
+ #endif /* _LINUX_NETFS_H */
 
 
 --
