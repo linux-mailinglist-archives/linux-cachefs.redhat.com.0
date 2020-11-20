@@ -1,84 +1,68 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E38812BAF1B
-	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 16:39:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0FAB62BAF20
+	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 16:39:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605886754;
+	s=mimecast20190719; t=1605886756;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3RNXoirzHOSk4bmc4YrZiUvROt4yEvWttYH4LDKM/Lk=;
-	b=i8N2Br/MFFVzkZgo348Wnw2IfZgCo6H8te2jWcEXgweBJ1OjZSrfKYoCVTA61G/hu6kbAr
-	QNOCv91ALDAKdPUAZpFAhhaQb8u7GkkZ2FwZr9CIzlH3s92g0IUfg5pkQ5REZLwAvNLfhQ
-	x4rLCO04W99L4VeNZmn+QCi5jCSCbcg=
+	bh=Gj1SZGo/gEwB6fFdRYJtQY/LwdTRzli4K5dknlKEdR0=;
+	b=JaDBCOgdAZBEQUhkNtqQ2CDiH9jDFCVN1eJyUmC3c2ikH/5tyaXZqTQiNHKEzYad9mrmKH
+	uf/R3NTZHjYmwwCrj3KhT/HXbjqXceSfKmqdlle17/EnFdsXInQRhVE9jcZpaOXPoOreDl
+	k3IeeXStnDB8RhFpkBSqUq+qRKdL4NY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-389-JIkLXCTbOOqaReh8B59lEQ-1; Fri, 20 Nov 2020 10:39:11 -0500
-X-MC-Unique: JIkLXCTbOOqaReh8B59lEQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-14-_ka1nM6XNB-3flIdUjPa_w-1; Fri, 20 Nov 2020 10:39:11 -0500
+X-MC-Unique: _ka1nM6XNB-3flIdUjPa_w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 769B385C738;
-	Fri, 20 Nov 2020 15:39:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66A7D60C05;
-	Fri, 20 Nov 2020 15:39:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F07D873094;
+	Fri, 20 Nov 2020 15:39:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4152E10023AE;
+	Fri, 20 Nov 2020 15:39:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B04B41809CA2;
-	Fri, 20 Nov 2020 15:39:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 288BE5002F;
+	Fri, 20 Nov 2020 15:39:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AH3IFmB002016 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 22:18:15 -0500
+	id 0AKF2fDA011528 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 10:02:41 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1413A8A4D1; Tue, 17 Nov 2020 03:18:15 +0000 (UTC)
+	id 3A39660C17; Fri, 20 Nov 2020 15:02:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EE179D466
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 03:18:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE0628007D9
-	for <linux-cachefs@redhat.com>; Tue, 17 Nov 2020 03:18:12 +0000 (UTC)
-Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-365-FG3fL2TJNuav3XS7IwR8Dg-1;
-	Mon, 16 Nov 2020 22:18:09 -0500
-X-MC-Unique: FG3fL2TJNuav3XS7IwR8Dg-1
-Received: by fieldses.org (Postfix, from userid 2815)
-	id B4FD57EC; Mon, 16 Nov 2020 22:18:08 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org B4FD57EC
-From: "J. Bruce Fields" <bfields@redhat.com>
-To: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 16 Nov 2020 22:18:06 -0500
-Message-Id: <1605583086-19869-4-git-send-email-bfields@redhat.com>
-In-Reply-To: <1605583086-19869-1-git-send-email-bfields@redhat.com>
-References: <20201117031601.GB10526@fieldses.org>
-	<1605583086-19869-1-git-send-email-bfields@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Received: from warthog.procyon.org.uk (ovpn-112-246.rdu2.redhat.com
+	[10.10.112.246])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6061660C05;
+	Fri, 20 Nov 2020 15:02:33 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Trond Myklebust <trondmy@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	Steve French <sfrench@samba.org>,
+	Dominique Martinet <asmadeus@codewreck.org>
+Date: Fri, 20 Nov 2020 15:02:32 +0000
+Message-ID: <160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Fri, 20 Nov 2020 10:39:06 -0500
-Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
-	"J. Bruce Fields" <bfields@redhat.com>,
-	linux-nfs <linux-nfs@vger.kernel.org>,
-	Trond Myklebust <trondmy@hammerspace.com>
-Subject: [Linux-cachefs] [PATCH 4/4] nfs: support i_version in the NFSv4 case
+Cc: Latchesar Ionkov <lucho@ionkov.net>, linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	ceph-devel@vger.kernel.org, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net,
+	Ilya Dryomov <idryomov@gmail.com>, linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [RFC PATCH 00/76] fscache: Modernisation
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,10 +74,9 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,32 +84,324 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: "J. Bruce Fields" <bfields@redhat.com>
 
-Currently when knfsd re-exports an NFS filesystem, it uses the ctime as
-the change attribute.  But obviously we have a real change
-attribute--the one that was returned from the original server.  We
-should just use that.
+Here's a set of patches that modernises the fscache API by switching to use
+the kiocb interface to do async DIO to/from the cache rather than by
+snooping the pagecache of the backing filesystem - something that doesn't
+seem totally reliable.  This means that the cache uses a lot less memory
+than it did and is faster than it was.
 
-Signed-off-by: J. Bruce Fields <bfields@redhat.com>
+A netfs helper library is provided that handles most of the readpage,
+readahead and write_begin ops on behalf of the filesystem.  This is
+intended to be used unconditionally by the filesystem and provides a common
+framework for doing caching, transparent huge pages (which works with AFS)
+and, in the future, possibly fscrypt.  It also allows the netfs and the
+cache to align, expand and slice up a read request from the VM in various
+ways; the netfs need only provide a function to read a stretch of data to
+the pagecache and the helper takes care of the rest.
+
+This patch series ports the AFS filesystem to the new API and disables
+caching in NFS, Ceph, CIFS and 9P.  Jeff Layton has a port for Ceph that is
+solid and Dave Wysochanski has one for NFS that is mostly solid.  I've
+given partial ports to 9P and CIFS to Dominique Martinet and Steve French
+respectively.
+
+-~-
+
+To this end, the fscache API has been massively overhauled.  Code that was
+using the old API is now disabled.  It's not practical to have the two APIs
+coexist because they have totally different ways of doing things, but must
+share common data.
+
+The following parts have been removed:
+
+    - The object state machine
+    - The I/O operation manager
+    - All non-transient references from fscache to the netfs's data
+    - All non-transient callbacks from fscache to the netfs
+    - The backing page I/O monitoring
+    - The tracking of netfs pages that fscache knows about
+    - The tracking of netfs pages that need writing to the cache
+    - The use of bmap to work out if a page is stored in the cache
+    - The copy of data to/from backing pages to netfs pages.
+
+Instead, the I/O to the cache is driven much more from the netfs and the
+netfs helpers.  There are a number of aspects to the I/O API:
+
+ (1) The lowest level I/O primitives just take an iov_iter and start async
+     DIO on the cache objects.  The caller gets a callback upon completion.
+     The PG_fscache bit is now just used to indicate that there's a write
+     to the cache in progress.  The cache will keep track in xattrs as to
+     what areas of the backing file are occupied.
+
+     - fscache_begin_operation(), fscache_end_operation()
+     - fscache_read() and fscache_write().
+
+ (2) The cookie that's obtained when an inode is set up must be 'used' when a
+     file is opened (with an indication as to whether it might be modified)
+     and 'unused' when it is done with.  At the point of unuse, the auxdata
+     and file size can be specified.
+
+     - fscache_use_cookie(), fscache_unuse_cookie()
+
+ (3) The cookie can be invalidated at any time, and new auxiliary data and a
+     new size provided.  Any in-progress I/O will either cause new I/O to
+     wait, or a replacement tmpfile will be created and the in-progress I/O
+     will just be abandoned.  The on-disk auxdata (in xattrs, say) are updated
+     lazily.
+
+     - fscache_invalidate()
+
+ (4) The netfs helpers for read are provided to combine the (1), (2) above
+     and do read-(re)issue to the network in the case that the data isn't
+     present or the cache fails.  This requires that an operation
+     descriptor be allocated and given some operations.  This needs to be
+     used for ->readpage(), ->readahead() and prefetching for
+     ->write_begin().  ->readpages() is obsolete and soon to go away.
+
+     - include/linux/netfs.h
+     - netfs_readpage(), netfs_readahead(), netfs_begin_write()
+
+ (5) There are some helpers to keep a cookie in use once a file has been
+     closed so that writeback can write to the cache.  write_inode and
+     evict inode need to clear this.
+
+     - fscache_set_page_dirty(), fscache_unpin_writeback()
+     - fscache_write_to_cache()
+
+I've also simplified the cookie management API to remove struct
+fscache_cookie_def.  Instead, the pertinent details are supplied when a
+cookie is created and the file size, key and auxdata are stored in the
+cookie.  Callbacks and backpointers are simply removed.
+
+I've added some pieces outside of the API also:
+
+ (1) An inode flag to mark a backing cachefile as being in use by the
+     kernel.  This prevents multiple caches mounted in the same directory
+     from fighting over the same files.  It can also be extended to exclude
+     other kernel users (such as swap) and could also be used to prevent
+     userspace interfering with the file.
+
+ (2) A new I/O iterator class, ITER_XARRAY, that iterates over the
+     specified byte range of an xarray.  The caller is required to make
+     sure that the pages don't evaporate under the callee (eg. pinning them
+     by PG_locked, PG_writeback, PG_fscache or usage count).
+
+     This is better than an ITER_BVEC as no allocation of bio_vec structs
+     is required since the xarray holds pointers to all the pages involved.
+
+ (3) Wait and unlock functions for PG_fscache.  These are in the core, so
+     no need to call into fscache for it.
+
+Future stuff:
+
+ (1) Avoid the need to double-truncate a backing file on relinquishment.
+     The first truncate cuts of rubbish data from the end so that it's not
+     retrieved in future; the second expands the EOF back out to DIO block
+     size.
+
+ (2) Add a write helper to improve on generic_perform_write(), allowing a
+     span of pages to be modified as a block and to take account of cache
+     granularity.
+
+ (3) Put in support for versioned monolithic objects (eg. AFS directories).
+
+ (4) Currently it cachefiles only caches large files up to 1GiB.  File data
+     beyond that isn't cached.  The problem here is that I'm using an xattr to
+     hold the content map, and xattrs may be limited in size and I've limited
+     myself to using a 512 byte xattr.  I can easily make it cache a
+     non-sparse file of any size with no map, but as soon as it becomes
+     sparse, I need a different strategy.
+
+ (5) Change the indexing strategy so that the culling mechanism is brought
+     into the kernel, rather than doing that in userspace, and use an index
+     table of files with a LRU list.
+
+ (6) Add support for throttling readahead when the server pushes back (cifs
+     credits).
+
+These patches can be found also on:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-iter
+
+David
 ---
- fs/nfs/super.c | 1 +
- 1 file changed, 1 insertion(+)
+David Howells (75):
+      nfs, cifs, ceph, 9p: Disable use of fscache prior to its rewrite
+      afs: Disable use of the fscache I/O routines
+      fscache: Add a cookie debug ID and use that in traces
+      fscache: Procfile to display cookies
+      fscache: Remove the old I/O API
+      fscache: Remove the netfs data from the cookie
+      fscache: Remove struct fscache_cookie_def
+      fscache: Remove store_limit* from struct fscache_object
+      fscache: Remove fscache_check_consistency()
+      fscache: Remove fscache_attr_changed()
+      fscache: Remove obsolete stats
+      fscache: Remove old I/O tracepoints
+      fscache: Temporarily disable fscache_invalidate()
+      fscache: Remove the I/O operation manager
+      fscache: Change %p in format strings to something else
+      cachefiles: Change %p in format strings to something else
+      iov_iter: Add ITER_XARRAY
+      vm: Add wait/unlock functions for PG_fscache
+      mm: Implement readahead_control pageset expansion
+      mm: Stop generic_file_buffered_read() from grabbing a superfluous page
+      vfs: Export rw_verify_area() for use by cachefiles
+      vfs: Provide S_CACHE_FILE inode flag
+      cachefiles: Remove tree of active files and use S_CACHE_FILE inode flag
+      fscache: Provide a simple thread pool for running ops asynchronously
+      fscache: Replace the object management state machine
+      fscache: Rewrite the I/O API based on iov_iter
+      fscache: Keep track of size of a file last set independently on the server
+      fscache, cachefiles: Fix disabled histogram warnings
+      fscache: Recast assertion in terms of cookie not being an index
+      vfs, fscache: Force ->write_inode() to occur if cookie pinned for writeback
+      fscache: Allow ->put_super() to be used to wait for cache operations
+      netfs: Make a netfs helper module
+      netfs: Provide readahead and readpage netfs helpers
+      netfs: Use the cache
+      fscache: read-helper: Add tracepoints
+      cachefiles: Remove some redundant checks on unsigned values
+      cachefiles: trace: Log coherency checks
+      cachefiles: Split cachefiles_drop_object() up a bit
+      cachefiles: Implement new fscache I/O backend API
+      cachefiles: Merge object->backer into object->dentry
+      cachefiles: Implement a content-present indicator and bitmap
+      cachefiles: Shape requests from the fscache read helper
+      cachefiles: Round the cachefile size up to DIO block size
+      cachefiles: Implement read and write parts of new I/O API
+      cachefiles: Add I/O tracepoints
+      fscache: Display cache-specific data in /proc/fs/fscache/objects
+      fscache: Remove more obsolete stats
+      fscache: Always create /proc/fs/fscache/stats if configured
+      netfs: Stats
+      fscache: New stats
+      fscache, cachefiles: Rewrite invalidation
+      fscache: Implement "will_modify" parameter on fscache_use_cookie()
+      fscache: Provide resize operation
+      fscache: Remove the update operation
+      afs: Pass page into dirty region helpers to provide THP size
+      afs: Print the operation debug_id when logging an unexpected data version
+      afs: Move key to afs_read struct
+      afs: Don't truncate iter during data fetch
+      afs: Log remote unmarshalling errors
+      afs: Set up the iov_iter before calling afs_extract_data()
+      afs: Use ITER_XARRAY for writing
+      afs: Wait on PG_fscache before modifying/releasing a page
+      afs: Extract writeback extension into its own function
+      afs: Prepare for use of THPs
+      afs: Use the fs operation ops to handle FetchData completion
+      afs: Use new fscache read helper API
+      netfs: Add write_begin helper
+      fscache: Add support for writing to the cache
+      afs: Use the fscache_write_begin() helper
+      afs: Copy local writes to the cache when writing to the server
+      afs: Invoke fscache_resize_cookie() when handling ATTR_SIZE for setattr
+      afs: Add O_DIRECT read support
+      afs: Skip truncation on the server of data we haven't written yet
+      afs: Make afs_write_begin() return the THP subpage
+      afs: Fix speculative status fetch going out of order wrt to modifications
 
-diff --git a/fs/nfs/super.c b/fs/nfs/super.c
-index 4034102010f0..ca85f81d1b9e 100644
---- a/fs/nfs/super.c
-+++ b/fs/nfs/super.c
-@@ -1045,6 +1045,7 @@ static void nfs_fill_super(struct super_block *sb, struct nfs_fs_context *ctx)
- 	} else {
- 		sb->s_time_min = S64_MIN;
- 		sb->s_time_max = S64_MAX;
-+		sb->s_flags |= SB_I_VERSION;
- 	}
- 
- 	sb->s_magic = NFS_SUPER_MAGIC;
--- 
-2.28.0
+Jeff Layton (1):
+      fscache: disable cookie when doing an invalidation for DIO write
+
+
+ fs/Kconfig                        |    1 +
+ fs/Makefile                       |    1 +
+ fs/afs/Kconfig                    |    1 +
+ fs/afs/cache.c                    |   54 --
+ fs/afs/cell.c                     |    9 +-
+ fs/afs/dir.c                      |  226 ++++--
+ fs/afs/file.c                     |  562 +++++--------
+ fs/afs/fs_operation.c             |    4 +-
+ fs/afs/fsclient.c                 |  126 ++-
+ fs/afs/inode.c                    |  108 ++-
+ fs/afs/internal.h                 |   69 +-
+ fs/afs/rxrpc.c                    |  150 ++--
+ fs/afs/super.c                    |   25 +
+ fs/afs/volume.c                   |    9 +-
+ fs/afs/write.c                    |  819 +++++++++++--------
+ fs/afs/yfsclient.c                |   94 +--
+ fs/cachefiles/Makefile            |    3 +-
+ fs/cachefiles/bind.c              |   13 +-
+ fs/cachefiles/content-map.c       |  515 ++++++++++++
+ fs/cachefiles/daemon.c            |   10 +-
+ fs/cachefiles/interface.c         |  597 ++++++++------
+ fs/cachefiles/internal.h          |  155 ++--
+ fs/cachefiles/io.c                |  360 +++++++++
+ fs/cachefiles/key.c               |    2 +-
+ fs/cachefiles/main.c              |   12 +-
+ fs/cachefiles/namei.c             |  538 +++++--------
+ fs/cachefiles/rdwr.c              |  975 ----------------------
+ fs/cachefiles/xattr.c             |  271 +++----
+ fs/fs-writeback.c                 |    8 +
+ fs/fscache/Kconfig                |    2 +
+ fs/fscache/Makefile               |   10 +-
+ fs/fscache/cache.c                |  171 ++--
+ fs/fscache/cache_init.c           |  139 ++++
+ fs/fscache/cookie.c               |  939 ++++++++++------------
+ fs/fscache/dispatcher.c           |  151 ++++
+ fs/fscache/fsdef.c                |   56 +-
+ fs/fscache/histogram.c            |    2 +-
+ fs/fscache/internal.h             |  268 ++-----
+ fs/fscache/io.c                   |  390 +++++++++
+ fs/fscache/main.c                 |  151 +---
+ fs/fscache/netfs.c                |   10 +-
+ fs/fscache/obj.c                  |  360 +++++++++
+ fs/fscache/object-list.c          |  129 +--
+ fs/fscache/object.c               | 1133 --------------------------
+ fs/fscache/object_bits.c          |  120 +++
+ fs/fscache/operation.c            |  633 ---------------
+ fs/fscache/page.c                 | 1248 -----------------------------
+ fs/fscache/proc.c                 |   55 +-
+ fs/fscache/stats.c                |  233 ++----
+ fs/internal.h                     |    5 -
+ fs/netfs/Kconfig                  |   23 +
+ fs/netfs/Makefile                 |    5 +
+ fs/netfs/internal.h               |   97 +++
+ fs/netfs/read_helper.c            | 1125 ++++++++++++++++++++++++++
+ fs/netfs/stats.c                  |   57 ++
+ fs/nfs/fscache-index.c            |    4 +-
+ fs/read_write.c                   |    1 +
+ include/linux/fs.h                |    5 +
+ include/linux/fscache-cache.h     |  510 +++---------
+ include/linux/fscache-obsolete.h  |   13 +
+ include/linux/fscache.h           |  814 ++++++++-----------
+ include/linux/netfs.h             |  111 +++
+ include/linux/pagemap.h           |   16 +
+ include/linux/uio.h               |   11 +
+ include/linux/writeback.h         |    1 +
+ include/net/af_rxrpc.h            |    2 +-
+ include/trace/events/afs.h        |   74 +-
+ include/trace/events/cachefiles.h |  287 +++++--
+ include/trace/events/fscache.h    |  428 ++--------
+ include/trace/events/netfs.h      |  202 +++++
+ lib/iov_iter.c                    |  312 +++++++-
+ mm/filemap.c                      |   20 +
+ mm/readahead.c                    |   70 ++
+ net/rxrpc/recvmsg.c               |    9 +-
+ 74 files changed, 7421 insertions(+), 8698 deletions(-)
+ create mode 100644 fs/cachefiles/content-map.c
+ create mode 100644 fs/cachefiles/io.c
+ delete mode 100644 fs/cachefiles/rdwr.c
+ create mode 100644 fs/fscache/cache_init.c
+ create mode 100644 fs/fscache/dispatcher.c
+ create mode 100644 fs/fscache/io.c
+ create mode 100644 fs/fscache/obj.c
+ delete mode 100644 fs/fscache/object.c
+ create mode 100644 fs/fscache/object_bits.c
+ delete mode 100644 fs/fscache/operation.c
+ delete mode 100644 fs/fscache/page.c
+ create mode 100644 fs/netfs/Kconfig
+ create mode 100644 fs/netfs/Makefile
+ create mode 100644 fs/netfs/internal.h
+ create mode 100644 fs/netfs/read_helper.c
+ create mode 100644 fs/netfs/stats.c
+ create mode 100644 include/linux/fscache-obsolete.h
+ create mode 100644 include/linux/netfs.h
+ create mode 100644 include/trace/events/netfs.h
+
 
 --
 Linux-cachefs mailing list
