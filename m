@@ -1,77 +1,73 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 55CCF2B98FF
-	for <lists+linux-cachefs@lfdr.de>; Thu, 19 Nov 2020 18:12:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 209E72BAC57
+	for <lists+linux-cachefs@lfdr.de>; Fri, 20 Nov 2020 16:03:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1605884597;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=1jZpbF5qz7GqJnCa9nY9x4Y+nTvo9rgQ8lcFAqQwOIQ=;
+	b=ApRFSNEYSxswppPFbMGeLe+hD/1y2Wy9ie8AMsJyMOsS5XEnJuemLiWwAi2aehriG8UJF9
+	Fm2nRYSOg5z1Vre4QyWQrUpFioD4Jvo7Di+B5fzdVlXhBfZ7a8ZK/6C7x5frjZ+1/4ppjf
+	ZzkI9enMOutZH7IO7ojAoQpIgBi39yA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-160-K8sAJLPOP_qwULvMt4DA6w-1; Thu, 19 Nov 2020 12:12:35 -0500
-X-MC-Unique: K8sAJLPOP_qwULvMt4DA6w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-517-IHdMfM1lMu6XEgKD-ZLLIA-1; Fri, 20 Nov 2020 10:03:15 -0500
+X-MC-Unique: IHdMfM1lMu6XEgKD-ZLLIA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4140A107ACFB;
-	Thu, 19 Nov 2020 17:12:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5034781F02A;
+	Fri, 20 Nov 2020 15:03:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5206A60636;
-	Thu, 19 Nov 2020 17:12:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4335410016DB;
+	Fri, 20 Nov 2020 15:03:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D5D7E1809CA0;
-	Thu, 19 Nov 2020 17:12:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0056B180954D;
+	Fri, 20 Nov 2020 15:03:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AJHCRXF010721 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 19 Nov 2020 12:12:27 -0500
+	id 0AKF359U011571 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 10:03:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 358232026D5D; Thu, 19 Nov 2020 17:12:27 +0000 (UTC)
+	id BCE6719D80; Fri, 20 Nov 2020 15:03:05 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30C162026D47
-	for <linux-cachefs@redhat.com>; Thu, 19 Nov 2020 17:12:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D43538007D9
-	for <linux-cachefs@redhat.com>; Thu, 19 Nov 2020 17:12:24 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-555-BvI3pIqGOm-LO93ugR5Q9Q-1; Thu, 19 Nov 2020 12:12:22 -0500
-X-MC-Unique: BvI3pIqGOm-LO93ugR5Q9Q-1
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
-	helo=noisy.programming.kicks-ass.net)
-	by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kfmsC-0006tp-TE; Thu, 19 Nov 2020 16:33:29 +0000
-Received: from hirez.programming.kicks-ass.net
-	(hirez.programming.kicks-ass.net [192.168.1.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id AF6713011C6;
-	Thu, 19 Nov 2020 17:33:27 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9AF002C36A0D3; Thu, 19 Nov 2020 17:33:27 +0100 (CET)
-Date: Thu, 19 Nov 2020 17:33:27 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20201119163327.GT3121392@hirez.programming.kicks-ass.net>
-References: <2220347.1605801222@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-112-246.rdu2.redhat.com
+	[10.10.112.246])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D05C19C46;
+	Fri, 20 Nov 2020 15:02:59 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Trond Myklebust <trondmy@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	Steve French <sfrench@samba.org>,
+	Dominique Martinet <asmadeus@codewreck.org>
+Date: Fri, 20 Nov 2020 15:02:59 +0000
+Message-ID: <160588457929.3465195.1730097418904945578.stgit@warthog.procyon.org.uk>
+In-Reply-To: <160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk>
+References: <160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <2220347.1605801222@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cachefs@redhat.com, willy@infradead.org, paulmck@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [Linux-cachefs] Can you help diagnose a weird failed wake?
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [RFC PATCH 02/76] afs: Disable use of the fscache
+	I/O routines
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,29 +81,335 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2020 at 03:53:42PM +0000, David Howells wrote:
+Disable use of the fscache I/O routined by the AFS filesystem.  It's about
+to transition to passing iov_iters down and fscache is about to have its
+I/O path to use iov_iter, so all that needs to change.
 
-> 		timeo = wait_var_event_timeout(&cookie->stage, cookie_stage_changed(cookie, stage), 10*HZ);
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: linux-afs@lists.infradead.org
+---
 
-> 			cookie->stage = stage;                                                              
-> 			changed = true;                                                                    
-> 			break;                                                                              
-> 		}                                                                                          
-> 		spin_unlock(&cookie->lock);                                                                
-> 		if (changed) {                                                                              
+ fs/afs/file.c  |  199 ++++++++++----------------------------------------------
+ fs/afs/inode.c |    2 -
+ fs/afs/write.c |   10 ---
+ 3 files changed, 36 insertions(+), 175 deletions(-)
 
-smp_mb(); // see comment on wake_up_bit() / wakequeue_active()
-
-> 			wake_up_var(&cookie->stage);                                                        
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index 85f5adf21aa0..6d43713fde01 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -203,24 +203,6 @@ void afs_put_read(struct afs_read *req)
+ 	}
+ }
+ 
+-#ifdef CONFIG_AFS_FSCACHE
+-/*
+- * deal with notification that a page was read from the cache
+- */
+-static void afs_file_readpage_read_complete(struct page *page,
+-					    void *data,
+-					    int error)
+-{
+-	_enter("%p,%p,%d", page, data, error);
+-
+-	/* if the read completes with an error, we just unlock the page and let
+-	 * the VM reissue the readpage */
+-	if (!error)
+-		SetPageUptodate(page);
+-	unlock_page(page);
+-}
+-#endif
+-
+ static void afs_fetch_data_success(struct afs_operation *op)
+ {
+ 	struct afs_vnode *vnode = op->file[0].vnode;
+@@ -288,89 +270,46 @@ int afs_page_filler(void *data, struct page *page)
+ 	if (test_bit(AFS_VNODE_DELETED, &vnode->flags))
+ 		goto error;
+ 
+-	/* is it cached? */
+-#ifdef CONFIG_AFS_FSCACHE
+-	ret = fscache_read_or_alloc_page(vnode->cache,
+-					 page,
+-					 afs_file_readpage_read_complete,
+-					 NULL,
+-					 GFP_KERNEL);
+-#else
+-	ret = -ENOBUFS;
+-#endif
+-	switch (ret) {
+-		/* read BIO submitted (page in cache) */
+-	case 0:
+-		break;
+-
+-		/* page not yet cached */
+-	case -ENODATA:
+-		_debug("cache said ENODATA");
+-		goto go_on;
+-
+-		/* page will not be cached */
+-	case -ENOBUFS:
+-		_debug("cache said ENOBUFS");
+-
+-		fallthrough;
+-	default:
+-	go_on:
+-		req = kzalloc(struct_size(req, array, 1), GFP_KERNEL);
+-		if (!req)
+-			goto enomem;
+-
+-		/* We request a full page.  If the page is a partial one at the
+-		 * end of the file, the server will return a short read and the
+-		 * unmarshalling code will clear the unfilled space.
+-		 */
+-		refcount_set(&req->usage, 1);
+-		req->pos = (loff_t)page->index << PAGE_SHIFT;
+-		req->len = PAGE_SIZE;
+-		req->nr_pages = 1;
+-		req->pages = req->array;
+-		req->pages[0] = page;
+-		get_page(page);
+-
+-		/* read the contents of the file from the server into the
+-		 * page */
+-		ret = afs_fetch_data(vnode, key, req);
+-		afs_put_read(req);
+-
+-		if (ret < 0) {
+-			if (ret == -ENOENT) {
+-				_debug("got NOENT from server"
+-				       " - marking file deleted and stale");
+-				set_bit(AFS_VNODE_DELETED, &vnode->flags);
+-				ret = -ESTALE;
+-			}
+-
+-#ifdef CONFIG_AFS_FSCACHE
+-			fscache_uncache_page(vnode->cache, page);
+-#endif
+-			BUG_ON(PageFsCache(page));
+-
+-			if (ret == -EINTR ||
+-			    ret == -ENOMEM ||
+-			    ret == -ERESTARTSYS ||
+-			    ret == -EAGAIN)
+-				goto error;
+-			goto io_error;
+-		}
++	req = kzalloc(struct_size(req, array, 1), GFP_KERNEL);
++	if (!req)
++		goto enomem;
+ 
+-		SetPageUptodate(page);
++	/* We request a full page.  If the page is a partial one at the
++	 * end of the file, the server will return a short read and the
++	 * unmarshalling code will clear the unfilled space.
++	 */
++	refcount_set(&req->usage, 1);
++	req->pos = (loff_t)page->index << PAGE_SHIFT;
++	req->len = PAGE_SIZE;
++	req->nr_pages = 1;
++	req->pages = req->array;
++	req->pages[0] = page;
++	get_page(page);
++
++	/* read the contents of the file from the server into the
++	 * page */
++	ret = afs_fetch_data(vnode, key, req);
++	afs_put_read(req);
+ 
+-		/* send the page to the cache */
+-#ifdef CONFIG_AFS_FSCACHE
+-		if (PageFsCache(page) &&
+-		    fscache_write_page(vnode->cache, page, vnode->status.size,
+-				       GFP_KERNEL) != 0) {
+-			fscache_uncache_page(vnode->cache, page);
+-			BUG_ON(PageFsCache(page));
++	if (ret < 0) {
++		if (ret == -ENOENT) {
++			_debug("got NOENT from server"
++			       " - marking file deleted and stale");
++			set_bit(AFS_VNODE_DELETED, &vnode->flags);
++			ret = -ESTALE;
+ 		}
+-#endif
+-		unlock_page(page);
++
++		if (ret == -EINTR ||
++		    ret == -ENOMEM ||
++		    ret == -ERESTARTSYS ||
++		    ret == -EAGAIN)
++			goto error;
++		goto io_error;
+ 	}
+ 
++	SetPageUptodate(page);
++	unlock_page(page);
++
+ 	_leave(" = 0");
+ 	return 0;
+ 
+@@ -416,23 +355,10 @@ static int afs_readpage(struct file *file, struct page *page)
+  */
+ static void afs_readpages_page_done(struct afs_read *req)
+ {
+-#ifdef CONFIG_AFS_FSCACHE
+-	struct afs_vnode *vnode = req->vnode;
+-#endif
+ 	struct page *page = req->pages[req->index];
+ 
+ 	req->pages[req->index] = NULL;
+ 	SetPageUptodate(page);
+-
+-	/* send the page to the cache */
+-#ifdef CONFIG_AFS_FSCACHE
+-	if (PageFsCache(page) &&
+-	    fscache_write_page(vnode->cache, page, vnode->status.size,
+-			       GFP_KERNEL) != 0) {
+-		fscache_uncache_page(vnode->cache, page);
+-		BUG_ON(PageFsCache(page));
+-	}
+-#endif
+ 	unlock_page(page);
+ 	put_page(page);
+ }
+@@ -491,9 +417,6 @@ static int afs_readpages_one(struct file *file, struct address_space *mapping,
+ 		index = page->index;
+ 		if (add_to_page_cache_lru(page, mapping, index,
+ 					  readahead_gfp_mask(mapping))) {
+-#ifdef CONFIG_AFS_FSCACHE
+-			fscache_uncache_page(vnode->cache, page);
+-#endif
+ 			put_page(page);
+ 			break;
+ 		}
+@@ -526,9 +449,6 @@ static int afs_readpages_one(struct file *file, struct address_space *mapping,
+ 	for (i = 0; i < req->nr_pages; i++) {
+ 		page = req->pages[i];
+ 		if (page) {
+-#ifdef CONFIG_AFS_FSCACHE
+-			fscache_uncache_page(vnode->cache, page);
+-#endif
+ 			SetPageError(page);
+ 			unlock_page(page);
+ 		}
+@@ -560,37 +480,6 @@ static int afs_readpages(struct file *file, struct address_space *mapping,
+ 	}
+ 
+ 	/* attempt to read as many of the pages as possible */
+-#ifdef CONFIG_AFS_FSCACHE
+-	ret = fscache_read_or_alloc_pages(vnode->cache,
+-					  mapping,
+-					  pages,
+-					  &nr_pages,
+-					  afs_file_readpage_read_complete,
+-					  NULL,
+-					  mapping_gfp_mask(mapping));
+-#else
+-	ret = -ENOBUFS;
+-#endif
+-
+-	switch (ret) {
+-		/* all pages are being read from the cache */
+-	case 0:
+-		BUG_ON(!list_empty(pages));
+-		BUG_ON(nr_pages != 0);
+-		_leave(" = 0 [reading all]");
+-		return 0;
+-
+-		/* there were pages that couldn't be read from the cache */
+-	case -ENODATA:
+-	case -ENOBUFS:
+-		break;
+-
+-		/* other error */
+-	default:
+-		_leave(" = %d", ret);
+-		return ret;
+-	}
+-
+ 	while (!list_empty(pages)) {
+ 		ret = afs_readpages_one(file, mapping, pages);
+ 		if (ret < 0)
+@@ -670,17 +559,6 @@ static void afs_invalidatepage(struct page *page, unsigned int offset,
+ 
+ 	BUG_ON(!PageLocked(page));
+ 
+-#ifdef CONFIG_AFS_FSCACHE
+-	/* we clean up only if the entire page is being invalidated */
+-	if (offset == 0 && length == PAGE_SIZE) {
+-		if (PageFsCache(page)) {
+-			struct afs_vnode *vnode = AFS_FS_I(page->mapping->host);
+-			fscache_wait_on_page_write(vnode->cache, page);
+-			fscache_uncache_page(vnode->cache, page);
+-		}
+-	}
+-#endif
+-
+ 	if (PagePrivate(page))
+ 		afs_invalidate_dirty(page, offset, length);
+ 
+@@ -702,13 +580,6 @@ static int afs_releasepage(struct page *page, gfp_t gfp_flags)
+ 
+ 	/* deny if page is being written to the cache and the caller hasn't
+ 	 * elected to wait */
+-#ifdef CONFIG_AFS_FSCACHE
+-	if (!fscache_maybe_release_page(vnode->cache, page, gfp_flags)) {
+-		_leave(" = F [cache busy]");
+-		return 0;
+-	}
+-#endif
+-
+ 	if (PagePrivate(page)) {
+ 		priv = (unsigned long)detach_page_private(page);
+ 		trace_afs_page_dirty(vnode, tracepoint_string("rel"),
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index 0fe8844b4bee..79c8dc06c0b8 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -420,7 +420,7 @@ static void afs_get_inode_cache(struct afs_vnode *vnode)
+ 	} __packed key;
+ 	struct afs_vnode_cache_aux aux;
+ 
+-	if (vnode->status.type == AFS_FTYPE_DIR) {
++	if (vnode->status.type != AFS_FTYPE_FILE) {
+ 		vnode->cache = NULL;
+ 		return;
+ 	}
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index c9195fc67fd8..92eaa88000d7 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -847,9 +847,6 @@ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
+ 	/* Wait for the page to be written to the cache before we allow it to
+ 	 * be modified.  We then assume the entire page will need writing back.
+ 	 */
+-#ifdef CONFIG_AFS_FSCACHE
+-	fscache_wait_on_page_write(vnode->cache, vmf->page);
+-#endif
+ 
+ 	if (PageWriteback(vmf->page) &&
+ 	    wait_on_page_bit_killable(vmf->page, PG_writeback) < 0)
+@@ -936,12 +933,5 @@ int afs_launder_page(struct page *page)
+ 	priv = (unsigned long)detach_page_private(page);
+ 	trace_afs_page_dirty(vnode, tracepoint_string("laundered"),
+ 			     page->index, priv);
+-
+-#ifdef CONFIG_AFS_FSCACHE
+-	if (PageFsCache(page)) {
+-		fscache_wait_on_page_write(vnode->cache, page);
+-		fscache_uncache_page(vnode->cache, page);
+-	}
+-#endif
+ 	return ret;
+ }
 
 
 --
