@@ -2,72 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 860122BBB52
-	for <lists+linux-cachefs@lfdr.de>; Sat, 21 Nov 2020 01:58:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0763E2BBB5F
+	for <lists+linux-cachefs@lfdr.de>; Sat, 21 Nov 2020 02:02:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1605920536;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=YmNp2GnlbyOm1tXATTIhAbI9Z8dIJvOXkr3ACSWdVP0=;
+	b=bBneccXdorLzC/Y4xNAftb7q7w2z8JxPi08KJ7SdyAvoV/CAfB70nOh3iIoWhTNVf1UDeR
+	mRh5iBdhgPlb+9oHvE1wCAp81/FUPXvRV6c2AIEN2mgizWBL3qOoyuvUR6Kpks/I/HQhGs
+	9uedj8TGt1IU+FRoMlrSdU6Lt8b4A7U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-85-jyJGRuofP86ed4shl55XPg-1; Fri, 20 Nov 2020 19:58:53 -0500
-X-MC-Unique: jyJGRuofP86ed4shl55XPg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-591-fyj18rFOPKeBLGjZGpJKEQ-1; Fri, 20 Nov 2020 20:02:14 -0500
+X-MC-Unique: fyj18rFOPKeBLGjZGpJKEQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FC551868400;
-	Sat, 21 Nov 2020 00:58:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BB286064B;
-	Sat, 21 Nov 2020 00:58:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A1A0B1DDEF;
+	Sat, 21 Nov 2020 01:02:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8FD0B10016DB;
+	Sat, 21 Nov 2020 01:02:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 83D0F180954D;
-	Sat, 21 Nov 2020 00:58:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5386C5002C;
+	Sat, 21 Nov 2020 01:02:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AL0wlxF004300 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 19:58:47 -0500
+	id 0AL11YVD004577 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 20:01:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 623E3F11D6; Sat, 21 Nov 2020 00:58:47 +0000 (UTC)
+	id 7B3C26085A; Sat, 21 Nov 2020 01:01:34 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BF48F102D
-	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 00:58:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CD5C103B800
-	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 00:58:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-544-hpZ3AuM1MCKqYwuOwpPiTQ-1;
-	Fri, 20 Nov 2020 19:58:41 -0500
-X-MC-Unique: hpZ3AuM1MCKqYwuOwpPiTQ-1
-Received: from tleilax.poochiereds.net
-	(68-20-15-154.lightspeed.rlghnc.sbcglobal.net [68.20.15.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id DFA3623A65;
-	Sat, 21 Nov 2020 00:58:39 +0000 (UTC)
-Message-ID: <6c2bb6ae1ad586d6bf369afe561b77b271cd2ac8.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: "J. Bruce Fields" <bfields@redhat.com>
-Date: Fri, 20 Nov 2020 19:58:38 -0500
-In-Reply-To: <1605911960-12516-6-git-send-email-bfields@redhat.com>
+Received: from pick.fieldses.org (ovpn-113-103.rdu2.redhat.com [10.10.113.103])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CDBC60853;
+	Sat, 21 Nov 2020 01:01:29 +0000 (UTC)
+Received: by pick.fieldses.org (Postfix, from userid 2815)
+	id 6559F12033D; Fri, 20 Nov 2020 20:01:28 -0500 (EST)
+Date: Fri, 20 Nov 2020 20:01:28 -0500
+From: "J. Bruce Fields" <bfields@redhat.com>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20201121010128.GK136478@pick.fieldses.org>
 References: <20201120223831.GB7705@fieldses.org>
 	<1605911960-12516-1-git-send-email-bfields@redhat.com>
 	<1605911960-12516-6-git-send-email-bfields@redhat.com>
-User-Agent: Evolution 3.38.1 (3.38.1-1.fc33)
+	<6c2bb6ae1ad586d6bf369afe561b77b271cd2ac8.camel@kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AL0wlxF004300
+In-Reply-To: <6c2bb6ae1ad586d6bf369afe561b77b271cd2ac8.camel@kernel.org>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
 Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
 	linux-nfs <linux-nfs@vger.kernel.org>,
@@ -87,146 +74,106 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-T24gRnJpLCAyMDIwLTExLTIwIGF0IDE3OjM5IC0wNTAwLCBKLiBCcnVjZSBGaWVsZHMgd3JvdGU6
-Cj4gRnJvbTogIkouIEJydWNlIEZpZWxkcyIgPGJmaWVsZHNAcmVkaGF0LmNvbT4KPiAKPiBBZnRl
-ciB0aGlzLCBvbmx5IGZpbGVzeXN0ZW1zIGxhY2tpbmcgY2hhbmdlIGF0dHJpYnV0ZSBzdXBwb3J0
-IHdpbGwgbGVhdmUKPiB0aGUgZmV0Y2hfaXZlcnNpb24gZXhwb3J0IG9wIE5VTEwuCj4gCj4gVGhp
-cyBzZWVtcyBjbGVhbmVyIHRvIG1lLCBhbmQgd2lsbCBhbGxvdyBzb21lIG1pbm9yIG9wdGltaXph
-dGlvbnMgaW4gdGhlCj4gbmZzZCBjb2RlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEouIEJydWNlIEZp
-ZWxkcyA8YmZpZWxkc0ByZWRoYXQuY29tPgo+IC0tLQo+IMKgZnMvYnRyZnMvZXhwb3J0LmMgICAg
-ICAgIHwgIDIgKysKPiDCoGZzL2V4dDQvc3VwZXIuYyAgICAgICAgICB8ICA5ICsrKysrKysrKwo+
-IMKgZnMvbmZzZC9uZnM0eGRyLmMgICAgICAgIHwgIDIgKy0KPiDCoGZzL25mc2QvbmZzZmguaCAg
-ICAgICAgICB8IDI1ICsrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiDCoGZzL25mc2QveGRyNC5o
-ICAgICAgICAgICB8ICA0ICsrKy0KPiDCoGZzL3hmcy94ZnNfZXhwb3J0LmMgICAgICB8ICAyICsr
-Cj4gwqBpbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmggfCAyNiArKysrKysrKysrKysrKysrKysrKysr
-KysrKwo+IMKgNyBmaWxlcyBjaGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspLCAyNCBkZWxldGlvbnMo
-LSkKPiAKPiBkaWZmIC0tZ2l0IGEvZnMvYnRyZnMvZXhwb3J0LmMgYi9mcy9idHJmcy9leHBvcnQu
-Ywo+IGluZGV4IDFhOGQ0MTlkOWUxZi4uZWNlMzI0NDA5OTlhIDEwMDY0NAo+IC0tLSBhL2ZzL2J0
-cmZzL2V4cG9ydC5jCj4gKysrIGIvZnMvYnRyZnMvZXhwb3J0LmMKPiBAQCAtNyw2ICs3LDcgQEAK
-PiDCoCNpbmNsdWRlICJidHJmc19pbm9kZS5oIgo+IMKgI2luY2x1ZGUgInByaW50LXRyZWUuaCIK
-PiDCoCNpbmNsdWRlICJleHBvcnQuaCIKPiArI2luY2x1ZGUgPGxpbnV4L2l2ZXJzaW9uLmg+Cj4g
-wqAKPiAKPiAKPiAKPiDCoCNkZWZpbmUgQlRSRlNfRklEX1NJWkVfTk9OX0NPTk5FQ1RBQkxFIChv
-ZmZzZXRvZihzdHJ1Y3QgYnRyZnNfZmlkLCBcCj4gwqAJCQkJCQkgcGFyZW50X29iamVjdGlkKSAv
-IDQpCj4gQEAgLTI3OSw0ICsyODAsNSBAQCBjb25zdCBzdHJ1Y3QgZXhwb3J0X29wZXJhdGlvbnMg
-YnRyZnNfZXhwb3J0X29wcyA9IHsKPiDCoAkuZmhfdG9fcGFyZW50CT0gYnRyZnNfZmhfdG9fcGFy
-ZW50LAo+IMKgCS5nZXRfcGFyZW50CT0gYnRyZnNfZ2V0X3BhcmVudCwKPiDCoAkuZ2V0X25hbWUJ
-PSBidHJmc19nZXRfbmFtZSwKPiArCS5mZXRjaF9pdmVyc2lvbgk9IGdlbmVyaWNfZmV0Y2hfaXZl
-cnNpb24sCj4gwqB9Owo+IGRpZmYgLS1naXQgYS9mcy9leHQ0L3N1cGVyLmMgYi9mcy9leHQ0L3N1
-cGVyLmMKPiBpbmRleCBlZjQ3MzRiNDBlMmEuLmE0ZjQ4MjczZDQzNSAxMDA2NDQKPiAtLS0gYS9m
-cy9leHQ0L3N1cGVyLmMKPiArKysgYi9mcy9leHQ0L3N1cGVyLmMKPiBAQCAtMTY4NSwxMSArMTY4
-NSwyMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHN1cGVyX29wZXJhdGlvbnMgZXh0NF9zb3BzID0g
-ewo+IMKgCS5iZGV2X3RyeV90b19mcmVlX3BhZ2UgPSBiZGV2X3RyeV90b19mcmVlX3BhZ2UsCj4g
-wqB9Owo+IMKgCj4gCj4gCj4gCj4gK3N0YXRpYyB1NjQgZXh0NF9mZXRjaF9pdmVyc2lvbihzdHJ1
-Y3QgaW5vZGUgKmlub2RlKQo+ICt7Cj4gKwlpZiAoSVNfSV9WRVJTSU9OKGlub2RlKSkKPiArCQly
-ZXR1cm4gZ2VuZXJpY19mZXRjaF9pdmVyc2lvbihpbm9kZSk7Cj4gKwllbHNlCj4gKwkJcmV0dXJu
-IHRpbWVfdG9fY2hhdHRyKCZpbm9kZS0+aV9jdGltZSk7Cj4gK30KPiArCj4gwqBzdGF0aWMgY29u
-c3Qgc3RydWN0IGV4cG9ydF9vcGVyYXRpb25zIGV4dDRfZXhwb3J0X29wcyA9IHsKPiDCoAkuZmhf
-dG9fZGVudHJ5ID0gZXh0NF9maF90b19kZW50cnksCj4gwqAJLmZoX3RvX3BhcmVudCA9IGV4dDRf
-ZmhfdG9fcGFyZW50LAo+IMKgCS5nZXRfcGFyZW50ID0gZXh0NF9nZXRfcGFyZW50LAo+IMKgCS5j
-b21taXRfbWV0YWRhdGEgPSBleHQ0X25mc19jb21taXRfbWV0YWRhdGEsCj4gKwkuZmV0Y2hfaXZl
-cnNpb24gPSBleHQ0X2ZldGNoX2l2ZXJzaW9uLAo+IMKgfTsKPiDCoAo+IAo+IAo+IAo+IMKgZW51
-bSB7Cj4gZGlmZiAtLWdpdCBhL2ZzL25mc2QvbmZzNHhkci5jIGIvZnMvbmZzZC9uZnM0eGRyLmMK
-PiBpbmRleCAxOGM5MTI5MzA5NDcuLjE4MjE5MDY4NDc5MiAxMDA2NDQKPiAtLS0gYS9mcy9uZnNk
-L25mczR4ZHIuYwo+ICsrKyBiL2ZzL25mc2QvbmZzNHhkci5jCj4gQEAgLTMxODcsNyArMzE4Nyw3
-IEBAIG5mc2Q0X2VuY29kZV9mYXR0cihzdHJ1Y3QgeGRyX3N0cmVhbSAqeGRyLCBzdHJ1Y3Qgc3Zj
-X2ZoICpmaHAsCj4gwqAJCXAgPSB4ZHJfcmVzZXJ2ZV9zcGFjZSh4ZHIsIDQpOwo+IMKgCQlpZiAo
-IXApCj4gwqAJCQlnb3RvIG91dF9yZXNvdXJjZTsKPiAtCQlpZiAoSVNfSV9WRVJTSU9OKGRfaW5v
-ZGUoZGVudHJ5KSkpCj4gKwkJaWYgKElTX0lfVkVSU0lPTihkX2lub2RlKGRlbnRyeSkpCj4gwqAJ
-CQkqcCsrID0gY3B1X3RvX2JlMzIoTkZTNF9DSEFOR0VfVFlQRV9JU19NT05PVE9OSUNfSU5DUik7
-Cj4gwqAJCWVsc2UKPiDCoAkJCSpwKysgPSBjcHVfdG9fYmUzMihORlM0X0NIQU5HRV9UWVBFX0lT
-X1RJTUVfTUVUQURBVEEpOwo+IGRpZmYgLS1naXQgYS9mcy9uZnNkL25mc2ZoLmggYi9mcy9uZnNk
-L25mc2ZoLmgKPiBpbmRleCAyNjU2YTM0NjRjNmMuLmFjM2UzMDlkNzMzOSAxMDA2NDQKPiAtLS0g
-YS9mcy9uZnNkL25mc2ZoLmgKPiArKysgYi9mcy9uZnNkL25mc2ZoLmgKPiBAQCAtNDYsOCArNDYs
-OCBAQCB0eXBlZGVmIHN0cnVjdCBzdmNfZmggewo+IMKgCXN0cnVjdCB0aW1lc3BlYzY0CWZoX3By
-ZV9tdGltZTsJLyogbXRpbWUgYmVmb3JlIG9wZXIgKi8KPiDCoAlzdHJ1Y3QgdGltZXNwZWM2NAlm
-aF9wcmVfY3RpbWU7CS8qIGN0aW1lIGJlZm9yZSBvcGVyICovCj4gwqAJLyoKPiAtCSAqIHByZS1v
-cCBuZnN2NCBjaGFuZ2UgYXR0cjogbm90ZSBtdXN0IGNoZWNrIElTX0lfVkVSU0lPTihpbm9kZSkK
-PiAtCSAqICB0byBmaW5kIG91dCBpZiBpdCBpcyB2YWxpZC4KPiArCSAqIHByZS1vcCBuZnN2NCBj
-aGFuZ2UgYXR0cjogbm90ZSBtdXN0IGNoZWNrIGZvciBmZXRjaF9pdmVyc2lvbgo+ICsJICogb3Ag
-dG8gZmluZCBvdXQgaWYgaXQgaXMgdmFsaWQuCj4gwqAJICovCj4gwqAJdTY0CQkJZmhfcHJlX2No
-YW5nZTsKPiDCoAo+IAo+IAo+IAo+IEBAIC0yNDYsMzEgKzI0NiwxMiBAQCBmaF9jbGVhcl93Y2Mo
-c3RydWN0IHN2Y19maCAqZmhwKQo+IMKgCWZocC0+ZmhfcHJlX3NhdmVkID0gZmFsc2U7Cj4gwqB9
-Cj4gwqAKPiAKPiAKPiAKPiAtLyoKPiAtICogV2UgY291bGQgdXNlIGlfdmVyc2lvbiBhbG9uZSBh
-cyB0aGUgY2hhbmdlIGF0dHJpYnV0ZS4gIEhvd2V2ZXIsCj4gLSAqIGlfdmVyc2lvbiBjYW4gZ28g
-YmFja3dhcmRzIGFmdGVyIGEgcmVib290LiAgT24gaXRzIG93biB0aGF0IGRvZXNuJ3QKPiAtICog
-bmVjZXNzYXJpbHkgY2F1c2UgYSBwcm9ibGVtLCBidXQgaWYgaV92ZXJzaW9uIGdvZXMgYmFja3dh
-cmRzIGFuZCB0aGVuCj4gLSAqIGlzIGluY3JlbWVudGVkIGFnYWluIGl0IGNvdWxkIHJldXNlIGEg
-dmFsdWUgdGhhdCB3YXMgcHJldmlvdXNseSB1c2VkCj4gLSAqIGJlZm9yZSBib290LCBhbmQgYSBj
-bGllbnQgd2hvIHF1ZXJpZWQgdGhlIHR3byB2YWx1ZXMgbWlnaHQKPiAtICogaW5jb3JyZWN0bHkg
-YXNzdW1lIG5vdGhpbmcgY2hhbmdlZC4KPiAtICoKPiAtICogQnkgdXNpbmcgYm90aCBjdGltZSBh
-bmQgdGhlIGlfdmVyc2lvbiBjb3VudGVyIHdlIGd1YXJhbnRlZSB0aGF0IGFzCj4gLSAqIGxvbmcg
-YXMgdGltZSBkb2Vzbid0IGdvIGJhY2t3YXJkcyB3ZSBuZXZlciByZXVzZSBhbiBvbGQgdmFsdWUu
-Cj4gLSAqLwo+IMKgc3RhdGljIGlubGluZSB1NjQgbmZzZDRfY2hhbmdlX2F0dHJpYnV0ZShzdHJ1
-Y3Qga3N0YXQgKnN0YXQsCj4gwqAJCQkJCSBzdHJ1Y3QgaW5vZGUgKmlub2RlKQo+IMKgewo+IMKg
-CWlmIChpbm9kZS0+aV9zYi0+c19leHBvcnRfb3AtPmZldGNoX2l2ZXJzaW9uKQo+IMKgCQlyZXR1
-cm4gaW5vZGUtPmlfc2ItPnNfZXhwb3J0X29wLT5mZXRjaF9pdmVyc2lvbihpbm9kZSk7Cj4gLQll
-bHNlIGlmIChJU19JX1ZFUlNJT04oaW5vZGUpKSB7Cj4gLQkJdTY0IGNoYXR0cjsKPiAtCj4gLQkJ
-Y2hhdHRyID0gIHN0YXQtPmN0aW1lLnR2X3NlYzsKPiAtCQljaGF0dHIgPDw9IDMwOwo+IC0JCWNo
-YXR0ciArPSBzdGF0LT5jdGltZS50dl9uc2VjOwo+IC0JCWNoYXR0ciArPSBpbm9kZV9xdWVyeV9p
-dmVyc2lvbihpbm9kZSk7Cj4gLQkJcmV0dXJuIGNoYXR0cjsKPiAtCX0gZWxzZQo+ICsJZWxzZQo+
-IMKgCQlyZXR1cm4gdGltZV90b19jaGF0dHIoJnN0YXQtPmN0aW1lKTsKPiDCoH0KPiDCoAo+IAo+
-IAo+IAo+IGRpZmYgLS1naXQgYS9mcy9uZnNkL3hkcjQuaCBiL2ZzL25mc2QveGRyNC5oCj4gaW5k
-ZXggOWMyZDk0MmQwNTVkLi5mMGM4ZmJlNzA0YTIgMTAwNjQ0Cj4gLS0tIGEvZnMvbmZzZC94ZHI0
-LmgKPiArKysgYi9mcy9uZnNkL3hkcjQuaAo+IEBAIC03NjEsMTAgKzc2MSwxMiBAQCB2b2lkIHdh
-cm5fb25fbm9uaWRlbXBvdGVudF9vcChzdHJ1Y3QgbmZzZDRfb3AgKm9wKTsKPiDCoHN0YXRpYyBp
-bmxpbmUgdm9pZAo+IMKgc2V0X2NoYW5nZV9pbmZvKHN0cnVjdCBuZnNkNF9jaGFuZ2VfaW5mbyAq
-Y2luZm8sIHN0cnVjdCBzdmNfZmggKmZocCkKPiDCoHsKPiArCXN0cnVjdCBpbm9kZSAqaW5vZGUg
-PSBkX2lub2RlKGZocC0+ZmhfZGVudHJ5KTsKPiArCj4gwqAJQlVHX09OKCFmaHAtPmZoX3ByZV9z
-YXZlZCk7Cj4gwqAJY2luZm8tPmF0b21pYyA9ICh1MzIpZmhwLT5maF9wb3N0X3NhdmVkOwo+IMKg
-Cj4gCj4gCj4gCj4gLQlpZiAoSVNfSV9WRVJTSU9OKGRfaW5vZGUoZmhwLT5maF9kZW50cnkpKSkg
-ewo+ICsJaWYgKGlub2RlLT5pX3NiLT5zX2V4cG9ydF9vcC0+ZmV0Y2hfaXZlcnNpb24pIHsKPiDC
-oAkJY2luZm8tPmJlZm9yZV9jaGFuZ2UgPSBmaHAtPmZoX3ByZV9jaGFuZ2U7Cj4gwqAJCWNpbmZv
-LT5hZnRlcl9jaGFuZ2UgPSBmaHAtPmZoX3Bvc3RfY2hhbmdlOwo+IMKgCX0gZWxzZSB7Cj4gZGlm
-ZiAtLWdpdCBhL2ZzL3hmcy94ZnNfZXhwb3J0LmMgYi9mcy94ZnMveGZzX2V4cG9ydC5jCj4gaW5k
-ZXggNDY1ZmQ5ZTA0OGQ0Li5iOTUwZmFjM2Q3ZGYgMTAwNjQ0Cj4gLS0tIGEvZnMveGZzL3hmc19l
-eHBvcnQuYwo+ICsrKyBiL2ZzL3hmcy94ZnNfZXhwb3J0LmMKPiBAQCAtMTYsNiArMTYsNyBAQAo+
-IMKgI2luY2x1ZGUgInhmc19pbm9kZV9pdGVtLmgiCj4gwqAjaW5jbHVkZSAieGZzX2ljYWNoZS5o
-Igo+IMKgI2luY2x1ZGUgInhmc19wbmZzLmgiCj4gKyNpbmNsdWRlIDxsaW51eC9pdmVyc2lvbi5o
-Pgo+IMKgCj4gCj4gCj4gCj4gwqAvKgo+IMKgwqAqIE5vdGUgdGhhdCB3ZSBvbmx5IGFjY2VwdCBm
-aWxlaWRzIHdoaWNoIGFyZSBsb25nIGVub3VnaCByYXRoZXIgdGhhbiBhbGxvdwo+IEBAIC0yMzQs
-NCArMjM1LDUgQEAgY29uc3Qgc3RydWN0IGV4cG9ydF9vcGVyYXRpb25zIHhmc19leHBvcnRfb3Bl
-cmF0aW9ucyA9IHsKPiDCoAkubWFwX2Jsb2NrcwkJPSB4ZnNfZnNfbWFwX2Jsb2NrcywKPiDCoAku
-Y29tbWl0X2Jsb2NrcwkJPSB4ZnNfZnNfY29tbWl0X2Jsb2NrcywKPiDCoCNlbmRpZgo+ICsJLmZl
-dGNoX2l2ZXJzaW9uCQk9IGdlbmVyaWNfZmV0Y2hfaXZlcnNpb24sCj4gwqB9OwoKSXQgc2VlbXMg
-YSBsaXR0bGUgd2VpcmQgdG8gY2FsbCBhIHN0YXRpYyBpbmxpbmUgaGVyZS4gSSBpbWFnaW5lIHRo
-YXQKbWVhbnMgdGhlIGNvbXBpbGVyIGhhcyB0byBhZGQgYSBkdXBsaWNhdGUgaW5saW5lIGluIGV2
-ZXJ5IC5vIGZpbGUgdGhhdApkb2VzIHRoaXM/IEl0IG1heSBiZSBjbGVhbmVyIHRvIG1vdmUgZ2Vu
-ZXJpY19mZXRjaF9pdmVyc2lvbiBpbnRvCmZzL2xpYmZzLmMgc28gd2Ugb25seSBoYXZlIG9uZSBj
-b3B5IG9mIGl0LgoKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9pdmVyc2lvbi5oIGIvaW5j
-bHVkZS9saW51eC9pdmVyc2lvbi5oCj4gaW5kZXggM2JmZWJkZTVhMWE2Li5kZWQ3NDUyM2M4YTYg
-MTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9saW51eC9pdmVyc2lvbi5oCj4gKysrIGIvaW5jbHVkZS9s
-aW51eC9pdmVyc2lvbi5oCj4gQEAgLTMyOCw2ICszMjgsMzIgQEAgaW5vZGVfcXVlcnlfaXZlcnNp
-b24oc3RydWN0IGlub2RlICppbm9kZSkKPiDCoAlyZXR1cm4gY3VyID4+IElfVkVSU0lPTl9RVUVS
-SUVEX1NISUZUOwo+IMKgfQo+IMKgCj4gCj4gCj4gCj4gKy8qCj4gKyAqIFdlIGNvdWxkIHVzZSBp
-X3ZlcnNpb24gYWxvbmUgYXMgdGhlIE5GU3Y0IGNoYW5nZSBhdHRyaWJ1dGUuICBIb3dldmVyLAo+
-ICsgKiBpX3ZlcnNpb24gY2FuIGdvIGJhY2t3YXJkcyBhZnRlciBhIHJlYm9vdC4gIE9uIGl0cyBv
-d24gdGhhdCBkb2Vzbid0Cj4gKyAqIG5lY2Vzc2FyaWx5IGNhdXNlIGEgcHJvYmxlbSwgYnV0IGlm
-IGlfdmVyc2lvbiBnb2VzIGJhY2t3YXJkcyBhbmQgdGhlbgo+ICsgKiBpcyBpbmNyZW1lbnRlZCBh
-Z2FpbiBpdCBjb3VsZCByZXVzZSBhIHZhbHVlIHRoYXQgd2FzIHByZXZpb3VzbHkgdXNlZAo+ICsg
-KiBiZWZvcmUgYm9vdCwgYW5kIGEgY2xpZW50IHdobyBxdWVyaWVkIHRoZSB0d28gdmFsdWVzIG1p
-Z2h0Cj4gKyAqIGluY29ycmVjdGx5IGFzc3VtZSBub3RoaW5nIGNoYW5nZWQuCj4gKyAqCj4gKyAq
-IEJ5IHVzaW5nIGJvdGggY3RpbWUgYW5kIHRoZSBpX3ZlcnNpb24gY291bnRlciB3ZSBndWFyYW50
-ZWUgdGhhdCBhcwo+ICsgKiBsb25nIGFzIHRpbWUgZG9lc24ndCBnbyBiYWNrd2FyZHMgd2UgbmV2
-ZXIgcmV1c2UgYW4gb2xkIHZhbHVlLgo+ICsgKgo+ICsgKiBBIGZpbGVzeXN0ZW0gdGhhdCBoYXMg
-YW4gb24tZGlzayBib290IGNvdW50ZXIgb3Igc2ltaWxhciBtaWdodCBwcmVmZXIKPiArICogdG8g
-dXNlIHRoYXQgdG8gYXZvaWQgdGhlIHJpc2sgb2YgdGhlIGNoYW5nZSBhdHRyaWJ1dGUgZ29pbmcg
-YmFja3dhcmRzCj4gKyAqIGlmIHN5c3RlbSB0aW1lIGlzIHNldCBiYWNrd2FyZHMuCj4gKyAqLwo+
-ICtzdGF0aWMgaW5saW5lIHU2NCBnZW5lcmljX2ZldGNoX2l2ZXJzaW9uKHN0cnVjdCBpbm9kZSAq
-aW5vZGUpCj4gK3sKPiArCXU2NCBjaGF0dHI7Cj4gKwo+ICsJY2hhdHRyID0gIGlub2RlLT5pX2N0
-aW1lLnR2X3NlYzsKPiArCWNoYXR0ciA8PD0gMzA7Cj4gKwljaGF0dHIgKz0gaW5vZGUtPmlfY3Rp
-bWUudHZfbnNlYzsKPiArCWNoYXR0ciArPSBpbm9kZV9xdWVyeV9pdmVyc2lvbihpbm9kZSk7Cj4g
-KwlyZXR1cm4gY2hhdHRyOwo+ICt9Cj4gKwo+IMKgLyoKPiDCoMKgKiBGb3IgZmlsZXN5c3RlbXMg
-d2l0aG91dCBhbnkgc29ydCBvZiBjaGFuZ2UgYXR0cmlidXRlLCB0aGUgYmVzdCB3ZSBjYW4KPiDC
-oMKgKiBkbyBpcyBmYWtlIG9uZSB1cCBmcm9tIHRoZSBjdGltZToKCi0tIApKZWZmIExheXRvbiA8
-amxheXRvbkBrZXJuZWwub3JnPgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4
-LWNhY2hlZnNAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtY2FjaGVmcw==
+On Fri, Nov 20, 2020 at 07:58:38PM -0500, Jeff Layton wrote:
+> On Fri, 2020-11-20 at 17:39 -0500, J. Bruce Fields wrote:
+> > diff --git a/fs/xfs/xfs_export.c b/fs/xfs/xfs_export.c
+> > index 465fd9e048d4..b950fac3d7df 100644
+> > --- a/fs/xfs/xfs_export.c
+> > +++ b/fs/xfs/xfs_export.c
+> > @@ -16,6 +16,7 @@
+> > =A0#include "xfs_inode_item.h"
+> > =A0#include "xfs_icache.h"
+> > =A0#include "xfs_pnfs.h"
+> > +#include <linux/iversion.h>
+> > =A0
+> >=20
+> >=20
+> >=20
+> > =A0/*
+> > =A0=A0* Note that we only accept fileids which are long enough rather t=
+han allow
+> > @@ -234,4 +235,5 @@ const struct export_operations xfs_export_operation=
+s =3D {
+> > =A0=09.map_blocks=09=09=3D xfs_fs_map_blocks,
+> > =A0=09.commit_blocks=09=09=3D xfs_fs_commit_blocks,
+> > =A0#endif
+> > +=09.fetch_iversion=09=09=3D generic_fetch_iversion,
+> > =A0};
+>=20
+> It seems a little weird to call a static inline here. I imagine that
+> means the compiler has to add a duplicate inline in every .o file that
+> does this? It may be cleaner to move generic_fetch_iversion into
+> fs/libfs.c so we only have one copy of it.
+
+OK.
+
+(To be honest, I was a little suprised this worked.)
+
+--b.
+
+>=20
+> > diff --git a/include/linux/iversion.h b/include/linux/iversion.h
+> > index 3bfebde5a1a6..ded74523c8a6 100644
+> > --- a/include/linux/iversion.h
+> > +++ b/include/linux/iversion.h
+> > @@ -328,6 +328,32 @@ inode_query_iversion(struct inode *inode)
+> > =A0=09return cur >> I_VERSION_QUERIED_SHIFT;
+> > =A0}
+> > =A0
+> >=20
+> >=20
+> >=20
+> > +/*
+> > + * We could use i_version alone as the NFSv4 change attribute.  Howeve=
+r,
+> > + * i_version can go backwards after a reboot.  On its own that doesn't
+> > + * necessarily cause a problem, but if i_version goes backwards and th=
+en
+> > + * is incremented again it could reuse a value that was previously use=
+d
+> > + * before boot, and a client who queried the two values might
+> > + * incorrectly assume nothing changed.
+> > + *
+> > + * By using both ctime and the i_version counter we guarantee that as
+> > + * long as time doesn't go backwards we never reuse an old value.
+> > + *
+> > + * A filesystem that has an on-disk boot counter or similar might pref=
+er
+> > + * to use that to avoid the risk of the change attribute going backwar=
+ds
+> > + * if system time is set backwards.
+> > + */
+> > +static inline u64 generic_fetch_iversion(struct inode *inode)
+> > +{
+> > +=09u64 chattr;
+> > +
+> > +=09chattr =3D  inode->i_ctime.tv_sec;
+> > +=09chattr <<=3D 30;
+> > +=09chattr +=3D inode->i_ctime.tv_nsec;
+> > +=09chattr +=3D inode_query_iversion(inode);
+> > +=09return chattr;
+> > +}
+> > +
+> > =A0/*
+> > =A0=A0* For filesystems without any sort of change attribute, the best =
+we can
+> > =A0=A0* do is fake one up from the ctime:
+>=20
+> --=20
+> Jeff Layton <jlayton@kernel.org>
+>=20
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cachefs
 
