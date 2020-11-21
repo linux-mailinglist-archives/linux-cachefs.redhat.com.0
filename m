@@ -1,65 +1,59 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DEF072BBB61
-	for <lists+linux-cachefs@lfdr.de>; Sat, 21 Nov 2020 02:03:22 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AA1732BBF1E
+	for <lists+linux-cachefs@lfdr.de>; Sat, 21 Nov 2020 14:01:00 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-293-2h6zLB64Nkyt3fwsu9nRxg-1; Fri, 20 Nov 2020 20:03:20 -0500
-X-MC-Unique: 2h6zLB64Nkyt3fwsu9nRxg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-402-B9s24DLrORKmLEZ6F5ekMw-1; Sat, 21 Nov 2020 08:00:56 -0500
+X-MC-Unique: B9s24DLrORKmLEZ6F5ekMw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 097B1873088;
-	Sat, 21 Nov 2020 01:03:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED30E5C22B;
-	Sat, 21 Nov 2020 01:03:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A261107B462;
+	Sat, 21 Nov 2020 13:00:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE1DD10016DB;
+	Sat, 21 Nov 2020 13:00:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D8CF95002C;
-	Sat, 21 Nov 2020 01:03:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 593FF18095C7;
+	Sat, 21 Nov 2020 13:00:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AL13FuD004766 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 20:03:15 -0500
+	id 0ALD0gQV028598 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sat, 21 Nov 2020 08:00:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8AD86102044F; Sat, 21 Nov 2020 01:03:15 +0000 (UTC)
+	id A4B342026D49; Sat, 21 Nov 2020 13:00:42 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 870381018E77
-	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 01:03:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FA2B2026D48
+	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 13:00:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38C52858EEC
-	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 01:03:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88563811E78
+	for <linux-cachefs@redhat.com>; Sat, 21 Nov 2020 13:00:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-268-X65guoy5O8eaMoCxPEQiJg-1;
-	Fri, 20 Nov 2020 20:03:10 -0500
-X-MC-Unique: X65guoy5O8eaMoCxPEQiJg-1
+	by relay.mimecast.com with ESMTP id us-mta-203-COSuuONaO66BtwZXsjHOug-1;
+	Sat, 21 Nov 2020 08:00:33 -0500
+X-MC-Unique: COSuuONaO66BtwZXsjHOug-1
 Received: from tleilax.poochiereds.net
 	(68-20-15-154.lightspeed.rlghnc.sbcglobal.net [68.20.15.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 09DD220715;
-	Sat, 21 Nov 2020 01:03:08 +0000 (UTC)
-Message-ID: <5f8e9e0cb53c89a7d1c156a6799c6dbc6db96dae.camel@kernel.org>
+	by mail.kernel.org (Postfix) with ESMTPSA id E5771217A0;
+	Sat, 21 Nov 2020 13:00:31 +0000 (UTC)
+Message-ID: <8462cb90445a8553d0667e6ca59fbb42835ad9a9.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
-To: "J. Bruce Fields" <bfields@fieldses.org>
-Date: Fri, 20 Nov 2020 20:03:08 -0500
-In-Reply-To: <20201120224438.GC7705@fieldses.org>
-References: <20201117031601.GB10526@fieldses.org>
-	<1605583086-19869-1-git-send-email-bfields@redhat.com>
-	<1605583086-19869-2-git-send-email-bfields@redhat.com>
-	<a5704a8f7a6ebdfa60d4fa996a4d9ebaacc7daaf.camel@kernel.org>
-	<20201117152636.GC4556@fieldses.org>
-	<725499c144317aac1a03f0334a22005588dbdefc.camel@kernel.org>
-	<20201120223831.GB7705@fieldses.org>
-	<20201120224438.GC7705@fieldses.org>
+To: "J. Bruce Fields" <bfields@redhat.com>
+Date: Sat, 21 Nov 2020 08:00:30 -0500
+In-Reply-To: <1605911960-12516-6-git-send-email-bfields@redhat.com>
+References: <20201120223831.GB7705@fieldses.org>
+	<1605911960-12516-1-git-send-email-bfields@redhat.com>
+	<1605911960-12516-6-git-send-email-bfields@redhat.com>
 User-Agent: Evolution 3.38.1 (3.38.1-1.fc33)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -70,14 +64,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0ALD0gQV028598
 X-loop: linux-cachefs@redhat.com
 Cc: Daire Byrne <daire@dneg.com>, linux-cachefs <linux-cachefs@redhat.com>,
-	"J. Bruce Fields" <bfields@redhat.com>,
 	linux-nfs <linux-nfs@vger.kernel.org>,
 	Trond Myklebust <trondmy@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH 2/4] nfsd: pre/post attr is using wrong
-	change attribute
+Subject: Re: [Linux-cachefs] [PATCH 6/8] nfsd: move change attribute
+	generation to filesystem
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,101 +86,145 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Fri, 2020-11-20 at 17:44 -0500, J. Bruce Fields wrote:
-> On Fri, Nov 20, 2020 at 05:38:31PM -0500, J. Bruce Fields wrote:
-> > On Tue, Nov 17, 2020 at 10:34:57AM -0500, Jeff Layton wrote:
-> > > On Tue, 2020-11-17 at 10:26 -0500, J. Bruce Fields wrote:
-> > > > On Tue, Nov 17, 2020 at 07:34:49AM -0500, Jeff Layton wrote:
-> > > > > I don't think I described what I was thinking well. Let me try again...
-> > > > > 
-> > > > > There should be no need to change the code in iversion.h -- I think we
-> > > > > can do this in a way that's confined to just nfsd/export code.
-> > > > > 
-> > > > > What I would suggest is to have nfsd4_change_attribute call the
-> > > > > fetch_iversion op if it exists, instead of checking IS_I_VERSION and
-> > > > > doing the stuff in that block. If fetch_iversion is NULL, then just use
-> > > > > the ctime.
-> > > > > 
-> > > > > Then, you just need to make sure that the filesystems' export_ops have
-> > > > > an appropriate fetch_iversion vector. xfs, ext4 and btrfs can just call
-> > > > > inode_query_iversion, and NFS and Ceph can call inode_peek_iversion_raw.
-> > > > > The rest of the filesystems can leave fetch_iversion as NULL (since we
-> > > > > don't want to use it on them).
-> > > > 
-> > > > Thanks for your patience, that makes sense, I'll try it.
-> > > > 
-> > > 
-> > > There is one gotcha in here though... ext4 needs to also handle the case
-> > > where SB_I_VERSION is not set. The simple fix might be to just have
-> > > different export ops for ext4 based on whether it was mounted with -o
-> > > iversion or not, but maybe there is some better way to do it?
-> > 
-> > I was thinking ext4's export op could check for I_VERSION on its own and
-> > vary behavior based on that.
-> > 
-> > I'll follow up with new patches in a moment.
-> > 
-> > I think the first one's all that's needed to fix the problem Daire
-> > identified.  I'm a little less sure of the rest.
-> > 
-> > Lightly tested, just by running them through my usual regression tests
-> > (which don't re-export) and then running connectathon on a 4.2 re-export
-> > of a 4.2 mount.
-> > 
-> > The latter triggered a crash preceded by a KASAN use-after free warning.
-> > Looks like it might be a problem with blocking lock notifications,
-> > probably not related to these patches.
-> 
-
-The set looks pretty reasonable at first glance. Nice work.
-
-Once you put this in, I'll plan to add a suitable fetch_iversion op for
-ceph too.
-
-> Another nit I ran across:
-> 
-> Some NFSv4 directory-modifying operations return pre- and post- change
-> attributes together with an "atomic" flag that's supposed to indicate
-> whether the change attributes were read atomically with the operation.
-> It looks like we're setting the atomic flag under the assumptions that
-> local vfs locks are sufficient to guarantee atomicity, which isn't right
-> when we're exporting a distributed filesystem.
-> 
-> In the case we're reexporting NFS I guess ideal would be to use the pre-
-> and post- attributes that the original server returned and also save
-> having to do extra getattr calls.  Not sure how we'd do that,
-> though--more export operations?  Maybe for now we could just figure out
-> when to turn off the atomic bit.
-
-Oh yeah, good point.
-
-I'm not even sure that local locks are really enough -- IIRC, there are
-still some race windows between doing the metadata operations and the
-getattrs called to fill pre/post op attrs. Still, those windows are a
-lot larger on something like NFS, so setting the flag there is really
-stretching things.
-
-One hacky fix might be to add a flags field to export_operations, and
-have one that indicates that the atomic flag shouldn't be set. Then we
-could add that flag to all of the netfs' (nfs, ceph, cifs), and anywhere
-else that we thought it appropriate?
-
-That approach might be helpful later too since we're starting to see a
-wider variety of exportable filesystems these days. We may need more
-"quirk" flags like this.
--- 
-Jeff Layton <jlayton@kernel.org>
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://www.redhat.com/mailman/listinfo/linux-cachefs
+T24gRnJpLCAyMDIwLTExLTIwIGF0IDE3OjM5IC0wNTAwLCBKLiBCcnVjZSBGaWVsZHMgd3JvdGU6
+Cj4gRnJvbTogIkouIEJydWNlIEZpZWxkcyIgPGJmaWVsZHNAcmVkaGF0LmNvbT4KPiAKPiBBZnRl
+ciB0aGlzLCBvbmx5IGZpbGVzeXN0ZW1zIGxhY2tpbmcgY2hhbmdlIGF0dHJpYnV0ZSBzdXBwb3J0
+IHdpbGwgbGVhdmUKPiB0aGUgZmV0Y2hfaXZlcnNpb24gZXhwb3J0IG9wIE5VTEwuCj4gCj4gVGhp
+cyBzZWVtcyBjbGVhbmVyIHRvIG1lLCBhbmQgd2lsbCBhbGxvdyBzb21lIG1pbm9yIG9wdGltaXph
+dGlvbnMgaW4gdGhlCj4gbmZzZCBjb2RlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEouIEJydWNlIEZp
+ZWxkcyA8YmZpZWxkc0ByZWRoYXQuY29tPgo+IC0tLQo+IMKgZnMvYnRyZnMvZXhwb3J0LmMgICAg
+ICAgIHwgIDIgKysKPiDCoGZzL2V4dDQvc3VwZXIuYyAgICAgICAgICB8ICA5ICsrKysrKysrKwo+
+IMKgZnMvbmZzZC9uZnM0eGRyLmMgICAgICAgIHwgIDIgKy0KPiDCoGZzL25mc2QvbmZzZmguaCAg
+ICAgICAgICB8IDI1ICsrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiDCoGZzL25mc2QveGRyNC5o
+ICAgICAgICAgICB8ICA0ICsrKy0KPiDCoGZzL3hmcy94ZnNfZXhwb3J0LmMgICAgICB8ICAyICsr
+Cj4gwqBpbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmggfCAyNiArKysrKysrKysrKysrKysrKysrKysr
+KysrKwo+IMKgNyBmaWxlcyBjaGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspLCAyNCBkZWxldGlvbnMo
+LSkKPiAKPiBkaWZmIC0tZ2l0IGEvZnMvYnRyZnMvZXhwb3J0LmMgYi9mcy9idHJmcy9leHBvcnQu
+Ywo+IGluZGV4IDFhOGQ0MTlkOWUxZi4uZWNlMzI0NDA5OTlhIDEwMDY0NAo+IC0tLSBhL2ZzL2J0
+cmZzL2V4cG9ydC5jCj4gKysrIGIvZnMvYnRyZnMvZXhwb3J0LmMKPiBAQCAtNyw2ICs3LDcgQEAK
+PiDCoCNpbmNsdWRlICJidHJmc19pbm9kZS5oIgo+IMKgI2luY2x1ZGUgInByaW50LXRyZWUuaCIK
+PiDCoCNpbmNsdWRlICJleHBvcnQuaCIKPiArI2luY2x1ZGUgPGxpbnV4L2l2ZXJzaW9uLmg+Cj4g
+wqAKPiAKPiDCoCNkZWZpbmUgQlRSRlNfRklEX1NJWkVfTk9OX0NPTk5FQ1RBQkxFIChvZmZzZXRv
+ZihzdHJ1Y3QgYnRyZnNfZmlkLCBcCj4gwqAJCQkJCQkgcGFyZW50X29iamVjdGlkKSAvIDQpCj4g
+QEAgLTI3OSw0ICsyODAsNSBAQCBjb25zdCBzdHJ1Y3QgZXhwb3J0X29wZXJhdGlvbnMgYnRyZnNf
+ZXhwb3J0X29wcyA9IHsKPiDCoAkuZmhfdG9fcGFyZW50CT0gYnRyZnNfZmhfdG9fcGFyZW50LAo+
+IMKgCS5nZXRfcGFyZW50CT0gYnRyZnNfZ2V0X3BhcmVudCwKPiDCoAkuZ2V0X25hbWUJPSBidHJm
+c19nZXRfbmFtZSwKPiArCS5mZXRjaF9pdmVyc2lvbgk9IGdlbmVyaWNfZmV0Y2hfaXZlcnNpb24s
+Cj4gwqB9Owo+IGRpZmYgLS1naXQgYS9mcy9leHQ0L3N1cGVyLmMgYi9mcy9leHQ0L3N1cGVyLmMK
+PiBpbmRleCBlZjQ3MzRiNDBlMmEuLmE0ZjQ4MjczZDQzNSAxMDA2NDQKPiAtLS0gYS9mcy9leHQ0
+L3N1cGVyLmMKPiArKysgYi9mcy9leHQ0L3N1cGVyLmMKPiBAQCAtMTY4NSwxMSArMTY4NSwyMCBA
+QCBzdGF0aWMgY29uc3Qgc3RydWN0IHN1cGVyX29wZXJhdGlvbnMgZXh0NF9zb3BzID0gewo+IMKg
+CS5iZGV2X3RyeV90b19mcmVlX3BhZ2UgPSBiZGV2X3RyeV90b19mcmVlX3BhZ2UsCj4gwqB9Owo+
+IMKgCj4gCj4gK3N0YXRpYyB1NjQgZXh0NF9mZXRjaF9pdmVyc2lvbihzdHJ1Y3QgaW5vZGUgKmlu
+b2RlKQo+ICt7Cj4gKwlpZiAoSVNfSV9WRVJTSU9OKGlub2RlKSkKPiArCQlyZXR1cm4gZ2VuZXJp
+Y19mZXRjaF9pdmVyc2lvbihpbm9kZSk7Cj4gKwllbHNlCj4gKwkJcmV0dXJuIHRpbWVfdG9fY2hh
+dHRyKCZpbm9kZS0+aV9jdGltZSk7Cj4gK30KPiArCj4gwqBzdGF0aWMgY29uc3Qgc3RydWN0IGV4
+cG9ydF9vcGVyYXRpb25zIGV4dDRfZXhwb3J0X29wcyA9IHsKPiDCoAkuZmhfdG9fZGVudHJ5ID0g
+ZXh0NF9maF90b19kZW50cnksCj4gwqAJLmZoX3RvX3BhcmVudCA9IGV4dDRfZmhfdG9fcGFyZW50
+LAo+IMKgCS5nZXRfcGFyZW50ID0gZXh0NF9nZXRfcGFyZW50LAo+IMKgCS5jb21taXRfbWV0YWRh
+dGEgPSBleHQ0X25mc19jb21taXRfbWV0YWRhdGEsCj4gKwkuZmV0Y2hfaXZlcnNpb24gPSBleHQ0
+X2ZldGNoX2l2ZXJzaW9uLAo+IMKgfTsKPiDCoAo+IAo+IMKgZW51bSB7Cj4gZGlmZiAtLWdpdCBh
+L2ZzL25mc2QvbmZzNHhkci5jIGIvZnMvbmZzZC9uZnM0eGRyLmMKPiBpbmRleCAxOGM5MTI5MzA5
+NDcuLjE4MjE5MDY4NDc5MiAxMDA2NDQKPiAtLS0gYS9mcy9uZnNkL25mczR4ZHIuYwo+ICsrKyBi
+L2ZzL25mc2QvbmZzNHhkci5jCj4gQEAgLTMxODcsNyArMzE4Nyw3IEBAIG5mc2Q0X2VuY29kZV9m
+YXR0cihzdHJ1Y3QgeGRyX3N0cmVhbSAqeGRyLCBzdHJ1Y3Qgc3ZjX2ZoICpmaHAsCj4gwqAJCXAg
+PSB4ZHJfcmVzZXJ2ZV9zcGFjZSh4ZHIsIDQpOwo+IMKgCQlpZiAoIXApCj4gwqAJCQlnb3RvIG91
+dF9yZXNvdXJjZTsKPiAtCQlpZiAoSVNfSV9WRVJTSU9OKGRfaW5vZGUoZGVudHJ5KSkpCj4gKwkJ
+aWYgKElTX0lfVkVSU0lPTihkX2lub2RlKGRlbnRyeSkpCj4gwqAJCQkqcCsrID0gY3B1X3RvX2Jl
+MzIoTkZTNF9DSEFOR0VfVFlQRV9JU19NT05PVE9OSUNfSU5DUik7Cj4gwqAJCWVsc2UKPiDCoAkJ
+CSpwKysgPSBjcHVfdG9fYmUzMihORlM0X0NIQU5HRV9UWVBFX0lTX1RJTUVfTUVUQURBVEEpOwo+
+IGRpZmYgLS1naXQgYS9mcy9uZnNkL25mc2ZoLmggYi9mcy9uZnNkL25mc2ZoLmgKPiBpbmRleCAy
+NjU2YTM0NjRjNmMuLmFjM2UzMDlkNzMzOSAxMDA2NDQKPiAtLS0gYS9mcy9uZnNkL25mc2ZoLmgK
+PiArKysgYi9mcy9uZnNkL25mc2ZoLmgKPiBAQCAtNDYsOCArNDYsOCBAQCB0eXBlZGVmIHN0cnVj
+dCBzdmNfZmggewo+IMKgCXN0cnVjdCB0aW1lc3BlYzY0CWZoX3ByZV9tdGltZTsJLyogbXRpbWUg
+YmVmb3JlIG9wZXIgKi8KPiDCoAlzdHJ1Y3QgdGltZXNwZWM2NAlmaF9wcmVfY3RpbWU7CS8qIGN0
+aW1lIGJlZm9yZSBvcGVyICovCj4gwqAJLyoKPiAtCSAqIHByZS1vcCBuZnN2NCBjaGFuZ2UgYXR0
+cjogbm90ZSBtdXN0IGNoZWNrIElTX0lfVkVSU0lPTihpbm9kZSkKPiAtCSAqICB0byBmaW5kIG91
+dCBpZiBpdCBpcyB2YWxpZC4KPiArCSAqIHByZS1vcCBuZnN2NCBjaGFuZ2UgYXR0cjogbm90ZSBt
+dXN0IGNoZWNrIGZvciBmZXRjaF9pdmVyc2lvbgo+ICsJICogb3AgdG8gZmluZCBvdXQgaWYgaXQg
+aXMgdmFsaWQuCj4gwqAJICovCj4gwqAJdTY0CQkJZmhfcHJlX2NoYW5nZTsKPiDCoAo+IAo+IEBA
+IC0yNDYsMzEgKzI0NiwxMiBAQCBmaF9jbGVhcl93Y2Moc3RydWN0IHN2Y19maCAqZmhwKQo+IMKg
+CWZocC0+ZmhfcHJlX3NhdmVkID0gZmFsc2U7Cj4gwqB9Cj4gwqAKPiAKPiAtLyoKPiAtICogV2Ug
+Y291bGQgdXNlIGlfdmVyc2lvbiBhbG9uZSBhcyB0aGUgY2hhbmdlIGF0dHJpYnV0ZS4gIEhvd2V2
+ZXIsCj4gLSAqIGlfdmVyc2lvbiBjYW4gZ28gYmFja3dhcmRzIGFmdGVyIGEgcmVib290LiAgT24g
+aXRzIG93biB0aGF0IGRvZXNuJ3QKPiAtICogbmVjZXNzYXJpbHkgY2F1c2UgYSBwcm9ibGVtLCBi
+dXQgaWYgaV92ZXJzaW9uIGdvZXMgYmFja3dhcmRzIGFuZCB0aGVuCj4gLSAqIGlzIGluY3JlbWVu
+dGVkIGFnYWluIGl0IGNvdWxkIHJldXNlIGEgdmFsdWUgdGhhdCB3YXMgcHJldmlvdXNseSB1c2Vk
+Cj4gLSAqIGJlZm9yZSBib290LCBhbmQgYSBjbGllbnQgd2hvIHF1ZXJpZWQgdGhlIHR3byB2YWx1
+ZXMgbWlnaHQKPiAtICogaW5jb3JyZWN0bHkgYXNzdW1lIG5vdGhpbmcgY2hhbmdlZC4KPiAtICoK
+PiAtICogQnkgdXNpbmcgYm90aCBjdGltZSBhbmQgdGhlIGlfdmVyc2lvbiBjb3VudGVyIHdlIGd1
+YXJhbnRlZSB0aGF0IGFzCj4gLSAqIGxvbmcgYXMgdGltZSBkb2Vzbid0IGdvIGJhY2t3YXJkcyB3
+ZSBuZXZlciByZXVzZSBhbiBvbGQgdmFsdWUuCj4gLSAqLwo+IMKgc3RhdGljIGlubGluZSB1NjQg
+bmZzZDRfY2hhbmdlX2F0dHJpYnV0ZShzdHJ1Y3Qga3N0YXQgKnN0YXQsCj4gwqAJCQkJCSBzdHJ1
+Y3QgaW5vZGUgKmlub2RlKQo+IMKgewo+IMKgCWlmIChpbm9kZS0+aV9zYi0+c19leHBvcnRfb3At
+PmZldGNoX2l2ZXJzaW9uKQo+IMKgCQlyZXR1cm4gaW5vZGUtPmlfc2ItPnNfZXhwb3J0X29wLT5m
+ZXRjaF9pdmVyc2lvbihpbm9kZSk7Cj4gLQllbHNlIGlmIChJU19JX1ZFUlNJT04oaW5vZGUpKSB7
+Cj4gLQkJdTY0IGNoYXR0cjsKPiAtCj4gLQkJY2hhdHRyID0gIHN0YXQtPmN0aW1lLnR2X3NlYzsK
+PiAtCQljaGF0dHIgPDw9IDMwOwo+IC0JCWNoYXR0ciArPSBzdGF0LT5jdGltZS50dl9uc2VjOwo+
+IC0JCWNoYXR0ciArPSBpbm9kZV9xdWVyeV9pdmVyc2lvbihpbm9kZSk7Cj4gLQkJcmV0dXJuIGNo
+YXR0cjsKPiAtCX0gZWxzZQo+ICsJZWxzZQo+IMKgCQlyZXR1cm4gdGltZV90b19jaGF0dHIoJnN0
+YXQtPmN0aW1lKTsKPiDCoH0KPiDCoAo+IAo+IGRpZmYgLS1naXQgYS9mcy9uZnNkL3hkcjQuaCBi
+L2ZzL25mc2QveGRyNC5oCj4gaW5kZXggOWMyZDk0MmQwNTVkLi5mMGM4ZmJlNzA0YTIgMTAwNjQ0
+Cj4gLS0tIGEvZnMvbmZzZC94ZHI0LmgKPiArKysgYi9mcy9uZnNkL3hkcjQuaAo+IEBAIC03NjEs
+MTAgKzc2MSwxMiBAQCB2b2lkIHdhcm5fb25fbm9uaWRlbXBvdGVudF9vcChzdHJ1Y3QgbmZzZDRf
+b3AgKm9wKTsKPiDCoHN0YXRpYyBpbmxpbmUgdm9pZAo+IMKgc2V0X2NoYW5nZV9pbmZvKHN0cnVj
+dCBuZnNkNF9jaGFuZ2VfaW5mbyAqY2luZm8sIHN0cnVjdCBzdmNfZmggKmZocCkKPiDCoHsKPiAr
+CXN0cnVjdCBpbm9kZSAqaW5vZGUgPSBkX2lub2RlKGZocC0+ZmhfZGVudHJ5KTsKPiArCj4gwqAJ
+QlVHX09OKCFmaHAtPmZoX3ByZV9zYXZlZCk7Cj4gwqAJY2luZm8tPmF0b21pYyA9ICh1MzIpZmhw
+LT5maF9wb3N0X3NhdmVkOwo+IMKgCj4gCj4gLQlpZiAoSVNfSV9WRVJTSU9OKGRfaW5vZGUoZmhw
+LT5maF9kZW50cnkpKSkgewo+ICsJaWYgKGlub2RlLT5pX3NiLT5zX2V4cG9ydF9vcC0+ZmV0Y2hf
+aXZlcnNpb24pIHsKPiDCoAkJY2luZm8tPmJlZm9yZV9jaGFuZ2UgPSBmaHAtPmZoX3ByZV9jaGFu
+Z2U7Cj4gwqAJCWNpbmZvLT5hZnRlcl9jaGFuZ2UgPSBmaHAtPmZoX3Bvc3RfY2hhbmdlOwo+IMKg
+CX0gZWxzZSB7Cj4gZGlmZiAtLWdpdCBhL2ZzL3hmcy94ZnNfZXhwb3J0LmMgYi9mcy94ZnMveGZz
+X2V4cG9ydC5jCj4gaW5kZXggNDY1ZmQ5ZTA0OGQ0Li5iOTUwZmFjM2Q3ZGYgMTAwNjQ0Cj4gLS0t
+IGEvZnMveGZzL3hmc19leHBvcnQuYwo+ICsrKyBiL2ZzL3hmcy94ZnNfZXhwb3J0LmMKPiBAQCAt
+MTYsNiArMTYsNyBAQAo+IMKgI2luY2x1ZGUgInhmc19pbm9kZV9pdGVtLmgiCj4gwqAjaW5jbHVk
+ZSAieGZzX2ljYWNoZS5oIgo+IMKgI2luY2x1ZGUgInhmc19wbmZzLmgiCj4gKyNpbmNsdWRlIDxs
+aW51eC9pdmVyc2lvbi5oPgo+IMKgCj4gCj4gwqAvKgo+IMKgwqAqIE5vdGUgdGhhdCB3ZSBvbmx5
+IGFjY2VwdCBmaWxlaWRzIHdoaWNoIGFyZSBsb25nIGVub3VnaCByYXRoZXIgdGhhbiBhbGxvdwo+
+IEBAIC0yMzQsNCArMjM1LDUgQEAgY29uc3Qgc3RydWN0IGV4cG9ydF9vcGVyYXRpb25zIHhmc19l
+eHBvcnRfb3BlcmF0aW9ucyA9IHsKPiDCoAkubWFwX2Jsb2NrcwkJPSB4ZnNfZnNfbWFwX2Jsb2Nr
+cywKPiDCoAkuY29tbWl0X2Jsb2NrcwkJPSB4ZnNfZnNfY29tbWl0X2Jsb2NrcywKPiDCoCNlbmRp
+Zgo+ICsJLmZldGNoX2l2ZXJzaW9uCQk9IGdlbmVyaWNfZmV0Y2hfaXZlcnNpb24sCj4gwqB9Owo+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmggYi9pbmNsdWRlL2xpbnV4L2l2
+ZXJzaW9uLmgKPiBpbmRleCAzYmZlYmRlNWExYTYuLmRlZDc0NTIzYzhhNiAxMDA2NDQKPiAtLS0g
+YS9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9uLmgKPiArKysgYi9pbmNsdWRlL2xpbnV4L2l2ZXJzaW9u
+LmgKPiBAQCAtMzI4LDYgKzMyOCwzMiBAQCBpbm9kZV9xdWVyeV9pdmVyc2lvbihzdHJ1Y3QgaW5v
+ZGUgKmlub2RlKQo+IMKgCXJldHVybiBjdXIgPj4gSV9WRVJTSU9OX1FVRVJJRURfU0hJRlQ7Cj4g
+wqB9Cj4gwqAKPiAKPiArLyoKPiArICogV2UgY291bGQgdXNlIGlfdmVyc2lvbiBhbG9uZSBhcyB0
+aGUgTkZTdjQgY2hhbmdlIGF0dHJpYnV0ZS4gIEhvd2V2ZXIsCj4gKyAqIGlfdmVyc2lvbiBjYW4g
+Z28gYmFja3dhcmRzIGFmdGVyIGEgcmVib290LiAgT24gaXRzIG93biB0aGF0IGRvZXNuJ3QKPiAr
+ICogbmVjZXNzYXJpbHkgY2F1c2UgYSBwcm9ibGVtLCBidXQgaWYgaV92ZXJzaW9uIGdvZXMgYmFj
+a3dhcmRzIGFuZCB0aGVuCj4gKyAqIGlzIGluY3JlbWVudGVkIGFnYWluIGl0IGNvdWxkIHJldXNl
+IGEgdmFsdWUgdGhhdCB3YXMgcHJldmlvdXNseSB1c2VkCj4gKyAqIGJlZm9yZSBib290LCBhbmQg
+YSBjbGllbnQgd2hvIHF1ZXJpZWQgdGhlIHR3byB2YWx1ZXMgbWlnaHQKPiArICogaW5jb3JyZWN0
+bHkgYXNzdW1lIG5vdGhpbmcgY2hhbmdlZC4KPiArICoKPiArICogQnkgdXNpbmcgYm90aCBjdGlt
+ZSBhbmQgdGhlIGlfdmVyc2lvbiBjb3VudGVyIHdlIGd1YXJhbnRlZSB0aGF0IGFzCj4gKyAqIGxv
+bmcgYXMgdGltZSBkb2Vzbid0IGdvIGJhY2t3YXJkcyB3ZSBuZXZlciByZXVzZSBhbiBvbGQgdmFs
+dWUuCj4gKyAqCj4gKyAqIEEgZmlsZXN5c3RlbSB0aGF0IGhhcyBhbiBvbi1kaXNrIGJvb3QgY291
+bnRlciBvciBzaW1pbGFyIG1pZ2h0IHByZWZlcgo+ICsgKiB0byB1c2UgdGhhdCB0byBhdm9pZCB0
+aGUgcmlzayBvZiB0aGUgY2hhbmdlIGF0dHJpYnV0ZSBnb2luZyBiYWNrd2FyZHMKPiArICogaWYg
+c3lzdGVtIHRpbWUgaXMgc2V0IGJhY2t3YXJkcy4KPiArICovCj4gK3N0YXRpYyBpbmxpbmUgdTY0
+IGdlbmVyaWNfZmV0Y2hfaXZlcnNpb24oc3RydWN0IGlub2RlICppbm9kZSkKPiArewo+ICsJdTY0
+IGNoYXR0cjsKPiArCj4gKwljaGF0dHIgPSAgaW5vZGUtPmlfY3RpbWUudHZfc2VjOwo+ICsJY2hh
+dHRyIDw8PSAzMDsKPiArCWNoYXR0ciArPSBpbm9kZS0+aV9jdGltZS50dl9uc2VjOwo+ICsJY2hh
+dHRyICs9IGlub2RlX3F1ZXJ5X2l2ZXJzaW9uKGlub2RlKTsKPiArCXJldHVybiBjaGF0dHI7Cj4g
+K30KPiArCj4gwqAvKgo+IMKgwqAqIEZvciBmaWxlc3lzdGVtcyB3aXRob3V0IGFueSBzb3J0IG9m
+IGNoYW5nZSBhdHRyaWJ1dGUsIHRoZSBiZXN0IHdlIGNhbgo+IMKgwqAqIGRvIGlzIGZha2Ugb25l
+IHVwIGZyb20gdGhlIGN0aW1lOgoKT25lIG1vcmUgbml0OiAKCldlIHByb2JhYmx5IGRvbid0IHdh
+bnQgYW55b25lIHVzaW5nIHRoaXMgb24gZmlsZXN5c3RlbXMgdGhhdCBkb24ndCBzZXQKU0JfSV9W
+RVJTSU9OLiBJdCBtaWdodCBiZSBhIGdvb2QgaWRlYSB0byBhZGQgc29tZXRoaW5nIGxpa2U6Cgog
+ICAgV0FSTl9PTl9PTkNFKCFJU19JX1ZFUlNJT04oaW5vZGUpKTsKClRvIHRoaXMgZnVuY3Rpb24s
+IHRvIGNhdGNoIGFueW9uZSB0cnlpbmcgdG8gZG8gaXQuCi0tIApKZWZmIExheXRvbiA8amxheXRv
+bkBrZXJuZWwub3JnPgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4LWNhY2hl
+ZnNAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtY2FjaGVmcw==
 
