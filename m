@@ -1,58 +1,77 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id ACB742C44E9
-	for <lists+linux-cachefs@lfdr.de>; Wed, 25 Nov 2020 17:25:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1FA842C4686
+	for <lists+linux-cachefs@lfdr.de>; Wed, 25 Nov 2020 18:16:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-534-KyOdwP6uMI6cb8Zuc27RGg-1; Wed, 25 Nov 2020 11:25:38 -0500
-X-MC-Unique: KyOdwP6uMI6cb8Zuc27RGg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-65-LSPW1lOpNAOpFActujVhrA-1; Wed, 25 Nov 2020 12:16:04 -0500
+X-MC-Unique: LSPW1lOpNAOpFActujVhrA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DFDCD1E7D8;
-	Wed, 25 Nov 2020 16:25:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5D3E190A7A1;
+	Wed, 25 Nov 2020 17:16:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6408A60BE2;
-	Wed, 25 Nov 2020 16:25:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DFF05D71D;
+	Wed, 25 Nov 2020 17:16:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C939A180954D;
-	Wed, 25 Nov 2020 16:25:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C77A2180954D;
+	Wed, 25 Nov 2020 17:16:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APGPSuj005366 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 11:25:28 -0500
+	id 0APHEx3H011831 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 12:14:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E7E02AB413; Wed, 25 Nov 2020 16:25:27 +0000 (UTC)
+	id EB5FF1009A1D; Wed, 25 Nov 2020 17:14:58 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1BD3AB411
-	for <linux-cachefs@redhat.com>; Wed, 25 Nov 2020 16:25:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E734F112C076
+	for <linux-cachefs@redhat.com>; Wed, 25 Nov 2020 17:14:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 97B52800183
-	for <linux-cachefs@redhat.com>; Wed, 25 Nov 2020 16:25:25 +0000 (UTC)
-Received: from elasmtp-curtail.atl.sa.earthlink.net
-	(elasmtp-curtail.atl.sa.earthlink.net [209.86.89.64]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-515-5-NGK5dEOXyZJokj-h8VmA-1;
-	Wed, 25 Nov 2020 11:25:21 -0500
-X-MC-Unique: 5-NGK5dEOXyZJokj-h8VmA-1
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws;
-	s=dk12062016; d=mindspring.com;
-	b=FKVa5HHAFdGr42qI9P8GJ3YGIWEh3YOzaXOX2pJxHaw4jVKiYXHvewCJi/RvKD03Y7ZOqZD7UN+SXjCNExxDNW8gR3CvvwKVaPWk2acOLMhf16h5LuxWr/Aq138Orc8LvJxhixgDtxCjwpi3L9gYWApNF0YHtxIZ5w+E13MWHAK7UfCddNhYqHUvtS+aFcAV69ZXJICmV+E0KqpA0xXAFqdFgxm3wj+ID/DtOVloeu3brn6985NNLYXER/UtQumd3DWGAgmJnM0MDX/mKqqwqdYxEkjU1h9b/4ycRcnLCvRsOArjfE0sUdAU7ZQAz2XnK2RN2kPsWsA7DqcWKomi4g==;
-	h=Received:From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:Thread-Index:Content-Language:X-ELNK-Trace:X-Originating-IP
-Received: from [76.105.143.216] (helo=FRANKSTHINKPAD)
-	by elasmtp-curtail.atl.sa.earthlink.net with esmtpa (Exim 4)
-	(envelope-from <ffilzlnx@mindspring.com>)
-	id 1khxbb-000DVh-Dm; Wed, 25 Nov 2020 11:25:19 -0500
-From: "Frank Filz" <ffilzlnx@mindspring.com>
-To: "'bfields'" <bfields@fieldses.org>
-References: <20200915172140.GA32632@fieldses.org>
-	<4d1d7cd0076d98973a56e89c92e4ff0474aa0e14.camel@hammerspace.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C70E2103B803
+	for <linux-cachefs@redhat.com>; Wed, 25 Nov 2020 17:14:55 +0000 (UTC)
+Received: from natter.dneg.com (natter.dneg.com [193.203.89.68]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-588-tHFpEE7yNdmpKo0Wqj_mxQ-1;
+	Wed, 25 Nov 2020 12:14:53 -0500
+X-MC-Unique: tHFpEE7yNdmpKo0Wqj_mxQ-1
+Received: from localhost (localhost [127.0.0.1])
+	by natter.dneg.com (Postfix) with ESMTP id 1F49A39616D;
+	Wed, 25 Nov 2020 17:14:52 +0000 (GMT)
+X-Virus-Scanned: amavisd-new at mx-dneg
+Received: from natter.dneg.com ([127.0.0.1])
+	by localhost (natter.dneg.com [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id KOu2BXi-Eo2H; Wed, 25 Nov 2020 17:14:52 +0000 (GMT)
+Received: from zrozimbrai.dneg.com (zrozimbrai.dneg.com [10.11.20.12])
+	by natter.dneg.com (Postfix) with ESMTPS id F3F8A39616B;
+	Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+Received: from localhost (localhost [127.0.0.1])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id E0D688237816;
+	Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+Received: from zrozimbrai.dneg.com ([127.0.0.1])
+	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id kWBnEEtUyp-l; Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+Received: from localhost (localhost [127.0.0.1])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id C1074826D259;
+	Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+X-Virus-Scanned: amavisd-new at zimbra-dneg
+Received: from zrozimbrai.dneg.com ([127.0.0.1])
+	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id J1MMs1WOxq3A; Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+Received: from zrozimbra1.dneg.com (zrozimbra1.dneg.com [10.11.16.16])
+	by zrozimbrai.dneg.com (Postfix) with ESMTP id A144C8237816;
+	Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+Date: Wed, 25 Nov 2020 17:14:51 +0000 (GMT)
+From: Daire Byrne <daire@dneg.com>
+To: bfields <bfields@fieldses.org>
+Message-ID: <932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
+In-Reply-To: <20201124211522.GC7173@fieldses.org>
+References: <943482310.31162206.1599499860595.JavaMail.zimbra@dneg.com>
 	<1188023047.38703514.1600272094778.JavaMail.zimbra@dneg.com>
 	<279389889.68934777.1603124383614.JavaMail.zimbra@dneg.com>
 	<635679406.70384074.1603272832846.JavaMail.zimbra@dneg.com>
@@ -60,15 +79,9 @@ References: <20200915172140.GA32632@fieldses.org>
 	<1744768451.86186596.1605186084252.JavaMail.zimbra@dneg.com>
 	<1055884313.92996091.1606250106656.JavaMail.zimbra@dneg.com>
 	<20201124211522.GC7173@fieldses.org>
-	<0fc201d6c2af$62b039f0$2810add0$@mindspring.com>
-	<20201125144753.GC2811@fieldses.org>
-In-Reply-To: <20201125144753.GC2811@fieldses.org>
-Date: Wed, 25 Nov 2020 08:25:19 -0800
-Message-ID: <100101d6c347$917ed0f0$b47c72d0$@mindspring.com>
 MIME-Version: 1.0
-Thread-Index: AQIMJHTNaUfUC7mKmsL3ACLiQeb3JQI9CmfpAttHNL0B+hIAfgE5qoLXAZr58eYBXdorRQGLCl71AmNKoMYCnwzJbwKcKMdYqMrOhjA=
-X-ELNK-Trace: 136157f01908a8929c7f779228e2f6aeda0071232e20db4dce8fa129a7039943542fba0e7dc78578350badd9bab72f9c350badd9bab72f9c350badd9bab72f9c
-X-Originating-IP: 76.105.143.216
+Thread-Topic: Adventures in NFS re-exporting
+Thread-Index: jRr/eG2N4Ts+gxyP7atxT3VAnkSniQ==
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,11 +90,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: 'Daire Byrne' <daire@dneg.com>, 'linux-cachefs' <linux-cachefs@redhat.com>,
-	'linux-nfs' <linux-nfs@vger.kernel.org>,
-	'Trond Myklebust' <trondmy@hammerspace.com>
+Cc: linux-nfs <linux-nfs@vger.kernel.org>,
+	linux-cachefs <linux-cachefs@redhat.com>,
+	Trond Myklebust <trondmy@hammerspace.com>
 Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -96,91 +109,89 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-us
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> On Tue, Nov 24, 2020 at 02:15:57PM -0800, Frank Filz wrote:
-> > How much conversation about re-export has been had at the wider NFS
-> > community level? I have an interest because Ganesha  supports
-> > re-export via the PROXY_V3 and PROXY_V4 FSALs. We currently don't have
-> > a data cache though there has been discussion of such, we do have
-attribute
-> and dirent caches.
-> >
-> > Looking over the wiki page, I have considered being able to specify a
-> > re-export of a Ganesha export without encapsulating handles. Ganesha
-> > encapsulates the export_fs handle in a way that could be coordinated
-> > between the original server and the re-export so they would both
-> > effectively have the same encapsulation layer.
+
+----- On 24 Nov, 2020, at 21:15, bfields bfields@fieldses.org wrote:
+> On Tue, Nov 24, 2020 at 08:35:06PM +0000, Daire Byrne wrote:
+>> Sometimes I have seen clusters of 16 GETATTRs for the same file on the
+>> wire with nothing else inbetween. So if the re-export server is the
+>> only "client" writing these files to the originating server, why do we
+>> need to do so many repeat GETATTR calls when using nconnect>1? And why
+>> are the COMMIT calls required when the writes are coming via nfsd but
+>> not from userspace on the re-export server? Is that due to some sort
+>> of memory pressure or locking?
+>> 
+>> I picked the NFSv3 originating server case because my head starts to
+>> hurt tracking the equivalent packets, stateids and compound calls with
+>> NFSv4. But I think it's mostly the same for NFSv4. The writes through
+>> the re-export server lead to lots of COMMITs and (double) GETATTRs but
+>> using nconnect>1 at least doesn't seem to make it any worse like it
+>> does for NFSv3.
+>> 
+>> But maybe you actually want all the extra COMMITs to help better
+>> guarantee your writes when putting a re-export server in the way?
+>> Perhaps all of this is by design...
 > 
-> In the case the re-export server only servers a single export, I guess you
-could do
-> away with the encapsulation.  (The only risk I see is that a client of the
-re-export
-> server could also access any export of the original server if it could
-guess
-> filehandles, which might surprise
-> admins.)  Maybe that'd be useful.
-
-Ganesha handles have a minor downside that is a help here if Ganesha was
-re-exporting another Ganesha server. There is a 16 bit export_id that comes
-from the export configuration and is part of the handle. We could easily set
-it up so that if the sysadmin configured it as such, each re-exported
-Ganesha export would have the same export_id, and then a client handle for
-export_id 1 would be mirrored to the original server as export_id 1 and the
-two servers can have the same export permissions and everything.
-
-There is some additional stuff we could easily implement in Ganesha to
-restrict handle manipulation to sneak around export permissions.
-
-> Another advantage of not encapsulating filehandles is that clients could
-more
-> easily migrate between servers.
-
-Yea, with the idea I've been mulling for Ganesha, migration between original
-server and re-export server would be simple with the same handles. Of course
-state migration is a whole different ball of wax, but a clustered setup
-could work just as well as Ganesha's clustered filesystems. On the other
-hand, re-export with state has a pitfall. If the re-export server crashes,
-the state is lost on the original server unless we make a protocol change to
-allow state re-export such that a re-export server crashing doesn't cause
-state loss. For this reason, I haven't rushed to implement lock state
-re-export in Ganesha, rather allowing the re-export server to just manage
-lock state locally.
-
-> Cooperating servers could have an agreement on filehandles.  And I guess
-we
-> could standardize that somehow.  Are we ready for that?  I'm not sure what
-> other re-exporting problems there are that I haven't thought of.
-
-I'm not sure how far we want to go there, but potentially specific server
-implementations could choose to be interoperable in a way that allows the
-handle encapsulation to either be smaller or no extra overhead. For example,
-if we implemented what I've thought about for Ganesha-Ganesha re-export,
-Ganesha COULD also be "taught" which portion of the knfsd handle is the
-filesystem/export identifier, and maintain a database of Ganesha
-export/filesystem <-> knfsd export/filesystem and have Ganesha
-re-encapsulate the exportfs/name_to_handle_at portion of the handle. Of
-course in this case, trivial migration isn't possible since Ganesha will
-have a different encapsulation than knfsd.
-
-Incidentally, I also purposefully made Ganesha's encapsulation different so
-it never collides with either version of knfsd handles (now if over the
-course of the past 10 years another handle version has come along...).
-
-Frank
-
-> --b.
+> Maybe that's close-to-open combined with the server's tendency to
+> open/close on every IO operation?  (Though the file cache should have
+> helped with that, I thought; as would using version >=4.0 on the final
+> client.)
 > 
-> > I'd love to see some re-export best practices shared among server
-> > implementations, and also what we can do to improve things when two
-> > server implementations are interoperating via re-export.
+> Might be interesting to know whether the nocto mount option makes a
+> difference.  (So, add "nocto" to the mount options for the NFS mount
+> that you're re-exporting on the re-export server.)
+
+The nocto didn't really seem to help but the NFSv4.2 re-export of a NFSv3 server did. I also realised I had done some tests with nconnect on the re-export server's client and consequently mixed things up a bit in my head. So I did some more tests and tried to make the results clear and simple. In all cases I'm just writing a big file with "dd" and capturing the traffic between the originating server and re-export server.
+
+First off, writing direct to the originating server mount on the re-export server from userspace shows the ideal behaviour for all combinations:
+
+ originating server <- (vers=X,actimeo=1800,nconnect=X) <- reexport server writing = WRITE,WRITE .... repeating (good!)
+
+Then re-exporting a NFSv4.2 server:
+
+ originating server <- (vers=4.2) <- reexport server - (vers=3) <- client writing = GETATTR,COMMIT,WRITE .... repeating
+ originating server <- (vers=4.2) <- reexport server - (vers=4.2) <- client writing = GETATTR,WRITE .... repeating
+
+And re-exporting a NFSv3 server:
+
+ originating server <- (vers=3) <- reexport server - (vers=4.2) <- client writing = WRITE,WRITE .... repeating (good!)
+ originating server <- (vers=3) <- reexport server - (vers=3) <- client writing = WRITE,COMMIT .... repeating
+  
+So of all the combinations, a NFSv4.2 re-export of an NFSv3 server is the only one that matches the "ideal" case where we WRITE continuously without all the extra chatter.
+
+And for completeness, taking that "good" case and making it bad with nconnect:
+
+ originating server <- (vers=3,nconnect=16) <- reexport server - (vers=4.2) <- client writing = WRITE,WRITE .... repeating (good!)
+ originating server <- (vers=3) <- reexport server <- (vers=4.2,nconnect=16) <- client writing = WRITE,COMMIT,GETATTR .... randomly repeating
+
+So using nconnect on the re-export's client causes lots more metadata ops. There are reasons for doing that for increasing throughput but it could be that the gain is offset by the extra metadata roundtrips. 
+
+Similarly, we have mostly been using a NFSv4.2 re-export of a NFSV4.2 server over the WAN because of reduced metadata ops for reading, but it looks like we incur extra metadata ops for writing.
+
+Side note: it's hard to decode nconnect enabled packet captures because wireshark doesn't seem to like those extra port streams.
+
+> By the way I made a start at a list of issues at
+> 
+>	http://wiki.linux-nfs.org/wiki/index.php/NFS_re-export
+> 
+> but I was a little vague on which of your issues remained and didn't
+> take much time over it.
+
+Cool. I'm glad there are some notes for others to reference - this thread is now too long for any human to read. The only things I'd consider adding are:
+
+* re-export of NFSv4.0 filesystem can give input/output errors when the cache is dropped
+* a weird interaction with nfs client readahead such that all reads are limited to the default 128k unless you manually increase it to match rsize.
+
+The only other thing I can offer are tips & tricks for doing this kind of thing over the WAN (vfs_cache_pressure, actimeo, nocto) and using fscache.
+
+Daire
 
 --
 Linux-cachefs mailing list
