@@ -2,100 +2,62 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E72BF2CD54E
-	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 13:20:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BAA092CD89C
+	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 15:11:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607004709;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=k0pT0uVdzAeUHJ/e5H7amyvAFxEFtxtGxH56Wvkhm/8=;
+	b=Vhc+gX/phJR6Q1H5qdWtcbej0Xok8pk/nvInLn7LARl00CkeUaaMzUrekRo1nNEjEWIfT6
+	REIfSUMv16V2etSF4uU2LEZWoYtqI0MJiOeEkWAKXRKI1sGg0VsSV7HYazJrHHYuzkqqlf
+	2/ocfmAbYtufH6vloqU6g0Cp7fyZ+ds=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-49-X2USSxjANumH3Q-aJEw4vw-1; Thu, 03 Dec 2020 07:20:54 -0500
-X-MC-Unique: X2USSxjANumH3Q-aJEw4vw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-137-FHol592aPpaB33V0C7YUAg-1; Thu, 03 Dec 2020 09:11:48 -0500
+X-MC-Unique: FHol592aPpaB33V0C7YUAg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D44A8817BA3;
-	Thu,  3 Dec 2020 12:20:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A0BD10016FB;
-	Thu,  3 Dec 2020 12:20:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A335288CE2D;
+	Thu,  3 Dec 2020 14:11:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C869D70C43;
+	Thu,  3 Dec 2020 14:11:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 29F7618095C7;
-	Thu,  3 Dec 2020 12:20:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2594D5002C;
+	Thu,  3 Dec 2020 14:11:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3CKhai001805 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 07:20:43 -0500
+	id 0B3EBOeM016026 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 09:11:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 312BBD93D2; Thu,  3 Dec 2020 12:20:43 +0000 (UTC)
+	id 35C235DA34; Thu,  3 Dec 2020 14:11:24 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B686D93D0
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 12:20:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFD7A108C19A
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 12:20:39 +0000 (UTC)
-Received: from natter.dneg.com (natter.dneg.com [193.203.89.68]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-302-JhK3FdHeMMSrUFZb5YHdyA-1;
-	Thu, 03 Dec 2020 07:20:37 -0500
-X-MC-Unique: JhK3FdHeMMSrUFZb5YHdyA-1
-Received: from localhost (localhost [127.0.0.1])
-	by natter.dneg.com (Postfix) with ESMTP id EF967866BA85;
-	Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-X-Virus-Scanned: amavisd-new at mx-dneg
-Received: from natter.dneg.com ([127.0.0.1])
-	by localhost (natter.dneg.com [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 885gxeYjaaLv; Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Received: from zrozimbrai.dneg.com (zrozimbrai.dneg.com [10.11.20.12])
-	by natter.dneg.com (Postfix) with ESMTPS id C5CD88400B11;
-	Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Received: from localhost (localhost [127.0.0.1])
-	by zrozimbrai.dneg.com (Postfix) with ESMTP id B6710813EE05;
-	Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Received: from zrozimbrai.dneg.com ([127.0.0.1])
-	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id nTypsDlxzc6F; Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Received: from localhost (localhost [127.0.0.1])
-	by zrozimbrai.dneg.com (Postfix) with ESMTP id 8F4EC813EE2B;
-	Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-X-Virus-Scanned: amavisd-new at zimbra-dneg
-Received: from zrozimbrai.dneg.com ([127.0.0.1])
-	by localhost (zrozimbrai.dneg.com [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id wmNepQXAIpL4; Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Received: from zrozimbra1.dneg.com (zrozimbra1.dneg.com [10.11.16.16])
-	by zrozimbrai.dneg.com (Postfix) with ESMTP id 77175813EE0E;
-	Thu,  3 Dec 2020 12:20:35 +0000 (GMT)
-Date: Thu, 3 Dec 2020 12:20:35 +0000 (GMT)
-From: Daire Byrne <daire@dneg.com>
-To: bfields <bfields@fieldses.org>
-Message-ID: <1403656117.98163597.1606998035261.JavaMail.zimbra@dneg.com>
-In-Reply-To: <932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
-References: <943482310.31162206.1599499860595.JavaMail.zimbra@dneg.com>
-	<279389889.68934777.1603124383614.JavaMail.zimbra@dneg.com>
-	<635679406.70384074.1603272832846.JavaMail.zimbra@dneg.com>
-	<20201109160256.GB11144@fieldses.org>
-	<1744768451.86186596.1605186084252.JavaMail.zimbra@dneg.com>
-	<1055884313.92996091.1606250106656.JavaMail.zimbra@dneg.com>
-	<20201124211522.GC7173@fieldses.org>
-	<932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
+Received: from warthog.procyon.org.uk (ovpn-112-159.rdu2.redhat.com
+	[10.10.112.159])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 826085DA30;
+	Thu,  3 Dec 2020 14:10:57 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Christoph Hellwig <hch@infradead.org>
 MIME-Version: 1.0
-Thread-Topic: Adventures in NFS re-exporting
-Thread-Index: jRr/eG2N4Ts+gxyP7atxT3VAnkSniXilDtDp
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Date: Thu, 03 Dec 2020 14:10:56 +0000
+Message-ID: <914680.1607004656@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B3EBOeM016026
 X-loop: linux-cachefs@redhat.com
-Cc: linux-nfs <linux-nfs@vger.kernel.org>,
-	linux-cachefs <linux-cachefs@redhat.com>,
-	Trond Myklebust <trondmy@hammerspace.com>
-Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
+Cc: "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, linux-cachefs@redhat.com,
+	dchinner@redhat.com, linux-fsdevel@vger.kernel.org
+Subject: [Linux-cachefs] Problems doing DIO to netfs cache on XFS from Ceph
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,73 +71,115 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <914679.1607004656.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi Christoph,
 
------ On 25 Nov, 2020, at 17:14, Daire Byrne daire@dneg.com wrote:
-> First off, writing direct to the originating server mount on the re-export
-> server from userspace shows the ideal behaviour for all combinations:
-> 
-> originating server <- (vers=X,actimeo=1800,nconnect=X) <- reexport server
-> writing = WRITE,WRITE .... repeating (good!)
-> 
-> Then re-exporting a NFSv4.2 server:
-> 
-> originating server <- (vers=4.2) <- reexport server - (vers=3) <- client writing
-> = GETATTR,COMMIT,WRITE .... repeating
-> originating server <- (vers=4.2) <- reexport server - (vers=4.2) <- client
-> writing = GETATTR,WRITE .... repeating
-> 
-> And re-exporting a NFSv3 server:
-> 
-> originating server <- (vers=3) <- reexport server - (vers=4.2) <- client writing
-> = WRITE,WRITE .... repeating (good!)
-> originating server <- (vers=3) <- reexport server - (vers=3) <- client writing =
-> WRITE,COMMIT .... repeating
->  
-> So of all the combinations, a NFSv4.2 re-export of an NFSv3 server is the only
-> one that matches the "ideal" case where we WRITE continuously without all the
-> extra chatter.
-> 
-> And for completeness, taking that "good" case and making it bad with nconnect:
-> 
-> originating server <- (vers=3,nconnect=16) <- reexport server - (vers=4.2) <-
-> client writing = WRITE,WRITE .... repeating (good!)
-> originating server <- (vers=3) <- reexport server <- (vers=4.2,nconnect=16) <-
-> client writing = WRITE,COMMIT,GETATTR .... randomly repeating
-> 
-> So using nconnect on the re-export's client causes lots more metadata ops. There
-> are reasons for doing that for increasing throughput but it could be that the
-> gain is offset by the extra metadata roundtrips.
-> 
-> Similarly, we have mostly been using a NFSv4.2 re-export of a NFSV4.2 server
-> over the WAN because of reduced metadata ops for reading, but it looks like we
-> incur extra metadata ops for writing.
+We're having a problem making the fscache/cachefiles rewrite work with XFS, if
+you could have a look?  Jeff Layton just tripped the attached warning from
+this:
 
-Just a small update based on the most recent patchsets from Trond & Bruce:
+	/*
+	 * Given that we do not allow direct reclaim to call us, we should
+	 * never be called in a recursive filesystem reclaim context.
+	 */
+	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC_NOFS))
+		goto redirty;
 
-https://patchwork.kernel.org/project/linux-nfs/list/?series=393567
-https://patchwork.kernel.org/project/linux-nfs/list/?series=393561
+The chain of events is the following:
 
-For the write-through tests, the NFSv3 re-export of a NFSv4.2 server has trimmed an extra GETATTR:
+ (1) Ceph is asked to do an ordinary write by userspace.  It calls the fscache
+     netfs_write_begin() helper to read the region it's going to modify so
+     that the cache can be preloaded.
 
-Before:
-originating server <- (vers=4.2) <- reexport server - (vers=3) <- client writing = WRITE,COMMIT,GETATTR .... repeating
- 
-After:
-originating server <- (vers=4.2) <- reexport server - (vers=3) <- client writing = WRITE,COMMIT .... repeating
+ (2) In this case, the cache already has it, so cachefiles_read() dispatches
+     an async DIO read to the backing filesystem (in this case XFS).
 
-I'm assuming this is specifically due to the "EXPORT_OP_NOWCC" patch? All other combinations look the same as before (for write-through). An NFSv4.2 re-export of a NFSv3 server is still the best/ideal in terms of not incurring extra metadata roundtrips when writing.
+ (3) iomap, on behalf of XFS, flushes the pagecache attached to the backing
+     inode, which appears to be populated, causing do_writepages() to run.
 
-It's great to see this re-export scenario becoming a better supported (and performing) topology; many thanks all.
+ (4) The XFS write-out eventually wends its way to iomap_do_writepage(), which
+     complains about NOFS being set and cancels the write.
 
-Daire
+Now, I'm doing:
+
+	old_nofs = memalloc_nofs_save();
+	ret = call_read_iter(file, &ki->iocb, iter);
+	memalloc_nofs_restore(old_nofs);
+
+in cachefiles_read() to prevent the cache causing writeout in the netfs to
+occur.  Possibly overriding NOFS here is overkill and is only really necessary
+in cachefiles_write() - which can be called from netfs writeback.
+cachefiles_read() should only be called from netfs ->readpage(), ->readahead()
+and ->write_begin() and maybe a workqueue in the case that the cache returns a
+short read.
+
+Note that I'm only doing async DIO reads and writes, so I was a bit surprised
+that XFS is doing a writeback at all - but I guess that IOCB_DIRECT is
+actually just a hint and the filesystem can turn it into buffered I/O if it
+wants.
+
+Thanks,
+David
+---
+ WARNING: CPU: 6 PID: 7412 at fs/iomap/buffered-io.c:1465 iomap_do_writepage+0x76a/0x8b0
+ Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.14.0-1.fc33 04/01/2014
+ RIP: 0010:iomap_do_writepage+0x76a/0x8b0
+ Code: 89 f5 41 89 c7 48 83 7d 48 00 0f 85 6e fb ff ff 48 8b 44 24 48 48 8d 5c 24 48 48 39 d8 0f 84 5b fb ff ff 0f 0b e9 54 fb ff ff <0f> 0b e9 76 ff ff ff 0f 0b e9 64 fb ff ff 0f 0b e9 9a fb ff ff 0f
+ RSP: 0018:ffffb19b4155f6e0 EFLAGS: 00010206
+ RAX: 0000000000440100 RBX: ffffb19b4155f7a8 RCX: 0000000000000000
+ RDX: 0000000000000000 RSI: ffffb19b4155f940 RDI: ffffd1e484446740
+ RBP: ffffb19b4155f868 R08: ffffffffffffffff R09: 0000000000030360
+ R10: 0000000000000002 R11: 0000000000000006 R12: ffff8a5108ad4d30
+ R13: 0000000000002a9a R14: ffffb19b4155f7b0 R15: ffffd1e484446740
+ FS:  00007f6ff479d740(0000) GS:ffff8a542fb80000(0000) knlGS:0000000000000000
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 0000000000fc02a8 CR3: 000000013b218000 CR4: 00000000003506e0
+ Call Trace:
+  ? page_referenced_one+0x150/0x150
+  ? __mod_memcg_lruvec_state+0x21/0xe0
+  ? clear_page_dirty_for_io+0xf1/0x240
+  write_cache_pages+0x186/0x3d0
+  ? iomap_readahead+0x1b0/0x1b0
+  ? blk_mq_submit_bio+0x2ee/0x4f0
+  ? elv_rb_del+0x1f/0x30
+  ? deadline_remove_request+0x55/0xb0
+  ? dd_dispatch_request+0x151/0x210
+  iomap_writepages+0x1c/0x40
+  xfs_vm_writepages+0x56/0x70 [xfs]
+  do_writepages+0x28/0xa0
+  ? xfs_iunlock+0xa3/0xe0 [xfs]
+  ? wbc_attach_and_unlock_inode+0xb5/0x140
+  __filemap_fdatawrite_range+0xa7/0xe0
+  filemap_write_and_wait_range+0x3d/0x90
+  __iomap_dio_rw+0x149/0x490
+  iomap_dio_rw+0xe/0x30
+  xfs_file_dio_aio_read+0xb9/0x100 [xfs]
+  xfs_file_read_iter+0xba/0xd0 [xfs]
+  cachefiles_read+0x1ee/0x3f0 [cachefiles]
+  ? netfs_subreq_terminated+0x240/0x240 [netfs]
+  netfs_read_from_cache+0x70/0x80 [netfs]
+  netfs_rreq_submit_slice+0x169/0x310 [netfs]
+  netfs_write_begin+0x4e4/0x6a0 [netfs]
+  ? ceph_put_fmode+0x43/0xd0 [ceph]
+  ceph_write_begin+0x141/0x250 [ceph]
+  generic_perform_write+0xaf/0x190
+  ceph_write_iter+0xab6/0xc90 [ceph]
+  ? _cond_resched+0x16/0x40
+  ? __ceph_setattr+0x895/0x960 [ceph]
+  ? new_sync_write+0x108/0x180
+  new_sync_write+0x108/0x180
+  vfs_write+0x1bc/0x270
+  ksys_write+0x4f/0xc0
+  do_syscall_64+0x33/0x40
+  entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
 --
 Linux-cachefs mailing list
