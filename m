@@ -1,67 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4DF682CDAEE
-	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 17:14:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 27AE62CDAA0
+	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 17:05:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607011544;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=gqrn76li8MFohoHDWVwtGck8hyMY+PmdUGbtjdmn2Mg=;
+	b=XfBKmRR7jx6eyitYyeIZ6pjCAN/s9hUdV4a9/FuTt0a46nqmmTwZ2qZDewmatkZc+NjaBE
+	XXrsm+6boZt5YM+KdB32JD2lhMKkFqndWZJ1Zvsvty67rfaaiECZieM7KMhG1Fjwf3mZP4
+	HYk//HUBbxNKtAtz2YD4ApeqRefYRHI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-262-o3wYtKuqOt2KPDsRuyVznw-1; Thu, 03 Dec 2020 11:14:12 -0500
-X-MC-Unique: o3wYtKuqOt2KPDsRuyVznw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-357-TQ8cOOhIN6-F3AV_HsF66g-1; Thu, 03 Dec 2020 11:05:42 -0500
+X-MC-Unique: TQ8cOOhIN6-F3AV_HsF66g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE62C85818C;
-	Thu,  3 Dec 2020 16:14:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B340E5D6BA;
-	Thu,  3 Dec 2020 16:14:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 17EA1BBF0D;
+	Thu,  3 Dec 2020 16:04:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8EB01A919;
+	Thu,  3 Dec 2020 16:04:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5236E4BB40;
-	Thu,  3 Dec 2020 16:14:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F685180954D;
+	Thu,  3 Dec 2020 16:04:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3GE5f2029800 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 11:14:05 -0500
+	id 0B3G4BnB027913 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 11:04:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6E16210E60FF; Thu,  3 Dec 2020 16:14:05 +0000 (UTC)
+	id 76D985B4A0; Thu,  3 Dec 2020 16:04:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A625101F0D3
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 16:14:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10D50811E97
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 16:14:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-499-vknVn06YO1WRWI0up5d4Nw-1; Thu, 03 Dec 2020 11:14:00 -0500
-X-MC-Unique: vknVn06YO1WRWI0up5d4Nw-1
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1kkqsV-0003bW-AL; Thu, 03 Dec 2020 15:50:43 +0000
-Date: Thu, 3 Dec 2020 15:50:43 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20201203155043.GI11935@casper.infradead.org>
-References: <914680.1607004656@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-112-159.rdu2.redhat.com
+	[10.10.112.159])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 22112189C4;
+	Thu,  3 Dec 2020 16:04:09 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20201203155043.GI11935@casper.infradead.org>
+References: <20201203155043.GI11935@casper.infradead.org>
+	<914680.1607004656@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <914680.1607004656@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Date: Thu, 03 Dec 2020 16:04:09 +0000
+Message-ID: <1022188.1607011449@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B3G4BnB027913
 X-loop: linux-cachefs@redhat.com
-Cc: Christoph Hellwig <hch@infradead.org>, linux-fsdevel@vger.kernel.org,
-	linux-cachefs@redhat.com, dchinner@redhat.com
+Cc: Christoph Hellwig <hch@infradead.org>, linux-cachefs@redhat.com,
+	dchinner@redhat.com, linux-fsdevel@vger.kernel.org
 Subject: Re: [Linux-cachefs] Problems doing DIO to netfs cache on XFS from
 	Ceph
 X-BeenThere: linux-cachefs@redhat.com
@@ -77,25 +76,33 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <1022187.1607011449.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 03, 2020 at 02:10:56PM +0000, David Howells wrote:
-> Note that I'm only doing async DIO reads and writes, so I was a bit surprised
-> that XFS is doing a writeback at all - but I guess that IOCB_DIRECT is
-> actually just a hint and the filesystem can turn it into buffered I/O if it
-> wants.
+Matthew Wilcox <willy@infradead.org> wrote:
 
-That's almost the exact opposite of what is going on.  XFS sees that
-you're going to do an O_DIRECT read, so it writes back the dirty memory
-that's currently in the page cache so that your read doesn't read stale
-data from disk.
+> > Note that I'm only doing async DIO reads and writes, so I was a bit surprised
+> > that XFS is doing a writeback at all - but I guess that IOCB_DIRECT is
+> > actually just a hint and the filesystem can turn it into buffered I/O if it
+> > wants.
+> 
+> That's almost the exact opposite of what is going on.  XFS sees that
+> you're going to do an O_DIRECT read, so it writes back the dirty memory
+> that's currently in the page cache so that your read doesn't read stale
+> data from disk.
+
+In this trace, yes, that's true - but where did the dirty memory in the
+pagecache come from?  I'm only doing DIO reads and DIO writes - oh, and as it
+turns out, fallocate(FALLOC_FL_ZERO_RANGE) - which, I think, may be the source
+of the dirty data.
+
+David
 
 --
 Linux-cachefs mailing list
