@@ -1,60 +1,53 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 155A62CE1F5
-	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 23:40:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0ED342CE200
+	for <lists+linux-cachefs@lfdr.de>; Thu,  3 Dec 2020 23:45:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-537-Y3TsGW4ON0Kio8BGcjA3ig-1; Thu, 03 Dec 2020 17:40:05 -0500
-X-MC-Unique: Y3TsGW4ON0Kio8BGcjA3ig-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-518-YMoFWuMkOQ6vbZmc-fFNJA-1; Thu, 03 Dec 2020 17:45:06 -0500
+X-MC-Unique: YMoFWuMkOQ6vbZmc-fFNJA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B53B1835B4A;
-	Thu,  3 Dec 2020 22:40:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7ADE4518E;
+	Thu,  3 Dec 2020 22:45:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E3EB189C4;
-	Thu,  3 Dec 2020 22:40:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E73A41A890;
+	Thu,  3 Dec 2020 22:45:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 45B844BB7B;
-	Thu,  3 Dec 2020 22:40:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 81C294BB7B;
+	Thu,  3 Dec 2020 22:45:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3Me0kK011787 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 17:40:00 -0500
+	id 0B3Mj05a012560 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 17:45:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EEAA12027144; Thu,  3 Dec 2020 22:39:59 +0000 (UTC)
+	id DBDBA110E9B2; Thu,  3 Dec 2020 22:45:00 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9A752026D49
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 22:39:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7A411020447
+	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 22:44:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0292185A7BC
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 22:39:57 +0000 (UTC)
-Received: from elasmtp-kukur.atl.sa.earthlink.net
-	(elasmtp-kukur.atl.sa.earthlink.net [209.86.89.65]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-526-t-d1HU0kNp6WntCWekIZ9A-1;
-	Thu, 03 Dec 2020 17:39:55 -0500
-X-MC-Unique: t-d1HU0kNp6WntCWekIZ9A-1
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws;
-	s=dk12062016; d=mindspring.com;
-	b=BfXgO5obm06B4hrokZYEkXJtFeTMkuhnh1prbg8LPYisWTDJ1HqH7gMtoyTy6gImQi/s75lFDSmviRB4vRbtLnoRq4v9OY8kdMXNphFMHzyOF7XCfgAhFSLYmdVmqQlgU0/xNOPJ+GqIJJXjHEp1MMes1BGFmJa+ySXhGVJPA1PqdCZ2xsyYJIQ3fJRfEU/H9lwhLciijZSbZ23Mrn9YfpZhhiQmpQ8sNcQjgazXANjnKZM96ZhOTVvvbsRTOUTdHT6ze0oJB/HEqu2cSZhmdW5OHMG2ZUoUisV+conkemO3Lvtzgx2LT3c6zxe8G/SpxEUv1TTfj0QspO/2LuGXow==;
-	h=Received:From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:Content-Language:Thread-Index:X-ELNK-Trace:X-Originating-IP
-Received: from [76.105.143.216] (helo=FRANKSTHINKPAD)
-	by elasmtp-kukur.atl.sa.earthlink.net with esmtpa (Exim 4)
-	(envelope-from <ffilzlnx@mindspring.com>)
-	id 1kkxGT-0009df-Ef; Thu, 03 Dec 2020 17:39:53 -0500
-From: "Frank Filz" <ffilzlnx@mindspring.com>
-To: "'Trond Myklebust'" <trondmy@hammerspace.com>, <bfields@fieldses.org>
-References: <1055884313.92996091.1606250106656.JavaMail.zimbra@dneg.com>
-	<20201124211522.GC7173@fieldses.org>
-	<932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2668811E76
+	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 22:44:57 +0000 (UTC)
+Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-554-nmZtzlvGNaGloenBXwZ08w-1;
+	Thu, 03 Dec 2020 17:44:55 -0500
+X-MC-Unique: nmZtzlvGNaGloenBXwZ08w-1
+Received: by fieldses.org (Postfix, from userid 2815)
+	id 9AF3E6F5E; Thu,  3 Dec 2020 17:44:54 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 9AF3E6F5E
+Date: Thu, 3 Dec 2020 17:44:54 -0500
+From: "bfields@fieldses.org" <bfields@fieldses.org>
+To: Trond Myklebust <trondmy@hammerspace.com>
+Message-ID: <20201203224454.GF27931@fieldses.org>
+References: <932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
 	<1403656117.98163597.1606998035261.JavaMail.zimbra@dneg.com>
 	<20201203185109.GB27931@fieldses.org>
 	<4903965f2beb742e0eca089b5db8aa3a4cabb7f0.camel@hammerspace.com>
@@ -64,13 +57,9 @@ References: <1055884313.92996091.1606250106656.JavaMail.zimbra@dneg.com>
 	<b9e8da547065f6a94bed22771f214fef91449931.camel@hammerspace.com>
 	<20201203220421.GE27931@fieldses.org>
 	<0452916df308e9419f472b0d5ffb41815014dce4.camel@hammerspace.com>
-In-Reply-To: <0452916df308e9419f472b0d5ffb41815014dce4.camel@hammerspace.com>
-Date: Thu, 3 Dec 2020 14:39:52 -0800
-Message-ID: <01a001d6c9c5$37eb34f0$a7c19ed0$@mindspring.com>
 MIME-Version: 1.0
-Thread-Index: AQGLCl71o/mllkcOM8ZTKfem/khTDAJjSqDGAjc9/isC5PHtZAIjFAJ1Aky2llQCn/rUrgIxRIQHAZ398i8CN7bmMADvqBOLAe1pYKWpwddI4A==
-X-ELNK-Trace: 136157f01908a8929c7f779228e2f6aeda0071232e20db4d209fd6ce12829a479d17d5949e125da5350badd9bab72f9c350badd9bab72f9c350badd9bab72f9c
-X-Originating-IP: 76.105.143.216
+In-Reply-To: <0452916df308e9419f472b0d5ffb41815014dce4.camel@hammerspace.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,11 +68,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B3Me0kK011787
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B3Mj05a012560
 X-loop: linux-cachefs@redhat.com
-Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com, daire@dneg.com
+Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
+	"ffilzlnx@mindspring.com" <ffilzlnx@mindspring.com>,
+	"daire@dneg.com" <daire@dneg.com>
 Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,127 +90,103 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-us
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-> -----Original Message-----
-> From: Trond Myklebust [mailto:trondmy@hammerspace.com]
-> Sent: Thursday, December 3, 2020 2:14 PM
-> To: bfields@fieldses.org
-> Cc: linux-cachefs@redhat.com; ffilzlnx@mindspring.com; linux-
-> nfs@vger.kernel.org; daire@dneg.com
-> Subject: Re: Adventures in NFS re-exporting
-> 
-> On Thu, 2020-12-03 at 17:04 -0500, bfields@fieldses.org wrote:
-> > On Thu, Dec 03, 2020 at 09:57:41PM +0000, Trond Myklebust wrote:
-> > > On Thu, 2020-12-03 at 13:45 -0800, Frank Filz wrote:
-> > > > > On Thu, 2020-12-03 at 16:13 -0500, bfields@fieldses.org wrote:
-> > > > > > On Thu, Dec 03, 2020 at 08:27:39PM +0000, Trond Myklebust
-> > > > > > wrote:
-> > > > > > > On Thu, 2020-12-03 at 13:51 -0500, bfields wrote:
-> > > > > > > > I've been scratching my head over how to handle reboot of
-> > > > > > > > a
-> > > > > > > > re-
-> > > > > > > > exporting server.  I think one way to fix it might be just
-> > > > > > > > to allow the re- export server to pass along reclaims to
-> > > > > > > > the original server as it receives them from its own
-> > > > > > > > clients.  It might require some protocol tweaks, I'm not
-> > > > > > > > sure.  I'll try to get my thoughts in order and propose
-> > > > > > > > something.
-> > > > > > > >
-> > > > > > >
-> > > > > > > It's more complicated than that. If the re-exporting server
-> > > > > > > reboots, but the original server does not, then unless that
-> > > > > > > re- exporting server persisted its lease and a full set of
-> > > > > > > stateids somewhere, it will not be able to atomically
-> > > > > > > reclaim delegation and lock state on the server on behalf of
-> > > > > > > its clients.
-> > > > > >
-> > > > > > By sending reclaims to the original server, I mean literally
-> > > > > > sending new open and lock requests with the RECLAIM bit set,
-> > > > > > which would get brand new stateids.
-> > > > > >
-> > > > > > So, the original server would invalidate the existing client's
-> > > > > > previous clientid and stateids--just as it normally would on
-> > > > > > reboot--but it would optionally remember the underlying locks
-> > > > > > held by the client and allow compatible lock reclaims.
-> > > > > >
-> > > > > > Rough attempt:
-> > > > > >
-> > > > > >
-> > > > > > https://wiki.linux-nfs.org/wiki/index.php/Reboot_recovery_for_
-> > > > > > re-expor
-> > > > > > t_servers
-> > > > > >
-> > > > > > Think it would fly?
-> > > > >
-> > > > > So this would be a variant of courtesy locks that can be
-> > > > > reclaimed by the client using the reboot reclaim variant of
-> > > > > OPEN/LOCK outside the grace period? The purpose being to allow
-> > > > > reclaim without forcing the client to persist the original
-> > > > > stateid?
-> > > > >
-> > > > > Hmm... That's doable, but how about the following alternative:
-> > > > > Add
-> > > > > a function
-> > > > > that allows the client to request the full list of stateids that
-> > > > > the server holds on its behalf?
-> > > > >
-> > > > > I've been wanting such a function for quite a while anyway in
-> > > > > order to allow the client to detect state leaks (either due to
-> > > > > soft timeouts, or due to reordered close/open operations).
-> > > >
-> > > > Oh, that sounds interesting. So basically the re-export server
-> > > > would re-populate it's state from the original server rather than
-> > > > relying on it's clients doing reclaims? Hmm, but how does the
-> > > > re-export server rebuild its stateids? I guess it could make the
-> > > > clients repopulate them with the same "give me a dump of all my
-> > > > state", using the state details to match up with the old state and
-> > > > replacing stateids. Or did you have something different in mind?
-> > > >
-> > >
-> > > I was thinking that the re-export server could just use that list of
-> > > stateids to figure out which locks can be reclaimed atomically, and
-> > > which ones have been irredeemably lost. The assumption is that if
-> > > you have a lock stateid or a delegation, then that means the clients
-> > > can reclaim all the locks that were represented by that stateid.
-> >
-> > I'm confused about how the re-export server uses that list.  Are you
-> > assuming it persisted its own list across its own crash/reboot?  I
-> > guess that's what I was trying to avoid having to do.
-> >
-> No. The server just uses the stateids as part of a check for 'do I hold state for
-> this file on this server?'. If the answer is 'yes' and the lock owners are sane, then
-> we should be able to assume the full set of locks that lock owner held on that
-> file are still valid.
-> 
-> BTW: if the lock owner is also returned by the server, then since the lock owner
-> is an opaque value, it could, for instance, be used by the client to cache info on
-> the server about which uid/gid owns these locks.
-
-Let me see if I'm understanding your idea right...
-
-Re-export server reboots within the extended lease period it's been given by the original server. I'm assuming it uses the same clientid? But would probably open new sessions. It requests the list of stateids. Hmm, how to make the owner information useful, nfs-ganesha doesn't pass on the actual client's owner but rather just passes the address of its record for that client owner. Maybe it will have to do something a bit different for this degree of re-export support...
-
-Now the re-export server knows which original client lock owners are allowed to reclaim state. So it just acquires locks using the original stateid as the client reclaims (what happens if the client doesn't reclaim a lock? I suppose the re-export server could unlock all regions not explicitly locked once reclaim is complete). Since the re-export server is acquiring new locks using the original stateid it will just overlay the original lock with the new lock and write locks don't conflict since they are being acquired by the same lock owner. Actually the original server could even balk at a "reclaim" in this way that wasn't originally held... And the original server could "refresh" the locks, and discard any that aren't refreshed at the end of reclaim. That part assumes the original server is apprised that what is actually happening is a reclaim.
-
-The re-export server can destroy any stateids that it doesn't receive reclaims for.
-
-Hmm, I think if the re-export server is implemented as an HA cluster, it should establish a clientid on the original server for each virtual IP (assuming that's the unit of HA)  that exists. Then when virtual IPs are moved, the re-export server just goes through the above reclaim process for that clientid.
-
-Frank
-
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://www.redhat.com/mailman/listinfo/linux-cachefs
+T24gVGh1LCBEZWMgMDMsIDIwMjAgYXQgMTA6MTQ6MjVQTSArMDAwMCwgVHJvbmQgTXlrbGVidXN0
+IHdyb3RlOgo+IE9uIFRodSwgMjAyMC0xMi0wMyBhdCAxNzowNCAtMDUwMCwgYmZpZWxkc0BmaWVs
+ZHNlcy5vcmcgd3JvdGU6Cj4gPiBPbiBUaHUsIERlYyAwMywgMjAyMCBhdCAwOTo1Nzo0MVBNICsw
+MDAwLCBUcm9uZCBNeWtsZWJ1c3Qgd3JvdGU6Cj4gPiA+IE9uIFRodSwgMjAyMC0xMi0wMyBhdCAx
+Mzo0NSAtMDgwMCwgRnJhbmsgRmlseiB3cm90ZToKPiA+ID4gPiA+IE9uIFRodSwgMjAyMC0xMi0w
+MyBhdCAxNjoxMyAtMDUwMCwgYmZpZWxkc0BmaWVsZHNlcy5vcmfCoHdyb3RlOgo+ID4gPiA+ID4g
+PiBPbiBUaHUsIERlYyAwMywgMjAyMCBhdCAwODoyNzozOVBNICswMDAwLCBUcm9uZCBNeWtsZWJ1
+c3QKPiA+ID4gPiA+ID4gd3JvdGU6Cj4gPiA+ID4gPiA+ID4gT24gVGh1LCAyMDIwLTEyLTAzIGF0
+IDEzOjUxIC0wNTAwLCBiZmllbGRzIHdyb3RlOgo+ID4gPiA+ID4gPiA+ID4gSSd2ZSBiZWVuIHNj
+cmF0Y2hpbmcgbXkgaGVhZCBvdmVyIGhvdyB0byBoYW5kbGUgcmVib290IG9mCj4gPiA+ID4gPiA+
+ID4gPiBhCj4gPiA+ID4gPiA+ID4gPiByZS0KPiA+ID4gPiA+ID4gPiA+IGV4cG9ydGluZyBzZXJ2
+ZXIuwqAgSSB0aGluayBvbmUgd2F5IHRvIGZpeCBpdCBtaWdodCBiZQo+ID4gPiA+ID4gPiA+ID4g
+anVzdCB0bwo+ID4gPiA+ID4gPiA+ID4gYWxsb3cgdGhlIHJlLSBleHBvcnQgc2VydmVyIHRvIHBh
+c3MgYWxvbmcgcmVjbGFpbXMgdG8gdGhlCj4gPiA+ID4gPiA+ID4gPiBvcmlnaW5hbAo+ID4gPiA+
+ID4gPiA+ID4gc2VydmVyIGFzIGl0IHJlY2VpdmVzIHRoZW0gZnJvbSBpdHMgb3duIGNsaWVudHMu
+wqAgSXQKPiA+ID4gPiA+ID4gPiA+IG1pZ2h0Cj4gPiA+ID4gPiA+ID4gPiByZXF1aXJlCj4gPiA+
+ID4gPiA+ID4gPiBzb21lIHByb3RvY29sIHR3ZWFrcywgSSdtIG5vdCBzdXJlLsKgIEknbGwgdHJ5
+IHRvIGdldCBteQo+ID4gPiA+ID4gPiA+ID4gdGhvdWdodHMKPiA+ID4gPiA+ID4gPiA+IGluIG9y
+ZGVyIGFuZCBwcm9wb3NlIHNvbWV0aGluZy4KPiA+ID4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiA+
+IAo+ID4gPiA+ID4gPiA+IEl0J3MgbW9yZSBjb21wbGljYXRlZCB0aGFuIHRoYXQuIElmIHRoZSBy
+ZS1leHBvcnRpbmcgc2VydmVyCj4gPiA+ID4gPiA+ID4gcmVib290cywKPiA+ID4gPiA+ID4gPiBi
+dXQgdGhlIG9yaWdpbmFsIHNlcnZlciBkb2VzIG5vdCwgdGhlbiB1bmxlc3MgdGhhdCByZS0KPiA+
+ID4gPiA+ID4gPiBleHBvcnRpbmcKPiA+ID4gPiA+ID4gPiBzZXJ2ZXIgcGVyc2lzdGVkIGl0cyBs
+ZWFzZSBhbmQgYSBmdWxsIHNldCBvZiBzdGF0ZWlkcwo+ID4gPiA+ID4gPiA+IHNvbWV3aGVyZSwg
+aXQKPiA+ID4gPiA+ID4gPiB3aWxsIG5vdCBiZSBhYmxlIHRvIGF0b21pY2FsbHkgcmVjbGFpbSBk
+ZWxlZ2F0aW9uIGFuZCBsb2NrCj4gPiA+ID4gPiA+ID4gc3RhdGUgb24KPiA+ID4gPiA+ID4gPiB0
+aGUgc2VydmVyIG9uIGJlaGFsZiBvZiBpdHMgY2xpZW50cy4KPiA+ID4gPiA+ID4gCj4gPiA+ID4g
+PiA+IEJ5IHNlbmRpbmcgcmVjbGFpbXMgdG8gdGhlIG9yaWdpbmFsIHNlcnZlciwgSSBtZWFuIGxp
+dGVyYWxseQo+ID4gPiA+ID4gPiBzZW5kaW5nCj4gPiA+ID4gPiA+IG5ldyBvcGVuIGFuZCBsb2Nr
+IHJlcXVlc3RzIHdpdGggdGhlIFJFQ0xBSU0gYml0IHNldCwgd2hpY2gKPiA+ID4gPiA+ID4gd291
+bGQKPiA+ID4gPiA+ID4gZ2V0Cj4gPiA+ID4gPiA+IGJyYW5kIG5ldyBzdGF0ZWlkcy4KPiA+ID4g
+PiA+ID4gCj4gPiA+ID4gPiA+IFNvLCB0aGUgb3JpZ2luYWwgc2VydmVyIHdvdWxkIGludmFsaWRh
+dGUgdGhlIGV4aXN0aW5nCj4gPiA+ID4gPiA+IGNsaWVudCdzCj4gPiA+ID4gPiA+IHByZXZpb3Vz
+IGNsaWVudGlkIGFuZCBzdGF0ZWlkcy0tanVzdCBhcyBpdCBub3JtYWxseSB3b3VsZCBvbgo+ID4g
+PiA+ID4gPiByZWJvb3QtLWJ1dCBpdCB3b3VsZCBvcHRpb25hbGx5IHJlbWVtYmVyIHRoZSB1bmRl
+cmx5aW5nIGxvY2tzCj4gPiA+ID4gPiA+IGhlbGQgYnkKPiA+ID4gPiA+ID4gdGhlIGNsaWVudCBh
+bmQgYWxsb3cgY29tcGF0aWJsZSBsb2NrIHJlY2xhaW1zLgo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+
+ID4gUm91Z2ggYXR0ZW1wdDoKPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBo
+dHRwczovL3dpa2kubGludXgtbmZzLm9yZy93aWtpL2luZGV4LnBocC9SZWJvb3RfcmVjb3Zlcnlf
+Zm9yX3JlLWV4cG9yCj4gPiA+ID4gPiA+IHRfc2VydmVycwo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+
+ID4gVGhpbmsgaXQgd291bGQgZmx5Pwo+ID4gPiA+ID4gCj4gPiA+ID4gPiBTbyB0aGlzIHdvdWxk
+IGJlIGEgdmFyaWFudCBvZiBjb3VydGVzeSBsb2NrcyB0aGF0IGNhbiBiZQo+ID4gPiA+ID4gcmVj
+bGFpbWVkCj4gPiA+ID4gPiBieSB0aGUgY2xpZW50Cj4gPiA+ID4gPiB1c2luZyB0aGUgcmVib290
+IHJlY2xhaW0gdmFyaWFudCBvZiBPUEVOL0xPQ0sgb3V0c2lkZSB0aGUgZ3JhY2UKPiA+ID4gPiA+
+IHBlcmlvZD8gVGhlCj4gPiA+ID4gPiBwdXJwb3NlIGJlaW5nIHRvIGFsbG93IHJlY2xhaW0gd2l0
+aG91dCBmb3JjaW5nIHRoZSBjbGllbnQgdG8KPiA+ID4gPiA+IHBlcnNpc3QgdGhlIG9yaWdpbmFs
+Cj4gPiA+ID4gPiBzdGF0ZWlkPwo+ID4gPiA+ID4gCj4gPiA+ID4gPiBIbW0uLi4gVGhhdCdzIGRv
+YWJsZSwgYnV0IGhvdyBhYm91dCB0aGUgZm9sbG93aW5nIGFsdGVybmF0aXZlOgo+ID4gPiA+ID4g
+QWRkCj4gPiA+ID4gPiBhIGZ1bmN0aW9uCj4gPiA+ID4gPiB0aGF0IGFsbG93cyB0aGUgY2xpZW50
+IHRvIHJlcXVlc3QgdGhlIGZ1bGwgbGlzdCBvZiBzdGF0ZWlkcwo+ID4gPiA+ID4gdGhhdAo+ID4g
+PiA+ID4gdGhlIHNlcnZlciBob2xkcyBvbgo+ID4gPiA+ID4gaXRzIGJlaGFsZj8KPiA+ID4gPiA+
+IAo+ID4gPiA+ID4gSSd2ZSBiZWVuIHdhbnRpbmcgc3VjaCBhIGZ1bmN0aW9uIGZvciBxdWl0ZSBh
+IHdoaWxlIGFueXdheSBpbgo+ID4gPiA+ID4gb3JkZXIKPiA+ID4gPiA+IHRvIGFsbG93IHRoZQo+
+ID4gPiA+ID4gY2xpZW50IHRvIGRldGVjdCBzdGF0ZSBsZWFrcyAoZWl0aGVyIGR1ZSB0byBzb2Z0
+IHRpbWVvdXRzLCBvcgo+ID4gPiA+ID4gZHVlCj4gPiA+ID4gPiB0byByZW9yZGVyZWQKPiA+ID4g
+PiA+IGNsb3NlL29wZW4gb3BlcmF0aW9ucykuCj4gPiA+ID4gCj4gPiA+ID4gT2gsIHRoYXQgc291
+bmRzIGludGVyZXN0aW5nLiBTbyBiYXNpY2FsbHkgdGhlIHJlLWV4cG9ydCBzZXJ2ZXIKPiA+ID4g
+PiB3b3VsZAo+ID4gPiA+IHJlLXBvcHVsYXRlIGl0J3Mgc3RhdGUgZnJvbSB0aGUgb3JpZ2luYWwg
+c2VydmVyIHJhdGhlciB0aGFuCj4gPiA+ID4gcmVseWluZwo+ID4gPiA+IG9uIGl0J3MgY2xpZW50
+cyBkb2luZyByZWNsYWltcz8gSG1tLCBidXQgaG93IGRvZXMgdGhlIHJlLWV4cG9ydAo+ID4gPiA+
+IHNlcnZlciByZWJ1aWxkIGl0cyBzdGF0ZWlkcz8gSSBndWVzcyBpdCBjb3VsZCBtYWtlIHRoZSBj
+bGllbnRzCj4gPiA+ID4gcmVwb3B1bGF0ZSB0aGVtIHdpdGggdGhlIHNhbWUgImdpdmUgbWUgYSBk
+dW1wIG9mIGFsbCBteSBzdGF0ZSIsCj4gPiA+ID4gdXNpbmcKPiA+ID4gPiB0aGUgc3RhdGUgZGV0
+YWlscyB0byBtYXRjaCB1cCB3aXRoIHRoZSBvbGQgc3RhdGUgYW5kIHJlcGxhY2luZwo+ID4gPiA+
+IHN0YXRlaWRzLiBPciBkaWQgeW91IGhhdmUgc29tZXRoaW5nIGRpZmZlcmVudCBpbiBtaW5kPwo+
+ID4gPiA+IAo+ID4gPiAKPiA+ID4gSSB3YXMgdGhpbmtpbmcgdGhhdCB0aGUgcmUtZXhwb3J0IHNl
+cnZlciBjb3VsZCBqdXN0IHVzZSB0aGF0IGxpc3QKPiA+ID4gb2YKPiA+ID4gc3RhdGVpZHMgdG8g
+ZmlndXJlIG91dCB3aGljaCBsb2NrcyBjYW4gYmUgcmVjbGFpbWVkIGF0b21pY2FsbHksIGFuZAo+
+ID4gPiB3aGljaCBvbmVzIGhhdmUgYmVlbiBpcnJlZGVlbWFibHkgbG9zdC4gVGhlIGFzc3VtcHRp
+b24gaXMgdGhhdCBpZgo+ID4gPiB5b3UKPiA+ID4gaGF2ZSBhIGxvY2sgc3RhdGVpZCBvciBhIGRl
+bGVnYXRpb24sIHRoZW4gdGhhdCBtZWFucyB0aGUgY2xpZW50cwo+ID4gPiBjYW4KPiA+ID4gcmVj
+bGFpbSBhbGwgdGhlIGxvY2tzIHRoYXQgd2VyZSByZXByZXNlbnRlZCBieSB0aGF0IHN0YXRlaWQu
+Cj4gPiAKPiA+IEknbSBjb25mdXNlZCBhYm91dCBob3cgdGhlIHJlLWV4cG9ydCBzZXJ2ZXIgdXNl
+cyB0aGF0IGxpc3QuwqAgQXJlIHlvdQo+ID4gYXNzdW1pbmcgaXQgcGVyc2lzdGVkIGl0cyBvd24g
+bGlzdCBhY3Jvc3MgaXRzIG93biBjcmFzaC9yZWJvb3Q/wqAgSQo+ID4gZ3Vlc3MKPiA+IHRoYXQn
+cyB3aGF0IEkgd2FzIHRyeWluZyB0byBhdm9pZCBoYXZpbmcgdG8gZG8uCj4gPiAKPiBOby4gVGhl
+IHNlcnZlciBqdXN0IHVzZXMgdGhlIHN0YXRlaWRzIGFzIHBhcnQgb2YgYSBjaGVjayBmb3IgJ2Rv
+IEkgaG9sZAo+IHN0YXRlIGZvciB0aGlzIGZpbGUgb24gdGhpcyBzZXJ2ZXI/Jy4gSWYgdGhlIGFu
+c3dlciBpcyAneWVzJyBhbmQgdGhlCj4gbG9jayBvd25lcnMgYXJlIHNhbmUsIHRoZW4gd2Ugc2hv
+dWxkIGJlIGFibGUgdG8gYXNzdW1lIHRoZSBmdWxsIHNldCBvZgo+IGxvY2tzIHRoYXQgbG9jayBv
+d25lciBoZWxkIG9uIHRoYXQgZmlsZSBhcmUgc3RpbGwgdmFsaWQuCj4gCj4gQlRXOiBpZiB0aGUg
+bG9jayBvd25lciBpcyBhbHNvIHJldHVybmVkIGJ5IHRoZSBzZXJ2ZXIsIHRoZW4gc2luY2UgdGhl
+Cj4gbG9jayBvd25lciBpcyBhbiBvcGFxdWUgdmFsdWUsIGl0IGNvdWxkLCBmb3IgaW5zdGFuY2Us
+IGJlIHVzZWQgYnkgdGhlCj4gY2xpZW50IHRvIGNhY2hlIGluZm8gb24gdGhlIHNlcnZlciBhYm91
+dCB3aGljaCB1aWQvZ2lkIG93bnMgdGhlc2UKPiBsb2Nrcy4KCk9LLCBzbyB0aGUgbGlzdCBvZiBz
+dGF0ZWlkcyByZXR1cm5lZCBieSB0aGUgc2VydmVyIGhhcyBlbnRyaWVzIHRoYXQgbG9vawpsaWtl
+ICh0eXBlLCBmaWxlaGFuZGxlLCBvd25lciwgc3RhdGVpZCkgKHdoZXJlIHR5cGU9b3BlbiBvciBs
+b2NrPykuCgpJIGd1ZXNzIEknZCBuZWVkIHRvIHNlZSB0aGlzIGluIG1vcmUgZGV0YWlsLgoKLS1i
+LgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNv
+bQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtY2FjaGVmcw==
 
