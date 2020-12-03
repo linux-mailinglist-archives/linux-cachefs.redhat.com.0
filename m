@@ -2,54 +2,65 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BEAC82CE249
-	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Dec 2020 00:06:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A9A7B2CE28D
+	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Dec 2020 00:20:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-254-Cf-5gt8ANEWnaqppmUhQ0g-1; Thu, 03 Dec 2020 18:06:00 -0500
-X-MC-Unique: Cf-5gt8ANEWnaqppmUhQ0g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-88-oAEb9wSxMfOE1z2KCTjmRA-1; Thu, 03 Dec 2020 18:20:30 -0500
+X-MC-Unique: oAEb9wSxMfOE1z2KCTjmRA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C8F4D107ACE6;
-	Thu,  3 Dec 2020 23:05:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 895E160854;
-	Thu,  3 Dec 2020 23:05:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD97A800D55;
+	Thu,  3 Dec 2020 23:20:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80E155D6AC;
+	Thu,  3 Dec 2020 23:20:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1EF39180954D;
-	Thu,  3 Dec 2020 23:05:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CF15B4A7C6;
+	Thu,  3 Dec 2020 23:20:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3N5rve014657 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 18:05:54 -0500
+	id 0B3NH1nj016629 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 18:17:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D86CC2166B27; Thu,  3 Dec 2020 23:05:53 +0000 (UTC)
+	id D5C4C11701CA; Thu,  3 Dec 2020 23:17:01 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D18912166B2B
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 23:05:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D156D11701C8
+	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 23:16:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 69A09811E76
-	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 23:05:51 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-7-TmqXZTbSMPWH8vqggSb8kg-1; Thu, 03 Dec 2020 18:05:47 -0500
-X-MC-Unique: TmqXZTbSMPWH8vqggSb8kg-1
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1kkxfR-0005ae-Qa; Thu, 03 Dec 2020 23:05:41 +0000
-Date: Thu, 3 Dec 2020 23:05:41 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Dave Chinner <david@fromorbit.com>
-Message-ID: <20201203230541.GL11935@casper.infradead.org>
-References: <914680.1607004656@warthog.procyon.org.uk>
-	<20201203221202.GA4170059@dread.disaster.area>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D481B811E76
+	for <linux-cachefs@redhat.com>; Thu,  3 Dec 2020 23:16:58 +0000 (UTC)
+Received: from fieldses.org (fieldses.org [173.255.197.46]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-255-CfuYVEdUPLODM9KuBhybeA-1;
+	Thu, 03 Dec 2020 18:16:56 -0500
+X-MC-Unique: CfuYVEdUPLODM9KuBhybeA-1
+Received: by fieldses.org (Postfix, from userid 2815)
+	id 9353A6F73; Thu,  3 Dec 2020 18:16:55 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 fieldses.org 9353A6F73
+Date: Thu, 3 Dec 2020 18:16:55 -0500
+From: "bfields@fieldses.org" <bfields@fieldses.org>
+To: Trond Myklebust <trondmy@hammerspace.com>
+Message-ID: <20201203231655.GH27931@fieldses.org>
+References: <1055884313.92996091.1606250106656.JavaMail.zimbra@dneg.com>
+	<20201124211522.GC7173@fieldses.org>
+	<932244432.93596532.1606324491501.JavaMail.zimbra@dneg.com>
+	<1403656117.98163597.1606998035261.JavaMail.zimbra@dneg.com>
+	<20201203185109.GB27931@fieldses.org>
+	<4903965f2beb742e0eca089b5db8aa3a4cabb7f0.camel@hammerspace.com>
+	<20201203211328.GC27931@fieldses.org>
+	<9df8556bf825bd0d565f057b115e35c1b507cf46.camel@hammerspace.com>
+	<20201203224520.GG27931@fieldses.org>
+	<d88c69f90820bf631908cbe3d3ce34343ec672f1.camel@hammerspace.com>
 MIME-Version: 1.0
-In-Reply-To: <20201203221202.GA4170059@dread.disaster.area>
+In-Reply-To: <d88c69f90820bf631908cbe3d3ce34343ec672f1.camel@hammerspace.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -58,13 +69,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B3NH1nj016629
 X-loop: linux-cachefs@redhat.com
-Cc: Christoph Hellwig <hch@infradead.org>, Yafang Shao <laoar.shao@gmail.com>,
-	linux-cachefs@redhat.com, dchinner@redhat.com,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [Linux-cachefs] Problems doing DIO to netfs cache on XFS from
-	Ceph
+Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
+	"daire@dneg.com" <daire@dneg.com>
+Subject: Re: [Linux-cachefs] Adventures in NFS re-exporting
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,62 +90,39 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Might be a good idea to cc Yafang on this ...
-
-On Fri, Dec 04, 2020 at 09:12:02AM +1100, Dave Chinner wrote:
-> On Thu, Dec 03, 2020 at 02:10:56PM +0000, David Howells wrote:
-> > Hi Christoph,
-> > 
-> > We're having a problem making the fscache/cachefiles rewrite work with XFS, if
-> > you could have a look?  Jeff Layton just tripped the attached warning from
-> > this:
-> > 
-> > 	/*
-> > 	 * Given that we do not allow direct reclaim to call us, we should
-> > 	 * never be called in a recursive filesystem reclaim context.
-> > 	 */
-> > 	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC_NOFS))
-> > 		goto redirty;
-> 
-> I've pointed out in other threads where issues like this have been
-> raised that this check is not correct and was broken some time ago
-> by the PF_FSTRANS removal. The "NOFS" case here was originally using
-> PF_FSTRANS to protect against recursion from within transaction
-> contexts, not recursion through memory reclaim.  Doing writeback
-> from memory reclaim is caught by the preceeding PF_MEMALLOC check,
-> not this one.
-> 
-> What it is supposed to be warning about is that writeback in XFS can
-> start new transactions and nesting transactions is a guaranteed way
-> to deadlock the journal. IOWs, doing writeback from an active
-> transaction context is a bug in XFS.
-> 
-> IOWs, we are waiting on a new version of this patchset to be posted:
-> 
-> https://lore.kernel.org/linux-xfs/20201103131754.94949-1-laoar.shao@gmail.com/
-> 
-> so that we can get rid of this from iomap and check the transaction
-> recursion case directly in the XFS code. Then your problem goes away
-> completely....
-> 
-> Cheers,
-> 
-> Dave.
-> -- 
-> Dave Chinner
-> david@fromorbit.com
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://www.redhat.com/mailman/listinfo/linux-cachefs
+T24gVGh1LCBEZWMgMDMsIDIwMjAgYXQgMTA6NTM6MjZQTSArMDAwMCwgVHJvbmQgTXlrbGVidXN0
+IHdyb3RlOgo+IE9uIFRodSwgMjAyMC0xMi0wMyBhdCAxNzo0NSAtMDUwMCwgYmZpZWxkc0BmaWVs
+ZHNlcy5vcmcgd3JvdGU6Cj4gPiBPbiBUaHUsIERlYyAwMywgMjAyMCBhdCAwOTozNDoyNlBNICsw
+MDAwLCBUcm9uZCBNeWtsZWJ1c3Qgd3JvdGU6Cj4gPiA+IEkndmUgYmVlbiB3YW50aW5nIHN1Y2gg
+YSBmdW5jdGlvbiBmb3IgcXVpdGUgYSB3aGlsZSBhbnl3YXkgaW4KPiA+ID4gb3JkZXIgdG8gYWxs
+b3cgdGhlIGNsaWVudCB0byBkZXRlY3Qgc3RhdGUgbGVha3MgKGVpdGhlciBkdWUgdG8KPiA+ID4g
+c29mdCB0aW1lb3V0cywgb3IgZHVlIHRvIHJlb3JkZXJlZCBjbG9zZS9vcGVuIG9wZXJhdGlvbnMp
+Lgo+ID4gCj4gPiBPbmUgc3VyZSB3YXkgdG8gZml4IGFueSBzdGF0ZSBsZWFrcyBpcyB0byByZWJv
+b3QgdGhlIHNlcnZlci7CoCBUaGUKPiA+IHNlcnZlciB0aHJvd3MgZXZlcnl0aGluZyBhd2F5LCB0
+aGUgY2xpZW50cyByZWNsYWltLCBhbGwgdGhhdCdzIGxlZnQKPiA+IGlzIHN0dWZmIHRoZXkgc3Rp
+bGwgYWN0dWFsbHkgY2FyZSBhYm91dC4KPiA+IAo+ID4gSXQncyB2ZXJ5IGRpc3J1cHRpdmUuCj4g
+PiAKPiA+IEJ1dCB5b3UgY291bGQgZG8gYSBsaW1pdGVkIHZlcnNpb24gb2YgdGhhdDogdGhlIHNl
+cnZlciB0aHJvd3MgYXdheQo+ID4gdGhlIHN0YXRlIGZyb20gb25lIGNsaWVudCAoa2VlcGluZyB0
+aGUgdW5kZXJseWluZyBsb2NrcyBvbiB0aGUKPiA+IGV4cG9ydGVkIGZpbGVzeXN0ZW0pLCBsZXRz
+IHRoZSBjbGllbnQgZ28gdGhyb3VnaCBpdHMgbm9ybWFsIHJlY2xhaW0KPiA+IHByb2Nlc3MsIGF0
+IHRoZSBlbmQgb2YgdGhhdCB0aHJvd3MgYXdheSBhbnl0aGluZyB0aGF0IHdhc24ndAo+ID4gcmVj
+bGFpbWVkLsKgIFRoZSBvbmx5IGRlbGF5IGlzIHRvIGFueW9uZSB0cnlpbmcgdG8gYWNxdWlyZSBu
+ZXcgbG9ja3MKPiA+IHRoYXQgY29uZmxpY3Qgd2l0aCB0aGF0IHNldCBvZiBsb2NrcywgYW5kIG9u
+bHkgZm9yIGFzIGxvbmcgYXMgaXQKPiA+IHRha2VzIGZvciB0aGUgb25lIGNsaWVudCB0byByZWNs
+YWltLgo+IAo+IE9uZSBjb3VsZCBkbyB0aGF0LCBidXQgdGhhdCByZXF1aXJlcyB0aGUgZXhpc3Rl
+bmNlIG9mIGEgcXVpZXNjZW50Cj4gcGVyaW9kIHdoZXJlIHRoZSBjbGllbnQgaG9sZHMgbm8gc3Rh
+dGUgYXQgYWxsIG9uIHRoZSBzZXJ2ZXIuCgpObywgYXMgSSBzYWlkLCB0aGUgY2xpZW50IHBlcmZv
+cm1zIHJlYm9vdCByZWNvdmVyeSBmb3IgYW55IHN0YXRlIHRoYXQgaXQKaG9sZHMgd2hlbiB3ZSBk
+byB0aGlzLgoKLS1iLgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4LWNhY2hl
+ZnNAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtY2FjaGVmcw==
 
