@@ -1,93 +1,87 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 91F1A2CF4EB
-	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Dec 2020 20:38:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607110699;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=N3mlm411TpmkTY6CDz2b/1hqz2G5SPtQbGamp50oOEE=;
-	b=e9JCNSaH1/YJluAnbygZf8y2PpbvawYWOuayGNglGmST3KFkxoVCaLD+z0A+fJMbj2JIub
-	VZv8EamaETnqWBV31p8PD36TDpzbTpxYKVyG2w1emR6dOklgYW8bc067iU5L9umRbPVOGR
-	doZ3gpKH9hXttM6/2DpQP8iwGsEwMlg=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id D3AC52CF5E7
+	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Dec 2020 21:57:43 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-357-MjHE1uwdO1iPl1Lk-KEVRw-1; Fri, 04 Dec 2020 14:38:17 -0500
-X-MC-Unique: MjHE1uwdO1iPl1Lk-KEVRw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-518-N3RdlK0sOPKYkexxNDEjdw-1; Fri, 04 Dec 2020 15:57:41 -0500
+X-MC-Unique: N3RdlK0sOPKYkexxNDEjdw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B6AE107ACF5;
-	Fri,  4 Dec 2020 19:38:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11E32800D62;
+	Fri,  4 Dec 2020 20:57:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 12AFC19630;
-	Fri,  4 Dec 2020 19:38:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 191CE5C1D1;
+	Fri,  4 Dec 2020 20:57:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E09CA4BB7B;
-	Fri,  4 Dec 2020 19:38:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2DA1A4BB7B;
+	Fri,  4 Dec 2020 20:57:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B4JaHQV028421 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 4 Dec 2020 14:36:17 -0500
+	id 0B4KufBP004549 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 4 Dec 2020 15:56:41 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 80225104399E; Fri,  4 Dec 2020 19:36:17 +0000 (UTC)
+	id 26B792166B2B; Fri,  4 Dec 2020 20:56:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B6C1104399C
-	for <linux-cachefs@redhat.com>; Fri,  4 Dec 2020 19:36:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 20E9B2166B27
+	for <linux-cachefs@redhat.com>; Fri,  4 Dec 2020 20:56:38 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43026800140
-	for <linux-cachefs@redhat.com>; Fri,  4 Dec 2020 19:36:15 +0000 (UTC)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
-	[209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-596-0SEWmehgMziLdob73NxKFw-1; Fri, 04 Dec 2020 14:36:12 -0500
-X-MC-Unique: 0SEWmehgMziLdob73NxKFw-1
-Received: by mail-ed1-f72.google.com with SMTP id bf13so2745773edb.10
-	for <linux-cachefs@redhat.com>; Fri, 04 Dec 2020 11:36:12 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAFD4800140
+	for <linux-cachefs@redhat.com>; Fri,  4 Dec 2020 20:56:38 +0000 (UTC)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+	[209.85.215.179]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-548-16hPMLN0PeC6KxmsdtkTOw-1; Fri, 04 Dec 2020 15:56:34 -0500
+X-MC-Unique: 16hPMLN0PeC6KxmsdtkTOw-1
+Received: by mail-pg1-f179.google.com with SMTP id e23so4258482pgk.12;
+	Fri, 04 Dec 2020 12:56:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=I5Etq7oMeMFp4cv4ySr5BmrBrRxejxow1sYbvNt6VLE=;
-	b=Qhv/tq4Jl6iCO2SW5F7GMHcu93PPVCdwyFV/44S+WYAPfcoW6hAuzDo4Aokd7/Lo1S
-	GGoFE1a/AKZNNVYA0hFUBYBzL+/izkaxSiBqjEHNnVXiI/PWYUmmiUyj5k2lUeBrish5
-	YuOvNgA3KmSP93Jtw0DrOLwH5/AQq2KIFs9oTssdOzwEwGg6wf9E7TaCsmX2yxbkyI8e
-	5bO1omXKp4zhNfuoYt3B8w2su9k7w9i2FJFiGBSgHMiLdj3Y1Zw2DL17q974sJZl0Q2G
-	4u5jwhFm7b5/YtSEgrLmvxpwvceJwN1+071+InrWIACUHAUxVkS0D0NqGljuVxBS9ZGA
-	mE5A==
-X-Gm-Message-State: AOAM5319l2ijU8Ae0YXZ9apChVCxwj3w8H/Vg1+9NsXT65ULlLEKW/Mo
-	vp2JfaYbJRg4JHyog9sxX6+eVESlycPn7RV1nF3BZ4HpM9RTAXmpo+hw4orHXCvXpyBOEefPFi3
-	oa284SU9DBn5HE0JXJW4IJtoVMRIefL054lMWhw==
-X-Received: by 2002:a50:eb97:: with SMTP id y23mr9079910edr.29.1607110571076; 
-	Fri, 04 Dec 2020 11:36:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxDZg6Ywbb+Yz4Ho8zfgVKj3MvdfQRObLRVYvtiEbH2SyNYlxzfdzue/ON6yCGG+4KyE9mBIctKIzlaZ1TxR1s=
-X-Received: by 2002:a50:eb97:: with SMTP id y23mr9079895edr.29.1607110570861; 
-	Fri, 04 Dec 2020 11:36:10 -0800 (PST)
+	:message-id:subject:to:cc;
+	bh=uHut3uOL729HCVeyA3Hy6AZnFAYOXk1R7N2BsnJ6ehs=;
+	b=ImHEPb+gUuOg039GqFxH2Bvl0jqrnmHwFTkDwdwySKJs0Gd3F5rUOJ4L/4SieF2b5z
+	qYpSuWAq/S2UXqNwByUxvrsHJqo3pFzulhmPHJw6cFgQ0bGjILYRiVgM0wki5Uk66LJo
+	VZHkIzT5zuU0MNRHZtx+KiWf39Jnc075OoytZXCQtafHT8vQT5b006aZ3JRuiCwljvm9
+	IHwFApSh7BO7OmmfFXu86+jdSS2ksT9cO18Exr+GRVhHK3Rzd5kjK9/XgD8cvFsbB5zz
+	jg1nPwD9zKjZwqHY8OsXnj+bDjhXQccfl3qq7ZBKcduYh4b0oCKJT5PraUaDZOyP/ggr
+	2UOQ==
+X-Gm-Message-State: AOAM533Ya/6NnBUHtRKW37DC8EGvDzw6JmPZJQ93DQoO4kW0Wd8NkAsU
+	x/aqB7KCfrinDwUG9R3VIReFJVlaRa4L1KIaNokMc1K6kt0=
+X-Google-Smtp-Source: ABdhPJw4JSHPYQd8VzRi1NGCDmjSzpYLxS4GARJdgf0PQemDm3tHA//dgXXjkRB8t6Ohn08CclkXbu9xjJDW02qERGU=
+X-Received: by 2002:aa7:84c5:0:b029:197:f97c:5454 with SMTP id
+	x5-20020aa784c50000b0290197f97c5454mr5507924pfn.45.1607115392362;
+	Fri, 04 Dec 2020 12:56:32 -0800 (PST)
 MIME-Version: 1.0
 References: <CALF+zOniUVE05=JnhHwqshq843rUH_Pm5gKewFL-oi3PFbLdMA@mail.gmail.com>
 	<CAB3bAB8iJ2Gw6O=OmY_u-ucKXv_3VAy59Janx7JjJ682NWZjKg@mail.gmail.com>
 	<CALF+zOkKOUL+Dr8ELk6sFLsOR3-AO0FqKnoZRmJqJx=WHRgxFw@mail.gmail.com>
 	<CAB3bAB-eb6AFzo8v=C=kUMdsLr4YC_wGjufk2NYC32GaAd3O_w@mail.gmail.com>
 	<CALF+zOkCvUCd6Zvd1SmL3kqArS3X1ny=e5FOef5o1oKcRmuwQw@mail.gmail.com>
-In-Reply-To: <CALF+zOkCvUCd6Zvd1SmL3kqArS3X1ny=e5FOef5o1oKcRmuwQw@mail.gmail.com>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Fri, 4 Dec 2020 14:35:34 -0500
-Message-ID: <CALF+zO=ka=pWFcYS2vDtc0vTJLsgGz+koc-=DCciZjDHc2s2tQ@mail.gmail.com>
-To: Daire Byrne <daire.byrne@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B4JaHQV028421
+	<CALF+zO=ka=pWFcYS2vDtc0vTJLsgGz+koc-=DCciZjDHc2s2tQ@mail.gmail.com>
+In-Reply-To: <CALF+zO=ka=pWFcYS2vDtc0vTJLsgGz+koc-=DCciZjDHc2s2tQ@mail.gmail.com>
+From: Daire Byrne <daire.byrne@gmail.com>
+Date: Fri, 4 Dec 2020 20:56:21 +0000
+Message-ID: <CAB3bAB-T7C42AjBTP5gav=+w88i+1bHJwrWQrV5LyJWE735VrA@mail.gmail.com>
+To: David Wysochanski <dwysocha@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
+X-Content-Filtered-By: Mailman/MimeDel 2.1.12
 Cc: linux-cachefs@redhat.com
 Subject: Re: [Linux-cachefs] NFS conversion to new netfs and fscache APIs
 X-BeenThere: linux-cachefs@redhat.com
@@ -103,7 +97,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -111,159 +105,250 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 4, 2020 at 2:09 PM David Wysochanski <dwysocha@redhat.com> wrote:
->
-> On Fri, Dec 4, 2020 at 1:03 PM Daire Byrne <daire.byrne@gmail.com> wrote:
-> >
-> > David,
-> >
-> > Okay, I spent a little more time on this today and I think we can forget about the re-export thing for a moment.
-> >
-> > I looked at what was happening and the issue seemed to be that once I had multiple clients of the re-export server (which has the iter fscache and fsc enabled mounts) all reading the same files at the same time (for the first time), then we often ended up with a missing sequential chunk of data from the cached file.
-> >
-> > The size and apparent size seemed to be the same as the original file on the server but md5sum and hexdump against the client mounted file showed otherwise.
-> >
-> > So then I tried to replicate this scenario in the simplest way using just a single (fscache-iter) client with an fsc enabled mountpoint using multiple processes to read the same uncached file for the first time (no NFS re-exporting).
-> >
-> > * client1 mounts the NFS server without fsc
-> > * client2 mounts the NFS server with fsc (with fscache-iter).
-> >
-> > client1 # md5sum /mnt/server/file.1
-> > 9ca99335b6f75a300dc22e45a776440c
-> > client2 # cat /mnt/server/file.1
-> > client2 # md5sum /mnt/server/file.1
-> > 9ca99335b6f75a300dc22e45a776440c
-> >
-> > All good. The files was cached to disk and looks good. Now let's read the an uncached file using multiple processes simultaneously:
-> >
-> > client1 # md5sum /mnt/server/file.2
-> > 9ca99335b6f75a300dc22e45a776440c
-> > client2 # for x in {1..10}; do (cat /mnt/server/file.2 > /dev/null &); done; wait
-> > client2 # md5sum /mnt/server/file.2
-> > 26dd67fbf206f734df30fdec72d71429
-> >
-> > The file is now different/corrupt. So in my re-export case it's just that we have multiple knfsd processes reading in the same file simultaneously for the first time into cache. Then it remains corrupt and serves that out to multiple NFS clients.
-> >
->
-> Hmmm, yeah that for sure shouldn't happen!
->
->
-> > In this case the backing filesystem was ext4 and the nfs client mount options were fsc,vers=4.2 (vers=3 is the same). The NFS server is running RHEL7.4.
-> >
->
-> How big is ' /mnt/server/file.2' and what is the NFS server kernel?
-> Also can you give me the mount options from /proc/mounts on 'client2'?
-> I'm not able to reproduce this yet but I'll keep trying.
->
->
+I didn't knowingly extend the files.... But I had been using some old files
+written months ago elsewhere.
 
-Ok I think I have a reproducer now, but it requires extending the file
-size.  Did you re-write the file with a new size by any chance?
-It doesn't reproduce for me on first go, but after extending the size
-of the file it does.
+So I quickly tried with some new files... To avoid confusion and caching, I
+wrote them directly on the server to the local XFS filesystem that we are
+then exporting to client1 & client2. First thing I noticed is that there is
+a difference in behaviour depending on whether we write zeros or random
+data:
 
-# mount -o vers=4.2,fsc 127.0.0.1:/export/dir1 /mnt/dir1
-# dd if=/dev/urandom of=/export/dir1/file.bin bs=10M count=1
-1+0 records in
-1+0 records out
-10485760 bytes (10 MB, 10 MiB) copied, 0.216783 s, 48.4 MB/s
-# for x in {1..10}; do (cat /mnt/dir1/file.bin > /dev/null &); done; wait
-# md5sum /export/dir1/file.bin /mnt/dir1/file.bin
-94d2d0fe70f155211b5559bf7de27b34  /export/dir1/file.bin
-94d2d0fe70f155211b5559bf7de27b34  /mnt/dir1/file.bin
-# dd if=/dev/urandom of=/export/dir1/file.bin bs=20M count=1
-1+0 records in
-1+0 records out
-20971520 bytes (21 MB, 20 MiB) copied, 0.453869 s, 46.2 MB/s
-# for x in {1..10}; do (cat /mnt/dir1/file.bin > /dev/null &); done; wait
-# md5sum /export/dir1/file.bin /mnt/dir1/file.bin
-32b9beb19b97655e9026c09bbe064dc8  /export/dir1/file.bin
-f05fe078fe65b4e5c54afcd73c97686d  /mnt/dir1/file.bin
-# uname -r
-5.10.0-rc4-94e9633d98a5+
+server # dd if=/dev/zero of=/serverxfs/test.file.zero bs=1M count=512
+server # dd if=/dev/urandom of=/serverxfs/test.file.random bs=1M count=512
+
+client1 # md5sum /mnt/server/test-file.zero
+aa559b4e3523a6c931f08f4df52d58f2
+client1 # md5sum /mnt/server/test-file.random
+b8ea132924f105d5acc27787d57a9aa2
+
+client2 # for x in {1..10}; do (cat /mnt/server/test.file.zero > /dev/null
+&); done; wait
+client2 # md5sum /mnt/server/test.file.zero
+aa559b4e3523a6c931f08f4df52d58f2
+
+client2 # for x in {1..10}; do (cat /mnt/server/test.file.random >
+/dev/null &); done; wait
+client2 # md5sum /mnt/server/test.file.random
+e0334bd762800ab7447bfeab033e030d
+
+So the file full of zeros is okay but the random one is getting corrupted?
+I'm scratching my head a bit wondering if the XFS backing filesystem server
+and/or how the extents are laid out could in any way effect this but the
+NFS client shouldn't care right?
+
+With regards to the NFS server kernel it's 3.10.0-693.1.1.el7.x86_64 but if
+you mean your patched kernel, I just checked out your fscache-iter-nfs
+branch, made a git archive and then built an RPM out of it.... I must say
+there are a couple of nfs re-export patches (due for v5.11) that I have
+also applied on top.
+
+If you still can't reproduce, then I'll rip them out and test again.
+
+Daire
 
 
+On Fri, Dec 4, 2020 at 7:36 PM David Wysochanski <dwysocha@redhat.com>
+wrote:
 
->
->
-> > Daire
+> On Fri, Dec 4, 2020 at 2:09 PM David Wysochanski <dwysocha@redhat.com>
+> wrote:
 > >
-> > On Thu, Dec 3, 2020 at 4:27 PM David Wysochanski <dwysocha@redhat.com> wrote:
-> >>
-> >> On Wed, Dec 2, 2020 at 12:01 PM Daire Byrne <daire.byrne@gmail.com> wrote:
-> >> >
-> >> > David,
-> >> >
-> >> > First off, thanks for the work on this - we look forward to this landing.
-> >> >
-> >>
-> >> Yeah no problem - thank you for your interest and testing it!
-> >>
-> >> > I did some very quick tests of just the bandwidth using server class networking (40Gbit) and storage (NVMe).
-> >> >
-> >> > Comparing the old fscache with the new one, we saw a minimal degradation in reading back from the backing disk. But I am putting this more down the the more directio style of access in the new version.
-> >> >
-> >> > This can be seen when the cache is being written as we no longer use the writeback cache. I'm assuming something similar happens on reads so that we don't use readahead?
-> >> >
-> >>
-> >> Without getting into it too much and just guessing, I'd guess either
-> >> it's the usage of directIO or the limitation of the 1GB in cachefiles,
-> >> but not sure.  We need to drill down of course into it because it
-> >> could be a lot of things.
-> >>
-> >> > Anyway, the quick summary of performance using 10 threads of reads follows. I should mention that the NVMe has a physical limit of ~2,500MB/s writes & 5,000MB/s reads:
-> >> >
-> >> > iter fscache:
-> >> > uncached first reads ~2,500MB/s (writing to nvme ext4/xfs)
-> >> > cached subsequent reads ~4,200 (reading from nvme ext4)
-> >> > cached subsequent reads ~3,500 (reading from nvme xfs)
-> >> >
-> >> > old fscache:
-> >> > uncached first reads ~2,500MB/s (writing to nvme ext4/xfs)
-> >> > cached subsequent reads ~5,000 (reading from nvme ext4)
-> >> > xfs crashes a lot ...
-> >> >
-> >> > I have not done a thorough analysis of CPU usage or perf top differences yet.
-> >> >
-> >> > Then I went on to test our rather unique NFS re-export workload where we take this fscache backed server and re-export the fsc mounts to many clients. At this point something odd appeared to be happening. The clients were loading software from the fscache backed mounts but were often segfaulting at various points. This suggested that they were getting corrupted data or the memory mapping (binaries, libraries) was failing in some way. Perhaps some odd interaction between fscache and knfsd?
-> >> >
-> >> > I did a quick test of re-export without the fsc caching enabled on the server mounts (with the same 5.10-rc kernel) and I didn't get any errors. That's as far as I got before I got drawn away by other things. I hope to dig into it a little more next week. But I just thought I'd give some quick feedback of one potential difference I'm seeing compared to the previous version.
-> >> >
-> >>
-> >> Hmmm, interesting.  So just to be clear, you ran my patches without
-> >> 'fsc' on the mount and it was fine, but with 'fsc' on the mount there
-> >> were data corruptions in this re-export use case?  I've not done any
-> >> tests with a re-export like that but off the top of my head I'm not
-> >> sure why it would be a problem.  What NFS version(s) are you using?
-> >>
-> >>
-> >> > I also totally accept that this is a very niche workload (and hard to reproduce)... I should have more details on it next week.
-> >> >
-> >>
-> >> Ok - thanks again Daire!
-> >>
-> >>
-> >>
-> >> > Daire
-> >> >
-> >> > On Sat, Nov 21, 2020 at 1:50 PM David Wysochanski <dwysocha@redhat.com> wrote:
-> >> >>
-> >> >> I just posted patches to linux-nfs but neglected to CC this list.  For
-> >> >> any interested in patches which convert NFS to use the new netfs and
-> >> >> fscache APIs, please see the following series on linux-nfs:
-> >> >> [PATCH v1 0/13] Convert NFS to new netfs and fscache APIs
-> >> >> https://marc.info/?l=linux-nfs&m=160596540022461&w=2
-> >> >>
-> >> >> Thanks.
-> >> >>
-> >> >> --
-> >> >> Linux-cachefs mailing list
-> >> >> Linux-cachefs@redhat.com
-> >> >> https://www.redhat.com/mailman/listinfo/linux-cachefs
-> >> >>
-> >>
-
-
+> > On Fri, Dec 4, 2020 at 1:03 PM Daire Byrne <daire.byrne@gmail.com>
+> wrote:
+> > >
+> > > David,
+> > >
+> > > Okay, I spent a little more time on this today and I think we can
+> forget about the re-export thing for a moment.
+> > >
+> > > I looked at what was happening and the issue seemed to be that once I
+> had multiple clients of the re-export server (which has the iter fscache
+> and fsc enabled mounts) all reading the same files at the same time (for
+> the first time), then we often ended up with a missing sequential chunk of
+> data from the cached file.
+> > >
+> > > The size and apparent size seemed to be the same as the original file
+> on the server but md5sum and hexdump against the client mounted file showed
+> otherwise.
+> > >
+> > > So then I tried to replicate this scenario in the simplest way using
+> just a single (fscache-iter) client with an fsc enabled mountpoint using
+> multiple processes to read the same uncached file for the first time (no
+> NFS re-exporting).
+> > >
+> > > * client1 mounts the NFS server without fsc
+> > > * client2 mounts the NFS server with fsc (with fscache-iter).
+> > >
+> > > client1 # md5sum /mnt/server/file.1
+> > > 9ca99335b6f75a300dc22e45a776440c
+> > > client2 # cat /mnt/server/file.1
+> > > client2 # md5sum /mnt/server/file.1
+> > > 9ca99335b6f75a300dc22e45a776440c
+> > >
+> > > All good. The files was cached to disk and looks good. Now let's read
+> the an uncached file using multiple processes simultaneously:
+> > >
+> > > client1 # md5sum /mnt/server/file.2
+> > > 9ca99335b6f75a300dc22e45a776440c
+> > > client2 # for x in {1..10}; do (cat /mnt/server/file.2 > /dev/null &);
+> done; wait
+> > > client2 # md5sum /mnt/server/file.2
+> > > 26dd67fbf206f734df30fdec72d71429
+> > >
+> > > The file is now different/corrupt. So in my re-export case it's just
+> that we have multiple knfsd processes reading in the same file
+> simultaneously for the first time into cache. Then it remains corrupt and
+> serves that out to multiple NFS clients.
+> > >
+> >
+> > Hmmm, yeah that for sure shouldn't happen!
+> >
+> >
+> > > In this case the backing filesystem was ext4 and the nfs client mount
+> options were fsc,vers=4.2 (vers=3 is the same). The NFS server is running
+> RHEL7.4.
+> > >
+> >
+> > How big is ' /mnt/server/file.2' and what is the NFS server kernel?
+> > Also can you give me the mount options from /proc/mounts on 'client2'?
+> > I'm not able to reproduce this yet but I'll keep trying.
+> >
+> >
+>
+> Ok I think I have a reproducer now, but it requires extending the file
+> size.  Did you re-write the file with a new size by any chance?
+> It doesn't reproduce for me on first go, but after extending the size
+> of the file it does.
+>
+> # mount -o vers=4.2,fsc 127.0.0.1:/export/dir1 /mnt/dir1
+> # dd if=/dev/urandom of=/export/dir1/file.bin bs=10M count=1
+> 1+0 records in
+> 1+0 records out
+> 10485760 bytes (10 MB, 10 MiB) copied, 0.216783 s, 48.4 MB/s
+> # for x in {1..10}; do (cat /mnt/dir1/file.bin > /dev/null &); done; wait
+> # md5sum /export/dir1/file.bin /mnt/dir1/file.bin
+> 94d2d0fe70f155211b5559bf7de27b34  /export/dir1/file.bin
+> 94d2d0fe70f155211b5559bf7de27b34  /mnt/dir1/file.bin
+> # dd if=/dev/urandom of=/export/dir1/file.bin bs=20M count=1
+> 1+0 records in
+> 1+0 records out
+> 20971520 bytes (21 MB, 20 MiB) copied, 0.453869 s, 46.2 MB/s
+> # for x in {1..10}; do (cat /mnt/dir1/file.bin > /dev/null &); done; wait
+> # md5sum /export/dir1/file.bin /mnt/dir1/file.bin
+> 32b9beb19b97655e9026c09bbe064dc8  /export/dir1/file.bin
+> f05fe078fe65b4e5c54afcd73c97686d  /mnt/dir1/file.bin
+> # uname -r
+> 5.10.0-rc4-94e9633d98a5+
+>
+>
+>
+> >
+> >
+> > > Daire
+> > >
+> > > On Thu, Dec 3, 2020 at 4:27 PM David Wysochanski <dwysocha@redhat.com>
+> wrote:
+> > >>
+> > >> On Wed, Dec 2, 2020 at 12:01 PM Daire Byrne <daire.byrne@gmail.com>
+> wrote:
+> > >> >
+> > >> > David,
+> > >> >
+> > >> > First off, thanks for the work on this - we look forward to this
+> landing.
+> > >> >
+> > >>
+> > >> Yeah no problem - thank you for your interest and testing it!
+> > >>
+> > >> > I did some very quick tests of just the bandwidth using server
+> class networking (40Gbit) and storage (NVMe).
+> > >> >
+> > >> > Comparing the old fscache with the new one, we saw a minimal
+> degradation in reading back from the backing disk. But I am putting this
+> more down the the more directio style of access in the new version.
+> > >> >
+> > >> > This can be seen when the cache is being written as we no longer
+> use the writeback cache. I'm assuming something similar happens on reads so
+> that we don't use readahead?
+> > >> >
+> > >>
+> > >> Without getting into it too much and just guessing, I'd guess either
+> > >> it's the usage of directIO or the limitation of the 1GB in cachefiles,
+> > >> but not sure.  We need to drill down of course into it because it
+> > >> could be a lot of things.
+> > >>
+> > >> > Anyway, the quick summary of performance using 10 threads of reads
+> follows. I should mention that the NVMe has a physical limit of ~2,500MB/s
+> writes & 5,000MB/s reads:
+> > >> >
+> > >> > iter fscache:
+> > >> > uncached first reads ~2,500MB/s (writing to nvme ext4/xfs)
+> > >> > cached subsequent reads ~4,200 (reading from nvme ext4)
+> > >> > cached subsequent reads ~3,500 (reading from nvme xfs)
+> > >> >
+> > >> > old fscache:
+> > >> > uncached first reads ~2,500MB/s (writing to nvme ext4/xfs)
+> > >> > cached subsequent reads ~5,000 (reading from nvme ext4)
+> > >> > xfs crashes a lot ...
+> > >> >
+> > >> > I have not done a thorough analysis of CPU usage or perf top
+> differences yet.
+> > >> >
+> > >> > Then I went on to test our rather unique NFS re-export workload
+> where we take this fscache backed server and re-export the fsc mounts to
+> many clients. At this point something odd appeared to be happening. The
+> clients were loading software from the fscache backed mounts but were often
+> segfaulting at various points. This suggested that they were getting
+> corrupted data or the memory mapping (binaries, libraries) was failing in
+> some way. Perhaps some odd interaction between fscache and knfsd?
+> > >> >
+> > >> > I did a quick test of re-export without the fsc caching enabled on
+> the server mounts (with the same 5.10-rc kernel) and I didn't get any
+> errors. That's as far as I got before I got drawn away by other things. I
+> hope to dig into it a little more next week. But I just thought I'd give
+> some quick feedback of one potential difference I'm seeing compared to the
+> previous version.
+> > >> >
+> > >>
+> > >> Hmmm, interesting.  So just to be clear, you ran my patches without
+> > >> 'fsc' on the mount and it was fine, but with 'fsc' on the mount there
+> > >> were data corruptions in this re-export use case?  I've not done any
+> > >> tests with a re-export like that but off the top of my head I'm not
+> > >> sure why it would be a problem.  What NFS version(s) are you using?
+> > >>
+> > >>
+> > >> > I also totally accept that this is a very niche workload (and hard
+> to reproduce)... I should have more details on it next week.
+> > >> >
+> > >>
+> > >> Ok - thanks again Daire!
+> > >>
+> > >>
+> > >>
+> > >> > Daire
+> > >> >
+> > >> > On Sat, Nov 21, 2020 at 1:50 PM David Wysochanski <
+> dwysocha@redhat.com> wrote:
+> > >> >>
+> > >> >> I just posted patches to linux-nfs but neglected to CC this list.
+> For
+> > >> >> any interested in patches which convert NFS to use the new netfs
+> and
+> > >> >> fscache APIs, please see the following series on linux-nfs:
+> > >> >> [PATCH v1 0/13] Convert NFS to new netfs and fscache APIs
+> > >> >> https://marc.info/?l=linux-nfs&m=160596540022461&w=2
+> > >> >>
+> > >> >> Thanks.
+> > >> >>
+> > >> >> --
+> > >> >> Linux-cachefs mailing list
+> > >> >> Linux-cachefs@redhat.com
+> > >> >> https://www.redhat.com/mailman/listinfo/linux-cachefs
+> > >> >>
+> > >>
+>
+>
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
