@@ -1,75 +1,75 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 56DE82D402B
-	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Dec 2020 11:44:48 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E3F342D42F3
+	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Dec 2020 14:14:47 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-348-S2fcs9rJP36eD1YiTU_EAg-1; Wed, 09 Dec 2020 05:44:45 -0500
-X-MC-Unique: S2fcs9rJP36eD1YiTU_EAg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-145-7NaNkzrVPiuwr75mfVsN0g-1; Wed, 09 Dec 2020 08:13:42 -0500
+X-MC-Unique: 7NaNkzrVPiuwr75mfVsN0g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 999EC107ACE4;
-	Wed,  9 Dec 2020 10:44:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FD3219C78;
-	Wed,  9 Dec 2020 10:44:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6C7F0894B56;
+	Wed,  9 Dec 2020 13:13:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AD3C5D71D;
+	Wed,  9 Dec 2020 13:13:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E26D4A7C6;
-	Wed,  9 Dec 2020 10:44:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 405B518095C7;
+	Wed,  9 Dec 2020 13:13:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B9AiWKd005598 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 9 Dec 2020 05:44:33 -0500
+	id 0B9DCGUO030265 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 9 Dec 2020 08:12:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C22152026D37; Wed,  9 Dec 2020 10:44:32 +0000 (UTC)
+	id 427B710FFE6C; Wed,  9 Dec 2020 13:12:16 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BD8332026D11
-	for <linux-cachefs@redhat.com>; Wed,  9 Dec 2020 10:44:30 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DC291142366
+	for <linux-cachefs@redhat.com>; Wed,  9 Dec 2020 13:12:14 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B75D811E84
-	for <linux-cachefs@redhat.com>; Wed,  9 Dec 2020 10:44:30 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
-	[209.85.166.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-150-O_BBx1LzOb6yCIOXBDnpxw-1; Wed, 09 Dec 2020 05:44:26 -0500
-X-MC-Unique: O_BBx1LzOb6yCIOXBDnpxw-1
-Received: by mail-io1-f66.google.com with SMTP id o8so1173433ioh.0;
-	Wed, 09 Dec 2020 02:44:26 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E60E4800183
+	for <linux-cachefs@redhat.com>; Wed,  9 Dec 2020 13:12:13 +0000 (UTC)
+Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
+	[209.85.160.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-459-bAjOgTgIOMWmOrYMlWmgyw-1; Wed, 09 Dec 2020 08:12:11 -0500
+X-MC-Unique: bAjOgTgIOMWmOrYMlWmgyw-1
+Received: by mail-qt1-f195.google.com with SMTP id h19so797091qtq.13;
+	Wed, 09 Dec 2020 05:12:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=htf7oQLbUIT12CkPdqZFjdgF/YoqVY5s3W8UZCtazfU=;
-	b=CGVfZaZNp/Zw21aBgake+pf08kOpi3pYsJmdy65B0VyI5pA+h8yuBorM70nLPfHX1S
-	U6jX6uzPdr/6d2zPpvPsjM+4oIj1e3jerbHZhrqH0BuZCQKfkGst5Dpj9CxZ0kWVm/6x
-	HHeSoRrHtDzfEUuj6as611KD6WNUuRbdnTSPllZsjdUdlYFJnWYeE/SERIZynsDbwx2k
-	4oAKaPLArQ5NX8TuQJ2tPmFrZB8VTpWUMg3RaI5G4GIdOCSSN8d/7+vFNIoIEufvFC/e
-	QaPQhDzDDpOI0oDxoVnFT/1+9wjO80ZEq3n7+q0Nj2wyi+k7s/WJoPSMDvEvkw+Bw2r8
-	TgHw==
-X-Gm-Message-State: AOAM531WOuTeC5TcpDXYjASbrOgH4kXzyKvicQ4Sbkvj2IDCWrYyn138
-	5Y0db+V1x8/5SoIqJa+4/wBs76rGEEVd+mlbZFM=
-X-Google-Smtp-Source: ABdhPJwoZCydcQ/F/M7hMYjYvOS8z4MbQe8D7XdvViM/KC8+z4gAYHKEAqye/nrRvgEL+J/XKDTJuBkLppZidNDdXdY=
-X-Received: by 2002:a5e:9612:: with SMTP id a18mr1987644ioq.13.1607510665449; 
-	Wed, 09 Dec 2020 02:44:25 -0800 (PST)
-MIME-Version: 1.0
-References: <20201208122824.16118-1-laoar.shao@gmail.com>
-	<20201208122824.16118-4-laoar.shao@gmail.com>
-	<20201208185946.GC1943235@magnolia>
-	<CALOAHbB1uKmQ7ns08KW4zH1ikqD0GAY_Y7VySzmTY0=LTEPURA@mail.gmail.com>
-	<20201209035320.GI1943235@magnolia>
-In-Reply-To: <20201209035320.GI1943235@magnolia>
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=Fp/zlSJNune866vhfPRgWPP0qPocE+vROnJvQxS4p80=;
+	b=Wemw19lujB56e8aCtCbNtfzxHs692dX5Ezewd/VSigskxvJ56mvFgocCj7SvNkoYwQ
+	+HzYKEo203/YCRSRJkLSkpbCXG8rjuOcMiX7qeLUYKxwAWHY+Hoey8ttZqPgue6Kb1L4
+	/5S95ycnWksIY3VlLkvZDgcKjtjaERwLbIM/Yd5Rn5Syaxdqt1S8Vo94DLjBL1Lx/fZb
+	Brn2yG7RMJu7RKc17T0byxT8nNdE5rbX6pFUvxL23pvK+4w0Vu0IRco3YmV2J93fVRkv
+	DcrWZLm9zCfpktZBJwLJXhVs1byU8nS4LXwP1ccpGgCkWGApimo1eyV4YILjJnZ6WloR
+	7pZw==
+X-Gm-Message-State: AOAM530awcMnvrZh/40QX6nVR0+fz30cUK/6gN/OUZQydCv7tDTZj7GY
+	yGvpPQixIg3gsCv9I7ES7Z0=
+X-Google-Smtp-Source: ABdhPJwtyKiLT8mj11kfTalztFan4ZD94eHgt1nxgmaGAp//Gvty4tmLVaeIkkdgh0EHjqteRp+v3w==
+X-Received: by 2002:ac8:5911:: with SMTP id 17mr3001559qty.218.1607519531161; 
+	Wed, 09 Dec 2020 05:12:11 -0800 (PST)
+Received: from localhost.localdomain ([50.236.19.102])
+	by smtp.gmail.com with ESMTPSA id u72sm938114qka.15.2020.12.09.05.12.02
+	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 09 Dec 2020 05:12:10 -0800 (PST)
 From: Yafang Shao <laoar.shao@gmail.com>
-Date: Wed, 9 Dec 2020 18:43:49 +0800
-Message-ID: <CALOAHbAqF8AjjFi3oboDq=oEsKOqRiNn7U=UbguE2jDXwG6fCQ@mail.gmail.com>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
+To: darrick.wong@oracle.com, willy@infradead.org, david@fromorbit.com,
+	hch@infradead.org, mhocko@kernel.org, akpm@linux-foundation.org,
+	dhowells@redhat.com, jlayton@redhat.com
+Date: Wed,  9 Dec 2020 21:11:42 +0800
+Message-Id: <20201209131146.67289-1-laoar.shao@gmail.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,15 +78,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: Dave Chinner <david@fromorbit.com>, Matthew Wilcox <willy@infradead.org>,
-	Michal Hocko <mhocko@kernel.org>, Christoph Hellwig <hch@infradead.org>,
-	Linux MM <linux-mm@kvack.org>, linux-cachefs@redhat.com,
-	linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, linux-xfs@vger.kernel.org
-Subject: Re: [Linux-cachefs] [PATCH v11 3/4] xfs: refactor the usage around
-	xfs_trans_context_{set, clear}
+Cc: linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-cachefs@redhat.com, Yafang Shao <laoar.shao@gmail.com>,
+	linux-mm@kvack.org
+Subject: [Linux-cachefs] [PATCH v12 0/4] xfs: avoid transaction reservation
+	recursion
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +98,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,179 +106,90 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 9, 2020 at 11:53 AM Darrick J. Wong <darrick.wong@oracle.com> wrote:
->
-> On Wed, Dec 09, 2020 at 09:47:38AM +0800, Yafang Shao wrote:
-> > On Wed, Dec 9, 2020 at 2:59 AM Darrick J. Wong <darrick.wong@oracle.com> wrote:
-> > >
-> > > On Tue, Dec 08, 2020 at 08:28:23PM +0800, Yafang Shao wrote:
-> > > > The xfs_trans context should be active after it is allocated, and
-> > > > deactive when it is freed.
-> > > >
-> > > > So these two helpers are refactored as,
-> > > > - xfs_trans_context_set()
-> > > >   Used in xfs_trans_alloc()
-> > > > - xfs_trans_context_clear()
-> > > >   Used in xfs_trans_free()
-> > > >
-> > > > This patch is based on Darrick's work to fix the issue in xfs/141 in the
-> > > > earlier version. [1]
-> > > >
-> > > > 1. https://lore.kernel.org/linux-xfs/20201104001649.GN7123@magnolia
-> > > >
-> > > > Cc: Darrick J. Wong <darrick.wong@oracle.com>
-> > > > Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-> > > > Cc: Christoph Hellwig <hch@lst.de>
-> > > > Cc: Dave Chinner <david@fromorbit.com>
-> > > > Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> > > > ---
-> > > >  fs/xfs/xfs_trans.c | 20 +++++++-------------
-> > > >  1 file changed, 7 insertions(+), 13 deletions(-)
-> > > >
-> > > > diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-> > > > index 11d390f0d3f2..fe20398a214e 100644
-> > > > --- a/fs/xfs/xfs_trans.c
-> > > > +++ b/fs/xfs/xfs_trans.c
-> > > > @@ -67,6 +67,9 @@ xfs_trans_free(
-> > > >       xfs_extent_busy_sort(&tp->t_busy);
-> > > >       xfs_extent_busy_clear(tp->t_mountp, &tp->t_busy, false);
-> > > >
-> > > > +     /* Detach the transaction from this thread. */
-> > > > +     xfs_trans_context_clear(tp);
-> > >
-> > > Don't you need to check if tp is still the current transaction before
-> > > you clear PF_MEMALLOC_NOFS, now that the NOFS is bound to the lifespan
-> > > of the transaction itself instead of the reservation?
-> > >
-> >
-> > The current->journal_info is always the same with tp here in my verification.
-> > I don't know in which case they are different.
->
-> I don't know why you changed it from the previous version.
->
+PF_FSTRANS which is used to avoid transaction reservation recursion, is
+dropped since commit 9070733b4efa ("xfs: abstract PF_FSTRANS to
+PF_MEMALLOC_NOFS") and commit 7dea19f9ee63 ("mm: introduce
+memalloc_nofs_{save,restore} API"), and replaced by PF_MEMALLOC_NOFS which
+means to avoid filesystem reclaim recursion.
 
-I should explain it in the change log. Sorry about that.
+As these two flags have different meanings, we'd better reintroduce
+PF_FSTRANS back. To avoid wasting the space of PF_* flags in task_struct,
+we can reuse the current->journal_info to do that, per Willy. As the 
+check of transaction reservation recursion is used by XFS only, we can 
+move the check into xfs_vm_writepage(s), per Dave.
 
-> > It would be better if you could explain in detail.  Anyway I can add
-> > the check with your comment in the next version.
->
-> xfs_trans_alloc is called to allocate a transaction.  We set _NOFS and
-> save the old flags (which don't contain _NOFS) to this transaction.
->
-> thread logs some changes and calls xfs_trans_roll.
->
-> xfs_trans_roll calls xfs_trans_dup to duplicate the old transaction.
->
-> xfs_trans_dup allocates a new transaction, which sets PF_MEMALLOC_NOFS
-> and saves the current context flags (in which _NOFS is set) in the new
-> transaction.
->
-> xfs_trans_roll then commits the old transaction
->
-> xfs_trans_commit frees the old transaction
->
-> xfs_trans_free restores the old context (which didn't have _NOFS) and
-> now we've dropped NOFS incorrectly
->
-> now we move on with the new transaction, but in the wrong NOFS mode.
->
-> note that this becomes a lot more obvious once you start fiddling with
-> current->journal_info in the last patch.
->
+Patch #1 and #2 are to use the memalloc_nofs_{save,restore} API 
+Patch #1 is picked form Willy's patchset "Overhaul memalloc_no*"[1]
 
-Many thanks for the detailed explanation. I missed the rolling transaction.
-I will add this check in the next version.
+Patch #3 is the refactor of xfs_trans context, which is activated when
+xfs_trans is allocated and deactivated when xfs_trans is freed.
 
-> --D
->
-> >
-> > >
-> > > > +
-> > > >       trace_xfs_trans_free(tp, _RET_IP_);
-> > > >       if (!(tp->t_flags & XFS_TRANS_NO_WRITECOUNT))
-> > > >               sb_end_intwrite(tp->t_mountp->m_super);
-> > > > @@ -153,9 +156,6 @@ xfs_trans_reserve(
-> > > >       int                     error = 0;
-> > > >       bool                    rsvd = (tp->t_flags & XFS_TRANS_RESERVE) != 0;
-> > > >
-> > > > -     /* Mark this thread as being in a transaction */
-> > > > -     xfs_trans_context_set(tp);
-> > > > -
-> > > >       /*
-> > > >        * Attempt to reserve the needed disk blocks by decrementing
-> > > >        * the number needed from the number available.  This will
-> > > > @@ -163,10 +163,9 @@ xfs_trans_reserve(
-> > > >        */
-> > > >       if (blocks > 0) {
-> > > >               error = xfs_mod_fdblocks(mp, -((int64_t)blocks), rsvd);
-> > > > -             if (error != 0) {
-> > > > -                     xfs_trans_context_clear(tp);
-> > > > +             if (error != 0)
-> > > >                       return -ENOSPC;
-> > > > -             }
-> > > > +
-> > > >               tp->t_blk_res += blocks;
-> > > >       }
-> > > >
-> > > > @@ -241,8 +240,6 @@ xfs_trans_reserve(
-> > > >               tp->t_blk_res = 0;
-> > > >       }
-> > > >
-> > > > -     xfs_trans_context_clear(tp);
-> > > > -
-> > > >       return error;
-> > > >  }
-> > > >
-> > > > @@ -284,6 +281,8 @@ xfs_trans_alloc(
-> > > >       INIT_LIST_HEAD(&tp->t_dfops);
-> > > >       tp->t_firstblock = NULLFSBLOCK;
-> > > >
-> > > > +     /* Mark this thread as being in a transaction */
-> > > > +     xfs_trans_context_set(tp);
-> > > >       error = xfs_trans_reserve(tp, resp, blocks, rtextents);
-> > > >       if (error) {
-> > > >               xfs_trans_cancel(tp);
-> > > > @@ -878,7 +877,6 @@ __xfs_trans_commit(
-> > > >
-> > > >       xfs_log_commit_cil(mp, tp, &commit_lsn, regrant);
-> > > >
-> > > > -     xfs_trans_context_clear(tp);
-> > > >       xfs_trans_free(tp);
-> > > >
-> > > >       /*
-> > > > @@ -911,7 +909,6 @@ __xfs_trans_commit(
-> > > >               tp->t_ticket = NULL;
-> > > >       }
-> > > >
-> > > > -     xfs_trans_context_clear(tp);
-> > > >       xfs_trans_free_items(tp, !!error);
-> > > >       xfs_trans_free(tp);
-> > > >
-> > > > @@ -971,9 +968,6 @@ xfs_trans_cancel(
-> > > >               tp->t_ticket = NULL;
-> > > >       }
-> > > >
-> > > > -     /* mark this thread as no longer being in a transaction */
-> > > > -     xfs_trans_context_clear(tp);
-> > > > -
-> > > >       xfs_trans_free_items(tp, dirty);
-> > > >       xfs_trans_free(tp);
-> > > >  }
-> > > > --
-> > > > 2.18.4
-> > > >
-> >
-> >
-> >
-> > --
-> > Thanks
-> > Yafang
+Patch #4 is the implementation of reussing current->journal_info to
+avoid transaction reservation recursion.
+
+No obvious error occurred after running xfstests.
+
+[1]. https://lore.kernel.org/linux-mm/20200625113122.7540-1-willy@infradead.org
+
+v12:
+Per Darrick's suggestion,
+- add the check before calling xfs_trans_context_clear() in
+  xfs_trans_context_free().
+- move t_pflags into xfs_trans_context_swap()
+
+v11:
+- add the warning at the callsite of xfs_trans_context_active()
+- improve the commit log of patch #2
+
+v10:
+- refactor the code, per Dave.
+
+v9:
+- rebase it on xfs tree.
+- Darrick fixed an error occurred in xfs/141
+- run xfstests, and no obvious error occurred.
+
+v8:
+- check xfs_trans_context_active() in xfs_vm_writepage(s), per Dave.
+
+v7:
+- check fstrans recursion for XFS only, by introducing a new member in
+  struct writeback_control.
+
+v6:
+- add Michal's ack and comment in patch #1.
+
+v5:
+- pick one of Willy's patch
+- introduce four new helpers, per Dave
+
+v4:
+- retitle from "xfs: introduce task->in_fstrans for transaction reservation
+  recursion protection"
+- reuse current->journal_info, per Willy
 
 
+Matthew Wilcox (Oracle) (1):
+  mm: Add become_kswapd and restore_kswapd
+
+Yafang Shao (3):
+  xfs: use memalloc_nofs_{save,restore} in xfs transaction
+  xfs: refactor the usage around xfs_trans_context_{set,clear}
+  xfs: use current->journal_info to avoid transaction reservation
+    recursion
+
+ fs/iomap/buffered-io.c    |  7 -------
+ fs/xfs/libxfs/xfs_btree.c | 14 ++++++++------
+ fs/xfs/xfs_aops.c         | 21 +++++++++++++++++++--
+ fs/xfs/xfs_linux.h        |  4 ----
+ fs/xfs/xfs_trans.c        | 33 +++++++++++++++++++--------------
+ fs/xfs/xfs_trans.h        | 35 +++++++++++++++++++++++++++++++++++
+ include/linux/sched/mm.h  | 23 +++++++++++++++++++++++
+ mm/vmscan.c               | 16 +---------------
+ 8 files changed, 105 insertions(+), 48 deletions(-)
 
 -- 
-Thanks
-Yafang
+2.18.4
 
 --
 Linux-cachefs mailing list
