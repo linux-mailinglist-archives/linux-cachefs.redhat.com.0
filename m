@@ -2,73 +2,74 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 871EC2F4881
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Jan 2021 11:23:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8EB852F488D
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Jan 2021 11:23:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-581-jwWF444-NoK20Y0xEmy4uQ-1; Wed, 13 Jan 2021 05:23:23 -0500
-X-MC-Unique: jwWF444-NoK20Y0xEmy4uQ-1
+ us-mta-171-cf3nS9PEPxKEMAt8kaLKTA-1; Wed, 13 Jan 2021 05:23:29 -0500
+X-MC-Unique: cf3nS9PEPxKEMAt8kaLKTA-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8A608100C601;
-	Wed, 13 Jan 2021 10:23:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 721EB8066E0;
+	Wed, 13 Jan 2021 10:23:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F373D71D6D;
-	Wed, 13 Jan 2021 10:23:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60D4E71D6D;
+	Wed, 13 Jan 2021 10:23:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 716B04BB7B;
-	Wed, 13 Jan 2021 10:23:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 746C44BB7B;
+	Wed, 13 Jan 2021 10:23:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10DANBxX016920 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 13 Jan 2021 05:23:12 -0500
+	id 10DANNGV016942 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 13 Jan 2021 05:23:23 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C45A51004150; Wed, 13 Jan 2021 10:23:11 +0000 (UTC)
+	id 653CC2166B2A; Wed, 13 Jan 2021 10:23:23 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C049A1006EA6
-	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FA1C2166B2C
+	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81C57811E76
-	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:09 +0000 (UTC)
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
-	[209.85.210.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-435-8_eLqfsYMrKpzjJRmRy-0A-1; Wed, 13 Jan 2021 05:23:07 -0500
-X-MC-Unique: 8_eLqfsYMrKpzjJRmRy-0A-1
-Received: by mail-ot1-f48.google.com with SMTP id x5so1396936otp.9;
-	Wed, 13 Jan 2021 02:23:07 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF868015B9
+	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:20 +0000 (UTC)
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+	[209.85.167.172]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-521-mMCJfv-mMqaIQ6qAQW4aFA-1; Wed, 13 Jan 2021 05:23:13 -0500
+X-MC-Unique: mMCJfv-mMqaIQ6qAQW4aFA-1
+Received: by mail-oi1-f172.google.com with SMTP id p5so1545003oif.7;
+	Wed, 13 Jan 2021 02:23:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=EZdWjEiE6JU4dDIJ/Pyi7n34O5hqZ+ARLNb+PckQnXM=;
-	b=EbZVr2YLD7ltFfce2cqBd979ldA3q03WTVN3vZfMw/LabnY9qPPMRpv3PpotGJz6m6
-	56XELO9dFN9sx7/1342ypW3pqXpm7e0LxBlu+qLMA5WM+yzHo4QaZgr/4v5sOcciDbhN
-	3cSaii+bXBS0IQuV6CQ855NenjyPyR6bHiU8W8h+sx8Oy+7/LS6P60C34YuHqqWyZcba
-	aU9/j/gJTc8MqkbLAXWFtHcRBhNS2xCHqtqdkK0k3mth+fJIcu8xZ7Soa0R2Q4VSQLHR
-	pgiSqJygWHh49HnZ0C9hoatm3cC+zP7eNd7+ZUX5wlQSqkQY9qLTpmJ8SZhp9vr53pZs
-	2dpA==
-X-Gm-Message-State: AOAM532J9vBPmoqFdOHYRsRkPAAlTTAMGJRD6h0gMQByvb6yN+os3iU0
-	dljxPCcBxHD7LMaMT0J4sL4=
-X-Google-Smtp-Source: ABdhPJxzpcZ6oajkxTk/IqALwgCtGfZtB6bXMnDlhxhsoNwGNY4Zv4RvzAHa0fEt2VE6pimAVRh7CA==
-X-Received: by 2002:a9d:19cb:: with SMTP id k69mr732136otk.75.1610533386389;
-	Wed, 13 Jan 2021 02:23:06 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references:mime-version:content-transfer-encoding;
+	bh=/Yc1Bbct8Nbc3LO9koCFr8h15MIb1wQ1a9mmnGoYcpk=;
+	b=O/lixVBz3SpFhIzH66E6j61h1+0vu3iNfQVDltLVvYk29j5caoTgs0pzIWtQn1l7EY
+	Rmd/RZ3DkNaNG4fAnzrsZgcTnvyz+fGtniXC8/eeeuisuEnRuHaDEW0gqrGF4n0xCZVC
+	sB4bcSz+OhNYhsN7wpjBZ4l+LN5cY6oxyUK48sWMz+AIy95/DxZIWz3GPVbBjqvPgyDt
+	C1BeQcF3CzIt9T0MTSD9pgmS+19m9GPiojZLWzm95zA5WpjVMmLDu/AVekAB7Gd7J7zh
+	IYPwgmfcTa4kd5ZGmHsEU0n8u1Ee2CuwUK9eqAzOjK5VPwXo4apzP3FQhl8UkIH7IRkJ
+	xltg==
+X-Gm-Message-State: AOAM531USJzlbCOKZkC9yaoLptLlHPjQUHeAd8FoyoHsA2nyS0r4wsDJ
+	t3Xujk2IyWluL0ORRAQGsbk=
+X-Google-Smtp-Source: ABdhPJzUiAkWIHr2kwijHoq+jSnJ10xMB1fk4Dfd7rhcx9Shi9eFjtqGc0F+UWJoXBSC8NNwusBIFQ==
+X-Received: by 2002:a54:4391:: with SMTP id u17mr728149oiv.30.1610533392875;
+	Wed, 13 Jan 2021 02:23:12 -0800 (PST)
 Received: from localhost.localdomain ([50.236.19.102])
-	by smtp.gmail.com with ESMTPSA id z8sm335571oon.10.2021.01.13.02.22.58
+	by smtp.gmail.com with ESMTPSA id z8sm335571oon.10.2021.01.13.02.23.06
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 13 Jan 2021 02:23:05 -0800 (PST)
+	Wed, 13 Jan 2021 02:23:12 -0800 (PST)
 From: Yafang Shao <laoar.shao@gmail.com>
 To: darrick.wong@oracle.com, willy@infradead.org, david@fromorbit.com,
 	hch@infradead.org, mhocko@kernel.org, akpm@linux-foundation.org,
 	dhowells@redhat.com, jlayton@redhat.com
-Date: Wed, 13 Jan 2021 18:22:20 +0800
-Message-Id: <20210113102224.13655-1-laoar.shao@gmail.com>
+Date: Wed, 13 Jan 2021 18:22:21 +0800
+Message-Id: <20210113102224.13655-2-laoar.shao@gmail.com>
+In-Reply-To: <20210113102224.13655-1-laoar.shao@gmail.com>
+References: <20210113102224.13655-1-laoar.shao@gmail.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -78,13 +79,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Yafang Shao <laoar.shao@gmail.com>, linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	oliver.sang@intel.com, linux-fsdevel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH v15 0/4] xfs: avoid transaction reservation
-	recursion
+Cc: Michal Hocko <mhocko@suse.com>, Yafang Shao <laoar.shao@gmail.com>,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	linux-cachefs@redhat.com, oliver.sang@intel.com,
+	linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: [Linux-cachefs] [PATCH v15 1/4] mm: Add become_kswapd and
+	restore_kswapd
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,101 +108,130 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-PF_FSTRANS which is used to avoid transaction reservation recursion, is
-dropped since commit 9070733b4efa ("xfs: abstract PF_FSTRANS to
-PF_MEMALLOC_NOFS") and commit 7dea19f9ee63 ("mm: introduce
-memalloc_nofs_{save,restore} API"), and replaced by PF_MEMALLOC_NOFS which
-means to avoid filesystem reclaim recursion.
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-As these two flags have different meanings, we'd better reintroduce
-PF_FSTRANS back. To avoid wasting the space of PF_* flags in task_struct,
-we can reuse the current->journal_info to do that, per Willy. As the 
-check of transaction reservation recursion is used by XFS only, we can 
-move the check into xfs_vm_writepage(s), per Dave.
+Since XFS needs to pretend to be kswapd in some of its worker threads,
+create methods to save & restore kswapd state.  Don't bother restoring
+kswapd state in kswapd -- the only time we reach this code is when we're
+exiting and the task_struct is about to be destroyed anyway.
 
-Patch #1 and #2 are to use the memalloc_nofs_{save,restore} API 
-Patch #1 is picked form Willy's patchset "Overhaul memalloc_no*"[1]
-
-Patch #3 is the refactor of xfs_trans context, which is activated when
-xfs_trans is allocated and deactivated when xfs_trans is freed.
-
-Patch #4 is the implementation of reusing current->journal_info to
-avoid transaction reservation recursion.
-
-No obvious error occurred after running xfstests
-(with CONFIG_XFS_ASSERT_FATAL enabled).
-
-[1]. https://lore.kernel.org/linux-mm/20200625113122.7540-1-willy@infradead.org
-
-v15:
-- fix Assertion_failed reported by kernel test robot
-- run xfstests with CONFIG_XFS_ASSERT_FATAL enabled
-
-v14:
-- minor optimze in restore_kswapd(), per Dave.
-- don't need to refactor xfs_trans_context_{set,clear} 
-- remove redundant comments in patch #4
-
-v13:
-- move xfs_trans_context_swap() into patch #3 and set NOFS to the old 
-  transaction
-
-v12:
-Per Darrick's suggestion,
-- add the check before calling xfs_trans_context_clear() in
-  xfs_trans_context_free().
-- move t_pflags into xfs_trans_context_swap()
-
-v11:
-- add the warning at the callsite of xfs_trans_context_active()
-- improve the commit log of patch #2
-
-v10:
-- refactor the code, per Dave.
-
-v9:
-- rebase it on xfs tree.
-- Darrick fixed an error occurred in xfs/141
-- run xfstests, and no obvious error occurred.
-
-v8:
-- check xfs_trans_context_active() in xfs_vm_writepage(s), per Dave.
-
-v7:
-- check fstrans recursion for XFS only, by introducing a new member in
-  struct writeback_control.
-
-v6:
-- add Michal's ack and comment in patch #1.
-
-v5:
-- pick one of Willy's patch
-- introduce four new helpers, per Dave
-
-v4:
-- retitle from "xfs: introduce task->in_fstrans for transaction reservation
-  recursion protection"
-- reuse current->journal_info, per Willy
-
-Matthew Wilcox (Oracle) (1):
-  mm: Add become_kswapd and restore_kswapd
-
-Yafang Shao (3):
-  xfs: use memalloc_nofs_{save,restore} in xfs transaction
-  xfs: refactor the usage around xfs_trans_context_{set,clear}
-  xfs: use current->journal_info to avoid transaction reservation
-    recursion
-
- fs/iomap/buffered-io.c    |  7 -------
+Cc: Dave Chinner <david@fromorbit.com>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Reviewed-by: Darrick J. Wong <darrick.wong@oracle.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+---
  fs/xfs/libxfs/xfs_btree.c | 14 ++++++++------
- fs/xfs/xfs_aops.c         | 14 ++++++++++++--
- fs/xfs/xfs_linux.h        |  4 ----
- fs/xfs/xfs_trans.c        | 26 ++++++++++++--------------
- fs/xfs/xfs_trans.h        | 36 ++++++++++++++++++++++++++++++++++++
  include/linux/sched/mm.h  | 22 ++++++++++++++++++++++
  mm/vmscan.c               | 16 +---------------
- 8 files changed, 91 insertions(+), 48 deletions(-)
+ 3 files changed, 31 insertions(+), 21 deletions(-)
 
+diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
+index c4d7a9241dc3..c43f2ad85af9 100644
+--- a/fs/xfs/libxfs/xfs_btree.c
++++ b/fs/xfs/libxfs/xfs_btree.c
+@@ -2813,8 +2813,9 @@ xfs_btree_split_worker(
+ {
+ 	struct xfs_btree_split_args	*args = container_of(work,
+ 						struct xfs_btree_split_args, work);
++	bool			is_kswapd = args->kswapd;
+ 	unsigned long		pflags;
+-	unsigned long		new_pflags = PF_MEMALLOC_NOFS;
++	int			memalloc_nofs;
+ 
+ 	/*
+ 	 * we are in a transaction context here, but may also be doing work
+@@ -2822,16 +2823,17 @@ xfs_btree_split_worker(
+ 	 * temporarily to ensure that we don't block waiting for memory reclaim
+ 	 * in any way.
+ 	 */
+-	if (args->kswapd)
+-		new_pflags |= PF_MEMALLOC | PF_SWAPWRITE | PF_KSWAPD;
+-
+-	current_set_flags_nested(&pflags, new_pflags);
++	if (is_kswapd)
++		pflags = become_kswapd();
++	memalloc_nofs = memalloc_nofs_save();
+ 
+ 	args->result = __xfs_btree_split(args->cur, args->level, args->ptrp,
+ 					 args->key, args->curp, args->stat);
+ 	complete(args->done);
+ 
+-	current_restore_flags_nested(&pflags, new_pflags);
++	memalloc_nofs_restore(memalloc_nofs);
++	if (is_kswapd)
++		restore_kswapd(pflags);
+ }
+ 
+ /*
+diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+index d5ece7a9a403..7195e542a54d 100644
+--- a/include/linux/sched/mm.h
++++ b/include/linux/sched/mm.h
+@@ -278,6 +278,28 @@ static inline void memalloc_nocma_restore(unsigned int flags)
+ }
+ #endif
+ 
++/*
++ * Tell the memory management code that this thread is working on behalf
++ * of background memory reclaim (like kswapd).  That means that it will
++ * get access to memory reserves should it need to allocate memory in
++ * order to make forward progress.  With this great power comes great
++ * responsibility to not exhaust those reserves.
++ */
++#define KSWAPD_PF_FLAGS		(PF_MEMALLOC | PF_SWAPWRITE | PF_KSWAPD)
++
++static inline unsigned long become_kswapd(void)
++{
++	unsigned long flags = current->flags & KSWAPD_PF_FLAGS;
++
++	current->flags |= KSWAPD_PF_FLAGS;
++	return flags;
++}
++
++static inline void restore_kswapd(unsigned long flags)
++{
++	current->flags = (current->flags & ~KSWAPD_PF_FLAGS) | flags;
++}
++
+ #ifdef CONFIG_MEMCG
+ DECLARE_PER_CPU(struct mem_cgroup *, int_active_memcg);
+ /**
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 7b4e31eac2cf..15af99d1f3f7 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3870,19 +3870,7 @@ static int kswapd(void *p)
+ 	if (!cpumask_empty(cpumask))
+ 		set_cpus_allowed_ptr(tsk, cpumask);
+ 
+-	/*
+-	 * Tell the memory management that we're a "memory allocator",
+-	 * and that if we need more memory we should get access to it
+-	 * regardless (see "__alloc_pages()"). "kswapd" should
+-	 * never get caught in the normal page freeing logic.
+-	 *
+-	 * (Kswapd normally doesn't need memory anyway, but sometimes
+-	 * you need a small amount of memory in order to be able to
+-	 * page out something else, and this flag essentially protects
+-	 * us from recursively trying to free more memory as we're
+-	 * trying to free the first piece of memory in the first place).
+-	 */
+-	tsk->flags |= PF_MEMALLOC | PF_SWAPWRITE | PF_KSWAPD;
++	become_kswapd();
+ 	set_freezable();
+ 
+ 	WRITE_ONCE(pgdat->kswapd_order, 0);
+@@ -3932,8 +3920,6 @@ static int kswapd(void *p)
+ 			goto kswapd_try_sleep;
+ 	}
+ 
+-	tsk->flags &= ~(PF_MEMALLOC | PF_SWAPWRITE | PF_KSWAPD);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.17.1
 
