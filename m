@@ -2,91 +2,67 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A2B3F2F4890
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Jan 2021 11:23:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A534E2F5F1C
+	for <lists+linux-cachefs@lfdr.de>; Thu, 14 Jan 2021 11:45:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1610621126;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=txX4CtVkFBb9cruJq0ArzbZAi1v0SvVGiMZxip0YwRU=;
+	b=PX1X8eajNMp2FiXMMf0p31Rh7Z/dF/XHzkh7M2JW7dockOOeoUQTrJzaJiMsNqNI8aYjVw
+	ogya19uL1nEojH9POE8R0By3Q+6GwcUKMOxb6o0/Z0y7KrKQ0EndH9uQ1uNrVlPz7KES87
+	WBmroOuSzSCi+5lXGsn2iKJ4BRGR6sU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-391-VecM_GyDN0G1AlehXF5vqQ-1; Wed, 13 Jan 2021 05:23:41 -0500
-X-MC-Unique: VecM_GyDN0G1AlehXF5vqQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-203-dfwGonxCOlC8ZZMm09KXqg-1; Thu, 14 Jan 2021 05:45:24 -0500
+X-MC-Unique: dfwGonxCOlC8ZZMm09KXqg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7266107ACF7;
-	Wed, 13 Jan 2021 10:23:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F5A5100C661;
+	Thu, 14 Jan 2021 10:45:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2E5510429F3;
-	Wed, 13 Jan 2021 10:23:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B110319C47;
+	Thu, 14 Jan 2021 10:45:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF493180954D;
-	Wed, 13 Jan 2021 10:23:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6FA84180954D;
+	Thu, 14 Jan 2021 10:45:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10DANaQo016980 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 13 Jan 2021 05:23:36 -0500
+	id 10EAjEks001468 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 14 Jan 2021 05:45:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B64FF2026D16; Wed, 13 Jan 2021 10:23:36 +0000 (UTC)
+	id 0FAC560C6A; Thu, 14 Jan 2021 10:45:14 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1BF22026D46
-	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9AA47805B3B
-	for <linux-cachefs@redhat.com>; Wed, 13 Jan 2021 10:23:36 +0000 (UTC)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
-	[209.85.210.50]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-454-v3oMfuTTPBKtky946yeEoA-1; Wed, 13 Jan 2021 05:23:32 -0500
-X-MC-Unique: v3oMfuTTPBKtky946yeEoA-1
-Received: by mail-ot1-f50.google.com with SMTP id o11so1425027ote.4;
-	Wed, 13 Jan 2021 02:23:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=2Hoa9myK143cV0+5FfOAtzs2mXHnYs56TUMaxDFngxI=;
-	b=e7At/IM7vJKoCdBl4CDO59tWklDWpuGOaRXweyzuEW7wKWhOy1kI/wuPq1rL20ssxu
-	1f7TP1EZrsLOTjHcNfRyNQqVfwQ4owuk6h49TGzEkz4TyOUr605MXAdsxXNa3XfhqHl3
-	CFDXinTurec5mvY8ozQPVgMZJTSFZgRsQXJapvweT+5EAeTGqSoAN5S7aJM6dTNsCil5
-	dqNhEWphZdZLfquPnStms/SavG/80PLTzBWWWry0p4/aNdun7Jt6vFNu6kVufBuz6QJU
-	KeS5XCs9jl7FM7x3TRemn30hIJQAxn2li//r6YA7oCPywqStu14wzfuJClRgvohZMs0Z
-	gVPQ==
-X-Gm-Message-State: AOAM533Wf0e/2inckevE6zvDryuvzbRF+7stXJ75onVqAczo9DJPMDPb
-	7CJkN3teySNz13npuEALz3E=
-X-Google-Smtp-Source: ABdhPJzMbFRs70OCbw4e3J96c+SlsfFE7Ic6psQgivnf/qYiMFYIWrf1tQemCSk4aiSnqSS+tSYWsg==
-X-Received: by 2002:a9d:12d7:: with SMTP id g81mr761901otg.103.1610533411738; 
-	Wed, 13 Jan 2021 02:23:31 -0800 (PST)
-Received: from localhost.localdomain ([50.236.19.102])
-	by smtp.gmail.com with ESMTPSA id z8sm335571oon.10.2021.01.13.02.23.25
-	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 13 Jan 2021 02:23:31 -0800 (PST)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: darrick.wong@oracle.com, willy@infradead.org, david@fromorbit.com,
-	hch@infradead.org, mhocko@kernel.org, akpm@linux-foundation.org,
-	dhowells@redhat.com, jlayton@redhat.com
-Date: Wed, 13 Jan 2021 18:22:24 +0800
-Message-Id: <20210113102224.13655-5-laoar.shao@gmail.com>
-In-Reply-To: <20210113102224.13655-1-laoar.shao@gmail.com>
-References: <20210113102224.13655-1-laoar.shao@gmail.com>
+Received: from warthog.procyon.org.uk (ovpn-112-8.rdu2.redhat.com
+	[10.10.112.8])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9402F60C64;
+	Thu, 14 Jan 2021 10:45:06 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Date: Thu, 14 Jan 2021 10:45:06 +0000
+Message-ID: <2758811.1610621106@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: linux-cachefs@redhat.com
-Cc: Yafang Shao <laoar.shao@gmail.com>, linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	oliver.sang@intel.com, linux-fsdevel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>
-Subject: [Linux-cachefs] [PATCH v15 4/4] xfs: use current->journal_info to
-	avoid transaction reservation recursion
+Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
+	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	dchinner@redhat.com, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, Dominique Martinet <asmadeus@codewreck.org>
+Subject: [Linux-cachefs] Redesigning and modernising fscache
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,139 +76,145 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <2758810.1610621106.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-PF_FSTRANS which is used to avoid transaction reservation recursion, is
-dropped since commit 9070733b4efa ("xfs: abstract PF_FSTRANS to
-PF_MEMALLOC_NOFS") and replaced by PF_MEMALLOC_NOFS which means to avoid
-filesystem reclaim recursion.
+Hi,
 
-As these two flags have different meanings, we'd better reintroduce
-PF_FSTRANS back. To avoid wasting the space of PF_* flags in
-task_struct,
-we can reuse the current->journal_info to do that, per Willy. As the
-check of transaction reservation recursion is used by XFS only, we can
-move the check into xfs_vm_writepage(s), per Dave.
+I've been working on modernising fscache, primarily with help from Jeff Layton
+and Dave Wysochanski with porting Ceph and NFS to it, and with Willy helpfully
+reinventing the VM I/O interface beneath us;-).
 
-[oliver.sang@intel.com: reported a Assertion_failed in the prev version]
+However, there've been some objections to the approach I've taken to
+implementing this.  The way I've done it is to disable the use of fscache by
+the five network filesystems that use it, remove much of the old code, put in
+the reimplementation, then cut the filesystems over.  I.e. rip-and-replace.
+It leaves unported filesystems unable to use it - but three of the five are
+done (afs, ceph, nfs), and I've supplied partially-done patches for the other
+two (9p, cifs).
 
-Cc: Darrick J. Wong <darrick.wong@oracle.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Jeff Layton <jlayton@redhat.com>
-Cc: kernel test robot <oliver.sang@intel.com>
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
----
- fs/iomap/buffered-io.c |  7 -------
- fs/xfs/xfs_aops.c      | 10 ++++++++++
- fs/xfs/xfs_trans.h     | 22 +++++++++++++++++++---
- 3 files changed, 29 insertions(+), 10 deletions(-)
+It's been suggested that it's too hard to review this way and that either I
+should go for a gradual phasing in or build the new one in parallel.  The
+first is difficult because I want to change how almost everything in there
+works - but the parts are tied together; the second is difficult because there
+are areas that would *have* to overlap (the UAPI device file, the cache
+storage, the cache size limits and at least some state for managing these), so
+there would have to be interaction between the two variants.  One refinement
+of the latter would be to make the two implementations mutually exclusive: you
+can build one or the other, but not both.
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 10cc7979ce38..3c53fa6ce64d 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -1458,13 +1458,6 @@ iomap_do_writepage(struct page *page, struct writeback_control *wbc, void *data)
- 			PF_MEMALLOC))
- 		goto redirty;
- 
--	/*
--	 * Given that we do not allow direct reclaim to call us, we should
--	 * never be called in a recursive filesystem reclaim context.
--	 */
--	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC_NOFS))
--		goto redirty;
--
- 	/*
- 	 * Is this page beyond the end of the file?
- 	 *
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 2371187b7615..eed4881d4461 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -568,6 +568,12 @@ xfs_vm_writepage(
- {
- 	struct xfs_writepage_ctx wpc = { };
- 
-+	if (WARN_ON_ONCE(xfs_trans_context_active())) {
-+		redirty_page_for_writepage(wbc, page);
-+		unlock_page(page);
-+		return 0;
-+	}
-+
- 	return iomap_writepage(page, wbc, &wpc.ctx, &xfs_writeback_ops);
- }
- 
-@@ -579,6 +585,10 @@ xfs_vm_writepages(
- 	struct xfs_writepage_ctx wpc = { };
- 
- 	xfs_iflags_clear(XFS_I(mapping->host), XFS_ITRUNCATED);
-+
-+	if (WARN_ON_ONCE(xfs_trans_context_active()))
-+		return 0;
-+
- 	return iomap_writepages(mapping, wbc, &wpc.ctx, &xfs_writeback_ops);
- }
- 
-diff --git a/fs/xfs/xfs_trans.h b/fs/xfs/xfs_trans.h
-index 3645fd0d74b8..e2f3251d6cce 100644
---- a/fs/xfs/xfs_trans.h
-+++ b/fs/xfs/xfs_trans.h
-@@ -268,24 +268,40 @@ xfs_trans_item_relog(
- 	return lip->li_ops->iop_relog(lip, tp);
- }
- 
-+static inline bool
-+xfs_trans_context_active(void)
-+{
-+	return current->journal_info != NULL;
-+}
-+
- static inline void
- xfs_trans_context_set(struct xfs_trans *tp)
- {
-+	ASSERT(!current->journal_info);
-+	current->journal_info = tp;
- 	tp->t_pflags = memalloc_nofs_save();
- }
- 
- static inline void
- xfs_trans_context_clear(struct xfs_trans *tp)
- {
--	if (!tp->t_pflags)
--		memalloc_nofs_restore(tp->t_pflags);
-+	/*
-+	 * If we handed over the context via xfs_trans_context_swap() then
-+	 * the context is no longer needed to clear.
-+	 */
-+	if (current->journal_info != tp)
-+		return;
-+
-+	current->journal_info = NULL;
-+	memalloc_nofs_restore(tp->t_pflags);
- }
- 
- static inline void
- xfs_trans_context_swap(struct xfs_trans *tp, struct xfs_trans *ntp)
- {
-+	ASSERT(current->journal_info == tp);
-+	current->journal_info = ntp;
- 	ntp->t_pflags = tp->t_pflags;
--	tp->t_pflags = -1;
- }
- 
- #endif	/* __XFS_TRANS_H__ */
--- 
-2.17.1
+However.  Given that I want to replace the on-disk format in cachefiles at
+some point, and change what the userspace component does, maybe I should
+create a new, separate UAPI interface and do the on-disk format change at the
+same time.  In which case, it makes sense to build a parallel variant
+
+
+Anyway, a bit of background into the why.  There are a number of things that
+need to be fixed in fscache/cachefiles:
+
+ (1) The use of bmap to test whether the backing fs contains a cache block.
+     This is not reliable in a modern extent-based filesystem as it can insert
+     and remove bridging blocks of zeros at will.
+
+     Having discussed this with Christoph Hellwig and Dave Chinner, I think I
+     that the cache really needs to keep track of this for itself.
+
+ (2) The use of pagecache waitlist snooping to find out if a backing
+     filesystem page has been updated yet.  I have the feeling that this is
+     not 100% reliable from untrackdownable bugs that seem to relate to this.
+
+     I really would rather be told directly by the backing fs that the op was
+     complete.  Switching over to kiocbs means that can be done.
+
+ (3) Having to go through the pagecache attached to the backing file, copying
+     data from it or using vfs_write() to write into it.  This doubles the
+     amount of pagecache required and adds a bunch of copies for good measure.
+
+     When I wrote the cachefiles caching backend, using direct I/O from within
+     the kernel wasn't possible - but, now that kiocbs are available, I can
+     actually do async DIO from the backing files to/from the netfs pages,
+     cutting out copies in both direction, and using the kiocb completion
+     function to tell me when it's done.
+
+ (4) fscache's structs have a number of pointers back into the netfs, which
+     makes it tricky if the netfs instance goes away whilst the cache is
+     active.
+
+     I really want no pointers back - apart from very transient I/O completion
+     callbacks.  I can store the metadata I need in the cookie.
+
+Modernising this affords the opportunity to make huge simplifications in the
+code (shaving off over 1000 lines, maybe as many as 3000).
+
+One thing I've done is to make a helper library that handles a number of
+features on behalf of a netfs if it wants to use the library:
+
+ (*) Local caching.
+
+ (*) Segmentation and shaping of read operations.
+
+     This takes a ->readahead() request from the VM and translates it into one
+     or more reads against the cache and the netfs, allowing both to
+     adjust/expand the size of the individual subops according to internal
+     alignments.
+
+     Allowing the cache to expand a read request to put it on a larger
+     granularity allows the cache to use less metadata to represent what it
+     contains.
+
+     It also provides a place to retry operations (something that's required
+     if a read against the cache fails and we need to send it to the server
+     instead).
+
+ (*) Transparent huge pages (Willy).
+
+ (*) A place to put fscrypt support (Jeff).
+
+We have the first three working - with some limitations - for afs, nfs and
+ceph, and I've produced partial patches for 9p and cifs. afs, nfs and ceph are
+able to handle xfstests with a cache now - which is something that the old
+fscache code will just explode with.
+
+
+So, as stated, much of that code is written and working.  However, if I do a
+complete replacement all the way out to userspace, there are further changes
+I'm thinking of making:
+
+ (*) Get rid of the ability to remove a cache that's in use.  This accounts
+     for a *lot* of the complexity in fscache.  All the synchronisation
+     required to effect the removal of a live cache at any time whilst it's
+     actually being used.
+
+ (*) Change cachefiles so that it uses an index file and a single data file
+     and perform culling by marking the index rather than deleting data files.
+     Culling would then be moved into the kernel.  cachefilesd is then
+     unnecessary, except to load the config and keep the cache open.
+
+     Moving the culling into an index would also make manual invalidation
+     easier.
+
+ (*) Rather than using cachefilesd to hold the cache open, do something akin
+     to swapon/swapoff to add and remove the cache.
+     
+     Attempting to remove an in-use cache would either fail EBUSY or mark the
+     cache to be removed when it becomes unused and not allow further new
+     users.
+
+ (*) Declare the size of the cache up front rather than declaring that it has
+     to maintain a certain amount of free space, reducing the cache to make
+     more space if the level drops.
+
+ (*) Merge cachefiles into fscache.  Give up the ability to have alternate
+     cache backends.  That would allow a bit more reduction in the complexity
+     and reduce the number of function pointers gone through.
+
+David
 
 --
 Linux-cachefs mailing list
