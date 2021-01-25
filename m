@@ -2,70 +2,66 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 39898300A85
-	for <lists+linux-cachefs@lfdr.de>; Fri, 22 Jan 2021 19:01:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 94F3A302E1B
+	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jan 2021 22:41:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1611610885;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=rNUjHVsXCC/hMjcYonsa/bgVMC5CQD04Y4xZsGJbU8Y=;
+	b=aevBXBqenv6vdUeLegoqD/H7mAsUpRTmZSMwnXKNnOX3hzHig6EHaPUiSwjyHU9BkKR1ce
+	loKqC1muV5cGWVYoUXtxRfbPOL0FpDxWchYFt2gf2N6q6tUE61TlL6qcH7Wau7OyDSbrPT
+	pTKEuGAc0oyqrhVLijOMyzdErIl5yRo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-549-xc06FAR0OzGcg2NcXPOEnA-1; Fri, 22 Jan 2021 13:01:53 -0500
-X-MC-Unique: xc06FAR0OzGcg2NcXPOEnA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-341-zYgOMvvyPIq-Uh4A7A69xw-1; Mon, 25 Jan 2021 16:41:24 -0500
+X-MC-Unique: zYgOMvvyPIq-Uh4A7A69xw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB624806665;
-	Fri, 22 Jan 2021 18:01:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 55513107ACE6;
+	Mon, 25 Jan 2021 21:41:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA17660C43;
-	Fri, 22 Jan 2021 18:01:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45B8A5D9DB;
+	Mon, 25 Jan 2021 21:41:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFBD6180954D;
-	Fri, 22 Jan 2021 18:01:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F810180954D;
+	Mon, 25 Jan 2021 21:41:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10MI1iTE016212 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 22 Jan 2021 13:01:44 -0500
+	id 10PLUvhY027531 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 25 Jan 2021 16:30:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9C2982166B39; Fri, 22 Jan 2021 18:01:44 +0000 (UTC)
+	id DFD2110016FF; Mon, 25 Jan 2021 21:30:57 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93AAF2166B35
-	for <linux-cachefs@redhat.com>; Fri, 22 Jan 2021 18:01:43 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A78E38039DD
-	for <linux-cachefs@redhat.com>; Fri, 22 Jan 2021 18:01:43 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-444-g4cZAnBIN-2L3U-0WgHdDQ-1;
-	Fri, 22 Jan 2021 13:01:41 -0500
-X-MC-Unique: g4cZAnBIN-2L3U-0WgHdDQ-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E19B323AC0;
-	Fri, 22 Jan 2021 17:51:25 +0000 (UTC)
-From: Jeff Layton <jlayton@kernel.org>
-To: ceph-devel@vger.kernel.org
-Date: Fri, 22 Jan 2021 12:51:18 -0500
-Message-Id: <20210122175119.364381-7-jlayton@kernel.org>
-In-Reply-To: <20210122175119.364381-1-jlayton@kernel.org>
-References: <20210122175119.364381-1-jlayton@kernel.org>
+Received: from warthog.procyon.org.uk (ovpn-115-23.rdu2.redhat.com
+	[10.10.115.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D1FE10013C1;
+	Mon, 25 Jan 2021 21:30:51 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Trond Myklebust <trondmy@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	Steve French <sfrench@samba.org>,
+	Dominique Martinet <asmadeus@codewreck.org>
+Date: Mon, 25 Jan 2021 21:30:50 +0000
+Message-ID: <161161025063.2537118.2009249444682241405.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 10MI1iTE016212
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: linux-cachefs@redhat.com
-Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
-	linux-kernel@vger.kernel.org, willy@infradead.org
-Subject: [Linux-cachefs] [RFC PATCH 6/6] ceph: convert ceph_readpages to
-	ceph_readahead
+X-Mailman-Approved-At: Mon, 25 Jan 2021 16:41:19 -0500
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH 00/32] Network fs helper library & fscache
+	kiocb API [ver #2]
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +75,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,278 +83,174 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert ceph_readpages to ceph_readahead and make it use
-netfs_readahead. With this we can rip out a lot of the old
-readpage/readpages infrastructure.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Here's a set of patches to do two things:
+
+ (1) Add a helper library to handle the new VM readahead interface.  This
+     is intended to be used unconditionally by the filesystem (whether or
+     not caching is enabled) and provides a common framework for doing
+     caching, transparent huge pages and, in the future, possibly fscrypt
+     and read bandwidth maximisation.  It also allows the netfs and the
+     cache to align, expand and slice up a read request from the VM in
+     various ways; the netfs need only provide a function to read a stretch
+     of data to the pagecache and the helper takes care of the rest.
+
+ (2) Add an alternative fscache/cachfiles I/O API that uses the kiocb
+     facility to do async DIO to transfer data to/from the netfs's pages,
+     rather than using readpage with wait queue snooping on one side and
+     vfs_write() on the other.  It also uses less memory, since it doesn't
+     do buffered I/O on the backing file.
+
+     Note that this uses SEEK_HOLE/SEEK_DATA to locate the data available
+     to be read from the cache.  Whilst this is an improvement from the
+     bmap interface, it still has a problem with regard to a modern
+     extent-based filesystem inserting or removing bridging blocks of
+     zeros.  Fixing that requires a much greater overhaul.
+
+This is a step towards overhauling the fscache API.  The change is opt-in
+on the part of the network filesystem.  A netfs should not try to mix the
+old and the new API because of conflicting ways of handling pages and the
+PG_fscache page flag and because it would be mixing DIO with buffered I/O.
+Further, the helper library can't be used with the old API.
+
+This does not change any of the fscache cookie handling APIs or the way
+invalidation is done.
+
+In the near term, I intend to deprecate and remove the old I/O API
+(fscache_allocate_page{,s}(), fscache_read_or_alloc_page{,s}(),
+fscache_write_page() and fscache_uncache_page()) and eventually replace
+most of fscache/cachefiles with something simpler and easier to follow.
+
+The patchset contains five parts:
+
+ (1) Some helper patches, including provision of an ITER_XARRAY iov
+     iterator and a function to do readahead expansion.
+
+ (2) Patches to add the netfs helper library.
+
+ (3) A patch to add the fscache/cachefiles kiocb API
+
+ (4) Patches to add support in AFS for this.
+
+ (5) Patches from David Wysochanski to add support in NFS for this.
+
+Jeff Layton also has patches for Ceph for this, though they're not included
+on this branch.
+
+With this, AFS without a cache passes all expected xfstests; with a cache,
+there's an extra failure, but that's also there before these patches.
+Fixing that probably requires a greater overhaul.  Ceph and NFS also pass
+the expected tests.
+
+These patches can be found also on:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-netfs-lib
+
+
+Changes
+=======
+
+ (v2) Fix some bugs and add NFS support.
+
+David
 ---
- fs/ceph/addr.c | 229 ++++++++-----------------------------------------
- 1 file changed, 34 insertions(+), 195 deletions(-)
+Dave Wysochanski (8):
+      NFS: Clean up nfs_readpage() and nfs_readpages()
+      NFS: In nfs_readpage() only increment NFSIOS_READPAGES when read succeeds
+      NFS: Refactor nfs_readpage() and nfs_readpage_async() to use nfs_readdesc
+      NFS: Call readpage_async_filler() from nfs_readpage_async()
+      NFS: Add nfs_pageio_complete_read() and remove nfs_readpage_async()
+      NFS: Allow internal use of read structs and functions
+      NFS: Convert to the netfs API and nfs_readpage to use netfs_readpage
+      NFS: Convert readpage to readahead and use netfs_readahead for fscache
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index b3b58285a997..d671c0cb1893 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -321,214 +321,53 @@ static int ceph_readpage(struct file *filp, struct page *page)
- 	return netfs_readpage(filp, page, &ceph_readpage_netfs_ops, NULL);
- }
- 
--/*
-- * Finish an async read(ahead) op.
-- */
--static void finish_read(struct ceph_osd_request *req)
-+static void ceph_readahead_cleanup(struct address_space *mapping, void *priv)
- {
--	struct inode *inode = req->r_inode;
--	struct ceph_fs_client *fsc = ceph_inode_to_client(inode);
--	struct ceph_osd_data *osd_data;
--	int rc = req->r_result <= 0 ? req->r_result : 0;
--	int bytes = req->r_result >= 0 ? req->r_result : 0;
--	int num_pages;
--	int i;
--
--	dout("finish_read %p req %p rc %d bytes %d\n", inode, req, rc, bytes);
--	if (rc == -EBLOCKLISTED)
--		ceph_inode_to_client(inode)->blocklisted = true;
--
--	/* unlock all pages, zeroing any data we didn't read */
--	osd_data = osd_req_op_extent_osd_data(req, 0);
--	BUG_ON(osd_data->type != CEPH_OSD_DATA_TYPE_PAGES);
--	num_pages = calc_pages_for((u64)osd_data->alignment,
--					(u64)osd_data->length);
--	for (i = 0; i < num_pages; i++) {
--		struct page *page = osd_data->pages[i];
--
--		if (rc < 0 && rc != -ENOENT)
--			goto unlock;
--		if (bytes < (int)PAGE_SIZE) {
--			/* zero (remainder of) page */
--			int s = bytes < 0 ? 0 : bytes;
--			zero_user_segment(page, s, PAGE_SIZE);
--		}
-- 		dout("finish_read %p uptodate %p idx %lu\n", inode, page,
--		     page->index);
--		flush_dcache_page(page);
--		SetPageUptodate(page);
--unlock:
--		unlock_page(page);
--		put_page(page);
--		bytes -= PAGE_SIZE;
--	}
--
--	ceph_update_read_latency(&fsc->mdsc->metric, req->r_start_latency,
--				 req->r_end_latency, rc);
--
--	kfree(osd_data->pages);
--}
--
--/*
-- * start an async read(ahead) operation.  return nr_pages we submitted
-- * a read for on success, or negative error code.
-- */
--static int start_read(struct inode *inode, struct ceph_rw_context *rw_ctx,
--		      struct list_head *page_list, int max)
--{
--	struct ceph_osd_client *osdc =
--		&ceph_inode_to_client(inode)->client->osdc;
-+	struct inode *inode = mapping->host;
- 	struct ceph_inode_info *ci = ceph_inode(inode);
--	struct page *page = lru_to_page(page_list);
--	struct ceph_vino vino;
--	struct ceph_osd_request *req;
--	u64 off;
--	u64 len;
--	int i;
--	struct page **pages;
--	pgoff_t next_index;
--	int nr_pages = 0;
--	int got = 0;
--	int ret = 0;
--
--	if (!rw_ctx) {
--		/* caller of readpages does not hold buffer and read caps
--		 * (fadvise, madvise and readahead cases) */
--		int want = CEPH_CAP_FILE_CACHE;
--		ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want,
--					true, &got);
--		if (ret < 0) {
--			dout("start_read %p, error getting cap\n", inode);
--		} else if (!(got & want)) {
--			dout("start_read %p, no cache cap\n", inode);
--			ret = 0;
--		}
--		if (ret <= 0) {
--			if (got)
--				ceph_put_cap_refs(ci, got);
--			while (!list_empty(page_list)) {
--				page = lru_to_page(page_list);
--				list_del(&page->lru);
--				put_page(page);
--			}
--			return ret;
--		}
--	}
--
--	off = (u64) page_offset(page);
--
--	/* count pages */
--	next_index = page->index;
--	list_for_each_entry_reverse(page, page_list, lru) {
--		if (page->index != next_index)
--			break;
--		nr_pages++;
--		next_index++;
--		if (max && nr_pages == max)
--			break;
--	}
--	len = nr_pages << PAGE_SHIFT;
--	dout("start_read %p nr_pages %d is %lld~%lld\n", inode, nr_pages,
--	     off, len);
--	vino = ceph_vino(inode);
--	req = ceph_osdc_new_request(osdc, &ci->i_layout, vino, off, &len,
--				    0, 1, CEPH_OSD_OP_READ,
--				    CEPH_OSD_FLAG_READ, NULL,
--				    ci->i_truncate_seq, ci->i_truncate_size,
--				    false);
--	if (IS_ERR(req)) {
--		ret = PTR_ERR(req);
--		goto out;
--	}
--
--	/* build page vector */
--	nr_pages = calc_pages_for(0, len);
--	pages = kmalloc_array(nr_pages, sizeof(*pages), GFP_KERNEL);
--	if (!pages) {
--		ret = -ENOMEM;
--		goto out_put;
--	}
--	for (i = 0; i < nr_pages; ++i) {
--		page = list_entry(page_list->prev, struct page, lru);
--		BUG_ON(PageLocked(page));
--		list_del(&page->lru);
--
-- 		dout("start_read %p adding %p idx %lu\n", inode, page,
--		     page->index);
--		if (add_to_page_cache_lru(page, &inode->i_data, page->index,
--					  GFP_KERNEL)) {
--			put_page(page);
--			dout("start_read %p add_to_page_cache failed %p\n",
--			     inode, page);
--			nr_pages = i;
--			if (nr_pages > 0) {
--				len = nr_pages << PAGE_SHIFT;
--				osd_req_op_extent_update(req, 0, len);
--				break;
--			}
--			goto out_pages;
--		}
--		pages[i] = page;
--	}
--	osd_req_op_extent_osd_data_pages(req, 0, pages, len, 0, false, false);
--	req->r_callback = finish_read;
--	req->r_inode = inode;
--
--	dout("start_read %p starting %p %lld~%lld\n", inode, req, off, len);
--	ret = ceph_osdc_start_request(osdc, req, false);
--	if (ret < 0)
--		goto out_pages;
--	ceph_osdc_put_request(req);
-+	int got = (int)(uintptr_t)priv;
- 
--	/* After adding locked pages to page cache, the inode holds cache cap.
--	 * So we can drop our cap refs. */
- 	if (got)
- 		ceph_put_cap_refs(ci, got);
--
--	return nr_pages;
--
--out_pages:
--	for (i = 0; i < nr_pages; ++i)
--		unlock_page(pages[i]);
--	ceph_put_page_vector(pages, nr_pages, false);
--out_put:
--	ceph_osdc_put_request(req);
--out:
--	if (got)
--		ceph_put_cap_refs(ci, got);
--	return ret;
- }
-+const struct netfs_read_request_ops ceph_readahead_netfs_ops = {
-+	.init_rreq		= ceph_init_rreq,
-+	.is_cache_enabled	= ceph_is_cache_enabled,
-+	.begin_cache_operation	= ceph_begin_cache_operation,
-+	.issue_op		= ceph_netfs_issue_op,
-+	.clamp_length		= ceph_netfs_clamp_length,
-+	.cleanup		= ceph_readahead_cleanup,
-+};
- 
--
--/*
-- * Read multiple pages.  Leave pages we don't read + unlock in page_list;
-- * the caller (VM) cleans them up.
-- */
--static int ceph_readpages(struct file *file, struct address_space *mapping,
--			  struct list_head *page_list, unsigned nr_pages)
-+static void ceph_readahead(struct readahead_control *ractl)
- {
--	struct inode *inode = file_inode(file);
--	struct ceph_fs_client *fsc = ceph_inode_to_client(inode);
--	struct ceph_file_info *fi = file->private_data;
-+	struct inode *inode = file_inode(ractl->file);
-+	struct ceph_file_info *fi = ractl->file->private_data;
- 	struct ceph_rw_context *rw_ctx;
--	int rc = 0;
--	int max = 0;
-+	int got = 0;
-+	int ret = 0;
- 
- 	if (ceph_inode(inode)->i_inline_version != CEPH_INLINE_NONE)
--		return -EINVAL;
-+		return;
- 
- 	rw_ctx = ceph_find_rw_context(fi);
--	max = fsc->mount_options->rsize >> PAGE_SHIFT;
--	dout("readpages %p file %p ctx %p nr_pages %d max %d\n",
--	     inode, file, rw_ctx, nr_pages, max);
--	while (!list_empty(page_list)) {
--		rc = start_read(inode, rw_ctx, page_list, max);
--		if (rc < 0)
--			goto out;
-+	if (!rw_ctx) {
-+		/*
-+		 * readahead callers do not necessarily hold Fcb caps
-+		 * (e.g. fadvise, madvise).
-+		 */
-+		int want = CEPH_CAP_FILE_CACHE;
-+
-+		ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want, true, &got);
-+		if (ret < 0)
-+			dout("start_read %p, error getting cap\n", inode);
-+		else if (!(got & want))
-+			dout("start_read %p, no cache cap\n", inode);
-+
-+		if (ret <= 0)
-+			return;
- 	}
--out:
--	dout("readpages %p file %p ret %d\n", inode, file, rc);
--	return rc;
-+	netfs_readahead(ractl, &ceph_readahead_netfs_ops, (void *)(uintptr_t)got);
- }
- 
- struct ceph_writeback_ctl
-@@ -1481,7 +1320,7 @@ static ssize_t ceph_direct_io(struct kiocb *iocb, struct iov_iter *iter)
- 
- const struct address_space_operations ceph_aops = {
- 	.readpage = ceph_readpage,
--	.readpages = ceph_readpages,
-+	.readahead = ceph_readahead,
- 	.writepage = ceph_writepage,
- 	.writepages = ceph_writepages_start,
- 	.write_begin = ceph_write_begin,
--- 
-2.29.2
+David Howells (24):
+      iov_iter: Add ITER_XARRAY
+      vm: Add wait/unlock functions for PG_fscache
+      mm: Implement readahead_control pageset expansion
+      vfs: Export rw_verify_area() for use by cachefiles
+      netfs: Make a netfs helper module
+      netfs: Provide readahead and readpage netfs helpers
+      netfs: Add tracepoints
+      netfs: Gather stats
+      netfs: Add write_begin helper
+      netfs: Define an interface to talk to a cache
+      fscache, cachefiles: Add alternate API to use kiocb for read/write to cache
+      afs: Disable use of the fscache I/O routines
+      afs: Pass page into dirty region helpers to provide THP size
+      afs: Print the operation debug_id when logging an unexpected data version
+      afs: Move key to afs_read struct
+      afs: Don't truncate iter during data fetch
+      afs: Log remote unmarshalling errors
+      afs: Set up the iov_iter before calling afs_extract_data()
+      afs: Use ITER_XARRAY for writing
+      afs: Wait on PG_fscache before modifying/releasing a page
+      afs: Extract writeback extension into its own function
+      afs: Prepare for use of THPs
+      afs: Use the fs operation ops to handle FetchData completion
+      afs: Use new fscache read helper API
+
+
+ fs/Kconfig                    |    1 +
+ fs/Makefile                   |    1 +
+ fs/afs/Kconfig                |    1 +
+ fs/afs/dir.c                  |  225 ++++---
+ fs/afs/file.c                 |  472 ++++----------
+ fs/afs/fs_operation.c         |    4 +-
+ fs/afs/fsclient.c             |  108 +--
+ fs/afs/inode.c                |    7 +-
+ fs/afs/internal.h             |   57 +-
+ fs/afs/rxrpc.c                |  150 ++---
+ fs/afs/write.c                |  610 +++++++++--------
+ fs/afs/yfsclient.c            |   82 +--
+ fs/cachefiles/Makefile        |    1 +
+ fs/cachefiles/interface.c     |    5 +-
+ fs/cachefiles/internal.h      |    9 +
+ fs/cachefiles/rdwr2.c         |  412 ++++++++++++
+ fs/fscache/Kconfig            |    1 +
+ fs/fscache/Makefile           |    3 +-
+ fs/fscache/internal.h         |    3 +
+ fs/fscache/page.c             |    2 +-
+ fs/fscache/page2.c            |  116 ++++
+ fs/fscache/stats.c            |    1 +
+ fs/internal.h                 |    5 -
+ fs/netfs/Kconfig              |   23 +
+ fs/netfs/Makefile             |    5 +
+ fs/netfs/internal.h           |   97 +++
+ fs/netfs/read_helper.c        | 1155 +++++++++++++++++++++++++++++++++
+ fs/netfs/stats.c              |   59 ++
+ fs/nfs/file.c                 |    2 +-
+ fs/nfs/fscache.c              |  206 +++---
+ fs/nfs/fscache.h              |   66 +-
+ fs/nfs/internal.h             |    8 +
+ fs/nfs/pagelist.c             |    2 +
+ fs/nfs/read.c                 |  244 ++++---
+ fs/read_write.c               |    1 +
+ include/linux/fs.h            |    1 +
+ include/linux/fscache-cache.h |    4 +
+ include/linux/fscache.h       |   28 +-
+ include/linux/netfs.h         |  167 +++++
+ include/linux/nfs_fs.h        |    5 +-
+ include/linux/nfs_iostat.h    |    2 +-
+ include/linux/nfs_page.h      |    1 +
+ include/linux/nfs_xdr.h       |    1 +
+ include/linux/pagemap.h       |   16 +
+ include/net/af_rxrpc.h        |    2 +-
+ include/trace/events/afs.h    |   74 +--
+ include/trace/events/netfs.h  |  201 ++++++
+ mm/filemap.c                  |   18 +
+ mm/readahead.c                |   70 ++
+ net/rxrpc/recvmsg.c           |    9 +-
+ 50 files changed, 3457 insertions(+), 1286 deletions(-)
+ create mode 100644 fs/cachefiles/rdwr2.c
+ create mode 100644 fs/fscache/page2.c
+ create mode 100644 fs/netfs/Kconfig
+ create mode 100644 fs/netfs/Makefile
+ create mode 100644 fs/netfs/internal.h
+ create mode 100644 fs/netfs/read_helper.c
+ create mode 100644 fs/netfs/stats.c
+ create mode 100644 include/linux/netfs.h
+ create mode 100644 include/trace/events/netfs.h
 
 
 --
