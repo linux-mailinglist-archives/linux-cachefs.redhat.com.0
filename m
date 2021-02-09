@@ -1,69 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 764623157A1
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Feb 2021 21:22:01 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 83A3731584F
+	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Feb 2021 22:10:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1612905058;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=YNVV0vxxMHPrfKXZu1lVqHZuW+vTT8DDAJDFk8t8+LU=;
+	b=BHeLxqaQ+8xb0yhRD+OBS9iSPbWRMgKORjCRU0BD6BlnUtv07yXkrVmndbVSyerffU2ocz
+	gnnBPPUynmovbxxnQIJBXs0A8gwE9cki7CIDIseNBtxo8w1Zc0ZQLzgFgITIlaqFtJw90z
+	VIHTxJs7ub17EXv9NFXypvMl6VfdRAk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-P7CqncAVMG6PqO22wERprg-1; Tue, 09 Feb 2021 15:21:58 -0500
-X-MC-Unique: P7CqncAVMG6PqO22wERprg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-116-OOBvdSSMNZuqFdLDIXEaXA-1; Tue, 09 Feb 2021 16:10:56 -0500
+X-MC-Unique: OOBvdSSMNZuqFdLDIXEaXA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A010C73A2;
-	Tue,  9 Feb 2021 20:21:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E3B119C59;
-	Tue,  9 Feb 2021 20:21:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 908D2192CC40;
+	Tue,  9 Feb 2021 21:10:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37C0910016FC;
+	Tue,  9 Feb 2021 21:10:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 309254E58E;
-	Tue,  9 Feb 2021 20:21:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D542918095CB;
+	Tue,  9 Feb 2021 21:10:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 119KLoaH011883 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 9 Feb 2021 15:21:50 -0500
+	id 119LAoix017239 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 9 Feb 2021 16:10:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6662B2166B2B; Tue,  9 Feb 2021 20:21:50 +0000 (UTC)
+	id 18A972BFE2; Tue,  9 Feb 2021 21:10:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 611B92166B2A
-	for <linux-cachefs@redhat.com>; Tue,  9 Feb 2021 20:21:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D691C802A69
-	for <linux-cachefs@redhat.com>; Tue,  9 Feb 2021 20:21:44 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-302-fyEwHOkcMRq_ooZpIlX55Q-1; Tue, 09 Feb 2021 15:21:41 -0500
-X-MC-Unique: fyEwHOkcMRq_ooZpIlX55Q-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1l9ZVu-007usA-1c; Tue, 09 Feb 2021 20:21:35 +0000
-Date: Tue, 9 Feb 2021 20:21:34 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20210209202134.GA308988@casper.infradead.org>
-References: <591237.1612886997@warthog.procyon.org.uk>
-	<CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
-MIME-Version: 1.0
+Received: from warthog.procyon.org.uk (ovpn-115-23.rdu2.redhat.com
+	[10.10.115.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BDE796062F;
+	Tue,  9 Feb 2021 21:10:43 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
 In-Reply-To: <CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+References: <CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
+	<591237.1612886997@warthog.procyon.org.uk>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+MIME-Version: 1.0
+Date: Tue, 09 Feb 2021 21:10:42 +0000
+Message-ID: <617685.1612905042@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, "open list:NFS, SUNRPC,
 	AND..." <linux-nfs@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
 	linux-afs@lists.infradead.org, linux-cachefs@redhat.com,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Trond Myklebust <trondmy@hammerspace.com>,
@@ -72,7 +69,7 @@ Cc: Steve French <sfrench@samba.org>, "open list:NFS, SUNRPC,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	Dominique Martinet <asmadeus@codewreck.org>
 Subject: Re: [Linux-cachefs] [GIT PULL] fscache: I/O API modernisation and
- netfs helper library
+	netfs helper library
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,63 +83,49 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <617684.1612905042.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 09, 2021 at 11:06:41AM -0800, Linus Torvalds wrote:
-> So I'm looking at this early, because I have more time now than I will
-> have during the merge window, and honestly, your pull requests have
-> been problematic in the past.
-
-Thanks for looking at this early.
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
 > The PG_fscache bit waiting functions are completely crazy. The comment
-> about "this will wake up others" is actively wrong, and the waiting
-> function looks insane, because you're mixing the two names for
-> "fscache" which makes the code look totally incomprehensible. Why
-> would we wait for PF_fscache, when PG_private_2 was set? Yes, I know
-> why, but the code looks entirely nonsensical.
+> about "this will wake up others" is actively wrong,
 
-Yeah, I have trouble with the private2 vs fscache bit too.  I've been
-trying to persuade David that he doesn't actually need an fscache
-bit at all; he can just increment the page's refcount to prevent it
-from being freed while he writes data to the cache.
+You mean this?
 
-> But the thing that makes me go "No, I won't pull this", is that it has
-> all the same hallmark signs of trouble that I've complained about
-> before: I see absolutely zero sign of "this has more developers
-> involved".
+/**
+ * unlock_page_fscache - Unlock a page pinned with PG_fscache
+ * @page: The page
+ *
+ * Unlocks the page and wakes up sleepers in wait_on_page_fscache().  Also
+ * wakes those waiting for the lock and writeback bits because the wakeup
+ * mechanism is shared.  But that's OK - those sleepers will just go back to
+ * sleep.
+ */
 
-I've been involved!  I really want to get rid of the address_space
-readpages op.  The only remaining users are the filesystems which
-use fscache and it's hard to convert them with the old infrastructure.
-I'm not 100% convinced that the new infrastructure is good, but I am
-convinced that it's better than the old infrastructure.
+Actually, you're right.  The wakeup check func is evaluated by the
+waker-upper.  I can fix the comment with a patch.
 
-> There's not a single ack from a VM person for the VM changes. There's
-> no sign that this isn't yet another "David Howells went off alone and
-> did something that absolutely nobody else cared about".
+> and the waiting function looks insane, because you're mixing the two names
+> for "fscache" which makes the code look totally incomprehensible. Why would
+> we wait for PF_fscache, when PG_private_2 was set? Yes, I know why, but the
+> code looks entirely nonsensical.
 
-I'm pretty bad about sending R-b for patches when I've only given them
-a quick once-over.  I tend to only do it for patches that I've given an
-appropriately deep amount of thought to (eg almost none for spelling
-fixes and days for page cache related patches).  I'll see what I feel
-comfortable with for this patchset.
+IIRC someone insisted that I should make it a generic name and put the
+accessor functions in the fscache headers (which means they aren't available
+to core code), but I don't remember who (maybe Andrew? it was before mid-2007)
+- kind of like PG_checked is an alias for PG_owner_priv_1.
 
-> See my problem? I need to be convinced that this makes sense outside
-> of your world, and it's not yet another thing that will cause problems
-> down the line because nobody else really ever used it or cared about
-> it until we hit a snag.
+I'd be quite happy to move the accessors for PG_fscache to the
+linux/page-flags.h as that would simplify things.
 
-My major concern is that we haven't had any feedback from Trond or Anna.
-I don't know if they're just too busy or if there's something else going
-on, but it'd be nice to hear something.
+David
 
 --
 Linux-cachefs mailing list
