@@ -1,66 +1,96 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 83A3731584F
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Feb 2021 22:10:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612905058;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=YNVV0vxxMHPrfKXZu1lVqHZuW+vTT8DDAJDFk8t8+LU=;
-	b=BHeLxqaQ+8xb0yhRD+OBS9iSPbWRMgKORjCRU0BD6BlnUtv07yXkrVmndbVSyerffU2ocz
-	gnnBPPUynmovbxxnQIJBXs0A8gwE9cki7CIDIseNBtxo8w1Zc0ZQLzgFgITIlaqFtJw90z
-	VIHTxJs7ub17EXv9NFXypvMl6VfdRAk=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id EBDBC315876
+	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Feb 2021 22:19:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-116-OOBvdSSMNZuqFdLDIXEaXA-1; Tue, 09 Feb 2021 16:10:56 -0500
-X-MC-Unique: OOBvdSSMNZuqFdLDIXEaXA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-281-nWhIMrrQPze9qk-G-B-bpg-1; Tue, 09 Feb 2021 16:19:35 -0500
+X-MC-Unique: nWhIMrrQPze9qk-G-B-bpg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 908D2192CC40;
-	Tue,  9 Feb 2021 21:10:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC74C107ACC7;
+	Tue,  9 Feb 2021 21:19:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37C0910016FC;
-	Tue,  9 Feb 2021 21:10:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A8A850F1A;
+	Tue,  9 Feb 2021 21:19:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D542918095CB;
-	Tue,  9 Feb 2021 21:10:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5395818095CB;
+	Tue,  9 Feb 2021 21:19:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 119LAoix017239 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 9 Feb 2021 16:10:50 -0500
+	id 119LJS1O018474 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 9 Feb 2021 16:19:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 18A972BFE2; Tue,  9 Feb 2021 21:10:50 +0000 (UTC)
+	id 704FD2166B2A; Tue,  9 Feb 2021 21:19:28 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-115-23.rdu2.redhat.com
-	[10.10.115.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BDE796062F;
-	Tue,  9 Feb 2021 21:10:43 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
-References: <CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
-	<591237.1612886997@warthog.procyon.org.uk>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ADCE2166B27
+	for <linux-cachefs@redhat.com>; Tue,  9 Feb 2021 21:19:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37AEE800969
+	for <linux-cachefs@redhat.com>; Tue,  9 Feb 2021 21:19:26 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+	[209.85.167.50]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-424--ZBEf8fjOFyFl-lUfwIfQA-1; Tue, 09 Feb 2021 16:19:22 -0500
+X-MC-Unique: -ZBEf8fjOFyFl-lUfwIfQA-1
+Received: by mail-lf1-f50.google.com with SMTP id w36so16992518lfu.4
+	for <linux-cachefs@redhat.com>; Tue, 09 Feb 2021 13:19:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=5NXrj70SaJJJRtMQWC0+3w4cmGywCfZjtndBL9rb8Bo=;
+	b=YecMiPoWOAyXMlqCnAaXhtCIoQDdemb4HauDd8wLOJglH6m5lfL81Bfb+Vy0Z0keg9
+	kQh3QQXFod2VV9cYOKfHlrHFYVLsgXxLBf6SlNVnb8PFk+m7hXTFx3zGDNjiZdtWHrAF
+	ALecRHDaeOQzFHm+wPCKs3Ugy5mT0xAkm0ll7G20cTwFKVZatUcOk1V9xwBnkxBKJhKh
+	Qn3Cr73BhHATnxLXyzJ5QKtElLJ1yIuzvFyN2p3xxW5JEfnr0fU24LuH3abjjd2gV62b
+	y9MVJgfoYkK6mgbatyBpe+lw7CbIL7OAR7ThWiSo+paaRrlbgDyD4INnQ8sofaOsHSae
+	J2SA==
+X-Gm-Message-State: AOAM532x/Nyl02GcoQhVgXTy5lsAC9kVtYih0IsqdSH0THfaD6cqSQCY
+	ENXCUJj6KZrbaowapwtLVCsJVA9BolkHNw==
+X-Google-Smtp-Source: ABdhPJzpHiv8FOMqJcilIJA3h+amQslF4fuM7PlnsiUHQQTjrkAREsBtspo2Qt67G1AY8D9NDUvT4g==
+X-Received: by 2002:ac2:4c92:: with SMTP id d18mr13689497lfl.176.1612905560355;
+	Tue, 09 Feb 2021 13:19:20 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com.
+	[209.85.208.172]) by smtp.gmail.com with ESMTPSA id
+	y27sm343397lfg.273.2021.02.09.13.19.17 for <linux-cachefs@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 09 Feb 2021 13:19:18 -0800 (PST)
+Received: by mail-lj1-f172.google.com with SMTP id a22so5274ljp.10
+	for <linux-cachefs@redhat.com>; Tue, 09 Feb 2021 13:19:17 -0800 (PST)
+X-Received: by 2002:a2e:b1c8:: with SMTP id e8mr15253931lja.251.1612905557284; 
+	Tue, 09 Feb 2021 13:19:17 -0800 (PST)
 MIME-Version: 1.0
-Date: Tue, 09 Feb 2021 21:10:42 +0000
-Message-ID: <617685.1612905042@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <591237.1612886997@warthog.procyon.org.uk>
+	<CAHk-=wj-k86FOqAVQ4ScnBkX3YEKuMzqTEB2vixdHgovJpHc9w@mail.gmail.com>
+	<20210209202134.GA308988@casper.infradead.org>
+In-Reply-To: <20210209202134.GA308988@casper.infradead.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 9 Feb 2021 13:19:01 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wh+2gbF7XEjYc=HV9w_2uVzVf7vs60BPz0gFA=+pUm3ww@mail.gmail.com>
+Message-ID: <CAHk-=wh+2gbF7XEjYc=HV9w_2uVzVf7vs60BPz0gFA=+pUm3ww@mail.gmail.com>
+To: Matthew Wilcox <willy@infradead.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, "open list:NFS, SUNRPC,
 	AND..." <linux-nfs@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
 	linux-afs@lists.infradead.org, linux-cachefs@redhat.com,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Trond Myklebust <trondmy@hammerspace.com>,
@@ -83,49 +113,38 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <617684.1612905042.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+On Tue, Feb 9, 2021 at 12:21 PM Matthew Wilcox <willy@infradead.org> wrote:
+>
+> Yeah, I have trouble with the private2 vs fscache bit too.  I've been
+> trying to persuade David that he doesn't actually need an fscache
+> bit at all; he can just increment the page's refcount to prevent it
+> from being freed while he writes data to the cache.
 
-> The PG_fscache bit waiting functions are completely crazy. The comment
-> about "this will wake up others" is actively wrong,
+Does the code not hold a refcount already?
 
-You mean this?
+Honestly, the fact that writeback doesn't take a refcount, and then
+has magic "if writeback is set, don't free" code in other parts of the
+VM layer has been a problem already, when the wakeup ended up
+"leaking" from a previous page to a new allocation.
 
-/**
- * unlock_page_fscache - Unlock a page pinned with PG_fscache
- * @page: The page
- *
- * Unlocks the page and wakes up sleepers in wait_on_page_fscache().  Also
- * wakes those waiting for the lock and writeback bits because the wakeup
- * mechanism is shared.  But that's OK - those sleepers will just go back to
- * sleep.
- */
+I very much hope the fscache bit does not make similar mistakes,
+because the rest of the VM will _not_ have special "if fscache is set,
+then we won't do X" the way we do for writeback.
 
-Actually, you're right.  The wakeup check func is evaluated by the
-waker-upper.  I can fix the comment with a patch.
+So I think the fscache code needs to hold a refcount regardless, and
+that the fscache bit is set the page has to have a reference.
 
-> and the waiting function looks insane, because you're mixing the two names
-> for "fscache" which makes the code look totally incomprehensible. Why would
-> we wait for PF_fscache, when PG_private_2 was set? Yes, I know why, but the
-> code looks entirely nonsensical.
+So what are the current lifetime rules for the fscache bit?
 
-IIRC someone insisted that I should make it a generic name and put the
-accessor functions in the fscache headers (which means they aren't available
-to core code), but I don't remember who (maybe Andrew? it was before mid-2007)
-- kind of like PG_checked is an alias for PG_owner_priv_1.
-
-I'd be quite happy to move the accessors for PG_fscache to the
-linux/page-flags.h as that would simplify things.
-
-David
+             Linus
 
 --
 Linux-cachefs mailing list
