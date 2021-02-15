@@ -2,47 +2,47 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E539322866
-	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 11:01:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3FDD332286E
+	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 11:01:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614074477;
+	s=mimecast20190719; t=1614074501;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dervTzW/eRzlU5NzTJbKXQBDbgeaBMC3f/1HXXglLko=;
-	b=S60Cr5a59SF7HGEW5mPEufQOnzZsLSOuHz0rvKB0OLdqWZXf7nLywtodolrI6dpWSinmV3
-	btAglH8BmX27l0hbMJV4O1BJa2laNaohj5tTLEpWomLu0Hf+RFh2l2iL0ZOSTGTlSI2rDx
-	Ps1ts/MEr/TZWKtR+2S7uIIrXiDdEHY=
+	bh=qY0ikCDK+Y3GDVDPA9CZCzrseKXcR5FOnj+k9xkfs6c=;
+	b=hHnsx1UURDxt4kqbIi9XHP67lOE0iCG29r+vDS64PHMtEq47paX1ShhfHL6UQQhHEgEpc6
+	03G2zV7WcH1UhmCqIXSE6XwsOUK3PYcMr/ur5F8ISRh3HR1oiGR+EGr/QrDL1TnfdVAvt1
+	+XZnSACHlNyadIVW1mfh5n92UWLJKzk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-360-g0MztGRGMMS-I5b7CGty2A-1; Tue, 23 Feb 2021 04:59:36 -0500
-X-MC-Unique: g0MztGRGMMS-I5b7CGty2A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-240-sJVI8oabN9CUMhPbxc5gVQ-1; Tue, 23 Feb 2021 04:59:39 -0500
+X-MC-Unique: sJVI8oabN9CUMhPbxc5gVQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5F67A5B397;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7993801A9B;
 	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F2D777718;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5FA0722D0;
 	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 31CAD57DFA;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8FE2118095CB;
 	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11FFjINX022945 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 15 Feb 2021 10:45:18 -0500
+	id 11FFjU4j022963 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 15 Feb 2021 10:45:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3C7EE5DA2D; Mon, 15 Feb 2021 15:45:18 +0000 (UTC)
+	id 6D4525D9E4; Mon, 15 Feb 2021 15:45:30 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
 	[10.10.119.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 233A15D9C0;
-	Mon, 15 Feb 2021 15:45:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4DC845D9C0;
+	Mon, 15 Feb 2021 15:45:24 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -52,8 +52,8 @@ To: Trond Myklebust <trondmy@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	Steve French <sfrench@samba.org>,
 	Dominique Martinet <asmadeus@codewreck.org>
-Date: Mon, 15 Feb 2021 15:45:14 +0000
-Message-ID: <161340391427.1303470.14884950716721956560.stgit@warthog.procyon.org.uk>
+Date: Mon, 15 Feb 2021 15:45:23 +0000
+Message-ID: <161340392347.1303470.18065131603507621762.stgit@warthog.procyon.org.uk>
 In-Reply-To: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 References: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
@@ -68,7 +68,8 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH 05/33] netfs: Make a netfs helper module
+Subject: [Linux-cachefs] [PATCH 06/33] netfs,
+ mm: Move PG_fscache helper funcs to linux/netfs.h
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +83,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,12 +91,12 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Make a netfs helper module to manage read request segmentation, caching
-support and transparent huge page support on behalf of a network
-filesystem.
+Move the PG_fscache related helper funcs (such as SetPageFsCache()) to
+linux/netfs.h rather than linux/fscache.h as the intention is to move to a
+model where they're used by the network filesystem and the helper library,
+but not by fscache/cachefiles itself.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@redhat.com>
 cc: Matthew Wilcox <willy@infradead.org>
 cc: linux-mm@kvack.org
 cc: linux-cachefs@redhat.com
@@ -107,24 +108,71 @@ cc: v9fs-developer@lists.sourceforge.net
 cc: linux-fsdevel@vger.kernel.org
 ---
 
- fs/netfs/Kconfig |    8 ++++++++
- 1 file changed, 8 insertions(+)
- create mode 100644 fs/netfs/Kconfig
+ include/linux/fscache.h |   11 +----------
+ include/linux/netfs.h   |   25 +++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+), 10 deletions(-)
+ create mode 100644 include/linux/netfs.h
 
-diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
+diff --git a/include/linux/fscache.h b/include/linux/fscache.h
+index a1c928fe98e7..1f8dc72369ee 100644
+--- a/include/linux/fscache.h
++++ b/include/linux/fscache.h
+@@ -19,6 +19,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/pagevec.h>
+ #include <linux/list_bl.h>
++#include <linux/netfs.h>
+ 
+ #if defined(CONFIG_FSCACHE) || defined(CONFIG_FSCACHE_MODULE)
+ #define fscache_available() (1)
+@@ -29,16 +30,6 @@
+ #endif
+ 
+ 
+-/*
+- * overload PG_private_2 to give us PG_fscache - this is used to indicate that
+- * a page is currently backed by a local disk cache
+- */
+-#define PageFsCache(page)		PagePrivate2((page))
+-#define SetPageFsCache(page)		SetPagePrivate2((page))
+-#define ClearPageFsCache(page)		ClearPagePrivate2((page))
+-#define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
+-#define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
+-
+ /* pattern used to fill dead space in an index entry */
+ #define FSCACHE_INDEX_DEADFILL_PATTERN 0x79
+ 
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
 new file mode 100644
-index 000000000000..2ebf90e6ca95
+index 000000000000..b3d869ec7d2a
 --- /dev/null
-+++ b/fs/netfs/Kconfig
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++++ b/include/linux/netfs.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Network filesystem support services.
++ *
++ * Copyright (C) 2021 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ *
++ * for a description of the network filesystem interface declared here.
++ */
 +
-+config NETFS_SUPPORT
-+	tristate "Support for network filesystem high-level I/O"
-+	help
-+	  This option enables support for network filesystems, including
-+	  helpers for high-level buffered I/O, abstracting out read
-+	  segmentation, local caching and transparent huge page support.
++#ifndef _LINUX_NETFS_H
++#define _LINUX_NETFS_H
++
++#include <linux/pagemap.h>
++
++/*
++ * Overload PG_private_2 to give us PG_fscache - this is used to indicate that
++ * a page is currently backed by a local disk cache
++ */
++#define PageFsCache(page)		PagePrivate2((page))
++#define SetPageFsCache(page)		SetPagePrivate2((page))
++#define ClearPageFsCache(page)		ClearPagePrivate2((page))
++#define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
++#define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
++
++#endif /* _LINUX_NETFS_H */
 
 
 --
