@@ -1,48 +1,48 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 19336322840
-	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 10:59:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7347F322839
+	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 10:59:38 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614074381;
+	s=mimecast20190719; t=1614074377;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sBx8wY46OJijVwA5KcJa8BTEXk8fSsN8wwLagtAuoyg=;
-	b=RlJL4E5BE8LNE70yw6f0EIbMSNsbAREkhuVFomJNAnysqTUme7e4vx85N+y/dEwbRGV+4P
-	y385kVPQPfZR1ubroFeJcNQqUl4oMCXN+k1bUx9Z1ixIgzgp2Z5n71hd4gS5cqClB+gQmt
-	nrIhHJQTgkCwo+CF6jqbmW4ZdKkHGJM=
+	bh=qUrlQDNPUbwl1hDwJLaNxHRcLSzbEN0471ysz41nLPY=;
+	b=Wgwwwin/tPjq7+bVZcwFzaEBVS5XyqbKrlftulEUAL3Z9x0QMmVbjP9/5vvOD7gwKWDt0g
+	Js9BLS7RVdSaKFHwWqB9HTRDNf8g0Dk1AqgAruv0N4Y3EVUKEQU/rkLMkxNd5wTpAfVqL0
+	L26XVeren0JrHsTFuFAV98cVrJEW/sM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-53-7ZQ5H8I3Owaqr8G2PdIpjw-1; Tue, 23 Feb 2021 04:59:39 -0500
-X-MC-Unique: 7ZQ5H8I3Owaqr8G2PdIpjw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-212-jL3wYps8NEepfRf6hwNnTg-1; Tue, 23 Feb 2021 04:59:36 -0500
+X-MC-Unique: jL3wYps8NEepfRf6hwNnTg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3651814329;
-	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C11A119725;
-	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E477918A822C;
+	Tue, 23 Feb 2021 09:59:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D23F6722D0;
+	Tue, 23 Feb 2021 09:59:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA0D518089C9;
-	Tue, 23 Feb 2021 09:59:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B91F189C7;
+	Tue, 23 Feb 2021 09:59:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11FFjh3c022988 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 15 Feb 2021 10:45:43 -0500
+	id 11FFkIVd023050 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 15 Feb 2021 10:46:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B0CF39A4E; Mon, 15 Feb 2021 15:45:43 +0000 (UTC)
+	id 6ED725D9CD; Mon, 15 Feb 2021 15:46:18 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
 	[10.10.119.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BB4A519C99;
-	Mon, 15 Feb 2021 15:45:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F32BB5D9C0;
+	Mon, 15 Feb 2021 15:46:11 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -52,13 +52,13 @@ To: Trond Myklebust <trondmy@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	Steve French <sfrench@samba.org>,
 	Dominique Martinet <asmadeus@codewreck.org>
-Date: Mon, 15 Feb 2021 15:45:35 +0000
-Message-ID: <161340393568.1303470.4997526899111310530.stgit@warthog.procyon.org.uk>
+Date: Mon, 15 Feb 2021 15:46:11 +0000
+Message-ID: <161340397101.1303470.17581910581108378458.stgit@warthog.procyon.org.uk>
 In-Reply-To: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 References: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Tue, 23 Feb 2021 04:59:25 -0500
 Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
@@ -67,10 +67,8 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	linux-mm@kvack.org, linux-cachefs@redhat.com,
 	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH 07/33] netfs,
- mm: Add unlock_page_fscache() and wait_on_page_fscache()
+Subject: [Linux-cachefs] [PATCH 10/33] netfs: Gather stats
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,16 +90,12 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add unlock_page_fscache() as an alias of unlock_page_private_2().  This
-allows a page 'locked' with PG_fscache to be unlocked.
-
-Add wait_on_page_fscache() to wait for PG_fscache to be unlocked.
-
-[Linus suggested putting the fscache-themed functions into the
- caching-specific headers rather than pagemap.h]
+Gather statistics from the netfs interface that can be exported through a
+seqfile.  This is intended to be called by a later patch when viewing
+/proc/fs/fscache/stats.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Linus Torvalds <torvalds@linux-foundation.org>
+Reviewed-by: Jeff Layton <jlayton@redhat.com>
 cc: Matthew Wilcox <willy@infradead.org>
 cc: linux-mm@kvack.org
 cc: linux-cachefs@redhat.com
@@ -111,50 +105,282 @@ cc: linux-cifs@vger.kernel.org
 cc: ceph-devel@vger.kernel.org
 cc: v9fs-developer@lists.sourceforge.net
 cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/linux-fsdevel/1330473.1612974547@warthog.procyon.org.uk/
-Link: https://lore.kernel.org/linux-fsdevel/CAHk-=wjgA-74ddehziVk=XAEMTKswPu1Yw4uaro1R3ibs27ztw@mail.gmail.com/
 ---
 
- include/linux/netfs.h |   29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ fs/netfs/Kconfig       |   15 +++++++++++++
+ fs/netfs/Makefile      |    3 +--
+ fs/netfs/internal.h    |   34 ++++++++++++++++++++++++++++++
+ fs/netfs/read_helper.c |   23 ++++++++++++++++++++
+ fs/netfs/stats.c       |   54 ++++++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h  |    1 +
+ 6 files changed, 128 insertions(+), 2 deletions(-)
+ create mode 100644 fs/netfs/stats.c
 
+diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
+index 2ebf90e6ca95..578112713703 100644
+--- a/fs/netfs/Kconfig
++++ b/fs/netfs/Kconfig
+@@ -6,3 +6,18 @@ config NETFS_SUPPORT
+ 	  This option enables support for network filesystems, including
+ 	  helpers for high-level buffered I/O, abstracting out read
+ 	  segmentation, local caching and transparent huge page support.
++
++config NETFS_STATS
++	bool "Gather statistical information on local caching"
++	depends on NETFS_SUPPORT && PROC_FS
++	help
++	  This option causes statistical information to be gathered on local
++	  caching and exported through file:
++
++		/proc/fs/fscache/stats
++
++	  The gathering of statistics adds a certain amount of overhead to
++	  execution as there are a quite a few stats gathered, and on a
++	  multi-CPU system these may be on cachelines that keep bouncing
++	  between CPUs.  On the other hand, the stats are very useful for
++	  debugging purposes.  Saying 'Y' here is recommended.
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index 4b4eff2ba369..c15bfc966d96 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-netfs-y := \
+-	read_helper.o
++netfs-y := read_helper.o stats.o
+ 
+ obj-$(CONFIG_NETFS_SUPPORT) := netfs.o
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index ee665c0e7dc8..98b6f4516da1 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -16,8 +16,42 @@
+  */
+ extern unsigned int netfs_debug;
+ 
++/*
++ * stats.c
++ */
++#ifdef CONFIG_NETFS_STATS
++extern atomic_t netfs_n_rh_readahead;
++extern atomic_t netfs_n_rh_readpage;
++extern atomic_t netfs_n_rh_rreq;
++extern atomic_t netfs_n_rh_sreq;
++extern atomic_t netfs_n_rh_download;
++extern atomic_t netfs_n_rh_download_done;
++extern atomic_t netfs_n_rh_download_failed;
++extern atomic_t netfs_n_rh_download_instead;
++extern atomic_t netfs_n_rh_read;
++extern atomic_t netfs_n_rh_read_done;
++extern atomic_t netfs_n_rh_read_failed;
++extern atomic_t netfs_n_rh_zero;
++extern atomic_t netfs_n_rh_short_read;
++extern atomic_t netfs_n_rh_write;
++extern atomic_t netfs_n_rh_write_done;
++extern atomic_t netfs_n_rh_write_failed;
++
++
++static inline void netfs_stat(atomic_t *stat)
++{
++	atomic_inc(stat);
++}
++
++static inline void netfs_stat_d(atomic_t *stat)
++{
++	atomic_dec(stat);
++}
++
++#else
+ #define netfs_stat(x) do {} while(0)
+ #define netfs_stat_d(x) do {} while(0)
++#endif
+ 
+ /*****************************************************************************/
+ /*
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 53b04b105179..4f6f708f8f18 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -55,6 +55,7 @@ static struct netfs_read_request *netfs_alloc_read_request(
+ 		refcount_set(&rreq->usage, 1);
+ 		__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
+ 		ops->init_rreq(rreq, file);
++		netfs_stat(&netfs_n_rh_rreq);
+ 	}
+ 
+ 	return rreq;
+@@ -86,6 +87,7 @@ static void netfs_free_read_request(struct work_struct *work)
+ 		rreq->netfs_ops->cleanup(rreq->mapping, rreq->netfs_priv);
+ 	trace_netfs_rreq(rreq, netfs_rreq_trace_free);
+ 	kfree(rreq);
++	netfs_stat_d(&netfs_n_rh_rreq);
+ }
+ 
+ static void netfs_put_read_request(struct netfs_read_request *rreq)
+@@ -115,6 +117,7 @@ static struct netfs_read_subrequest *netfs_alloc_subrequest(
+ 		refcount_set(&subreq->usage, 2);
+ 		subreq->rreq = rreq;
+ 		netfs_get_read_request(rreq);
++		netfs_stat(&netfs_n_rh_sreq);
+ 	}
+ 
+ 	return subreq;
+@@ -130,6 +133,7 @@ static void __netfs_put_subrequest(struct netfs_read_subrequest *subreq)
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_free);
+ 	netfs_put_read_request(subreq->rreq);
+ 	kfree(subreq);
++	netfs_stat_d(&netfs_n_rh_sreq);
+ }
+ 
+ /*
+@@ -151,6 +155,7 @@ static void netfs_clear_unread(struct netfs_read_subrequest *subreq)
+ static void netfs_fill_with_zeroes(struct netfs_read_request *rreq,
+ 				   struct netfs_read_subrequest *subreq)
+ {
++	netfs_stat(&netfs_n_rh_zero);
+ 	__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
+ 	netfs_subreq_terminated(subreq, 0);
+ }
+@@ -174,6 +179,7 @@ static void netfs_fill_with_zeroes(struct netfs_read_request *rreq,
+ static void netfs_read_from_server(struct netfs_read_request *rreq,
+ 				   struct netfs_read_subrequest *subreq)
+ {
++	netfs_stat(&netfs_n_rh_download);
+ 	rreq->netfs_ops->issue_op(subreq);
+ }
+ 
+@@ -283,6 +289,7 @@ static void netfs_rreq_short_read(struct netfs_read_request *rreq,
+ 	__clear_bit(NETFS_SREQ_SHORT_READ, &subreq->flags);
+ 	__set_bit(NETFS_SREQ_SEEK_DATA_READ, &subreq->flags);
+ 
++	netfs_stat(&netfs_n_rh_short_read);
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_resubmit_short);
+ 
+ 	netfs_get_read_subrequest(subreq);
+@@ -314,6 +321,7 @@ static bool netfs_rreq_perform_resubmissions(struct netfs_read_request *rreq)
+ 				break;
+ 			subreq->source = NETFS_DOWNLOAD_FROM_SERVER;
+ 			subreq->error = 0;
++			netfs_stat(&netfs_n_rh_download_instead);
+ 			trace_netfs_sreq(subreq, netfs_sreq_trace_download_instead);
+ 			netfs_get_read_subrequest(subreq);
+ 			atomic_inc(&rreq->nr_rd_ops);
+@@ -406,6 +414,17 @@ void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
+ 	       subreq->debug_index, subreq->start, subreq->flags,
+ 	       transferred_or_error);
+ 
++	switch (subreq->source) {
++	case NETFS_READ_FROM_CACHE:
++		netfs_stat(&netfs_n_rh_read_done);
++		break;
++	case NETFS_DOWNLOAD_FROM_SERVER:
++		netfs_stat(&netfs_n_rh_download_done);
++		break;
++	default:
++		break;
++	}
++
+ 	if (IS_ERR_VALUE(transferred_or_error)) {
+ 		subreq->error = transferred_or_error;
+ 		goto failed;
+@@ -459,8 +478,10 @@ void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
+ 
+ failed:
+ 	if (subreq->source == NETFS_READ_FROM_CACHE) {
++		netfs_stat(&netfs_n_rh_read_failed);
+ 		set_bit(NETFS_RREQ_INCOMPLETE_IO, &rreq->flags);
+ 	} else {
++		netfs_stat(&netfs_n_rh_download_failed);
+ 		set_bit(NETFS_RREQ_FAILED, &rreq->flags);
+ 		rreq->error = subreq->error;
+ 	}
+@@ -642,6 +663,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ 	rreq->start	= readahead_pos(ractl);
+ 	rreq->len	= readahead_length(ractl);
+ 
++	netfs_stat(&netfs_n_rh_readahead);
+ 	trace_netfs_read(rreq, readahead_pos(ractl), readahead_length(ractl),
+ 			 netfs_read_trace_readahead);
+ 
+@@ -716,6 +738,7 @@ int netfs_readpage(struct file *file,
+ 	rreq->start	= page->index * PAGE_SIZE;
+ 	rreq->len	= thp_size(page);
+ 
++	netfs_stat(&netfs_n_rh_readpage);
+ 	trace_netfs_read(rreq, rreq->start, rreq->len, netfs_read_trace_readpage);
+ 
+ 	netfs_get_read_request(rreq);
+diff --git a/fs/netfs/stats.c b/fs/netfs/stats.c
+new file mode 100644
+index 000000000000..df6ff5718f25
+--- /dev/null
++++ b/fs/netfs/stats.c
+@@ -0,0 +1,54 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Netfs support statistics
++ *
++ * Copyright (C) 2021 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ */
++
++#include <linux/export.h>
++#include <linux/seq_file.h>
++#include <linux/netfs.h>
++#include "internal.h"
++
++atomic_t netfs_n_rh_readahead;
++atomic_t netfs_n_rh_readpage;
++atomic_t netfs_n_rh_rreq;
++atomic_t netfs_n_rh_sreq;
++atomic_t netfs_n_rh_download;
++atomic_t netfs_n_rh_download_done;
++atomic_t netfs_n_rh_download_failed;
++atomic_t netfs_n_rh_download_instead;
++atomic_t netfs_n_rh_read;
++atomic_t netfs_n_rh_read_done;
++atomic_t netfs_n_rh_read_failed;
++atomic_t netfs_n_rh_zero;
++atomic_t netfs_n_rh_short_read;
++atomic_t netfs_n_rh_write;
++atomic_t netfs_n_rh_write_done;
++atomic_t netfs_n_rh_write_failed;
++
++void netfs_stats_show(struct seq_file *m)
++{
++	seq_printf(m, "RdHelp : RA=%u RP=%u rr=%u sr=%u\n",
++		   atomic_read(&netfs_n_rh_readahead),
++		   atomic_read(&netfs_n_rh_readpage),
++		   atomic_read(&netfs_n_rh_rreq),
++		   atomic_read(&netfs_n_rh_sreq));
++	seq_printf(m, "RdHelp : ZR=%u sh=%u\n",
++		   atomic_read(&netfs_n_rh_zero),
++		   atomic_read(&netfs_n_rh_short_read));
++	seq_printf(m, "RdHelp : DL=%u ds=%u df=%u di=%u\n",
++		   atomic_read(&netfs_n_rh_download),
++		   atomic_read(&netfs_n_rh_download_done),
++		   atomic_read(&netfs_n_rh_download_failed),
++		   atomic_read(&netfs_n_rh_download_instead));
++	seq_printf(m, "RdHelp : RD=%u rs=%u rf=%u\n",
++		   atomic_read(&netfs_n_rh_read),
++		   atomic_read(&netfs_n_rh_read_done),
++		   atomic_read(&netfs_n_rh_read_failed));
++	seq_printf(m, "RdHelp : WR=%u ws=%u wf=%u\n",
++		   atomic_read(&netfs_n_rh_write),
++		   atomic_read(&netfs_n_rh_write_done),
++		   atomic_read(&netfs_n_rh_write_failed));
++}
++EXPORT_SYMBOL(netfs_stats_show);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index b3d869ec7d2a..f69703543788 100644
+index 24083dc0adfa..b8237b6f17cb 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -22,4 +22,33 @@
- #define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
- #define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
+@@ -134,5 +134,6 @@ extern int netfs_readpage(struct file *,
+ 			  void *);
  
-+/**
-+ * unlock_page_fscache - Unlock a page that's locked with PG_fscache
-+ * @page: The page
-+ *
-+ * Unlocks a page that's locked with PG_fscache and wakes up sleepers in
-+ * wait_on_page_fscache().  This page bit is used by the netfs helpers when a
-+ * netfs page is being written to a local disk cache, thereby allowing writes
-+ * to the cache for the same page to be serialised.
-+ */
-+static inline void unlock_page_fscache(struct page *page)
-+{
-+	unlock_page_private_2(page);
-+}
-+
-+/**
-+ * wait_on_page_fscache - Wait for PG_fscache to be cleared on a page
-+ * @page: The page
-+ *
-+ * Wait for the PG_fscache (PG_private_2) page bit to be removed from a page.
-+ * This is, for example, used to handle a netfs page being written to a local
-+ * disk cache, thereby allowing writes to the cache for the same page to be
-+ * serialised.
-+ */
-+static inline void wait_on_page_fscache(struct page *page)
-+{
-+	if (PageFsCache(page))
-+		wait_on_page_bit(compound_head(page), PG_fscache);
-+}
-+
+ extern void netfs_subreq_terminated(struct netfs_read_subrequest *, ssize_t);
++extern void netfs_stats_show(struct seq_file *);
+ 
  #endif /* _LINUX_NETFS_H */
 
 
