@@ -1,75 +1,96 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 88DA7322867
-	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 11:01:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614074477;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=69tE0igmpbCJeeDGjfxrDb1qzI+S0C0sj+JyMTADpzU=;
-	b=Zjb/UJEZ4pED+orijSgWld5ZWAyEX8+5g3d1PkUX2XfmMFal6RYgdG3Pxe0290ctZt+tkM
-	X5MO3QMUVlmP8yzmJGsn1VLRgdoSpD9h9CL9frqyfqHCGpe7WBBREJs7UpIE0VgTbvuxS/
-	hRAcT2NSoeQap0a+1vGci1xykylOsGc=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C5A3132287B
+	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 11:02:33 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-464-K_HtiDJYM92Q1ursYDjBrA-1; Tue, 23 Feb 2021 04:59:40 -0500
-X-MC-Unique: K_HtiDJYM92Q1ursYDjBrA-1
+ us-mta-535-8rgBTXPHPJiOA04_i4XLyw-1; Tue, 23 Feb 2021 04:59:44 -0500
+X-MC-Unique: 8rgBTXPHPJiOA04_i4XLyw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 986BF1017A51;
-	Tue, 23 Feb 2021 09:59:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDFBF63AD2;
+	Tue, 23 Feb 2021 09:59:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8899160C04;
-	Tue, 23 Feb 2021 09:59:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD88560C5F;
+	Tue, 23 Feb 2021 09:59:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7426358078;
-	Tue, 23 Feb 2021 09:59:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 976455807D;
+	Tue, 23 Feb 2021 09:59:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11FFoiNQ023619 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 15 Feb 2021 10:50:44 -0500
+	id 11G0emPg026310 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 15 Feb 2021 19:40:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 77FE5E162; Mon, 15 Feb 2021 15:50:44 +0000 (UTC)
+	id 29DC120B8DAC; Tue, 16 Feb 2021 00:40:48 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
-	[10.10.119.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8105F19D9F;
-	Mon, 15 Feb 2021 15:50:37 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Trond Myklebust <trondmy@hammerspace.com>,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	Steve French <sfrench@samba.org>,
-	Dominique Martinet <asmadeus@codewreck.org>
-Date: Mon, 15 Feb 2021 15:50:36 +0000
-Message-ID: <161340423660.1303470.13303522357511686909.stgit@warthog.procyon.org.uk>
-In-Reply-To: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
-References: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/0.23
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23FEC20B8DAF
+	for <linux-cachefs@redhat.com>; Tue, 16 Feb 2021 00:40:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2247E878533
+	for <linux-cachefs@redhat.com>; Tue, 16 Feb 2021 00:40:45 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+	[209.85.208.181]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-186-gPsU_kxuNS6eDOFVeQlCnw-1; Mon, 15 Feb 2021 19:40:40 -0500
+X-MC-Unique: gPsU_kxuNS6eDOFVeQlCnw-1
+Received: by mail-lj1-f181.google.com with SMTP id b16so9860356lji.13;
+	Mon, 15 Feb 2021 16:40:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=xicHfylzCSM6YGN+one5fuBAC6Bh3w7bra1ceUh6ZvM=;
+	b=RRPO7mZwGImvEEfigUpuXe1gGcN08yh3MMFY3ylS2MxjoAAGjv7c5NV+OdVE3YTDVg
+	RBqA45ZmH+Gwr6+3SJqaaJYaLl97gqtEdmc0zpM8c1jlYa76JB/xT+ydE//3OLyC3K67
+	ynspiWipkcJv7j3d0hMPCbFr5T8ue5ZSeHENpcy6Opl2G9mZmCmFKe9X+KMneX/bH/wP
+	6gxAFfpbpf81RdtYuRbjwu6E7PP6BoNGZUJtlTetJGM7e5SB7i8zy0kl9yrzPvCI/vHx
+	CrK13arxuIdNL5jTsIbKHYy0YnmEhkSkaz3FDRkRRIIItjAUHZ+KKIxJGpCN7KkqJrbV
+	/ZsA==
+X-Gm-Message-State: AOAM5329pkr6ZPuOTcXkBaHulEmEI2GimpG6ARVYyH2D8dP28EOiV+Sw
+	VWtu0LhQBQWDwTg8usO/0RApU6yaGM9XT1cYz7g/jf6bD3o=
+X-Google-Smtp-Source: ABdhPJzy94ik1tFw7QxWM1zEMhmTMT/Bm5dhimMsKPcvESs+iEybsgt/cS1kOWOZOprYnaipGNwuw3aAXJHMfzV0q0w=
+X-Received: by 2002:a05:651c:548:: with SMTP id
+	q8mr10766213ljp.256.1613436038218; 
+	Mon, 15 Feb 2021 16:40:38 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+References: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
+	<9e49f96cd80eaf9c8ed267a7fbbcb4c6467ee790.camel@redhat.com>
+In-Reply-To: <9e49f96cd80eaf9c8ed267a7fbbcb4c6467ee790.camel@redhat.com>
+From: Steve French <smfrench@gmail.com>
+Date: Mon, 15 Feb 2021 18:40:27 -0600
+Message-ID: <CAH2r5mvPLivjuE=cbijzGSHOvx-hkWSWbcxpoBnJX-BR9pBskQ@mail.gmail.com>
+To: Jeff Layton <jlayton@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Tue, 23 Feb 2021 04:59:25 -0500
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+X-Mailman-Approved-At: Tue, 23 Feb 2021 04:59:26 -0500
+Cc: Steve French <sfrench@samba.org>, linux-nfs <linux-nfs@vger.kernel.org>,
+	CIFS <linux-cifs@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	LKML <linux-kernel@vger.kernel.org>, Matthew Wilcox <willy@infradead.org>,
+	linux-afs@lists.infradead.org, linux-mm <linux-mm@kvack.org>,
 	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH 31/33] ceph: convert readpage to fscache
-	read helper
+	Christoph Hellwig <hch@lst.de>, Anna Schumaker <anna.schumaker@netapp.com>
+Subject: Re: [Linux-cachefs] [PATCH 00/33] Network fs helper library &
+	fscache kiocb API [ver #3]
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,284 +112,276 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Jeff Layton <jlayton@kernel.org>
+Jeff,
+What are the performance differences you are seeing (positive or
+negative) with ceph and netfs, especially with simple examples like
+file copy or grep of large files?
 
-Have the ceph KConfig select NETFS_SUPPORT. Add a new netfs ops
-structure and the operations for it. Convert ceph_readpage to use
-the new netfs_readpage helper.
+It could be good if netfs simplifies the problem experienced by
+network filesystems on Linux with readahead on large sequential reads
+- where we don't get as much parallelism due to only having one
+readahead request at a time (thus in many cases there is 'dead time'
+on either the network or the file server while waiting for the next
+readpages request to be issued).   This can be a significant
+performance problem for current readpages when network latency is long
+(or e.g. in cases when network encryption is enabled, and hardware
+offload not available so time consuming on the server or client to
+encrypt the packet).
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: ceph-devel@vger.kernel.org
-cc: linux-cachefs@redhat.com
-cc: linux-fsdevel@vger.kernel.org
----
+Do you see netfs much faster than currentreadpages for ceph?
 
- fs/ceph/Kconfig |    1 
- fs/ceph/addr.c  |  149 +++++++++++++++++++++++++++++++++++++++++++++++++++----
- fs/ceph/cache.h |   36 +++++++++++++
- 3 files changed, 176 insertions(+), 10 deletions(-)
+Have you been able to get much benefit from throttling readahead with
+ceph from the current netfs approach for clamping i/o?
 
-diff --git a/fs/ceph/Kconfig b/fs/ceph/Kconfig
-index 471e40156065..94df854147d3 100644
---- a/fs/ceph/Kconfig
-+++ b/fs/ceph/Kconfig
-@@ -6,6 +6,7 @@ config CEPH_FS
- 	select LIBCRC32C
- 	select CRYPTO_AES
- 	select CRYPTO
-+	select NETFS_SUPPORT
- 	default n
- 	help
- 	  Choose Y or M here to include support for mounting the
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index fbfa49db06fd..95f39ff9bb24 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -12,6 +12,7 @@
- #include <linux/signal.h>
- #include <linux/iversion.h>
- #include <linux/ktime.h>
-+#include <linux/netfs.h>
- 
- #include "super.h"
- #include "mds_client.h"
-@@ -183,6 +184,144 @@ static int ceph_releasepage(struct page *page, gfp_t gfp_flags)
- 	return !PagePrivate(page);
- }
- 
-+static bool ceph_netfs_clamp_length(struct netfs_read_subrequest *subreq)
-+{
-+	struct inode *inode = subreq->rreq->mapping->host;
-+	struct ceph_inode_info *ci = ceph_inode(inode);
-+	u64 objno, objoff;
-+	u32 xlen;
-+
-+	/* Truncate the extent at the end of the current object */
-+	ceph_calc_file_object_mapping(&ci->i_layout, subreq->start, subreq->len,
-+				      &objno, &objoff, &xlen);
-+	subreq->len = xlen;
-+	return true;
-+}
-+
-+static void finish_netfs_read(struct ceph_osd_request *req)
-+{
-+	struct ceph_fs_client *fsc = ceph_inode_to_client(req->r_inode);
-+	struct ceph_osd_data *osd_data = osd_req_op_extent_osd_data(req, 0);
-+	struct netfs_read_subrequest *subreq = req->r_priv;
-+	int num_pages;
-+	int err = req->r_result;
-+
-+	ceph_update_read_latency(&fsc->mdsc->metric, req->r_start_latency,
-+				 req->r_end_latency, err);
-+
-+	dout("%s: result %d subreq->len=%zu i_size=%lld\n", __func__, req->r_result,
-+	     subreq->len, i_size_read(req->r_inode));
-+
-+	/* no object means success but no data */
-+	if (err == -ENOENT)
-+		err = 0;
-+	else if (err == -EBLOCKLISTED)
-+		fsc->blocklisted = true;
-+
-+	if (err >= 0 && err < subreq->len)
-+		__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
-+
-+	netfs_subreq_terminated(subreq, err);
-+
-+	num_pages = calc_pages_for(osd_data->alignment, osd_data->length);
-+	ceph_put_page_vector(osd_data->pages, num_pages, false);
-+	iput(req->r_inode);
-+}
-+
-+static void ceph_netfs_issue_op(struct netfs_read_subrequest *subreq)
-+{
-+	struct netfs_read_request *rreq = subreq->rreq;
-+	struct inode *inode = rreq->mapping->host;
-+	struct ceph_inode_info *ci = ceph_inode(inode);
-+	struct ceph_fs_client *fsc = ceph_inode_to_client(inode);
-+	struct ceph_osd_request *req;
-+	struct ceph_vino vino = ceph_vino(inode);
-+	struct iov_iter iter;
-+	struct page **pages;
-+	size_t page_off;
-+	int err = 0;
-+	u64 len = subreq->len;
-+
-+	req = ceph_osdc_new_request(&fsc->client->osdc, &ci->i_layout, vino, subreq->start, &len,
-+			0, 1, CEPH_OSD_OP_READ,
-+			CEPH_OSD_FLAG_READ | fsc->client->osdc.client->options->read_from_replica,
-+			NULL, ci->i_truncate_seq, ci->i_truncate_size, false);
-+	if (IS_ERR(req)) {
-+		err = PTR_ERR(req);
-+		req = NULL;
-+		goto out;
-+	}
-+
-+	dout("%s: pos=%llu orig_len=%zu len=%llu\n", __func__, subreq->start, subreq->len, len);
-+	iov_iter_xarray(&iter, READ, &rreq->mapping->i_pages, subreq->start, len);
-+	err = iov_iter_get_pages_alloc(&iter, &pages, len, &page_off);
-+	if (err < 0) {
-+		dout("%s: iov_ter_get_pages_alloc returned %d\n", __func__, err);
-+		goto out;
-+	}
-+
-+	/* should always give us a page-aligned read */
-+	WARN_ON_ONCE(page_off);
-+	len = err;
-+
-+	osd_req_op_extent_osd_data_pages(req, 0, pages, len, 0, false, false);
-+	req->r_callback = finish_netfs_read;
-+	req->r_priv = subreq;
-+	req->r_inode = inode;
-+	ihold(inode);
-+
-+	err = ceph_osdc_start_request(req->r_osdc, req, false);
-+	if (err)
-+		iput(inode);
-+out:
-+	ceph_osdc_put_request(req);
-+	if (err)
-+		netfs_subreq_terminated(subreq, err);
-+	dout("%s: result %d\n", __func__, err);
-+}
-+
-+static void ceph_init_rreq(struct netfs_read_request *rreq, struct file *file)
-+{
-+}
-+
-+const struct netfs_read_request_ops ceph_readpage_netfs_ops = {
-+	.init_rreq		= ceph_init_rreq,
-+	.is_cache_enabled	= ceph_is_cache_enabled,
-+	.begin_cache_operation	= ceph_begin_cache_operation,
-+	.issue_op		= ceph_netfs_issue_op,
-+	.clamp_length		= ceph_netfs_clamp_length,
-+};
-+
-+/* read a single page, without unlocking it. */
-+static int ceph_readpage(struct file *file, struct page *page)
-+{
-+	struct inode *inode = file_inode(file);
-+	struct ceph_inode_info *ci = ceph_inode(inode);
-+	struct ceph_vino vino = ceph_vino(inode);
-+	u64 off = page_offset(page);
-+	u64 len = PAGE_SIZE;
-+
-+	if (ci->i_inline_version != CEPH_INLINE_NONE) {
-+		/*
-+		 * Uptodate inline data should have been added
-+		 * into page cache while getting Fcr caps.
-+		 */
-+		if (off == 0) {
-+			unlock_page(page);
-+			return -EINVAL;
-+		}
-+		zero_user_segment(page, 0, PAGE_SIZE);
-+		SetPageUptodate(page);
-+		unlock_page(page);
-+		return 0;
-+	}
-+
-+	dout("readpage ino %llx.%llx file %p off %llu len %llu page %p index %lu\n",
-+	     vino.ino, vino.snap, file, off, len, page, page->index);
-+
-+	return netfs_readpage(file, page, &ceph_readpage_netfs_ops, NULL);
-+}
-+
- /* read a single page, without unlocking it. */
- static int ceph_do_readpage(struct file *filp, struct page *page)
- {
-@@ -253,16 +392,6 @@ static int ceph_do_readpage(struct file *filp, struct page *page)
- 	return err < 0 ? err : 0;
- }
- 
--static int ceph_readpage(struct file *filp, struct page *page)
--{
--	int r = ceph_do_readpage(filp, page);
--	if (r != -EINPROGRESS)
--		unlock_page(page);
--	else
--		r = 0;
--	return r;
--}
--
- /*
-  * Finish an async read(ahead) op.
-  */
-diff --git a/fs/ceph/cache.h b/fs/ceph/cache.h
-index 10c21317b62f..1409d6149281 100644
---- a/fs/ceph/cache.h
-+++ b/fs/ceph/cache.h
-@@ -9,6 +9,8 @@
- #ifndef _CEPH_CACHE_H
- #define _CEPH_CACHE_H
- 
-+#include <linux/netfs.h>
-+
- #ifdef CONFIG_CEPH_FSCACHE
- 
- extern struct fscache_netfs ceph_cache_netfs;
-@@ -35,11 +37,31 @@ static inline void ceph_fscache_inode_init(struct ceph_inode_info *ci)
- 	ci->fscache = NULL;
- }
- 
-+static inline struct fscache_cookie *ceph_fscache_cookie(struct ceph_inode_info *ci)
-+{
-+	return ci->fscache;
-+}
-+
- static inline void ceph_fscache_invalidate(struct inode *inode)
- {
- 	fscache_invalidate(ceph_inode(inode)->fscache);
- }
- 
-+static inline bool ceph_is_cache_enabled(struct inode *inode)
-+{
-+	struct fscache_cookie *cookie = ceph_fscache_cookie(ceph_inode(inode));
-+
-+	if (!cookie)
-+		return false;
-+	return fscache_cookie_enabled(cookie);
-+}
-+
-+static inline int ceph_begin_cache_operation(struct netfs_read_request *rreq)
-+{
-+	struct fscache_cookie *cookie = ceph_fscache_cookie(ceph_inode(rreq->inode));
-+
-+	return fscache_begin_read_operation(rreq, cookie);
-+}
- #else
- 
- static inline int ceph_fscache_register(void)
-@@ -65,6 +87,11 @@ static inline void ceph_fscache_inode_init(struct ceph_inode_info *ci)
- {
- }
- 
-+static inline struct fscache_cookie *ceph_fscache_cookie(struct ceph_inode_info *ci)
-+{
-+	return NULL;
-+}
-+
- static inline void ceph_fscache_register_inode_cookie(struct inode *inode)
- {
- }
-@@ -82,6 +109,15 @@ static inline void ceph_fscache_invalidate(struct inode *inode)
- {
- }
- 
-+static inline bool ceph_is_cache_enabled(struct inode *inode)
-+{
-+	return false;
-+}
-+
-+static inline int ceph_begin_cache_operation(struct netfs_read_request *rreq)
-+{
-+	return -ENOBUFS;
-+}
- #endif
- 
- #endif /* _CEPH_CACHE_H */
+On Mon, Feb 15, 2021 at 12:08 PM Jeff Layton <jlayton@redhat.com> wrote:
+>
+> On Mon, 2021-02-15 at 15:44 +0000, David Howells wrote:
+> > Here's a set of patches to do two things:
+> >
+> >  (1) Add a helper library to handle the new VM readahead interface.  This
+> >      is intended to be used unconditionally by the filesystem (whether or
+> >      not caching is enabled) and provides a common framework for doing
+> >      caching, transparent huge pages and, in the future, possibly fscrypt
+> >      and read bandwidth maximisation.  It also allows the netfs and the
+> >      cache to align, expand and slice up a read request from the VM in
+> >      various ways; the netfs need only provide a function to read a stretch
+> >      of data to the pagecache and the helper takes care of the rest.
+> >
+> >  (2) Add an alternative fscache/cachfiles I/O API that uses the kiocb
+> >      facility to do async DIO to transfer data to/from the netfs's pages,
+> >      rather than using readpage with wait queue snooping on one side and
+> >      vfs_write() on the other.  It also uses less memory, since it doesn't
+> >      do buffered I/O on the backing file.
+> >
+> >      Note that this uses SEEK_HOLE/SEEK_DATA to locate the data available
+> >      to be read from the cache.  Whilst this is an improvement from the
+> >      bmap interface, it still has a problem with regard to a modern
+> >      extent-based filesystem inserting or removing bridging blocks of
+> >      zeros.  Fixing that requires a much greater overhaul.
+> >
+> > This is a step towards overhauling the fscache API.  The change is opt-in
+> > on the part of the network filesystem.  A netfs should not try to mix the
+> > old and the new API because of conflicting ways of handling pages and the
+> > PG_fscache page flag and because it would be mixing DIO with buffered I/O.
+> > Further, the helper library can't be used with the old API.
+> >
+> > This does not change any of the fscache cookie handling APIs or the way
+> > invalidation is done.
+> >
+> > In the near term, I intend to deprecate and remove the old I/O API
+> > (fscache_allocate_page{,s}(), fscache_read_or_alloc_page{,s}(),
+> > fscache_write_page() and fscache_uncache_page()) and eventually replace
+> > most of fscache/cachefiles with something simpler and easier to follow.
+> >
+> > The patchset contains five parts:
+> >
+> >  (1) Some helper patches, including provision of an ITER_XARRAY iov
+> >      iterator and a function to do readahead expansion.
+> >
+> >  (2) Patches to add the netfs helper library.
+> >
+> >  (3) A patch to add the fscache/cachefiles kiocb API.
+> >
+> >  (4) Patches to add support in AFS for this.
+> >
+> >  (5) Patches from Jeff Layton to add support in Ceph for this.
+> >
+> > Dave Wysochanski also has patches for NFS for this, though they're not
+> > included on this branch as there's an issue with PNFS.
+> >
+> > With this, AFS without a cache passes all expected xfstests; with a cache,
+> > there's an extra failure, but that's also there before these patches.
+> > Fixing that probably requires a greater overhaul.  Ceph and NFS also pass
+> > the expected tests.
+> >
+> > These patches can be found also on:
+> >
+> >       https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-netfs-lib
+> >
+> > For diffing reference, the tag for the 9th Feb pull request is
+> > fscache-ioapi-20210203 and can be found in the same repository.
+> >
+> >
+> >
+> > Changes
+> > =======
+> >
+> >  (v3) Rolled in the bug fixes.
+> >
+> >       Adjusted the functions that unlock and wait for PG_fscache according
+> >       to Linus's suggestion.
+> >
+> >       Hold a ref on a page when PG_fscache is set as per Linus's
+> >       suggestion.
+> >
+> >       Dropped NFS support and added Ceph support.
+> >
+> >  (v2) Fixed some bugs and added NFS support.
+> >
+> >
+> > References
+> > ==========
+> >
+> > These patches have been published for review before, firstly as part of a
+> > larger set:
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/158861203563.340223.7585359869938129395.stgit@warthog.procyon.org.uk/
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/159465766378.1376105.11619976251039287525.stgit@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/159465784033.1376674.18106463693989811037.stgit@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/159465821598.1377938.2046362270225008168.stgit@warthog.procyon.org.uk/
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk/
+> >
+> > Then as a cut-down set:
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/161118128472.1232039.11746799833066425131.stgit@warthog.procyon.org.uk/
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/161161025063.2537118.2009249444682241405.stgit@warthog.procyon.org.uk/
+> >
+> >
+> > Proposals/information about the design has been published here:
+> >
+> > Link: https://lore.kernel.org/lkml/24942.1573667720@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/2758811.1610621106@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/1441311.1598547738@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/160655.1611012999@warthog.procyon.org.uk/
+> >
+> > And requests for information:
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/3326.1579019665@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/4467.1579020509@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/3577430.1579705075@warthog.procyon.org.uk/
+> >
+> > The NFS parts, though not included here, have been tested by someone who's
+> > using fscache in production:
+> >
+> > Link: https://listman.redhat.com/archives/linux-cachefs/2020-December/msg00000.html
+> >
+> > I've posted partial patches to try and help 9p and cifs along:
+> >
+> > Link: https://lore.kernel.org/linux-fsdevel/1514086.1605697347@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-cifs/1794123.1605713481@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-fsdevel/241017.1612263863@warthog.procyon.org.uk/
+> > Link: https://lore.kernel.org/linux-cifs/270998.1612265397@warthog.procyon.org.uk/
+> >
+> > David
+> > ---
+> > David Howells (27):
+> >       iov_iter: Add ITER_XARRAY
+> >       mm: Add an unlock function for PG_private_2/PG_fscache
+> >       mm: Implement readahead_control pageset expansion
+> >       vfs: Export rw_verify_area() for use by cachefiles
+> >       netfs: Make a netfs helper module
+> >       netfs, mm: Move PG_fscache helper funcs to linux/netfs.h
+> >       netfs, mm: Add unlock_page_fscache() and wait_on_page_fscache()
+> >       netfs: Provide readahead and readpage netfs helpers
+> >       netfs: Add tracepoints
+> >       netfs: Gather stats
+> >       netfs: Add write_begin helper
+> >       netfs: Define an interface to talk to a cache
+> >       netfs: Hold a ref on a page when PG_private_2 is set
+> >       fscache, cachefiles: Add alternate API to use kiocb for read/write to cache
+> >       afs: Disable use of the fscache I/O routines
+> >       afs: Pass page into dirty region helpers to provide THP size
+> >       afs: Print the operation debug_id when logging an unexpected data version
+> >       afs: Move key to afs_read struct
+> >       afs: Don't truncate iter during data fetch
+> >       afs: Log remote unmarshalling errors
+> >       afs: Set up the iov_iter before calling afs_extract_data()
+> >       afs: Use ITER_XARRAY for writing
+> >       afs: Wait on PG_fscache before modifying/releasing a page
+> >       afs: Extract writeback extension into its own function
+> >       afs: Prepare for use of THPs
+> >       afs: Use the fs operation ops to handle FetchData completion
+> >       afs: Use new fscache read helper API
+> >
+> > Jeff Layton (6):
+> >       ceph: disable old fscache readpage handling
+> >       ceph: rework PageFsCache handling
+> >       ceph: fix fscache invalidation
+> >       ceph: convert readpage to fscache read helper
+> >       ceph: plug write_begin into read helper
+> >       ceph: convert ceph_readpages to ceph_readahead
+> >
+> >
+> >  fs/Kconfig                    |    1 +
+> >  fs/Makefile                   |    1 +
+> >  fs/afs/Kconfig                |    1 +
+> >  fs/afs/dir.c                  |  225 ++++---
+> >  fs/afs/file.c                 |  470 ++++---------
+> >  fs/afs/fs_operation.c         |    4 +-
+> >  fs/afs/fsclient.c             |  108 +--
+> >  fs/afs/inode.c                |    7 +-
+> >  fs/afs/internal.h             |   58 +-
+> >  fs/afs/rxrpc.c                |  150 ++---
+> >  fs/afs/write.c                |  610 +++++++++--------
+> >  fs/afs/yfsclient.c            |   82 +--
+> >  fs/cachefiles/Makefile        |    1 +
+> >  fs/cachefiles/interface.c     |    5 +-
+> >  fs/cachefiles/internal.h      |    9 +
+> >  fs/cachefiles/rdwr2.c         |  412 ++++++++++++
+> >  fs/ceph/Kconfig               |    1 +
+> >  fs/ceph/addr.c                |  535 ++++++---------
+> >  fs/ceph/cache.c               |  125 ----
+> >  fs/ceph/cache.h               |  101 +--
+> >  fs/ceph/caps.c                |   10 +-
+> >  fs/ceph/inode.c               |    1 +
+> >  fs/ceph/super.h               |    1 +
+> >  fs/fscache/Kconfig            |    1 +
+> >  fs/fscache/Makefile           |    3 +-
+> >  fs/fscache/internal.h         |    3 +
+> >  fs/fscache/page.c             |    2 +-
+> >  fs/fscache/page2.c            |  117 ++++
+> >  fs/fscache/stats.c            |    1 +
+> >  fs/internal.h                 |    5 -
+> >  fs/netfs/Kconfig              |   23 +
+> >  fs/netfs/Makefile             |    5 +
+> >  fs/netfs/internal.h           |   97 +++
+> >  fs/netfs/read_helper.c        | 1169 +++++++++++++++++++++++++++++++++
+> >  fs/netfs/stats.c              |   59 ++
+> >  fs/read_write.c               |    1 +
+> >  include/linux/fs.h            |    1 +
+> >  include/linux/fscache-cache.h |    4 +
+> >  include/linux/fscache.h       |   40 +-
+> >  include/linux/netfs.h         |  195 ++++++
+> >  include/linux/pagemap.h       |    3 +
+> >  include/net/af_rxrpc.h        |    2 +-
+> >  include/trace/events/afs.h    |   74 +--
+> >  include/trace/events/netfs.h  |  201 ++++++
+> >  mm/filemap.c                  |   20 +
+> >  mm/readahead.c                |   70 ++
+> >  net/rxrpc/recvmsg.c           |    9 +-
+> >  47 files changed, 3473 insertions(+), 1550 deletions(-)
+> >  create mode 100644 fs/cachefiles/rdwr2.c
+> >  create mode 100644 fs/fscache/page2.c
+> >  create mode 100644 fs/netfs/Kconfig
+> >  create mode 100644 fs/netfs/Makefile
+> >  create mode 100644 fs/netfs/internal.h
+> >  create mode 100644 fs/netfs/read_helper.c
+> >  create mode 100644 fs/netfs/stats.c
+> >  create mode 100644 include/linux/netfs.h
+> >  create mode 100644 include/trace/events/netfs.h
+> >
+> >
+>
+> Thanks David,
+>
+> I did an xfstests run on ceph with a kernel based on this and it seemed
+> to do fine. I'll plan to pull this into the ceph-client/testing branch
+> and run it through the ceph kclient test harness. There are only a few
+> differences from the last run we did, so I'm not expecting big changes,
+> but I'll keep you posted.
+>
+> --
+> Jeff Layton <jlayton@redhat.com>
+>
 
+
+-- 
+Thanks,
+
+Steve
 
 --
 Linux-cachefs mailing list
