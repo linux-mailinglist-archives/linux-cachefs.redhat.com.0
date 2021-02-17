@@ -2,51 +2,51 @@ Return-Path: <linux-cachefs-bounces@listman.redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-44.mimecast.com (us-smtp-delivery-44.mimecast.com [205.139.111.44])
-	by mail.lfdr.de (Postfix) with ESMTP id 227EE31D9D0
-	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Feb 2021 13:59:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A63131D9D5
+	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Feb 2021 13:59:10 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-432-aYDu9PKfMCeLIIfGzUqB1Q-1; Wed, 17 Feb 2021 07:59:03 -0500
-X-MC-Unique: aYDu9PKfMCeLIIfGzUqB1Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-510-L2Iv2HEeMK231xEy-XlnTQ-1; Wed, 17 Feb 2021 07:59:05 -0500
+X-MC-Unique: L2Iv2HEeMK231xEy-XlnTQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F8E619611A5;
-	Wed, 17 Feb 2021 12:59:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3AF4C801979;
+	Wed, 17 Feb 2021 12:59:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DB0160C5F;
-	Wed, 17 Feb 2021 12:59:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A1BF5D9D3;
+	Wed, 17 Feb 2021 12:59:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 98E0618095CB;
-	Wed, 17 Feb 2021 12:58:58 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F3DB31809C8F;
+	Wed, 17 Feb 2021 12:59:02 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11HCwtC1022552 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 17 Feb 2021 07:58:55 -0500
+	id 11HCwuZn022561 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 17 Feb 2021 07:58:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E5A87FED2C; Wed, 17 Feb 2021 12:58:54 +0000 (UTC)
+	id 3CC96FDCE8; Wed, 17 Feb 2021 12:58:56 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD31F9D47D
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:53 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3762C9D47D
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8052803FF9
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FEE1800962
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:56 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-21-RXt93CHxPGamItcK41BFFw-1; 
+	by relay.mimecast.com with ESMTP id us-mta-375-B4zKcnDgPiqAa_tcd3aa2A-1;
 	Wed, 17 Feb 2021 07:58:51 -0500
-X-MC-Unique: RXt93CHxPGamItcK41BFFw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0171564E58;
-	Wed, 17 Feb 2021 12:58:48 +0000 (UTC)
+X-MC-Unique: B4zKcnDgPiqAa_tcd3aa2A-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D2C2C64E5B;
+	Wed, 17 Feb 2021 12:58:49 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: dhowells@redhat.com, idryomov@gmail.com
-Date: Wed, 17 Feb 2021 07:58:41 -0500
-Message-Id: <20210217125845.10319-3-jlayton@kernel.org>
+Date: Wed, 17 Feb 2021 07:58:42 -0500
+Message-Id: <20210217125845.10319-4-jlayton@kernel.org>
 In-Reply-To: <20210217125845.10319-1-jlayton@kernel.org>
 References: <20210217125845.10319-1-jlayton@kernel.org>
 MIME-Version: 1.0
@@ -60,11 +60,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 11HCwtC1022552
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 11HCwuZn022561
 X-loop: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
 	ceph-devel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH v2 2/6] ceph: rework PageFsCache handling
+Subject: [Linux-cachefs] [PATCH v2 3/6] ceph: fix fscache invalidation
 X-BeenThere: linux-cachefs@listman.redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@listman.redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@listman.redhat.com
 Errors-To: linux-cachefs-bounces@listman.redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@listman.redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,70 +87,44 @@ X-Mimecast-Originator: listman.redhat.com
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-With the new fscache API, the PageFsCache bit now indicates that the
-page is being written to the cache and shouldn't be modified or released
-until it's finished.
-
-Change releasepage and invalidatepage to wait on that bit before
-returning.
-
-Also define FSCACHE_USE_NEW_IO_API so that we opt into the new fscache
-API.
+Ensure that we invalidate the fscache whenever we invalidate the
+pagecache.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Cc: ceph-devel@vger.kernel.org
 Cc: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org
 ---
- fs/ceph/addr.c  | 9 ++++++++-
- fs/ceph/super.h | 1 +
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ fs/ceph/caps.c  | 1 +
+ fs/ceph/inode.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 2b17bb36e548..fbfa49db06fd 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -146,6 +146,8 @@ static void ceph_invalidatepage(struct page *page, unsi=
-gned int offset,
- =09struct ceph_inode_info *ci;
- =09struct ceph_snap_context *snapc =3D page_snap_context(page);
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index ca07dfc60652..c40f713d6d21 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1867,6 +1867,7 @@ static int try_nonblocking_invalidate(struct inode *i=
+node)
+ =09u32 invalidating_gen =3D ci->i_rdcache_gen;
 =20
-+=09wait_on_page_fscache(page);
-+
- =09inode =3D page->mapping->host;
- =09ci =3D ceph_inode(inode);
+ =09spin_unlock(&ci->i_ceph_lock);
++=09ceph_fscache_invalidate(inode);
+ =09invalidate_mapping_pages(&inode->i_data, 0, -1);
+ =09spin_lock(&ci->i_ceph_lock);
 =20
-@@ -168,11 +170,16 @@ static void ceph_invalidatepage(struct page *page, un=
-signed int offset,
- =09ClearPagePrivate(page);
- }
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index adc8fc3c5d85..2caa6df0bcdf 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -1906,6 +1906,7 @@ static void ceph_do_invalidate_pages(struct inode *in=
+ode)
+ =09orig_gen =3D ci->i_rdcache_gen;
+ =09spin_unlock(&ci->i_ceph_lock);
 =20
--static int ceph_releasepage(struct page *page, gfp_t g)
-+static int ceph_releasepage(struct page *page, gfp_t gfp_flags)
- {
- =09dout("%p releasepage %p idx %lu (%sdirty)\n", page->mapping->host,
- =09     page, page->index, PageDirty(page) ? "" : "not ");
-=20
-+=09if (PageFsCache(page)) {
-+=09=09if (!(gfp_flags & __GFP_DIRECT_RECLAIM) || !(gfp_flags & __GFP_FS))
-+=09=09=09return 0;
-+=09=09wait_on_page_fscache(page);
-+=09}
- =09return !PagePrivate(page);
- }
-=20
-diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-index b62d8fee3b86..96bd3487d788 100644
---- a/fs/ceph/super.h
-+++ b/fs/ceph/super.h
-@@ -21,6 +21,7 @@
- #include <linux/ceph/libceph.h>
-=20
- #ifdef CONFIG_CEPH_FSCACHE
-+#define FSCACHE_USE_NEW_IO_API
- #include <linux/fscache.h>
- #endif
-=20
++=09ceph_fscache_invalidate(inode);
+ =09if (invalidate_inode_pages2(inode->i_mapping) < 0) {
+ =09=09pr_err("invalidate_pages %p fails\n", inode);
+ =09}
 --=20
 2.29.2
 
