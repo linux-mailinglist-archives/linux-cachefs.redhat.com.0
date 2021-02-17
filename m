@@ -1,73 +1,94 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4E9E332285A
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BA8E132285B
 	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Feb 2021 11:00:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614074410;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=BhFE4jTTB8VG44B3tkzN9f8UGV6/qDd4zCxjIjVDWKA=;
-	b=L6vbWqU71A30lk+X020MN8Jn5/dHAzIRSrZzpyaLt+DiWrOO9c5qJywwIOS0H8WXwsCgSp
-	/vPFqaoj4EHXSTdUJQvaW0+4uuhI71H+FJE9G0KFvwcVf4mJQf54b51xKFtTratW/P8nOj
-	x0mCLybrgefJJuwTXnAdCbwfdgusZWk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-484-8v4NUkgfPD6QJgP6rG2M2A-1; Tue, 23 Feb 2021 05:00:08 -0500
-X-MC-Unique: 8v4NUkgfPD6QJgP6rG2M2A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-78-nNm7S74XPHGX2Ouyavd04w-1; Tue, 23 Feb 2021 05:00:09 -0500
+X-MC-Unique: nNm7S74XPHGX2Ouyavd04w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D56FF18B62B6;
-	Tue, 23 Feb 2021 09:59:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C429C1002388;
-	Tue, 23 Feb 2021 09:59:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45D3418B62B7;
+	Tue, 23 Feb 2021 09:59:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 33C2C5D9DC;
+	Tue, 23 Feb 2021 09:59:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ADF6818095CB;
-	Tue, 23 Feb 2021 09:59:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1BCB758074;
+	Tue, 23 Feb 2021 09:59:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11HFgeUx022951 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 17 Feb 2021 10:42:40 -0500
+	id 11HGxVOb001674 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 17 Feb 2021 11:59:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D1E8F5C67A; Wed, 17 Feb 2021 15:42:40 +0000 (UTC)
+	id C0CC5103CC1; Wed, 17 Feb 2021 16:59:31 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
-	[10.10.119.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 35BDC5C3E4;
-	Wed, 17 Feb 2021 15:42:34 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CAOg9mSQYBjnMsDj5pMd6MOGTY5w_ZR=pw7VRYKfP5ZwmHBj2=Q@mail.gmail.com>
-References: <CAOg9mSQYBjnMsDj5pMd6MOGTY5w_ZR=pw7VRYKfP5ZwmHBj2=Q@mail.gmail.com>
-	<161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BB77410485B
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 16:59:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 735088919BB
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 16:59:29 +0000 (UTC)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+	[209.85.210.53]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-284-84nDJb6MN1uNpY3OuLHUDA-1; Wed, 17 Feb 2021 11:59:27 -0500
+X-MC-Unique: 84nDJb6MN1uNpY3OuLHUDA-1
+Received: by mail-ot1-f53.google.com with SMTP id d7so12606021otq.6
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 08:59:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=7sO3sUZqmmuiy5ZWICfkEsaBnSxzPGcJa4JjW5AEhLI=;
+	b=po2VA8kLIE6GJZrJeLURqN7LAl3gbXJlMkKJ1Wts/4VE/LJNTct3va4KTQ31gtI5M+
+	YPBdtnvIO1F0iwtiOcbu18nI/5vbwUtpQ+U97ZD9QZ0EPNdmrOwO1IcUnwX80kwBctJ3
+	fMt4Ue1fzzBlAHQIzG6ET/rbjKtqqzpNByhaDZ9Ap7tt/nvGnE3Ebt6DJtDL3pyDdE1c
+	NPF5WvWInsAarvtBB8bSwtV4yTd62px+zgm3DfCSsLo19bAWr+0bLNcPLxff06HiO4Vl
+	U2YRUX5SCrOGffySWlKQHfUdGorezxZo8UhUKm/waF8r8m9U6q/NJSNHSclKevcOuuFY
+	eFlw==
+X-Gm-Message-State: AOAM533pMlvUwEQ6nQuOtt4YZTj8LfZGY4oSU7OSKGy36hKAJ4LSW+q+
+	1B5fszxcZ4YQusgsJDDc+lkO5ddhwb+8mPWipT58ZQ==
+X-Google-Smtp-Source: ABdhPJwChss0o2dxG2RNWJW1xeyysww7AKgNgkTjjECbssh7P0+Vree7tQLd/y6uY6aD7E7WIsZvOGZ0HXpRVi3fZGQ=
+X-Received: by 2002:a9d:6c4c:: with SMTP id g12mr66707otq.53.1613581166449;
+	Wed, 17 Feb 2021 08:59:26 -0800 (PST)
+MIME-Version: 1.0
+References: <161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 	<161340389201.1303470.14353807284546854878.stgit@warthog.procyon.org.uk>
 	<20210216103215.GB27714@lst.de>
 	<20210216132251.GI2858050@casper.infradead.org>
-To: Mike Marshall <hubcap@omnibond.com>
-MIME-Version: 1.0
-Date: Wed, 17 Feb 2021 15:42:33 +0000
-Message-ID: <1586931.1613576553@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+	<CAOg9mSQYBjnMsDj5pMd6MOGTY5w_ZR=pw7VRYKfP5ZwmHBj2=Q@mail.gmail.com>
+	<1586931.1613576553@warthog.procyon.org.uk>
+In-Reply-To: <1586931.1613576553@warthog.procyon.org.uk>
+From: Mike Marshall <hubcap@omnibond.com>
+Date: Wed, 17 Feb 2021 11:59:15 -0500
+Message-ID: <CAOg9mSTyFX+2MMSV77hLDUpHogQ=KXO5oNduA90FLoowPGk0Jw@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Tue, 23 Feb 2021 04:59:26 -0500
-Cc: Steve French <sfrench@samba.org>,
+Cc: linux-cifs@vger.kernel.org,
 	Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
+	linux-afs@lists.infradead.org, Dominique Martinet <asmadeus@codewreck.org>,
 	LKML <linux-kernel@vger.kernel.org>, Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@lst.de>, linux-mm <linux-mm@kvack.org>,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christoph Hellwig <hch@lst.de>, Steve French <sfrench@samba.org>,
+	linux-mm <linux-mm@kvack.org>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Trond Myklebust <trondmy@hammerspace.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	V9FS Developers <v9fs-developer@lists.sourceforge.net>,
@@ -88,23 +109,48 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <1586930.1613576553.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Mike Marshall <hubcap@omnibond.com> wrote:
+Matthew has looked at how I'm fumbling about
+trying to deal with Orangefs's need for much larger
+than page-sized IO...
 
-> I plan to try and use readahead_expand in Orangefs...
+I think I need to implement orangefs_readahead
+and from there fire off an asynchronous read
+and while that's going I'll call readahead_page
+with a rac that I've cranked up with readahead_expand
+and when the read gets done I'll have plenty of pages
+for the large IO I did.
 
-Would it help if I shuffled the readahead_expand patch to the bottom of the
-pack?
+Even if what I think I need to do is somewhere
+near right, the async code in the Orangefs
+kernel module didn't make it into the upstream
+version, so I have to refurbish that. All that to
+say: I don't need readahead_expand
+"tomorrow", but it fits into my plan to
+get Orangefs the extra pages it needs
+without me having open-coded page cache
+code in orangefs_readpage.
 
-David
+-Mike
+
+On Wed, Feb 17, 2021 at 10:42 AM David Howells <dhowells@redhat.com> wrote:
+>
+> Mike Marshall <hubcap@omnibond.com> wrote:
+>
+> > I plan to try and use readahead_expand in Orangefs...
+>
+> Would it help if I shuffled the readahead_expand patch to the bottom of the
+> pack?
+>
+> David
+>
 
 --
 Linux-cachefs mailing list
