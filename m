@@ -2,51 +2,50 @@ Return-Path: <linux-cachefs-bounces@listman.redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-44.mimecast.com (us-smtp-delivery-44.mimecast.com [207.211.30.44])
-	by mail.lfdr.de (Postfix) with ESMTP id EDF6031D9D1
+	by mail.lfdr.de (Postfix) with ESMTP id 09BC831D9D3
 	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Feb 2021 13:59:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-283-D8kAfUONNHqQmdPIEjxh_w-1; Wed, 17 Feb 2021 07:59:07 -0500
-X-MC-Unique: D8kAfUONNHqQmdPIEjxh_w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-165-K4DdczNgP2WR-A1XKsY2yg-1; Wed, 17 Feb 2021 07:59:05 -0500
+X-MC-Unique: K4DdczNgP2WR-A1XKsY2yg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E95F11E566;
-	Wed, 17 Feb 2021 12:59:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6D095D9D3;
-	Wed, 17 Feb 2021 12:59:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87E18106BB24;
+	Wed, 17 Feb 2021 12:59:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 750B05D719;
+	Wed, 17 Feb 2021 12:59:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AED9BCF5C;
-	Wed, 17 Feb 2021 12:59:03 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A429218095CD;
+	Wed, 17 Feb 2021 12:59:00 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11HCwxmG022596 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 17 Feb 2021 07:58:59 -0500
+	id 11HCwwh1022586 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 17 Feb 2021 07:58:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7807D2026D46; Wed, 17 Feb 2021 12:58:59 +0000 (UTC)
+	id 73697202F4F4; Wed, 17 Feb 2021 12:58:58 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 725E7202F4F4
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E9492026D46
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04335800296
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 560C780080E
+	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 12:58:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-14-vR7VhwXCNK2fTbcn4gSgCw-1; 
-	Wed, 17 Feb 2021 07:58:52 -0500
-X-MC-Unique: vR7VhwXCNK2fTbcn4gSgCw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B04DB64E42;
-	Wed, 17 Feb 2021 12:58:50 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-140-Hn9DI6B7M_uGKQhffBodyQ-1;
+	Wed, 17 Feb 2021 07:58:53 -0500
+X-MC-Unique: Hn9DI6B7M_uGKQhffBodyQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E66A64E63;
+	Wed, 17 Feb 2021 12:58:51 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: dhowells@redhat.com, idryomov@gmail.com
-Date: Wed, 17 Feb 2021 07:58:43 -0500
-Message-Id: <20210217125845.10319-5-jlayton@kernel.org>
+Date: Wed, 17 Feb 2021 07:58:44 -0500
+Message-Id: <20210217125845.10319-6-jlayton@kernel.org>
 In-Reply-To: <20210217125845.10319-1-jlayton@kernel.org>
 References: <20210217125845.10319-1-jlayton@kernel.org>
 MIME-Version: 1.0
@@ -60,12 +59,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 11HCwxmG022596
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 11HCwwh1022586
 X-loop: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
 	ceph-devel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH v2 4/6] ceph: convert readpage to fscache
-	read helper
+Subject: [Linux-cachefs] [PATCH v2 5/6] ceph: plug write_begin into read
+	helper
 X-BeenThere: linux-cachefs@listman.redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@listman.redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@listman.redhat.com
 Errors-To: linux-cachefs-bounces@listman.redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@listman.redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,316 +87,260 @@ X-Mimecast-Originator: listman.redhat.com
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-Have the ceph KConfig select NETFS_SUPPORT. Add a new netfs ops
-structure and the operations for it. Convert ceph_readpage to use
-the new netfs_readpage helper.
+Convert ceph_write_begin to use the netfs_write_begin helper. Most of
+the ops we need for it are already in place from the readpage conversion
+but we do add a new check_write_begin op since ceph needs to be able to
+vet whether there is an incompatible writeback already in flight before
+reading in the page.
+
+With this, we can also remove the old ceph_do_readpage helper.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Cc: ceph-devel@vger.kernel.org
 Cc: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org
 ---
- fs/ceph/Kconfig |   1 +
- fs/ceph/addr.c  | 167 +++++++++++++++++++++++++++++++++++++++++++++---
- fs/ceph/cache.h |  36 +++++++++++
- 3 files changed, 194 insertions(+), 10 deletions(-)
+ fs/ceph/addr.c | 188 ++++++++++++++++---------------------------------
+ 1 file changed, 62 insertions(+), 126 deletions(-)
 
-diff --git a/fs/ceph/Kconfig b/fs/ceph/Kconfig
-index 471e40156065..94df854147d3 100644
---- a/fs/ceph/Kconfig
-+++ b/fs/ceph/Kconfig
-@@ -6,6 +6,7 @@ config CEPH_FS
- =09select LIBCRC32C
- =09select CRYPTO_AES
- =09select CRYPTO
-+=09select NETFS_SUPPORT
- =09default n
- =09help
- =09  Choose Y or M here to include support for mounting the
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index fbfa49db06fd..6d4de969f761 100644
+index 6d4de969f761..774fd4efffd7 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -12,6 +12,7 @@
- #include <linux/signal.h>
- #include <linux/iversion.h>
- #include <linux/ktime.h>
-+#include <linux/netfs.h>
-=20
- #include "super.h"
- #include "mds_client.h"
-@@ -183,6 +184,162 @@ static int ceph_releasepage(struct page *page, gfp_t =
-gfp_flags)
- =09return !PagePrivate(page);
+@@ -340,76 +340,6 @@ static int ceph_readpage(struct file *file, struct pag=
+e *page)
+ =09return netfs_readpage(file, page, &ceph_readpage_netfs_ops, NULL);
  }
 =20
-+static void ceph_netfs_expand_readahead(struct netfs_read_request *rreq)
+-/* read a single page, without unlocking it. */
+-static int ceph_do_readpage(struct file *filp, struct page *page)
+-{
+-=09struct inode *inode =3D file_inode(filp);
+-=09struct ceph_inode_info *ci =3D ceph_inode(inode);
+-=09struct ceph_fs_client *fsc =3D ceph_inode_to_client(inode);
+-=09struct ceph_osd_client *osdc =3D &fsc->client->osdc;
+-=09struct ceph_osd_request *req;
+-=09struct ceph_vino vino =3D ceph_vino(inode);
+-=09int err =3D 0;
+-=09u64 off =3D page_offset(page);
+-=09u64 len =3D PAGE_SIZE;
+-
+-=09if (off >=3D i_size_read(inode)) {
+-=09=09zero_user_segment(page, 0, PAGE_SIZE);
+-=09=09SetPageUptodate(page);
+-=09=09return 0;
+-=09}
+-
+-=09if (ci->i_inline_version !=3D CEPH_INLINE_NONE) {
+-=09=09/*
+-=09=09 * Uptodate inline data should have been added
+-=09=09 * into page cache while getting Fcr caps.
+-=09=09 */
+-=09=09if (off =3D=3D 0)
+-=09=09=09return -EINVAL;
+-=09=09zero_user_segment(page, 0, PAGE_SIZE);
+-=09=09SetPageUptodate(page);
+-=09=09return 0;
+-=09}
+-
+-=09dout("readpage ino %llx.%llx file %p off %llu len %llu page %p index %l=
+u\n",
+-=09     vino.ino, vino.snap, filp, off, len, page, page->index);
+-=09req =3D ceph_osdc_new_request(osdc, &ci->i_layout, vino, off, &len, 0, =
+1,
+-=09=09=09=09    CEPH_OSD_OP_READ, CEPH_OSD_FLAG_READ, NULL,
+-=09=09=09=09    ci->i_truncate_seq, ci->i_truncate_size,
+-=09=09=09=09    false);
+-=09if (IS_ERR(req))
+-=09=09return PTR_ERR(req);
+-
+-=09osd_req_op_extent_osd_data_pages(req, 0, &page, len, 0, false, false);
+-
+-=09err =3D ceph_osdc_start_request(osdc, req, false);
+-=09if (!err)
+-=09=09err =3D ceph_osdc_wait_request(osdc, req);
+-
+-=09ceph_update_read_latency(&fsc->mdsc->metric, req->r_start_latency,
+-=09=09=09=09 req->r_end_latency, err);
+-
+-=09ceph_osdc_put_request(req);
+-=09dout("readpage result %d\n", err);
+-
+-=09if (err =3D=3D -ENOENT)
+-=09=09err =3D 0;
+-=09if (err < 0) {
+-=09=09if (err =3D=3D -EBLOCKLISTED)
+-=09=09=09fsc->blocklisted =3D true;
+-=09=09goto out;
+-=09}
+-=09if (err < PAGE_SIZE)
+-=09=09/* zero fill remainder of page */
+-=09=09zero_user_segment(page, err, PAGE_SIZE);
+-=09else
+-=09=09flush_dcache_page(page);
+-
+-=09SetPageUptodate(page);
+-out:
+-=09return err < 0 ? err : 0;
+-}
+-
+ /*
+  * Finish an async read(ahead) op.
+  */
+@@ -1429,6 +1359,41 @@ ceph_find_incompatible(struct page *page)
+ =09return NULL;
+ }
+=20
++static int ceph_netfs_check_write_begin(struct file *file, loff_t pos, uns=
+igned int len,
++=09=09=09=09=09struct page *page, void **_fsdata)
 +{
-+=09struct inode *inode =3D rreq->mapping->host;
++=09struct inode *inode =3D file_inode(file);
 +=09struct ceph_inode_info *ci =3D ceph_inode(inode);
-+=09struct ceph_file_layout *lo =3D &ci->i_layout;
-+=09u32 blockoff;
-+=09u64 blockno;
++=09struct ceph_snap_context *snapc;
 +
-+=09/* Expand the start downward */
-+=09blockno =3D div_u64_rem(rreq->start, lo->stripe_unit, &blockoff);
-+=09rreq->start =3D blockno * lo->stripe_unit;
-+=09rreq->len +=3D blockoff;
++=09snapc =3D ceph_find_incompatible(page);
++=09if (snapc) {
++=09=09int r;
 +
-+=09/* Now, round up the length to the next block */
-+=09rreq->len =3D roundup(rreq->len, lo->stripe_unit);
-+}
++=09=09unlock_page(page);
++=09=09put_page(page);
++=09=09if (IS_ERR(snapc))
++=09=09=09return PTR_ERR(snapc);
 +
-+static bool ceph_netfs_clamp_length(struct netfs_read_subrequest *subreq)
-+{
-+=09struct inode *inode =3D subreq->rreq->mapping->host;
-+=09struct ceph_inode_info *ci =3D ceph_inode(inode);
-+=09u64 objno, objoff;
-+=09u32 xlen;
-+
-+=09/* Truncate the extent at the end of the current block */
-+=09ceph_calc_file_object_mapping(&ci->i_layout, subreq->start, subreq->len=
-,
-+=09=09=09=09      &objno, &objoff, &xlen);
-+=09subreq->len =3D xlen;
-+=09return true;
-+}
-+
-+static void finish_netfs_read(struct ceph_osd_request *req)
-+{
-+=09struct ceph_fs_client *fsc =3D ceph_inode_to_client(req->r_inode);
-+=09struct ceph_osd_data *osd_data =3D osd_req_op_extent_osd_data(req, 0);
-+=09struct netfs_read_subrequest *subreq =3D req->r_priv;
-+=09int num_pages;
-+=09int err =3D req->r_result;
-+
-+=09ceph_update_read_latency(&fsc->mdsc->metric, req->r_start_latency,
-+=09=09=09=09 req->r_end_latency, err);
-+
-+=09dout("%s: result %d subreq->len=3D%zu i_size=3D%lld\n", __func__, req->=
-r_result,
-+=09     subreq->len, i_size_read(req->r_inode));
-+
-+=09/* no object means success but no data */
-+=09if (err =3D=3D -ENOENT)
-+=09=09err =3D 0;
-+=09else if (err =3D=3D -EBLOCKLISTED)
-+=09=09fsc->blocklisted =3D true;
-+
-+=09if (err >=3D 0 && err < subreq->len)
-+=09=09__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
-+
-+=09netfs_subreq_terminated(subreq, err);
-+
-+=09num_pages =3D calc_pages_for(osd_data->alignment, osd_data->length);
-+=09ceph_put_page_vector(osd_data->pages, num_pages, false);
-+=09iput(req->r_inode);
-+}
-+
-+static void ceph_netfs_issue_op(struct netfs_read_subrequest *subreq)
-+{
-+=09struct netfs_read_request *rreq =3D subreq->rreq;
-+=09struct inode *inode =3D rreq->mapping->host;
-+=09struct ceph_inode_info *ci =3D ceph_inode(inode);
-+=09struct ceph_fs_client *fsc =3D ceph_inode_to_client(inode);
-+=09struct ceph_osd_request *req;
-+=09struct ceph_vino vino =3D ceph_vino(inode);
-+=09struct iov_iter iter;
-+=09struct page **pages;
-+=09size_t page_off;
-+=09int err =3D 0;
-+=09u64 len =3D subreq->len;
-+
-+=09req =3D ceph_osdc_new_request(&fsc->client->osdc, &ci->i_layout, vino, =
-subreq->start, &len,
-+=09=09=090, 1, CEPH_OSD_OP_READ,
-+=09=09=09CEPH_OSD_FLAG_READ | fsc->client->osdc.client->options->read_from=
-_replica,
-+=09=09=09NULL, ci->i_truncate_seq, ci->i_truncate_size, false);
-+=09if (IS_ERR(req)) {
-+=09=09err =3D PTR_ERR(req);
-+=09=09req =3D NULL;
-+=09=09goto out;
++=09=09ceph_queue_writeback(inode);
++=09=09r =3D wait_event_killable(ci->i_cap_wq,
++=09=09=09=09=09context_is_writeable_or_written(inode, snapc));
++=09=09ceph_put_snap_context(snapc);
++=09=09return r =3D=3D 0 ? -EAGAIN : r;
 +=09}
-+
-+=09dout("%s: pos=3D%llu orig_len=3D%zu len=3D%llu\n", __func__, subreq->st=
-art, subreq->len, len);
-+=09iov_iter_xarray(&iter, READ, &rreq->mapping->i_pages, subreq->start, le=
-n);
-+=09err =3D iov_iter_get_pages_alloc(&iter, &pages, len, &page_off);
-+=09if (err < 0) {
-+=09=09dout("%s: iov_ter_get_pages_alloc returned %d\n", __func__, err);
-+=09=09goto out;
-+=09}
-+
-+=09/* should always give us a page-aligned read */
-+=09WARN_ON_ONCE(page_off);
-+=09len =3D err;
-+
-+=09osd_req_op_extent_osd_data_pages(req, 0, pages, len, 0, false, false);
-+=09req->r_callback =3D finish_netfs_read;
-+=09req->r_priv =3D subreq;
-+=09req->r_inode =3D inode;
-+=09ihold(inode);
-+
-+=09err =3D ceph_osdc_start_request(req->r_osdc, req, false);
-+=09if (err)
-+=09=09iput(inode);
-+out:
-+=09ceph_osdc_put_request(req);
-+=09if (err)
-+=09=09netfs_subreq_terminated(subreq, err);
-+=09dout("%s: result %d\n", __func__, err);
++=09return 0;
 +}
 +
-+static void ceph_init_rreq(struct netfs_read_request *rreq, struct file *f=
-ile)
-+{
-+}
-+
-+const struct netfs_read_request_ops ceph_readpage_netfs_ops =3D {
++const struct netfs_read_request_ops ceph_netfs_write_begin_ops =3D {
 +=09.init_rreq=09=09=3D ceph_init_rreq,
 +=09.is_cache_enabled=09=3D ceph_is_cache_enabled,
 +=09.begin_cache_operation=09=3D ceph_begin_cache_operation,
 +=09.issue_op=09=09=3D ceph_netfs_issue_op,
 +=09.expand_readahead=09=3D ceph_netfs_expand_readahead,
 +=09.clamp_length=09=09=3D ceph_netfs_clamp_length,
++=09.check_write_begin=09=3D ceph_netfs_check_write_begin,
 +};
 +
-+/* read a single page, without unlocking it. */
-+static int ceph_readpage(struct file *file, struct page *page)
-+{
-+=09struct inode *inode =3D file_inode(file);
-+=09struct ceph_inode_info *ci =3D ceph_inode(inode);
-+=09struct ceph_vino vino =3D ceph_vino(inode);
-+=09u64 off =3D page_offset(page);
-+=09u64 len =3D PAGE_SIZE;
-+
+ /*
+  * We are only allowed to write into/dirty the page if the page is
+  * clean, or already dirty within the same snap context.
+@@ -1439,75 +1404,46 @@ static int ceph_write_begin(struct file *file, stru=
+ct address_space *mapping,
+ {
+ =09struct inode *inode =3D file_inode(file);
+ =09struct ceph_inode_info *ci =3D ceph_inode(inode);
+-=09struct ceph_snap_context *snapc;
+ =09struct page *page =3D NULL;
+ =09pgoff_t index =3D pos >> PAGE_SHIFT;
+-=09int pos_in_page =3D pos & ~PAGE_MASK;
+-=09int r =3D 0;
+-
+-=09dout("write_begin file %p inode %p page %p %d~%d\n", file, inode, page,=
+ (int)pos, (int)len);
+-
+-=09for (;;) {
+-=09=09page =3D grab_cache_page_write_begin(mapping, index, flags);
+-=09=09if (!page) {
+-=09=09=09r =3D -ENOMEM;
+-=09=09=09break;
+-=09=09}
+-
+-=09=09snapc =3D ceph_find_incompatible(page);
+-=09=09if (snapc) {
+-=09=09=09if (IS_ERR(snapc)) {
+-=09=09=09=09r =3D PTR_ERR(snapc);
+-=09=09=09=09break;
+-=09=09=09}
+-=09=09=09unlock_page(page);
+-=09=09=09put_page(page);
+-=09=09=09page =3D NULL;
+-=09=09=09ceph_queue_writeback(inode);
+-=09=09=09r =3D wait_event_killable(ci->i_cap_wq,
+-=09=09=09=09=09=09context_is_writeable_or_written(inode, snapc));
+-=09=09=09ceph_put_snap_context(snapc);
+-=09=09=09if (r !=3D 0)
+-=09=09=09=09break;
+-=09=09=09continue;
+-=09=09}
+-
+-=09=09if (PageUptodate(page)) {
+-=09=09=09dout(" page %p already uptodate\n", page);
+-=09=09=09break;
+-=09=09}
++=09int r;
+=20
 +=09if (ci->i_inline_version !=3D CEPH_INLINE_NONE) {
-+=09=09/*
+ =09=09/*
+-=09=09 * In some cases we don't need to read at all:
+-=09=09 * - full page write
+-=09=09 * - write that lies completely beyond EOF
+-=09=09 * - write that covers the the page from start to EOF or beyond it
++=09=09 * In principle, we should never get here, as the inode should have =
+been uninlined
++=09=09 * before we're allowed to write to the page (in write_iter or page_=
+mkwrite).
+ =09=09 */
+-=09=09if ((pos_in_page =3D=3D 0 && len =3D=3D PAGE_SIZE) ||
+-=09=09    (pos >=3D i_size_read(inode)) ||
+-=09=09    (pos_in_page =3D=3D 0 && (pos + len) >=3D i_size_read(inode))) {
+-=09=09=09zero_user_segments(page, 0, pos_in_page,
+-=09=09=09=09=09   pos_in_page + len, PAGE_SIZE);
+-=09=09=09break;
+-=09=09}
++=09=09WARN_ONCE(1, "ceph: write_begin called on still-inlined inode!\n");
+=20
+ =09=09/*
+-=09=09 * We need to read it. If we get back -EINPROGRESS, then the page wa=
+s
+-=09=09 * handed off to fscache and it will be unlocked when the read compl=
+etes.
+-=09=09 * Refind the page in that case so we can reacquire the page lock. O=
+therwise
+-=09=09 * we got a hard error or the read was completed synchronously.
 +=09=09 * Uptodate inline data should have been added
 +=09=09 * into page cache while getting Fcr caps.
-+=09=09 */
-+=09=09if (off =3D=3D 0) {
-+=09=09=09unlock_page(page);
-+=09=09=09return -EINVAL;
+ =09=09 */
+-=09=09r =3D ceph_do_readpage(file, page);
+-=09=09if (r !=3D -EINPROGRESS)
+-=09=09=09break;
++=09=09if (index =3D=3D 0) {
++=09=09=09r =3D -EINVAL;
++=09=09=09goto out;
 +=09=09}
++
++=09=09page =3D grab_cache_page_write_begin(mapping, index, flags);
++=09=09if (!page)
++=09=09=09return -ENOMEM;
++
 +=09=09zero_user_segment(page, 0, PAGE_SIZE);
 +=09=09SetPageUptodate(page);
-+=09=09unlock_page(page);
-+=09=09return 0;
-+=09}
-+
-+=09dout("readpage ino %llx.%llx file %p off %llu len %llu page %p index %l=
-u\n",
-+=09     vino.ino, vino.snap, file, off, len, page, page->index);
-+
-+=09return netfs_readpage(file, page, &ceph_readpage_netfs_ops, NULL);
-+}
-+
- /* read a single page, without unlocking it. */
- static int ceph_do_readpage(struct file *filp, struct page *page)
- {
-@@ -253,16 +410,6 @@ static int ceph_do_readpage(struct file *filp, struct =
-page *page)
- =09return err < 0 ? err : 0;
- }
++=09=09r =3D 0;
++=09=09goto out;
+ =09}
 =20
--static int ceph_readpage(struct file *filp, struct page *page)
--{
--=09int r =3D ceph_do_readpage(filp, page);
--=09if (r !=3D -EINPROGRESS)
--=09=09unlock_page(page);
--=09else
--=09=09r =3D 0;
--=09return r;
--}
--
- /*
-  * Finish an async read(ahead) op.
-  */
-diff --git a/fs/ceph/cache.h b/fs/ceph/cache.h
-index 10c21317b62f..1409d6149281 100644
---- a/fs/ceph/cache.h
-+++ b/fs/ceph/cache.h
-@@ -9,6 +9,8 @@
- #ifndef _CEPH_CACHE_H
- #define _CEPH_CACHE_H
-=20
-+#include <linux/netfs.h>
-+
- #ifdef CONFIG_CEPH_FSCACHE
-=20
- extern struct fscache_netfs ceph_cache_netfs;
-@@ -35,11 +37,31 @@ static inline void ceph_fscache_inode_init(struct ceph_=
-inode_info *ci)
- =09ci->fscache =3D NULL;
- }
-=20
-+static inline struct fscache_cookie *ceph_fscache_cookie(struct ceph_inode=
-_info *ci)
-+{
-+=09return ci->fscache;
-+}
-+
- static inline void ceph_fscache_invalidate(struct inode *inode)
- {
- =09fscache_invalidate(ceph_inode(inode)->fscache);
- }
-=20
-+static inline bool ceph_is_cache_enabled(struct inode *inode)
-+{
-+=09struct fscache_cookie *cookie =3D ceph_fscache_cookie(ceph_inode(inode)=
-);
-+
-+=09if (!cookie)
-+=09=09return false;
-+=09return fscache_cookie_enabled(cookie);
-+}
-+
-+static inline int ceph_begin_cache_operation(struct netfs_read_request *rr=
-eq)
-+{
-+=09struct fscache_cookie *cookie =3D ceph_fscache_cookie(ceph_inode(rreq->=
-inode));
-+
-+=09return fscache_begin_read_operation(rreq, cookie);
-+}
- #else
-=20
- static inline int ceph_fscache_register(void)
-@@ -65,6 +87,11 @@ static inline void ceph_fscache_inode_init(struct ceph_i=
-node_info *ci)
- {
- }
-=20
-+static inline struct fscache_cookie *ceph_fscache_cookie(struct ceph_inode=
-_info *ci)
-+{
-+=09return NULL;
-+}
-+
- static inline void ceph_fscache_register_inode_cookie(struct inode *inode)
- {
- }
-@@ -82,6 +109,15 @@ static inline void ceph_fscache_invalidate(struct inode=
- *inode)
- {
- }
-=20
-+static inline bool ceph_is_cache_enabled(struct inode *inode)
-+{
-+=09return false;
-+}
-+
-+static inline int ceph_begin_cache_operation(struct netfs_read_request *rr=
-eq)
-+{
-+=09return -ENOBUFS;
-+}
- #endif
-=20
- #endif /* _CEPH_CACHE_H */
++=09r =3D netfs_write_begin(file, inode->i_mapping, pos, len, 0, &page, NUL=
+L,
++=09=09=09      &ceph_netfs_write_begin_ops, NULL);
++out:
++=09if (r =3D=3D 0)
++=09=09wait_on_page_fscache(page);
+ =09if (r < 0) {
+-=09=09if (page) {
+-=09=09=09unlock_page(page);
++=09=09if (page)
+ =09=09=09put_page(page);
+-=09=09}
+ =09} else {
++=09=09WARN_ON_ONCE(!PageLocked(page));
+ =09=09*pagep =3D page;
+ =09}
+ =09return r;
 --=20
 2.29.2
 
