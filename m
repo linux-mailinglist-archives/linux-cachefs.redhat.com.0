@@ -1,77 +1,72 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 41B2B31E2D1
-	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Feb 2021 23:52:57 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 16EA531ED88
+	for <lists+linux-cachefs@lfdr.de>; Thu, 18 Feb 2021 18:47:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1613670439;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=pt0qj7NTRJYS1IrOHbOeTAb8ojKncJ+Kk5xl323GlF8=;
+	b=NRgYRxpc8982i2pnnGeEnaT8fwzCNVffUgj4b+NVOuize4Xz+Sc9mZ+Hic50PBcGzR/GfT
+	osu1GSVABh0Rr18oXFHWncy6SqpLF1IUi/kmLKGF5J5pvK58pGVN26+P8FnV37naZB10g1
+	yB2EM8+YRNREXVht55alOKibSzZQYs4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-472-XA8u4rU3MpydWGUc1mJENw-1; Wed, 17 Feb 2021 17:52:54 -0500
-X-MC-Unique: XA8u4rU3MpydWGUc1mJENw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-59-7N_rCzfnMr6HUj7vTez5bg-1; Thu, 18 Feb 2021 12:47:16 -0500
+X-MC-Unique: 7N_rCzfnMr6HUj7vTez5bg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E01651934102;
-	Wed, 17 Feb 2021 22:52:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5435B5D9C2;
-	Wed, 17 Feb 2021 22:52:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7AA65107ACE3;
+	Thu, 18 Feb 2021 17:47:14 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 064BF5D722;
+	Thu, 18 Feb 2021 17:47:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F1BB1809C91;
-	Wed, 17 Feb 2021 22:52:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 62BD44EEF6;
+	Thu, 18 Feb 2021 17:47:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11HMo9iD015292 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 17 Feb 2021 17:50:09 -0500
+	id 11IHl74N019816 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 18 Feb 2021 12:47:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2387E2038709; Wed, 17 Feb 2021 22:50:09 +0000 (UTC)
+	id C464B6A03D; Thu, 18 Feb 2021 17:47:07 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E6AF2026D46
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 22:50:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C061B8919B8
-	for <linux-cachefs@redhat.com>; Wed, 17 Feb 2021 22:50:06 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-496-GAEFiqiyNE63cuNPalvnxg-1; Wed, 17 Feb 2021 17:50:04 -0500
-X-MC-Unique: GAEFiqiyNE63cuNPalvnxg-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lCVdG-000xt5-Iq; Wed, 17 Feb 2021 22:49:44 +0000
-Date: Wed, 17 Feb 2021 22:49:18 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20210217224918.GP2858050@casper.infradead.org>
+Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
+	[10.10.119.68])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4C64060877;
+	Thu, 18 Feb 2021 17:47:01 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20210217161358.GM2858050@casper.infradead.org>
 References: <20210217161358.GM2858050@casper.infradead.org>
 	<161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk>
 	<161340389201.1303470.14353807284546854878.stgit@warthog.procyon.org.uk>
-	<1901187.1613601279@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <1901187.1613601279@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Date: Thu, 18 Feb 2021 17:47:00 +0000
+Message-ID: <2083368.1613670420@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-afs@lists.infradead.org, Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
+	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
+	Dominique Martinet <asmadeus@codewreck.org>,
 	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Steve French <sfrench@samba.org>, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-mm@kvack.org, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	Mike Marshall <hubcap@omnibond.com>
+	Anna Schumaker <anna.schumaker@netapp.com>
 Subject: Re: [Linux-cachefs] [PATCH 03/33] mm: Implement readahead_control
 	pageset expansion
 X-BeenThere: linux-cachefs@redhat.com
@@ -87,43 +82,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <2083367.1613670420.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 17, 2021 at 10:34:39PM +0000, David Howells wrote:
-> Matthew Wilcox <willy@infradead.org> wrote:
-> 
-> > We're defeating the ondemand_readahead() algorithm here.  Let's suppose
-> > userspace is doing 64kB reads, the filesystem is OrangeFS which only
-> > wants to do 4MB reads, the page cache is initially empty and there's
-> > only one thread doing a sequential read.  ondemand_readahead() calls
-> > get_init_ra_size() which tells it to allocate 128kB and set the async
-> > marker at 64kB.  Then orangefs calls readahead_expand() to allocate the
-> > remainder of the 4MB.  After the app has read the first 64kB, it comes
-> > back to read the next 64kB, sees the readahead marker and tries to trigger
-> > the next batch of readahead, but it's already present, so it does nothing
-> > (see page_cache_ra_unbounded() for what happens with pages present).
-> 
-> It sounds like Christoph is right on the right track and the vm needs to ask
-> the filesystem (and by extension, the cache) before doing the allocation and
-> before setting the trigger flag.  Then we don't need to call back into the vm
-> to expand the readahead.
+Matthew Wilcox <willy@infradead.org> wrote:
 
-Doesn't work.  You could read my reply to Christoph, or try to figure out
-how to get rid of
-https://evilpiepirate.org/git/bcachefs.git/tree/fs/bcachefs/fs-io.c#n742
-for yourself.
+> So readahead_expand() needs to adjust the file's f_ra so that when the
+> application gets to 64kB, it kicks off the readahead of 4MB-8MB chunk (and
+> then when we get to 4MB+256kB, it kicks off the readahead of 8MB-12MB,
+> and so on).
 
-> Also, there's Steve's request to try and keep at least two requests in flight
-> for CIFS/SMB at the same time to consider.
+Ummm...  Two questions:
 
-That's not relevant to this problem.
+Firstly, how do I do that?  Set ->async_size?  And to what?  The expansion
+could be 2MB from a ceph stripe, 256k from the cache.  Just to add to the fun,
+the leading edge of the window might also be rounded downwards and the RA
+trigger could be before where the app is going to start reading.
+
+Secondly, what happens if, say, a 4MB read is covered by a single 4MB THP?
+
+David
 
 --
 Linux-cachefs mailing list
