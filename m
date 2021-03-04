@@ -1,57 +1,62 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B945532BF2E
-	for <lists+linux-cachefs@lfdr.de>; Thu,  4 Mar 2021 00:20:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C42FE32D470
+	for <lists+linux-cachefs@lfdr.de>; Thu,  4 Mar 2021 14:47:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614813631;
+	s=mimecast20190719; t=1614865644;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dVvDI2YEMtrEweb40dc+9Q+FA1WcMT40+hLdDGq/2Jw=;
-	b=Md6WLpjyQ3qqzBd+KtLxwqHPGG/AHOYBB6cdutGHWvhErvMTNSdrKo7QkWDYBQtqWBThy0
-	ztGw9Hn37/ULV3L4TUdzjwhmh5d7u0vqi4DtSzCumBec/c2p8F2DpGOGwMYjqLfdGjQN4+
-	GPVuwd62t+6pqtz2RwHxZpBswOedrwU=
+	bh=cVJC1TmVItDUfg/4haPZr2vNuXKGCXvlm8TM0O7Mx0Q=;
+	b=EUuJRjTD1FeezOdfmOMcBRaOCzQc+nag+wHyy6kcuVyGo5BB9q4QDjDb7Himv+uKtQNCC2
+	OiYq5MZCg0n5IUzESooDsde/GMqu5l3DoUntrwpqFyCDOkGCNjvZWERhwlwH6Tv3EEPfWs
+	miDt6EBelx7JjdZoHFCafwRndSlBZ/Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-487-cXZuwQo1MLe19GfBW9xEtg-1; Wed, 03 Mar 2021 18:20:29 -0500
-X-MC-Unique: cXZuwQo1MLe19GfBW9xEtg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-444-Ot5_s44fN52IFUEa-NwhbA-1; Thu, 04 Mar 2021 08:47:23 -0500
+X-MC-Unique: Ot5_s44fN52IFUEa-NwhbA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 138C21083E90;
-	Wed,  3 Mar 2021 23:20:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA588EC1A5;
+	Thu,  4 Mar 2021 13:47:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D03665D9C2;
-	Wed,  3 Mar 2021 23:20:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24BC660CCB;
+	Thu,  4 Mar 2021 13:47:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF2DE50033;
-	Wed,  3 Mar 2021 23:20:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E4EB04A714;
+	Thu,  4 Mar 2021 13:47:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 123NKIlA001603 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 3 Mar 2021 18:20:18 -0500
+	id 124DlBiD005424 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 4 Mar 2021 08:47:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED4A16F45C; Wed,  3 Mar 2021 23:20:18 +0000 (UTC)
+	id 7610F58821; Thu,  4 Mar 2021 13:47:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-119-68.rdu2.redhat.com
-	[10.10.119.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6AC612D7E;
-	Wed,  3 Mar 2021 23:20:12 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-112-66.rdu2.redhat.com
+	[10.10.112.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D08AD5C1A1;
+	Thu,  4 Mar 2021 13:47:05 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
+In-Reply-To: <2653261.1614813611@warthog.procyon.org.uk>
+References: <2653261.1614813611@warthog.procyon.org.uk>
 To: linux-cachefs@redhat.com
 MIME-Version: 1.0
-Date: Wed, 03 Mar 2021 23:20:11 +0000
-Message-ID: <2653261.1614813611@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Date: Thu, 04 Mar 2021 13:47:04 +0000
+Message-ID: <2973223.1614865624@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 124DlBiD005424
 X-loop: linux-cachefs@redhat.com
 Cc: "J. Bruce Fields" <bfields@fieldses.org>, linux-nfs@vger.kernel.org,
 	Christoph Hellwig <hch@infradead.org>,
@@ -61,7 +66,8 @@ Cc: "J. Bruce Fields" <bfields@fieldses.org>, linux-nfs@vger.kernel.org,
 	Dave Chinner <dchinner@redhat.com>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] fscache: Redesigning the on-disk cache
+Subject: [Linux-cachefs] fscache: Redesigning the on-disk cache - LRU
+	handling
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,162 +81,57 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <2653260.1614813611.1@warthog.procyon.org.uk>
+Content-ID: <2973222.1614865624.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I'm looking at redesigning the on-disk cache format used by fscache's
-cachefiles driver to try and eliminate the number of synchronous metadata
-operations done by the driver, to improve culling performance and to reduce
-the amount of opens/files open.  I also need to stop relying on the backing
-filesystem to track where I have data stored.
+David Howells <dhowells@redhat.com> wrote:
 
-There are a number of options that I've considered:
+> 
+>  (3) OpenAFS-style format.  One index file to look up {file_key,block#} and an
+>      array of data files, each holding one block (e.g. a 256KiB-aligned chunk
+>      of a file).  Each index entry has valid start/end offsets for easy
+>      truncation.
+> 
+>      The index has a hash to facilitate the lookup and an LRU that allows a
+>      block to be recycled at any time.
 
- (0) The current format lays out a directory tree, with directories for each
-     level of index (so in AFS's terms, you've got an overall "afs" dir
-     containing a dir for each cell.  In each cell dir, there's a dir for each
-     volume and within that there's a file for each afs vnode cached.  Extra
-     levels of directory are also interposed to reduce the number of entries
-     in a directory.
+The LRU would probably have to be a doubly-linked list so that entries can be
+removed from it easily.  This means typically touching two other entries,
+which might not be in the same page; further, if the entry is being freed,
+we'd need to excise it from the hash chain also, necessitating touching maybe
+two more entries - which might also be in different pages.
 
-     - Pathwalk cost to open a cache file.
-     - Netfs coherency data is in xattrs.
-     - Invalidation done by truncate or unlink.
-     - Uses backing filesystem metadata to keep track of present data.
-       - Determined by bmap() on the cache file.
-     - Culling performed by userspace daemon.
-     - Data file opened for every write.
-     - Read done by readpage without file.
+Maybe the LRU idea plus a free block bitmap could be combined, however.
 
- (0a) As (0) but using SEEK_DATA/SEEK_HOLE instead of bmap and opening the
-      file for every whole operation (which may combine reads and writes).
+ (1) Say that there's a bit-pair map, with one bit pair per block.  The pair
+     is set to 0 when the block is free.  When the block is accessed, the pair
+     is set to 3.
 
- (1) Structured the same as (0), but keeping an independent content map and
-     not relying on backing fs metadata.  Use a larger blocksize, say 256K, to
-     reduce the size of the content map.
+ (2) When we run out of free blocks (ie. pairs that are zero), we decrement
+     all the pairs and then look again.
 
-     - Netfs coherency data in xattrs.
-     - Invalidation done by tmpfile creation and link-replace.
-     - Content bitmap kept in xattr.
-       - Limited capacity.  Could use multiple bitmaps.
-       - Can skip the bitmap for a non-sparse file that we have all of.
-     - "Open" state kept in xattr.
-     - File is kept open
-     - Culling performed by userspace daemon.
-     - Cache file open whilst netfs file is open.
+ (3) Excision from the old hash chain would need to be done at allocation,
+     though it does give a block whose usage has been reduced to 0 the chance
+     to be resurrected.
 
- (2) Structured the same as (1), but keeping an extent list instead of a
-     bitmap.
+Possible variations on the theme could be:
 
-     - Content extent map kept in xattr.
-       - Limited capacity.
-       - Highly scattered extents use a lot of map space.
+ (*) Set the pair to 2, not 3 when accessed.  Set the block to 3 to pin it;
+     the process of decrementing all the pairs would leave it at 3.
 
- (3) OpenAFS-style format.  One index file to look up {file_key,block#} and an
-     array of data files, each holding one block (e.g. a 256KiB-aligned chunk
-     of a file).  Each index entry has valid start/end offsets for easy
-     truncation.
+ (*) Rather than decrementing all pairs at once, have a rotating window that
+     does a part of the map at once.
 
-     The index has a hash to facilitate the lookup and an LRU that allows a
-     block to be recycled at any time.
+ (*) If a round of decrementing doesn't reduce any pairs to zero, reject a
+     request for space.
 
-     - File keys, are highly variable in length and can be rather long,
-       particularly NFS FIDs.
-       - Might want a separate file index that maps file keys to a slot ID
-       	 that can then be used in the block index.
-     - Netfs coherency data in vnode index entry.
-     - Invalidation done by clearing matching entries in the index.
-       - Dead data files can be lazily unlinked or truncated or just
-         overwritten.
-     - Content mapping by lookup in block index hash table.
-       - Fine if the hash table is large and scatter is good.
-     - Potential coherency problem between indices and data file.
-     - Culling performed by block index LRU.
-     - Really want to retain entire block index in RAM.
-     - Data files are opened for every read/write.
-
- (4) Similar format to (3), but could put entirety of data in one file.
-
-     - Data file open entire time cache online.
-     - Unused block bitmap.
-     - Can use fallocate to punch out dead blocks.
-     - Could put data file on blockdev.
-
- (5) Similar idea to (4), but just have a file index and use block pointers
-     and indirection blocks instead.  Use an LRU in the file index and cull
-     whole files only, not individual blocks.
-
-     - File keys, are highly variable in length and can be rather long,
-       particularly NFS FIDs.
-     - Netfs coherency data in vnode index entry.
-     - Unused data block bitmap.
-     - Invalidation done by clearing entries in the file index.
-       - Data blocks must be recycled and returned to bitmap.
-       - Dead data blocks can be lazily punched out with fallocate.
-     - Potential coherency problem between index, pointers/indirection and
-       bitmap.
-     - Culling performed by file index LRU.
-     - Really want to retain entire file index and block bitmap in RAM.
-       - May be less memory than block index.
-     - Data file open entire time cache online.
-     - Could put data file on blockdev.
-     - If the block size is large, lots of dead space in indirection blocks.
-
- (6) Similar to (5), but use extent lists rather than indirection blocks.
-
-     - Requires allocation of contiguous space to be worthwhile.
-     - Buddy allocator approach?
-       - Can always arbitrarily recycle buddies to make larger spaces - if we
-       	 can find them...
-
- (7) Hybrid approach.  Stick the first block of every netfs file in one big
-     cache file.  For a lot of cases, that would suffice for the entire file
-     if the block size is large enough.  Store the tails of larger files in
-     separate files.
-
-     - File index with LRU.
-     - More complicated to manage.
-     - Fewer files open.
-
-So (0) is what's upstream.  I have (0a) implemented in my fscache-netfs-lib
-branch and (1) implemented in my fscache-iter branch.  However, it spends a
-lot of cpu time doing synchronous metadata ops, such as creating tmpfiles,
-link creation and setting xattrs, particularly when unmounting the filesystem
-or disabling the cache - both of which are done during shutdown.
-
-I'm leaning towards (4) or (5).  I could use extent maps, but I don't
-necessarily have a good idea of what access patterns I have to deal with till
-later.  With network filesystems that are going to read and cache large blocks
-(say 2MiB), extents would allow reduction of the metadata, particularly where
-it would span a bitmap.
-
-Using a block index (4) allows me to easily recycle a large chunk of cache in
-one go - even if it means arbitrarily kicking out blocks that weren't near the
-end of the LRU yet.
-
-Using block pointers and indirection blocks (5) means I only need this data in
-RAM when I need it; with the LRU management being done in the file index.
-
-Either way with (4) and (5), at least one index really needs to be resident in
-RAM to make LRU wangling efficient.  Also, I need to decide how to handle
-coherency management - setting an "in use" flag on the file index entry and
-flushing it before making any modifications might work.
-
-On the other hand, sticking with (1) or (2) makes it easier to add extra
-metadata very easily (say to handle disconnected operation), though it's
-harder to manage culling and manage the capacity of the cache.
-
-I have a suspicion that the answer is "it depends" and that the best choice is
-very much going to be workload dependent - and may even vary from volume to
-volume within the same workload.
-
-Any thoughts or better solutions?
+This would also work for a file index.
 
 David
 
