@@ -1,71 +1,89 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C1CCE330A0A
-	for <lists+linux-cachefs@lfdr.de>; Mon,  8 Mar 2021 10:14:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1615194856;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=oATTIQJjLST2Ab0OspIu2o8zrtWz4M+9OO5Eja/3NU0=;
-	b=TAzHiXYIbjlpYLWzO9kduRr172fspCkChl0fj4KSdjbrXy846Xdej7ml328/KNei5dBgGM
-	PdmC0xgB8bUyA/d3OJb0rHkKTRuc7srJ1bFLAkQkXRWvjF3T8fJ2rf0XqBvN/tQGO4nXUn
-	mlvzSWDgSugE/FnxXit9F2sZKWXMcCk=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B9131330B1F
+	for <lists+linux-cachefs@lfdr.de>; Mon,  8 Mar 2021 11:30:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-557-RYZgp7wNNz62p48IJjklog-1; Mon, 08 Mar 2021 04:14:15 -0500
-X-MC-Unique: RYZgp7wNNz62p48IJjklog-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-238-XSwHdvo3MVeh3w4_YjnHdA-1; Mon, 08 Mar 2021 05:30:03 -0500
+X-MC-Unique: XSwHdvo3MVeh3w4_YjnHdA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED7E81005D4A;
-	Mon,  8 Mar 2021 09:14:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 276A026865;
+	Mon,  8 Mar 2021 10:30:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 434795D9CD;
-	Mon,  8 Mar 2021 09:14:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6EA57094A;
+	Mon,  8 Mar 2021 10:30:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 566561809C86;
-	Mon,  8 Mar 2021 09:14:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9BC3E18095C9;
+	Mon,  8 Mar 2021 10:29:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1289E3IO003730 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 8 Mar 2021 04:14:03 -0500
+	id 1259l9AW006066 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 5 Mar 2021 04:47:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 91FD061F2B; Mon,  8 Mar 2021 09:14:03 +0000 (UTC)
+	id 59879110AF2E; Fri,  5 Mar 2021 09:47:09 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-112-79.rdu2.redhat.com
-	[10.10.112.79])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AE6B36267B;
-	Mon,  8 Mar 2021 09:13:56 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CAOQ4uxhxwKHLT559f8v5aFTheKgPUndzGufg0E58rkEqa9oQ3Q@mail.gmail.com>
-References: <CAOQ4uxhxwKHLT559f8v5aFTheKgPUndzGufg0E58rkEqa9oQ3Q@mail.gmail.com>
-	<2653261.1614813611@warthog.procyon.org.uk>
-To: Amir Goldstein <amir73il@gmail.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 541DD110AF35
+	for <linux-cachefs@redhat.com>; Fri,  5 Mar 2021 09:47:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2724685A5B9
+	for <linux-cachefs@redhat.com>; Fri,  5 Mar 2021 09:47:05 +0000 (UTC)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+	[209.85.166.173]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-269-pN3ET4UHPNif_-DEa8ENkg-1; Fri, 05 Mar 2021 04:46:59 -0500
+X-MC-Unique: pN3ET4UHPNif_-DEa8ENkg-1
+Received: by mail-il1-f173.google.com with SMTP id h18so1417942ils.2;
+	Fri, 05 Mar 2021 01:46:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=lC8zlzO4d9sCo2iAF0K+KJjctz9hWtNl5+a8xoEn6KM=;
+	b=fG23l2B1ETQUONLpcp3gyH6TLYPODvRyXrgtc0i4Xr3AL/hFNb7q/KCRv4x7NBpWww
+	tG7OfPa10+wAbqYc56T96BAhHK7PzuSe15FfhAYt7kQllRwj3dzAHg9NwqZMCkFLiNGc
+	tsQ0Qlb0cbb4xOI9TjGRmGjjo4SbjmWCgICwfcUAPU46233n6dRMRGbbpFl3baIQ2/1z
+	odroW76cWkK26symAv/MOGj3dNNVBymYXa+rUVU18TprHJCTLsMJ64BvRGjvjRZFDa8L
+	RKOSa5KbVw2TGnE1/rKX9BPrh2NGPrF5MKIcU5l4ulFvpoeLOJ4ukt4DRSkxTOAEGNuh
+	UwLw==
+X-Gm-Message-State: AOAM5311hqX3/i8m8AqE6CwlGM9FoLI0EkBkd/eeUuXDCmaTKB4fdgzd
+	PqI2B8CFirrdH84BBTgvzE/I1eqMSeDXsqx+inMyod9TMMo=
+X-Google-Smtp-Source: ABdhPJzsjPPI76V+ifK/5cRmuhQcSx+F9xfxp+D6hQd7smAfVv8piF6gITprUwnhLkj/CwhgI90S8l7lugFNR/SBJqw=
+X-Received: by 2002:a92:da48:: with SMTP id p8mr7580193ilq.137.1614937617862; 
+	Fri, 05 Mar 2021 01:46:57 -0800 (PST)
 MIME-Version: 1.0
-Date: Mon, 08 Mar 2021 09:13:55 +0000
-Message-ID: <517184.1615194835@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1289E3IO003730
+References: <2653261.1614813611@warthog.procyon.org.uk>
+In-Reply-To: <2653261.1614813611@warthog.procyon.org.uk>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 5 Mar 2021 11:46:46 +0200
+Message-ID: <CAOQ4uxhxwKHLT559f8v5aFTheKgPUndzGufg0E58rkEqa9oQ3Q@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: "J. Bruce Fields" <bfields@fieldses.org>,
+X-Mailman-Approved-At: Mon, 08 Mar 2021 05:29:44 -0500
+Cc: Christoph Hellwig <hch@infradead.org>,
 	Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-	Christoph Hellwig <hch@infradead.org>, CIFS <linux-cifs@vger.kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
+	CIFS <linux-cifs@vger.kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
 	linux-kernel <linux-kernel@vger.kernel.org>,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	"J. Bruce Fields" <bfields@fieldses.org>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Dave Chinner <dchinner@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	v9fs-developer@lists.sourceforge.net,
@@ -84,124 +102,195 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <517183.1615194835.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Amir Goldstein <amir73il@gmail.com> wrote:
+On Thu, Mar 4, 2021 at 4:10 PM David Howells <dhowells@redhat.com> wrote:
+>
+> I'm looking at redesigning the on-disk cache format used by fscache's
+> cachefiles driver to try and eliminate the number of synchronous metadata
+> operations done by the driver, to improve culling performance and to reduce
+> the amount of opens/files open.  I also need to stop relying on the backing
+> filesystem to track where I have data stored.
+>
+> There are a number of options that I've considered:
+>
+>  (0) The current format lays out a directory tree, with directories for each
+>      level of index (so in AFS's terms, you've got an overall "afs" dir
+>      containing a dir for each cell.  In each cell dir, there's a dir for each
+>      volume and within that there's a file for each afs vnode cached.  Extra
+>      levels of directory are also interposed to reduce the number of entries
+>      in a directory.
+>
+>      - Pathwalk cost to open a cache file.
+>      - Netfs coherency data is in xattrs.
+>      - Invalidation done by truncate or unlink.
+>      - Uses backing filesystem metadata to keep track of present data.
+>        - Determined by bmap() on the cache file.
+>      - Culling performed by userspace daemon.
+>      - Data file opened for every write.
+>      - Read done by readpage without file.
+>
+>  (0a) As (0) but using SEEK_DATA/SEEK_HOLE instead of bmap and opening the
+>       file for every whole operation (which may combine reads and writes).
 
-> >  (0a) As (0) but using SEEK_DATA/SEEK_HOLE instead of bmap and opening the
-> >       file for every whole operation (which may combine reads and writes).
-> 
-> I read that NFSv4 supports hole punching, so when using ->bmap() or SEEK_DATA
-> to keep track of present data, it's hard to distinguish between an
-> invalid cached range and a valid "cached hole".
+I read that NFSv4 supports hole punching, so when using ->bmap() or SEEK_DATA
+to keep track of present data, it's hard to distinguish between an
+invalid cached range
+and a valid "cached hole".
+With ->fiemap() you can at least make the distinction between a non existing
+and an UNWRITTEN extent.
 
-I wasn't exactly intending to permit caching over NFS.  That leads to fun
-making sure that the superblock you're caching isn't the one that has the
-cache in it.
+>
+>  (1) Structured the same as (0), but keeping an independent content map and
+>      not relying on backing fs metadata.  Use a larger blocksize, say 256K, to
+>      reduce the size of the content map.
+>
+>      - Netfs coherency data in xattrs.
+>      - Invalidation done by tmpfile creation and link-replace.
+>      - Content bitmap kept in xattr.
+>        - Limited capacity.  Could use multiple bitmaps.
+>        - Can skip the bitmap for a non-sparse file that we have all of.
+>      - "Open" state kept in xattr.
+>      - File is kept open
+>      - Culling performed by userspace daemon.
+>      - Cache file open whilst netfs file is open.
+>
+>  (2) Structured the same as (1), but keeping an extent list instead of a
+>      bitmap.
+>
+>      - Content extent map kept in xattr.
+>        - Limited capacity.
+>        - Highly scattered extents use a lot of map space.
+>
+>  (3) OpenAFS-style format.  One index file to look up {file_key,block#} and an
+>      array of data files, each holding one block (e.g. a 256KiB-aligned chunk
+>      of a file).  Each index entry has valid start/end offsets for easy
+>      truncation.
+>
+>      The index has a hash to facilitate the lookup and an LRU that allows a
+>      block to be recycled at any time.
+>
+>      - File keys, are highly variable in length and can be rather long,
+>        particularly NFS FIDs.
+>        - Might want a separate file index that maps file keys to a slot ID
+>          that can then be used in the block index.
+>      - Netfs coherency data in vnode index entry.
+>      - Invalidation done by clearing matching entries in the index.
+>        - Dead data files can be lazily unlinked or truncated or just
+>          overwritten.
+>      - Content mapping by lookup in block index hash table.
+>        - Fine if the hash table is large and scatter is good.
+>      - Potential coherency problem between indices and data file.
+>      - Culling performed by block index LRU.
+>      - Really want to retain entire block index in RAM.
+>      - Data files are opened for every read/write.
+>
+>  (4) Similar format to (3), but could put entirety of data in one file.
+>
+>      - Data file open entire time cache online.
+>      - Unused block bitmap.
+>      - Can use fallocate to punch out dead blocks.
+>      - Could put data file on blockdev.
+>
+>  (5) Similar idea to (4), but just have a file index and use block pointers
+>      and indirection blocks instead.  Use an LRU in the file index and cull
+>      whole files only, not individual blocks.
+>
+>      - File keys, are highly variable in length and can be rather long,
+>        particularly NFS FIDs.
+>      - Netfs coherency data in vnode index entry.
+>      - Unused data block bitmap.
+>      - Invalidation done by clearing entries in the file index.
+>        - Data blocks must be recycled and returned to bitmap.
+>        - Dead data blocks can be lazily punched out with fallocate.
+>      - Potential coherency problem between index, pointers/indirection and
+>        bitmap.
+>      - Culling performed by file index LRU.
+>      - Really want to retain entire file index and block bitmap in RAM.
+>        - May be less memory than block index.
+>      - Data file open entire time cache online.
+>      - Could put data file on blockdev.
+>      - If the block size is large, lots of dead space in indirection blocks.
+>
+>  (6) Similar to (5), but use extent lists rather than indirection blocks.
+>
+>      - Requires allocation of contiguous space to be worthwhile.
+>      - Buddy allocator approach?
+>        - Can always arbitrarily recycle buddies to make larger spaces - if we
+>          can find them...
+>
+>  (7) Hybrid approach.  Stick the first block of every netfs file in one big
+>      cache file.  For a lot of cases, that would suffice for the entire file
+>      if the block size is large enough.  Store the tails of larger files in
+>      separate files.
+>
+>      - File index with LRU.
+>      - More complicated to manage.
+>      - Fewer files open.
+>
+> So (0) is what's upstream.  I have (0a) implemented in my fscache-netfs-lib
+> branch and (1) implemented in my fscache-iter branch.  However, it spends a
+> lot of cpu time doing synchronous metadata ops, such as creating tmpfiles,
+> link creation and setting xattrs, particularly when unmounting the filesystem
+> or disabling the cache - both of which are done during shutdown.
+>
 
-However, we will need to handle hole-punching being done on a cached netfs,
-even if that's just to completely invalidate the cache for that file.
+You didn't say much about crash consistency or durability requirements of the
+cache. Since cachefiles only syncs the cache on shutdown, I guess you
+rely on the hosting filesystem to provide the required ordering guarantees.
 
-> With ->fiemap() you can at least make the distinction between a non existing
-> and an UNWRITTEN extent.
+How does this work with write through network fs cache if the client system
+crashes but the write gets to the server? Client system get restart with older
+cached data because disk caches were not flushed before crash. Correct?
+Is that case handled? Are the caches invalidated on unclean shutdown?
 
-I can't use that for XFS, Ext4 or btrfs, I suspect.  Christoph and Dave's
-assertion is that the cache can't rely on the backing filesystem's metadata
-because these can arbitrarily insert or remove blocks of zeros to bridge or
-split extents.
+Anyway, how are those ordering requirements going to be handled when
+entire indexing is in a file? You'd practically need to re-implement a
+filesystem
+journal or only write cache updates to a temp file that can be discarded at
+any time?
 
-> You didn't say much about crash consistency or durability requirements of the
-> cache. Since cachefiles only syncs the cache on shutdown, I guess you
-> rely on the hosting filesystem to provide the required ordering guarantees.
+> I'm leaning towards (4) or (5).  I could use extent maps, but I don't
+> necessarily have a good idea of what access patterns I have to deal with till
+> later.  With network filesystems that are going to read and cache large blocks
+> (say 2MiB), extents would allow reduction of the metadata, particularly where
+> it would span a bitmap.
+>
+> Using a block index (4) allows me to easily recycle a large chunk of cache in
+> one go - even if it means arbitrarily kicking out blocks that weren't near the
+> end of the LRU yet.
+>
+> Using block pointers and indirection blocks (5) means I only need this data in
+> RAM when I need it; with the LRU management being done in the file index.
+>
+> Either way with (4) and (5), at least one index really needs to be resident in
+> RAM to make LRU wangling efficient.  Also, I need to decide how to handle
+> coherency management - setting an "in use" flag on the file index entry and
+> flushing it before making any modifications might work.
+>
+> On the other hand, sticking with (1) or (2) makes it easier to add extra
+> metadata very easily (say to handle disconnected operation), though it's
+> harder to manage culling and manage the capacity of the cache.
+>
+> I have a suspicion that the answer is "it depends" and that the best choice is
+> very much going to be workload dependent - and may even vary from volume to
+> volume within the same workload.
+>
+> Any thoughts or better solutions?
+>
 
-There's an xattr on each file in the cache to record the state.  I use this
-mark a cache file "open".  If, when I look up a file, the file is marked open,
-it is just discarded at the moment.
+If you come up with a useful generic implementation of a "file data overlay",
+overlayfs could also use it for "partial copy up" as well as for implementation
+of address space operations, so please keep that in mind.
 
-Now, there are two types of data stored in the cache: data that has to be
-stored as a single complete blob and is replaced as such (e.g. symlinks and
-AFS dirs) and data that might be randomly modified (e.g. regular files).
-
-For the former, I have code, though in yet another branch, that writes this in
-a tmpfile, sets the xattrs and then uses vfs_link(LINK_REPLACE) to cut over.
-
-For the latter, that's harder to do as it would require copying the data to
-the tmpfile before we're allowed to modify it.  However, if it's possible to
-create a tmpfile that's a CoW version of a data file, I could go down that
-route.
-
-But after I've written and sync'd the data, I set the xattr to mark the file
-not open.  At the moment I'm doing this too lazily, only doing it when a netfs
-file gets evicted or when the cache gets withdrawn, but I really need to add a
-queue of objects to be sealed as they're closed.  The balance is working out
-how often to do the sealing as something like a shell script can do a lot of
-consecutive open/write/close ops.
-
-> How does this work with write through network fs cache if the client system
-> crashes but the write gets to the server?
-
-The presumption is that the coherency info on the server will change, but
-won't get updated in the cache.
-
-> Client system get restart with older cached data because disk caches were
-> not flushed before crash. Correct?  Is that case handled? Are the caches
-> invalidated on unclean shutdown?
-
-The netfs provides some coherency info for the cache to store.  For AFS, for
-example, this is the data version number (though it should probably include
-the volume creation time too).  This is stored with the state info in the same
-xattr and is only updated when the "open" state is cleared.
-
-When the cache file is reopened, if the coherency info doesn't match what
-we're expecting (presumably we queried the server), the file is discarded.
-
-(Note that the coherency info is netfs-specific)
-
-> Anyway, how are those ordering requirements going to be handled when entire
-> indexing is in a file? You'd practically need to re-implement a filesystem
-
-Yes, the though has occurred to me too.  I would be implementing a "simple"
-filesystem - and we have lots of those:-/.  The most obvious solution is to
-use the backing filesystem's metadata - except that that's not possible.
-
-> journal or only write cache updates to a temp file that can be discarded at
-> any time?
-
-It might involve keeping a bitmap of "open" blocks.  Those blocks get
-invalidated when the cache restarts.  The simplest solution would be to wipe
-the entire cache in such a situation, but that goes against one of the
-important features I want out of it.
-
-Actually, a journal of open and closed blocks might be better, though all I
-really need to store for each block is a 32-bit number.
-
-It's a particular problem if I'm doing DIO to the data storage area but
-buffering the changes to the metadata.  Further, the metadata and data might
-be on different media, just to add to the complexity.
-
-Another possibility is only to cull blocks when the parent file is culled.
-That probably makes more sense as, as long as the file is registered culled on
-disk first and I don't reuse the file slot too quickly, I can write to the
-data store before updating the metadata.
-
-> If you come up with a useful generic implementation of a "file data
-> overlay", overlayfs could also use it for "partial copy up" as well as for
-> implementation of address space operations, so please keep that in mind.
-
-I'm trying to implement things so that the netfs does look-aside when reading,
-and multi-destination write-back when writing - but the netfs is in the
-driving seat and the cache is invisible to the user.  I really want to avoid
-overlaying the cache on the netfs so that the cache is the primary access
-point.
-
-David
+Thanks,
+Amir.
 
 --
 Linux-cachefs mailing list
