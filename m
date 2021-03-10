@@ -1,82 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B7C4332403
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Mar 2021 12:28:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0D1773343DA
+	for <lists+linux-cachefs@lfdr.de>; Wed, 10 Mar 2021 17:55:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1615289302;
+	s=mimecast20190719; t=1615395352;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+hFnWU8O02WB9q+mnPfQvDedTRF4kJlsh6t5wX/QeCE=;
-	b=hSIkri87/p+BW5Fib+09cPBuykrlkkTDRcJpOW7OP7h/Xydg4L5zJfexPDH+FizH47+XLL
-	5N2uNRhhNZAoX/zkHgBzUNxKxnpOPEMOD7cEES1/Lp47dCj3kslVog6S0ULTJ397ry1g2N
-	d0tspHNz0wwBuRGb0rPk8DOU068ncqs=
+	bh=qzGNl47jNks49BpSytBhNu/j29ulsPc1iLaLH8/0zjA=;
+	b=YoXuYFr4cKbBYXKht6pdOJrOPw276xL/8YRd0ebdWFxOaMT6m4uluHobze0fHIS9vrVjJY
+	joZU/gXHnzX1yikuZHQ4gm/lD56MRKKVDZFjb7GJYSxMhhmGQecMI4+7W9TuJzVeXu5rkJ
+	s/HvO8PYpOlOcL43fN9/NUkwwZFajac=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-401-hCRnu55TPJm84uYNpiPHUQ-1; Tue, 09 Mar 2021 06:28:21 -0500
-X-MC-Unique: hCRnu55TPJm84uYNpiPHUQ-1
+ us-mta-298-PPi2in9CPeWna-CDxfwzpQ-1; Wed, 10 Mar 2021 11:55:50 -0500
+X-MC-Unique: PPi2in9CPeWna-CDxfwzpQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BD761019634;
-	Tue,  9 Mar 2021 11:28:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B815860C4A;
-	Tue,  9 Mar 2021 11:28:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76355801596;
+	Wed, 10 Mar 2021 16:55:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68BAD60C6E;
+	Wed, 10 Mar 2021 16:55:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 123E41809C86;
-	Tue,  9 Mar 2021 11:28:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4936C57DC2;
+	Wed, 10 Mar 2021 16:55:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 129BSAai032093 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 9 Mar 2021 06:28:10 -0500
+	id 12AGtdwL024088 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 10 Mar 2021 11:55:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7D84829406; Tue,  9 Mar 2021 11:28:10 +0000 (UTC)
+	id ECABA1B49E; Wed, 10 Mar 2021 16:55:39 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-118-152.rdu2.redhat.com
 	[10.10.118.152])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 542A75D9CD;
-	Tue,  9 Mar 2021 11:27:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 079A0694CA;
+	Wed, 10 Mar 2021 16:55:33 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20210308223247.GB63242@dread.disaster.area>
-References: <20210308223247.GB63242@dread.disaster.area>
-	<CAOQ4uxjYWprb7trvamCx+DaP2yn8HCaZeZx1dSvPyFH2My303w@mail.gmail.com>
-	<2653261.1614813611@warthog.procyon.org.uk>
-	<CAOQ4uxhxwKHLT559f8v5aFTheKgPUndzGufg0E58rkEqa9oQ3Q@mail.gmail.com>
-	<517184.1615194835@warthog.procyon.org.uk>
-	<584529.1615202921@warthog.procyon.org.uk>
-To: Dave Chinner <david@fromorbit.com>
+To: Trond Myklebust <trondmy@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	Steve French <sfrench@samba.org>,
+	Dominique Martinet <asmadeus@codewreck.org>
+Date: Wed, 10 Mar 2021 16:55:32 +0000
+Message-ID: <161539533275.286939.6246011228676840978.stgit@warthog.procyon.org.uk>
+In-Reply-To: <161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
+References: <161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-Date: Tue, 09 Mar 2021 11:27:54 +0000
-Message-ID: <156605.1615289274@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 129BSAai032093
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
-Cc: "J. Bruce Fields" <bfields@fieldses.org>,
-	Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-	Christoph Hellwig <hch@infradead.org>, CIFS <linux-cifs@vger.kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	Miklos Szeredi <miklos@szeredi.hu>, linux-cachefs@redhat.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Dave Chinner <dchinner@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	v9fs-developer@lists.sourceforge.net,
-	ceph-devel <ceph-devel@vger.kernel.org>, linux-afs@lists.infradead.org
-Subject: Re: [Linux-cachefs] Metadata writtenback notification? -- was Re:
-	fscache: Redesigning the on-disk cache
+	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH v4 05/28] netfs: Documentation for helper
+	library
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,156 +87,564 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <156604.1615289274.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Dave Chinner <david@fromorbit.com> wrote:
+Add interface documentation for the netfs helper library.
 
-> > > There was a discussion about fsyncing a range of files on LSFMM [1].
-> > > In the last comment on the article dchinner argues why we already have that
-> > > API (and now also with io_uring(), but AFAIK, we do not have a useful
-> > > wait_for_sync() API. And it doesn't need to be exposed to userspace at all.
-> > > 
-> > > [1] https://lwn.net/Articles/789024/
-> > 
-> > This sounds like an interesting idea.  Actually, what I probably want is a
-> > notification to say that a particular object has been completely sync'd to
-> > disk, metadata and all.
-> 
-> This isn't hard to do yourself in the kernel. All it takes is a
-> workqueue to run vfs_fsync() calls asynchronously and for the work
-> to queue a local notification/wakeup when the fsync completes...
-> 
-> That's all aio_fsync() does - the notification it queues on
-> completion is the AIO completion event for userspace - so I think
-> you could do this in about 50 lines of code if you really needed
-> it...
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
 
-I was thinking more in terms of passively finding out when metadata has been
-flushed to disk rather than actively forcing it.  Obviously I can manually
-flush from a worker thread, but that ties up a thread per file I want to
-flush (unless I want to do a higher-level sync).
+ Documentation/filesystems/index.rst         |    1 
+ Documentation/filesystems/netfs_library.rst |  526 +++++++++++++++++++++++++++
+ 2 files changed, 527 insertions(+)
+ create mode 100644 Documentation/filesystems/netfs_library.rst
 
-Btw, looking at aio_fsync(), is there any reason it copies the current creds
-rather than just taking a ref on them?  (Granted, this may not be a question
-for you)
+diff --git a/Documentation/filesystems/index.rst b/Documentation/filesystems/index.rst
+index 1f76b1cb3348..d4853cb919d2 100644
+--- a/Documentation/filesystems/index.rst
++++ b/Documentation/filesystems/index.rst
+@@ -53,6 +53,7 @@ filesystem implementations.
+    journalling
+    fscrypt
+    fsverity
++   netfs_library
+ 
+ Filesystems
+ ===========
+diff --git a/Documentation/filesystems/netfs_library.rst b/Documentation/filesystems/netfs_library.rst
+new file mode 100644
+index 000000000000..57a641847818
+--- /dev/null
++++ b/Documentation/filesystems/netfs_library.rst
+@@ -0,0 +1,526 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=================================
++NETWORK FILESYSTEM HELPER LIBRARY
++=================================
++
++.. Contents:
++
++ - Overview.
++ - Buffered read helpers.
++   - Read helper functions.
++   - Read helper structures.
++   - Read helper operations.
++   - Read helper procedure.
++   - Read helper cache API.
++
++
++Overview
++========
++
++The network filesystem helper library is a set of functions designed to aid a
++network filesystem in implementing VM/VFS operations.  For the moment, that
++just includes turning various VM buffered read operations into requests to read
++from the server.  The helper library, however, can also interpose other
++services, such as local caching or local data encryption.
++
++Note that the library module doesn't link against local caching directly, so
++access must be provided by the netfs.
++
++
++Buffered Read Helpers
++=====================
++
++The library provides a set of read helpers that handle the ->readpage(),
++->readahead() and much of the ->write_begin() VM operations and translate them
++into a common call framework.
++
++The following services are provided:
++
++ * Handles transparent huge pages (THPs).
++
++ * Insulates the netfs from VM interface changes.
++
++ * Allows the netfs to arbitrarily split reads up into pieces, even ones that
++   don't match page sizes or page alignments and that may cross pages.
++
++ * Allows the netfs to expand a readahead request in both directions to meet
++   its needs.
++
++ * Allows the netfs to partially fulfil a read, which will then be resubmitted.
++
++ * Handles local caching, allowing cached data and server-read data to be
++   interleaved for a single request.
++
++ * Handles clearing of bufferage that aren't on the server.
++
++ * Handle retrying of reads that failed, switching reads from the cache to the
++   server as necessary.
++
++ * In the future, this is a place that other services can be performed, such as
++   local encryption of data to be stored remotely or in the cache.
++
++From the network filesystem, the helpers require a table of operations.  This
++includes a mandatory method to issue a read operation along with a number of
++optional methods.
++
++
++Read Helper Functions
++---------------------
++
++Three read helpers are provided::
++
++ * void netfs_readahead(struct readahead_control *ractl,
++			const struct netfs_read_request_ops *ops,
++			void *netfs_priv);``
++ * int netfs_readpage(struct file *file,
++		      struct page *page,
++		      const struct netfs_read_request_ops *ops,
++		      void *netfs_priv);
++ * int netfs_write_begin(struct file *file,
++			 struct address_space *mapping,
++			 loff_t pos,
++			 unsigned int len,
++			 unsigned int flags,
++			 struct page **_page,
++			 void **_fsdata,
++			 const struct netfs_read_request_ops *ops,
++			 void *netfs_priv);
++
++Each corresponds to a VM operation, with the addition of a couple of parameters
++for the use of the read helpers:
++
++ * ``ops``
++
++   A table of operations through which the helpers can talk to the filesystem.
++
++ * ``netfs_priv``
++
++   Filesystem private data (can be NULL).
++
++Both of these values will be stored into the read request structure.
++
++For ->readahead() and ->readpage(), the network filesystem should just jump
++into the corresponding read helper; whereas for ->write_begin(), it may be a
++little more complicated as the network filesystem might want to flush
++conflicting writes or track dirty data and needs to put the acquired page if an
++error occurs after calling the helper.
++
++The helpers manage the read request, calling back into the network filesystem
++through the suppplied table of operations.  Waits will be performed as
++necessary before returning for helpers that are meant to be synchronous.
++
++If an error occurs and netfs_priv is non-NULL, ops->cleanup() will be called to
++deal with it.  If some parts of the request are in progress when an error
++occurs, the request will get partially completed if sufficient data is read.
++
++Additionally, there is::
++
++  * void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
++				 ssize_t transferred_or_error,
++				 bool was_async);
++
++which should be called to complete a read subrequest.  This is given the number
++of bytes transferred or a negative error code, plus a flag indicating whether
++the operation was asynchronous (ie. whether the follow-on processing can be
++done in the current context, given this may involve sleeping).
++
++
++Read Helper Structures
++----------------------
++
++The read helpers make use of a couple of structures to maintain the state of
++the read.  The first is a structure that manages a read request as a whole::
++
++	struct netfs_read_request {
++		struct inode		*inode;
++		struct address_space	*mapping;
++		struct netfs_cache_resources cache_resources;
++		void			*netfs_priv;
++		loff_t			start;
++		size_t			len;
++		loff_t			i_size;
++		const struct netfs_read_request_ops *netfs_ops;
++		unsigned int		debug_id;
++		...
++	};
++
++The above fields are the ones the netfs can use.  They are:
++
++ * ``inode``
++ * ``mapping``
++
++   The inode and the address space of the file being read from.  The mapping
++   may or may not point to inode->i_data.
++
++ * ``cache_resources``
++
++   Resources for the local cache to use, if present.
++
++ * ``netfs_priv``
++
++   The network filesystem's private data.  The value for this can be passed in
++   to the helper functions or set during the request.  The ->cleanup() op will
++   be called if this is non-NULL at the end.
++
++ * ``start``
++ * ``len``
++
++   The file position of the start of the read request and the length.  These
++   may be altered by the ->expand_readahead() op.
++
++ * ``i_size``
++
++   The size of the file at the start of the request.
++
++ * ``netfs_ops``
++
++   A pointer to the operation table.  The value for this is passed into the
++   helper functions.
++
++ * ``debug_id``
++
++   A number allocated to this operation that can be displayed in trace lines
++   for reference.
++
++
++The second structure is used to manage individual slices of the overall read
++request::
++
++	struct netfs_read_subrequest {
++		struct netfs_read_request *rreq;
++		loff_t			start;
++		size_t			len;
++		size_t			transferred;
++		unsigned long		flags;
++		unsigned short		debug_index;
++		...
++	};
++
++Each subrequest is expected to access a single source, though the helpers will
++handle falling back from one source type to another.  The members are:
++
++ * ``rreq``
++
++   A pointer to the read request.
++
++ * ``start``
++ * ``len``
++
++   The file position of the start of this slice of the read request and the
++   length.
++
++ * ``transferred``
++
++   The amount of data transferred so far of the length of this slice.  The
++   network filesystem or cache should start the operation this far into the
++   slice.  If a short read occurs, the helpers will call again, having updated
++   this to reflect the amount read so far.
++
++ * ``flags``
++
++   Flags pertaining to the read.  There are two of interest to the filesystem
++   or cache:
++
++   * ``NETFS_SREQ_CLEAR_TAIL``
++
++     This can be set to indicate that the remainder of the slice, from
++     transferred to len, should be cleared.
++
++   * ``NETFS_SREQ_SEEK_DATA_READ``
++
++     This is a hint to the cache that it might want to try skipping ahead to
++     the next data (ie. using SEEK_DATA).
++
++ * ``debug_index``
++
++   A number allocated to this slice that can be displayed in trace lines for
++   reference.
++
++
++Read Helper Operations
++----------------------
++
++The network filesystem must provide the read helpers with a table of operations
++through which it can issue requests and negotiate::
++
++	struct netfs_read_request_ops {
++		void (*init_rreq)(struct netfs_read_request *rreq, struct file *file);
++		bool (*is_cache_enabled)(struct inode *inode);
++		int (*begin_cache_operation)(struct netfs_read_request *rreq);
++		void (*expand_readahead)(struct netfs_read_request *rreq);
++		bool (*clamp_length)(struct netfs_read_subrequest *subreq);
++		void (*issue_op)(struct netfs_read_subrequest *subreq);
++		bool (*is_still_valid)(struct netfs_read_request *rreq);
++		int (*check_write_begin)(struct file *file, loff_t pos, unsigned len,
++					 struct page *page, void **_fsdata);
++		void (*done)(struct netfs_read_request *rreq);
++		void (*cleanup)(struct address_space *mapping, void *netfs_priv);
++	};
++
++The operations are as follows:
++
++ * ``init_rreq()``
++
++   [Optional] This is called to initialise the request structure.  It is given
++   the file for reference and can modify the ->netfs_priv value.
++
++ * ``is_cache_enabled()``
++
++   [Required] This is called by netfs_write_begin() to ask if the file is being
++   cached.  It should return true if it is being cached and false otherwise.
++
++ * ``begin_cache_operation()``
++
++   [Optional] This is called to ask the network filesystem to call into the
++   cache (if present) to initialise the caching state for this read.  The netfs
++   library module cannot access the cache directly, so the cache should call
++   something like fscache_begin_read_operation() to do this.
++
++   The cache gets to store its state in ->cache_resources and must set a table
++   of operations of its own there (though of a different type).
++
++   This should return 0 on success and an error code otherwise.  If an error is
++   reported, the operation may proceed anyway, just without local caching (only
++   out of memory and interruption errors cause failure here).
++
++ * ``expand_readahead()``
++
++   [Optional] This is called to allow the filesystem to expand the size of a
++   readahead read request.  The filesystem gets to expand the request in both
++   directions, though it's not permitted to reduce it as the numbers may
++   represent an allocation already made.  If local caching is enabled, it gets
++   to expand the request first.
++
++   Expansion is communicated by changing ->start and ->len in the request
++   structure.  Note that if any change is made, ->len must be increased by at
++   least as much as ->start is reduced.
++
++ * ``clamp_length()``
++
++   [Optional] This is called to allow the filesystem to reduce the size of a
++   subrequest.  The filesystem can use this, for example, to chop up a request
++   that has to be split across multiple servers or to put multiple reads in
++   flight.
++
++   This should return 0 on success and an error code on error.
++
++ * ``issue_op()``
++
++   [Required] The helpers use this to dispatch a subrequest to the server for
++   reading.  In the subrequest, ->start, ->len and ->transferred indicate what
++   data should be read from the server.
++
++   There is no return value; the netfs_subreq_terminated() function should be
++   called to indicate whether or not the operation succeeded and how much data
++   it transferred.  The filesystem also should not deal with setting pages
++   uptodate, unlocking them or dropping their refs - the helpers need to deal
++   with this as they have to coordinate with copying to the local cache.
++
++   Note that the helpers have the pages locked, but not pinned.  It is possible
++   to use the ITER_XARRAY iov iterator to refer to the range of the inode that
++   is being operated upon without the need to allocate large bvec tables.
++
++ * ``is_still_valid()``
++
++   [Optional] This is called to find out if the data just read from the local
++   cache is still valid.  It should return true if it is still valid and false
++   if not.  If it's not still valid, it will be reread from the server.
++
++ * ``check_write_begin()``
++
++   [Optional] This is called from the netfs_write_begin() helper once it has
++   allocated/grabbed the page to be modified to allow the filesystem to flush
++   conflicting state before allowing it to be modified.
++
++   It should return 0 if everything is now fine, -EAGAIN if the page should be
++   regrabbed and any other error code to abort the operation.
++
++ * ``done``
++
++   [Optional] This is called after the pages in the request have all been
++   unlocked (and marked uptodate if applicable).
++
++ * ``cleanup``
++
++   [Optional] This is called as the request is being deallocated so that the
++   filesystem can clean up ->netfs_priv.
++
++
++
++Read Helper Procedure
++---------------------
++
++The read helpers work by the following general procedure:
++
++ * Set up the request.
++
++ * For readahead, allow the local cache and then the network filesystem to
++   propose expansions to the read request.  This is then proposed to the VM.
++   If the VM cannot fully perform the expansion, a partially expanded read will
++   be performed, though this may not get written to the cache in its entirety.
++
++ * Loop around slicing chunks off of the request to form subrequests:
++
++   * If a local cache is present, it gets to do the slicing, otherwise the
++     helpers just try to generate maximal slices.
++
++   * The network filesystem gets to clamp the size of each slice if it is to be
++     the source.  This allows rsize and chunking to be implemented.
++
++   * The helpers issue a read from the cache or a read from the server or just
++     clears the slice as appropriate.
++
++   * The next slice begins at the end of the last one.
++
++   * As slices finish being read, they terminate.
++
++ * When all the subrequests have terminated, the subrequests are assessed and
++   any that are short or have failed are reissued:
++
++   * Failed cache requests are issued against the server instead.
++
++   * Failed server requests just fail.
++
++   * Short reads against either source will be reissued against that source
++     provided they have transferred some more data:
++
++     * The cache may need to skip holes that it can't do DIO from.
++
++     * If NETFS_SREQ_CLEAR_TAIL was set, a short read will be cleared to the
++       end of the slice instead of reissuing.
++
++ * Once the data is read, the pages that have been fully read/cleared:
++
++   * Will be marked uptodate.
++
++   * If a cache is present, will be marked with PG_fscache.
++
++   * Unlocked
++
++ * Any pages that need writing to the cache will then have DIO writes issued.
++
++ * Synchronous operations will wait for reading to be complete.
++
++ * Writes to the cache will proceed asynchronously and the pages will have the
++   PG_fscache mark removed when that completes.
++
++ * The request structures will be cleaned up when everything has completed.
++
++
++Read Helper Cache API
++---------------------
++
++When implementing a local cache to be used by the read helpers, two things are
++required: some way for the network filesystem to initialise the caching for a
++read request and a table of operations for the helpers to call.
++
++The network filesystem's ->begin_cache_operation() method is called to set up a
++cache and this must call into the cache to do the work.  If using fscache, for
++example, the cache would call::
++
++	int fscache_begin_read_operation(struct netfs_read_request *rreq,
++					 struct fscache_cookie *cookie);
++
++passing in the request pointer and the cookie corresponding to the file.
++
++The netfs_read_request object contains a place for the cache to hang its
++state::
++
++	struct netfs_cache_resources {
++		const struct netfs_cache_ops	*ops;
++		void				*cache_priv;
++		void				*cache_priv2;
++	};
++
++This contains an operations table pointer and two private pointers.  The
++operation table looks like the following::
++
++	struct netfs_cache_ops {
++		void (*end_operation)(struct netfs_cache_resources *cres);
++
++		void (*expand_readahead)(struct netfs_cache_resources *cres,
++					 loff_t *_start, size_t *_len, loff_t i_size);
++
++		enum netfs_read_source (*prepare_read)(struct netfs_read_subrequest *subreq,
++						       loff_t i_size);
++
++		int (*read)(struct netfs_cache_resources *cres,
++			    loff_t start_pos,
++			    struct iov_iter *iter,
++			    bool seek_data,
++			    netfs_io_terminated_t term_func,
++			    void *term_func_priv);
++
++		int (*write)(struct netfs_cache_resources *cres,
++			     loff_t start_pos,
++			     struct iov_iter *iter,
++			     netfs_io_terminated_t term_func,
++			     void *term_func_priv);
++	};
++
++With a termination handler function pointer::
++
++	typedef void (*netfs_io_terminated_t)(void *priv,
++					      ssize_t transferred_or_error,
++					      bool was_async);
++
++The methods defined in the table are:
++
++ * ``end_operation()``
++
++   [Required] Called to clean up the resources at the end of the read request.
++
++ * ``expand_readahead()``
++
++   [Optional] Called at the beginning of a netfs_readahead() operation to allow
++   the cache to expand a request in either direction.  This allows the cache to
++   size the request appropriately for the cache granularity.
++
++   The function is passed poiners to the start and length in its parameters,
++   plus the size of the file for reference, and adjusts the start and length
++   appropriately.  It should return one of:
++
++   * ``NETFS_FILL_WITH_ZEROES``
++   * ``NETFS_DOWNLOAD_FROM_SERVER``
++   * ``NETFS_READ_FROM_CACHE``
++   * ``NETFS_INVALID_READ``
++
++   to indicate whether the slice should just be cleared or whether it should be
++   downloaded from the server or read from the cache - or whether slicing
++   should be given up at the current point.
++
++ * ``prepare_read()``
++
++   [Required] Called to configure the next slice of a request.  ->start and
++   ->len in the subrequest indicate where and how big the next slice can be;
++   the cache gets to reduce the length to match its granularity requirements.
++
++ * ``read()``
++
++   [Required] Called to read from the cache.  The start file offset is given
++   along with an iterator to read to, which gives the length also.  It can be
++   given a hint requesting that it seek forward from that start position for
++   data.
++
++   Also provided is a pointer to a termination handler function and private
++   data to pass to that function.  The termination function should be called
++   with the number of bytes transferred or an error code, plus a flag
++   indicating whether the termination is definitely happening in the caller's
++   context.
++
++ * ``write()``
++
++   [Required] Called to write to the cache.  The start file offset is given
++   along with an iterator to write from, which gives the length also.
++
++   Also provided is a pointer to a termination handler function and private
++   data to pass to that function.  The termination function should be called
++   with the number of bytes transferred or an error code, plus a flag
++   indicating whether the termination is definitely happening in the caller's
++   context.
++
++Note that these methods are passed a pointer to the cache resource structure,
++not the read request structure as they could be used in other situations where
++there isn't a read request structure as well, such as writing dirty data to the
++cache.
 
-> > However, there are some performance problems are arising in my fscache-iter
-> > branch:
-> > 
-> >  (1) It's doing a lot of synchronous metadata operations (tmpfile, truncate,
-> >      setxattr).
-> 
-> Async pipelines using unbound workqueues are your friend.
-
-Maybe.  I could just throw everything into a workqueue and let the workqueue
-deal with it.  There still have to be synchronisation points, though - I can't
-schedule a cache-write from a server-read to the cache following a 3rd-party
-induced invalidation until after the invalidation has happened - and that
-holds up userspace from writing to the cache.  But maybe it will work.
-
-Btw, how expensive is it to throw an operation off to a workqueue versus doing
-it in thread?  Particularly if it's a synchronous op that the thread is going
-to have to wait for (e.g. write_begin()).
-
-> >  (2) It's retaining a lot of open file structs on cache files.  Cachefiles
-> >      opens the file when it's first asked to access it and retains that till
-> >      the cookie is relinquished or the cache withdrawn (the file* doesn't
-> >      contribute to ENFILE/EMFILE but it still eats memory).
-> 
-> Sounds similar to the problem that the NFSd open file cache solves.
-> (fs/nfsd/filecache.c)
-
-Looks similiarish to what I was thinking of with having a queue of
-currently-not-in-use cookies to go through and commit and close.
-
-> >      but if the file is truncated
-> >      larger, that excess data now becomes part of the file.
-> 
-> Keep the actual file size in your tracking xattr.
-
-I do that, but it doesn't help entirely.  If someone truncates the file larger
-and then writes non-contiguously, the problem occurs.
-
-I've tried truncating the file down and then truncating it up, but that
-requires two synchronous ops - though the latter is relatively cheap.  I've
-also tried fallocate() to clear the block.  What I've found is that the next
-DIO write then has to sync because these may read data into the pagecache of
-the backing file.
-
-Apart from clearing the tail of a page on writing, it might be better for me
-to read the data into a spare page, clear the tail and write it back.
-
-> >      Possibly it's sufficient to just clear the excess page space before
-> >      writing, but that doesn't necessarily stop a writable mmap from
-> >      scribbling on it.
-> 
-> We can't stop mmap from scribbling in it. All filesystems have this
-> problem, so to prevent data leaks we have to zero the post-eof tail
-> region on every write of the EOF block, anyway.
-
-I meant an mmap scribbling on it after it's been cleared - but I guess taking
-away the PTE-writeable flag and making page_mkwrite() wait should solve that.
-
-> >  (4) Committing outstanding cache metadata at cache withdrawal or netfs
-> >      unmount.  I've previously mentioned this: it ends up with a whole
-> >      slew of synchronous metadata changes being committed to the cache in
-> >      one go (truncates, fallocates, fsync, xattrs, unlink+link of tmpfile)
-> >      - and this can take quite a long time.  The cache needs to be more
-> >      proactive in getting stuff committed as it goes along.
-> 
-> Workqueues give you an easy mechanism for async dispatch and
-> concurrency for synchronous operations. This is a largely solved
-> problem...
-
-Yes and no.  Yes, I can fan out the number of threads doing the committing,
-but there's still a limit on the I/O bandwidth - and a lot of the operations
-still have to hit the disk in the right order.  It still stuffs up the user
-experience if the cache eats up the entirety of the disk I/O for a few seconds
-just because an automount expired.
-
-Probably the progressive committing approach is a better one so that there's
-less to do at the end.
-
-> >  (5) Attaching to an object requires a pathwalk to it (normally only two
-> >      steps) and then reading various xattrs on it - all synchronous, but can
-> >      be punted to a background threadpool.
-> 
-> a.k.a. punting to a workqueue :)
-
-I do that, but it doesn't help so much.  Whilst it can mitigate the effect by
-running parallel to userspace, userspace tends to move pretty quickly from
-open() to read() - at which point we have to wait anyway.
-
-The problem is that all the steps are synchronous and, for the most part, have
-to be sequential because there's a dependency chain: 2 x dir-lookup, get LSM
-xattrs, get cache xattrs - then read the data if it's present.  I might be
-able to speculate at the end and read two cache xattrs in parallel, but each
-one requires a separate thread to do it.
-
-On top of that, if the user is running a parallel application such as building
-a kernel, a CPU running an offloaded I/O thread isn't running a user thread.
-What I've found is that increasing the size of the threadpool doesn't actually
-affect the time taken.
-
-What I've done in my fscache-iter branch is to have a small thread pool and
-offload work to it if there's a thread free - otherwise process the work in
-the calling userspace thread and avoid the context switching.
-
-
-One reason I was wondering about moving to an approach whereby I have an index
-that locates all the blocks (which are then kept in a single file) is that I
-can probably keep the entire index in RAM and so the lookup costs are vastly
-reduced.  The downside as Amir pointed out is that metadata coherency is much
-harder if I don't just want to blow the cache away if cache isn't properly
-committed when the machine is rebooted.
-
-Note that OpenAFS has been using a single-index approach, with each 256K block
-of data in its own file.  They then zap any file that's newer than the index
-file when the cache is started, assuming that that file might be corrupted.
-
-David
 
 --
 Linux-cachefs mailing list
