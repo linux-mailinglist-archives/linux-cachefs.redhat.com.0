@@ -2,73 +2,69 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5EC0233D31C
-	for <lists+linux-cachefs@lfdr.de>; Tue, 16 Mar 2021 12:35:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1615894508;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=SfYPwgBngd+PMbQfmNTWwtU8b/P6Z5vO0bMWsnbw3js=;
-	b=UqaNoJ7hRuuGaNDlEEciBxF5x+CJdl/O0DOntK8Xa0NzqOVliMpNtHGJ8bWHXkO+rDkwnS
-	89qVn1i52kZZ28FaEU0nApZpJoQcXantDSSQJofhPyPr4J0/Brp3rplI2tqEvZOElaBSQp
-	J6HD1z/oHFzow8j1Wvo3gG18SkzYqOM=
+	by mail.lfdr.de (Postfix) with ESMTP id A93CD33D7AE
+	for <lists+linux-cachefs@lfdr.de>; Tue, 16 Mar 2021 16:35:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-398-5DOekdJ8N2yFmC4K8a0F0A-1; Tue, 16 Mar 2021 07:35:06 -0400
-X-MC-Unique: 5DOekdJ8N2yFmC4K8a0F0A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-290-5oIRy4YOPFS8SzPtdW2jIg-1; Tue, 16 Mar 2021 11:35:00 -0400
+X-MC-Unique: 5oIRy4YOPFS8SzPtdW2jIg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 61680801817;
-	Tue, 16 Mar 2021 11:35:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF5B85C3E6;
-	Tue, 16 Mar 2021 11:35:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CEF75801817;
+	Tue, 16 Mar 2021 15:34:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2C0360C0F;
+	Tue, 16 Mar 2021 15:34:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DB831800657;
-	Tue, 16 Mar 2021 11:34:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9955E57DC3;
+	Tue, 16 Mar 2021 15:34:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12GBYqJQ022578 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 16 Mar 2021 07:34:52 -0400
+	id 12GBdF0l023099 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 16 Mar 2021 07:39:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0411E610AF; Tue, 16 Mar 2021 11:34:52 +0000 (UTC)
+	id CE9202157F25; Tue, 16 Mar 2021 11:39:15 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-118-152.rdu2.redhat.com
-	[10.10.118.152])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 96C3C60C0F;
-	Tue, 16 Mar 2021 11:34:45 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <161539537375.286939.16642940088716990995.stgit@warthog.procyon.org.uk>
-References: <161539537375.286939.16642940088716990995.stgit@warthog.procyon.org.uk>
-	<161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
-To: Trond Myklebust <trondmy@hammerspace.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C91012157F24
+	for <linux-cachefs@redhat.com>; Tue, 16 Mar 2021 11:39:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C7E3185A7BA
+	for <linux-cachefs@redhat.com>; Tue, 16 Mar 2021 11:39:13 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-145-b7x1WY97NrCugaF_g0zawQ-1; Tue, 16 Mar 2021 07:39:11 -0400
+X-MC-Unique: b7x1WY97NrCugaF_g0zawQ-1
+Received: from ip5f5af0a0.dynamic.kabel-deutschland.de ([95.90.240.160]
+	helo=wittgenstein.fritz.box) by youngberry.canonical.com with esmtpsa
+	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+	(envelope-from <christian.brauner@ubuntu.com>)
+	id 1lM7n0-0006XY-2K; Tue, 16 Mar 2021 11:23:06 +0000
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: David Howells <dhowells@redhat.com>, linux-cachefs@redhat.com
+Date: Tue, 16 Mar 2021 12:22:57 +0100
+Message-Id: <20210316112257.2974212-1-christian.brauner@ubuntu.com>
 MIME-Version: 1.0
-Date: Tue, 16 Mar 2021 11:34:44 +0000
-Message-ID: <3184204.1615894484@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12GBYqJQ022578
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
-	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
-	linux-afs@lists.infradead.org, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH v4 08/28] netfs: Provide readahead and
-	readpage netfs helpers
+X-Mailman-Approved-At: Tue, 16 Mar 2021 11:34:53 -0400
+Cc: linux-fsdevel@vger.kernel.org,
+	Christian Brauner <christian.brauner@ubuntu.com>
+Subject: [Linux-cachefs] [PATCH] cachefiles: do not yet allow on idmapped
+	mounts
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,36 +78,57 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <3184203.1615894484.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I'm going to make the code generate more information when warning about a
-subread reporting having over-read (see attached).
+Based on discussion with David Howells my understanding of cachefiles
+and the cachefiles userspace daemon is that it creates a cache on a
+local filesystem (e.g. ext4, xfs etc.) for a network filesystem. The way
+this is done is by writing "bind" to /dev/cachefiles and pointing it to
+the directory to use as the cache.
+So from our offline discussion I gather that cachefilesd creates a cache
+on a local filesystem (ext4, xfs etc.) for a network filesystem. The way
+this is done is by writing "bind" to /dev/cachefiles and pointing it to
+a directory to use as the cache.
+Currently this directory can technically also be an idmapped mount but
+cachefiles aren't yet fully aware of such mounts and thus don't take the
+idmapping into account. This could leave users confused as the ownership
+of the files wouldn't match to what they expressed in the idmapping. So
+let's not allow this for now and only make cachefiles aware of idmapped
+mounts after it's current rewrite/rework is done.
 
-David
+Link: https://lore.kernel.org/lkml/20210303161528.n3jzg66ou2wa43qb@wittgenstein
+Cc: David Howells <dhowells@redhat.com>
+Cc: linux-cachefs@redhat.com
+Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
 ---
-diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
-index ce11ca4c32e4..765e88ee132d 100644
---- a/fs/netfs/read_helper.c
-+++ b/fs/netfs/read_helper.c
-@@ -641,7 +641,10 @@ void netfs_subreq_terminated(struct netfs_read_subrequest *subreq,
- 		goto failed;
- 	}
+ fs/cachefiles/bind.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/cachefiles/bind.c b/fs/cachefiles/bind.c
+index dfb14dbddf51..bd7eab9a0539 100644
+--- a/fs/cachefiles/bind.c
++++ b/fs/cachefiles/bind.c
+@@ -115,6 +115,10 @@ static int cachefiles_daemon_add_cache(struct cachefiles_cache *cache)
+ 	if (ret < 0)
+ 		goto error_open_root;
  
--	if (WARN_ON(transferred_or_error > subreq->len - subreq->transferred))
-+	if (WARN(transferred_or_error > subreq->len - subreq->transferred,
-+		 "R%x[%x] %zd > %zu - %zu",
-+		 rreq->debug_id, subreq->debug_index,
-+		 transferred_or_error, subreq->len, subreq->transferred))
- 		transferred_or_error = subreq->len - subreq->transferred;
++	ret = -EINVAL;
++	if (mnt_user_ns(path.mnt) != &init_user_ns)
++		goto error_unsupported;
++
+ 	cache->mnt = path.mnt;
+ 	root = path.dentry;
  
- 	subreq->error = 0;
+
+base-commit: 1e28eed17697bcf343c6743f0028cc3b5dd88bf0
+-- 
+2.27.0
 
 --
 Linux-cachefs mailing list
