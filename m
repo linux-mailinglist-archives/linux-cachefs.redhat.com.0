@@ -1,110 +1,80 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4195E33EF00
-	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Mar 2021 12:00:51 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9F65733EEFF
+	for <lists+linux-cachefs@lfdr.de>; Wed, 17 Mar 2021 12:00:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1615978849;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Uszz7HOC4GaI1GW7QUBXsKNLVrBvwdwqUgvZENGJecY=;
+	b=EBoMdn3RPl1aZcbthWbr8a/93rJYomNPaTOlKGIu8rWHGyT3RbhSlwvkdibsKr06jg5DiT
+	3K4yBWMs8HBw4oEA6GuFrTQPIIn71G0RivcQYR91egbwh+cQM0Y8tOyCqsHcce3JpBBrnz
+	32wCRXfb85KvptjImUHyPCCWgKltMus=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-304-LgE19VjaOUys6Zg4Zx8YCQ-1; Wed, 17 Mar 2021 07:00:48 -0400
-X-MC-Unique: LgE19VjaOUys6Zg4Zx8YCQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-266-H3VEMLCuNjiA-mUV9qIjUA-1; Wed, 17 Mar 2021 07:00:48 -0400
+X-MC-Unique: H3VEMLCuNjiA-mUV9qIjUA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 44E59108BD1D;
-	Wed, 17 Mar 2021 11:00:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F341D69321;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A245B57056;
+	Wed, 17 Mar 2021 11:00:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CB8075808;
 	Wed, 17 Mar 2021 11:00:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D68144A700;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 694391800216;
 	Wed, 17 Mar 2021 11:00:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12H2eggT007240 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 16 Mar 2021 22:40:42 -0400
+	id 12H94IBG009787 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 17 Mar 2021 05:04:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B934AB5BB; Wed, 17 Mar 2021 02:40:42 +0000 (UTC)
+	id 180296E418; Wed, 17 Mar 2021 09:04:18 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 753D4C2112
-	for <linux-cachefs@redhat.com>; Wed, 17 Mar 2021 02:40:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 679C7800140
-	for <linux-cachefs@redhat.com>; Wed, 17 Mar 2021 02:40:38 +0000 (UTC)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
-	[209.85.218.43]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-1-mD6lkIjDPuGFT7PpSBNXeQ-1; Tue, 16 Mar 2021 22:40:36 -0400
-X-MC-Unique: mD6lkIjDPuGFT7PpSBNXeQ-1
-Received: by mail-ej1-f43.google.com with SMTP id c10so129626ejx.9
-	for <linux-cachefs@redhat.com>; Tue, 16 Mar 2021 19:40:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=GvkSjbOflTYrrhQW/IujV+Vj77yNYWLHdlNlegrHH4E=;
-	b=DiRPhOsR0GnPLzShupV4PGx7zz7Jw7xyXwt4D8jVV4BgyqVnKG4sJiPYLih/NwWRwB
-	hYKdhfgNAZXMAKff4fXdPEx6HiSTcj0lK7/k/3N7viY0BWz/qQ393bOwFazlmjTZjY0B
-	9BfZaLY8GhtoU0R1p3QDjCNpmBAq/OHt2FTZiUMaGoyZFfH8920uvNRNGPp6pQG9R9+l
-	z9rWH0gWc89NFGfD1lTTDDEpAsqk7sLF+DgJgmYKWzeDdE/zlD4CW5NSITzRpQrkIsst
-	/HX4ON/i+Y4UkWVsZbmHlHaS8uUtJdO+pQ4TMFFqyKJ3NKLg9UYyl2RNoW68X1dV4qCB
-	4dQw==
-X-Gm-Message-State: AOAM5323UPaYZ9VNPRzw9TmikJ/573BeB4IFarVMshs6jD1OAdpexA9d
-	qwyTRX/ld0VmU/SAVhHqMtfzYmqzasBZmA==
-X-Google-Smtp-Source: ABdhPJzqPNGIvIrXHzAPhxZOrYtnuPq9ic6wPmO8AJIFh4Bh5q2z7Wblc7JZkx81PxHxNLmCRWkg/A==
-X-Received: by 2002:a17:906:cb18:: with SMTP id
-	lk24mr16617903ejb.70.1615948835086; 
-	Tue, 16 Mar 2021 19:40:35 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
-	[209.85.221.47]) by smtp.gmail.com with ESMTPSA id
-	o6sm11510172edw.24.2021.03.16.19.40.34 for <linux-cachefs@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 16 Mar 2021 19:40:34 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id e9so252586wrw.10
-	for <linux-cachefs@redhat.com>; Tue, 16 Mar 2021 19:40:34 -0700 (PDT)
-X-Received: by 2002:a05:6512:398d:: with SMTP id
-	j13mr922688lfu.41.1615948533286; 
-	Tue, 16 Mar 2021 19:35:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-113-138.rdu2.redhat.com
+	[10.10.113.138])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E43E60CCE;
+	Wed, 17 Mar 2021 09:04:10 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CAHk-=whWoJhGeMn85LOh9FX-5d2-Upzmv1m2ZmYxvD31TKpUTA@mail.gmail.com>
+References: <CAHk-=whWoJhGeMn85LOh9FX-5d2-Upzmv1m2ZmYxvD31TKpUTA@mail.gmail.com>
+	<161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
 	<161539528910.286939.1252328699383291173.stgit@warthog.procyon.org.uk>
 	<20210316190707.GD3420@casper.infradead.org>
 	<CAHk-=wjSGsRj7xwhSMQ6dAQiz53xA39pOG+XA_WeTgwBBu4uqg@mail.gmail.com>
 	<887b9eb7-2764-3659-d0bf-6a034a031618@toxicpanda.com>
-In-Reply-To: <887b9eb7-2764-3659-d0bf-6a034a031618@toxicpanda.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 16 Mar 2021 19:35:17 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whWoJhGeMn85LOh9FX-5d2-Upzmv1m2ZmYxvD31TKpUTA@mail.gmail.com>
-Message-ID: <CAHk-=whWoJhGeMn85LOh9FX-5d2-Upzmv1m2ZmYxvD31TKpUTA@mail.gmail.com>
-To: Josef Bacik <josef@toxicpanda.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+To: Linus Torvalds <torvalds@linux-foundation.org>
+MIME-Version: 1.0
+Date: Wed, 17 Mar 2021 09:04:09 +0000
+Message-ID: <31382.1615971849@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Wed, 17 Mar 2021 07:00:38 -0400
-Cc: Steve French <sfrench@samba.org>, "open list:NFS, SUNRPC,
-	AND..." <linux-nfs@vger.kernel.org>,
-	linux-afs@lists.infradead.org, Linux-MM <linux-mm@kvack.org>,
-	CIFS <linux-cifs@vger.kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Cc: Dominique Martinet <asmadeus@codewreck.org>, Linux-MM <linux-mm@kvack.org>,
+	linux-afs@lists.infradead.org, CIFS <linux-cifs@vger.kernel.org>,
 	Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@lst.de>, Chris Mason <clm@fb.com>,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>, David Sterba <dsterba@suse.com>,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, linux-cachefs@redhat.com,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	v9fs-developer@lists.sourceforge.net, Josef Bacik <josef@toxicpanda.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	David Sterba <dsterba@suse.com>, ceph-devel@vger.kernel.org,
+	"open list:NFS, 
+	SUNRPC, AND..." <linux-nfs@vger.kernel.org>, Chris Mason <clm@fb.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Steve French <sfrench@samba.org>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
 Subject: Re: [Linux-cachefs] [PATCH v4 02/28] mm: Add an unlock function for
 	PG_private_2/PG_fscache
@@ -121,49 +91,78 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <31381.1615971849.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 16, 2021 at 7:12 PM Josef Bacik <josef@toxicpanda.com> wrote:
->
->
-> Yeah it's just a flag, we use it to tell that the page is part of a range that
-> has been allocated for IO.  The lifetime of the page is independent of the page,
-> but is generally either dirty or under writeback, so either it goes through
-> truncate and we clear PagePrivate2 there, or it actually goes through IO and is
-> cleared before we drop the page in our endio.
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Ok, that's what it looked like from my very limited "looking at a
-couple of grep cases", but I didn't go any further than that.
+> And as far as I can tell, fscache doesn't want that PG_private_2 bit
+> to interact with the random VM lifetime or migration rules either, and
+> should rely entirely on the page count. David?
 
-> We _always_ have PG_private set on the page as long as we own it, and
-> PG_private_2 is only set in this IO related context, so we're safe
-> there because of the rules around PG_dirty/PG_writeback. We don't need
-> it to have an extra ref for it being set.
+It's slightly complicated for fscache as there are two separate pieces of code
+involved:
 
-Perfect. That means that at least as far as btrfs is concerned, we
-could trivially remove PG_private_2 from that page_has_private() math
-- you'd always see the same result anyway, exactly because you have
-PG_private set.
+ (1) For the old fscache code that I'm trying to phase out, it does not take a
+     ref when PG_fscache is taken (probably incorrectly), relying instead on
+     releasepage, etc. getting called to strip the PG_fscache bit.  PG_fscache
+     is held for the lifetime of the page, indicating that fscache knows about
+     it and might access it at any time (to write to the cache in the
+     background for example or to move pages around in the cache).
 
-And as far as I can tell, fscache doesn't want that PG_private_2 bit
-to interact with the random VM lifetime or migration rules either, and
-should rely entirely on the page count. David?
+     Here PG_fscache should not prevent page eviction or migration and it's
+     analogous to PG_private.
 
-There's actually a fair number of page_has_private() users, so we'd
-better make sure that's the case. But it's simplified by this but
-really only being used by btrfs (which doesn't care) and fscache, so
-this cleanup would basically be entirely up to the whole fscache
-series.
+     That said, the old fscache code keeps its own radix trees of pages that
+     are undergoing write to the cache, so to allow a page to be evicted,
+     releasepage and co. have to consult those
+     (__fscache_maybe_release_page()).
 
-Hmm? Objections?
+ (2) For the new netfs lib, PG_fscache is ignored by fscache itself and is
+     used by the read helpers.  The helpers simply use it analogously to
+     PG_writeback, indicating that there's I/O in progress from this page to
+     the cache[*].  It's fine to take a ref here because we know we'll drop it
+     shortly.
 
-            Linus
+     Here PG_fscache might prevent page eviction or migration, but only
+     because I/O is in progress.  If an increment on the page refcount
+     suffices, that's fine.
+
+In both cases, releasepage, etc. look at PG_fscache and decide whether to wait
+or not (releasepage may tell the caller to skip the page if PG_fscache is
+set).
+
+[*] Willy suggested using PG_writeback to cover both write to the server and
+write to the cache, and getting rid of PG_fscache entirely, but that would
+require extra mechanisms.  There are three cases:
+
+ (a) We might be writing to only the cache, e.g. because we just read from the
+     server.
+
+     Note that this may adversely affect code that does accounting associated
+     with PG_writeback because we woudn't actually be writing back a user-made
+     change or dealing with a dirty page.  I'm not sure if that's an issue.
+
+ (b) We might writing to both, in which case we can expect both writes to
+     finish at different times.
+
+ (c) We might only be writing to the server, e.g. because there's no space in
+     the cache or there is no cache.
+
+It's something that might make sense, however, and we can look at in the
+future, but for the moment having two separate page flags is simplest.
+
+An additional use of PG_fscache is to prevent a second write to the cache from
+being started whilst one is in progress.  I guess that would be taken over by
+PG_writeback if we used that.
+
+David
 
 --
 Linux-cachefs mailing list
