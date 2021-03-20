@@ -1,52 +1,52 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C59A342AE2
-	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:41:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id DC338342AE3
+	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:42:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-16-0yMymYijOliKmmrw9P1O9Q-1; Sat, 20 Mar 2021 01:41:49 -0400
-X-MC-Unique: 0yMymYijOliKmmrw9P1O9Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-590-9fHMNzP3OeS1kzP493oMkw-1; Sat, 20 Mar 2021 01:42:00 -0400
+X-MC-Unique: 9fHMNzP3OeS1kzP493oMkw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 62E221084C8C;
-	Sat, 20 Mar 2021 05:41:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 541E41B5C2;
-	Sat, 20 Mar 2021 05:41:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E68781744F;
+	Sat, 20 Mar 2021 05:41:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F53E60C04;
+	Sat, 20 Mar 2021 05:41:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3CB794A7C8;
-	Sat, 20 Mar 2021 05:41:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 42FA81809C83;
+	Sat, 20 Mar 2021 05:41:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12K5fkvA003561 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sat, 20 Mar 2021 01:41:46 -0400
+	id 12K5fu3o003753 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sat, 20 Mar 2021 01:41:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1E3C02166BA3; Sat, 20 Mar 2021 05:41:46 +0000 (UTC)
+	id 783EA1037B9; Sat, 20 Mar 2021 05:41:56 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18EB62166B44
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:41:46 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71DE1103406
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:41:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3D97185A7B2
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:41:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D39AC8007B1
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:41:51 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-66-Vpw4zGgePb2KDc1oQNB33A-1; Sat, 20 Mar 2021 01:41:43 -0400
-X-MC-Unique: Vpw4zGgePb2KDc1oQNB33A-1
+	us-mta-330-zdhPF7wsN8uSyAbBOkmsPg-1; Sat, 20 Mar 2021 01:41:49 -0400
+X-MC-Unique: zdhPF7wsN8uSyAbBOkmsPg-1
 Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lNUMX-005SQ8-4X; Sat, 20 Mar 2021 05:41:27 +0000
+	Linux)) id 1lNUMc-005SQR-F2; Sat, 20 Mar 2021 05:41:36 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Sat, 20 Mar 2021 05:40:39 +0000
-Message-Id: <20210320054104.1300774-3-willy@infradead.org>
+Date: Sat, 20 Mar 2021 05:40:40 +0000
+Message-Id: <20210320054104.1300774-4-willy@infradead.org>
 In-Reply-To: <20210320054104.1300774-1-willy@infradead.org>
 References: <20210320054104.1300774-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -58,13 +58,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
 	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH v5 02/27] mm/writeback: Add
+Subject: [Linux-cachefs] [PATCH v5 03/27] afs: Use
 	wait_on_page_writeback_killable
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -79,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,53 +87,29 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is the killable version of wait_on_page_writeback.
+Open-coding this function meant it missed out on the recent bugfix
+for waiters being woken by a delayed wake event from a previous
+instantiation of the page.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- include/linux/pagemap.h |  1 +
- mm/page-writeback.c     | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+)
+ fs/afs/write.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 139678f382ff..8c844ba67785 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -698,6 +698,7 @@ static inline int wait_on_page_locked_killable(struct page *page)
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index b2e03de09c24..106a864b6a93 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -850,8 +850,7 @@ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
+ 		return VM_FAULT_RETRY;
+ #endif
  
- int put_and_wait_on_page_locked(struct page *page, int state);
- void wait_on_page_writeback(struct page *page);
-+int wait_on_page_writeback_killable(struct page *page);
- extern void end_page_writeback(struct page *page);
- void wait_for_stable_page(struct page *page);
+-	if (PageWriteback(page) &&
+-	    wait_on_page_bit_killable(page, PG_writeback) < 0)
++	if (wait_on_page_writeback_killable(page))
+ 		return VM_FAULT_RETRY;
  
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index f6c2c3165d4d..5e761fb62800 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -2830,6 +2830,22 @@ void wait_on_page_writeback(struct page *page)
- }
- EXPORT_SYMBOL_GPL(wait_on_page_writeback);
- 
-+/*
-+ * Wait for a page to complete writeback.  Returns -EINTR if we get a
-+ * fatal signal while waiting.
-+ */
-+int wait_on_page_writeback_killable(struct page *page)
-+{
-+	while (PageWriteback(page)) {
-+		trace_wait_on_page_writeback(page, page_mapping(page));
-+		if (wait_on_page_bit_killable(page, PG_writeback))
-+			return -EINTR;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(wait_on_page_writeback_killable);
-+
- /**
-  * wait_for_stable_page() - wait for writeback to finish, if necessary.
-  * @page:	The page to wait on.
+ 	if (lock_page_killable(page) < 0)
 -- 
 2.30.2
 
