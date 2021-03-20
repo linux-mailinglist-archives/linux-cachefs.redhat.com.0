@@ -2,51 +2,51 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 46512342AE7
-	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:42:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D6E84342AE9
+	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:42:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-197-5KcBpraVOcWh-RpEelE9lA-1; Sat, 20 Mar 2021 01:42:27 -0400
-X-MC-Unique: 5KcBpraVOcWh-RpEelE9lA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-529-cTtib1EVNwKO79fcPx7vgw-1; Sat, 20 Mar 2021 01:42:34 -0400
+X-MC-Unique: cTtib1EVNwKO79fcPx7vgw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DE22100746C;
-	Sat, 20 Mar 2021 05:42:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E1EE081431C;
+	Sat, 20 Mar 2021 05:42:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D26319D9B;
-	Sat, 20 Mar 2021 05:42:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D30D160C17;
+	Sat, 20 Mar 2021 05:42:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EC3064A7C8;
-	Sat, 20 Mar 2021 05:42:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBEE14A7C8;
+	Sat, 20 Mar 2021 05:42:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12K5gM6E004062 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sat, 20 Mar 2021 01:42:22 -0400
+	id 12K5gUkf004076 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sat, 20 Mar 2021 01:42:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 84E5B2166BA3; Sat, 20 Mar 2021 05:42:22 +0000 (UTC)
+	id E74E42026D64; Sat, 20 Mar 2021 05:42:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F7F92166BA9
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:17 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E196D2026D46
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BD2B810BD1
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E923101A531
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:27 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-511-KE0hkWleNiOWh_9g6d-3iA-1; Sat, 20 Mar 2021 01:42:14 -0400
-X-MC-Unique: KE0hkWleNiOWh_9g6d-3iA-1
+	us-mta-580-YgMJDxvyO3W3M2FZKzcOjg-1; Sat, 20 Mar 2021 01:42:23 -0400
+X-MC-Unique: YgMJDxvyO3W3M2FZKzcOjg-1
 Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lNUN4-005SUw-H1; Sat, 20 Mar 2021 05:41:59 +0000
+	Linux)) id 1lNUNA-005SVj-8T; Sat, 20 Mar 2021 05:42:05 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Sat, 20 Mar 2021 05:40:44 +0000
-Message-Id: <20210320054104.1300774-8-willy@infradead.org>
+Date: Sat, 20 Mar 2021 05:40:45 +0000
+Message-Id: <20210320054104.1300774-9-willy@infradead.org>
 In-Reply-To: <20210320054104.1300774-1-willy@infradead.org>
 References: <20210320054104.1300774-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -58,14 +58,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
 Cc: linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-cachefs@redhat.com, Zi Yan <ziy@nvidia.com>,
 	linux-fsdevel@vger.kernel.org, linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH v5 07/27] mm/debug: Add VM_BUG_ON_FOLIO and
-	VM_WARN_ON_ONCE_FOLIO
+Subject: [Linux-cachefs] [PATCH v5 08/27] mm: Add put_folio
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +78,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,64 +86,72 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-These are the folio equivalents of VM_BUG_ON_PAGE and VM_WARN_ON_ONCE_PAGE.
+If we know we have a folio, we can call put_folio() instead of put_page()
+and save the overhead of calling compound_head().  Also skips the
+devmap checks.
+
+This commit looks like it should be a no-op, but actually saves 1714 bytes
+of text with the distro-derived config that I'm testing.  Some functions
+grow a little while others shrink.  I presume the compiler is making
+different inlining decisions.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 ---
- include/linux/mmdebug.h | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ include/linux/mm.h | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/mmdebug.h b/include/linux/mmdebug.h
-index 5d0767cb424a..77d24e1dcaec 100644
---- a/include/linux/mmdebug.h
-+++ b/include/linux/mmdebug.h
-@@ -23,6 +23,13 @@ void dump_mm(const struct mm_struct *mm);
- 			BUG();						\
- 		}							\
- 	} while (0)
-+#define VM_BUG_ON_FOLIO(cond, folio)					\
-+	do {								\
-+		if (unlikely(cond)) {					\
-+			dump_page(&folio->page, "VM_BUG_ON_FOLIO(" __stringify(cond)")");\
-+			BUG();						\
-+		}							\
-+	} while (0)
- #define VM_BUG_ON_VMA(cond, vma)					\
- 	do {								\
- 		if (unlikely(cond)) {					\
-@@ -48,6 +55,17 @@ void dump_mm(const struct mm_struct *mm);
- 	}								\
- 	unlikely(__ret_warn_once);					\
- })
-+#define VM_WARN_ON_ONCE_FOLIO(cond, folio)	({			\
-+	static bool __section(".data.once") __warned;			\
-+	int __ret_warn_once = !!(cond);					\
-+									\
-+	if (unlikely(__ret_warn_once && !__warned)) {			\
-+		dump_page(&folio->page, "VM_WARN_ON_ONCE_FOLIO(" __stringify(cond)")");\
-+		__warned = true;					\
-+		WARN_ON(1);						\
-+	}								\
-+	unlikely(__ret_warn_once);					\
-+})
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index e176e9c9990f..5052479febc7 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1226,9 +1226,28 @@ static inline __must_check bool try_get_page(struct page *page)
+ 	return true;
+ }
  
- #define VM_WARN_ON(cond) (void)WARN_ON(cond)
- #define VM_WARN_ON_ONCE(cond) (void)WARN_ON_ONCE(cond)
-@@ -56,11 +74,13 @@ void dump_mm(const struct mm_struct *mm);
- #else
- #define VM_BUG_ON(cond) BUILD_BUG_ON_INVALID(cond)
- #define VM_BUG_ON_PAGE(cond, page) VM_BUG_ON(cond)
-+#define VM_BUG_ON_FOLIO(cond, folio) VM_BUG_ON(cond)
- #define VM_BUG_ON_VMA(cond, vma) VM_BUG_ON(cond)
- #define VM_BUG_ON_MM(cond, mm) VM_BUG_ON(cond)
- #define VM_WARN_ON(cond) BUILD_BUG_ON_INVALID(cond)
- #define VM_WARN_ON_ONCE(cond) BUILD_BUG_ON_INVALID(cond)
- #define VM_WARN_ON_ONCE_PAGE(cond, page)  BUILD_BUG_ON_INVALID(cond)
-+#define VM_WARN_ON_ONCE_FOLIO(cond, folio)  BUILD_BUG_ON_INVALID(cond)
- #define VM_WARN_ONCE(cond, format...) BUILD_BUG_ON_INVALID(cond)
- #define VM_WARN(cond, format...) BUILD_BUG_ON_INVALID(cond)
- #endif
++/**
++ * put_folio - Decrement the reference count on a folio.
++ * @folio: The folio.
++ *
++ * If the folio's reference count reaches zero, the memory will be
++ * released back to the page allocator and may be used by another
++ * allocation immediately.  Do not access the memory or the struct folio
++ * after calling put_folio() unless you can be sure that it wasn't the
++ * last reference.
++ *
++ * Context: May be called in process or interrupt context, but not in NMI
++ * context.  May be called while holding a spinlock.
++ */
++static inline void put_folio(struct folio *folio)
++{
++	if (put_page_testzero(&folio->page))
++		__put_page(&folio->page);
++}
++
+ static inline void put_page(struct page *page)
+ {
+-	page = compound_head(page);
++	struct folio *folio = page_folio(page);
+ 
+ 	/*
+ 	 * For devmap managed pages we need to catch refcount transition from
+@@ -1236,13 +1255,12 @@ static inline void put_page(struct page *page)
+ 	 * need to inform the device driver through callback. See
+ 	 * include/linux/memremap.h and HMM for details.
+ 	 */
+-	if (page_is_devmap_managed(page)) {
+-		put_devmap_managed_page(page);
++	if (page_is_devmap_managed(&folio->page)) {
++		put_devmap_managed_page(&folio->page);
+ 		return;
+ 	}
+ 
+-	if (put_page_testzero(page))
+-		__put_page(page);
++	put_folio(folio);
+ }
+ 
+ /*
 -- 
 2.30.2
 
