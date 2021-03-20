@@ -1,51 +1,51 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C19F6342AE5
-	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:42:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 67851342AE6
+	for <lists+linux-cachefs@lfdr.de>; Sat, 20 Mar 2021 06:42:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-312-ank7uegUNjWTT1Ue58HlhQ-1; Sat, 20 Mar 2021 01:42:12 -0400
-X-MC-Unique: ank7uegUNjWTT1Ue58HlhQ-1
+ us-mta-26-ZWNzX_eHMiioQQ2tfpzjzQ-1; Sat, 20 Mar 2021 01:42:20 -0400
+X-MC-Unique: ZWNzX_eHMiioQQ2tfpzjzQ-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 280011007476;
-	Sat, 20 Mar 2021 05:42:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 150071F052;
-	Sat, 20 Mar 2021 05:42:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 89DA9180FCA6;
+	Sat, 20 Mar 2021 05:42:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 715321F40A;
+	Sat, 20 Mar 2021 05:42:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA9BA1809C83;
-	Sat, 20 Mar 2021 05:42:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B0944BB7C;
+	Sat, 20 Mar 2021 05:42:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12K5g8Wr003968 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sat, 20 Mar 2021 01:42:08 -0400
+	id 12K5gHmk004048 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sat, 20 Mar 2021 01:42:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 10E702026D60; Sat, 20 Mar 2021 05:42:08 +0000 (UTC)
+	id 7B790117C2F6; Sat, 20 Mar 2021 05:42:17 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BBAE2026D46
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 76848117C2F0
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 199F6185A7B2
-	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED475185A7BA
+	for <linux-cachefs@redhat.com>; Sat, 20 Mar 2021 05:42:12 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-571-jmxw5iPENNqPsaDowWpPyw-1; Sat, 20 Mar 2021 01:42:02 -0400
-X-MC-Unique: jmxw5iPENNqPsaDowWpPyw-1
+	us-mta-370-mEyqewe1PvWEzRC5VtsRfg-1; Sat, 20 Mar 2021 01:42:09 -0400
+X-MC-Unique: mEyqewe1PvWEzRC5VtsRfg-1
 Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lNUMs-005STP-BE; Sat, 20 Mar 2021 05:41:48 +0000
+	Linux)) id 1lNUMx-005SU4-EH; Sat, 20 Mar 2021 05:41:52 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Sat, 20 Mar 2021 05:40:42 +0000
-Message-Id: <20210320054104.1300774-6-willy@infradead.org>
+Date: Sat, 20 Mar 2021 05:40:43 +0000
+Message-Id: <20210320054104.1300774-7-willy@infradead.org>
 In-Reply-To: <20210320054104.1300774-1-willy@infradead.org>
 References: <20210320054104.1300774-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -57,13 +57,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: linux-kernel@vger.kernel.org,
+Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-cachefs@redhat.com, Zi Yan <ziy@nvidia.com>,
-	linux-fsdevel@vger.kernel.org, linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH v5 05/27] mm: Add folio_pgdat and folio_zone
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH v5 06/27] mm/vmstat: Add functions to
+	account folio statistics
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,36 +86,146 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-These are just convenience wrappers for callers with folios; pgdat and
-zone can be reached from tail pages as well as head pages.
+Allow page counters to be more readily modified by callers which have
+a folio.  Name these wrappers with 'stat' instead of 'state' as requested
+by Linus here:
+https://lore.kernel.org/linux-mm/CAHk-=wj847SudR-kt+46fT3+xFFgiwpgThvm7DJWGdi4cVrbnQ@mail.gmail.com/
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
 ---
- include/linux/mm.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ include/linux/vmstat.h | 107 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 107 insertions(+)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 9b7e3fa12fd3..e176e9c9990f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1544,6 +1544,16 @@ static inline pg_data_t *page_pgdat(const struct page *page)
- 	return NODE_DATA(page_to_nid(page));
+diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+index 3299cd69e4ca..d287d7c31b8f 100644
+--- a/include/linux/vmstat.h
++++ b/include/linux/vmstat.h
+@@ -402,6 +402,78 @@ static inline void drain_zonestat(struct zone *zone,
+ 			struct per_cpu_pageset *pset) { }
+ #endif		/* CONFIG_SMP */
+ 
++static inline void __zone_stat_mod_folio(struct folio *folio,
++		enum zone_stat_item item, long nr)
++{
++	__mod_zone_page_state(folio_zone(folio), item, nr);
++}
++
++static inline void __zone_stat_add_folio(struct folio *folio,
++		enum zone_stat_item item)
++{
++	__mod_zone_page_state(folio_zone(folio), item, folio_nr_pages(folio));
++}
++
++static inline void __zone_stat_sub_folio(struct folio *folio,
++		enum zone_stat_item item)
++{
++	__mod_zone_page_state(folio_zone(folio), item, -folio_nr_pages(folio));
++}
++
++static inline void zone_stat_mod_folio(struct folio *folio,
++		enum zone_stat_item item, long nr)
++{
++	mod_zone_page_state(folio_zone(folio), item, nr);
++}
++
++static inline void zone_stat_add_folio(struct folio *folio,
++		enum zone_stat_item item)
++{
++	mod_zone_page_state(folio_zone(folio), item, folio_nr_pages(folio));
++}
++
++static inline void zone_stat_sub_folio(struct folio *folio,
++		enum zone_stat_item item)
++{
++	mod_zone_page_state(folio_zone(folio), item, -folio_nr_pages(folio));
++}
++
++static inline void __node_stat_mod_folio(struct folio *folio,
++		enum node_stat_item item, long nr)
++{
++	__mod_node_page_state(folio_pgdat(folio), item, nr);
++}
++
++static inline void __node_stat_add_folio(struct folio *folio,
++		enum node_stat_item item)
++{
++	__mod_node_page_state(folio_pgdat(folio), item, folio_nr_pages(folio));
++}
++
++static inline void __node_stat_sub_folio(struct folio *folio,
++		enum node_stat_item item)
++{
++	__mod_node_page_state(folio_pgdat(folio), item, -folio_nr_pages(folio));
++}
++
++static inline void node_stat_mod_folio(struct folio *folio,
++		enum node_stat_item item, long nr)
++{
++	mod_node_page_state(folio_pgdat(folio), item, nr);
++}
++
++static inline void node_stat_add_folio(struct folio *folio,
++		enum node_stat_item item)
++{
++	mod_node_page_state(folio_pgdat(folio), item, folio_nr_pages(folio));
++}
++
++static inline void node_stat_sub_folio(struct folio *folio,
++		enum node_stat_item item)
++{
++	mod_node_page_state(folio_pgdat(folio), item, -folio_nr_pages(folio));
++}
++
+ static inline void __mod_zone_freepage_state(struct zone *zone, int nr_pages,
+ 					     int migratetype)
+ {
+@@ -530,6 +602,24 @@ static inline void __dec_lruvec_page_state(struct page *page,
+ 	__mod_lruvec_page_state(page, idx, -1);
  }
  
-+static inline struct zone *folio_zone(const struct folio *folio)
++static inline void __lruvec_stat_mod_folio(struct folio *folio,
++					   enum node_stat_item idx, int val)
 +{
-+	return page_zone(&folio->page);
++	__mod_lruvec_page_state(&folio->page, idx, val);
 +}
 +
-+static inline pg_data_t *folio_pgdat(const struct folio *folio)
++static inline void __lruvec_stat_add_folio(struct folio *folio,
++					   enum node_stat_item idx)
 +{
-+	return page_pgdat(&folio->page);
++	__lruvec_stat_mod_folio(folio, idx, folio_nr_pages(folio));
 +}
 +
- #ifdef SECTION_IN_PAGE_FLAGS
- static inline void set_page_section(struct page *page, unsigned long section)
++static inline void __lruvec_stat_sub_folio(struct folio *folio,
++					   enum node_stat_item idx)
++{
++	__lruvec_stat_mod_folio(folio, idx, -folio_nr_pages(folio));
++}
++
+ static inline void inc_lruvec_page_state(struct page *page,
+ 					 enum node_stat_item idx)
  {
+@@ -542,4 +632,21 @@ static inline void dec_lruvec_page_state(struct page *page,
+ 	mod_lruvec_page_state(page, idx, -1);
+ }
+ 
++static inline void lruvec_stat_mod_folio(struct folio *folio,
++					 enum node_stat_item idx, int val)
++{
++	mod_lruvec_page_state(&folio->page, idx, val);
++}
++
++static inline void lruvec_stat_add_folio(struct folio *folio,
++					 enum node_stat_item idx)
++{
++	lruvec_stat_mod_folio(folio, idx, folio_nr_pages(folio));
++}
++
++static inline void lruvec_stat_sub_folio(struct folio *folio,
++					 enum node_stat_item idx)
++{
++	lruvec_stat_mod_folio(folio, idx, -folio_nr_pages(folio));
++}
+ #endif /* _LINUX_VMSTAT_H */
 -- 
 2.30.2
 
