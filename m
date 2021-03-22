@@ -2,54 +2,54 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C64D6343203
-	for <lists+linux-cachefs@lfdr.de>; Sun, 21 Mar 2021 11:53:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 66253343761
+	for <lists+linux-cachefs@lfdr.de>; Mon, 22 Mar 2021 04:26:15 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-ojUCQlS5Nr-DNB7jkBjggg-1; Sun, 21 Mar 2021 06:53:39 -0400
-X-MC-Unique: ojUCQlS5Nr-DNB7jkBjggg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-277-XE2qCQIEOyOcVd2tQdhfag-1; Sun, 21 Mar 2021 23:26:12 -0400
+X-MC-Unique: XE2qCQIEOyOcVd2tQdhfag-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BFD6D81746A;
-	Sun, 21 Mar 2021 10:53:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0498107ACCA;
+	Mon, 22 Mar 2021 03:26:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A9F885D72E;
-	Sun, 21 Mar 2021 10:53:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42A681001B2C;
+	Mon, 22 Mar 2021 03:26:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 67AB14BB7B;
-	Sun, 21 Mar 2021 10:53:33 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 118194BB7B;
+	Mon, 22 Mar 2021 03:26:04 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12LArSvE019208 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 21 Mar 2021 06:53:28 -0400
+	id 12M3Q1Zr017234 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 21 Mar 2021 23:26:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5CCA71111A55; Sun, 21 Mar 2021 10:53:28 +0000 (UTC)
+	id B2AE6111285F; Mon, 22 Mar 2021 03:26:01 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5869E1111A54
-	for <linux-cachefs@redhat.com>; Sun, 21 Mar 2021 10:53:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D804E80331A
-	for <linux-cachefs@redhat.com>; Sun, 21 Mar 2021 10:53:25 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AE35B1000D99
+	for <linux-cachefs@redhat.com>; Mon, 22 Mar 2021 03:25:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EED0F800883
+	for <linux-cachefs@redhat.com>; Mon, 22 Mar 2021 03:25:58 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-61-0zUIaYV2MHOagfoUy2XLkA-1; Sun, 21 Mar 2021 06:53:20 -0400
-X-MC-Unique: 0zUIaYV2MHOagfoUy2XLkA-1
+	us-mta-135-WdII-eGmPEGdyq1983BSsA-1; Sun, 21 Mar 2021 23:25:56 -0400
+X-MC-Unique: WdII-eGmPEGdyq1983BSsA-1
 Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lNvhl-007173-MX; Sun, 21 Mar 2021 10:53:12 +0000
-Date: Sun, 21 Mar 2021 10:53:09 +0000
+	Linux)) id 1lOBBu-007vD1-0H; Mon, 22 Mar 2021 03:25:26 +0000
+Date: Mon, 22 Mar 2021 03:25:17 +0000
 From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20210321105309.GG3420@casper.infradead.org>
-References: <161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
-	<161539528910.286939.1252328699383291173.stgit@warthog.procyon.org.uk>
+To: linux-mm@kvack.org
+Message-ID: <20210322032517.GC1719932@casper.infradead.org>
+References: <20210320054104.1300774-1-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <161539528910.286939.1252328699383291173.stgit@warthog.procyon.org.uk>
+In-Reply-To: <20210320054104.1300774-1-willy@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,17 +60,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-afs@lists.infradead.org, Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org, Anna Schumaker <anna.schumaker@netapp.com>,
-	Steve French <sfrench@samba.org>, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [Linux-cachefs] [PATCH v4 02/28] mm: Add an unlock function for
- PG_private_2/PG_fscache
+Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org
+Subject: Re: [Linux-cachefs] [PATCH v5 00/27] Memory Folios
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +76,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,66 +85,20 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 10, 2021 at 04:54:49PM +0000, David Howells wrote:
-> Add a function, unlock_page_private_2(), to unlock PG_private_2 analogous
-> to that of PG_lock.  Add a kerneldoc banner to that indicating the example
-> usage case.
+On Sat, Mar 20, 2021 at 05:40:37AM +0000, Matthew Wilcox (Oracle) wrote:
+> Current tree at:
+> https://git.infradead.org/users/willy/pagecache.git/shortlog/refs/heads/folio
+> 
+> (contains another ~100 patches on top of this batch, not all of which are
+> in good shape for submission)
 
-One of the things which confused me about this was ... where's the other
-side?  Where's lock_page_private_2()?  Then I found this:
+I've fixed the two buildbot bugs.  I also resplit the docs work, and
+did a bunch of other things to the patches that I haven't posted yet.
 
-#ifdef CONFIG_AFS_FSCACHE
-        if (PageFsCache(page) &&
-            wait_on_page_bit_killable(page, PG_fscache) < 0)
-                return VM_FAULT_RETRY;
-#endif
-
-Please respect the comment!
-
-/*
- * This is exported only for wait_on_page_locked/wait_on_page_writeback, etc.,
- * and should not be used directly.
- */
-extern void wait_on_page_bit(struct page *page, int bit_nr);
-extern int wait_on_page_bit_killable(struct page *page, int bit_nr);
-
-I think we need the exported API to be wait_on_page_private_2(), and
-AFS needs to not tinker in the guts of filemap.  Otherwise you miss
-out on bugfixes like c2407cf7d22d0c0d94cf20342b3b8f06f1d904e7 (see also
-https://lore.kernel.org/linux-fsdevel/20210320054104.1300774-4-willy@infradead.org/T/#u
-).
-
-That also brings up that there is no set_page_private_2().  I think
-that's OK -- you only set PageFsCache() immediately after reading the
-page from the server.  But I feel this "unlock_page_private_2" is actually
-"clear_page_private_2" -- ie it's equivalent to writeback, not to lock.
-
-> +++ b/mm/filemap.c
-> @@ -1432,6 +1432,26 @@ void unlock_page(struct page *page)
->  }
->  EXPORT_SYMBOL(unlock_page);
->  
-> +/**
-> + * unlock_page_private_2 - Unlock a page that's locked with PG_private_2
-> + * @page: The page
-> + *
-> + * Unlocks a page that's locked with PG_private_2 and wakes up sleepers in
-> + * wait_on_page_private_2().
-> + *
-> + * This is, for example, used when a netfs page is being written to a local
-> + * disk cache, thereby allowing writes to the cache for the same page to be
-> + * serialised.
-> + */
-> +void unlock_page_private_2(struct page *page)
-> +{
-> +	page = compound_head(page);
-> +	VM_BUG_ON_PAGE(!PagePrivate2(page), page);
-> +	clear_bit_unlock(PG_private_2, &page->flags);
-> +	wake_up_page_bit(page, PG_private_2);
-> +}
-> +EXPORT_SYMBOL(unlock_page_private_2);
-> +
->  /**
+I'll send the first three patches as a separate series tomorrow,
+and then the next four as their own series, then I'll repost the
+rest (up to and including "Convert page wait queues to be folios")
+later in the week.
 
 --
 Linux-cachefs mailing list
