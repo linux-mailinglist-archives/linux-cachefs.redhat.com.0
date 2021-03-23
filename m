@@ -1,79 +1,72 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DD92E346D0A
-	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Mar 2021 23:30:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616538612;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=HRscKi7MI/1p7oZIXpWTS3SlssrCDJ4dt52mM39GU1I=;
-	b=FgWAQeMfh/kgPvs427EWtYYrgw5rdnTay22ubaRSK2huSZNZG3QvWlV/dfjbRdMHM+bEU3
-	ExGYeqlBzNWYit8CcJ5M2LE1ZHj6k1T1HOmXyk3HkELun9mksv9zJZxo+gPQDQj/jTnsCO
-	nh/T/Efh73N8iJcpOBLeXNODh/xEwMY=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 83CC134647B
+	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Mar 2021 17:09:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-292-LSwnhtpkMGeq0YsI5w8ODA-1; Tue, 23 Mar 2021 18:30:10 -0400
-X-MC-Unique: LSwnhtpkMGeq0YsI5w8ODA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-267-qh16Jsj3Pny7sGZiXT9lOQ-1; Tue, 23 Mar 2021 12:09:31 -0400
+X-MC-Unique: qh16Jsj3Pny7sGZiXT9lOQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8874987A83F;
-	Tue, 23 Mar 2021 22:30:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F1A5A83DD22;
+	Tue, 23 Mar 2021 16:09:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BA75610AF;
-	Tue, 23 Mar 2021 22:30:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A96AA5C1C5;
+	Tue, 23 Mar 2021 16:09:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4E50E180C5AA;
-	Tue, 23 Mar 2021 22:30:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 28E951809C82;
+	Tue, 23 Mar 2021 16:09:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12NEGaPX010193 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 23 Mar 2021 10:16:36 -0400
+	id 12NG9K0K020433 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 23 Mar 2021 12:09:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0A52710023AF; Tue, 23 Mar 2021 14:16:36 +0000 (UTC)
+	id 78F8921CAC6D; Tue, 23 Mar 2021 16:09:20 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-112-58.rdu2.redhat.com
-	[10.10.112.58])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E189C10016FD;
-	Tue, 23 Mar 2021 14:16:28 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20210323135116.GF1719932@casper.infradead.org>
-References: <20210323135116.GF1719932@casper.infradead.org>
-	<1885296.1616410586@warthog.procyon.org.uk>
-	<20210321105309.GG3420@casper.infradead.org>
-	<161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk>
-	<161539528910.286939.1252328699383291173.stgit@warthog.procyon.org.uk>
-	<2499407.1616505440@warthog.procyon.org.uk>
-To: Matthew Wilcox <willy@infradead.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71CD121CAC6E
+	for <linux-cachefs@redhat.com>; Tue, 23 Mar 2021 16:09:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5E65185A7B2
+	for <linux-cachefs@redhat.com>; Tue, 23 Mar 2021 16:09:15 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-588-Krx6pVVIOuWuNMD9Q6VNww-1; Tue, 23 Mar 2021 12:09:14 -0400
+X-MC-Unique: Krx6pVVIOuWuNMD9Q6VNww-1
+Received: from hch by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lOjIu-00AF00-Ng; Tue, 23 Mar 2021 15:50:50 +0000
+Date: Tue, 23 Mar 2021 15:50:48 +0000
+From: Christoph Hellwig <hch@infradead.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Message-ID: <20210323155048.GB2438080@infradead.org>
+References: <20210320054104.1300774-1-willy@infradead.org>
+	<YFja/LRC1NI6quL6@cmpxchg.org>
 MIME-Version: 1.0
-Date: Tue, 23 Mar 2021 14:16:28 +0000
-Message-ID: <2503810.1616508988@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <YFja/LRC1NI6quL6@cmpxchg.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Tue, 23 Mar 2021 18:29:55 -0400
-Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
-	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+Cc: linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH v4 02/28] mm: Add an unlock function for
-	PG_private_2/PG_fscache
+	linux-fsdevel@vger.kernel.org, linux-afs@lists.infradead.org
+Subject: Re: [Linux-cachefs] [PATCH v5 00/27] Memory Folios
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,67 +80,66 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <2503809.1616508988.1@warthog.procyon.org.uk>
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Matthew Wilcox <willy@infradead.org> wrote:
+On Mon, Mar 22, 2021 at 01:59:24PM -0400, Johannes Weiner wrote:
+> If that is the case, shouldn't there in the long term only be very
+> few, easy to review instances of things like compound_head(),
+> PAGE_SIZE etc. deep in the heart of MM? And everybody else should 1)
+> never see tail pages and 2) never assume a compile-time page size?
 
-> On Tue, Mar 23, 2021 at 01:17:20PM +0000, David Howells wrote:
-> > +++ b/fs/afs/write.c
-> > @@ -846,7 +846,7 @@ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
-> >  	 */
-> >  #ifdef CONFIG_AFS_FSCACHE
-> >  	if (PageFsCache(page) &&
-> > -	    wait_on_page_bit_killable(page, PG_fscache) < 0)
-> > +	    wait_on_page_fscache_killable(page) < 0)
-> >  		return VM_FAULT_RETRY;
-> >  #endif
-> >  
-> > @@ -861,7 +861,8 @@ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
-> >  	 * details the portion of the page we need to write back and we might
-> >  	 * need to redirty the page if there's a problem.
-> >  	 */
-> > -	wait_on_page_writeback(page);
-> > +	if (wait_on_page_writeback_killable(page) < 0)
-> > +		return VM_FAULT_RETRY | VM_FAULT_LOCKED;
+Probably.
+
+> But this part is already getting better, and has gotten better, with
+> the page cache (largely?) going native for example.
+
+As long as there is no strong typing it is going to remain a mess.
+
+> So I fully agree with the motivation behind this patch. But I do
+> wonder why it's special-casing the commmon case instead of the rare
+> case. It comes at a huge cost. Short term, the churn of replacing
+> 'page' with 'folio' in pretty much all instances is enormous.
+
+The special case is in the eye of the beholder.  I suspect we'll end
+up using the folio in most FS/VM interaction eventually, which makes it
+the common.  But I don't see how it is the special case?  Yes, changing
+from page to folio just about everywhere causes more change, but it also
+allow to:
+
+ a) do this gradually
+ b) thus actually audit everything that we actually do the right thing
+
+And I think willys whole series (the git branch, not just the few
+patches sent out) very clearly shows the benefit of that.
+
+> And longer term, I'm not convinced folio is the abstraction we want
+> throughout the kernel. If nobody should be dealing with tail pages in
+> the first place, why are we making everybody think in 'folios'? Why
+> does a filesystem care that huge pages are composed of multiple base
+> pages internally? This feels like an implementation detail leaking out
+> of the MM code. The vast majority of places should be thinking 'page'
+> with a size of 'page_size()'. Including most parts of the MM itself.
+
+Why does the name matter?  While there are arguments both ways, the
+clean break certainly helps every to remind everyone that this is not
+your grandfathers fixed sized page.
+
 > 
-> You forgot to unlock the page.
+> The compile-time check is nice, but I'm not sure it would be that much
+> more effective at catching things than a few centrally placed warns
+> inside PageFoo(), get_page() etc. and other things that should not
+> encounter tail pages in the first place (with __helpers for the few
+> instances that do).
 
-Do I need to?  Doesn't VM_FAULT_LOCKED indicate that to the caller?  Or is it
-impermissible to do it like that?
-
-> Also, if you're waiting killably here, do you need to wait before you get
-> the page lock?  Ditto for waiting on fscache -- do you want to do that
-> before or after you get the page lock?
-
-I'm waiting both before and after.  If I wait before, write() can go and
-trample over the page between PG_writeback/PG_fscache being cleared and us
-getting the lock here.  Probably I should only be waiting after locking the
-page.
-
-> Also, I never quite understood why you needed to wait for fscache
-> writes to finish before allowing the page to be dirtied.  Is this a
-> wait_for_stable_page() kind of situation, where the cache might be
-> calculating a checksum on it?  Because as far as I can tell, once the
-> page is dirty in RAM, the contents of the on-disk cache are irrelevant ...
-> unless they're part of a RAID 5 checksum kind of situation.
-
-Um.  I do want to add disconnected operation in the future and cache
-encryption, but, as things currently stand, it isn't necessary because the
-cache object is marked "in use" and will be discarded on rebinding after a
-power loss or crash if it's still marked when it's opened again.
-
-Also, the thought has occurred to me that I can make use of reflink copy to
-handle the caching of local modifications to cached files, in which case I'd
-rather have a clean copy to link from.
-
-David
+Eeek, no.  No amount of runtime checks is going to replace compile
+time type safety.
 
 --
 Linux-cachefs mailing list
