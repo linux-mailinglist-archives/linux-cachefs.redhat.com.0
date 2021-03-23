@@ -1,67 +1,68 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 39AB4345D61
-	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Mar 2021 12:54:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616500447;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=esZRo44qqVaRFaQ68/SJp2RbJ1uuJdU+9wDlogzpvas=;
-	b=GAFKj/lTfnH0KvLBL81gC3egh9ha6ATv/9EdWPMs0KDEhJpFSnFGZbNmRcKdshVAIbRw4d
-	PfvsiZ+H57OO6pMG5wCSuc9Q1IJNG+su5BcobiZ0oQZuFCI2ZpquG7fikzpTD470YtF7cH
-	QOWwhAgFaGFUqPYLXjcjC77SLcKORBU=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2790A345DC9
+	for <lists+linux-cachefs@lfdr.de>; Tue, 23 Mar 2021 13:10:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-52-MNnDfmERN4W7EjR3GvBO5Q-1; Tue, 23 Mar 2021 07:54:05 -0400
-X-MC-Unique: MNnDfmERN4W7EjR3GvBO5Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-233-Oyl0B7kwOwS7DqSDV0X78g-1; Tue, 23 Mar 2021 08:10:15 -0400
+X-MC-Unique: Oyl0B7kwOwS7DqSDV0X78g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4AC791013720;
-	Tue, 23 Mar 2021 11:54:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3ABEE5D9C0;
-	Tue, 23 Mar 2021 11:54:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77ABF801817;
+	Tue, 23 Mar 2021 12:10:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E4E61001281;
+	Tue, 23 Mar 2021 12:10:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B9924BB7C;
-	Tue, 23 Mar 2021 11:54:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7A6671809C83;
+	Tue, 23 Mar 2021 12:10:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12NBs28d025442 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 23 Mar 2021 07:54:02 -0400
+	id 12NCA86T027421 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 23 Mar 2021 08:10:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6509918B5E; Tue, 23 Mar 2021 11:54:02 +0000 (UTC)
+	id 1A2472166B44; Tue, 23 Mar 2021 12:10:08 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-112-58.rdu2.redhat.com
-	[10.10.112.58])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1ED27179B3;
-	Tue, 23 Mar 2021 11:53:57 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: linux-cachefs@redhat.com, linux-afs@lists.infradead.org
-Date: Tue, 23 Mar 2021 11:53:57 +0000
-Message-ID: <161650043737.2445805.16573960069907170426.stgit@warthog.procyon.org.uk>
-In-Reply-To: <161650040278.2445805.7652115256944270457.stgit@warthog.procyon.org.uk>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11FC221CAC6F
+	for <linux-cachefs@redhat.com>; Tue, 23 Mar 2021 12:10:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 829A7805F4A
+	for <linux-cachefs@redhat.com>; Tue, 23 Mar 2021 12:10:04 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-88-_2FHTTpuMFChPEaLtbp7PA-1; Tue, 23 Mar 2021 08:10:00 -0400
+X-MC-Unique: _2FHTTpuMFChPEaLtbp7PA-1
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lOfpl-00A1WB-Ek; Tue, 23 Mar 2021 12:09:04 +0000
+Date: Tue, 23 Mar 2021 12:08:29 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20210323120829.GC1719932@casper.infradead.org>
 References: <161650040278.2445805.7652115256944270457.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <161650040278.2445805.7652115256944270457.stgit@warthog.procyon.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>
-Subject: [Linux-cachefs] [PATCH 3/3] afs: Use wait_on_page_writeback_killable
+Cc: linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	linux-mm@kvack.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-afs@lists.infradead.org
+Subject: Re: [Linux-cachefs] [PATCH 0/3] cachefiles, afs: mm wait fixes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,50 +76,37 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Matthew Wilcox (Oracle) <willy@infradead.org>
+On Tue, Mar 23, 2021 at 11:53:22AM +0000, David Howells wrote:
+> 
+> Here are some patches to fix page waiting-related issues in cachefiles and
+> afs[1]:
+> 
+>  (1) In cachefiles, remove the use of the wait_bit_key struct to access
+>      something that's actually in wait_page_key format.  The proper struct
+>      is now available in the header, so that should be used instead.
+> 
+>  (2) Add a proper wait function for waiting killably on the page writeback
+>      flag.  This includes a recent bugfix here (presumably commit
+>      c2407cf7d22d0c0d94cf20342b3b8f06f1d904e7).
+> 
+>  (3) In afs, use the function added in (2) rather than using
+>      wait_on_page_bit_killable() which doesn't have the aforementioned
+>      bugfix.
+> 
+>      Note that I modified this to work with the upstream code where the
+>      page pointer isn't cached in a local variable.
 
-Open-coding this function meant it missed out on the recent bugfix
-for waiters being woken by a delayed wake event from a previous
-instantiation of the page.
-
-[DH: Changed the patch to use vmf->page rather than variable page which
- doesn't exist yet upstream]
-
-Fixes: 1cf7a1518aef ("afs: Implement shared-writeable mmap")
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: linux-afs@lists.infradead.org
-cc: linux-mm@kvack.org
-Link: https://lore.kernel.org/r/20210320054104.1300774-4-willy@infradead.org
----
-
- fs/afs/write.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/fs/afs/write.c b/fs/afs/write.c
-index c9195fc67fd8..eb737ed63afb 100644
---- a/fs/afs/write.c
-+++ b/fs/afs/write.c
-@@ -851,8 +851,7 @@ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
- 	fscache_wait_on_page_write(vnode->cache, vmf->page);
- #endif
- 
--	if (PageWriteback(vmf->page) &&
--	    wait_on_page_bit_killable(vmf->page, PG_writeback) < 0)
-+	if (wait_on_page_writeback_killable(vmf->page))
- 		return VM_FAULT_RETRY;
- 
- 	if (lock_page_killable(vmf->page) < 0)
-
+Thanks, the minor modifications to the patches (changelogs, fixes to apply
+to upstream) all look good to me.
 
 --
 Linux-cachefs mailing list
