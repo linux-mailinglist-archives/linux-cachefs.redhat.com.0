@@ -1,54 +1,53 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C4EBB34D013
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A6AB134D012
 	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Mar 2021 14:30:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-158-BKwKjxx2Mq2GcefF1VgmXA-1; Mon, 29 Mar 2021 08:30:26 -0400
-X-MC-Unique: BKwKjxx2Mq2GcefF1VgmXA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-492-9XAWb_koMyqP_lx5Ddta_w-1; Mon, 29 Mar 2021 08:30:25 -0400
+X-MC-Unique: 9XAWb_koMyqP_lx5Ddta_w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A253107B7C5;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC133801FCE;
 	Mon, 29 Mar 2021 12:30:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36F7E60843;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2DB66A8FB;
 	Mon, 29 Mar 2021 12:30:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4860F1809C84;
-	Mon, 29 Mar 2021 12:30:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 972201809C84;
+	Mon, 29 Mar 2021 12:30:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12T8Q3Ao007870 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 29 Mar 2021 04:26:03 -0400
+	id 12T8dR7S008839 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 29 Mar 2021 04:39:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C13F21CAC71; Mon, 29 Mar 2021 08:26:03 +0000 (UTC)
+	id 77A741000645; Mon, 29 Mar 2021 08:39:27 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 214812166B44
-	for <linux-cachefs@redhat.com>; Mon, 29 Mar 2021 08:26:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73A2B1112C1B
+	for <linux-cachefs@redhat.com>; Mon, 29 Mar 2021 08:39:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7D349805F44
-	for <linux-cachefs@redhat.com>; Mon, 29 Mar 2021 08:26:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CCC3101A531
+	for <linux-cachefs@redhat.com>; Mon, 29 Mar 2021 08:39:24 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-75-dh1rW2NtPEewJ4N1G_q4hA-1; 
-	Mon, 29 Mar 2021 04:25:57 -0400
-X-MC-Unique: dh1rW2NtPEewJ4N1G_q4hA-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 95E5D61477;
-	Mon, 29 Mar 2021 08:25:55 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-376-GZ5aGNKINs6JyfcRj9963w-1;
+	Mon, 29 Mar 2021 04:39:21 -0400
+X-MC-Unique: GZ5aGNKINs6JyfcRj9963w-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 60DDF61879;
+	Mon, 29 Mar 2021 08:39:19 +0000 (UTC)
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 29 Mar 2021 09:59:01 +0200
-Message-Id: <20210329075636.118348118@linuxfoundation.org>
-In-Reply-To: <20210329075629.172032742@linuxfoundation.org>
-References: <20210329075629.172032742@linuxfoundation.org>
+Date: Mon, 29 Mar 2021 09:59:19 +0200
+Message-Id: <20210329075641.056224883@linuxfoundation.org>
+In-Reply-To: <20210329075633.135869143@linuxfoundation.org>
+References: <20210329075633.135869143@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -59,16 +58,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12T8Q3Ao007870
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 12T8dR7S008839
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Mon, 29 Mar 2021 08:30:16 -0400
 Cc: kafs-testing@auristor.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-mm@kvack.org, linux-cachefs@redhat.com,
 	stable@vger.kernel.org, Christoph Hellwig <hch@lst.de>
-Subject: [Linux-cachefs] [PATCH 5.10 210/221] fs/cachefiles: Remove
+Subject: [Linux-cachefs] [PATCH 5.11 243/254] fs/cachefiles: Remove
 	wait_bit_key layout dependency
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -83,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
