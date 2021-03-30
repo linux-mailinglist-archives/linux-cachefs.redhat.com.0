@@ -2,71 +2,51 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3517A34F19E
-	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Mar 2021 21:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2013134F2E1
+	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Mar 2021 23:14:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-541-f3RWDwg-MlOMynb3q26LoQ-1; Tue, 30 Mar 2021 15:31:16 -0400
-X-MC-Unique: f3RWDwg-MlOMynb3q26LoQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-569-jekUafqHPwKu0FzruAudfw-1; Tue, 30 Mar 2021 17:14:13 -0400
+X-MC-Unique: jekUafqHPwKu0FzruAudfw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D6D1E83DC21;
-	Tue, 30 Mar 2021 19:31:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D23EC60CE7;
-	Tue, 30 Mar 2021 19:31:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 757271084D6E;
+	Tue, 30 Mar 2021 21:14:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC98C62A22;
+	Tue, 30 Mar 2021 21:14:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9C3A4BB7C;
-	Tue, 30 Mar 2021 19:31:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E13B31809C83;
+	Tue, 30 Mar 2021 21:14:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12UJV4IU026366 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 30 Mar 2021 15:31:04 -0400
+	id 12ULAIxx002403 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 30 Mar 2021 17:10:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EF8C06D9DF; Tue, 30 Mar 2021 19:31:03 +0000 (UTC)
+	id 5569E2026D07; Tue, 30 Mar 2021 21:10:18 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E967F6D9E0
-	for <linux-cachefs@redhat.com>; Tue, 30 Mar 2021 19:31:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 438D78028BE
-	for <linux-cachefs@redhat.com>; Tue, 30 Mar 2021 19:31:00 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
-	[209.85.160.171]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-365-QnlRMN0yNkKwbOVDbT4rAw-1; Tue, 30 Mar 2021 15:30:57 -0400
-X-MC-Unique: QnlRMN0yNkKwbOVDbT4rAw-1
-Received: by mail-qt1-f171.google.com with SMTP id x9so12734863qto.8
-	for <linux-cachefs@redhat.com>; Tue, 30 Mar 2021 12:30:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=20kDy5UZRdPQvDESiNWyAM6Z280f/+mlZeZgw4ir/sI=;
-	b=tmrAqQH6+TwgKKQKzmflsM4o9K9dMU9ZOdfebkInzhxCNXee8TdvRPRU4wjFibRNWY
-	0Whubcrv8ELVI+ewN/1PvsTy3g3HATYKQLdspQfmxPnN4yRVjTyzp5Ym9AcNYoYOZNIO
-	WfelVXYbKQtO3E2kfackcKO1jNG0Veq0+qogm9pAt4UdvL1J+dPEFasU/mqgVUQnZSmU
-	IQvOBLfnGhy3PrHLoAt9lUpddfEPrBvxUuF4XD/UdLgVinBdkikSSaX65lTNn4TI34Yp
-	gcP0FCxh9o30MHgrm+WRUMJnGRQ0lWVlkEG3TvICQicMNWgBFR2y4j/kFSI+FhYhgNHz
-	/FUw==
-X-Gm-Message-State: AOAM532QpjR2F1NBR3ZfBBM1wYIX8dsAyEpa9n5noBf+LwajMv+fhNqd
-	HyOmaKaWcsdT2k+iOAtlY5DY3Q==
-X-Google-Smtp-Source: ABdhPJyYkyYtAxFf+VxQm2wkcAMNl5H5nVDwndxqYz8rHa5nXNjpx9HGcCpc9hVSiF4PZbOutt+o9Q==
-X-Received: by 2002:ac8:5913:: with SMTP id 19mr29248772qty.391.1617132656391; 
-	Tue, 30 Mar 2021 12:30:56 -0700 (PDT)
-Received: from localhost (70.44.39.90.res-cmts.bus.ptd.net. [70.44.39.90])
-	by smtp.gmail.com with ESMTPSA id
-	c19sm15493595qkl.78.2021.03.30.12.30.55
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 30 Mar 2021 12:30:55 -0700 (PDT)
-Date: Tue, 30 Mar 2021 15:30:54 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <YGN8biqigvPP0SGN@cmpxchg.org>
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 502172026D6B
+	for <linux-cachefs@redhat.com>; Tue, 30 Mar 2021 21:10:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB2A9800B23
+	for <linux-cachefs@redhat.com>; Tue, 30 Mar 2021 21:10:15 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-588-RRdPZs3POIu-ojNzqvyebA-1; Tue, 30 Mar 2021 17:10:11 -0400
+X-MC-Unique: RRdPZs3POIu-ojNzqvyebA-1
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lRLc9-003bpa-7a; Tue, 30 Mar 2021 21:09:38 +0000
+Date: Tue, 30 Mar 2021 22:09:29 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Message-ID: <20210330210929.GR351017@casper.infradead.org>
 References: <20210320054104.1300774-1-willy@infradead.org>
 	<YFja/LRC1NI6quL6@cmpxchg.org>
 	<20210322184744.GU1719932@casper.infradead.org>
@@ -74,8 +54,9 @@ References: <20210320054104.1300774-1-willy@infradead.org>
 	<20210324062421.GQ1719932@casper.infradead.org>
 	<YF4eX/VBPLmontA+@cmpxchg.org>
 	<20210329165832.GG351017@casper.infradead.org>
+	<YGN8biqigvPP0SGN@cmpxchg.org>
 MIME-Version: 1.0
-In-Reply-To: <20210329165832.GG351017@casper.infradead.org>
+In-Reply-To: <YGN8biqigvPP0SGN@cmpxchg.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -84,7 +65,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-cachefs@redhat.com,
 	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org
@@ -102,7 +83,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -111,393 +92,235 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Willy,
-
-On Mon, Mar 29, 2021 at 05:58:32PM +0100, Matthew Wilcox wrote:
-> I'm going to respond to some points in detail below, but there are a
-> couple of overarching themes that I want to bring out up here.
+On Tue, Mar 30, 2021 at 03:30:54PM -0400, Johannes Weiner wrote:
+> Hi Willy,
 > 
-> Grand Vision
-> ~~~~~~~~~~~~
-> 
-> I haven't outlined my long-term plan.  Partly because it is a _very_
-> long way off, and partly because I think what I'm doing stands on its
-> own.  But some of the points below bear on this, so I'll do it now.
-> 
-> Eventually, I want to make struct page optional for allocations.  It's too
-> small for some things (allocating page tables, for example), and overly
-> large for others (allocating a 2MB page, networking page_pool).  I don't
-> want to change its size in the meantime; having a struct page refer to
-> PAGE_SIZE bytes is something that's quite deeply baked in.
-
-Right, I think it's overloaded and it needs to go away from many
-contexts it's used in today.
-
-I think it describes a real physical thing, though, and won't go away
-as a concept. More on that below.
-
-> In broad strokes, I think that having a Power Of Two Allocator
-> with Descriptor (POTAD) is a useful foundational allocator to have.
-> The specific allocator that we call the buddy allocator is very clever for
-> the 1990s, but touches too many cachelines to be good with today's CPUs.
-> The generalisation of the buddy allocator to the POTAD lets us allocate
-> smaller quantities (eg a 512 byte block) and allocate descriptors which
-> differ in size from a struct page.  For an extreme example, see xfs_buf
-> which is 360 bytes and is the descriptor for an allocation between 512
-> and 65536 bytes.
-
-I actually disagree with this rather strongly. If anything, the buddy
-allocator has turned out to be a pretty poor fit for the foundational
-allocator.
-
-On paper, it is elegant and versatile in serving essentially arbitrary
-memory blocks. In practice, we mostly just need 4k and 2M chunks from
-it. And it sucks at the 2M ones because of the fragmentation caused by
-the ungrouped 4k blocks.
-
-The great thing about the slab allocator isn't just that it manages
-internal fragmentation of the larger underlying blocks. It also groups
-related objects by lifetime/age and reclaimability, which dramatically
-mitigates the external fragmentation of the memory space.
-
-The buddy allocator on the other hand has no idea what you want that
-4k block for, and whether it pairs up well with the 4k block it just
-handed to somebody else. But the decision it makes in that moment is
-crucial for its ability to serve larger blocks later on.
-
-We do some mobility grouping based on how reclaimable or migratable
-the memory is, but it's not the full answer.
-
-A variable size allocator without object type grouping will always
-have difficulties producing anything but the smallest block size after
-some uptime. It's inherently flawed that way.
-
-What HAS proven itself is having the base block size correspond to a
-reasonable transaction unit for paging and page reclaim, then fill in
-smaller ranges with lifetime-aware slabbing, larger ranges with
-vmalloc and SG schemes, and absurdly large requests with CMA.
-
-We might be stuck with serving order-1, order-2 etc. for a little
-while longer for the few users who can't go to kvmalloc(), but IMO
-it's the wrong direction to expand into.
-
-Optimally the foundational allocator would just do one block size.
-
-> There are times when we need to get from the physical address to
-> the descriptor, eg memory-failure.c or get_user_pages().  This is the
-> equivalent of phys_to_page(), and it's going to have to be a lookup tree.
-> I think this is a role for the Maple Tree, but it's not ready yet.
-> I don't know if it'll be fast enough for this case.  There's also the
-> need (particularly for memory-failure) to determine exactly what kind
-> of descriptor we're dealing with, and also its size.  Even its owner,
-> so we can notify them of memory failure.
-
-A tree could be more memory efficient in the long term, but for
-starters a 2M page could have a
-
-	struct smallpage *smallpages[512];
-
-member that points to any allocated/mapped 4k descriptors. The page
-table level would tell you what you're looking at: a pmd is simple, a
-pte would map to a 4k pfn, whose upper bits identify a struct page
-then a page flag would tell you whether we have a pte-mapped 2M page
-or whether the lower pfn bits identify an offset in smallpages[].
-
-It's one pointer for every 4k of RAM, which is a bit dumb, but not as
-dumb as having an entire struct page for each of those ;)
-
-> What I haven't touched on anywhere in this, is whether a folio is the
-> descriptor for all POTA or whether it's specifically the page cache
-> descriptor.  I like the idea of having separate descriptors for objects
-> in the page cache from anonymous or other allocations.  But I'm not very
-> familiar with the rmap code, and that wants to do things like manipulate
-> the refcount on a descriptor without knowing whether it's a file or
-> anon page.  Or neither (eg device driver memory mapped to userspace.
-> Or vmalloc memory mapped to userspace.  Or ...)
-
-The rmap code is all about the page type specifics, but once you get
-into mmap, page reclaim, page migration, we're dealing with fully
-fungible blocks of memory.
-
-I do like the idea of using actual language typing for the different
-things struct page can be today (fs page), but with a common type to
-manage the fungible block of memory backing it (allocation state, LRU
-& aging state, mmap state etc.)
-
-New types for the former are an easier sell. We all agree that there
-are too many details of the page - including the compound page
-implementation detail - inside the cache library, fs code and drivers.
-
-It's a slightly tougher sell to say that the core VM code itself
-(outside the cache library) needs a tighter abstraction for the struct
-page building block and the compound page structure. At least at this
-time while we're still sorting out how it all may work down the line.
-Certainly, we need something to describe fungible memory blocks:
-either a struct page that can be 4k and 2M compound, or a new thing
-that can be backed by a 2M struct page or a 4k struct smallpage. We
-don't know yet, so I would table the new abstraction type for this.
-
-I generally don't think we want a new type that does everything that
-the overloaded struct page already does PLUS the compound
-abstraction. Whatever name we pick for it, it'll always be difficult
-to wrap your head around such a beast.
-
-IMO starting with an explicit page cache descriptor that resolves to
-struct page inside core VM code (and maybe ->fault) for now makes the
-most sense: it greatly mitigates the PAGE_SIZE and tail page issue
-right away, and it's not in conflict with, but rather helps work
-toward, replacing the fungible memory unit behind it.
-
-There isn't too much overlap or generic code between cache and anon
-pages such that sharing a common descriptor would be a huge win (most
-overlap is at the fungible memory block level, and the physical struct
-page layout of course), so I don't think we should aim for a generic
-abstraction for both.
-
-As drivers go, I think there are slightly different requirements to
-filesystems, too. For filesystems, when the VM can finally do it (and
-the file range permits it), I assume we want to rather transparently
-increase the unit of data transfer from 4k to 2M. Most drivers that
-currently hardcode alloc_page() or PAGE_SIZE OTOH probably don't want
-us to bump their allocation sizes.
-
-There ARE instances where drivers allocate pages based on buffer_size
-/ PAGE_SIZE and then interact with virtual memory. Those are true VM
-objects that could grow transparently if PAGE_SIZE grows, and IMO they
-should share the "fungible memory block" abstraction the VM uses.
-
-But there are also many instances where PAGE_SIZE just means 4006 is a
-good size for me, and struct page is useful for refcounting. Those
-just shouldn't use whatever the VM or the cache layer are using and
-stop putting additional burden on an already tricky abstraction.
-
-> On Fri, Mar 26, 2021 at 01:48:15PM -0400, Johannes Weiner wrote:
-> > On Wed, Mar 24, 2021 at 06:24:21AM +0000, Matthew Wilcox wrote:
-> > > On Tue, Mar 23, 2021 at 08:29:16PM -0400, Johannes Weiner wrote:
-> > > > On Mon, Mar 22, 2021 at 06:47:44PM +0000, Matthew Wilcox wrote:
-> > > > > On Mon, Mar 22, 2021 at 01:59:24PM -0400, Johannes Weiner wrote:
-> > > One of the patches I haven't posted yet starts to try to deal with kmap()/mem*()/kunmap():
-> > > 
-> > >     mm: Add kmap_local_folio
-> > >     
-> > >     This allows us to map a portion of a folio.  Callers can only expect
-> > >     to access up to the next page boundary.
-> > >     
-> > >     Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> > > 
-> > > diff --git a/include/linux/highmem-internal.h b/include/linux/highmem-internal.h
-> > > index 7902c7d8b55f..55a29c9d562f 100644
-> > > --- a/include/linux/highmem-internal.h
-> > > +++ b/include/linux/highmem-internal.h
-> > > @@ -73,6 +73,12 @@ static inline void *kmap_local_page(struct page *page)
-> > >         return __kmap_local_page_prot(page, kmap_prot);
-> > >  }
-> > >  
-> > > +static inline void *kmap_local_folio(struct folio *folio, size_t offset)
-> > > +{
-> > > +       struct page *page = &folio->page + offset / PAGE_SIZE;
-> > > +       return __kmap_local_page_prot(page, kmap_prot) + offset % PAGE_SIZE;
-> > > +}
-> > > 
-> > > Partly I haven't shared that one because I'm not 100% sure that 'byte
-> > > offset relative to start of folio' is the correct interface.  I'm looking
-> > > at some users and thinking that maybe 'byte offset relative to start
-> > > of file' might be better.  Or perhaps that's just filesystem-centric
-> > > thinking.
+> On Mon, Mar 29, 2021 at 05:58:32PM +0100, Matthew Wilcox wrote:
+> > I'm going to respond to some points in detail below, but there are a
+> > couple of overarching themes that I want to bring out up here.
 > > 
-> > Right, this doesn't seem specific to files just because they would be
-> > the primary users of it.
-> 
-> Yeah.  I think I forgot to cc you on this:
-> 
-> https://lore.kernel.org/linux-fsdevel/20210325032202.GS1719932@casper.infradead.org/
-> 
-> and "byte offset relative to the start of the folio" works just fine:
-> 
-> +	offset = offset_in_folio(folio, diter->pos);
-> +
-> +map:
-> +	diter->entry = kmap_local_folio(folio, offset);
-
-Yeah, that looks great to me!
-
-> > > > But for that to work, we'll need the allocator to produce huge pages
-> > > > at the necessary rate, too. The current implementation likely won't
-> > > > scale. Compaction is expensive enough that we have to weigh when to
-> > > > allocate huge pages for long-lived anon regions, let alone allocate
-> > > > them for streaming IO cache entries.
-> > > 
-> > > Heh, I have that as a work item for later this year -- give the page
-> > > allocator per-cpu lists of compound pages, not just order-0 pages.
-> > > That'll save us turning compound pages back into buddy pages, only to
-> > > turn them into compound pages again.
-> > > 
-> > > I also have a feeling that the page allocator either needs to become a
-> > > sub-allocator of an allocator that deals in, say, 1GB chunks of memory,
-> > > or it needs to become reluctant to break up larger orders.  eg if the
-> > > dcache asks for just one more dentry, it should have to go through at
-> > > least one round of reclaim before we choose to break up a high-order
-> > > page to satisfy that request.
+> > Grand Vision
+> > ~~~~~~~~~~~~
 > > 
-> > Slub already allocates higher-order pages for dentries:
+> > I haven't outlined my long-term plan.  Partly because it is a _very_
+> > long way off, and partly because I think what I'm doing stands on its
+> > own.  But some of the points below bear on this, so I'll do it now.
 > > 
-> > slabinfo - version: 2.1
-> > # name            <active_objs> <num_objs> <objsize> <objperslab> <pagesperslab> : tunables <limit> <batchcount> <sharedfactor> : slabdata <active_slabs> <num_slabs> <sharedavail>
-> > dentry            133350 133350    192   42    2 : tunables    0    0    0 : slabdata   3175   3175      0
-> > 
-> >                                                ^ here
-> > 
-> > and it could avoid even more internal fragmentation with bigger
-> > orders. It only doesn't because of the overhead of allocating them.
+> > Eventually, I want to make struct page optional for allocations.  It's too
+> > small for some things (allocating page tables, for example), and overly
+> > large for others (allocating a 2MB page, networking page_pool).  I don't
+> > want to change its size in the meantime; having a struct page refer to
+> > PAGE_SIZE bytes is something that's quite deeply baked in.
 > 
-> Oh, yes.  Sorry, I didn't explain myself properly.  If we have a
-> lightly-loaded system with terabytes of memory (perhaps all the jobs
-> it is running are CPU intensive and don't need much memory), the system
-> has a tendency to clog up with negative dentries.  Hundreds of millions
-> of them.  We rely on memory pressure to get rid of them, and when there
-> finally is memory pressure, it takes literally hours.
+> Right, I think it's overloaded and it needs to go away from many
+> contexts it's used in today.
 > 
-> If there were a slight amount of pressure to trim the dcache at the point
-> when we'd otherwise break up an order-4 page to get an order-2 page,
-> the system would work much better.  Obviously, we do want the dcache to
-> be able to expand to the point where it's useful, but at the point that
-> it's no longer useful, we need to trim it.
+> I think it describes a real physical thing, though, and won't go away
+> as a concept. More on that below.
+
+I'm at least 90% with you on this, and we're just quibbling over details
+at this point, I think.
+
+> > In broad strokes, I think that having a Power Of Two Allocator
+> > with Descriptor (POTAD) is a useful foundational allocator to have.
+> > The specific allocator that we call the buddy allocator is very clever for
+> > the 1990s, but touches too many cachelines to be good with today's CPUs.
+> > The generalisation of the buddy allocator to the POTAD lets us allocate
+> > smaller quantities (eg a 512 byte block) and allocate descriptors which
+> > differ in size from a struct page.  For an extreme example, see xfs_buf
+> > which is 360 bytes and is the descriptor for an allocation between 512
+> > and 65536 bytes.
 > 
-> It'd probably be better to have the dcache realise that its old entries
-> aren't useful any more and age them out instead of relying on memory
-> pressure to remove old entries, so this is probably an unnecessary
-> digression.
-
-It's difficult to identify a universally acceptable line for
-usefulness of caches other than physical memory pressure.
-
-The good thing about the memory pressure threshold is that you KNOW
-somebody else has immediate use for the memory, and you're justified
-in recycling and reallocating caches from the cold end.
-
-Without that, you'd either have to set an arbitrary size cutoff or an
-arbitrary aging cutoff (not used in the last minute e.g.). But optimal
-settings for either of those depend on the workload, and aren't very
-intuitive to configure.
-
-Such a large gap between the smallest object and the overall size of
-memory is just inherently difficult to manage. More below.
-
-> > If the default block size in the allocator were 2M, we'd also get slab
-> > packing at that granularity, and we wouldn't have to worry about small
-> > objects breaking huge pages any more than we worry about slab objects
-> > fragmenting 4k pages today.
+> I actually disagree with this rather strongly. If anything, the buddy
+> allocator has turned out to be a pretty poor fit for the foundational
+> allocator.
 > 
-> Yup.  I definitely see the attraction of letting the slab allocator
-> allocate in larger units.  On the other hand, you have to start worrying
-> about underutilisation of the memory at _some_ size, and I'd argue the
-> sweet spot is somewhere between 4kB and 2MB today.  For example:
+> On paper, it is elegant and versatile in serving essentially arbitrary
+> memory blocks. In practice, we mostly just need 4k and 2M chunks from
+> it. And it sucks at the 2M ones because of the fragmentation caused by
+> the ungrouped 4k blocks.
+
+That's a very Intel-centric way of looking at it.  Other architectures
+support a multitude of page sizes, from the insane ia64 (4k, 8k, 16k, then
+every power of four up to 4GB) to more reasonable options like (4k, 32k,
+256k, 2M, 16M, 128M).  But we (in software) shouldn't constrain ourselves
+to thinking in terms of what the hardware currently supports.  Google
+have data showing that for their workloads, 32kB is the goldilocks size.
+I'm sure for some workloads, it's much higher and for others it's lower.
+But for almost no workload is 4kB the right choice any more, and probably
+hasn't been since the late 90s.
+
+> The great thing about the slab allocator isn't just that it manages
+> internal fragmentation of the larger underlying blocks. It also groups
+> related objects by lifetime/age and reclaimability, which dramatically
+> mitigates the external fragmentation of the memory space.
 > 
-> fat_inode_cache      110    110    744   22    4 : tunables    0    0    0 : slabdata      5      5      0
+> The buddy allocator on the other hand has no idea what you want that
+> 4k block for, and whether it pairs up well with the 4k block it just
+> handed to somebody else. But the decision it makes in that moment is
+> crucial for its ability to serve larger blocks later on.
 > 
-> That's currently using 20 pages.  If slab were only allocating 2MB slabs
-> from the page allocator, I'd have 1.9MB of ram unused in that cache.
+> We do some mobility grouping based on how reclaimable or migratable
+> the memory is, but it's not the full answer.
 
-Right, we'd raise internal fragmentation to a worst case of 2M (minus
-minimum object size) per slab cache. As a ratio of overall memory,
-this isn't unprecedented, though: my desktop machine has 32G and my
-phone has 8G. Divide those by 512 for a 4k base page comparison and
-you get memory sizes common in the mid to late 90s.
+I don't think that's entirely true.  The vast majority of memory in any
+machine is either anonymous or page cache.  The problem is that right now,
+all anonymous and page cache allocations are order-0 (... or order-9).
+So the buddy allocator can't know anything useful about the pages and will
+often allocate one order-0 page to the page cache, then allocate its buddy
+to the slab cache in order to allocate the radix_tree_node to store the
+pointer to the page in (ok, radix tree nodes come from an order-2 cache,
+but it still prevents this order-9 page from being assembled).
 
-Our levels of internal fragmentation are historically low, which of
-course is nice by itself. But that's also what's causing problems in
-the form of external fragmentation, and why we struggle to produce 2M
-blocks. It's multitudes easier to free one 2M slab page of
-consecutively allocated inodes than it is to free 512 batches of
-different objects with conflicting lifetimes, ages, or potentially
-even reclaimability.
+If the movable allocations suddenly start being order-3 and order-4,
+the unmovable, unreclaimable allocations are naturally going to group
+down in the lower orders, and we won't have the problem that a single
+dentry blocks the allocation of an entire 2MB page.
 
-I don't think we'll have much of a choice when it comes to trading
-some internal fragmentation to deal with our mounting external
-fragmentation problem.
+The problem, for me, with the ZONE_MOVABLE stuff is that it requires
+sysadmin intervention to set up.  I don't have a ZONE_MOVABLE on
+my laptop.  The allocator should be automatically handling movability
+hints without my intervention.
 
-[ Because of the way fragmentation works I also don't think that 1G
-  would be a good foundational block size. It either wastes a crazy
-  amount of memory on internal fragmentation, or you allow external
-  fragmentation and the big blocks deteriorate with uptime anyway.
+> A variable size allocator without object type grouping will always
+> have difficulties producing anything but the smallest block size after
+> some uptime. It's inherently flawed that way.
 
-  There really is such a thing as a page: a goldilocks quantity of
-  memory, given the overall amount of RAM in a system, that is optimal
-  as a paging unit and intersection point for the fragmentation axes.
+I think our buddy allocator is flawed, to be sure, but only because
+it doesn't handle movable hints more aggressively.  For example, at
+the point that a largeish block gets a single non-movable allocation,
+all the movable allocations within that block should be migrated out.
+If the offending allocation is freed quickly, it all collapses into a
+large, useful chunk, or if not, then it provides a sponge to soak up
+other non-movable allocations.
 
-  This never went away. It just isn't 4k anymore on modern systems.
-  And we're creating a bit of a mess by adapting various places (page
-  allocator, slab, page cache, swap code) to today's goldilocks size
-  while struct page lags behind and doesn't track reality anymore.
-
-  I think there is a lot of value in disconnecting places from struct
-  page that don't need it, but IMO all in the context of the broader
-  goal of being able to catch up struct page to what the real page is.
-
-  We may be able to get rid of the 4k backward-compatible paging units
-  eventually when we all have 1TB of RAM. But the concept of a page in
-  a virtual memory system isn't really going anywhere. ]
-
-> > > But people seem attached to being able to use smaller page sizes.
-> > > There's that pesky "compatibility" argument.
-> > 
-> > Right, that's why I'm NOT saying we should eliminate the support for
-> > 4k chunks in the page cache and page tables. That's still useful if
-> > you have lots of small files.
-> > 
-> > I'm just saying it doesn't have to be the default that everything is
-> > primarily optimized for. We can make the default allocation size of
-> > the allocator correspond to a hugepage and have a secondary allocator
-> > level for 4k chunks. Like slab, but fixed-size and highmem-aware.
-> > 
-> > It makes sense to make struct page 2M as well. It would save a ton of
-> > memory on average and reduce the pressure we have on struct page's
-> > size today.
-> > 
-> > And we really don't need struct page at 4k just to support this unit
-> > of paging when necesary: page tables don't care, they use pfns and can
-> > point to any 4k offset, struct page or no struct page. For the page
-> > cache, we can move mapping, index, lru. etc from today's struct page
-> > into an entry descriptor that could either sit in a native 2M struct
-> > page (just like today), or be be allocated on demand and point into a
-> > chunked struct page. Same for <2M anonymous mappings.
-> > 
-> > Hey, didn't you just move EXACTLY those fields into the folio? ;)
+> > What I haven't touched on anywhere in this, is whether a folio is the
+> > descriptor for all POTA or whether it's specifically the page cache
+> > descriptor.  I like the idea of having separate descriptors for objects
+> > in the page cache from anonymous or other allocations.  But I'm not very
+> > familiar with the rmap code, and that wants to do things like manipulate
+> > the refcount on a descriptor without knowing whether it's a file or
+> > anon page.  Or neither (eg device driver memory mapped to userspace.
+> > Or vmalloc memory mapped to userspace.  Or ...)
 > 
-> You say page tables don't actually need a struct page, but we do use it.
+> The rmap code is all about the page type specifics, but once you get
+> into mmap, page reclaim, page migration, we're dealing with fully
+> fungible blocks of memory.
 > 
->                 struct {        /* Page table pages */
->                         unsigned long _pt_pad_1;        /* compound_head */
->                         pgtable_t pmd_huge_pte; /* protected by page->ptl */
->                         unsigned long _pt_pad_2;        /* mapping */
->                         union {
->                                 struct mm_struct *pt_mm; /* x86 pgds only */
->                                 atomic_t pt_frag_refcount; /* powerpc */
->                         };
-> #if ALLOC_SPLIT_PTLOCKS
->                         spinlock_t *ptl;
-> #else
->                         spinlock_t ptl;
-> #endif
->                 };
+> I do like the idea of using actual language typing for the different
+> things struct page can be today (fs page), but with a common type to
+> manage the fungible block of memory backing it (allocation state, LRU
+> & aging state, mmap state etc.)
 > 
-> It's a problem because some architectures would really rather
-> allocate 2KiB page tables (s390) or would like to support 4KiB page
-> tables on a 64KiB base page size kernel (ppc).
+> New types for the former are an easier sell. We all agree that there
+> are too many details of the page - including the compound page
+> implementation detail - inside the cache library, fs code and drivers.
 > 
-> [actually i misread your comment initially; you meant that page
-> tables point to PFNs and don't care what struct backs them ... i'm
-> leaving this in here because it illustrates a problem with change
-> struct-page-size-to-2MB]
+> It's a slightly tougher sell to say that the core VM code itself
+> (outside the cache library) needs a tighter abstraction for the struct
+> page building block and the compound page structure. At least at this
+> time while we're still sorting out how it all may work down the line.
+> Certainly, we need something to describe fungible memory blocks:
+> either a struct page that can be 4k and 2M compound, or a new thing
+> that can be backed by a 2M struct page or a 4k struct smallpage. We
+> don't know yet, so I would table the new abstraction type for this.
+> 
+> I generally don't think we want a new type that does everything that
+> the overloaded struct page already does PLUS the compound
+> abstraction. Whatever name we pick for it, it'll always be difficult
+> to wrap your head around such a beast.
+> 
+> IMO starting with an explicit page cache descriptor that resolves to
+> struct page inside core VM code (and maybe ->fault) for now makes the
+> most sense: it greatly mitigates the PAGE_SIZE and tail page issue
+> right away, and it's not in conflict with, but rather helps work
+> toward, replacing the fungible memory unit behind it.
 
-Yes, I meant what page table entries point to.
+Right, and that's what struct folio is today.  It eliminates tail pages
+from consideration in a lot of paths.  I think it also makes sense for
+struct folio to be used for anonymous memory.  But I think that's where it
+stops; it isn't for Slab, it isn't for page table pages, and it's not
+for ZONE_DEVICE pages.
 
-The page table (directories) themselves are still 4k as per the
-architecture, and they'd also have to use smallpage descriptors.
+> There isn't too much overlap or generic code between cache and anon
+> pages such that sharing a common descriptor would be a huge win (most
+> overlap is at the fungible memory block level, and the physical struct
+> page layout of course), so I don't think we should aim for a generic
+> abstraction for both.
 
-I don't immediately see why they couldn't, though. It's not that many,
-especially if pmd mappings are common (a 4k pmd can map 1G worth of
-address space).
+They're both on the LRU list, they use a lot of the same PageFlags,
+they both have a mapcount and refcount, and they both have memcg_data.
+The only things they really use differently are mapping, index and
+private.  And then we have to consider shmem which uses both in a
+pretty eldritch way.
+
+> As drivers go, I think there are slightly different requirements to
+> filesystems, too. For filesystems, when the VM can finally do it (and
+> the file range permits it), I assume we want to rather transparently
+> increase the unit of data transfer from 4k to 2M. Most drivers that
+> currently hardcode alloc_page() or PAGE_SIZE OTOH probably don't want
+> us to bump their allocation sizes.
+
+If you take a look at my earlier work, you'll see me using a range of
+sizes in the page cache, starting at 16kB and gradually increasing to
+(theoretically) 2MB, although the algorithm tended to top out around
+256kB.  Doing particularly large reads could see 512kB/1MB reads, but
+it was very hard to hit 2MB in practice.  I wasn't too concerned at the
+time, but my point is that we do want to automatically tune the size
+of the allocation unit to the workload.  An application which reads in
+64kB chunks is giving us a pretty clear signal that they want to manage
+memory in 64kB chunks.
+
+> > It'd probably be better to have the dcache realise that its old entries
+> > aren't useful any more and age them out instead of relying on memory
+> > pressure to remove old entries, so this is probably an unnecessary
+> > digression.
+> 
+> It's difficult to identify a universally acceptable line for
+> usefulness of caches other than physical memory pressure.
+> 
+> The good thing about the memory pressure threshold is that you KNOW
+> somebody else has immediate use for the memory, and you're justified
+> in recycling and reallocating caches from the cold end.
+> 
+> Without that, you'd either have to set an arbitrary size cutoff or an
+> arbitrary aging cutoff (not used in the last minute e.g.). But optimal
+> settings for either of those depend on the workload, and aren't very
+> intuitive to configure.
+
+For the dentry cache, I think there is a more useful metric, and that's
+length of the hash chain.  If it gets too long, we're spending more time
+walking it than we're saving by having entries cached.  Starting reclaim
+based on "this bucket of the dcache has twenty entries in it" would
+probably work quite well.
+
+> Our levels of internal fragmentation are historically low, which of
+> course is nice by itself. But that's also what's causing problems in
+> the form of external fragmentation, and why we struggle to produce 2M
+> blocks. It's multitudes easier to free one 2M slab page of
+> consecutively allocated inodes than it is to free 512 batches of
+> different objects with conflicting lifetimes, ages, or potentially
+> even reclaimability.
+
+Unf.  I don't think freeing 2MB worth of _anything_ is ever going to be
+easy enough to rely on.  My actual root filesystem:
+
+xfs_inode         143134 144460   1024   32    8 : tunables    0    0    0 : slabdata   4517   4517      0
+
+So we'd have to be able to free 2048 of those 143k inodes, and they all
+have to be consecutive (and aligned).  I suppose we could model that and
+try to work out how many we'd have to be able to free in order to get all
+2048 in any page free, but I bet it's a variant of the Birthday Paradox,
+and we'd find it's something crazy like half of them.
+
+Without slab gaining the ability to ask users to relocate allocations,
+I think any memory sent to slab is never coming back.
+
+
+So ... even if I accept every part of your vision as the way things
+are going to be, I think the folio patchset I have now is a step in the
+right direction.  I'm going to send a v6 now and hope it's not too late
+for this merge window.
 
 --
 Linux-cachefs mailing list
