@@ -2,51 +2,51 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 49D5C3506E5
-	for <lists+linux-cachefs@lfdr.de>; Wed, 31 Mar 2021 20:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CF86A3506E9
+	for <lists+linux-cachefs@lfdr.de>; Wed, 31 Mar 2021 20:54:21 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-38-7jxsBPgXOcyaIsZZhyzy2g-1; Wed, 31 Mar 2021 14:54:05 -0400
-X-MC-Unique: 7jxsBPgXOcyaIsZZhyzy2g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-420-yV8z4oLeMIiYPAJcnUL98w-1; Wed, 31 Mar 2021 14:54:13 -0400
+X-MC-Unique: yV8z4oLeMIiYPAJcnUL98w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 03298801817;
-	Wed, 31 Mar 2021 18:54:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB77D16938;
-	Wed, 31 Mar 2021 18:54:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 667541922961;
+	Wed, 31 Mar 2021 18:54:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5466B5D9CA;
+	Wed, 31 Mar 2021 18:54:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B241A4BB7B;
-	Wed, 31 Mar 2021 18:54:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 31D711809C83;
+	Wed, 31 Mar 2021 18:54:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12VIs1Na004401 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 31 Mar 2021 14:54:01 -0400
+	id 12VIs6aD004416 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 31 Mar 2021 14:54:06 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 208D92026D2F; Wed, 31 Mar 2021 18:54:01 +0000 (UTC)
+	id ED5322157F28; Wed, 31 Mar 2021 18:54:05 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BEEF2026D6B
-	for <linux-cachefs@redhat.com>; Wed, 31 Mar 2021 18:53:58 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5C832157F24
+	for <linux-cachefs@redhat.com>; Wed, 31 Mar 2021 18:54:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71F6080A1D2
-	for <linux-cachefs@redhat.com>; Wed, 31 Mar 2021 18:53:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52E1A802317
+	for <linux-cachefs@redhat.com>; Wed, 31 Mar 2021 18:54:03 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-581-lts4uVb3OzCitFPQ-wZqwg-1; Wed, 31 Mar 2021 14:53:55 -0400
-X-MC-Unique: lts4uVb3OzCitFPQ-wZqwg-1
+	us-mta-509-GcAcGP0dNR-9e1X-8Z1Auw-1; Wed, 31 Mar 2021 14:54:00 -0400
+X-MC-Unique: GcAcGP0dNR-9e1X-8Z1Auw-1
 Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lRfyJ-004zhW-NO; Wed, 31 Mar 2021 18:53:44 +0000
+	Linux)) id 1lRfyO-004ziK-Ev; Wed, 31 Mar 2021 18:53:50 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Wed, 31 Mar 2021 19:47:20 +0100
-Message-Id: <20210331184728.1188084-20-willy@infradead.org>
+Date: Wed, 31 Mar 2021 19:47:21 +0100
+Message-Id: <20210331184728.1188084-21-willy@infradead.org>
 In-Reply-To: <20210331184728.1188084-1-willy@infradead.org>
 References: <20210331184728.1188084-1-willy@infradead.org>
 MIME-Version: 1.0
@@ -58,13 +58,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
 Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
 	linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH v6 19/27] mm/filemap: Add __lock_folio_async
+Subject: [Linux-cachefs] [PATCH v6 20/27] mm/filemap: Add
+	__lock_folio_or_retry
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,150 +87,119 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-There aren't any actual callers of lock_page_async(), so remove it.
-Convert filemap_update_page() to call __lock_folio_async().
-
-__lock_folio_async() is 21 bytes smaller than __lock_page_async(),
-but the real savings come from using a folio in filemap_update_page(),
-shrinking it from 514 bytes to 403 bytes, saving 111 bytes.  The text
-shrinks by 132 bytes in total.
+Convert __lock_page_or_retry() to __lock_folio_or_retry().  This actually
+saves 4 bytes in the only caller of lock_page_or_retry() (due to better
+register allocation) and saves the 20 byte cost of calling page_folio()
+in __lock_folio_or_retry() for a total saving of 24 bytes.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/io_uring.c           |  2 +-
- include/linux/pagemap.h | 17 -----------------
- mm/filemap.c            | 31 ++++++++++++++++---------------
- 3 files changed, 17 insertions(+), 33 deletions(-)
+ include/linux/pagemap.h |  9 ++++++---
+ mm/filemap.c            | 10 ++++------
+ mm/memory.c             |  8 ++++----
+ 3 files changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/fs/io_uring.c b/fs/io_uring.c
-index 962c121fa107..64a22b2ea6c5 100644
---- a/fs/io_uring.c
-+++ b/fs/io_uring.c
-@@ -3156,7 +3156,7 @@ static int io_read_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- }
- 
- /*
-- * This is our waitqueue callback handler, registered through lock_page_async()
-+ * This is our waitqueue callback handler, registered through lock_folio_async()
-  * when we initially tried to do the IO with the iocb armed our waitqueue.
-  * This gets called when the page is unlocked, and we generally expect that to
-  * happen when the page IO is completed and the page is now uptodate. This will
 diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 75060da77be5..054e9dd7628e 100644
+index 054e9dd7628e..43664bef7392 100644
 --- a/include/linux/pagemap.h
 +++ b/include/linux/pagemap.h
-@@ -716,7 +716,6 @@ static inline bool wake_page_match(struct wait_page_queue *wait_page,
+@@ -716,7 +716,7 @@ static inline bool wake_page_match(struct wait_page_queue *wait_page,
  
  void __lock_folio(struct folio *folio);
  int __lock_folio_killable(struct folio *folio);
--extern int __lock_page_async(struct page *page, struct wait_page_queue *wait);
- extern int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
+-extern int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
++int __lock_folio_or_retry(struct folio *folio, struct mm_struct *mm,
  				unsigned int flags);
  void unlock_page(struct page *page);
-@@ -774,22 +773,6 @@ static inline int lock_page_killable(struct page *page)
- 	return lock_folio_killable(page_folio(page));
+ void unlock_folio(struct folio *folio);
+@@ -778,13 +778,16 @@ static inline int lock_page_killable(struct page *page)
+  * caller indicated that it can handle a retry.
+  *
+  * Return value and mmap_lock implications depend on flags; see
+- * __lock_page_or_retry().
++ * __lock_folio_or_retry().
+  */
+ static inline int lock_page_or_retry(struct page *page, struct mm_struct *mm,
+ 				     unsigned int flags)
+ {
++	struct folio *folio;
+ 	might_sleep();
+-	return trylock_page(page) || __lock_page_or_retry(page, mm, flags);
++
++	folio = page_folio(page);
++	return trylock_folio(folio) || __lock_folio_or_retry(folio, mm, flags);
  }
  
--/*
-- * lock_page_async - Lock the page, unless this would block. If the page
-- * is already locked, then queue a callback when the page becomes unlocked.
-- * This callback can then retry the operation.
-- *
-- * Returns 0 if the page is locked successfully, or -EIOCBQUEUED if the page
-- * was already locked and the callback defined in 'wait' was queued.
-- */
--static inline int lock_page_async(struct page *page,
--				  struct wait_page_queue *wait)
--{
--	if (!trylock_page(page))
--		return __lock_page_async(page, wait);
--	return 0;
--}
--
  /*
-  * lock_page_or_retry - Lock the page, unless this would block and the
-  * caller indicated that it can handle a retry.
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 5675237c985a..84642e41c6b5 100644
+index 84642e41c6b5..c0a986ac830f 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -1554,18 +1554,18 @@ int __lock_folio_killable(struct folio *folio)
- }
- EXPORT_SYMBOL_GPL(__lock_folio_killable);
+@@ -1582,20 +1582,18 @@ static int __lock_folio_async(struct folio *folio, struct wait_page_queue *wait)
  
--int __lock_page_async(struct page *page, struct wait_page_queue *wait)
-+static int __lock_folio_async(struct folio *folio, struct wait_page_queue *wait)
+ /*
+  * Return values:
+- * 1 - page is locked; mmap_lock is still held.
+- * 0 - page is not locked.
++ * 1 - folio is locked; mmap_lock is still held.
++ * 0 - folio is not locked.
+  *     mmap_lock has been released (mmap_read_unlock(), unless flags had both
+  *     FAULT_FLAG_ALLOW_RETRY and FAULT_FLAG_RETRY_NOWAIT set, in
+  *     which case mmap_lock is still held.
+  *
+  * If neither ALLOW_RETRY nor KILLABLE are set, will always return 1
+- * with the page locked and the mmap_lock unperturbed.
++ * with the folio locked and the mmap_lock unperturbed.
+  */
+-int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
++int __lock_folio_or_retry(struct folio *folio, struct mm_struct *mm,
+ 			 unsigned int flags)
  {
--	struct wait_queue_head *q = page_waitqueue(page);
-+	struct wait_queue_head *q = page_waitqueue(&folio->page);
- 	int ret = 0;
- 
--	wait->page = page;
-+	wait->page = &folio->page;
- 	wait->bit_nr = PG_locked;
- 
- 	spin_lock_irq(&q->lock);
- 	__add_wait_queue_entry_tail(q, &wait->wait);
--	SetPageWaiters(page);
--	ret = !trylock_page(page);
-+	SetFolioWaiters(folio);
-+	ret = !trylock_folio(folio);
- 	/*
- 	 * If we were successful now, we know we're still on the
- 	 * waitqueue as we're still under the lock. This means it's
-@@ -2312,41 +2312,42 @@ static int filemap_update_page(struct kiocb *iocb,
- 		struct address_space *mapping, struct iov_iter *iter,
- 		struct page *page)
+-	struct folio *folio = page_folio(page);
+-
+ 	if (fault_flag_allow_retry_first(flags)) {
+ 		/*
+ 		 * CAUTION! In this case, mmap_lock is not released
+diff --git a/mm/memory.c b/mm/memory.c
+index e66b11ac1659..d538441ccb49 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4077,7 +4077,7 @@ static vm_fault_t do_shared_fault(struct vm_fault *vmf)
+  * We enter with non-exclusive mmap_lock (to exclude vma changes,
+  * but allow concurrent faults).
+  * The mmap_lock may have been released depending on flags and our
+- * return value.  See filemap_fault() and __lock_page_or_retry().
++ * return value.  See filemap_fault() and __lock_folio_or_retry().
+  * If mmap_lock is released, vma may become invalid (for example
+  * by other thread calling munmap()).
+  */
+@@ -4309,7 +4309,7 @@ static vm_fault_t wp_huge_pud(struct vm_fault *vmf, pud_t orig_pud)
+  * concurrent faults).
+  *
+  * The mmap_lock may have been released depending on flags and our return value.
+- * See filemap_fault() and __lock_page_or_retry().
++ * See filemap_fault() and __lock_folio_or_retry().
+  */
+ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
  {
-+	struct folio *folio = page_folio(page);
- 	int error;
- 
--	if (!trylock_page(page)) {
-+	if (!trylock_folio(folio)) {
- 		if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_NOIO))
- 			return -EAGAIN;
- 		if (!(iocb->ki_flags & IOCB_WAITQ)) {
--			put_and_wait_on_page_locked(page, TASK_KILLABLE);
-+			put_and_wait_on_page_locked(&folio->page, TASK_KILLABLE);
- 			return AOP_TRUNCATED_PAGE;
- 		}
--		error = __lock_page_async(page, iocb->ki_waitq);
-+		error = __lock_folio_async(folio, iocb->ki_waitq);
- 		if (error)
- 			return error;
- 	}
- 
--	if (!page->mapping)
-+	if (!folio->mapping)
- 		goto truncated;
- 
- 	error = 0;
--	if (filemap_range_uptodate(mapping, iocb->ki_pos, iter, page))
-+	if (filemap_range_uptodate(mapping, iocb->ki_pos, iter, &folio->page))
- 		goto unlock;
- 
- 	error = -EAGAIN;
- 	if (iocb->ki_flags & (IOCB_NOIO | IOCB_NOWAIT | IOCB_WAITQ))
- 		goto unlock;
- 
--	error = filemap_read_page(iocb->ki_filp, mapping, page);
-+	error = filemap_read_page(iocb->ki_filp, mapping, &folio->page);
- 	if (error == AOP_TRUNCATED_PAGE)
--		put_page(page);
-+		put_folio(folio);
- 	return error;
- truncated:
--	unlock_page(page);
--	put_page(page);
-+	unlock_folio(folio);
-+	put_folio(folio);
- 	return AOP_TRUNCATED_PAGE;
- unlock:
--	unlock_page(page);
-+	unlock_folio(folio);
- 	return error;
- }
- 
+@@ -4413,7 +4413,7 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+  * By the time we get here, we already hold the mm semaphore
+  *
+  * The mmap_lock may have been released depending on flags and our
+- * return value.  See filemap_fault() and __lock_page_or_retry().
++ * return value.  See filemap_fault() and __lock_folio_or_retry().
+  */
+ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+ 		unsigned long address, unsigned int flags)
+@@ -4569,7 +4569,7 @@ static inline void mm_account_fault(struct pt_regs *regs,
+  * By the time we get here, we already hold the mm semaphore
+  *
+  * The mmap_lock may have been released depending on flags and our
+- * return value.  See filemap_fault() and __lock_page_or_retry().
++ * return value.  See filemap_fault() and __lock_folio_or_retry().
+  */
+ vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
+ 			   unsigned int flags, struct pt_regs *regs)
 -- 
 2.30.2
 
