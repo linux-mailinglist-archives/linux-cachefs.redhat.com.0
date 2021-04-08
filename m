@@ -2,60 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 73D88358699
-	for <lists+linux-cachefs@lfdr.de>; Thu,  8 Apr 2021 16:14:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B90F358692
+	for <lists+linux-cachefs@lfdr.de>; Thu,  8 Apr 2021 16:14:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1617891284;
+	s=mimecast20190719; t=1617891283;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6H2+BkYIJofknQI/lyPa6R58RW66uk+wkiMUwdTeKfE=;
-	b=Nq/F0a2/Sc4DDfifNWSnm5aNHbfsDFmf/p++Q/Yafs0kYzv7NP+xzyE0d3u8EbAR8DsCk1
-	jh280I/nXYp2qCW7W4Ugim7C1ua9uTMxCET+Q4fZfsFKgPc9BHgWpVJpZlZlg5O996Vz+a
-	lMXqsAfZAPfQoh63airQI/yKSqzsVUM=
+	bh=Bhjk10fQE00Qu2aVygUkZQaIkhCY60bq5c5vH1ijbnY=;
+	b=Wo4utVoi44RfLZQdT5H6aMyoLo1AubB/GAK8IKK3quZWBZnCJiTdUfyjvHtSF9t/d7680z
+	AgxX4P12jHNm3xpHQaSDNSVQOTjG2Wg9oCw/JfiWSVx2lwHWReiwy5Ds8cpxfWk8uoNgpJ
+	tP+VLYZ6tA3eAWfSSACKvBSIXeS8j6s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-576-ZX6KuHCcMoeYRtihxPE0fA-1; Thu, 08 Apr 2021 10:14:40 -0400
-X-MC-Unique: ZX6KuHCcMoeYRtihxPE0fA-1
+ us-mta-554-SqJDtJWJMuaI4yL0Kq8YRg-1; Thu, 08 Apr 2021 10:14:39 -0400
+X-MC-Unique: SqJDtJWJMuaI4yL0Kq8YRg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 17325100A609;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7911B189C449;
 	Thu,  8 Apr 2021 14:14:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 023B65D9E3;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67A3D5D9E3;
 	Thu,  8 Apr 2021 14:14:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DE2F51806D14;
-	Thu,  8 Apr 2021 14:14:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5171C1806D16;
+	Thu,  8 Apr 2021 14:14:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 138E5mGR027310 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 8 Apr 2021 10:05:48 -0400
+	id 138E60Qs027334 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 8 Apr 2021 10:06:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0A1B75DAA5; Thu,  8 Apr 2021 14:05:48 +0000 (UTC)
+	id 9182319701; Thu,  8 Apr 2021 14:06:00 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (ovpn-119-35.rdu2.redhat.com
 	[10.10.119.35])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C975A5D9CC;
-	Thu,  8 Apr 2021 14:05:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D90719744;
+	Thu,  8 Apr 2021 14:05:53 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-fsdevel@vger.kernel.org
-Date: Thu, 08 Apr 2021 15:05:39 +0100
-Message-ID: <161789073997.6155.18442271115255650614.stgit@warthog.procyon.org.uk>
+Date: Thu, 08 Apr 2021 15:05:53 +0100
+Message-ID: <161789075327.6155.7432127924219092385.stgit@warthog.procyon.org.uk>
 In-Reply-To: <161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
 References: <161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Thu, 08 Apr 2021 10:14:30 -0400
 Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
@@ -66,9 +66,10 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	linux-afs@lists.infradead.org, Dominique Martinet <asmadeus@codewreck.org>
-Subject: [Linux-cachefs] [PATCH v6 08/30] netfs,
- mm: Move PG_fscache helper funcs to linux/netfs.h
+Subject: [Linux-cachefs] [PATCH v6 09/30] netfs,
+ mm: Add set/end/wait_on_page_fscache() aliases
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,12 +91,20 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Move the PG_fscache related helper funcs (such as SetPageFsCache()) to
-linux/netfs.h rather than linux/fscache.h as the intention is to move to a
-model where they're used by the network filesystem and the helper library,
-but not by fscache/cachefiles itself.
+Add set/end/wait_on_page_fscache() as aliases of
+set/end/wait_page_private_2().  These allow a page to marked with
+PG_fscache, the flag to be removed and waiters woken and waiting for the
+flag to be cleared.  A ref on the page is also taken and dropped.
+
+[Linus suggested putting the fscache-themed functions into the
+ caching-specific headers rather than pagemap.h[1]]
+
+Changes:
+v5:
+- Mirror the changes to the core routines[2].
 
 Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Linus Torvalds <torvalds@linux-foundation.org>
 cc: Matthew Wilcox <willy@infradead.org>
 cc: linux-mm@kvack.org
 cc: linux-cachefs@redhat.com
@@ -105,80 +114,83 @@ cc: linux-cifs@vger.kernel.org
 cc: ceph-devel@vger.kernel.org
 cc: v9fs-developer@lists.sourceforge.net
 cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/r/161340392347.1303470.18065131603507621762.stgit@warthog.procyon.org.uk/ # v3
-Link: https://lore.kernel.org/r/161539534516.286939.6265142985563005000.stgit@warthog.procyon.org.uk/ # v4
-Link: https://lore.kernel.org/r/161653792959.2770958.5386546945273988117.stgit@warthog.procyon.org.uk/ # v5
+Link: https://lore.kernel.org/r/1330473.1612974547@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/CAHk-=wjgA-74ddehziVk=XAEMTKswPu1Yw4uaro1R3ibs27ztw@mail.gmail.com/ [1]
+Link: https://lore.kernel.org/r/161340393568.1303470.4997526899111310530.stgit@warthog.procyon.org.uk/ # v3
+Link: https://lore.kernel.org/r/161539536093.286939.5076448803512118764.stgit@warthog.procyon.org.uk/ # v4
+Link: https://lore.kernel.org/r/2499407.1616505440@warthog.procyon.org.uk/ [2]
+Link: https://lore.kernel.org/r/161653793873.2770958.12157243390965814502.stgit@warthog.procyon.org.uk/ # v5
 ---
 
- include/linux/fscache.h |   11 +----------
- include/linux/netfs.h   |   29 +++++++++++++++++++++++++++++
- 2 files changed, 30 insertions(+), 10 deletions(-)
- create mode 100644 include/linux/netfs.h
+ include/linux/netfs.h |   57 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index a1c928fe98e7..1f8dc72369ee 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -19,6 +19,7 @@
- #include <linux/pagemap.h>
- #include <linux/pagevec.h>
- #include <linux/list_bl.h>
-+#include <linux/netfs.h>
- 
- #if defined(CONFIG_FSCACHE) || defined(CONFIG_FSCACHE_MODULE)
- #define fscache_available() (1)
-@@ -29,16 +30,6 @@
- #endif
- 
- 
--/*
-- * overload PG_private_2 to give us PG_fscache - this is used to indicate that
-- * a page is currently backed by a local disk cache
-- */
--#define PageFsCache(page)		PagePrivate2((page))
--#define SetPageFsCache(page)		SetPagePrivate2((page))
--#define ClearPageFsCache(page)		ClearPagePrivate2((page))
--#define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
--#define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
--
- /* pattern used to fill dead space in an index entry */
- #define FSCACHE_INDEX_DEADFILL_PATTERN 0x79
- 
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-new file mode 100644
-index 000000000000..cc1102040488
---- /dev/null
+index cc1102040488..8479d63406f7 100644
+--- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/* Network filesystem support services.
+@@ -26,4 +26,61 @@
+ #define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
+ #define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
+ 
++/**
++ * set_page_fscache - Set PG_fscache on a page and take a ref
++ * @page: The page.
 + *
-+ * Copyright (C) 2021 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ *
-+ * See:
-+ *
-+ *	Documentation/filesystems/netfs_library.rst
-+ *
-+ * for a description of the network filesystem interface declared here.
++ * Set the PG_fscache (PG_private_2) flag on a page and take the reference
++ * needed for the VM to handle its lifetime correctly.  This sets the flag and
++ * takes the reference unconditionally, so care must be taken not to set the
++ * flag again if it's already set.
 + */
++static inline void set_page_fscache(struct page *page)
++{
++	set_page_private_2(page);
++}
 +
-+#ifndef _LINUX_NETFS_H
-+#define _LINUX_NETFS_H
-+
-+#include <linux/pagemap.h>
-+
-+/*
-+ * Overload PG_private_2 to give us PG_fscache - this is used to indicate that
-+ * a page is currently backed by a local disk cache
++/**
++ * end_page_fscache - Clear PG_fscache and release any waiters
++ * @page: The page
++ *
++ * Clear the PG_fscache (PG_private_2) bit on a page and wake up any sleepers
++ * waiting for this.  The page ref held for PG_private_2 being set is released.
++ *
++ * This is, for example, used when a netfs page is being written to a local
++ * disk cache, thereby allowing writes to the cache for the same page to be
++ * serialised.
 + */
-+#define PageFsCache(page)		PagePrivate2((page))
-+#define SetPageFsCache(page)		SetPagePrivate2((page))
-+#define ClearPageFsCache(page)		ClearPagePrivate2((page))
-+#define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
-+#define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
++static inline void end_page_fscache(struct page *page)
++{
++	end_page_private_2(page);
++}
 +
-+#endif /* _LINUX_NETFS_H */
++/**
++ * wait_on_page_fscache - Wait for PG_fscache to be cleared on a page
++ * @page: The page to wait on
++ *
++ * Wait for PG_fscache (aka PG_private_2) to be cleared on a page.
++ */
++static inline void wait_on_page_fscache(struct page *page)
++{
++	wait_on_page_private_2(page);
++}
++
++/**
++ * wait_on_page_fscache_killable - Wait for PG_fscache to be cleared on a page
++ * @page: The page to wait on
++ *
++ * Wait for PG_fscache (aka PG_private_2) to be cleared on a page or until a
++ * fatal signal is received by the calling task.
++ *
++ * Return:
++ * - 0 if successful.
++ * - -EINTR if a fatal signal was encountered.
++ */
++static inline int wait_on_page_fscache_killable(struct page *page)
++{
++	return wait_on_page_private_2_killable(page);
++}
++
+ #endif /* _LINUX_NETFS_H */
 
 
 --
