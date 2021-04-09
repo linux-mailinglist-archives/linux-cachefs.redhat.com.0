@@ -2,76 +2,71 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 95134359DBE
-	for <lists+linux-cachefs@lfdr.de>; Fri,  9 Apr 2021 13:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D5837359E28
+	for <lists+linux-cachefs@lfdr.de>; Fri,  9 Apr 2021 14:00:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1617969653;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=39H49ZOKAoxBF4sLBhKVjZa+hjxs2iCQ+WVsTVjAqlw=;
+	b=Mkvz2fOMwXTKX4J28a/F1goEuxFUoMSziGbQLxqaEzeie63a/kAoPpcZWoIgex6r7uPMLO
+	FvRsLapsVGM9GimQrXa60vvFDCQHtV6ZrYwdHL4HOdkj6yt1LmJM0vsXW3s0zKbKO5CYE6
+	s8B18LKJbApGUJN8MwoD30s+yrMpxLM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-59-oXO0MSQGNq23hRlBqvcOqw-1; Fri, 09 Apr 2021 07:46:36 -0400
-X-MC-Unique: oXO0MSQGNq23hRlBqvcOqw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-567-Q9-dfWIANGCrDYSVlWAYZw-1; Fri, 09 Apr 2021 08:00:52 -0400
+X-MC-Unique: Q9-dfWIANGCrDYSVlWAYZw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 594861883522;
-	Fri,  9 Apr 2021 11:46:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49F3C6F974;
-	Fri,  9 Apr 2021 11:46:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A52208070FF;
+	Fri,  9 Apr 2021 12:00:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDB6960BE5;
+	Fri,  9 Apr 2021 12:00:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2DD01806D0F;
-	Fri,  9 Apr 2021 11:46:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 094F655345;
+	Fri,  9 Apr 2021 12:00:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 139BkU5h000643 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 9 Apr 2021 07:46:31 -0400
+	id 139C0i2h002808 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 9 Apr 2021 08:00:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D146C10547B6; Fri,  9 Apr 2021 11:46:30 +0000 (UTC)
+	id 8A84A60CE6; Fri,  9 Apr 2021 12:00:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC61010B7C90
-	for <linux-cachefs@redhat.com>; Fri,  9 Apr 2021 11:46:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A272185A79C
-	for <linux-cachefs@redhat.com>; Fri,  9 Apr 2021 11:46:27 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-241-fhxLbs_KO_q1Wgo_EhI_1Q-1; Fri, 09 Apr 2021 07:46:23 -0400
-X-MC-Unique: fhxLbs_KO_q1Wgo_EhI_1Q-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lUpZI-000Iht-4A; Fri, 09 Apr 2021 11:45:05 +0000
-Date: Fri, 9 Apr 2021 12:44:56 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20210409114456.GT2531743@casper.infradead.org>
-References: <YG+s0iw5o91KQIlW@zeniv-ca.linux.org.uk>
-	<161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
-	<161789064740.6155.11932541175173658065.stgit@warthog.procyon.org.uk>
-	<289825.1617959345@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-119-35.rdu2.redhat.com
+	[10.10.119.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C29B160622;
+	Fri,  9 Apr 2021 12:00:41 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20210409111636.GR2531743@casper.infradead.org>
+References: <20210409111636.GR2531743@casper.infradead.org>
+	<CAHk-=wi_XrtTanTwoKs0jwnjhSvwpMYVDJ477VtjvvTXRjm5wQ@mail.gmail.com>
+	<161796595714.350846.1547688999823745763.stgit@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <289825.1617959345@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Date: Fri, 09 Apr 2021 13:00:40 +0100
+Message-ID: <453417.1617969640@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Steve French <sfrench@samba.org>, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, Al Viro <viro@zeniv.linux.org.uk>,
-	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	linux-afs@lists.infradead.org,
-	Trond Myklebust <trond.myklebust@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH v6 01/30] iov_iter: Add ITER_XARRAY
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, jlayton@kernel.org,
+	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org,
+	linux-mm@kvack.org, ceph-devel@vger.kernel.org,
+	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net,
+	Andrew Morton <akpm@linux-foundation.org>,
+	torvalds@linux-foundation.org, hch@lst.de
+Subject: Re: [Linux-cachefs] [RFC PATCH 2/3] mm: Return bool from pagebit
+	test functions
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,43 +80,31 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <453416.1617969640.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 09, 2021 at 10:09:05AM +0100, David Howells wrote:
-> Al Viro <viro@zeniv.linux.org.uk> wrote:
-> 
-> > > +#define iterate_all_kinds(i, n, v, I, B, K, X) {		\
-> > 
-> > Do you have any users that would pass different B and X?
-> > 
-> > > @@ -1440,7 +1665,7 @@ ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
-> > >  		return v.bv_len;
-> > >  	}),({
-> > >  		return -EFAULT;
-> > > -	})
-> > > +	}), 0
-> > 
-> > Correction - users that might get that flavour.  This one explicitly checks
-> > for xarray and doesn't get to iterate_... in that case.
-> 
-> This is the case for iterate_all_kinds(), but not for iterate_and_advance().
-> 
-> See _copy_mc_to_iter() for example: that can return directly out of the middle
-> of the loop, so the X variant must drop the rcu_read_lock(), but the B variant
-> doesn't need to.  You also can't just use break to get out as the X variant
-> has a loop within a loop to handle iteration over the subelements of a THP.
+Matthew Wilcox <willy@infradead.org> wrote:
 
-"Why does it need a loop? bvecs can contain multi-page vectors"
-"memcpy_from_page can't handle that"
-"doesn't that mean that iterating over a bvec is already broken?"
-"yes"
+> On Fri, Apr 09, 2021 at 11:59:17AM +0100, David Howells wrote:
+> > Make functions that test page bits return a bool, not an int.  This means
+> > that the value is definitely 0 or 1 if they're used in arithmetic, rather
+> > than rely on test_bit() and friends to return this (though they probably
+> > should).
+> 
+> iirc i looked at doing this as part of the folio work, and it ended up
+> increasing the size of the kernel.  Did you run bloat-o-meter on the
+> result of doing this?
+
+Hmmm.  With my usual monolithic x86_64 kernel, it makes vmlinux text section
+100 bytes larger (19392347 rather than 19392247).  I can look into why.
+
+David
 
 --
 Linux-cachefs mailing list
