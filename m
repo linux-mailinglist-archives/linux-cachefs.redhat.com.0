@@ -1,76 +1,79 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7420A35916F
-	for <lists+linux-cachefs@lfdr.de>; Fri,  9 Apr 2021 03:27:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B325935976A
+	for <lists+linux-cachefs@lfdr.de>; Fri,  9 Apr 2021 10:14:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1617956084;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=HnbvxvecKMmIL0FSWXZcJNfox01F7emoUPU4MgqgwrQ=;
+	b=Pf0WjGqosQj2XJFNcx200fYmFm2tDpL6l5TKVWvUHugBgpoQosj3ua/5e69ORMLR5yMQoc
+	msDBsuhtKqog/UaeEVw5znd0nWjKryOwfMLbtdbb+rcxAmz1QCNEPoVkb+D1Qz8XurpQu9
+	qVS0UJSAGbYXCLL0J/c1t7Br0k3jkPE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-558-lo-_WkXSMROmRyTq6AIcXQ-1; Thu, 08 Apr 2021 21:27:50 -0400
-X-MC-Unique: lo-_WkXSMROmRyTq6AIcXQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-59-E_iiWBDaPky7VHpYvfdMWg-1; Fri, 09 Apr 2021 04:14:42 -0400
+X-MC-Unique: E_iiWBDaPky7VHpYvfdMWg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2CA7C6DD25;
-	Fri,  9 Apr 2021 01:27:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91E2291105;
+	Fri,  9 Apr 2021 08:14:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C1BE196E3;
-	Fri,  9 Apr 2021 01:27:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 763A119C95;
+	Fri,  9 Apr 2021 08:14:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E75E55345;
-	Fri,  9 Apr 2021 01:27:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B56EC44A5B;
+	Fri,  9 Apr 2021 08:14:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1391OqRW005004 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 8 Apr 2021 21:24:52 -0400
+	id 1398EVhS010891 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 9 Apr 2021 04:14:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 40AA010343A; Fri,  9 Apr 2021 01:24:52 +0000 (UTC)
+	id B845D60C05; Fri,  9 Apr 2021 08:14:31 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B034103400
-	for <linux-cachefs@redhat.com>; Fri,  9 Apr 2021 01:24:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99FA6802317
-	for <linux-cachefs@redhat.com>; Fri,  9 Apr 2021 01:24:49 +0000 (UTC)
-Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk
-	[142.44.231.140]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-469-R-uo-SISOZW3rGw1UnGYjA-1; Thu, 08 Apr 2021 21:24:47 -0400
-X-MC-Unique: R-uo-SISOZW3rGw1UnGYjA-1
-Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lUfsw-003sCi-JE; Fri, 09 Apr 2021 01:24:34 +0000
-Date: Fri, 9 Apr 2021 01:24:34 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <YG+s0iw5o91KQIlW@zeniv-ca.linux.org.uk>
-References: <161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
-	<161789064740.6155.11932541175173658065.stgit@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-119-35.rdu2.redhat.com
+	[10.10.119.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C66C160BE5;
+	Fri,  9 Apr 2021 08:14:25 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CAHk-=wi_XrtTanTwoKs0jwnjhSvwpMYVDJ477VtjvvTXRjm5wQ@mail.gmail.com>
+References: <CAHk-=wi_XrtTanTwoKs0jwnjhSvwpMYVDJ477VtjvvTXRjm5wQ@mail.gmail.com>
+	<20210408145057.GN2531743@casper.infradead.org>
+	<161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
+	<161789066013.6155.9816857201817288382.stgit@warthog.procyon.org.uk>
+	<46017.1617897451@warthog.procyon.org.uk>
+	<136646.1617916529@warthog.procyon.org.uk>
+To: Linus Torvalds <torvalds@linux-foundation.org>
 MIME-Version: 1.0
-In-Reply-To: <161789064740.6155.11932541175173658065.stgit@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Date: Fri, 09 Apr 2021 09:14:24 +0100
+Message-ID: <184803.1617956064@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1398EVhS010891
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-afs@lists.infradead.org, Steve French <sfrench@samba.org>,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
+Cc: CIFS <linux-cifs@vger.kernel.org>, "open list:NFS,
+	SUNRPC, AND..." <linux-nfs@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>, Matthew Wilcox <willy@infradead.org>,
+	linux-afs@lists.infradead.org, Linux-MM <linux-mm@kvack.org>,
+	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH v6 01/30] iov_iter: Add ITER_XARRAY
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [Linux-cachefs] [RFC][PATCH] mm: Split page_has_private() in
+	two to better handle PG_private_2
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,40 +87,70 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <184802.1617956064.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 08, 2021 at 03:04:07PM +0100, David Howells wrote:
-> Add an iterator, ITER_XARRAY, that walks through a set of pages attached to
-> an xarray, starting at a given page and offset and walking for the
-> specified amount of bytes.  The iterator supports transparent huge pages.
-> 
-> The iterate_xarray() macro calls the helper function with rcu_access()
-> helped.  I think that this is only a problem for iov_iter_for_each_range()
-> - and that returns an error for ITER_XARRAY (also, this function does not
-> appear to be called).
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Unused since lustre had gone away.
+> >  #define PAGE_FLAGS_PRIVATE                             \
+> >         (1UL << PG_private | 1UL << PG_private_2)
+>
+> I think this should be re-named to be PAGE_FLAGS_CLEANUP, because I
+> don't think it makes any other sense to "combine" the two PG_private*
+> bits any more. No?
 
-> +#define iterate_all_kinds(i, n, v, I, B, K, X) {		\
+Sure.  Do we even want it still, or should I just fold it into
+page_needs_cleanup()?  It seems to be the only place it's used.
 
-Do you have any users that would pass different B and X?
+> > +static inline int page_private_count(struct page *page)
+> > +{
+> > +       return test_bit(PG_private, &page->flags) ? 1 : 0;
+> > +}
+>
+> Why is this open-coding the bit test, rather than just doing
+>
+>         return PagePrivate(page) ? 1 : 0;
+>
+> instead? In fact, since test_bit() _should_ return a 'bool', I think even just
+>
+>         return PagePrivate(page);
 
-> @@ -1440,7 +1665,7 @@ ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
->  		return v.bv_len;
->  	}),({
->  		return -EFAULT;
-> -	})
-> +	}), 0
+Sorry, yes, it should be that.  I was looking at transforming the "1 <<
+PG_private" and completely overlooked that this should be PagePrivate().
 
-Correction - users that might get that flavour.  This one explicitly checks
-for xarray and doesn't get to iterate_... in that case.
+> should work and give the same result, but I could imagine that some
+> architecture version of "test_bit()" might return some other non-zero
+> value (although honestly, I think that should be fixed if so).
+
+Yeah.  I seem to recall that test_bit() on some arches used to return the
+datum just with the other bits masked off, but I may be misremembering.
+
+In asm-generic/bitops/non-atomic.h:
+
+static inline int test_bit(int nr, const volatile unsigned long *addr)
+{
+	return 1UL & (addr[BIT_WORD(nr)] >> (nr & (BITS_PER_LONG-1)));
+}
+
+should perhaps return bool?
+
+I wonder, should:
+
+	static __always_inline int PageTail(struct page *page)
+	static __always_inline int PageCompound(struct page *page)
+	static __always_inline int Page##uname(struct page *page)
+	static __always_inline int TestSetPage##uname(struct page *page)
+	static __always_inline int TestClearPage##uname(struct page *page)
+
+also all return bool?
+
+David
 
 --
 Linux-cachefs mailing list
