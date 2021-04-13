@@ -1,58 +1,57 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E558535BA22
-	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Apr 2021 08:34:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 822A835E2BB
+	for <lists+linux-cachefs@lfdr.de>; Tue, 13 Apr 2021 17:24:41 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-yehGcHN5NMC5yWcd7_qhmw-1; Mon, 12 Apr 2021 02:33:58 -0400
-X-MC-Unique: yehGcHN5NMC5yWcd7_qhmw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-352-mXk2GlcNMvqK2h_AQuxmxA-1; Tue, 13 Apr 2021 11:24:38 -0400
+X-MC-Unique: mXk2GlcNMvqK2h_AQuxmxA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1D9C779EC1;
-	Mon, 12 Apr 2021 06:33:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DDA96B8D4;
-	Mon, 12 Apr 2021 06:33:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E62B1008066;
+	Tue, 13 Apr 2021 15:24:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B5B110023AB;
+	Tue, 13 Apr 2021 15:24:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0BF471806D0E;
-	Mon, 12 Apr 2021 06:33:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0A4244A59;
+	Tue, 13 Apr 2021 15:24:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13C6XkIl009305 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 12 Apr 2021 02:33:47 -0400
+	id 13DFOPuh010627 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 13 Apr 2021 11:24:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E0EEC2095BAD; Mon, 12 Apr 2021 06:33:45 +0000 (UTC)
+	id 29F959D463; Tue, 13 Apr 2021 15:24:25 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB59E2095BA4
-	for <linux-cachefs@redhat.com>; Mon, 12 Apr 2021 06:33:43 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 230EE7D2AA
+	for <linux-cachefs@redhat.com>; Tue, 13 Apr 2021 15:24:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91A7C802BEE
-	for <linux-cachefs@redhat.com>; Mon, 12 Apr 2021 06:33:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BC8285A5B5
+	for <linux-cachefs@redhat.com>; Tue, 13 Apr 2021 15:24:22 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-567-3zVyMGRwPoG6tQiRIzqjGQ-1; Mon, 12 Apr 2021 02:33:41 -0400
-X-MC-Unique: 3zVyMGRwPoG6tQiRIzqjGQ-1
-Received: from hch by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lVpkX-003s0z-6U; Mon, 12 Apr 2021 06:08:42 +0000
-Date: Mon, 12 Apr 2021 07:08:41 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Message-ID: <20210412060841.GA922513@infradead.org>
-References: <20210409185105.188284-1-willy@infradead.org>
-	<20210409185105.188284-2-willy@infradead.org>
+	us-mta-44-SLKkNwMrN56i8sm5R9IpTQ-1; Tue, 13 Apr 2021 11:24:19 -0400
+X-MC-Unique: SLKkNwMrN56i8sm5R9IpTQ-1
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lWKsN-005uLz-Ka; Tue, 13 Apr 2021 15:23:13 +0000
+Date: Tue, 13 Apr 2021 16:22:51 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20210413152251.GQ2531743@casper.infradead.org>
+References: <20210408145057.GN2531743@casper.infradead.org>
+	<161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
+	<161789066013.6155.9816857201817288382.stgit@warthog.procyon.org.uk>
+	<1268564.1618326701@warthog.procyon.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20210409185105.188284-2-willy@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <1268564.1618326701@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,12 +60,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
-Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-cachefs@redhat.com,
-	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org
-Subject: Re: [Linux-cachefs] [PATCH v7 01/28] mm: Optimise nth_page for
-	contiguous memmap
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org,
+	Steve French <sfrench@samba.org>, linux-mm@kvack.org,
+	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>
+Subject: Re: [Linux-cachefs] [PATCH v7] mm: Add set/end/wait functions for
+	PG_private_2
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,12 +96,13 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 09, 2021 at 07:50:38PM +0100, Matthew Wilcox (Oracle) wrote:
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+On Tue, Apr 13, 2021 at 04:11:41PM +0100, David Howells wrote:
+> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> Tested-by: Jeff Layton <jlayton@kernel.org>
+> Tested-by: Dave Wysochanski <dwysocha@redhat.com>
 
-Looks good,
-
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 
 --
 Linux-cachefs mailing list
