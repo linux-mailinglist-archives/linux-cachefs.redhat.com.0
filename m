@@ -1,53 +1,63 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9E19835F3F1
-	for <lists+linux-cachefs@lfdr.de>; Wed, 14 Apr 2021 14:38:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2118F35F3F3
+	for <lists+linux-cachefs@lfdr.de>; Wed, 14 Apr 2021 14:39:02 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-279-DQv-NCgkOO-FRKsxVfTRXQ-1; Wed, 14 Apr 2021 08:38:53 -0400
-X-MC-Unique: DQv-NCgkOO-FRKsxVfTRXQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-506-Q3dMPy3oMdS-tS_l8AVUpQ-1; Wed, 14 Apr 2021 08:38:59 -0400
+X-MC-Unique: Q3dMPy3oMdS-tS_l8AVUpQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8B788030C9;
-	Wed, 14 Apr 2021 12:38:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B08755D6AC;
-	Wed, 14 Apr 2021 12:38:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2FCCE814339;
+	Wed, 14 Apr 2021 12:38:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B4E3607D5;
+	Wed, 14 Apr 2021 12:38:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DCDF9180B617;
-	Wed, 14 Apr 2021 12:38:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0DD644A5B;
+	Wed, 14 Apr 2021 12:38:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13ECciH9018010 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 14 Apr 2021 08:38:44 -0400
+	id 13ECcpi6018049 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 14 Apr 2021 08:38:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 56CB5E2053; Wed, 14 Apr 2021 12:38:44 +0000 (UTC)
+	id 53D90114B9A9; Wed, 14 Apr 2021 12:38:51 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 514D1E30BD
-	for <linux-cachefs@redhat.com>; Wed, 14 Apr 2021 12:38:38 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F964114B9A7
+	for <linux-cachefs@redhat.com>; Wed, 14 Apr 2021 12:38:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8A8C10334A5
-	for <linux-cachefs@redhat.com>; Wed, 14 Apr 2021 12:38:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED3FD8001A6
+	for <linux-cachefs@redhat.com>; Wed, 14 Apr 2021 12:38:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-529-lFVq7gx2MkekIFIGkIXDRw-1;
-	Wed, 14 Apr 2021 08:38:36 -0400
-X-MC-Unique: lFVq7gx2MkekIFIGkIXDRw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E73D461153;
-	Wed, 14 Apr 2021 12:38:30 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-329-L9Bpwb3UND62llBItTHR9g-1;
+	Wed, 14 Apr 2021 08:38:39 -0400
+X-MC-Unique: L9Bpwb3UND62llBItTHR9g-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E852761158;
+	Wed, 14 Apr 2021 12:38:34 +0000 (UTC)
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
-Date: Wed, 14 Apr 2021 14:37:44 +0200
-Message-Id: <20210414123750.2110159-1-brauner@kernel.org>
+Date: Wed, 14 Apr 2021 14:37:45 +0200
+Message-Id: <20210414123750.2110159-2-brauner@kernel.org>
+In-Reply-To: <20210414123750.2110159-1-brauner@kernel.org>
+References: <20210414123750.2110159-1-brauner@kernel.org>
 MIME-Version: 1.0
+X-Patch-Hashes: v=1; h=sha256; i=Ug070dnCYtvoTTL9sM+KCsYvFzZzgfpQ1rAeZsa4E0c=;
+	m=Nyy5JV6keYRz9DaoVlPSewQmP7/guf8xde0k24FEh8I=;
+	p=Ez0P8VpCpQt2UopiUYXdmn61d6ikUXWbnh4YqIFsC/g=;
+	g=e2958c68e45ab891ebc18d84945f46ea030fd186
+X-Patch-Sig: m=pgp; i=christian.brauner@ubuntu.com; s=0x0x91C61BC06578DCA2;
+	b=iHUEABYKAB0WIQRAhzRXHqcMeLMyaSiRxhvAZXjcogUCYHbh3wAKCRCRxhvAZXjcoufWAP9xjcj
+	8M8rEHzBJtuKW2qoVv2jPFVwHN8aJICtFeGnOWQEAlTvTfEAfp8jjIc53K83adZs9p6OiZMZJhrA/
+	5TLbaw4=
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -56,9 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 13ECciH9018010
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 13ECcpi6018049
 X-loop: linux-cachefs@redhat.com
 Cc: Miklos Szeredi <mszeredi@redhat.com>, ecryptfs@vger.kernel.org,
 	Amir Goldstein <amir73il@gmail.com>,
@@ -66,8 +76,8 @@ Cc: Miklos Szeredi <mszeredi@redhat.com>, ecryptfs@vger.kernel.org,
 	Al Viro <viro@zeniv.linux.org.uk>,
 	Christian Brauner <christian.brauner@ubuntu.com>,
 	Christoph Hellwig <hch@lst.de>
-Subject: [Linux-cachefs] [PATCH 0/7] fs: tweak and switch more fses to
-	private mounts
+Subject: [Linux-cachefs] [PATCH 1/7] namespace: fix clone_private_mount()
+	kernel doc
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,54 +101,49 @@ Content-Transfer-Encoding: 7bit
 
 From: Christian Brauner <christian.brauner@ubuntu.com>
 
-Hey,
+Extend the kernel documentation for clone_private_mount(). Add some more
+detailed info about its usage and convert it into proper kernel doc.
 
-Since [1] we support creating private mounts from a given path's
-vfsmount. This makes them very suitable for any filesystem or
-filesystem functionality that piggybacks on paths of another filesystem.
-Overlayfs, cachefiles, and ecryptfs are three prime examples.
+Cc: Amir Goldstein <amir73il@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Miklos Szeredi <mszeredi@redhat.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org
+Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
+---
+ fs/namespace.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-Since private mounts aren't attached in the filesystem they aren't
-affected by mount property changes after the respective fs makes use of
-them. This seems a rather desirable property as the underlying path
-can't e.g. suddenly go from read-write to read-only and in general it
-means that the fs is always in full control of the underlying mount
-after the user has allowed it to be used (apart from operations that
-affect the superblock of course).
-
-Besides that it also makes things simpler for a variety of other vfs
-features. One concrete example is fanotify. When the path->mnt of the
-path that is used as a cache has been marked with FAN_MARK_MOUNT the
-semantics get tricky as it isn't clear whether the watchers of path->mnt
-should get notified about fsnotify events when files are created by
-ecryptfs via path->mnt. Using a private mount lets us handle this case
-too and aligns the behavior of stacks created by overlayfs.
-
-Thanks!
-Christian
-
-[1]: c771d683a62e ("vfs: introduce clone_private_mount()")
-
-Christian Brauner (7):
-  namespace: fix clone_private_mount() kernel doc
-  namespace: add kernel doc for mnt_clone_internal()
-  namespace: move unbindable check out of clone_private_mount()
-  cachefiles: switch to using a private mount
-  cachefiles: extend ro check to private mount
-  ecryptfs: switch to using a private mount
-  ecryptfs: extend ro check to private mount
-
- fs/cachefiles/bind.c          | 41 +++++++++++++++++++++++++----------
- fs/ecryptfs/dentry.c          |  6 ++++-
- fs/ecryptfs/ecryptfs_kernel.h |  9 ++++++++
- fs/ecryptfs/inode.c           |  5 ++++-
- fs/ecryptfs/main.c            | 31 +++++++++++++++++++++-----
- fs/namespace.c                | 36 ++++++++++++++++++++++++------
- fs/overlayfs/super.c          | 13 +++++++++--
- 7 files changed, 113 insertions(+), 28 deletions(-)
-
-
-base-commit: e49d033bddf5b565044e2abe4241353959bc9120
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 56bb5a5fdc0d..02f415061efe 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1939,12 +1939,21 @@ void drop_collected_mounts(struct vfsmount *mnt)
+ 
+ /**
+  * clone_private_mount - create a private clone of a path
++ * @path: path from which the mnt to clone will be taken
+  *
+- * This creates a new vfsmount, which will be the clone of @path.  The new will
+- * not be attached anywhere in the namespace and will be private (i.e. changes
+- * to the originating mount won't be propagated into this).
++ * This creates a new vfsmount, which will be a clone of @path's vfsmount.
+  *
+- * Release with mntput().
++ * In contrast to mnt_clone_internal() the new mount will not be marked
++ * MNT_INTERNAL but will have MNT_NS_INTERNAL attached as its mount namespace
++ * making it suitable for long-term mounts since mntput()ing it will always hit
++ * the fastpath as long as kern_unmount() hasn't been called.
++ *
++ * Since the mount is not reachable anwyhere mount properties and propagation
++ * properties remain stable, i.e. cannot change.
++ *
++ * Useable with mntget()/mntput() but needs to be released with kern_unmount().
++ *
++ * Return: A clone of @path's vfsmount on success, an error pointer on failure.
+  */
+ struct vfsmount *clone_private_mount(const struct path *path)
+ {
 -- 
 2.27.0
 
