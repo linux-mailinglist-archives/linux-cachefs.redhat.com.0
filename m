@@ -2,56 +2,79 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 965C7369424
-	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 15:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 42D0D369420
+	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 15:56:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-I1UVKeopPtam0o5HharYRA-1; Fri, 23 Apr 2021 09:56:01 -0400
-X-MC-Unique: I1UVKeopPtam0o5HharYRA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-411-ZhQYLhkHOY6nt_XjVRgrAQ-1; Fri, 23 Apr 2021 09:56:01 -0400
+X-MC-Unique: ZhQYLhkHOY6nt_XjVRgrAQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BCED21020C22;
-	Fri, 23 Apr 2021 13:55:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F3741B5AB;
-	Fri, 23 Apr 2021 13:55:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A2758030B5;
+	Fri, 23 Apr 2021 13:55:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A5DA60C13;
+	Fri, 23 Apr 2021 13:55:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4140644A5B;
-	Fri, 23 Apr 2021 13:55:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F26B51806D1B;
+	Fri, 23 Apr 2021 13:55:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13MDZqaL026879 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 22 Apr 2021 09:35:52 -0400
+	id 13MKkTcw001432 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 22 Apr 2021 16:46:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C25421D528B; Thu, 22 Apr 2021 13:35:52 +0000 (UTC)
+	id E695111E1E3; Thu, 22 Apr 2021 20:46:28 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 06A1D21D5286
-	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 13:35:48 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E237711E1D6
+	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 20:46:26 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66718104D9B1
-	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 13:35:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-226-FXDSl0VROYa36Ex_NIUvdA-1;
-	Thu, 22 Apr 2021 09:35:40 -0400
-X-MC-Unique: FXDSl0VROYa36Ex_NIUvdA-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AE02C61452;
-	Thu, 22 Apr 2021 13:35:37 +0000 (UTC)
-Message-ID: <27c369a8f42bb8a617672b2dc0126a5c6df5a050.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: David Howells <dhowells@redhat.com>, linux-fsdevel@vger.kernel.org
-Date: Thu, 22 Apr 2021 09:35:36 -0400
-In-Reply-To: <161789064740.6155.11932541175173658065.stgit@warthog.procyon.org.uk>
-References: <161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk>
-	<161789064740.6155.11932541175173658065.stgit@warthog.procyon.org.uk>
-User-Agent: Evolution 3.40.0 (3.40.0-1.fc34)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01332802A5E
+	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 20:46:26 +0000 (UTC)
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
+	[209.85.161.41]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-366-XLKptYDsNzasbCX1AA7Unw-1; Thu, 22 Apr 2021 16:46:23 -0400
+X-MC-Unique: XLKptYDsNzasbCX1AA7Unw-1
+Received: by mail-oo1-f41.google.com with SMTP id
+	i9-20020a4ad0890000b02901efee2118aaso2679241oor.7
+	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 13:46:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=4Bv+XfMtee1/MTyZNOdjdOgixMawy7JDR2vEPs37IAs=;
+	b=SCuc9IwF1XonfbhETQJs4hfFU0SSfzP5daFvLkL+xryWzwMDGyYY7wHELU+vn1fVQm
+	qeTEqGEEhSKCbnll5JVpb28fTmrBpK54eUp+5kYl6eiHnbANB5JOevrFBekq93kz8JMI
+	s5ZEYpJOb47aXaSiOzOG3OLnbDzvRwjb9AoCbT+3ztXZUOPyCW6wkO5aUiifcsSt/Xkw
+	xnvkeJJsVJEoxgCyYB/Ie8T3Hzna5SGLV0JWDPH7vI48YqSMLRao6Cq5cWZH+d+JJlny
+	4TJPQ/86NvI8UDak5geW45sgQL1SUTSmq3u14GBktvcYbWwPdF5Xc3phcP6VAPiJgwxc
+	oZfg==
+X-Gm-Message-State: AOAM530bz+HDIJuptSt6I1tCsrJoou2Y2D8FEj94I9Bs73WlvZjGE9KT
+	fUlRjwbmX/YUOqcAYTVh2zTzyg==
+X-Google-Smtp-Source: ABdhPJzmhL8nIK8vKoIX2RGd1MQiQW0ejITHTcfESFUOlcdI72u+NKMtCwKidl6IDtgZvLwo/TeMLQ==
+X-Received: by 2002:a4a:a44a:: with SMTP id w10mr321536ool.26.1619124382285;
+	Thu, 22 Apr 2021 13:46:22 -0700 (PDT)
+Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net.
+	[162.237.133.238])
+	by smtp.gmail.com with ESMTPSA id t19sm880823otm.40.2021.04.22.13.46.21
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Thu, 22 Apr 2021 13:46:21 -0700 (PDT)
+Date: Thu, 22 Apr 2021 15:46:20 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Christian Brauner <brauner@kernel.org>,
+	John Johansen <john.johansen@canonical.com>
+Message-ID: <20210422204620.GB177816@sequoia>
+References: <20210414123750.2110159-1-brauner@kernel.org>
+	<20210414123750.2110159-7-brauner@kernel.org>
+	<20210419050128.GA405651@elm>
 MIME-Version: 1.0
+In-Reply-To: <20210419050128.GA405651@elm>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,19 +83,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Fri, 23 Apr 2021 09:55:53 -0400
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, Dominique,
-	linux-kernel@vger.kernel.org, Martinet <asmadeus@codewreck.org>,
-	Trond, "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	Christoph Hellwig <hch@lst.de>, Steve French <sfrench@samba.org>,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	linux-afs@lists.infradead.org, Myklebust <trond.myklebust@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH v6 01/30] iov_iter: Add ITER_XARRAY
+Cc: Miklos Szeredi <mszeredi@redhat.com>, ecryptfs@vger.kernel.org,
+	Amir Goldstein <amir73il@gmail.com>, linux-cachefs@redhat.com,
+	Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+	Christian Brauner <christian.brauner@ubuntu.com>,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [Linux-cachefs] [PATCH 6/7] ecryptfs: switch to using a private
+	mount
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,712 +106,269 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2021-04-08 at 15:04 +0100, David Howells wrote:
-> Add an iterator, ITER_XARRAY, that walks through a set of pages attached to
-> an xarray, starting at a given page and offset and walking for the
-> specified amount of bytes.  The iterator supports transparent huge pages.
+On 2021-04-19 00:01:28, Tyler Hicks wrote:
+> On 2021-04-14 14:37:50, Christian Brauner wrote:
+> > From: Christian Brauner <christian.brauner@ubuntu.com>
+> > 
+> > Since [1] we support creating private mounts from a given path's
+> > vfsmount. This makes them very suitable for any filesystem or
+> > filesystem functionality that piggybacks on paths of another filesystem.
+> > Overlayfs, cachefiles, and ecryptfs are three prime examples.
+> > 
+> > Since private mounts aren't attached in the filesystem they aren't
+> > affected by mount property changes after ecryptfs makes use of them.
+> > This seems a rather desirable property as the underlying path can't e.g.
+> > suddenly go from read-write to read-only and in general it means that
+> > ecryptfs is always in full control of the underlying mount after the
+> > user has allowed it to be used (apart from operations that affect the
+> > superblock of course).
+> > 
+> > Besides that it also makes things simpler for a variety of other vfs
+> > features. One concrete example is fanotify. When the path->mnt of the
+> > path that is used as a cache has been marked with FAN_MARK_MOUNT the
+> > semantics get tricky as it isn't clear whether the watchers of path->mnt
+> > should get notified about fsnotify events when files are created by
+> > ecryptfs via path->mnt. Using a private mount let's us elegantly
+> > handle this case too and aligns the behavior of stacks created by
+> > overlayfs and cachefiles.
+> > 
+> > This change comes with a proper simplification in how ecryptfs currently
+> > handles the lower_path it stashes as private information in its
+> > dentries. Currently it always does:
+> > 
+> >         ecryptfs_set_dentry_private(dentry, dentry_info);
+> >         dentry_info->lower_path.mnt = mntget(path->mnt);
+> >         dentry_info->lower_path.dentry = lower_dentry;
+> > 
+> > and then during .d_relase() in ecryptfs_d_release():
+> > 
+> >         path_put(&p->lower_path);
+> > 
+> > which is odd since afaict path->mnt is guaranteed to be the mnt stashed
+> > during ecryptfs_mount():
+> > 
+> >         ecryptfs_set_dentry_private(s->s_root, root_info);
+> >         root_info->lower_path = path;
+> > 
+> > So that mntget() seems somewhat pointless but there might be reasons
+> > that I'm missing in how the interpose logic for ecryptfs works.
+> > 
+> > While switching to a long-term private mount via clone_private_mount()
+> > let's get rid of the gratuitous mntget() and mntput()/path_put().
+> > Instead, stash away the private mount in ecryptfs' s_fs_info and call
+> > kern_unmount() in .kill_sb() so we only take the mntput() hit once.
+> > 
+> > I've added a WARN_ON_ONCE() into ecryptfs_lookup_interpose() triggering
+> > if the stashed private mount and the path's mount don't match. I think
+> > that would be a proper bug even without that clone_private_mount()
+> > change in this patch.
+> > 
+> > [1]: c771d683a62e ("vfs: introduce clone_private_mount()")
+> > Cc: Amir Goldstein <amir73il@gmail.com>
+> > Cc: Tyler Hicks <code@tyhicks.com>
+> > Cc: Miklos Szeredi <mszeredi@redhat.com>
+> > Cc: ecryptfs@vger.kernel.org
+> > Cc: linux-fsdevel@vger.kernel.org
+> > Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
 > 
-> The iterate_xarray() macro calls the helper function with rcu_access()
-> helped.  I think that this is only a problem for iov_iter_for_each_range()
-> - and that returns an error for ITER_XARRAY (also, this function does not
-> appear to be called).
+> This patch and the following one both look technically correct to me. I
+> do want to spend a little time manually testing these changes, though.
+> I'm hoping to have that done by end of day Tuesday.
+
+Hey Christian - I've finished testing these eCryptfs changes. I really
+like some of the new properties:
+
+ - As you mentioned, the ability for the lower mount to go read-only and
+   not affect the upper mount is nice. I verified this with:
+    $ echo foo > /upper/foo
+    $ mount -o remount,bind,ro /lower
+    $ echo bar > /upper/bar
+ - I like that the lower filesystem can be entirely unmounted after the
+   eCryptfs mount has been set up. This could be useful if someone
+   wanted to prevent tampering with the lower filesystem while the
+   eCryptfs mount is active.
+
+Unfortunately, I think there may be temporary a blocker here. eCryptfs'
+main user base has historically been Ubuntu users since Ubuntu embraced
+it for encrypted home directories years ago. While encrypted home
+directories are no longer supported out-of-the-box in new Ubuntu
+releases, I suspect that's still the distro that most eCryptfs users use
+today.
+
+We know that AppArmor is the default LSM in use in Ubuntu. However,
+AppArmor does not know how to handle private mounts. This was most
+recently discussed in the unprivileged overlay mounts thread:
+
+ https://lore.kernel.org/linux-security-module/9b8236eb-b3c4-6e0f-edb8-833172c7c2c7@canonical.com/
+
+When an AppArmor confined process is interacting with an eCryptfs mount,
+I see disconnected path denials from AppArmor for the lower paths when
+your private mount patches are applied:
+
+ audit: type=1400 audit(1619121587.568:50): apparmor="DENIED" operation="open" info="Failed name lookup - disconnected path" error=-13 profile="privatemnt" name="foo" pid=5992 comm="bash" requested_mask="wr" denied_mask="wr" fsuid=1000 ouid=1000
+
+I'd rather wait for AppArmor to better handle private mounts because I
+think existing users will definitely see a negative impact from these
+changes and I don't think that the positive user-facing impacts outweigh
+the negative.
+
+I don't see any related changes in the AppArmor tree but I've cc'ed John
+in case he's made any progress here.
+
+Tyler
+
+> Tyler
 > 
-> The caller must guarantee that the pages are all present and they must be
-> locked using PG_locked, PG_writeback or PG_fscache to prevent them from
-> going away or being migrated whilst they're being accessed.
-> 
-> This is useful for copying data from socket buffers to inodes in network
-> filesystems and for transferring data between those inodes and the cache
-> using direct I/O.
-> 
-> Whilst it is true that ITER_BVEC could be used instead, that would require
-> a bio_vec array to be allocated to refer to all the pages - which should be
-> redundant if inode->i_pages also points to all these pages.
-> 
-> Note that older versions of this patch implemented an ITER_MAPPING instead,
-> which was almost the same.
-> 
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-> cc: Christoph Hellwig <hch@lst.de>
-> cc: linux-mm@kvack.org
-> cc: linux-cachefs@redhat.com
-> cc: linux-afs@lists.infradead.org
-> cc: linux-nfs@vger.kernel.org
-> cc: linux-cifs@vger.kernel.org
-> cc: ceph-devel@vger.kernel.org
-> cc: v9fs-developer@lists.sourceforge.net
-> cc: linux-fsdevel@vger.kernel.org
-> Link: https://lore.kernel.org/r/3577430.1579705075@warthog.procyon.org.uk/ # rfc
-> Link: https://lore.kernel.org/r/158861205740.340223.16592990225607814022.stgit@warthog.procyon.org.uk/ # rfc
-> Link: https://lore.kernel.org/r/159465785214.1376674.6062549291411362531.stgit@warthog.procyon.org.uk/
-> Link: https://lore.kernel.org/r/160588477334.3465195.3608963255682568730.stgit@warthog.procyon.org.uk/ # rfc
-> Link: https://lore.kernel.org/r/161118129703.1232039.17141248432017826976.stgit@warthog.procyon.org.uk/ # rfc
-> Link: https://lore.kernel.org/r/161161026313.2537118.14676007075365418649.stgit@warthog.procyon.org.uk/ # v2
-> Link: https://lore.kernel.org/r/161340386671.1303470.10752208972482479840.stgit@warthog.procyon.org.uk/ # v3
-> Link: https://lore.kernel.org/r/161539527815.286939.14607323792547049341.stgit@warthog.procyon.org.uk/ # v4
-> Link: https://lore.kernel.org/r/161653786033.2770958.14154191921867463240.stgit@warthog.procyon.org.uk/ # v5
-> ---
-> 
->  include/linux/uio.h |   11 ++
->  lib/iov_iter.c      |  313 +++++++++++++++++++++++++++++++++++++++++++++++----
->  2 files changed, 301 insertions(+), 23 deletions(-)
-> 
-> diff --git a/include/linux/uio.h b/include/linux/uio.h
-> index 27ff8eb786dc..5f5ffc45d4aa 100644
-> --- a/include/linux/uio.h
-> +++ b/include/linux/uio.h
-> @@ -10,6 +10,7 @@
->  #include <uapi/linux/uio.h>
->  
->  struct page;
-> +struct address_space;
->  struct pipe_inode_info;
->  
->  struct kvec {
-> @@ -24,6 +25,7 @@ enum iter_type {
->  	ITER_BVEC = 16,
->  	ITER_PIPE = 32,
->  	ITER_DISCARD = 64,
-> +	ITER_XARRAY = 128,
->  };
->  
->  struct iov_iter {
-> @@ -39,6 +41,7 @@ struct iov_iter {
->  		const struct iovec *iov;
->  		const struct kvec *kvec;
->  		const struct bio_vec *bvec;
-> +		struct xarray *xarray;
->  		struct pipe_inode_info *pipe;
->  	};
->  	union {
-> @@ -47,6 +50,7 @@ struct iov_iter {
->  			unsigned int head;
->  			unsigned int start_head;
->  		};
-> +		loff_t xarray_start;
->  	};
->  };
->  
-> @@ -80,6 +84,11 @@ static inline bool iov_iter_is_discard(const struct iov_iter *i)
->  	return iov_iter_type(i) == ITER_DISCARD;
->  }
->  
-> +static inline bool iov_iter_is_xarray(const struct iov_iter *i)
-> +{
-> +	return iov_iter_type(i) == ITER_XARRAY;
-> +}
-> +
->  static inline unsigned char iov_iter_rw(const struct iov_iter *i)
->  {
->  	return i->type & (READ | WRITE);
-> @@ -221,6 +230,8 @@ void iov_iter_bvec(struct iov_iter *i, unsigned int direction, const struct bio_
->  void iov_iter_pipe(struct iov_iter *i, unsigned int direction, struct pipe_inode_info *pipe,
->  			size_t count);
->  void iov_iter_discard(struct iov_iter *i, unsigned int direction, size_t count);
-> +void iov_iter_xarray(struct iov_iter *i, unsigned int direction, struct xarray *xarray,
-> +		     loff_t start, size_t count);
->  ssize_t iov_iter_get_pages(struct iov_iter *i, struct page **pages,
->  			size_t maxsize, unsigned maxpages, size_t *start);
->  ssize_t iov_iter_get_pages_alloc(struct iov_iter *i, struct page ***pages,
-> diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-> index f66c62aa7154..f808c625c11e 100644
-> --- a/lib/iov_iter.c
-> +++ b/lib/iov_iter.c
-> @@ -76,7 +76,44 @@
->  	}						\
->  }
->  
-
-As a general note, iov_iter.c could really do with some (verbose)
-comments explaining things. A kerneldoc header that explains the
-arguments to iterate_all_kinds would sure make this easier to review.
-
-> -#define iterate_all_kinds(i, n, v, I, B, K) {			\
-> +#define iterate_xarray(i, n, __v, skip, STEP) {		\
-> +	struct page *head = NULL;				\
-> +	size_t wanted = n, seg, offset;				\
-> +	loff_t start = i->xarray_start + skip;			\
-> +	pgoff_t index = start >> PAGE_SHIFT;			\
-> +	int j;							\
-> +								\
-> +	XA_STATE(xas, i->xarray, index);			\
-> +								\
-> +	rcu_read_lock();						\
-> +	xas_for_each(&xas, head, ULONG_MAX) {				\
-> +		if (xas_retry(&xas, head))				\
-> +			continue;					\
-> +		if (WARN_ON(xa_is_value(head)))				\
-> +			break;						\
-> +		if (WARN_ON(PageHuge(head)))				\
-> +			break;						\
-> +		for (j = (head->index < index) ? index - head->index : 0; \
-> +		     j < thp_nr_pages(head); j++) {			\
-> +			__v.bv_page = head + j;				\
-> +			offset = (i->xarray_start + skip) & ~PAGE_MASK;	\
-> +			seg = PAGE_SIZE - offset;			\
-> +			__v.bv_offset = offset;				\
-> +			__v.bv_len = min(n, seg);			\
-> +			(void)(STEP);					\
-> +			n -= __v.bv_len;				\
-> +			skip += __v.bv_len;				\
-> +			if (n == 0)					\
-> +				break;					\
-> +		}							\
-> +		if (n == 0)						\
-> +			break;						\
-> +	}							\
-> +	rcu_read_unlock();					\
-> +	n = wanted - n;						\
-> +}
-> +
-> +#define iterate_all_kinds(i, n, v, I, B, K, X) {		\
->  	if (likely(n)) {					\
->  		size_t skip = i->iov_offset;			\
->  		if (unlikely(i->type & ITER_BVEC)) {		\
-> @@ -88,6 +125,9 @@
->  			struct kvec v;				\
->  			iterate_kvec(i, n, v, kvec, skip, (K))	\
->  		} else if (unlikely(i->type & ITER_DISCARD)) {	\
-> +		} else if (unlikely(i->type & ITER_XARRAY)) {	\
-> +			struct bio_vec v;			\
-> +			iterate_xarray(i, n, v, skip, (X));	\
->  		} else {					\
->  			const struct iovec *iov;		\
->  			struct iovec v;				\
-> @@ -96,7 +136,7 @@
->  	}							\
->  }
->  
-> -#define iterate_and_advance(i, n, v, I, B, K) {			\
-> +#define iterate_and_advance(i, n, v, I, B, K, X) {		\
->  	if (unlikely(i->count < n))				\
->  		n = i->count;					\
->  	if (i->count) {						\
-> @@ -121,6 +161,9 @@
->  			i->kvec = kvec;				\
->  		} else if (unlikely(i->type & ITER_DISCARD)) {	\
->  			skip += n;				\
-> +		} else if (unlikely(i->type & ITER_XARRAY)) {	\
-> +			struct bio_vec v;			\
-> +			iterate_xarray(i, n, v, skip, (X))	\
->  		} else {					\
->  			const struct iovec *iov;		\
->  			struct iovec v;				\
-> @@ -622,7 +665,9 @@ size_t _copy_to_iter(const void *addr, size_t bytes, struct iov_iter *i)
->  		copyout(v.iov_base, (from += v.iov_len) - v.iov_len, v.iov_len),
->  		memcpy_to_page(v.bv_page, v.bv_offset,
->  			       (from += v.bv_len) - v.bv_len, v.bv_len),
-> -		memcpy(v.iov_base, (from += v.iov_len) - v.iov_len, v.iov_len)
-> +		memcpy(v.iov_base, (from += v.iov_len) - v.iov_len, v.iov_len),
-> +		memcpy_to_page(v.bv_page, v.bv_offset,
-> +			       (from += v.bv_len) - v.bv_len, v.bv_len)
->  	)
->  
->  	return bytes;
-> @@ -738,6 +783,16 @@ size_t _copy_mc_to_iter(const void *addr, size_t bytes, struct iov_iter *i)
->  			bytes = curr_addr - s_addr - rem;
->  			return bytes;
->  		}
-> +		}),
-> +		({
-> +		rem = copy_mc_to_page(v.bv_page, v.bv_offset,
-> +				      (from += v.bv_len) - v.bv_len, v.bv_len);
-> +		if (rem) {
-> +			curr_addr = (unsigned long) from;
-> +			bytes = curr_addr - s_addr - rem;
-> +			rcu_read_unlock();
-> +			return bytes;
-> +		}
->  		})
->  	)
->  
-> @@ -759,7 +814,9 @@ size_t _copy_from_iter(void *addr, size_t bytes, struct iov_iter *i)
->  		copyin((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
->  		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
-> -		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len)
-> +		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
-> +		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  
->  	return bytes;
-> @@ -785,7 +842,9 @@ bool _copy_from_iter_full(void *addr, size_t bytes, struct iov_iter *i)
->  		0;}),
->  		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
-> -		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len)
-> +		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
-> +		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  
->  	iov_iter_advance(i, bytes);
-> @@ -805,7 +864,9 @@ size_t _copy_from_iter_nocache(void *addr, size_t bytes, struct iov_iter *i)
->  					 v.iov_base, v.iov_len),
->  		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
-> -		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len)
-> +		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
-> +		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  
->  	return bytes;
-> @@ -840,7 +901,9 @@ size_t _copy_from_iter_flushcache(void *addr, size_t bytes, struct iov_iter *i)
->  		memcpy_page_flushcache((to += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
->  		memcpy_flushcache((to += v.iov_len) - v.iov_len, v.iov_base,
-> -			v.iov_len)
-> +			v.iov_len),
-> +		memcpy_page_flushcache((to += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  
->  	return bytes;
-> @@ -864,7 +927,9 @@ bool _copy_from_iter_full_nocache(void *addr, size_t bytes, struct iov_iter *i)
->  		0;}),
->  		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
-> -		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len)
-> +		memcpy((to += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
-> +		memcpy_from_page((to += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  
->  	iov_iter_advance(i, bytes);
-> @@ -901,7 +966,7 @@ size_t copy_page_to_iter(struct page *page, size_t offset, size_t bytes,
->  {
->  	if (unlikely(!page_copy_sane(page, offset, bytes)))
->  		return 0;
-> -	if (i->type & (ITER_BVEC|ITER_KVEC)) {
-> +	if (i->type & (ITER_BVEC | ITER_KVEC | ITER_XARRAY)) {
->  		void *kaddr = kmap_atomic(page);
->  		size_t wanted = copy_to_iter(kaddr + offset, bytes, i);
->  		kunmap_atomic(kaddr);
-> @@ -924,7 +989,7 @@ size_t copy_page_from_iter(struct page *page, size_t offset, size_t bytes,
->  		WARN_ON(1);
->  		return 0;
->  	}
-> -	if (i->type & (ITER_BVEC|ITER_KVEC)) {
-> +	if (i->type & (ITER_BVEC | ITER_KVEC | ITER_XARRAY)) {
->  		void *kaddr = kmap_atomic(page);
->  		size_t wanted = _copy_from_iter(kaddr + offset, bytes, i);
->  		kunmap_atomic(kaddr);
-> @@ -968,7 +1033,8 @@ size_t iov_iter_zero(size_t bytes, struct iov_iter *i)
->  	iterate_and_advance(i, bytes, v,
->  		clear_user(v.iov_base, v.iov_len),
->  		memzero_page(v.bv_page, v.bv_offset, v.bv_len),
-> -		memset(v.iov_base, 0, v.iov_len)
-> +		memset(v.iov_base, 0, v.iov_len),
-> +		memzero_page(v.bv_page, v.bv_offset, v.bv_len)
->  	)
->  
->  	return bytes;
-> @@ -992,7 +1058,9 @@ size_t iov_iter_copy_from_user_atomic(struct page *page,
->  		copyin((p += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
->  		memcpy_from_page((p += v.bv_len) - v.bv_len, v.bv_page,
->  				 v.bv_offset, v.bv_len),
-> -		memcpy((p += v.iov_len) - v.iov_len, v.iov_base, v.iov_len)
-> +		memcpy((p += v.iov_len) - v.iov_len, v.iov_base, v.iov_len),
-> +		memcpy_from_page((p += v.bv_len) - v.bv_len, v.bv_page,
-> +				 v.bv_offset, v.bv_len)
->  	)
->  	kunmap_atomic(kaddr);
->  	return bytes;
-> @@ -1078,11 +1146,16 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
->  		i->count -= size;
->  		return;
->  	}
-> +	if (unlikely(iov_iter_is_xarray(i))) {
-> +		i->iov_offset += size;
-> +		i->count -= size;
-> +		return;
-> +	}
->  	if (iov_iter_is_bvec(i)) {
->  		iov_iter_bvec_advance(i, size);
->  		return;
->  	}
-> -	iterate_and_advance(i, size, v, 0, 0, 0)
-> +	iterate_and_advance(i, size, v, 0, 0, 0, 0)
->  }
->  EXPORT_SYMBOL(iov_iter_advance);
->  
-> @@ -1126,7 +1199,12 @@ void iov_iter_revert(struct iov_iter *i, size_t unroll)
->  		return;
->  	}
->  	unroll -= i->iov_offset;
-> -	if (iov_iter_is_bvec(i)) {
-> +	if (iov_iter_is_xarray(i)) {
-> +		BUG(); /* We should never go beyond the start of the specified
-> +			* range since we might then be straying into pages that
-> +			* aren't pinned.
-> +			*/
-
-It's not needed now, but there are a lot of calls to iov_iter_revert in
-the kernel, and going backward doesn't necessarily mean we'd be straying
-into an unpinned range. xarray_start never changes; would it not be ok
-to allow reverting as long as you don't move to a lower offset than that
-point?
-
-
-> +	} else if (iov_iter_is_bvec(i)) {
->  		const struct bio_vec *bvec = i->bvec;
->  		while (1) {
->  			size_t n = (--bvec)->bv_len;
-> @@ -1163,9 +1241,9 @@ size_t iov_iter_single_seg_count(const struct iov_iter *i)
->  		return i->count;	// it is a silly place, anyway
->  	if (i->nr_segs == 1)
->  		return i->count;
-> -	if (unlikely(iov_iter_is_discard(i)))
-> +	if (unlikely(iov_iter_is_discard(i) || iov_iter_is_xarray(i)))
->  		return i->count;
-> -	else if (iov_iter_is_bvec(i))
-> +	if (iov_iter_is_bvec(i))
->  		return min(i->count, i->bvec->bv_len - i->iov_offset);
->  	else
->  		return min(i->count, i->iov->iov_len - i->iov_offset);
-> @@ -1213,6 +1291,31 @@ void iov_iter_pipe(struct iov_iter *i, unsigned int direction,
->  }
->  EXPORT_SYMBOL(iov_iter_pipe);
->  
-> +/**
-> + * iov_iter_xarray - Initialise an I/O iterator to use the pages in an xarray
-> + * @i: The iterator to initialise.
-> + * @direction: The direction of the transfer.
-> + * @xarray: The xarray to access.
-> + * @start: The start file position.
-> + * @count: The size of the I/O buffer in bytes.
-> + *
-> + * Set up an I/O iterator to either draw data out of the pages attached to an
-> + * inode or to inject data into those pages.  The pages *must* be prevented
-> + * from evaporation, either by taking a ref on them or locking them by the
-> + * caller.
-> + */
-> +void iov_iter_xarray(struct iov_iter *i, unsigned int direction,
-> +		     struct xarray *xarray, loff_t start, size_t count)
-> +{
-> +	BUG_ON(direction & ~1);
-> +	i->type = ITER_XARRAY | (direction & (READ | WRITE));
-> +	i->xarray = xarray;
-> +	i->xarray_start = start;
-> +	i->count = count;
-> +	i->iov_offset = 0;
-> +}
-> +EXPORT_SYMBOL(iov_iter_xarray);
-> +
->  /**
->   * iov_iter_discard - Initialise an I/O iterator that discards data
->   * @i: The iterator to initialise.
-> @@ -1246,7 +1349,8 @@ unsigned long iov_iter_alignment(const struct iov_iter *i)
->  	iterate_all_kinds(i, size, v,
->  		(res |= (unsigned long)v.iov_base | v.iov_len, 0),
->  		res |= v.bv_offset | v.bv_len,
-> -		res |= (unsigned long)v.iov_base | v.iov_len
-> +		res |= (unsigned long)v.iov_base | v.iov_len,
-> +		res |= v.bv_offset | v.bv_len
->  	)
->  	return res;
->  }
-> @@ -1268,7 +1372,9 @@ unsigned long iov_iter_gap_alignment(const struct iov_iter *i)
->  		(res |= (!res ? 0 : (unsigned long)v.bv_offset) |
->  			(size != v.bv_len ? size : 0)),
->  		(res |= (!res ? 0 : (unsigned long)v.iov_base) |
-> -			(size != v.iov_len ? size : 0))
-> +			(size != v.iov_len ? size : 0)),
-> +		(res |= (!res ? 0 : (unsigned long)v.bv_offset) |
-> +			(size != v.bv_len ? size : 0))
->  		);
->  	return res;
->  }
-> @@ -1318,6 +1424,75 @@ static ssize_t pipe_get_pages(struct iov_iter *i,
->  	return __pipe_get_pages(i, min(maxsize, capacity), pages, iter_head, start);
->  }
->  
-> +static ssize_t iter_xarray_copy_pages(struct page **pages, struct xarray *xa,
-> +				       pgoff_t index, unsigned int nr_pages)
-
-nit: This could use a different name -- I was expecting to see page
-_contents_ copied here, but it's just populating the page array with
-pointers.
-
-> +{
-> +	XA_STATE(xas, xa, index);
-> +	struct page *page;
-> +	unsigned int ret = 0;
-> +
-> +	rcu_read_lock();
-> +	for (page = xas_load(&xas); page; page = xas_next(&xas)) {
-> +		if (xas_retry(&xas, page))
-> +			continue;
-> +
-> +		/* Has the page moved or been split? */
-> +		if (unlikely(page != xas_reload(&xas))) {
-> +			xas_reset(&xas);
-> +			continue;
-> +		}
-> +
-> +		pages[ret] = find_subpage(page, xas.xa_index);
-> +		get_page(pages[ret]);
-> +		if (++ret == nr_pages)
-> +			break;
-> +	}
-> +	rcu_read_unlock();
-> +	return ret;
-> +}
-> +
-> +static ssize_t iter_xarray_get_pages(struct iov_iter *i,
-> +				     struct page **pages, size_t maxsize,
-> +				     unsigned maxpages, size_t *_start_offset)
-> +{
-> +	unsigned nr, offset;
-> +	pgoff_t index, count;
-> +	size_t size = maxsize, actual;
-> +	loff_t pos;
-> +
-> +	if (!size || !maxpages)
-> +		return 0;
-> +
-> +	pos = i->xarray_start + i->iov_offset;
-> +	index = pos >> PAGE_SHIFT;
-> +	offset = pos & ~PAGE_MASK;
-> +	*_start_offset = offset;
-> +
-> +	count = 1;
-> +	if (size > PAGE_SIZE - offset) {
-> +		size -= PAGE_SIZE - offset;
-> +		count += size >> PAGE_SHIFT;
-> +		size &= ~PAGE_MASK;
-> +		if (size)
-> +			count++;
-> +	}
-> +
-> +	if (count > maxpages)
-> +		count = maxpages;
-> +
-> +	nr = iter_xarray_copy_pages(pages, i->xarray, index, count);
-> +	if (nr == 0)
-> +		return 0;
-> +
-> +	actual = PAGE_SIZE * nr;
-> +	actual -= offset;
-> +	if (nr == count && size > 0) {
-> +		unsigned last_offset = (nr > 1) ? 0 : offset;
-> +		actual -= PAGE_SIZE - (last_offset + size);
-> +	}
-> +	return actual;
-> +}
-> +
->  ssize_t iov_iter_get_pages(struct iov_iter *i,
->  		   struct page **pages, size_t maxsize, unsigned maxpages,
->  		   size_t *start)
-> @@ -1327,6 +1502,8 @@ ssize_t iov_iter_get_pages(struct iov_iter *i,
->  
->  	if (unlikely(iov_iter_is_pipe(i)))
->  		return pipe_get_pages(i, pages, maxsize, maxpages, start);
-> +	if (unlikely(iov_iter_is_xarray(i)))
-> +		return iter_xarray_get_pages(i, pages, maxsize, maxpages, start);
->  	if (unlikely(iov_iter_is_discard(i)))
->  		return -EFAULT;
->  
-> @@ -1353,7 +1530,8 @@ ssize_t iov_iter_get_pages(struct iov_iter *i,
->  		return v.bv_len;
->  	}),({
->  		return -EFAULT;
-> -	})
-> +	}),
-> +	0
->  	)
->  	return 0;
->  }
-> @@ -1397,6 +1575,51 @@ static ssize_t pipe_get_pages_alloc(struct iov_iter *i,
->  	return n;
->  }
->  
-> +static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
-> +					   struct page ***pages, size_t maxsize,
-> +					   size_t *_start_offset)
-> +{
-> +	struct page **p;
-> +	unsigned nr, offset;
-> +	pgoff_t index, count;
-> +	size_t size = maxsize, actual;
-> +	loff_t pos;
-> +
-> +	if (!size)
-> +		return 0;
-> +
-> +	pos = i->xarray_start + i->iov_offset;
-> +	index = pos >> PAGE_SHIFT;
-> +	offset = pos & ~PAGE_MASK;
-> +	*_start_offset = offset;
-> +
-> +	count = 1;
-> +	if (size > PAGE_SIZE - offset) {
-> +		size -= PAGE_SIZE - offset;
-> +		count += size >> PAGE_SHIFT;
-> +		size &= ~PAGE_MASK;
-> +		if (size)
-> +			count++;
-> +	}
-> +
-> +	p = get_pages_array(count);
-> +	if (!p)
-> +		return -ENOMEM;
-> +	*pages = p;
-> +
-> +	nr = iter_xarray_copy_pages(p, i->xarray, index, count);
-> +	if (nr == 0)
-> +		return 0;
-> +
-> +	actual = PAGE_SIZE * nr;
-> +	actual -= offset;
-> +	if (nr == count && size > 0) {
-> +		unsigned last_offset = (nr > 1) ? 0 : offset;
-> +		actual -= PAGE_SIZE - (last_offset + size);
-> +	}
-> +	return actual;
-> +}
-> +
->  ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
->  		   struct page ***pages, size_t maxsize,
->  		   size_t *start)
-> @@ -1408,6 +1631,8 @@ ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
->  
->  	if (unlikely(iov_iter_is_pipe(i)))
->  		return pipe_get_pages_alloc(i, pages, maxsize, start);
-> +	if (unlikely(iov_iter_is_xarray(i)))
-> +		return iter_xarray_get_pages_alloc(i, pages, maxsize, start);
->  	if (unlikely(iov_iter_is_discard(i)))
->  		return -EFAULT;
->  
-> @@ -1440,7 +1665,7 @@ ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
->  		return v.bv_len;
->  	}),({
->  		return -EFAULT;
-> -	})
-> +	}), 0
->  	)
->  	return 0;
->  }
-> @@ -1478,6 +1703,13 @@ size_t csum_and_copy_from_iter(void *addr, size_t bytes, __wsum *csum,
->  				      v.iov_base, v.iov_len,
->  				      sum, off);
->  		off += v.iov_len;
-> +	}), ({
-> +		char *p = kmap_atomic(v.bv_page);
-> +		sum = csum_and_memcpy((to += v.bv_len) - v.bv_len,
-> +				      p + v.bv_offset, v.bv_len,
-> +				      sum, off);
-> +		kunmap_atomic(p);
-> +		off += v.bv_len;
->  	})
->  	)
->  	*csum = sum;
-> @@ -1519,6 +1751,13 @@ bool csum_and_copy_from_iter_full(void *addr, size_t bytes, __wsum *csum,
->  				      v.iov_base, v.iov_len,
->  				      sum, off);
->  		off += v.iov_len;
-> +	}), ({
-> +		char *p = kmap_atomic(v.bv_page);
-> +		sum = csum_and_memcpy((to += v.bv_len) - v.bv_len,
-> +				      p + v.bv_offset, v.bv_len,
-> +				      sum, off);
-> +		kunmap_atomic(p);
-> +		off += v.bv_len;
->  	})
->  	)
->  	*csum = sum;
-> @@ -1565,6 +1804,13 @@ size_t csum_and_copy_to_iter(const void *addr, size_t bytes, void *_csstate,
->  				     (from += v.iov_len) - v.iov_len,
->  				     v.iov_len, sum, off);
->  		off += v.iov_len;
-> +	}), ({
-> +		char *p = kmap_atomic(v.bv_page);
-> +		sum = csum_and_memcpy(p + v.bv_offset,
-> +				      (from += v.bv_len) - v.bv_len,
-> +				      v.bv_len, sum, off);
-> +		kunmap_atomic(p);
-> +		off += v.bv_len;
->  	})
->  	)
->  	csstate->csum = sum;
-> @@ -1615,6 +1861,21 @@ int iov_iter_npages(const struct iov_iter *i, int maxpages)
->  		npages = pipe_space_for_user(iter_head, pipe->tail, pipe);
->  		if (npages >= maxpages)
->  			return maxpages;
-> +	} else if (unlikely(iov_iter_is_xarray(i))) {
-> +		unsigned offset;
-> +
-> +		offset = (i->xarray_start + i->iov_offset) & ~PAGE_MASK;
-> +
-> +		npages = 1;
-> +		if (size > PAGE_SIZE - offset) {
-> +			size -= PAGE_SIZE - offset;
-> +			npages += size >> PAGE_SHIFT;
-> +			size &= ~PAGE_MASK;
-> +			if (size)
-> +				npages++;
-> +		}
-> +		if (npages >= maxpages)
-> +			return maxpages;
->  	} else iterate_all_kinds(i, size, v, ({
->  		unsigned long p = (unsigned long)v.iov_base;
->  		npages += DIV_ROUND_UP(p + v.iov_len, PAGE_SIZE)
-> @@ -1631,7 +1892,8 @@ int iov_iter_npages(const struct iov_iter *i, int maxpages)
->  			- p / PAGE_SIZE;
->  		if (npages >= maxpages)
->  			return maxpages;
-> -	})
-> +	}),
-> +	0
->  	)
->  	return npages;
->  }
-> @@ -1644,7 +1906,7 @@ const void *dup_iter(struct iov_iter *new, struct iov_iter *old, gfp_t flags)
->  		WARN_ON(1);
->  		return NULL;
->  	}
-> -	if (unlikely(iov_iter_is_discard(new)))
-> +	if (unlikely(iov_iter_is_discard(new) || iov_iter_is_xarray(new)))
->  		return NULL;
->  	if (iov_iter_is_bvec(new))
->  		return new->bvec = kmemdup(new->bvec,
-> @@ -1849,7 +2111,12 @@ int iov_iter_for_each_range(struct iov_iter *i, size_t bytes,
->  		kunmap(v.bv_page);
->  		err;}), ({
->  		w = v;
-> -		err = f(&w, context);})
-> +		err = f(&w, context);}), ({
-> +		w.iov_base = kmap(v.bv_page) + v.bv_offset;
-> +		w.iov_len = v.bv_len;
-> +		err = f(&w, context);
-> +		kunmap(v.bv_page);
-> +		err;})
->  	)
->  	return err;
->  }
-> 
-> 
-
-I think you've planned to remove iov_iter_for_each_range as well? I'll
-assume that this is going away. It might be nice to post the latest
-version of this patch with that change, just for posterity.
-
-In any case, this all looks reasonable to me, modulo a few nits and a
-general dearth of comments.
-
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+> > ---
+> >  fs/ecryptfs/dentry.c          |  6 +++++-
+> >  fs/ecryptfs/ecryptfs_kernel.h |  9 +++++++++
+> >  fs/ecryptfs/inode.c           |  5 ++++-
+> >  fs/ecryptfs/main.c            | 29 ++++++++++++++++++++++++-----
+> >  4 files changed, 42 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/fs/ecryptfs/dentry.c b/fs/ecryptfs/dentry.c
+> > index 44606f079efb..e5edafa165d4 100644
+> > --- a/fs/ecryptfs/dentry.c
+> > +++ b/fs/ecryptfs/dentry.c
+> > @@ -67,7 +67,11 @@ static void ecryptfs_d_release(struct dentry *dentry)
+> >  {
+> >  	struct ecryptfs_dentry_info *p = dentry->d_fsdata;
+> >  	if (p) {
+> > -		path_put(&p->lower_path);
+> > +		/*
+> > +		 * p->lower_path.mnt is a private mount which will be released
+> > +		 * when the superblock shuts down so we only need to dput here.
+> > +		 */
+> > +		dput(p->lower_path.dentry);
+> >  		call_rcu(&p->rcu, ecryptfs_dentry_free_rcu);
+> >  	}
+> >  }
+> > diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+> > index e6ac78c62ca4..f89d0f7bb3fe 100644
+> > --- a/fs/ecryptfs/ecryptfs_kernel.h
+> > +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> > @@ -352,6 +352,7 @@ struct ecryptfs_mount_crypt_stat {
+> >  struct ecryptfs_sb_info {
+> >  	struct super_block *wsi_sb;
+> >  	struct ecryptfs_mount_crypt_stat mount_crypt_stat;
+> > +	struct vfsmount *mnt;
+> >  };
+> >  
+> >  /* file private data. */
+> > @@ -496,6 +497,14 @@ ecryptfs_set_superblock_lower(struct super_block *sb,
+> >  	((struct ecryptfs_sb_info *)sb->s_fs_info)->wsi_sb = lower_sb;
+> >  }
+> >  
+> > +static inline void
+> > +ecryptfs_set_superblock_lower_mnt(struct super_block *sb,
+> > +				  struct vfsmount *mnt)
+> > +{
+> > +	struct ecryptfs_sb_info *sbi = sb->s_fs_info;
+> > +	sbi->mnt = mnt;
+> > +}
+> > +
+> >  static inline struct ecryptfs_dentry_info *
+> >  ecryptfs_dentry_to_private(struct dentry *dentry)
+> >  {
+> > diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
+> > index 18e9285fbb4c..204df4bf476d 100644
+> > --- a/fs/ecryptfs/inode.c
+> > +++ b/fs/ecryptfs/inode.c
+> > @@ -324,6 +324,7 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
+> >  				     struct dentry *lower_dentry)
+> >  {
+> >  	struct path *path = ecryptfs_dentry_to_lower_path(dentry->d_parent);
+> > +	struct ecryptfs_sb_info *sb_info = ecryptfs_superblock_to_private(dentry->d_sb);
+> >  	struct inode *inode, *lower_inode;
+> >  	struct ecryptfs_dentry_info *dentry_info;
+> >  	int rc = 0;
+> > @@ -339,7 +340,9 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
+> >  	BUG_ON(!d_count(lower_dentry));
+> >  
+> >  	ecryptfs_set_dentry_private(dentry, dentry_info);
+> > -	dentry_info->lower_path.mnt = mntget(path->mnt);
+> > +	/* Warn if we somehow ended up with an unexpected path. */
+> > +	WARN_ON_ONCE(path->mnt != sb_info->mnt);
+> > +	dentry_info->lower_path.mnt = path->mnt;
+> >  	dentry_info->lower_path.dentry = lower_dentry;
+> >  
+> >  	/*
+> > diff --git a/fs/ecryptfs/main.c b/fs/ecryptfs/main.c
+> > index cdf40a54a35d..3ba2c0f349a3 100644
+> > --- a/fs/ecryptfs/main.c
+> > +++ b/fs/ecryptfs/main.c
+> > @@ -476,6 +476,7 @@ static struct file_system_type ecryptfs_fs_type;
+> >  static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags,
+> >  			const char *dev_name, void *raw_data)
+> >  {
+> > +	struct vfsmount *mnt;
+> >  	struct super_block *s;
+> >  	struct ecryptfs_sb_info *sbi;
+> >  	struct ecryptfs_mount_crypt_stat *mount_crypt_stat;
+> > @@ -537,6 +538,16 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
+> >  		goto out_free;
+> >  	}
+> >  
+> > +	mnt = clone_private_mount(&path);
+> > +	if (IS_ERR(mnt)) {
+> > +		rc = PTR_ERR(mnt);
+> > +		pr_warn("Failed to create private mount for ecryptfs\n");
+> > +		goto out_free;
+> > +	}
+> > +
+> > +	/* Record our long-term lower mount. */
+> > +	ecryptfs_set_superblock_lower_mnt(s, mnt);
+> > +
+> >  	if (check_ruid && !uid_eq(d_inode(path.dentry)->i_uid, current_uid())) {
+> >  		rc = -EPERM;
+> >  		printk(KERN_ERR "Mount of device (uid: %d) not owned by "
+> > @@ -590,9 +601,15 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
+> >  	if (!root_info)
+> >  		goto out_free;
+> >  
+> > +	/* Use our private mount from now on. */
+> > +	root_info->lower_path.mnt = mnt;
+> > +	root_info->lower_path.dentry = dget(path.dentry);
+> > +
+> > +	/* We created a private clone of this mount above so drop the path. */
+> > +	path_put(&path);
+> > +
+> >  	/* ->kill_sb() will take care of root_info */
+> >  	ecryptfs_set_dentry_private(s->s_root, root_info);
+> > -	root_info->lower_path = path;
+> >  
+> >  	s->s_flags |= SB_ACTIVE;
+> >  	return dget(s->s_root);
+> > @@ -619,11 +636,13 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
+> >  static void ecryptfs_kill_block_super(struct super_block *sb)
+> >  {
+> >  	struct ecryptfs_sb_info *sb_info = ecryptfs_superblock_to_private(sb);
+> > +
+> >  	kill_anon_super(sb);
+> > -	if (!sb_info)
+> > -		return;
+> > -	ecryptfs_destroy_mount_crypt_stat(&sb_info->mount_crypt_stat);
+> > -	kmem_cache_free(ecryptfs_sb_info_cache, sb_info);
+> > +	if (sb_info) {
+> > +		kern_unmount(sb_info->mnt);
+> > +		ecryptfs_destroy_mount_crypt_stat(&sb_info->mount_crypt_stat);
+> > +		kmem_cache_free(ecryptfs_sb_info_cache, sb_info);
+> > +	}
+> >  }
+> >  
+> >  static struct file_system_type ecryptfs_fs_type = {
+> > -- 
+> > 2.27.0
+> > 
 
 --
 Linux-cachefs mailing list
