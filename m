@@ -2,97 +2,69 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 42D0D369420
-	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 15:56:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E1087369429
+	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 15:56:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1619186166;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=QQFL5X9E2tXgXzjCzlN6tW55IS0Q1/Poc1+Y2PHI79A=;
+	b=YRMifroIDOcOyW5KM4raGd2vSG7OeyJavv1ejhTlu39zviJgGAqQWSM+23J6ZXCy1AI9UW
+	RbvujXArO1x2npxe0sX8g//hzoqgnifa3ZaHEPjfkvEABU2RqJz7KWT3MNTskWktGzMmLJ
+	lK9eq+hbG9Cm0+quGGr1xl8HTV4Lcdo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-411-ZhQYLhkHOY6nt_XjVRgrAQ-1; Fri, 23 Apr 2021 09:56:01 -0400
-X-MC-Unique: ZhQYLhkHOY6nt_XjVRgrAQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-101-YLh5UzHqMVyaWnD-PQQpqQ-1; Fri, 23 Apr 2021 09:56:03 -0400
+X-MC-Unique: YLh5UzHqMVyaWnD-PQQpqQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A2758030B5;
-	Fri, 23 Apr 2021 13:55:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A5DA60C13;
-	Fri, 23 Apr 2021 13:55:59 +0000 (UTC)
-Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F26B51806D1B;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE3D11020C23;
 	Fri, 23 Apr 2021 13:55:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAA1A1992D;
+	Fri, 23 Apr 2021 13:55:58 +0000 (UTC)
+Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 17D8844A58;
+	Fri, 23 Apr 2021 13:55:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13MKkTcw001432 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 22 Apr 2021 16:46:29 -0400
+	id 13NDRu66022536 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 23 Apr 2021 09:27:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E695111E1E3; Thu, 22 Apr 2021 20:46:28 +0000 (UTC)
+	id 44A1560C5A; Fri, 23 Apr 2021 13:27:56 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E237711E1D6
-	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 20:46:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01332802A5E
-	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 20:46:26 +0000 (UTC)
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
-	[209.85.161.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-366-XLKptYDsNzasbCX1AA7Unw-1; Thu, 22 Apr 2021 16:46:23 -0400
-X-MC-Unique: XLKptYDsNzasbCX1AA7Unw-1
-Received: by mail-oo1-f41.google.com with SMTP id
-	i9-20020a4ad0890000b02901efee2118aaso2679241oor.7
-	for <linux-cachefs@redhat.com>; Thu, 22 Apr 2021 13:46:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=4Bv+XfMtee1/MTyZNOdjdOgixMawy7JDR2vEPs37IAs=;
-	b=SCuc9IwF1XonfbhETQJs4hfFU0SSfzP5daFvLkL+xryWzwMDGyYY7wHELU+vn1fVQm
-	qeTEqGEEhSKCbnll5JVpb28fTmrBpK54eUp+5kYl6eiHnbANB5JOevrFBekq93kz8JMI
-	s5ZEYpJOb47aXaSiOzOG3OLnbDzvRwjb9AoCbT+3ztXZUOPyCW6wkO5aUiifcsSt/Xkw
-	xnvkeJJsVJEoxgCyYB/Ie8T3Hzna5SGLV0JWDPH7vI48YqSMLRao6Cq5cWZH+d+JJlny
-	4TJPQ/86NvI8UDak5geW45sgQL1SUTSmq3u14GBktvcYbWwPdF5Xc3phcP6VAPiJgwxc
-	oZfg==
-X-Gm-Message-State: AOAM530bz+HDIJuptSt6I1tCsrJoou2Y2D8FEj94I9Bs73WlvZjGE9KT
-	fUlRjwbmX/YUOqcAYTVh2zTzyg==
-X-Google-Smtp-Source: ABdhPJzmhL8nIK8vKoIX2RGd1MQiQW0ejITHTcfESFUOlcdI72u+NKMtCwKidl6IDtgZvLwo/TeMLQ==
-X-Received: by 2002:a4a:a44a:: with SMTP id w10mr321536ool.26.1619124382285;
-	Thu, 22 Apr 2021 13:46:22 -0700 (PDT)
-Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net.
-	[162.237.133.238])
-	by smtp.gmail.com with ESMTPSA id t19sm880823otm.40.2021.04.22.13.46.21
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 22 Apr 2021 13:46:21 -0700 (PDT)
-Date: Thu, 22 Apr 2021 15:46:20 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: Christian Brauner <brauner@kernel.org>,
-	John Johansen <john.johansen@canonical.com>
-Message-ID: <20210422204620.GB177816@sequoia>
-References: <20210414123750.2110159-1-brauner@kernel.org>
-	<20210414123750.2110159-7-brauner@kernel.org>
-	<20210419050128.GA405651@elm>
+Received: from warthog.procyon.org.uk (ovpn-112-124.rdu2.redhat.com
+	[10.10.112.124])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 75BC460854;
+	Fri, 23 Apr 2021 13:27:48 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: linux-fsdevel@vger.kernel.org
+Date: Fri, 23 Apr 2021 14:27:47 +0100
+Message-ID: <161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <20210419050128.GA405651@elm>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Fri, 23 Apr 2021 09:55:53 -0400
-Cc: Miklos Szeredi <mszeredi@redhat.com>, ecryptfs@vger.kernel.org,
-	Amir Goldstein <amir73il@gmail.com>, linux-cachefs@redhat.com,
-	Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
-	Christian Brauner <christian.brauner@ubuntu.com>,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [Linux-cachefs] [PATCH 6/7] ecryptfs: switch to using a private
-	mount
+Cc: Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
+	Marc Dionne <marc.dionne@auristor.com>, linux-afs@lists.infradead.org,
+	Mike Marshall <hubcap@omnibond.com>, linux-cifs@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+	Christoph Hellwig <hch@lst.de>, linux-cachefs@redhat.com,
+	v9fs-developer@lists.sourceforge.net,
+	Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	linux-nfs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	linux-kernel@vger.kernel.org, Steve French <sfrench@samba.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Anna Schumaker <anna.schumaker@netapp.com>
+Subject: [Linux-cachefs] [PATCH v7 00/31] Network fs helper library &
+	fscache kiocb API
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,269 +78,316 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2021-04-19 00:01:28, Tyler Hicks wrote:
-> On 2021-04-14 14:37:50, Christian Brauner wrote:
-> > From: Christian Brauner <christian.brauner@ubuntu.com>
-> > 
-> > Since [1] we support creating private mounts from a given path's
-> > vfsmount. This makes them very suitable for any filesystem or
-> > filesystem functionality that piggybacks on paths of another filesystem.
-> > Overlayfs, cachefiles, and ecryptfs are three prime examples.
-> > 
-> > Since private mounts aren't attached in the filesystem they aren't
-> > affected by mount property changes after ecryptfs makes use of them.
-> > This seems a rather desirable property as the underlying path can't e.g.
-> > suddenly go from read-write to read-only and in general it means that
-> > ecryptfs is always in full control of the underlying mount after the
-> > user has allowed it to be used (apart from operations that affect the
-> > superblock of course).
-> > 
-> > Besides that it also makes things simpler for a variety of other vfs
-> > features. One concrete example is fanotify. When the path->mnt of the
-> > path that is used as a cache has been marked with FAN_MARK_MOUNT the
-> > semantics get tricky as it isn't clear whether the watchers of path->mnt
-> > should get notified about fsnotify events when files are created by
-> > ecryptfs via path->mnt. Using a private mount let's us elegantly
-> > handle this case too and aligns the behavior of stacks created by
-> > overlayfs and cachefiles.
-> > 
-> > This change comes with a proper simplification in how ecryptfs currently
-> > handles the lower_path it stashes as private information in its
-> > dentries. Currently it always does:
-> > 
-> >         ecryptfs_set_dentry_private(dentry, dentry_info);
-> >         dentry_info->lower_path.mnt = mntget(path->mnt);
-> >         dentry_info->lower_path.dentry = lower_dentry;
-> > 
-> > and then during .d_relase() in ecryptfs_d_release():
-> > 
-> >         path_put(&p->lower_path);
-> > 
-> > which is odd since afaict path->mnt is guaranteed to be the mnt stashed
-> > during ecryptfs_mount():
-> > 
-> >         ecryptfs_set_dentry_private(s->s_root, root_info);
-> >         root_info->lower_path = path;
-> > 
-> > So that mntget() seems somewhat pointless but there might be reasons
-> > that I'm missing in how the interpose logic for ecryptfs works.
-> > 
-> > While switching to a long-term private mount via clone_private_mount()
-> > let's get rid of the gratuitous mntget() and mntput()/path_put().
-> > Instead, stash away the private mount in ecryptfs' s_fs_info and call
-> > kern_unmount() in .kill_sb() so we only take the mntput() hit once.
-> > 
-> > I've added a WARN_ON_ONCE() into ecryptfs_lookup_interpose() triggering
-> > if the stashed private mount and the path's mount don't match. I think
-> > that would be a proper bug even without that clone_private_mount()
-> > change in this patch.
-> > 
-> > [1]: c771d683a62e ("vfs: introduce clone_private_mount()")
-> > Cc: Amir Goldstein <amir73il@gmail.com>
-> > Cc: Tyler Hicks <code@tyhicks.com>
-> > Cc: Miklos Szeredi <mszeredi@redhat.com>
-> > Cc: ecryptfs@vger.kernel.org
-> > Cc: linux-fsdevel@vger.kernel.org
-> > Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
-> 
-> This patch and the following one both look technically correct to me. I
-> do want to spend a little time manually testing these changes, though.
-> I'm hoping to have that done by end of day Tuesday.
 
-Hey Christian - I've finished testing these eCryptfs changes. I really
-like some of the new properties:
+Here's a set of patches to do two things:
 
- - As you mentioned, the ability for the lower mount to go read-only and
-   not affect the upper mount is nice. I verified this with:
-    $ echo foo > /upper/foo
-    $ mount -o remount,bind,ro /lower
-    $ echo bar > /upper/bar
- - I like that the lower filesystem can be entirely unmounted after the
-   eCryptfs mount has been set up. This could be useful if someone
-   wanted to prevent tampering with the lower filesystem while the
-   eCryptfs mount is active.
+ (1) Add a helper library to handle the new VM readahead interface.  This
+     is intended to be used unconditionally by the filesystem (whether or
+     not caching is enabled) and provides a common framework for doing
+     caching, transparent huge pages and, in the future, possibly fscrypt
+     and read bandwidth maximisation.  It also allows the netfs and the
+     cache to align, expand and slice up a read request from the VM in
+     various ways; the netfs need only provide a function to read a stretch
+     of data to the pagecache and the helper takes care of the rest.
 
-Unfortunately, I think there may be temporary a blocker here. eCryptfs'
-main user base has historically been Ubuntu users since Ubuntu embraced
-it for encrypted home directories years ago. While encrypted home
-directories are no longer supported out-of-the-box in new Ubuntu
-releases, I suspect that's still the distro that most eCryptfs users use
-today.
+ (2) Add an alternative fscache/cachfiles I/O API that uses the kiocb
+     facility to do async DIO to transfer data to/from the netfs's pages,
+     rather than using readpage with wait queue snooping on one side and
+     vfs_write() on the other.  It also uses less memory, since it doesn't
+     do buffered I/O on the backing file.
 
-We know that AppArmor is the default LSM in use in Ubuntu. However,
-AppArmor does not know how to handle private mounts. This was most
-recently discussed in the unprivileged overlay mounts thread:
+     Note that this uses SEEK_HOLE/SEEK_DATA to locate the data available
+     to be read from the cache.  Whilst this is an improvement from the
+     bmap interface, it still has a problem with regard to a modern
+     extent-based filesystem inserting or removing bridging blocks of
+     zeros.  Fixing that requires a much greater overhaul.
 
- https://lore.kernel.org/linux-security-module/9b8236eb-b3c4-6e0f-edb8-833172c7c2c7@canonical.com/
+This is a step towards overhauling the fscache API.  The change is opt-in
+on the part of the network filesystem.  A netfs should not try to mix the
+old and the new API because of conflicting ways of handling pages and the
+PG_fscache page flag and because it would be mixing DIO with buffered I/O.
+Further, the helper library can't be used with the old API.
 
-When an AppArmor confined process is interacting with an eCryptfs mount,
-I see disconnected path denials from AppArmor for the lower paths when
-your private mount patches are applied:
+This does not change any of the fscache cookie handling APIs or the way
+invalidation is done.
 
- audit: type=1400 audit(1619121587.568:50): apparmor="DENIED" operation="open" info="Failed name lookup - disconnected path" error=-13 profile="privatemnt" name="foo" pid=5992 comm="bash" requested_mask="wr" denied_mask="wr" fsuid=1000 ouid=1000
+In the near term, I intend to deprecate and remove the old I/O API
+(fscache_allocate_page{,s}(), fscache_read_or_alloc_page{,s}(),
+fscache_write_page() and fscache_uncache_page()) and eventually replace
+most of fscache/cachefiles with something simpler and easier to follow.
 
-I'd rather wait for AppArmor to better handle private mounts because I
-think existing users will definitely see a negative impact from these
-changes and I don't think that the positive user-facing impacts outweigh
-the negative.
+The patchset contains the following parts:
 
-I don't see any related changes in the AppArmor tree but I've cc'ed John
-in case he's made any progress here.
+ (1) Some helper patches, including provision of an ITER_XARRAY iov
+     iterator and a function to do readahead expansion.
 
-Tyler
+ (2) Patches to add the netfs helper library.
 
-> Tyler
-> 
-> > ---
-> >  fs/ecryptfs/dentry.c          |  6 +++++-
-> >  fs/ecryptfs/ecryptfs_kernel.h |  9 +++++++++
-> >  fs/ecryptfs/inode.c           |  5 ++++-
-> >  fs/ecryptfs/main.c            | 29 ++++++++++++++++++++++++-----
-> >  4 files changed, 42 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/fs/ecryptfs/dentry.c b/fs/ecryptfs/dentry.c
-> > index 44606f079efb..e5edafa165d4 100644
-> > --- a/fs/ecryptfs/dentry.c
-> > +++ b/fs/ecryptfs/dentry.c
-> > @@ -67,7 +67,11 @@ static void ecryptfs_d_release(struct dentry *dentry)
-> >  {
-> >  	struct ecryptfs_dentry_info *p = dentry->d_fsdata;
-> >  	if (p) {
-> > -		path_put(&p->lower_path);
-> > +		/*
-> > +		 * p->lower_path.mnt is a private mount which will be released
-> > +		 * when the superblock shuts down so we only need to dput here.
-> > +		 */
-> > +		dput(p->lower_path.dentry);
-> >  		call_rcu(&p->rcu, ecryptfs_dentry_free_rcu);
-> >  	}
-> >  }
-> > diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-> > index e6ac78c62ca4..f89d0f7bb3fe 100644
-> > --- a/fs/ecryptfs/ecryptfs_kernel.h
-> > +++ b/fs/ecryptfs/ecryptfs_kernel.h
-> > @@ -352,6 +352,7 @@ struct ecryptfs_mount_crypt_stat {
-> >  struct ecryptfs_sb_info {
-> >  	struct super_block *wsi_sb;
-> >  	struct ecryptfs_mount_crypt_stat mount_crypt_stat;
-> > +	struct vfsmount *mnt;
-> >  };
-> >  
-> >  /* file private data. */
-> > @@ -496,6 +497,14 @@ ecryptfs_set_superblock_lower(struct super_block *sb,
-> >  	((struct ecryptfs_sb_info *)sb->s_fs_info)->wsi_sb = lower_sb;
-> >  }
-> >  
-> > +static inline void
-> > +ecryptfs_set_superblock_lower_mnt(struct super_block *sb,
-> > +				  struct vfsmount *mnt)
-> > +{
-> > +	struct ecryptfs_sb_info *sbi = sb->s_fs_info;
-> > +	sbi->mnt = mnt;
-> > +}
-> > +
-> >  static inline struct ecryptfs_dentry_info *
-> >  ecryptfs_dentry_to_private(struct dentry *dentry)
-> >  {
-> > diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-> > index 18e9285fbb4c..204df4bf476d 100644
-> > --- a/fs/ecryptfs/inode.c
-> > +++ b/fs/ecryptfs/inode.c
-> > @@ -324,6 +324,7 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
-> >  				     struct dentry *lower_dentry)
-> >  {
-> >  	struct path *path = ecryptfs_dentry_to_lower_path(dentry->d_parent);
-> > +	struct ecryptfs_sb_info *sb_info = ecryptfs_superblock_to_private(dentry->d_sb);
-> >  	struct inode *inode, *lower_inode;
-> >  	struct ecryptfs_dentry_info *dentry_info;
-> >  	int rc = 0;
-> > @@ -339,7 +340,9 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
-> >  	BUG_ON(!d_count(lower_dentry));
-> >  
-> >  	ecryptfs_set_dentry_private(dentry, dentry_info);
-> > -	dentry_info->lower_path.mnt = mntget(path->mnt);
-> > +	/* Warn if we somehow ended up with an unexpected path. */
-> > +	WARN_ON_ONCE(path->mnt != sb_info->mnt);
-> > +	dentry_info->lower_path.mnt = path->mnt;
-> >  	dentry_info->lower_path.dentry = lower_dentry;
-> >  
-> >  	/*
-> > diff --git a/fs/ecryptfs/main.c b/fs/ecryptfs/main.c
-> > index cdf40a54a35d..3ba2c0f349a3 100644
-> > --- a/fs/ecryptfs/main.c
-> > +++ b/fs/ecryptfs/main.c
-> > @@ -476,6 +476,7 @@ static struct file_system_type ecryptfs_fs_type;
-> >  static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags,
-> >  			const char *dev_name, void *raw_data)
-> >  {
-> > +	struct vfsmount *mnt;
-> >  	struct super_block *s;
-> >  	struct ecryptfs_sb_info *sbi;
-> >  	struct ecryptfs_mount_crypt_stat *mount_crypt_stat;
-> > @@ -537,6 +538,16 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
-> >  		goto out_free;
-> >  	}
-> >  
-> > +	mnt = clone_private_mount(&path);
-> > +	if (IS_ERR(mnt)) {
-> > +		rc = PTR_ERR(mnt);
-> > +		pr_warn("Failed to create private mount for ecryptfs\n");
-> > +		goto out_free;
-> > +	}
-> > +
-> > +	/* Record our long-term lower mount. */
-> > +	ecryptfs_set_superblock_lower_mnt(s, mnt);
-> > +
-> >  	if (check_ruid && !uid_eq(d_inode(path.dentry)->i_uid, current_uid())) {
-> >  		rc = -EPERM;
-> >  		printk(KERN_ERR "Mount of device (uid: %d) not owned by "
-> > @@ -590,9 +601,15 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
-> >  	if (!root_info)
-> >  		goto out_free;
-> >  
-> > +	/* Use our private mount from now on. */
-> > +	root_info->lower_path.mnt = mnt;
-> > +	root_info->lower_path.dentry = dget(path.dentry);
-> > +
-> > +	/* We created a private clone of this mount above so drop the path. */
-> > +	path_put(&path);
-> > +
-> >  	/* ->kill_sb() will take care of root_info */
-> >  	ecryptfs_set_dentry_private(s->s_root, root_info);
-> > -	root_info->lower_path = path;
-> >  
-> >  	s->s_flags |= SB_ACTIVE;
-> >  	return dget(s->s_root);
-> > @@ -619,11 +636,13 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
-> >  static void ecryptfs_kill_block_super(struct super_block *sb)
-> >  {
-> >  	struct ecryptfs_sb_info *sb_info = ecryptfs_superblock_to_private(sb);
-> > +
-> >  	kill_anon_super(sb);
-> > -	if (!sb_info)
-> > -		return;
-> > -	ecryptfs_destroy_mount_crypt_stat(&sb_info->mount_crypt_stat);
-> > -	kmem_cache_free(ecryptfs_sb_info_cache, sb_info);
-> > +	if (sb_info) {
-> > +		kern_unmount(sb_info->mnt);
-> > +		ecryptfs_destroy_mount_crypt_stat(&sb_info->mount_crypt_stat);
-> > +		kmem_cache_free(ecryptfs_sb_info_cache, sb_info);
-> > +	}
-> >  }
-> >  
-> >  static struct file_system_type ecryptfs_fs_type = {
-> > -- 
-> > 2.27.0
-> > 
+ (3) A patch to add the fscache/cachefiles kiocb API.
+
+ (4) Patches to add support in AFS for this.
+
+Jeff Layton has patches to add support in Ceph for this.
+
+With this, AFS without a cache passes all expected xfstests; with a cache,
+there's an extra failure, but that's also there before these patches.
+Fixing that probably requires a greater overhaul.  Ceph also passes the
+expected tests.
+
+The netfs lib and fscache/cachefiles patches can be found also on:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib
+
+The afs patches can be found on:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=afs-netfs-lib
+
+I also have some supplementary patches to tidy up the handling of
+PG_fscache/PG_private_2 and their contribution to page refcounting in the
+core kernel here, but I haven't included them in this set and will route
+them separately:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib-mm
+
+
+Changes
+=======
+
+ver #7:
+      Put some missing compound_head() calls in the *_page_private_2()
+      functions[11].
+
+      Included a patch from Matthew Wilcox to make it possible to modify
+      the readahead_control descriptor in a filesystem without occasionally
+      triggering a BUG in the VM core[12].
+
+      Renamed iter_xarray_copy_pages() to iter_xarray_populate_pages() as
+      it doesn't copy the contents of the pages, but rather fills out a
+      list of pages[13].
+
+ver #6:
+      Merged in some fixes and added an additional tracepoint[8], including
+      fixing the amalgamation of contiguous subrequests that are to be
+      written to the cache.
+
+      Added/merged some patches from Matthew Wilcox to make
+      readahead_expand() appropriately adjust the trigger for the next
+      readahead[9].  Also included is a patch to kerneldocify the
+      file_ra_state struct.
+
+      Altered netfs_write_begin() to use DEFINE_READAHEAD()[10].
+
+      Split the afs patches out into their own branch.
+
+ver #5:
+      Fixed some review comments from Matthew Wilcox:
+
+      - Put a comment into netfs_readahead() to indicate why there's a loop
+        that puts, but doesn't unlock, "unconsumed" pages at the end when
+        it could just return said pages to the caller to dispose of[6].
+        (This is because where those pages are marked consumed).
+
+      - Use the page_file_mapping() and page_index() helper functions
+      	rather than accessing the page struct directly[6].
+
+      - Better names for wrangling functions for PG_private_2 and
+        PG_fscache wrangling functions[7].  Came up with
+        {set,end,wait_for}_page_private_2() and aliased these for fscache.
+
+      Moved the taking of/dropping a page ref for the PG_private_2 flag
+      into the set and end functions.
+
+ver #4:
+      Fixed some review comments from Christoph Hellwig, including dropping
+      the export of rw_verify_area()[3] and some minor stuff[4].
+
+      Moved the declaration of readahead_expand() to a better location[5].
+
+      Rebased to v5.12-rc2 and added a bunch of references into individual
+      commits.
+
+      Dropped Ceph support - that will go through the maintainer's tree.
+
+      Added interface documentation for the netfs helper library.
+
+ver #3:
+      Rolled in the bug fixes.
+
+      Adjusted the functions that unlock and wait for PG_fscache according
+      to Linus's suggestion[1].
+
+      Hold a ref on a page when PG_fscache is set as per Linus's
+      suggestion[2].
+
+      Dropped NFS support and added Ceph support.
+
+ver #2:
+      Fixed some bugs and added NFS support.
+
+Link: https://lore.kernel.org/r/CAHk-=wh+2gbF7XEjYc=HV9w_2uVzVf7vs60BPz0gFA=+pUm3ww@mail.gmail.com/ [1]
+Link: https://lore.kernel.org/r/CAHk-=wjgA-74ddehziVk=XAEMTKswPu1Yw4uaro1R3ibs27ztw@mail.gmail.com/ [2]
+Link: https://lore.kernel.org/r/20210216102614.GA27555@lst.de/ [3]
+Link: https://lore.kernel.org/r/20210216084230.GA23669@lst.de/ [4]
+Link: https://lore.kernel.org/r/20210217161358.GM2858050@casper.infradead.org/ [5]
+Link: https://lore.kernel.org/r/20210321014202.GF3420@casper.infradead.org/ [6]
+Link: https://lore.kernel.org/r/20210321105309.GG3420@casper.infradead.org/ [7]
+Link: https://lore.kernel.org/r/161781041339.463527.18139104281901492882.stgit@warthog.procyon.org.uk/ [8]
+Link: https://lore.kernel.org/r/20210407201857.3582797-1-willy@infradead.org/ [9]
+Link: https://lore.kernel.org/r/1234933.1617886271@warthog.procyon.org.uk/ [10]
+Link: https://lore.kernel.org/r/20210408145057.GN2531743@casper.infradead.org/ [11]
+Link: https://lore.kernel.org/r/20210421170923.4005574-1-willy@infradead.org/ [12]
+Link: https://lore.kernel.org/r/27c369a8f42bb8a617672b2dc0126a5c6df5a050.camel@kernel.org [13]
+
+References
+==========
+
+These patches have been published for review before, firstly as part of a
+larger set:
+
+Link: https://lore.kernel.org/r/158861203563.340223.7585359869938129395.stgit@warthog.procyon.org.uk/
+
+Link: https://lore.kernel.org/r/159465766378.1376105.11619976251039287525.stgit@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/159465784033.1376674.18106463693989811037.stgit@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/159465821598.1377938.2046362270225008168.stgit@warthog.procyon.org.uk/
+
+Link: https://lore.kernel.org/r/160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk/
+
+Then as a cut-down set:
+
+Link: https://lore.kernel.org/r/161118128472.1232039.11746799833066425131.stgit@warthog.procyon.org.uk/ # v1
+
+Link: https://lore.kernel.org/r/161161025063.2537118.2009249444682241405.stgit@warthog.procyon.org.uk/ # v2
+
+Link: https://lore.kernel.org/r/161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk/ # v3
+
+Link: https://lore.kernel.org/r/161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk/ # v4
+
+Link: https://lore.kernel.org/r/161653784755.2770958.11820491619308713741.stgit@warthog.procyon.org.uk/ # v5
+
+Link: https://lore.kernel.org/r/161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk/ # v6
+
+Proposals/information about the design has been published here:
+
+Link: https://lore.kernel.org/r/24942.1573667720@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/2758811.1610621106@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/1441311.1598547738@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/160655.1611012999@warthog.procyon.org.uk/
+
+And requests for information:
+
+Link: https://lore.kernel.org/r/3326.1579019665@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/4467.1579020509@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/3577430.1579705075@warthog.procyon.org.uk/
+
+I've posted partial patches to try and help 9p and cifs along:
+
+Link: https://lore.kernel.org/r/1514086.1605697347@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/1794123.1605713481@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/241017.1612263863@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/270998.1612265397@warthog.procyon.org.uk/
+
+David
+---
+David Howells (28):
+      iov_iter: Add ITER_XARRAY
+      mm: Add set/end/wait functions for PG_private_2
+      mm: Implement readahead_control pageset expansion
+      netfs: Make a netfs helper module
+      netfs: Documentation for helper library
+      netfs, mm: Move PG_fscache helper funcs to linux/netfs.h
+      netfs, mm: Add set/end/wait_on_page_fscache() aliases
+      netfs: Provide readahead and readpage netfs helpers
+      netfs: Add tracepoints
+      netfs: Gather stats
+      netfs: Add write_begin helper
+      netfs: Define an interface to talk to a cache
+      netfs: Add a tracepoint to log failures that would be otherwise unseen
+      fscache, cachefiles: Add alternate API to use kiocb for read/write to cache
+      afs: Disable use of the fscache I/O routines
+      afs: Pass page into dirty region helpers to provide THP size
+      afs: Print the operation debug_id when logging an unexpected data version
+      afs: Move key to afs_read struct
+      afs: Don't truncate iter during data fetch
+      afs: Log remote unmarshalling errors
+      afs: Set up the iov_iter before calling afs_extract_data()
+      afs: Use ITER_XARRAY for writing
+      afs: Wait on PG_fscache before modifying/releasing a page
+      afs: Extract writeback extension into its own function
+      afs: Prepare for use of THPs
+      afs: Use the fs operation ops to handle FetchData completion
+      afs: Use new netfs lib read helper API
+      afs: Use the netfs_write_begin() helper
+
+Matthew Wilcox (Oracle) (3):
+      mm/filemap: Pass the file_ra_state in the ractl
+      fs: Document file_ra_state
+      mm/readahead: Handle ractl nr_pages being modified
+
+
+ Documentation/filesystems/index.rst         |    1 +
+ Documentation/filesystems/netfs_library.rst |  526 ++++++++
+ fs/Kconfig                                  |    1 +
+ fs/Makefile                                 |    1 +
+ fs/afs/Kconfig                              |    1 +
+ fs/afs/dir.c                                |  225 ++--
+ fs/afs/file.c                               |  483 ++------
+ fs/afs/fs_operation.c                       |    4 +-
+ fs/afs/fsclient.c                           |  108 +-
+ fs/afs/inode.c                              |    7 +-
+ fs/afs/internal.h                           |   59 +-
+ fs/afs/rxrpc.c                              |  150 +--
+ fs/afs/write.c                              |  657 +++++-----
+ fs/afs/yfsclient.c                          |   82 +-
+ fs/cachefiles/Makefile                      |    1 +
+ fs/cachefiles/interface.c                   |    5 +-
+ fs/cachefiles/internal.h                    |    9 +
+ fs/cachefiles/io.c                          |  420 +++++++
+ fs/ext4/verity.c                            |    2 +-
+ fs/f2fs/file.c                              |    2 +-
+ fs/f2fs/verity.c                            |    2 +-
+ fs/fscache/Kconfig                          |    1 +
+ fs/fscache/Makefile                         |    1 +
+ fs/fscache/internal.h                       |    4 +
+ fs/fscache/io.c                             |  116 ++
+ fs/fscache/page.c                           |    2 +-
+ fs/fscache/stats.c                          |    1 +
+ fs/netfs/Kconfig                            |   23 +
+ fs/netfs/Makefile                           |    5 +
+ fs/netfs/internal.h                         |   97 ++
+ fs/netfs/read_helper.c                      | 1185 +++++++++++++++++++
+ fs/netfs/stats.c                            |   59 +
+ include/linux/fs.h                          |   24 +-
+ include/linux/fscache-cache.h               |    4 +
+ include/linux/fscache.h                     |   50 +-
+ include/linux/netfs.h                       |  234 ++++
+ include/linux/pagemap.h                     |   42 +-
+ include/net/af_rxrpc.h                      |    2 +-
+ include/trace/events/afs.h                  |   74 +-
+ include/trace/events/netfs.h                |  261 ++++
+ mm/filemap.c                                |   65 +-
+ mm/internal.h                               |    7 +-
+ mm/readahead.c                              |  101 +-
+ net/rxrpc/recvmsg.c                         |    9 +-
+ 44 files changed, 4003 insertions(+), 1110 deletions(-)
+ create mode 100644 Documentation/filesystems/netfs_library.rst
+ create mode 100644 fs/cachefiles/io.c
+ create mode 100644 fs/fscache/io.c
+ create mode 100644 fs/netfs/Kconfig
+ create mode 100644 fs/netfs/Makefile
+ create mode 100644 fs/netfs/internal.h
+ create mode 100644 fs/netfs/read_helper.c
+ create mode 100644 fs/netfs/stats.c
+ create mode 100644 include/linux/netfs.h
+ create mode 100644 include/trace/events/netfs.h
+
 
 --
 Linux-cachefs mailing list
