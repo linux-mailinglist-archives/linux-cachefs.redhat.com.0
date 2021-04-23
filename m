@@ -2,74 +2,75 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 01E17369441
-	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 15:56:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1619186172;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=v3fYQ0BYYWEeW96WHSYBzeH87ytGmS0D/s3q6YEXVLY=;
-	b=SO5O0QXxFD2YBOOaF+x6+ORSNgoSt4TETZb7B0VnUGTXGKa2NSA5EEpTEmiNSo7vHyp1wJ
-	nq/GiekZXqdEPsp2Jmc7hsNDUcoS6sNCOV167Y3PtYyzIJuUFAcYzQ/L5CTY5dJB9Dqzz7
-	znfYJefbBgjV/E8AnauAcn6YD2qNzCo=
+	by mail.lfdr.de (Postfix) with ESMTP id 7887236945E
+	for <lists+linux-cachefs@lfdr.de>; Fri, 23 Apr 2021 16:07:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-579-gP-mMgOPPuaXGHA3xU1aBA-1; Fri, 23 Apr 2021 09:56:10 -0400
-X-MC-Unique: gP-mMgOPPuaXGHA3xU1aBA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-431-mIdpA9euPPOH5bOnme3M9g-1; Fri, 23 Apr 2021 10:07:13 -0400
+X-MC-Unique: mIdpA9euPPOH5bOnme3M9g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A47A71020C32;
-	Fri, 23 Apr 2021 13:56:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 013EE19253C9;
+	Fri, 23 Apr 2021 14:07:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 973455D6B1;
-	Fri, 23 Apr 2021 13:56:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B536B60BE5;
+	Fri, 23 Apr 2021 14:07:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 834901806D1C;
-	Fri, 23 Apr 2021 13:56:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44C771806D06;
+	Fri, 23 Apr 2021 14:07:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13NDZ1AY023248 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 23 Apr 2021 09:35:01 -0400
+	id 13NE765C025594 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 23 Apr 2021 10:07:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 503CC5C238; Fri, 23 Apr 2021 13:35:01 +0000 (UTC)
+	id DA0DA20FE6CF; Fri, 23 Apr 2021 14:07:06 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-112-124.rdu2.redhat.com
-	[10.10.112.124])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D0BE05C1BB;
-	Fri, 23 Apr 2021 13:34:55 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: linux-fsdevel@vger.kernel.org
-Date: Fri, 23 Apr 2021 14:34:55 +0100
-Message-ID: <161918489504.3145707.5655048601094961805.stgit@warthog.procyon.org.uk>
-In-Reply-To: <161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4EBD20FE6B6
+	for <linux-cachefs@redhat.com>; Fri, 23 Apr 2021 14:07:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80017805F4B
+	for <linux-cachefs@redhat.com>; Fri, 23 Apr 2021 14:07:04 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-290-dPE3cDQCOq2CoW7fOEArHQ-1; Fri, 23 Apr 2021 10:07:00 -0400
+X-MC-Unique: dPE3cDQCOq2CoW7fOEArHQ-1
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lZwRu-001x7h-0W; Fri, 23 Apr 2021 14:06:30 +0000
+Date: Fri, 23 Apr 2021 15:06:25 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20210423140625.GC235567@casper.infradead.org>
 References: <161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/0.23
+	<161918448151.3145707.11541538916600921083.stgit@warthog.procyon.org.uk>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <161918448151.3145707.11541538916600921083.stgit@warthog.procyon.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Fri, 23 Apr 2021 09:55:53 -0400
-Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
-	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-afs@lists.infradead.org, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Marc Dionne <marc.dionne@auristor.com>,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-afs@lists.infradead.org,
+	Steve French <sfrench@samba.org>,
+	Marc Dionne <marc.dionne@auristor.com>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>,
+	Christoph Hellwig <hch@lst.de>,
 	Trond Myklebust <trond.myklebust@hammerspace.com>
-Subject: [Linux-cachefs] [PATCH v7 31/31] afs: Use the netfs_write_begin()
-	helper
+Subject: Re: [Linux-cachefs] [PATCH v7 01/31] iov_iter: Add ITER_XARRAY
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,254 +84,77 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Make AFS use the new netfs_write_begin() helper to do the pre-reading
-required before the write.  If successful, the helper returns with the
-required page filled in and locked.  It may read more than just one page,
-expanding the read to meet cache granularity requirements as necessary.
+On Fri, Apr 23, 2021 at 02:28:01PM +0100, David Howells wrote:
+> +#define iterate_xarray(i, n, __v, skip, STEP) {		\
+> +	struct page *head = NULL;				\
+> +	size_t wanted = n, seg, offset;				\
+> +	loff_t start = i->xarray_start + skip;			\
+> +	pgoff_t index = start >> PAGE_SHIFT;			\
+> +	int j;							\
+> +								\
+> +	XA_STATE(xas, i->xarray, index);			\
+> +								\
+> +	rcu_read_lock();						\
+> +	xas_for_each(&xas, head, ULONG_MAX) {				\
+> +		if (xas_retry(&xas, head))				\
+> +			continue;					\
+> +		if (WARN_ON(xa_is_value(head)))				\
+> +			break;						\
+> +		if (WARN_ON(PageHuge(head)))				\
+> +			break;						\
+> +		for (j = (head->index < index) ? index - head->index : 0; \
+> +		     j < thp_nr_pages(head); j++) {			\
 
-Note: A more advanced version of this could be made that does
-generic_perform_write() for a whole cache granule.  This would make it
-easier to avoid doing the download/read for the data to be overwritten.
+if head->index > index, something has gone disastrously wrong.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Tested-By: Marc Dionne <marc.dionne@auristor.com>
-cc: linux-afs@lists.infradead.org
-cc: linux-cachefs@redhat.com
-cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/r/160588546422.3465195.1546354372589291098.stgit@warthog.procyon.org.uk/ # rfc
-Link: https://lore.kernel.org/r/161539563244.286939.16537296241609909980.stgit@warthog.procyon.org.uk/ # v4
-Link: https://lore.kernel.org/r/161653819291.2770958.406013201547420544.stgit@warthog.procyon.org.uk/ # v5
-Link: https://lore.kernel.org/r/161789102743.6155.17396591236631761195.stgit@warthog.procyon.org.uk/ # v6
----
+		for (j = index - head->index; j < thp_nr_pages(head); j++) { \
 
- fs/afs/file.c     |   19 +++++++++
- fs/afs/internal.h |    1 
- fs/afs/write.c    |  108 ++++++-----------------------------------------------
- 3 files changed, 31 insertions(+), 97 deletions(-)
+would be enough.
 
-diff --git a/fs/afs/file.c b/fs/afs/file.c
-index 10c6eaaac2cc..db035ae2a134 100644
---- a/fs/afs/file.c
-+++ b/fs/afs/file.c
-@@ -333,6 +333,13 @@ static void afs_init_rreq(struct netfs_read_request *rreq, struct file *file)
- 	rreq->netfs_priv = key_get(afs_file_key(file));
- }
- 
-+static bool afs_is_cache_enabled(struct inode *inode)
-+{
-+	struct fscache_cookie *cookie = afs_vnode_cache(AFS_FS_I(inode));
-+
-+	return fscache_cookie_enabled(cookie) && !hlist_empty(&cookie->backing_objects);
-+}
-+
- static int afs_begin_cache_operation(struct netfs_read_request *rreq)
- {
- 	struct afs_vnode *vnode = AFS_FS_I(rreq->inode);
-@@ -340,14 +347,24 @@ static int afs_begin_cache_operation(struct netfs_read_request *rreq)
- 	return fscache_begin_read_operation(rreq, afs_vnode_cache(vnode));
- }
- 
-+static int afs_check_write_begin(struct file *file, loff_t pos, unsigned len,
-+				 struct page *page, void **_fsdata)
-+{
-+	struct afs_vnode *vnode = AFS_FS_I(file_inode(file));
-+
-+	return test_bit(AFS_VNODE_DELETED, &vnode->flags) ? -ESTALE : 0;
-+}
-+
- static void afs_priv_cleanup(struct address_space *mapping, void *netfs_priv)
- {
- 	key_put(netfs_priv);
- }
- 
--static const struct netfs_read_request_ops afs_req_ops = {
-+const struct netfs_read_request_ops afs_req_ops = {
- 	.init_rreq		= afs_init_rreq,
-+	.is_cache_enabled	= afs_is_cache_enabled,
- 	.begin_cache_operation	= afs_begin_cache_operation,
-+	.check_write_begin	= afs_check_write_begin,
- 	.issue_op		= afs_req_issue_op,
- 	.cleanup		= afs_priv_cleanup,
- };
-diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-index f9a692fc08f4..52157a05796a 100644
---- a/fs/afs/internal.h
-+++ b/fs/afs/internal.h
-@@ -1045,6 +1045,7 @@ extern void afs_dynroot_depopulate(struct super_block *);
- extern const struct address_space_operations afs_fs_aops;
- extern const struct inode_operations afs_file_inode_operations;
- extern const struct file_operations afs_file_operations;
-+extern const struct netfs_read_request_ops afs_req_ops;
- 
- extern int afs_cache_wb_key(struct afs_vnode *, struct afs_file *);
- extern void afs_put_wb_key(struct afs_wb_key *);
-diff --git a/fs/afs/write.c b/fs/afs/write.c
-index bc84c771b0fd..dc66ff15dd16 100644
---- a/fs/afs/write.c
-+++ b/fs/afs/write.c
-@@ -11,6 +11,8 @@
- #include <linux/pagemap.h>
- #include <linux/writeback.h>
- #include <linux/pagevec.h>
-+#include <linux/netfs.h>
-+#include <linux/fscache.h>
- #include "internal.h"
- 
- /*
-@@ -22,68 +24,6 @@ int afs_set_page_dirty(struct page *page)
- 	return __set_page_dirty_nobuffers(page);
- }
- 
--/*
-- * Handle completion of a read operation to fill a page.
-- */
--static void afs_fill_hole(struct afs_read *req)
--{
--	if (iov_iter_count(req->iter) > 0)
--		/* The read was short - clear the excess buffer. */
--		iov_iter_zero(iov_iter_count(req->iter), req->iter);
--}
--
--/*
-- * partly or wholly fill a page that's under preparation for writing
-- */
--static int afs_fill_page(struct file *file,
--			 loff_t pos, unsigned int len, struct page *page)
--{
--	struct afs_vnode *vnode = AFS_FS_I(file_inode(file));
--	struct afs_read *req;
--	size_t p;
--	void *data;
--	int ret;
--
--	_enter(",,%llu", (unsigned long long)pos);
--
--	if (pos >= vnode->vfs_inode.i_size) {
--		p = pos & ~PAGE_MASK;
--		ASSERTCMP(p + len, <=, PAGE_SIZE);
--		data = kmap(page);
--		memset(data + p, 0, len);
--		kunmap(page);
--		return 0;
--	}
--
--	req = kzalloc(sizeof(struct afs_read), GFP_KERNEL);
--	if (!req)
--		return -ENOMEM;
--
--	refcount_set(&req->usage, 1);
--	req->vnode	= vnode;
--	req->done	= afs_fill_hole;
--	req->key	= key_get(afs_file_key(file));
--	req->pos	= pos;
--	req->len	= len;
--	req->nr_pages	= 1;
--	req->iter	= &req->def_iter;
--	iov_iter_xarray(&req->def_iter, READ, &file->f_mapping->i_pages, pos, len);
--
--	ret = afs_fetch_data(vnode, req);
--	afs_put_read(req);
--	if (ret < 0) {
--		if (ret == -ENOENT) {
--			_debug("got NOENT from server"
--			       " - marking file deleted and stale");
--			set_bit(AFS_VNODE_DELETED, &vnode->flags);
--			ret = -ESTALE;
--		}
--	}
--
--	_leave(" = %d", ret);
--	return ret;
--}
--
- /*
-  * prepare to perform part of a write to a page
-  */
-@@ -102,24 +42,14 @@ int afs_write_begin(struct file *file, struct address_space *mapping,
- 	_enter("{%llx:%llu},%llx,%x",
- 	       vnode->fid.vid, vnode->fid.vnode, pos, len);
- 
--	page = grab_cache_page_write_begin(mapping, pos / PAGE_SIZE, flags);
--	if (!page)
--		return -ENOMEM;
--
--	if (!PageUptodate(page) && len != PAGE_SIZE) {
--		ret = afs_fill_page(file, pos & PAGE_MASK, PAGE_SIZE, page);
--		if (ret < 0) {
--			unlock_page(page);
--			put_page(page);
--			_leave(" = %d [prep]", ret);
--			return ret;
--		}
--		SetPageUptodate(page);
--	}
--
--#ifdef CONFIG_AFS_FSCACHE
--	wait_on_page_fscache(page);
--#endif
-+	/* Prefetch area to be written into the cache if we're caching this
-+	 * file.  We need to do this before we get a lock on the page in case
-+	 * there's more than one writer competing for the same cache block.
-+	 */
-+	ret = netfs_write_begin(file, mapping, pos, len, flags, &page, fsdata,
-+				&afs_req_ops, NULL);
-+	if (ret < 0)
-+		return ret;
- 
- 	index = page->index;
- 	from = pos - index * PAGE_SIZE;
-@@ -184,7 +114,6 @@ int afs_write_end(struct file *file, struct address_space *mapping,
- 	unsigned int f, from = pos & (thp_size(page) - 1);
- 	unsigned int t, to = from + copied;
- 	loff_t i_size, maybe_i_size;
--	int ret = 0;
- 
- 	_enter("{%llx:%llu},{%lx}",
- 	       vnode->fid.vid, vnode->fid.vnode, page->index);
-@@ -203,19 +132,7 @@ int afs_write_end(struct file *file, struct address_space *mapping,
- 		write_sequnlock(&vnode->cb_lock);
- 	}
- 
--	if (!PageUptodate(page)) {
--		if (copied < len) {
--			/* Try and load any missing data from the server.  The
--			 * unmarshalling routine will take care of clearing any
--			 * bits that are beyond the EOF.
--			 */
--			ret = afs_fill_page(file, pos + copied,
--					    len - copied, page);
--			if (ret < 0)
--				goto out;
--		}
--		SetPageUptodate(page);
--	}
-+	ASSERT(PageUptodate(page));
- 
- 	if (PagePrivate(page)) {
- 		priv = page_private(page);
-@@ -236,12 +153,11 @@ int afs_write_end(struct file *file, struct address_space *mapping,
- 
- 	if (set_page_dirty(page))
- 		_debug("dirtied %lx", page->index);
--	ret = copied;
- 
- out:
- 	unlock_page(page);
- 	put_page(page);
--	return ret;
-+	return copied;
- }
- 
- /*
+However ... the tree you were originally testing this against has the
+page cache fixed to use only one entry per THP.  The tree you want to
+apply this to inserts 2^n entries per THP.  They're all the head page,
+but they're distinct entries as far as xas_for_each() is concerned.
+So I think the loop you want looks like this:
 
++	rcu_read_lock();						\
++	xas_for_each(&xas, head, ULONG_MAX) {				\
++		if (xas_retry(&xas, head))				\
++			continue;					\
++		if (WARN_ON(xa_is_value(head)))				\
++			break;						\
++		if (WARN_ON(PageHuge(head)))				\
++			break;						\
++		__v.bv_page = head + index - head->index;		\
++		offset = offset_in_page(i->xarray_start + skip);	\
++		seg = PAGE_SIZE - offset;				\
++		__v.bv_offset = offset;					\
++		__v.bv_len = min(n, seg);				\
++		(void)(STEP);						\
++		n -= __v.bv_len;					\
++		skip += __v.bv_len;					\
++		if (n == 0)						\
++			break;						\
++	}								\
++	rcu_read_unlock();						\
+
+Now, is this important?  There are no filesystems which do I/O to THPs
+today.  So it's not possible to pick up the fact that it doesn't work,
+and I hope to have the page cache fixed soon.  And fixing this now
+will create more work later as part of fixing the page cache.  But I
+wouldn't feel right not mentioning this problem ...
+
+(also, iov_iter really needs to be fixed to handle bvecs which cross
+page boundaries, but that's a fight for another day)
 
 --
 Linux-cachefs mailing list
