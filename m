@@ -2,56 +2,58 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 983D036BCA4
+	by mail.lfdr.de (Postfix) with ESMTP id B50BD36BCA5
 	for <lists+linux-cachefs@lfdr.de>; Tue, 27 Apr 2021 02:26:54 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-191-Urv-YGBlPtmj7rjQdv1tGw-1; Mon, 26 Apr 2021 20:26:51 -0400
-X-MC-Unique: Urv-YGBlPtmj7rjQdv1tGw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-261-izZnkvVkPQSZxHOI4iiZwg-1; Mon, 26 Apr 2021 20:26:52 -0400
+X-MC-Unique: izZnkvVkPQSZxHOI4iiZwg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9783B107ACE3;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E90A28189CA;
 	Tue, 27 Apr 2021 00:26:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8595A5C730;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9CEB2B1A7;
 	Tue, 27 Apr 2021 00:26:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4515C44A57;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C4A3A1806D1A;
 	Tue, 27 Apr 2021 00:26:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13QM7BxX001198 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 26 Apr 2021 18:07:11 -0400
+	id 13QMHd8D002975 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 26 Apr 2021 18:17:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D31C41007610; Mon, 26 Apr 2021 22:07:11 +0000 (UTC)
+	id 5CBB89F64; Mon, 26 Apr 2021 22:17:39 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx01.redhat.com
-	(mimecast05.extmail.prod.ext.phx2.redhat.com [10.5.110.76])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCE4510016F8
-	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 22:07:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.phx2.redhat.com [10.5.110.50])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 555D160C4A
+	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 22:17:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 310D28030D6
-	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 22:07:08 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-574-3GO3JiQNMFuJ-nUfmxEsKA-1; Mon, 26 Apr 2021 18:07:06 -0400
-X-MC-Unique: 3GO3JiQNMFuJ-nUfmxEsKA-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lb9NK-0069d6-6I; Mon, 26 Apr 2021 22:06:45 +0000
-Date: Mon, 26 Apr 2021 23:06:42 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20210426220642.GU235567@casper.infradead.org>
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC5C11006C88
+	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 22:17:35 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-173-uAuAJBjGPmScGfu7fXOR_A-1;
+	Mon, 26 Apr 2021 18:17:31 -0400
+X-MC-Unique: uAuAJBjGPmScGfu7fXOR_A-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C8DE061009;
+	Mon, 26 Apr 2021 22:17:27 +0000 (UTC)
+Message-ID: <728b55601fa54449cd43a35195641c00fbe6c096.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: David Howells <dhowells@redhat.com>, Matthew Wilcox <willy@infradead.org>
+Date: Mon, 26 Apr 2021 18:17:26 -0400
+In-Reply-To: <3737237.1619472003@warthog.procyon.org.uk>
 References: <20210426210939.GS235567@casper.infradead.org>
 	<161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
 	<3726642.1619471184@warthog.procyon.org.uk>
 	<3737237.1619472003@warthog.procyon.org.uk>
+User-Agent: Evolution 3.40.0 (3.40.0-1.fc34)
 MIME-Version: 1.0
-In-Reply-To: <3737237.1619472003@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,21 +62,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 13QMHd8D002975
 X-loop: linux-cachefs@redhat.com
 X-Mailman-Approved-At: Mon, 26 Apr 2021 20:26:43 -0400
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-mm@kvack.org,
-	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-afs@lists.infradead.org, Steve French <sfrench@samba.org>,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, Christoph,
+	Steve French <sfrench@samba.org>, linux-kernel@vger.kernel.org,
+	Mike, linux-afs@lists.infradead.org, linux-mm@kvack.org,
 	Marc Dionne <marc.dionne@auristor.com>, linux-cachefs@redhat.com,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>,
+	Linus Torvalds <torvalds@linux-foundation.org>, Hellwig <hch@lst.de>,
 	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Mike Marshall <hubcap@omnibond.com>
+	Marshall <hubcap@omnibond.com>
 Subject: Re: [Linux-cachefs] [PATCH v2] netfs: Miscellaneous fixes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -89,22 +92,55 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Mon, Apr 26, 2021 at 10:20:03PM +0100, David Howells wrote:
-> Okay, how about the attached, then?
-
-LGTM!  Thanks.
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://listman.redhat.com/mailman/listinfo/linux-cachefs
+T24gTW9uLCAyMDIxLTA0LTI2IGF0IDIyOjIwICswMTAwLCBEYXZpZCBIb3dlbGxzIHdyb3RlOgo+
+IE9rYXksIGhvdyBhYm91dCB0aGUgYXR0YWNoZWQsIHRoZW4/Cj4gCj4gRGF2aWQKPiAtLS0KPiBu
+ZXRmczogTWlzY2VsbGFuZW91cyBmaXhlcwo+IMKgwqDCoMKgCj4gCj4gCj4gCj4gRml4IHNvbWUg
+bWlzY2VsbGFuZW91cyB0aGluZ3MgaW4gdGhlIG5ldyBuZXRmcyBsaWJbMV06Cj4gCj4gwqAoMSkg
+VGhlIGtlcm5lbGRvYyBmb3IgbmV0ZnNfcmVhZHBhZ2UoKSBzaG91bGRuJ3Qgc2F5IG5ldGZzX3Bh
+Z2UoKS4KPiAKPiDCoCgyKSBuZXRmc19yZWFkcGFnZSgpIGNhbiBnZXQgYW4gaW50ZWdlciBvdmVy
+ZmxvdyBvbiAzMi1iaXQgd2hlbiBpdAo+IMKgwqDCoMKgwqBtdWx0aXBsaWVzIHBhZ2VfaW5kZXgo
+cGFnZSkgYnkgUEFHRV9TSVpFLiAgSXQgc2hvdWxkIHVzZQo+IMKgwqDCoMKgwqBwYWdlX2ZpbGVf
+b2Zmc2V0KCkgaW5zdGVhZC4KPiAKPiDCoCgzKSBuZXRmc193cml0ZV9iZWdpbigpIHNob3VsZCB1
+c2UgcGFnZV9vZmZzZXQoKSB0byBhdm9pZCB0aGUgc2FtZQo+IMKgwqDCoMKgwqBvdmVyZmxvdy4K
+PiAKPiBOb3RlIHRoYXQgbmV0ZnNfcmVhZHBhZ2UoKSBuZWVkcyB0byB1c2UgcGFnZV9maWxlX29m
+ZnNldCgpIHJhdGhlciB0aGFuCj4gcGFnZV9vZmZzZXQoKSBhcyBpdCBtYXkgc2VlIHN3YXAtb3Zl
+ci1ORlMuCj4gCj4gUmVwb3J0ZWQtYnk6IE1hdHRoZXcgV2lsY294IDx3aWxseUBpbmZyYWRlYWQu
+b3JnPgo+IFNpZ25lZC1vZmYtYnk6IERhdmlkIEhvd2VsbHMgPGRob3dlbGxzQHJlZGhhdC5jb20+
+Cj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8xNjE3ODkwNjIxOTAuNjE1NS4xMjcx
+MTU4NDQ2NjMzODQ5MzA1MC5zdGdpdEB3YXJ0aG9nLnByb2N5b24ub3JnLnVrLyBbMV0KPiAtLS0K
+PiDCoGZzL25ldGZzL3JlYWRfaGVscGVyLmMgfCAgICA2ICsrKy0tLQo+IMKgMSBmaWxlIGNoYW5n
+ZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZnMv
+bmV0ZnMvcmVhZF9oZWxwZXIuYyBiL2ZzL25ldGZzL3JlYWRfaGVscGVyLmMKPiBpbmRleCAxZDNi
+NTBjNWRiNmQuLjE5Mzg0MWQwM2RlMCAxMDA2NDQKPiAtLS0gYS9mcy9uZXRmcy9yZWFkX2hlbHBl
+ci5jCj4gKysrIGIvZnMvbmV0ZnMvcmVhZF9oZWxwZXIuYwo+IEBAIC05MzMsNyArOTMzLDcgQEAg
+dm9pZCBuZXRmc19yZWFkYWhlYWQoc3RydWN0IHJlYWRhaGVhZF9jb250cm9sICpyYWN0bCwKPiDC
+oEVYUE9SVF9TWU1CT0wobmV0ZnNfcmVhZGFoZWFkKTsKPiDCoAo+IAo+IAo+IAo+IMKgLyoqCj4g
+LSAqIG5ldGZzX3BhZ2UgLSBIZWxwZXIgdG8gbWFuYWdlIGEgcmVhZHBhZ2UgcmVxdWVzdAo+ICsg
+KiBuZXRmc19yZWFkcGFnZSAtIEhlbHBlciB0byBtYW5hZ2UgYSByZWFkcGFnZSByZXF1ZXN0Cj4g
+wqDCoCogQGZpbGU6IFRoZSBmaWxlIHRvIHJlYWQgZnJvbQo+IMKgwqAqIEBwYWdlOiBUaGUgcGFn
+ZSB0byByZWFkCj4gwqDCoCogQG9wczogVGhlIG5ldHdvcmsgZmlsZXN5c3RlbSdzIG9wZXJhdGlv
+bnMgZm9yIHRoZSBoZWxwZXIgdG8gdXNlCj4gQEAgLTk2OCw3ICs5NjgsNyBAQCBpbnQgbmV0ZnNf
+cmVhZHBhZ2Uoc3RydWN0IGZpbGUgKmZpbGUsCj4gwqAJCXJldHVybiAtRU5PTUVNOwo+IMKgCX0K
+PiDCoAlycmVxLT5tYXBwaW5nCT0gcGFnZV9maWxlX21hcHBpbmcocGFnZSk7Cj4gLQlycmVxLT5z
+dGFydAk9IHBhZ2VfaW5kZXgocGFnZSkgKiBQQUdFX1NJWkU7Cj4gKwlycmVxLT5zdGFydAk9IHBh
+Z2VfZmlsZV9vZmZzZXQocGFnZSk7Cj4gwqAJcnJlcS0+bGVuCT0gdGhwX3NpemUocGFnZSk7Cj4g
+wqAKPiAKPiAKPiAKPiDCoAlpZiAob3BzLT5iZWdpbl9jYWNoZV9vcGVyYXRpb24pIHsKPiBAQCAt
+MTEwNiw3ICsxMTA2LDcgQEAgaW50IG5ldGZzX3dyaXRlX2JlZ2luKHN0cnVjdCBmaWxlICpmaWxl
+LCBzdHJ1Y3QgYWRkcmVzc19zcGFjZSAqbWFwcGluZywKPiDCoAlpZiAoIXJyZXEpCj4gwqAJCWdv
+dG8gZXJyb3I7Cj4gwqAJcnJlcS0+bWFwcGluZwkJPSBwYWdlLT5tYXBwaW5nOwo+IC0JcnJlcS0+
+c3RhcnQJCT0gcGFnZS0+aW5kZXggKiBQQUdFX1NJWkU7Cj4gKwlycmVxLT5zdGFydAkJPSBwYWdl
+X29mZnNldChwYWdlKTsKPiDCoAlycmVxLT5sZW4JCT0gdGhwX3NpemUocGFnZSk7Cj4gwqAJcnJl
+cS0+bm9fdW5sb2NrX3BhZ2UJPSBwYWdlLT5pbmRleDsKPiDCoAlfX3NldF9iaXQoTkVURlNfUlJF
+UV9OT19VTkxPQ0tfUEFHRSwgJnJyZXEtPmZsYWdzKTsKPiAKClJldmlld2VkLWJ5OiBKZWZmIExh
+eXRvbiA8amxheXRvbkBrZXJuZWwub3JnPgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0
+CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LWNhY2hlZnM=
 
