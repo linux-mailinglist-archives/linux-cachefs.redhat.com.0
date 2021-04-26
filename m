@@ -2,78 +2,77 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F378736BA58
-	for <lists+linux-cachefs@lfdr.de>; Mon, 26 Apr 2021 21:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3057336BB12
+	for <lists+linux-cachefs@lfdr.de>; Mon, 26 Apr 2021 23:12:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1619471543;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=QpIYYOy+ftpHlcyI6/UC1IVEiP9IdSdQmA4lDjEgRVY=;
+	b=VKeSepBPo8Z6yNX5Xo7ooTuoeaKPuIU74/DtNnxcA+q6vRbwBOXHRFn92FFKLhkKBI/GnM
+	QiHSuE02N1l/QTEw+w8+t5kQLyQydXBq1+d/W2EJLbJ03HOmAvMAQbLbd6YLc1C/nLLfBp
+	RB3gHz3a3kInduYVcDGmOjJBuMrNrxU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-532--gh8OfjsMf2TIMMSvOvc1g-1; Mon, 26 Apr 2021 15:54:21 -0400
-X-MC-Unique: -gh8OfjsMf2TIMMSvOvc1g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-242-UQNRc3RINZahxc1J0_mL-w-1; Mon, 26 Apr 2021 17:12:20 -0400
+X-MC-Unique: UQNRc3RINZahxc1J0_mL-w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0F1A83DD24;
-	Mon, 26 Apr 2021 19:54:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79C4C5C234;
-	Mon, 26 Apr 2021 19:54:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A83508189CD;
+	Mon, 26 Apr 2021 21:12:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B242687DA;
+	Mon, 26 Apr 2021 21:12:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11BC044A5B;
-	Mon, 26 Apr 2021 19:54:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9EFFD1806D1A;
+	Mon, 26 Apr 2021 21:12:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13QJqw0A023047 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 26 Apr 2021 15:52:58 -0400
+	id 13QL6TBq028779 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 26 Apr 2021 17:06:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 12E1B2094D0D; Mon, 26 Apr 2021 19:52:58 +0000 (UTC)
+	id A28535D9CD; Mon, 26 Apr 2021 21:06:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C7BE2094D0F
-	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 19:52:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 506168001E8
-	for <linux-cachefs@redhat.com>; Mon, 26 Apr 2021 19:52:55 +0000 (UTC)
-Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk
-	[142.44.231.140]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-206-brZQcoSbO3ODVXyu4o1dwg-1; Mon, 26 Apr 2021 15:52:51 -0400
-X-MC-Unique: brZQcoSbO3ODVXyu4o1dwg-1
-Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lb7Hl-008TqF-IE; Mon, 26 Apr 2021 19:52:49 +0000
-Date: Mon, 26 Apr 2021 19:52:49 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <YIcaESRqrBRqD/EQ@zeniv-ca.linux.org.uk>
-References: <YIcMVCkp4xswHolw@zeniv-ca.linux.org.uk>
-	<161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
-	<161918448151.3145707.11541538916600921083.stgit@warthog.procyon.org.uk>
-	<3651951.1619465011@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-112-20.rdu2.redhat.com
+	[10.10.112.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5BD605D9DE;
+	Mon, 26 Apr 2021 21:06:25 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+In-Reply-To: <161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
+References: <161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <3651951.1619465011@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+From: David Howells <dhowells@redhat.com>
+Date: Mon, 26 Apr 2021 22:06:24 +0100
+Message-ID: <3726642.1619471184@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 13QL6TBq028779
 X-loop: linux-cachefs@redhat.com
+X-Mailman-Approved-At: Mon, 26 Apr 2021 17:12:14 -0400
 Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-afs@lists.infradead.org, Steve French <sfrench@samba.org>,
+	Steve French <sfrench@samba.org>,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-afs@lists.infradead.org,
 	Marc Dionne <marc.dionne@auristor.com>, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	Christoph Hellwig <hch@lst.de>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>
-Subject: Re: [Linux-cachefs] [PATCH v7 01/31] iov_iter: Add ITER_XARRAY
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Mike Marshall <hubcap@omnibond.com>
+Subject: [Linux-cachefs] [PATCH] netfs: Miscellaneous fixes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,40 +86,69 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <3726523.1619471123.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 26, 2021 at 08:23:31PM +0100, David Howells wrote:
+    
+Fix some miscellaneous things in the new netfs lib[1]:
 
-> I really need to defer this question to Willy, but as I understand it,
-> xas_retry() only restarts the current iteration.  Referring to the comment on
-> xas_reset():
-> 
->  * Resets the error or walk state of the @xas so future walks of the
->  * array will start from the root.  Use this if you have dropped the
->  * xarray lock and want to reuse the xa_state.
-> 
-> I think that the walk returns to the bottom of the tree and whilst xarray
-> presents an interface that appears to be a contiguous array, it's actually a
-> tree internally - and 'root' is the root of the tree, not the head of the
-> array.
-> 
-> Basically, I think it throws away its cached iteration state - which might
-> have been modified - and rewalks the tree to get back to the same index.
+ (1) The kerneldoc for netfs_readpage() shouldn't say netfs_page().
 
->From RTFS(lib/xarray.c) that looks right.  Nevermind the question, then...
+ (2) netfs_readpage() can get an integer overflow on 32-bit when it
+     multiplies page_index(page) by PAGE_SIZE.  It should use
+     page_offset() instead.
 
-Anyway, 
+ (3) netfs_write_begin() should also use page_offset() to avoid the same
+     overflow.
 
-Reviewed-by: Al Viro <viro@zeniv.linux.org.uk>
+ (4) Use page_mapping() in netfs_write_begin() rather than page->mapping.
 
-on the xarray-related bits (this patch + followups)
+Reported-by: Matthew Wilcox <willy@infradead.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Link: https://lore.kernel.org/r/161789062190.6155.12711584466338493050.stgit@warthog.procyon.org.uk/ [1]
+---
+ fs/netfs/read_helper.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 1d3b50c5db6d..568e26352309 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -933,7 +933,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ EXPORT_SYMBOL(netfs_readahead);
+ 
+ /**
+- * netfs_page - Helper to manage a readpage request
++ * netfs_readpage - Helper to manage a readpage request
+  * @file: The file to read from
+  * @page: The page to read
+  * @ops: The network filesystem's operations for the helper to use
+@@ -968,7 +968,7 @@ int netfs_readpage(struct file *file,
+ 		return -ENOMEM;
+ 	}
+ 	rreq->mapping	= page_file_mapping(page);
+-	rreq->start	= page_index(page) * PAGE_SIZE;
++	rreq->start	= page_offset(page);
+ 	rreq->len	= thp_size(page);
+ 
+ 	if (ops->begin_cache_operation) {
+@@ -1105,8 +1105,8 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
+ 	rreq = netfs_alloc_read_request(ops, netfs_priv, file);
+ 	if (!rreq)
+ 		goto error;
+-	rreq->mapping		= page->mapping;
+-	rreq->start		= page->index * PAGE_SIZE;
++	rreq->mapping		= page_file_mapping(page);
++	rreq->start		= page_offset(page);
+ 	rreq->len		= thp_size(page);
+ 	rreq->no_unlock_page	= page->index;
+ 	__set_bit(NETFS_RREQ_NO_UNLOCK_PAGE, &rreq->flags);
 
 --
 Linux-cachefs mailing list
