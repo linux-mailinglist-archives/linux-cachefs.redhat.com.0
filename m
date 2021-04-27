@@ -2,64 +2,62 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 104DB36CC5B
-	for <lists+linux-cachefs@lfdr.de>; Tue, 27 Apr 2021 22:33:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC2A436CC5C
+	for <lists+linux-cachefs@lfdr.de>; Tue, 27 Apr 2021 22:33:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-358-ki8V0cEsPiiIiQ0i8HOwEw-1; Tue, 27 Apr 2021 16:33:00 -0400
-X-MC-Unique: ki8V0cEsPiiIiQ0i8HOwEw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-440-taO12VVyO8unKGH-Heqdag-1; Tue, 27 Apr 2021 16:33:01 -0400
+X-MC-Unique: taO12VVyO8unKGH-Heqdag-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA484107ACCD;
-	Tue, 27 Apr 2021 20:32:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8437F501E4;
+	Tue, 27 Apr 2021 20:32:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EA5E60CFB;
-	Tue, 27 Apr 2021 20:32:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAB4318640;
+	Tue, 27 Apr 2021 20:32:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 33AFB1806D1B;
-	Tue, 27 Apr 2021 20:32:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CDBAE1806D1D;
+	Tue, 27 Apr 2021 20:32:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13RKWoNv030939 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 27 Apr 2021 16:32:50 -0400
+	id 13RKWrdT030947 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 27 Apr 2021 16:32:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7335D1033C5C; Tue, 27 Apr 2021 20:32:50 +0000 (UTC)
+	id 6A330B278B; Tue, 27 Apr 2021 20:32:53 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F27111457FD
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66309E3089
 	for <linux-cachefs@redhat.com>; Tue, 27 Apr 2021 20:32:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 215538026E0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 551EB80122B
 	for <linux-cachefs@redhat.com>; Tue, 27 Apr 2021 20:32:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-49-Lsehe5jxOYiH2ieK0fgPUw-1; 
+	by relay.mimecast.com with ESMTP id us-mta-244-o2UR5yn5PJqHY7lfl6SH9A-1;
 	Tue, 27 Apr 2021 16:32:42 -0400
-X-MC-Unique: Lsehe5jxOYiH2ieK0fgPUw-1
-Received: by mail.kernel.org (Postfix) with ESMTPS id F1A5C613E7;
+X-MC-Unique: o2UR5yn5PJqHY7lfl6SH9A-1
+Received: by mail.kernel.org (Postfix) with ESMTPS id A496A6112F;
 	Tue, 27 Apr 2021 20:32:40 +0000 (UTC)
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
 	[127.0.0.1])
 	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
-	EA624609CC; Tue, 27 Apr 2021 20:32:40 +0000 (UTC)
+	98538609B0; Tue, 27 Apr 2021 20:32:40 +0000 (UTC)
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <3785063.1619482429@warthog.procyon.org.uk>
+In-Reply-To: <3779937.1619478404@warthog.procyon.org.uk>
 References: <3779937.1619478404@warthog.procyon.org.uk>
-	<3785063.1619482429@warthog.procyon.org.uk>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <3785063.1619482429@warthog.procyon.org.uk>
+X-PR-Tracked-Message-Id: <3779937.1619478404@warthog.procyon.org.uk>
 X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
-	tags/afs-netfs-lib-20210426
-X-PR-Tracked-Commit-Id: 3003bbd0697b659944237f3459489cb596ba196c
+	tags/netfs-lib-20210426
+X-PR-Tracked-Commit-Id: 53b776c77aca99b663a5512a04abc27670d61058
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: fafe1e39ed213221c0bce6b0b31669334368dc97
-Message-Id: <161955556095.29692.2509137907732531548.pr-tracker-bot@kernel.org>
+X-PR-Merge-Commit-Id: 820c4bae40cb56466cfed6409e00d0f5165a990c
+Message-Id: <161955556055.29692.16460754787055823751.pr-tracker-bot@kernel.org>
 Date: Tue, 27 Apr 2021 20:32:40 +0000
 To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -70,7 +68,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 Cc: Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
 	Marc Dionne <marc.dionne@auristor.com>, linux-afs@lists.infradead.org,
@@ -85,7 +83,8 @@ Cc: Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
 	linux-fsdevel@vger.kernel.org,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [GIT PULL] afs: Preparation for fscache overhaul
+Subject: Re: [Linux-cachefs] [GIT PULL] Network fs helper library & fscache
+	kiocb API
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +99,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,12 +107,12 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Tue, 27 Apr 2021 01:13:49 +0100:
+The pull request you sent on Tue, 27 Apr 2021 00:06:44 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/afs-netfs-lib-20210426
+> git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/netfs-lib-20210426
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/fafe1e39ed213221c0bce6b0b31669334368dc97
+https://git.kernel.org/torvalds/c/820c4bae40cb56466cfed6409e00d0f5165a990c
 
 Thank you!
 
