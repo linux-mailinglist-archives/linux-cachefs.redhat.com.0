@@ -1,92 +1,64 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4E68B36E764
-	for <lists+linux-cachefs@lfdr.de>; Thu, 29 Apr 2021 10:52:45 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4145237F5DD
+	for <lists+linux-cachefs@lfdr.de>; Thu, 13 May 2021 12:49:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1620902971;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=WwR98HPFblJtz54lUG/8FkOSALpBStdN6d4hOCTfffQ=;
+	b=bCQGrZdfKmjDXufgDruaLG/b1PXWyDNNf4qDBRAlcbRrvHeFZoy4q28DY1dMzd2f4WFPhW
+	dKA8nnqdT6GbVvcZpFk2YVCQWThAZCScjELdWZAAe993oLr3wkL+N5U7ItYTmjEp3IRwGa
+	nanaq172YQlrzeRlucW/UdvGo6zmarg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-43-90Iafbw4PkWLNhLmqUbvxQ-1; Thu, 29 Apr 2021 04:52:42 -0400
-X-MC-Unique: 90Iafbw4PkWLNhLmqUbvxQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-76-BiVbS6-zNlOcX7iTfd0cbA-1; Thu, 13 May 2021 06:49:29 -0400
+X-MC-Unique: BiVbS6-zNlOcX7iTfd0cbA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 00C37107ACCA;
-	Thu, 29 Apr 2021 08:52:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0DA291854E21;
+	Thu, 13 May 2021 10:49:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B821E60FC2;
-	Thu, 29 Apr 2021 08:52:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA83A19D7C;
+	Thu, 13 May 2021 10:49:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 71CE31809C82;
-	Thu, 29 Apr 2021 08:52:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6ACAE18005B6;
+	Thu, 13 May 2021 10:49:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13T8qb3E002064 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 29 Apr 2021 04:52:37 -0400
+	id 14DAnKBs030769 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 13 May 2021 06:49:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E22252156A23; Thu, 29 Apr 2021 08:52:36 +0000 (UTC)
+	id 067C3E738; Thu, 13 May 2021 10:49:20 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD3CF20BDB35
-	for <linux-cachefs@redhat.com>; Thu, 29 Apr 2021 08:52:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07194858F09
-	for <linux-cachefs@redhat.com>; Thu, 29 Apr 2021 08:52:34 +0000 (UTC)
-Received: from nautica.notk.org (nautica.notk.org [91.121.71.147]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-170-AEir9Ub7NCWWo3w_nnsxyA-1; Thu, 29 Apr 2021 04:52:31 -0400
-X-MC-Unique: AEir9Ub7NCWWo3w_nnsxyA-1
-Received: by nautica.notk.org (Postfix, from userid 108)
-	id 32900C01E; Thu, 29 Apr 2021 10:44:20 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on nautica.notk.org
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=UNPARSEABLE_RELAY
-	autolearn=unavailable version=3.3.2
-Received: from odin.codewreck.org (localhost [127.0.0.1])
-	by nautica.notk.org (Postfix) with ESMTPS id 47670C009;
-	Thu, 29 Apr 2021 10:44:14 +0200 (CEST)
-Received: from localhost (odin.codewreck.org [local])
-	by odin.codewreck.org (OpenSMTPD) with ESMTPA id faf44a92;
-	Thu, 29 Apr 2021 08:44:09 +0000 (UTC)
-Date: Thu, 29 Apr 2021 17:43:54 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <YIpxyi8l4LX/oTSJ@codewreck.org>
-References: <CAMuHMdXJZ7iNQE964CdBOU=vRKVMFzo=YF_eiwsGgqzuvZ+TuA@mail.gmail.com>
-	<161918446704.3145707.14418606303992174310.stgit@warthog.procyon.org.uk>
-	<161918455721.3145707.4063925145568978308.stgit@warthog.procyon.org.uk>
-	<442393.1619685697@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.3])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9756919D7C;
+	Thu, 13 May 2021 10:49:14 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: willy@infradead.org
+Date: Thu, 13 May 2021 11:49:13 +0100
+Message-ID: <162090295383.3165945.13595101698295243662.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <442393.1619685697@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cifs@vger.kernel.org, "open list:NFS, SUNRPC,
-	AND..." <linux-nfs@vger.kernel.org>, Linux MM <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Steve French <sfrench@samba.org>,
-	Marc Dionne <marc.dionne@auristor.com>, linux-cachefs@redhat.com,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	Linux FS Devel <linux-fsdevel@vger.kernel.org>,
-	V9FS Developers <v9fs-developer@lists.sourceforge.net>,
-	ceph-devel <ceph-devel@vger.kernel.org>, linux-afs@lists.infradead.org
-Subject: Re: [Linux-cachefs] [PATCH v7 07/31] netfs: Make a netfs helper
-	module
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-mm@kvack.org,
+	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH] netfs: Pass flags through to
+	grab_cache_page_write_begin()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,33 +72,47 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-David Howells wrote on Thu, Apr 29, 2021 at 09:41:37AM +0100:
-> Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > I see later patches make AFS and FSCACHE select NETFS_SUPPORT.  If this
-> > is just a library of functions, to be selected by its users, then please
-> > make the symbol invisible.
-> 
-> Ideally, yes, it would be an invisible symbol enabled by select from the
-> network filesystems that use it - but doing that means that you can't choose
-> whether to build it in or build it as a module.
+In netfs_write_begin(), pass the AOP flags through to
+grab_cache_page_write_begin() so that a request to use GFP_NOFS is honoured.
 
-Afaik such dependencies are then built as a module if everything it
-depends on are modules, and built-in if any of these are built-in.
+Fixes: e1b1240c1ff5 ("netfs: Add write_begin helper")
+Reported-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: linux-mm@kvack.org
+cc: linux-cachefs@redhat.com
+cc: linux-afs@lists.infradead.org
+cc: linux-nfs@vger.kernel.org
+cc: linux-cifs@vger.kernel.org
+cc: ceph-devel@vger.kernel.org
+cc: v9fs-developer@lists.sourceforge.net
+cc: linux-fsdevel@vger.kernel.org
+---
 
-I think most users would be fine with that -- there's little reason to
-have netfs built-in if AFS ceph etc all are modules?
+ fs/netfs/read_helper.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--- 
-Dominique
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 193841d03de0..725614625ed4 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -1068,7 +1068,7 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
+ 	DEFINE_READAHEAD(ractl, file, NULL, mapping, index);
+ 
+ retry:
+-	page = grab_cache_page_write_begin(mapping, index, 0);
++	page = grab_cache_page_write_begin(mapping, index, flags);
+ 	if (!page)
+ 		return -ENOMEM;
+ 
+
 
 --
 Linux-cachefs mailing list
