@@ -1,69 +1,73 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 53ABA3A4A56
-	for <lists+linux-cachefs@lfdr.de>; Fri, 11 Jun 2021 22:50:46 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E401C3A4AC0
+	for <lists+linux-cachefs@lfdr.de>; Fri, 11 Jun 2021 23:48:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1623448108;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=QvG4AjAjbgJFr/dkB2SGzoOhM5oMWt7gbywVB3Amktk=;
+	b=Xxt7mKpXuYQ8buM65JUkuuE3HgKMqdOPbWNxaxLndBxyMEObZ6O0UUxgNeNpTjI12IObQf
+	JZsXUTBvR5HFWI+4aMuFIumgaLuxLt7+bu+Ah9UEavRLWPqnmC7cEXMVzzc+HTh97Z/Xuy
+	7lVFr41bKjt7wK01Usl2mQylFxyXfrA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-513-rozo4jbXOKuYcD2ofqFOuA-1; Fri, 11 Jun 2021 16:50:44 -0400
-X-MC-Unique: rozo4jbXOKuYcD2ofqFOuA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-62-CWgmAl6FPRaGsoNRrMw7Rw-1; Fri, 11 Jun 2021 17:48:26 -0400
+X-MC-Unique: CWgmAl6FPRaGsoNRrMw7Rw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 70E7E9F92B;
-	Fri, 11 Jun 2021 20:50:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20FE0100B3B3;
+	Fri, 11 Jun 2021 21:48:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A1A65D705;
-	Fri, 11 Jun 2021 20:50:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 969305C1B4;
+	Fri, 11 Jun 2021 21:48:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A76331809CAD;
-	Fri, 11 Jun 2021 20:50:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E19181809CAD;
+	Fri, 11 Jun 2021 21:48:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15BKmoGD008886 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 11 Jun 2021 16:48:50 -0400
+	id 15BLlJgs014134 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 11 Jun 2021 17:47:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8DF0310A1459; Fri, 11 Jun 2021 20:48:50 +0000 (UTC)
+	id D6EF55D9E2; Fri, 11 Jun 2021 21:47:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8962A10A1456
-	for <linux-cachefs@redhat.com>; Fri, 11 Jun 2021 20:48:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7EFC857FFA
-	for <linux-cachefs@redhat.com>; Fri, 11 Jun 2021 20:48:46 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-181-3KCQR4y1PXu-u5S5UZaqcA-1; Fri, 11 Jun 2021 16:48:41 -0400
-X-MC-Unique: 3KCQR4y1PXu-u5S5UZaqcA-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lro4h-0037lR-Jd; Fri, 11 Jun 2021 20:48:23 +0000
-Date: Fri, 11 Jun 2021 21:48:19 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <YMPME0Bey8Tzz37l@casper.infradead.org>
-References: <20210611195904.160416-1-jlayton@kernel.org>
+Received: from warthog.procyon.org.uk (ovpn-118-65.rdu2.redhat.com
+	[10.10.118.65])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5BFEF5D9D7;
+	Fri, 11 Jun 2021 21:47:15 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <YMOj1rjCOb4fQo5Y@casper.infradead.org>
+References: <YMOj1rjCOb4fQo5Y@casper.infradead.org>
+	<YMN/PfW2t8e5M58m@casper.infradead.org>
+	<a24c3c070c9fc3529a51f00f9ccc3d0abdd0b821.camel@kernel.org>
+	<20200916173854.330265-1-jlayton@kernel.org>
+	<20200916173854.330265-6-jlayton@kernel.org>
+	<7817f98d3b2daafe113bf8290cc8c7adbb86fe99.camel@kernel.org>
+	<m2h7i45vzl.fsf@discipline.rit.edu>
+	<66264.1623424309@warthog.procyon.org.uk>
+	<68477.1623425725@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20210611195904.160416-1-jlayton@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Date: Fri, 11 Jun 2021 22:47:14 +0100
+Message-ID: <97002.1623448034@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: linux-cachefs@redhat.com
-Cc: Andrew W Elble <aweits@rit.edu>, stable@vger.kernel.org,
-	linux-cachefs@redhat.com, pfmeec@rit.edu,
-	ceph-devel@vger.kernel.org, idryomov@gmail.com
-Subject: Re: [Linux-cachefs] [PATCH] ceph: fix write_begin optimization when
- write is beyond EOF
+Cc: Andrew W Elble <aweits@rit.edu>, Jeff Layton <jlayton@kernel.org>,
+	linux-cachefs@redhat.com, pfmeec@rit.edu, ceph-devel@vger.kernel.org
+Subject: Re: [Linux-cachefs] [PATCH 5/5] ceph: fold
+	ceph_update_writeable_page into ceph_write_begin
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,30 +81,45 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <97001.1623448034.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 11, 2021 at 03:59:04PM -0400, Jeff Layton wrote:
->  		if ((pos_in_page == 0 && len == PAGE_SIZE) ||
-> -		    (pos >= i_size_read(inode)) ||
-> +		    (index > (i_size_read(inode) / PAGE_SIZE)) ||
+Matthew Wilcox <willy@infradead.org> wrote:
 
-I think that wants to be ((i_size_read(inode) - 1) / PAGE_SIZE)
+> Anyway, looking at netfs_write_begin(), it's wrong too, in a bunch of
+> ways.  You don't need to zero out the part of the page you're going to
+> copy into.
 
-If your file is 4096 bytes long, that means bytes 0-4095 contain data.
-Except that i_size can be 0, so ...
+Zeroing it out isn't 'wrong', per se, just inefficient.  Fixing that needs the
+filesystem to deal with it if the copy fails.
 
-		if ((offset == 0 && len == PAGE_SIZE) || i_size == 0 ||
-		    (index > (i_size - 1) / PAGE_SIZE) ||
-		    (offset == 0 && pos + len >= i_size))
-  			zero_user_segments(page, 0, pos_in_page,
-  					   pos_in_page + len, PAGE_SIZE);
+> And the condition is overly complicated which makes it
+> hard to know what's going on.  Setting aside the is_cache_enabled part,
+> I think you want:
+> 
+> 	if (offset == 0 && len >= thp_size(page))
+> 		goto have_page_no_wait;
+> 	if (page_offset(page) >= size) {
+> 		zero_user_segments(page, 0, offset,
+> 				   offset + len, thp_size(page));
+
+There's a third case too: where the write starts at the beginning of the page
+and goes to/straddles the EOF - but doesn't continue to the end of the page.
+
+You also didn't set PG_uptodate - presumably deliberately because there's a
+hole potentially containing random rubbish in the middle.
+
+> 		goto have_page_no_wait;
+> 	}
+> 	... read the interesting chunks of page ...
+
+David
 
 --
 Linux-cachefs mailing list
