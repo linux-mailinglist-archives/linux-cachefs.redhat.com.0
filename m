@@ -1,71 +1,67 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 08DCA3A6736
-	for <lists+linux-cachefs@lfdr.de>; Mon, 14 Jun 2021 14:54:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 83DD93A8437
+	for <lists+linux-cachefs@lfdr.de>; Tue, 15 Jun 2021 17:41:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1623771674;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=UL6nL6I9cN7dVGjHYjJxCclbTbe2nv55pL3bvDDUmy4=;
+	b=G6020dZm246bzBBrjFgyI0lLuk7VRZwQCNobqYSkveucEDEgf7VtxIiBwk2+soY4xKvB4v
+	aKz3GIR78WjRz4/N/eiJcDUxk8QzuW9tGX2W+Vc0nGv7vDyQVGf758fN7JNqedDjGJzEBW
+	lZ/miHyAHoTdYPi/lMZ6hlmKh76B8c8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-442-MTOkjAl2M929oKbYhgloeg-1; Mon, 14 Jun 2021 08:54:50 -0400
-X-MC-Unique: MTOkjAl2M929oKbYhgloeg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-501-GlYy989DNz6MuqmhkFj5Mw-1; Tue, 15 Jun 2021 11:41:13 -0400
+X-MC-Unique: GlYy989DNz6MuqmhkFj5Mw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B44428015F5;
-	Mon, 14 Jun 2021 12:54:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF6276060F;
-	Mon, 14 Jun 2021 12:54:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA89580D683;
+	Tue, 15 Jun 2021 15:41:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9FA95D9DC;
+	Tue, 15 Jun 2021 15:41:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BB4F41809CAC;
-	Mon, 14 Jun 2021 12:54:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9D2046F80;
+	Tue, 15 Jun 2021 15:41:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15ECshm8028968 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 14 Jun 2021 08:54:43 -0400
+	id 15FFf25g018190 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 15 Jun 2021 11:41:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7C0A1200E21A; Mon, 14 Jun 2021 12:54:43 +0000 (UTC)
+	id 2E41960E3A; Tue, 15 Jun 2021 15:41:02 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 773F7201EF59
-	for <linux-cachefs@redhat.com>; Mon, 14 Jun 2021 12:54:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CB14805F44
-	for <linux-cachefs@redhat.com>; Mon, 14 Jun 2021 12:54:40 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-519-V3AO1g4DMGOCxKtrcr3THw-1; Mon, 14 Jun 2021 08:54:38 -0400
-X-MC-Unique: V3AO1g4DMGOCxKtrcr3THw-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lsm6b-005Qyl-6c; Mon, 14 Jun 2021 12:54:20 +0000
-Date: Mon, 14 Jun 2021 13:54:17 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <YMdReUyU60dkNWEb@casper.infradead.org>
-References: <20210613233345.113565-1-jlayton@kernel.org>
-	<398005.1623673532@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk (ovpn-118-65.rdu2.redhat.com
+	[10.10.118.65])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EC15160C13;
+	Tue, 15 Jun 2021 15:40:59 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: jlayton@kernel.org
+Date: Tue, 15 Jun 2021 16:40:59 +0100
+Message-ID: <162377165897.729347.292567369593752239.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <398005.1623673532@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: linux-cachefs@redhat.com
-Cc: Andrew W Elble <aweits@rit.edu>, Jeff Layton <jlayton@kernel.org>,
-	linux-cachefs@redhat.com, pfmeec@rit.edu, idryomov@gmail.com,
-	ceph-devel@vger.kernel.org
-Subject: Re: [Linux-cachefs] [PATCH] netfs: fix test for whether we can skip
- read when writing beyond EOF
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+	linux-mm@kvack.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH] netfs: Add MAINTAINERS record
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,42 +75,53 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 14, 2021 at 01:25:32PM +0100, David Howells wrote:
-> +	/* Full page write */
-> +	if (offset == 0 && len >= thp_size(page))
-> +		return true;
-> +
-> +	/* pos beyond last page in the file */
-> +	if (pos - offset >= i_size)
-> +		goto zero_out;
-> +
-> +	/* Write that covers from the start of the page  to EOF or beyond */
+Add a MAINTAINERS record for the new netfs helper library.
 
-spurious double space between page and to.
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+cc: linux-mm@kvack.org
+cc: linux-cachefs@redhat.com
+cc: linux-afs@lists.infradead.org
+cc: linux-nfs@vger.kernel.org
+cc: linux-cifs@vger.kernel.org
+cc: ceph-devel@vger.kernel.org
+cc: v9fs-developer@lists.sourceforge.net
+cc: linux-fsdevel@vger.kernel.org
+---
 
-> @@ -1090,13 +1119,8 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
->  	 * within the cache granule containing the EOF, in which case we need
->  	 * to preload the granule.
->  	 */
-> -	size = i_size_read(inode);
->  	if (!ops->is_cache_enabled(inode) &&
-> -	    ((pos_in_page == 0 && len == thp_size(page)) ||
-> -	     (pos >= size) ||
-> -	     (pos_in_page == 0 && (pos + len) >= size))) {
-> -		netfs_clear_thp(page);
-> -		SetPageUptodate(page);
-> +	    netfs_prep_noread_page(page, pos, len)) {
+ MAINTAINERS |    9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-I don't like the name ... netfs_skip_page_read()?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index bc0ceef87b73..364465f20e81 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12878,6 +12878,15 @@ NETWORKING [WIRELESS]
+ L:	linux-wireless@vger.kernel.org
+ Q:	http://patchwork.kernel.org/project/linux-wireless/list/
+ 
++NETWORK FILESYSTEM HELPER LIBRARY
++M:	David Howells <dhowells@redhat.com>
++M:	Jeff Layton <jlayton@kernel.org>
++L:	linux-cachefs@redhat.com (moderated for non-subscribers)
++S:	Supported
++F:	Documentation/filesystems/netfs_library.rst
++F:	fs/netfs/
++F:	include/linux/netfs.h
++
+ NETXEN (1/10) GbE SUPPORT
+ M:	Manish Chopra <manishc@marvell.com>
+ M:	Rahul Verma <rahulv@marvell.com>
+
 
 --
 Linux-cachefs mailing list
