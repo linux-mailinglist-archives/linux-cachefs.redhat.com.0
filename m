@@ -2,68 +2,97 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2ECEA3AF7F7
-	for <lists+linux-cachefs@lfdr.de>; Mon, 21 Jun 2021 23:47:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1624312055;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ZCjX8bviHCc8/Zp0t9XBlJXahg36j7KLMlDxkFqzzpM=;
-	b=i7TJRfLl7aj0X9X6zXH2ueFAR3NjfwqEUb9p6y89WZ1nFetuhpBNPIgD003NzUsmM4A9CP
-	Ynbqt/WaTRhdFx6BWWWHI4C6mNV2b3g5uy7+zwYgvb1FpOMwkMWiPs5GYeoxrDJXejpcke
-	VVBp0+jYXKR0XDcvK17bFaHCIZsOlN4=
+	by mail.lfdr.de (Postfix) with ESMTP id 8FA1C3AFA5E
+	for <lists+linux-cachefs@lfdr.de>; Tue, 22 Jun 2021 02:56:11 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-3-e_e4HzaLNuaCIwtlCwMcMw-1; Mon, 21 Jun 2021 17:47:33 -0400
-X-MC-Unique: e_e4HzaLNuaCIwtlCwMcMw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-187-79dCX9YmMdOrw3ZtDq-R_g-1; Mon, 21 Jun 2021 20:56:09 -0400
+X-MC-Unique: 79dCX9YmMdOrw3ZtDq-R_g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 96858100C61B;
-	Mon, 21 Jun 2021 21:47:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A0A969CB4;
-	Mon, 21 Jun 2021 21:47:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20E171084F53;
+	Tue, 22 Jun 2021 00:56:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F3C0C60936;
+	Tue, 22 Jun 2021 00:56:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7797F4EA29;
-	Mon, 21 Jun 2021 21:47:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D80A71809C99;
+	Tue, 22 Jun 2021 00:56:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15LLlU3q030983 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 21 Jun 2021 17:47:30 -0400
+	id 15M0u10G014020 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 21 Jun 2021 20:56:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 686D85D705; Mon, 21 Jun 2021 21:47:30 +0000 (UTC)
+	id 13722202F331; Tue, 22 Jun 2021 00:56:01 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-118-65.rdu2.redhat.com
-	[10.10.118.65])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6AE5A5D6AD;
-	Mon, 21 Jun 2021 21:47:24 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: linux-cachefs@redhat.com
-Date: Mon, 21 Jun 2021 22:47:23 +0100
-Message-ID: <162431204358.2908479.8006938388213098079.stgit@warthog.procyon.org.uk>
-In-Reply-To: <162431188431.2908479.14031376932042135080.stgit@warthog.procyon.org.uk>
-References: <162431188431.2908479.14031376932042135080.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/0.23
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F1DC202F322
+	for <linux-cachefs@redhat.com>; Tue, 22 Jun 2021 00:55:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F95F800182
+	for <linux-cachefs@redhat.com>; Tue, 22 Jun 2021 00:55:57 +0000 (UTC)
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+	[66.111.4.224]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-216-6mmZGSCqMuG6RqjSJxEX1Q-1; Mon, 21 Jun 2021 20:55:55 -0400
+X-MC-Unique: 6mmZGSCqMuG6RqjSJxEX1Q-1
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailnew.nyi.internal (Postfix) with ESMTP id 8BE6D58093D;
+	Mon, 21 Jun 2021 20:50:10 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+	by compute4.internal (MEProxy); Mon, 21 Jun 2021 20:50:10 -0400
+X-ME-Sender: <xms:wTPRYKtZtJbOuFbH-dJm263_31JAW58FVD1iDsUvV6qzA-vzoLoRwg>
+	<xme:wTPRYPfr825cBf4ZE-8XoaoMYvYnMP4wVCC4WcIc0YvDxP61E5JAXqlx3p9maH8N5
+	m45oP_faZM8JzVs0iw>
+X-ME-Received: <xmr:wTPRYFy67xTi8AZ3XnZ2KYzpop4KEhazwJE9rvwP6wsvGa1lDAFXfhBbQu4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegtddggedtucetufdoteggodetrfdotf
+	fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+	uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+	cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeflohhshhcu
+	vfhrihhplhgvthhtuceojhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgheqnecugg
+	ftrfgrthhtvghrnhepteffkefhtdeitdfhteekfffhhfffheetfedujeeftefhjeegleeu
+	ffeftdehheffnecuffhomhgrihhnpehoiihlrggsshdrohhrghenucevlhhushhtvghruf
+	hiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehjohhshhesjhhoshhhthhrihhp
+	lhgvthhtrdhorhhg
+X-ME-Proxy: <xmx:wTPRYFNtNCXasANykjYWT19lgxNPzBDO2AK2qITbz7PL3N0WeVjYTg>
+	<xmx:wTPRYK_iUvBN3pk0Go6z3V2JX8hLk78_ZzU6EsG75zDpgN3jhYeC0Q>
+	<xmx:wTPRYNVaLget6YQxGxUTmsvErBjefzdgiU_yEwEDTFPv2OWsnOnnbA>
+	<xmx:wjPRYNaI26HXRfYEoEv0lrpEnKenDrgy-SzHKwtUfWY6cGRRyqAj93fJdhJEaFuA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+	21 Jun 2021 20:50:08 -0400 (EDT)
+Date: Mon, 21 Jun 2021 17:50:07 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Andreas Dilger <adilger@dilger.ca>
+Message-ID: <YNEzvwgqo6pQ50Pq@localhost>
+References: <206078.1621264018@warthog.procyon.org.uk>
+	<6E4DE257-4220-4B5B-B3D0-B67C7BC69BB5@dilger.ca>
+	<YKntRtEUoxTEFBOM@localhost>
+	<B70B57ED-6F11-45CC-B99F-86BBDE36ACA4@dilger.ca>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <B70B57ED-6F11-45CC-B99F-86BBDE36ACA4@dilger.ca>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
-Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
-	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org
-Subject: [Linux-cachefs] [PATCH 12/12] fscache: Use refcount_t for the
- cookie refcount instead of atomic_t
+Cc: xfs <linux-xfs@vger.kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	NeilBrown <neilb@suse.com>, Chris Mason <clm@fb.com>,
+	linux-cachefs@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Ext4 Developers List <linux-ext4@vger.kernel.org>,
+	linux-btrfs <linux-btrfs@vger.kernel.org>
+Subject: Re: [Linux-cachefs] How capacious and well-indexed are ext4,
+ xfs and btrfs directories?
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,343 +106,34 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use refcount_t for the fscache_cookie refcount instead of atomic_t and
-rename the 'usage' member to 'ref' in such cases.  The tracepoints that
-reference it change from showing "u=%d" to "r=%d".
+On Tue, May 25, 2021 at 03:13:52PM -0600, Andreas Dilger wrote:
+> There was a patch pushed recently that targets "-o discard" performance:
+> https://patchwork.ozlabs.org/project/linux-ext4/list/?series=244091
+> that needs a bit more work, but may be worthwhile to test if it improves
+> your workload, and help put some weight behind landing it?
 
-Signed-off-by: David Howells <dhowells@redhat.com>
----
+I just got a chance to test that patch (using the same storage stack,
+with ext4 atop dm-crypt on the same SSD). That patch series makes a
+*massive* difference; with that patch series (rebased atop latest
+5.13.0-rc7) and the test case from my previous mail, `rm -r testdir`
+takes the same amount of time (~17s) whether I have discard enabled or
+disabled, and doesn't disrupt the rest of the system.  Without the
+patch, that same removal took many minutes, and stalled out the rest of
+the system.
 
- fs/fscache/cache.c             |    2 +-
- fs/fscache/cookie.c            |   31 +++++++++++++++++++---------
- fs/fscache/fsdef.c             |    2 +-
- fs/fscache/internal.h          |   17 ++++++++-------
- include/linux/fscache.h        |    2 +-
- include/trace/events/fscache.h |   44 ++++++++++++++++++++--------------------
- 6 files changed, 55 insertions(+), 43 deletions(-)
+Thanks for the reference; I'll follow up to the thread for that patch
+with the same information.
 
-diff --git a/fs/fscache/cache.c b/fs/fscache/cache.c
-index e7a5d7ab4085..bd4f44c1cce0 100644
---- a/fs/fscache/cache.c
-+++ b/fs/fscache/cache.c
-@@ -269,7 +269,7 @@ int fscache_add_cache(struct fscache_cache *cache,
- 	hlist_add_head(&ifsdef->cookie_link,
- 		       &fscache_fsdef_index.backing_objects);
- 
--	atomic_inc(&fscache_fsdef_index.usage);
-+	refcount_inc(&fscache_fsdef_index.ref);
- 
- 	/* done */
- 	spin_unlock(&fscache_fsdef_index.lock);
-diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
-index 6df3732cf1b4..cd42be646ed3 100644
---- a/fs/fscache/cookie.c
-+++ b/fs/fscache/cookie.c
-@@ -164,7 +164,7 @@ struct fscache_cookie *fscache_alloc_cookie(
- 			goto nomem;
- 	}
- 
--	atomic_set(&cookie->usage, 1);
-+	refcount_set(&cookie->ref, 1);
- 	atomic_set(&cookie->n_children, 0);
- 	cookie->debug_id = atomic_inc_return(&fscache_cookie_debug_id);
- 
-@@ -225,7 +225,7 @@ struct fscache_cookie *fscache_hash_cookie(struct fscache_cookie *candidate)
- 
- collision:
- 	if (test_and_set_bit(FSCACHE_COOKIE_ACQUIRED, &cursor->flags)) {
--		trace_fscache_cookie(cursor->debug_id, atomic_read(&cursor->usage),
-+		trace_fscache_cookie(cursor->debug_id, refcount_read(&cursor->ref),
- 				     fscache_cookie_collision);
- 		pr_err("Duplicate cookie detected\n");
- 		fscache_print_cookie(cursor, 'O');
-@@ -826,13 +826,12 @@ void __fscache_relinquish_cookie(struct fscache_cookie *cookie,
- 	BUG_ON(!radix_tree_empty(&cookie->stores));
- 
- 	if (cookie->parent) {
--		ASSERTCMP(atomic_read(&cookie->parent->usage), >, 0);
-+		ASSERTCMP(refcount_read(&cookie->parent->ref), >, 0);
- 		ASSERTCMP(atomic_read(&cookie->parent->n_children), >, 0);
- 		atomic_dec(&cookie->parent->n_children);
- 	}
- 
- 	/* Dispose of the netfs's link to the cookie */
--	ASSERTCMP(atomic_read(&cookie->usage), >, 0);
- 	fscache_cookie_put(cookie, fscache_cookie_put_relinquish);
- 
- 	_leave("");
-@@ -862,18 +861,17 @@ void fscache_cookie_put(struct fscache_cookie *cookie,
- 			enum fscache_cookie_trace where)
- {
- 	struct fscache_cookie *parent;
--	int usage;
-+	int ref;
- 
- 	_enter("%x", cookie->debug_id);
- 
- 	do {
- 		unsigned int cookie_debug_id = cookie->debug_id;
--		usage = atomic_dec_return(&cookie->usage);
--		trace_fscache_cookie(cookie_debug_id, usage, where);
-+		bool zero = __refcount_dec_and_test(&cookie->ref, &ref);
- 
--		if (usage > 0)
-+		trace_fscache_cookie(cookie_debug_id, ref - 1, where);
-+		if (!zero)
- 			return;
--		BUG_ON(usage < 0);
- 
- 		parent = cookie->parent;
- 		fscache_unhash_cookie(cookie);
-@@ -886,6 +884,19 @@ void fscache_cookie_put(struct fscache_cookie *cookie,
- 	_leave("");
- }
- 
-+/*
-+ * Get a reference to a cookie.
-+ */
-+struct fscache_cookie *fscache_cookie_get(struct fscache_cookie *cookie,
-+					  enum fscache_cookie_trace where)
-+{
-+	int ref;
-+
-+	__refcount_inc(&cookie->ref, &ref);
-+	trace_fscache_cookie(cookie->debug_id, ref + 1, where);
-+	return cookie;
-+}
-+
- /*
-  * check the consistency between the netfs inode and the backing cache
-  *
-@@ -1003,7 +1014,7 @@ static int fscache_cookies_seq_show(struct seq_file *m, void *v)
- 		   "%08x %08x %5u %5u %3u %s %03lx %-16s %px",
- 		   cookie->debug_id,
- 		   cookie->parent ? cookie->parent->debug_id : 0,
--		   atomic_read(&cookie->usage),
-+		   refcount_read(&cookie->ref),
- 		   atomic_read(&cookie->n_children),
- 		   atomic_read(&cookie->n_active),
- 		   type,
-diff --git a/fs/fscache/fsdef.c b/fs/fscache/fsdef.c
-index 5f8f6fe243fe..0402673c680e 100644
---- a/fs/fscache/fsdef.c
-+++ b/fs/fscache/fsdef.c
-@@ -46,7 +46,7 @@ static struct fscache_cookie_def fscache_fsdef_index_def = {
- 
- struct fscache_cookie fscache_fsdef_index = {
- 	.debug_id	= 1,
--	.usage		= ATOMIC_INIT(1),
-+	.ref		= REFCOUNT_INIT(1),
- 	.n_active	= ATOMIC_INIT(1),
- 	.lock		= __SPIN_LOCK_UNLOCKED(fscache_fsdef_index.lock),
- 	.backing_objects = HLIST_HEAD_INIT,
-diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-index 345105dbbfd1..c3e4804b8fcb 100644
---- a/fs/fscache/internal.h
-+++ b/fs/fscache/internal.h
-@@ -54,9 +54,18 @@ extern struct fscache_cookie *fscache_alloc_cookie(struct fscache_cookie *,
- 						   const void *, size_t,
- 						   void *, loff_t);
- extern struct fscache_cookie *fscache_hash_cookie(struct fscache_cookie *);
-+extern struct fscache_cookie *fscache_cookie_get(struct fscache_cookie *,
-+						 enum fscache_cookie_trace);
- extern void fscache_cookie_put(struct fscache_cookie *,
- 			       enum fscache_cookie_trace);
- 
-+static inline void fscache_cookie_see(struct fscache_cookie *cookie,
-+				      enum fscache_cookie_trace where)
-+{
-+	trace_fscache_cookie(cookie->debug_id, refcount_read(&cookie->ref),
-+			     where);
-+}
-+
- /*
-  * fsdef.c
-  */
-@@ -286,14 +295,6 @@ static inline void fscache_raise_event(struct fscache_object *object,
- 		fscache_enqueue_object(object);
- }
- 
--static inline void fscache_cookie_get(struct fscache_cookie *cookie,
--				      enum fscache_cookie_trace where)
--{
--	int usage = atomic_inc_return(&cookie->usage);
--
--	trace_fscache_cookie(cookie->debug_id, usage, where);
--}
--
- /*
-  * get an extra reference to a netfs retrieval context
-  */
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index ea61e54a6bc5..a4dab5998613 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -123,7 +123,7 @@ struct fscache_netfs {
-  * - indices are created on disk just-in-time
-  */
- struct fscache_cookie {
--	atomic_t			usage;		/* number of users of this cookie */
-+	refcount_t			ref;		/* number of users of this cookie */
- 	atomic_t			n_children;	/* number of children of this cookie */
- 	atomic_t			n_active;	/* number of active users of netfs ptrs */
- 	unsigned int			debug_id;
-diff --git a/include/trace/events/fscache.h b/include/trace/events/fscache.h
-index 55b8802740fa..51f2b492b9eb 100644
---- a/include/trace/events/fscache.h
-+++ b/include/trace/events/fscache.h
-@@ -161,26 +161,26 @@ fscache_cookie_traces;
- 
- TRACE_EVENT(fscache_cookie,
- 	    TP_PROTO(unsigned int cookie_debug_id,
--		     int usage,
-+		     int ref,
- 		     enum fscache_cookie_trace where),
- 
--	    TP_ARGS(cookie_debug_id, usage, where),
-+	    TP_ARGS(cookie_debug_id, ref, where),
- 
- 	    TP_STRUCT__entry(
- 		    __field(unsigned int,		cookie		)
- 		    __field(enum fscache_cookie_trace,	where		)
--		    __field(int,			usage		)
-+		    __field(int,			ref		)
- 			     ),
- 
- 	    TP_fast_assign(
- 		    __entry->cookie	= cookie_debug_id;
- 		    __entry->where	= where;
--		    __entry->usage	= usage;
-+		    __entry->ref	= ref;
- 			   ),
- 
--	    TP_printk("%s c=%08x u=%d",
-+	    TP_printk("%s c=%08x r=%d",
- 		      __print_symbolic(__entry->where, fscache_cookie_traces),
--		      __entry->cookie, __entry->usage)
-+		      __entry->cookie, __entry->ref)
- 	    );
- 
- TRACE_EVENT(fscache_netfs,
-@@ -212,7 +212,7 @@ TRACE_EVENT(fscache_acquire,
- 		    __field(unsigned int,		cookie		)
- 		    __field(unsigned int,		parent		)
- 		    __array(char,			name, 8		)
--		    __field(int,			p_usage		)
-+		    __field(int,			p_ref		)
- 		    __field(int,			p_n_children	)
- 		    __field(u8,				p_flags		)
- 			     ),
-@@ -220,15 +220,15 @@ TRACE_EVENT(fscache_acquire,
- 	    TP_fast_assign(
- 		    __entry->cookie		= cookie->debug_id;
- 		    __entry->parent		= cookie->parent->debug_id;
--		    __entry->p_usage		= atomic_read(&cookie->parent->usage);
-+		    __entry->p_ref		= refcount_read(&cookie->parent->ref);
- 		    __entry->p_n_children	= atomic_read(&cookie->parent->n_children);
- 		    __entry->p_flags		= cookie->parent->flags;
- 		    memcpy(__entry->name, cookie->def->name, 8);
- 		    __entry->name[7]		= 0;
- 			   ),
- 
--	    TP_printk("c=%08x p=%08x pu=%d pc=%d pf=%02x n=%s",
--		      __entry->cookie, __entry->parent, __entry->p_usage,
-+	    TP_printk("c=%08x p=%08x pr=%d pc=%d pf=%02x n=%s",
-+		      __entry->cookie, __entry->parent, __entry->p_ref,
- 		      __entry->p_n_children, __entry->p_flags, __entry->name)
- 	    );
- 
-@@ -240,7 +240,7 @@ TRACE_EVENT(fscache_relinquish,
- 	    TP_STRUCT__entry(
- 		    __field(unsigned int,		cookie		)
- 		    __field(unsigned int,		parent		)
--		    __field(int,			usage		)
-+		    __field(int,			ref		)
- 		    __field(int,			n_children	)
- 		    __field(int,			n_active	)
- 		    __field(u8,				flags		)
-@@ -250,15 +250,15 @@ TRACE_EVENT(fscache_relinquish,
- 	    TP_fast_assign(
- 		    __entry->cookie	= cookie->debug_id;
- 		    __entry->parent	= cookie->parent->debug_id;
--		    __entry->usage	= atomic_read(&cookie->usage);
-+		    __entry->ref	= refcount_read(&cookie->ref);
- 		    __entry->n_children	= atomic_read(&cookie->n_children);
- 		    __entry->n_active	= atomic_read(&cookie->n_active);
- 		    __entry->flags	= cookie->flags;
- 		    __entry->retire	= retire;
- 			   ),
- 
--	    TP_printk("c=%08x u=%d p=%08x Nc=%d Na=%d f=%02x r=%u",
--		      __entry->cookie, __entry->usage,
-+	    TP_printk("c=%08x r=%d p=%08x Nc=%d Na=%d f=%02x r=%u",
-+		      __entry->cookie, __entry->ref,
- 		      __entry->parent, __entry->n_children, __entry->n_active,
- 		      __entry->flags, __entry->retire)
- 	    );
-@@ -270,7 +270,7 @@ TRACE_EVENT(fscache_enable,
- 
- 	    TP_STRUCT__entry(
- 		    __field(unsigned int,		cookie		)
--		    __field(int,			usage		)
-+		    __field(int,			ref		)
- 		    __field(int,			n_children	)
- 		    __field(int,			n_active	)
- 		    __field(u8,				flags		)
-@@ -278,14 +278,14 @@ TRACE_EVENT(fscache_enable,
- 
- 	    TP_fast_assign(
- 		    __entry->cookie	= cookie->debug_id;
--		    __entry->usage	= atomic_read(&cookie->usage);
-+		    __entry->ref	= refcount_read(&cookie->ref);
- 		    __entry->n_children	= atomic_read(&cookie->n_children);
- 		    __entry->n_active	= atomic_read(&cookie->n_active);
- 		    __entry->flags	= cookie->flags;
- 			   ),
- 
--	    TP_printk("c=%08x u=%d Nc=%d Na=%d f=%02x",
--		      __entry->cookie, __entry->usage,
-+	    TP_printk("c=%08x r=%d Nc=%d Na=%d f=%02x",
-+		      __entry->cookie, __entry->ref,
- 		      __entry->n_children, __entry->n_active, __entry->flags)
- 	    );
- 
-@@ -296,7 +296,7 @@ TRACE_EVENT(fscache_disable,
- 
- 	    TP_STRUCT__entry(
- 		    __field(unsigned int,		cookie		)
--		    __field(int,			usage		)
-+		    __field(int,			ref		)
- 		    __field(int,			n_children	)
- 		    __field(int,			n_active	)
- 		    __field(u8,				flags		)
-@@ -304,14 +304,14 @@ TRACE_EVENT(fscache_disable,
- 
- 	    TP_fast_assign(
- 		    __entry->cookie	= cookie->debug_id;
--		    __entry->usage	= atomic_read(&cookie->usage);
-+		    __entry->ref	= refcount_read(&cookie->ref);
- 		    __entry->n_children	= atomic_read(&cookie->n_children);
- 		    __entry->n_active	= atomic_read(&cookie->n_active);
- 		    __entry->flags	= cookie->flags;
- 			   ),
- 
--	    TP_printk("c=%08x u=%d Nc=%d Na=%d f=%02x",
--		      __entry->cookie, __entry->usage,
-+	    TP_printk("c=%08x r=%d Nc=%d Na=%d f=%02x",
-+		      __entry->cookie, __entry->ref,
- 		      __entry->n_children, __entry->n_active, __entry->flags)
- 	    );
- 
-
+- Josh Triplett
 
 --
 Linux-cachefs mailing list
