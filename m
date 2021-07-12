@@ -2,82 +2,66 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B4B213B4872
-	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Jun 2021 19:49:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 578163C5C14
+	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Jul 2021 14:26:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1626092810;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=CnH8VthtkNShdqp/Fm/Y22v4/Bs1Xwyoe56rEz9pIGI=;
+	b=VhMKffPZNiXW9pFMDV6EawoptEJJ65nDZn1LdksNvuhjbJf0RSYhP6X28SUorKWh9BRpGf
+	Jb3RCIRIg3T2ACHUKtW+MnCoQkomWnKVPIUwTCk8/nKKzB0p888EFxNH9F/okgYqnWcDh4
+	P0YWs4Z3yb6mkYNR5g8RL4VdKPsskSY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-318-DjZSgXcGNcCPLlRrbRyNXg-1; Fri, 25 Jun 2021 13:49:18 -0400
-X-MC-Unique: DjZSgXcGNcCPLlRrbRyNXg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-558-3DFRQQErMRiuShvQVkThNQ-1; Mon, 12 Jul 2021 08:26:49 -0400
+X-MC-Unique: 3DFRQQErMRiuShvQVkThNQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C277F50752;
-	Fri, 25 Jun 2021 17:49:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F71C9F92A;
+	Mon, 12 Jul 2021 12:26:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF97360C5F;
-	Fri, 25 Jun 2021 17:49:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFD9D5C1D1;
+	Mon, 12 Jul 2021 12:26:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D3934EA2A;
-	Fri, 25 Jun 2021 17:49:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CF104EA2A;
+	Mon, 12 Jul 2021 12:26:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15PHn6fs003458 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 25 Jun 2021 13:49:06 -0400
+	id 16CCQegP027229 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 12 Jul 2021 08:26:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AC96910547DE; Fri, 25 Jun 2021 17:49:06 +0000 (UTC)
+	id 3C61460916; Mon, 12 Jul 2021 12:26:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A7C0510547D0
-	for <linux-cachefs@redhat.com>; Fri, 25 Jun 2021 17:49:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3872E10AC3A2
-	for <linux-cachefs@redhat.com>; Fri, 25 Jun 2021 17:49:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-451-ezZ7Cpv5MAeJ2UgaEPO9fw-1;
-	Fri, 25 Jun 2021 13:49:00 -0400
-X-MC-Unique: ezZ7Cpv5MAeJ2UgaEPO9fw-1
-Received: by mail.kernel.org (Postfix) with ESMTPS id 0E18961919;
-	Fri, 25 Jun 2021 17:48:59 +0000 (UTC)
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
-	[127.0.0.1])
-	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
-	079F160A38; Fri, 25 Jun 2021 17:48:59 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <2842348.1624308062@warthog.procyon.org.uk>
-References: <2842348.1624308062@warthog.procyon.org.uk>
-X-PR-Tracked-List-Id: <ceph-devel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <2842348.1624308062@warthog.procyon.org.uk>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
-	tags/netfs-fixes-20210621
-X-PR-Tracked-Commit-Id: 827a746f405d25f79560c7868474aec5aee174e1
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 9e736cf7d6f0dac63855ba74c94b85898485ba7a
-Message-Id: <162464333902.2214.16258138937762470940.pr-tracker-bot@kernel.org>
-Date: Fri, 25 Jun 2021 17:48:59 +0000
-To: David Howells <dhowells@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Received: from warthog.procyon.org.uk (ovpn-118-19.rdu2.redhat.com
+	[10.10.118.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D2E260875;
+	Mon, 12 Jul 2021 12:26:33 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: torvalds@linux-foundation.org
+Date: Mon, 12 Jul 2021 13:26:32 +0100
+Message-ID: <162609279295.3129635.5721010331369998019.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
-Cc: Andrew W Elble <aweits@rit.edu>, Jeff Layton <jlayton@kernel.org>,
-	linux-kernel@vger.kernel.org,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-cachefs@redhat.com, Al Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org, ceph-devel@vger.kernel.org,
-	torvalds@linux-foundation.org, linux-afs@lists.infradead.org
-Subject: Re: [Linux-cachefs] [GIT PULL] netfs, afs: Fix write_begin/end
+	linux-mm@kvack.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Subject: [Linux-cachefs] [PATCH] netfs: Add MAINTAINERS record
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,10 +73,9 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,18 +83,47 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Mon, 21 Jun 2021 21:41:02 +0100:
+Add a MAINTAINERS record for the new netfs helper library.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/netfs-fixes-20210621
+Signed-off-by: David Howells <dhowells@redhat.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
+cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+cc: linux-mm@kvack.org
+cc: linux-cachefs@redhat.com
+cc: linux-afs@lists.infradead.org
+cc: linux-nfs@vger.kernel.org
+cc: linux-cifs@vger.kernel.org
+cc: ceph-devel@vger.kernel.org
+cc: v9fs-developer@lists.sourceforge.net
+cc: linux-fsdevel@vger.kernel.org
+Link: https://lore.kernel.org/r/162377165897.729347.292567369593752239.stgit@warthog.procyon.org.uk/
+Link: https://lore.kernel.org/r/162377519404.734878.4912821418522385423.stgit@warthog.procyon.org.uk/ # v1
+---
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/9e736cf7d6f0dac63855ba74c94b85898485ba7a
+ MAINTAINERS |    9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Thank you!
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a61f4f3b78a9..2fd13803cd06 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13050,6 +13050,15 @@ NETWORKING [WIRELESS]
+ L:	linux-wireless@vger.kernel.org
+ Q:	http://patchwork.kernel.org/project/linux-wireless/list/
+ 
++NETWORK FILESYSTEM HELPER LIBRARY
++M:	David Howells <dhowells@redhat.com>
++M:	Jeff Layton <jlayton@kernel.org>
++L:	linux-cachefs@redhat.com (moderated for non-subscribers)
++S:	Supported
++F:	Documentation/filesystems/netfs_library.rst
++F:	fs/netfs/
++F:	include/linux/netfs.h
++
+ NETXEN (1/10) GbE SUPPORT
+ M:	Manish Chopra <manishc@marvell.com>
+ M:	Rahul Verma <rahulv@marvell.com>
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
 
 --
 Linux-cachefs mailing list
