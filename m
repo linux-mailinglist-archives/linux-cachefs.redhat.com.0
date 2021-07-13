@@ -1,62 +1,75 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A853B3C5F9E
-	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Jul 2021 17:44:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1626104667;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Vwj636gATfoHHhZzl8n2EMFnA81I+22j2x/xp0F6yEY=;
-	b=T8RIrsd54eoiV5HbmMlL3bwtaZe70Ehc/qlX7D5mOcMxGYCV22Vqa/+CGDMQyMuPPuoQKT
-	OIwtDx02Qw5aPhah+lyilcTvjAHc9l3tCFhkEARRBJXRkYwety3ANiygJxGt4e6IPE5qLC
-	ESIleA0RgEY5uQ8h7AnmYd5mIordrps=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 797863C6A3F
+	for <lists+linux-cachefs@lfdr.de>; Tue, 13 Jul 2021 08:09:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-494-qFM68oobOBGNGllGeAVJ8w-1; Mon, 12 Jul 2021 11:44:26 -0400
-X-MC-Unique: qFM68oobOBGNGllGeAVJ8w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-389-g8B9b7L3NaSha3vNriheZw-1; Tue, 13 Jul 2021 02:09:06 -0400
+X-MC-Unique: g8B9b7L3NaSha3vNriheZw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1AA4885EE97;
-	Mon, 12 Jul 2021 15:44:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A72E518414A4;
+	Tue, 13 Jul 2021 06:09:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 535665C1D1;
-	Mon, 12 Jul 2021 15:44:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C5FF60938;
+	Tue, 13 Jul 2021 06:09:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5ABD61809C99;
-	Mon, 12 Jul 2021 15:44:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AE1D81809C99;
+	Tue, 13 Jul 2021 06:09:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16CFhsN6013616 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 12 Jul 2021 11:43:54 -0400
+	id 16D675BA017011 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 13 Jul 2021 02:07:06 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D04C110429F9; Mon, 12 Jul 2021 15:43:54 +0000 (UTC)
+	id 7B4322141DFA; Tue, 13 Jul 2021 06:07:05 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (ovpn-118-19.rdu2.redhat.com
-	[10.10.118.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F175A1042A43;
-	Mon, 12 Jul 2021 15:43:29 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 76AEE2141DF2
+	for <linux-cachefs@redhat.com>; Tue, 13 Jul 2021 06:07:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC75F80270C
+	for <linux-cachefs@redhat.com>; Tue, 13 Jul 2021 06:07:00 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-198-d-hBTyesOD2AKR9bg3vPpA-1; Tue, 13 Jul 2021 02:06:58 -0400
+X-MC-Unique: d-hBTyesOD2AKR9bg3vPpA-1
+Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
+	Linux)) id 1m3BDC-000mGH-L7; Tue, 13 Jul 2021 05:44:09 +0000
+Date: Tue, 13 Jul 2021 06:44:06 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <YO0oJvuIXlcmSd7F@infradead.org>
+References: <162609279295.3129635.5721010331369998019.stgit@warthog.procyon.org.uk>
 MIME-Version: 1.0
-Date: Mon, 12 Jul 2021 16:43:29 +0100
-Message-ID: <3398985.1626104609@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <162609279295.3129635.5721010331369998019.stgit@warthog.procyon.org.uk>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org
-Subject: [Linux-cachefs] Request for folios
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+	linux-mm@kvack.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	torvalds@linux-foundation.org, linux-afs@lists.infradead.org
+Subject: Re: [Linux-cachefs] [PATCH] netfs: Add MAINTAINERS record
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,31 +83,21 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <3398984.1626104609.1@warthog.procyon.org.uk>
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+On Mon, Jul 12, 2021 at 01:26:32PM +0100, David Howells wrote:
+> Add a MAINTAINERS record for the new netfs helper library.
 
-Is it possible to get Willy's folios patchset - or at least the core of it -
-staged for the next merge window?  I'm working on improvements to the local
-filesystem caching code and the network filesystem support library and that
-involves a lot of dealing with pages - all of which will need to be converted
-to the folios stuff.  This has the potential to conflict with the changes
-Willy's patches make to filesystems.  Further, the folios patchset offers some
-facilities that make my changes a bit easier - and some changes that make
-things a bit more challenging (e.g. page size becoming variable).
-
-Also, is it possible to get the folios patchset in a stable public git branch
-that I can base my patches upon?
-
-Thanks,
-David
+Btw, any reason why this code is called netfs?  It is a library
+that seems to mostly be glue code for fscache as far as I can tell and
+has nothing to do with networking at all.
 
 --
 Linux-cachefs mailing list
