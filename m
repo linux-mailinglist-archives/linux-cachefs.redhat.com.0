@@ -2,53 +2,54 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 174253C80A6
-	for <lists+linux-cachefs@lfdr.de>; Wed, 14 Jul 2021 10:48:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AEAE03CACF8
+	for <lists+linux-cachefs@lfdr.de>; Thu, 15 Jul 2021 21:46:28 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-47-IRYQ0wo-OPOESvbeiO7MGw-1; Wed, 14 Jul 2021 04:48:16 -0400
-X-MC-Unique: IRYQ0wo-OPOESvbeiO7MGw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-121-jyqSb6DzPueMue1Y5Ul5bQ-1; Thu, 15 Jul 2021 15:46:25 -0400
+X-MC-Unique: jyqSb6DzPueMue1Y5Ul5bQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45E37800050;
-	Wed, 14 Jul 2021 08:48:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1F46100EB3E;
-	Wed, 14 Jul 2021 08:48:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 117371054F98;
+	Thu, 15 Jul 2021 19:46:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CC9C60936;
+	Thu, 15 Jul 2021 19:46:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09F8B4E9F5;
-	Wed, 14 Jul 2021 08:48:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 084B918095C2;
+	Thu, 15 Jul 2021 19:46:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16E2JVgV030219 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 13 Jul 2021 22:19:31 -0400
+	id 16FJfRFW002727 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 15 Jul 2021 15:41:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F45B200B676; Wed, 14 Jul 2021 02:19:31 +0000 (UTC)
+	id 4786810728E; Thu, 15 Jul 2021 19:41:27 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8AB86200B670
-	for <linux-cachefs@redhat.com>; Wed, 14 Jul 2021 02:19:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4285110728F
+	for <linux-cachefs@redhat.com>; Thu, 15 Jul 2021 19:41:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5EDBC805F4A
-	for <linux-cachefs@redhat.com>; Wed, 14 Jul 2021 02:19:28 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-571-a35j65mWPW-6gAtDT_PQBg-1;
-	Tue, 13 Jul 2021 22:19:26 -0400
-X-MC-Unique: a35j65mWPW-6gAtDT_PQBg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 04B6161260;
-	Wed, 14 Jul 2021 02:11:01 +0000 (UTC)
-Date: Tue, 13 Jul 2021 19:11:01 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: David Howells <dhowells@redhat.com>
-Message-Id: <20210713191101.b38013786e36286e78c9648c@linux-foundation.org>
-In-Reply-To: <3398985.1626104609@warthog.procyon.org.uk>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4BC1185A7A4
+	for <linux-cachefs@redhat.com>; Thu, 15 Jul 2021 19:41:24 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-581-WFKfGIEONPm4LFZenYfdIQ-1; Thu, 15 Jul 2021 15:41:22 -0400
+X-MC-Unique: WFKfGIEONPm4LFZenYfdIQ-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1m47CH-003j8q-Pq; Thu, 15 Jul 2021 19:39:32 +0000
+Date: Thu, 15 Jul 2021 20:39:01 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <YPCO1SuMyZ6j4Gno@casper.infradead.org>
 References: <3398985.1626104609@warthog.procyon.org.uk>
-Mime-Version: 1.0
+	<20210713191101.b38013786e36286e78c9648c@linux-foundation.org>
+MIME-Version: 1.0
+In-Reply-To: <20210713191101.b38013786e36286e78c9648c@linux-foundation.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -57,12 +58,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Wed, 14 Jul 2021 04:48:05 -0400
 Cc: Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
-	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org
+	linux-mm@kvack.org, linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org
 Subject: Re: [Linux-cachefs] Request for folios
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -77,36 +76,33 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 12 Jul 2021 16:43:29 +0100 David Howells <dhowells@redhat.com> wrote:
-
-> Hi Andrew,
+On Tue, Jul 13, 2021 at 07:11:01PM -0700, Andrew Morton wrote:
+> > Also, is it possible to get the folios patchset in a stable public git branch
+> > that I can base my patches upon?
 > 
-> Is it possible to get Willy's folios patchset - or at least the core of it -
-> staged for the next merge window?  I'm working on improvements to the local
-> filesystem caching code and the network filesystem support library and that
-> involves a lot of dealing with pages - all of which will need to be converted
-> to the folios stuff.  This has the potential to conflict with the changes
-> Willy's patches make to filesystems.  Further, the folios patchset offers some
-> facilities that make my changes a bit easier - and some changes that make
-> things a bit more challenging (e.g. page size becoming variable).
+> I guess Willy's tree, but I doubt if the folio patches will be reliably
+> stable for some time (a few weeks?)
 
-It's about that time.  However there's a discussion at present which
-might result in significant renamings, so I'll wait until that has
-panned out.
+So, how about I put the 89 patches which I want to merge this merge
+window into a git branch which Dave can develop against?  Andrew can
+pull that branch into mmotm when it's sufficiently settled for his taste.
 
-> Also, is it possible to get the folios patchset in a stable public git branch
-> that I can base my patches upon?
+In order for that to look good in Linus' tree, either Dave can send a
+pull request which includes all of the folio patches, or I can send a
+pull request early in the merge window (or even before the merge window
+opens) which includes those 89 patches.
 
-I guess Willy's tree, but I doubt if the folio patches will be reliably
-stable for some time (a few weeks?)
+That would mean the patches wouldn't have Andrew's sign-off on them, but I
+could add a R-b from Andrew to all of them if that's the right way to go.
 
 --
 Linux-cachefs mailing list
