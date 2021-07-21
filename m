@@ -2,94 +2,93 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D565F3D13FA
-	for <lists+linux-cachefs@lfdr.de>; Wed, 21 Jul 2021 18:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AEDF63D14F2
+	for <lists+linux-cachefs@lfdr.de>; Wed, 21 Jul 2021 19:17:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1626884468;
+	s=mimecast20190719; t=1626887830;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UtvDhZKCqmiLNeY9Gbwcfaoj1MaqZzLwRS4elsqiI0w=;
-	b=TSafpPpiQXlHDIKrnAHwHJmY5KDSJI2XhMPYNB5H5hM3qeoqZU6j60oCZfSeWn0UUMXDP3
-	f9Yr6YO8yZGE3NZulN0XFcR94nWmI4858Fqcahmb3el65W27Au3pBeKRY6VcHsAUQIUTiF
-	0yU+LoHLzYK/Zuy/6CaeqSNCBmKCLd8=
+	bh=mb0gdtPKSQn4mPu4d7owNqyQ8MKDB6J0wCkmna3st9I=;
+	b=iAH3JUXNIMQb6x+mylIYLxgOYP6BVPHznGCYzff6INDTko54mBDuFj4kBADcUaEBZLR13u
+	Rz8yN9ayin3E7RRXCzml8/Y0Vp5soSpWHlJOISs00x4drfVnOYQVZDCh2jVvAq5IDR6e2z
+	DIuiBh6uyusT5CO/kYfwR/dSCKRMV0I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-563-d1g3H93vOUKdZKir9RH88A-1; Wed, 21 Jul 2021 12:21:07 -0400
-X-MC-Unique: d1g3H93vOUKdZKir9RH88A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-481-WLIo1lc7PReBRW6Sm4AXFQ-1; Wed, 21 Jul 2021 13:17:09 -0400
+X-MC-Unique: WLIo1lc7PReBRW6Sm4AXFQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E630A801B2E;
-	Wed, 21 Jul 2021 16:21:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF38368D9B;
-	Wed, 21 Jul 2021 16:21:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 265661012D94;
+	Wed, 21 Jul 2021 17:17:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC2F117D8B;
+	Wed, 21 Jul 2021 17:17:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1FE911819AC9;
-	Wed, 21 Jul 2021 16:21:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F00574BB7C;
+	Wed, 21 Jul 2021 17:17:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16LGKtcv020046 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 21 Jul 2021 12:20:55 -0400
+	id 16LHH2N4031525 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 21 Jul 2021 13:17:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 586602013564; Wed, 21 Jul 2021 16:20:55 +0000 (UTC)
+	id 71068207AD67; Wed, 21 Jul 2021 17:17:02 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51B7C21CAC97
-	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 16:20:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 55109185A7A4
-	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 16:20:48 +0000 (UTC)
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
-	[209.85.219.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-593-oRK17l3VMDm52m6mi-lsgQ-1; Wed, 21 Jul 2021 12:20:45 -0400
-X-MC-Unique: oRK17l3VMDm52m6mi-lsgQ-1
-Received: by mail-qv1-f70.google.com with SMTP id
-	l4-20020a0ce8440000b02902d89f797d08so1858762qvo.17
-	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 09:20:44 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CF2E203CE5E
+	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 17:16:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A94D4800186
+	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 17:16:59 +0000 (UTC)
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+	[209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-173-mMKZReVKPb-sy1HaYZysWA-1; Wed, 21 Jul 2021 13:16:58 -0400
+X-MC-Unique: mMKZReVKPb-sy1HaYZysWA-1
+Received: by mail-qv1-f72.google.com with SMTP id
+	p6-20020a05621415c6b02902f61b4b012eso2014629qvz.2
+	for <linux-cachefs@redhat.com>; Wed, 21 Jul 2021 10:16:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
 	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=YkZTscC6KpmV7ZPZQ/arpngaCqGBZg3nbQ0knfcsigA=;
-	b=l2UOQh3jxRJY6sjxwA3Ad+kAhe7a/FeG+AwuTdgEmnTS/eeHYpAjv8KmSIsvRJ1Vrm
-	3+V1Rbw+vyoWggxPpNKt7SxstYdAIkgsPZM9gQJ1AMmNAHL0wIc28iMcpU+50Euis72W
-	WiNZN/xV+3bNDKK6h2B5gfWzl0yKzR644PYbkAi9LIIS6Ow4L08zpaeiknMnN/aPwhSG
-	rJp0rVP7gpWNiSvOCac0TDAi0nO8XKJ6XCZnp3366cD1U2SbuBw31gDZ67JVS59CnOdJ
-	L9jxznyEA8Vx5HUVmitp7sPLEXYrxhzG4c3M+g4Lzlr4Q1DBgxk2OMlk6Vo5a9bT4kQr
-	A8RQ==
-X-Gm-Message-State: AOAM530wQkY9U3s+IC8wN9PQceSnIcu9ZOVZT0jR0Sqj9tMd+XHmyj/r
-	MG3tqwSolcDGyAKh28HOFzu5YPaDNF5NU12iDkPGkIIm3vLSVJrD40qlHcuFIQl641BsMj4bpsf
-	OSs/hfuwrR6kqrodcsiUotw==
-X-Received: by 2002:a0c:a223:: with SMTP id f32mr37104021qva.8.1626884444602; 
-	Wed, 21 Jul 2021 09:20:44 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw+t6fxG/ixd7o7dlSLuaUhbdIrVbCJpvX027HWNZq9vT5wDnkVq2oxjwvDHG0JV/G1ddMkig==
-X-Received: by 2002:a0c:a223:: with SMTP id f32mr37103999qva.8.1626884444411; 
-	Wed, 21 Jul 2021 09:20:44 -0700 (PDT)
+	bh=45Nv4CwiblR8FGtkBjhkDjeZeYsNgqMrzsXCoaXKlcs=;
+	b=sYPW4mUpcizHT+dui+eJnQs2cSA9wohjnIJfDXk1MmjaxUc0YVaY4rf6tAAlkeJr7O
+	M4RHdqNCaJzgax4pLgCtKwri15u/U4JDZHcgBVSZRh+HyJbPZ/iqH1+Fe1vgELX11Lgx
+	K//u6TpvYatW1DpzZOvpnvkOflvTC8ZHD7D++p3f6Kf3mP3qljUMUDZSjwHYl/zLPa+8
+	i7JPEUhQKVvP8zhNvl+5PivvWZD4XbSmMNT3Jh35CuOvqE9bLMzEzu5z8FtxHJX+7CgC
+	fiNTrnbRWhVy8ET50suFKBeIFIvZ20lpI0zF12kH/BsE/m/aDcyXQ19ahMlBZlP8qRmb
+	69Aw==
+X-Gm-Message-State: AOAM533nrXvxpi/qIh1mQocZhw8sy5oKz/0uIGwTnfhmlfidRcfIhhFX
+	YpuN843CIawvNwVvCPnlKCFQTItOletp+AMHytdjnpwKpzENbK8P6sszoRkM1bgtd2fao8PLZPh
+	bUL58sTuovl2g/Jch9rnajw==
+X-Received: by 2002:ad4:45a6:: with SMTP id y6mr36933552qvu.1.1626887817697;
+	Wed, 21 Jul 2021 10:16:57 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwroCy17a7YpgGcviCUSg3J+GVy+n4E5MAqofjS2RsLBi/0nF/2omAf2j+swlCqTU83eT+04Q==
+X-Received: by 2002:ad4:45a6:: with SMTP id y6mr36933536qvu.1.1626887817521;
+	Wed, 21 Jul 2021 10:16:57 -0700 (PDT)
 Received: from [192.168.1.3] (68-20-15-154.lightspeed.rlghnc.sbcglobal.net.
-	[68.20.15.154]) by smtp.gmail.com with ESMTPSA id
-	i4sm9475118qka.130.2021.07.21.09.20.43
+	[68.20.15.154])
+	by smtp.gmail.com with ESMTPSA id t6sm1744741qkg.75.2021.07.21.10.16.56
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 21 Jul 2021 09:20:43 -0700 (PDT)
-Message-ID: <35ecb577315f486f1636b2316c2051ad004f6f7b.camel@redhat.com>
+	Wed, 21 Jul 2021 10:16:57 -0700 (PDT)
+Message-ID: <0555748529d483fb9b69eceb56bf9ebc1efceaf1.camel@redhat.com>
 From: Jeff Layton <jlayton@redhat.com>
 To: David Howells <dhowells@redhat.com>, linux-fsdevel@vger.kernel.org
-Date: Wed, 21 Jul 2021 12:20:42 -0400
-In-Reply-To: <162687508008.276387.6418924257569297305.stgit@warthog.procyon.org.uk>
+Date: Wed, 21 Jul 2021 13:16:56 -0400
+In-Reply-To: <162687509306.276387.7579641363406546284.stgit@warthog.procyon.org.uk>
 References: <162687506932.276387.14456718890524355509.stgit@warthog.procyon.org.uk>
-	<162687508008.276387.6418924257569297305.stgit@warthog.procyon.org.uk>
+	<162687509306.276387.7579641363406546284.stgit@warthog.procyon.org.uk>
 User-Agent: Evolution 3.40.3 (3.40.3-1.fc34)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
 Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-nfs@vger.kernel.org,
 	Dominique, Miklos Szeredi <miklos@szeredi.hu>,
@@ -102,7 +101,8 @@ Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-nfs@vger.kernel.org,
 	ceph-devel@vger.kernel.org, Linus,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	devel@lists.orangefs.org, Mike Marshall <hubcap@omnibond.com>
-Subject: Re: [Linux-cachefs] [RFC PATCH 01/12] afs: Sort out symlink reading
+Subject: Re: [Linux-cachefs] [RFC PATCH 02/12] netfs: Add an iov_iter to the
+ read subreq for the network fs/cache to use
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -116,7 +116,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -125,124 +125,89 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On Wed, 2021-07-21 at 14:44 +0100, David Howells wrote:
-> afs_readpage() doesn't get a file pointer when called for a symlink, so
-> separate it from regular file pointer handling.
+> Add an iov_iter to the read subrequest and set it up to define the
+> destination buffer to write into.  This will allow future patches to point
+> to a bounce buffer instead for purposes of handling oversize writes,
+> decryption (where we want to save the encrypted data to the cache) and
+> decompression.
 > 
 > Signed-off-by: David Howells <dhowells@redhat.com>
 > ---
 > 
->  fs/afs/file.c     |   14 +++++++++-----
->  fs/afs/inode.c    |    6 +++---
->  fs/afs/internal.h |    3 ++-
->  3 files changed, 14 insertions(+), 9 deletions(-)
+>  fs/afs/file.c          |    6 +-----
+>  fs/netfs/read_helper.c |    5 ++++-
+>  include/linux/netfs.h  |    2 ++
+>  3 files changed, 7 insertions(+), 6 deletions(-)
 > 
 > diff --git a/fs/afs/file.c b/fs/afs/file.c
-> index ca0d993add65..c9c21ad0e7c9 100644
+> index c9c21ad0e7c9..ca529f23515a 100644
 > --- a/fs/afs/file.c
 > +++ b/fs/afs/file.c
-> @@ -19,6 +19,7 @@
+> @@ -319,11 +319,7 @@ static void afs_req_issue_op(struct netfs_read_subrequest *subreq)
+>  	fsreq->len	= subreq->len   - subreq->transferred;
+>  	fsreq->key	= subreq->rreq->netfs_priv;
+>  	fsreq->vnode	= vnode;
+> -	fsreq->iter	= &fsreq->def_iter;
+> -
+> -	iov_iter_xarray(&fsreq->def_iter, READ,
+> -			&fsreq->vnode->vfs_inode.i_mapping->i_pages,
+> -			fsreq->pos, fsreq->len);
+> +	fsreq->iter	= &subreq->iter;
 >  
->  static int afs_file_mmap(struct file *file, struct vm_area_struct *vma);
->  static int afs_readpage(struct file *file, struct page *page);
-> +static int afs_symlink_readpage(struct file *file, struct page *page);
->  static void afs_invalidatepage(struct page *page, unsigned int offset,
->  			       unsigned int length);
->  static int afs_releasepage(struct page *page, gfp_t gfp_flags);
-> @@ -46,7 +47,7 @@ const struct inode_operations afs_file_inode_operations = {
->  	.permission	= afs_permission,
->  };
->  
-> -const struct address_space_operations afs_fs_aops = {
-> +const struct address_space_operations afs_file_aops = {
->  	.readpage	= afs_readpage,
->  	.readahead	= afs_readahead,
->  	.set_page_dirty	= afs_set_page_dirty,
-> @@ -60,6 +61,12 @@ const struct address_space_operations afs_fs_aops = {
->  	.writepages	= afs_writepages,
->  };
->  
-> +const struct address_space_operations afs_symlink_aops = {
-> +	.readpage	= afs_symlink_readpage,
-> +	.releasepage	= afs_releasepage,
-> +	.invalidatepage	= afs_invalidatepage,
-> +};
-> +
->  static const struct vm_operations_struct afs_vm_ops = {
->  	.fault		= filemap_fault,
->  	.map_pages	= filemap_map_pages,
-> @@ -321,7 +328,7 @@ static void afs_req_issue_op(struct netfs_read_subrequest *subreq)
 >  	afs_fetch_data(fsreq->vnode, fsreq);
 >  }
->  
-> -static int afs_symlink_readpage(struct page *page)
-> +static int afs_symlink_readpage(struct file *file, struct page *page)
+> diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+> index 0b6cd3b8734c..715f3e9c380d 100644
+> --- a/fs/netfs/read_helper.c
+> +++ b/fs/netfs/read_helper.c
+> @@ -150,7 +150,7 @@ static void netfs_clear_unread(struct netfs_read_subrequest *subreq)
 >  {
->  	struct afs_vnode *vnode = AFS_FS_I(page->mapping->host);
->  	struct afs_read *fsreq;
-
-
-I wonder...would you be better served here by not using page_readlink
-for symlinks and instead use simple_get_link and roll your own readlink
-operation. It seems a bit more direct, and AFS seems to be the only
-caller of page_readlink.
-
-> @@ -386,9 +393,6 @@ const struct netfs_read_request_ops afs_req_ops = {
+>  	struct iov_iter iter;
 >  
->  static int afs_readpage(struct file *file, struct page *page)
->  {
-> -	if (!file)
-> -		return afs_symlink_readpage(page);
-> -
->  	return netfs_readpage(file, page, &afs_req_ops, NULL);
->  }
+> -	iov_iter_xarray(&iter, WRITE, &subreq->rreq->mapping->i_pages,
+> +	iov_iter_xarray(&iter, READ, &subreq->rreq->mapping->i_pages,
+
+What's up with the WRITE -> READ change here? Was that a preexisting
+bug?
+
+>  			subreq->start + subreq->transferred,
+>  			subreq->len   - subreq->transferred);
+>  	iov_iter_zero(iov_iter_count(&iter), &iter);
+> @@ -745,6 +745,9 @@ netfs_rreq_prepare_read(struct netfs_read_request *rreq,
+>  	if (WARN_ON(subreq->len == 0))
+>  		source = NETFS_INVALID_READ;
 >  
-> diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-> index bef6f5ccfb09..cf7b66957c6f 100644
-> --- a/fs/afs/inode.c
-> +++ b/fs/afs/inode.c
-> @@ -105,7 +105,7 @@ static int afs_inode_init_from_status(struct afs_operation *op,
->  		inode->i_mode	= S_IFREG | (status->mode & S_IALLUGO);
->  		inode->i_op	= &afs_file_inode_operations;
->  		inode->i_fop	= &afs_file_operations;
-> -		inode->i_mapping->a_ops	= &afs_fs_aops;
-> +		inode->i_mapping->a_ops	= &afs_file_aops;
->  		break;
->  	case AFS_FTYPE_DIR:
->  		inode->i_mode	= S_IFDIR |  (status->mode & S_IALLUGO);
-> @@ -123,11 +123,11 @@ static int afs_inode_init_from_status(struct afs_operation *op,
->  			inode->i_mode	= S_IFDIR | 0555;
->  			inode->i_op	= &afs_mntpt_inode_operations;
->  			inode->i_fop	= &afs_mntpt_file_operations;
-> -			inode->i_mapping->a_ops	= &afs_fs_aops;
-> +			inode->i_mapping->a_ops	= &afs_symlink_aops;
->  		} else {
->  			inode->i_mode	= S_IFLNK | status->mode;
->  			inode->i_op	= &afs_symlink_inode_operations;
-> -			inode->i_mapping->a_ops	= &afs_fs_aops;
-> +			inode->i_mapping->a_ops	= &afs_symlink_aops;
->  		}
->  		inode_nohighmem(inode);
->  		break;
-> diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-> index 791cf02e5696..ccdde00ada8a 100644
-> --- a/fs/afs/internal.h
-> +++ b/fs/afs/internal.h
-> @@ -1050,7 +1050,8 @@ extern void afs_dynroot_depopulate(struct super_block *);
+> +	iov_iter_xarray(&subreq->iter, READ, &rreq->mapping->i_pages,
+> +			subreq->start, subreq->len);
+> +
+>  out:
+>  	subreq->source = source;
+>  	trace_netfs_sreq(subreq, netfs_sreq_trace_prepare);
+> diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+> index fe9887768292..5e4fafcc9480 100644
+> --- a/include/linux/netfs.h
+> +++ b/include/linux/netfs.h
+> @@ -17,6 +17,7 @@
+>  #include <linux/workqueue.h>
+>  #include <linux/fs.h>
+>  #include <linux/pagemap.h>
+> +#include <linux/uio.h>
+>  
 >  /*
->   * file.c
->   */
-> -extern const struct address_space_operations afs_fs_aops;
-> +extern const struct address_space_operations afs_file_aops;
-> +extern const struct address_space_operations afs_symlink_aops;
->  extern const struct inode_operations afs_file_inode_operations;
->  extern const struct file_operations afs_file_operations;
->  extern const struct netfs_read_request_ops afs_req_ops;
+>   * Overload PG_private_2 to give us PG_fscache - this is used to indicate that
+> @@ -112,6 +113,7 @@ struct netfs_cache_resources {
+>  struct netfs_read_subrequest {
+>  	struct netfs_read_request *rreq;	/* Supervising read request */
+>  	struct list_head	rreq_link;	/* Link in rreq->subrequests */
+> +	struct iov_iter		iter;		/* Iterator for this subrequest */
+>  	loff_t			start;		/* Where to start the I/O */
+>  	size_t			len;		/* Size of the I/O */
+>  	size_t			transferred;	/* Amount of data transferred */
 > 
 > 
 
-Regardless, this is more reasonable than what's there now.
-
-Reviewed-by: Jeff Layton <jlayton@redhat.com>
+-- 
+Jeff Layton <jlayton@redhat.com>
 
 --
 Linux-cachefs mailing list
