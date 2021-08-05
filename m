@@ -2,75 +2,111 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 897823E19A2
-	for <lists+linux-cachefs@lfdr.de>; Thu,  5 Aug 2021 18:35:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1628181358;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=RRLLwUroUZvROcGniMtR1NWR5t+he6BQ98oItn0j5Zo=;
-	b=eeaeJV7iCbx+BHZsZHLue1DHtxurDwznt2GaSsmrxvCIjwQVF+hbTZrc7vU55eDpbpzuCT
-	81dOlNe5kPmtwb8LQrg90q2/uclI26j1hGb3/UdspoTGrMowKyQHKza5d+Z4ulCeSE42i/
-	2xbmWZf0taQJHHeIGKnGvvRO0gXUp98=
+	by mail.lfdr.de (Postfix) with ESMTP id C81E73E1A5F
+	for <lists+linux-cachefs@lfdr.de>; Thu,  5 Aug 2021 19:29:23 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-540-n85e6gJNONSnWgbh3AR27w-1; Thu, 05 Aug 2021 12:35:52 -0400
-X-MC-Unique: n85e6gJNONSnWgbh3AR27w-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-340-_MIeEc5_Pg-T_CDDbzZx5Q-1; Thu, 05 Aug 2021 13:29:21 -0400
+X-MC-Unique: _MIeEc5_Pg-T_CDDbzZx5Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45E74100E355;
-	Thu,  5 Aug 2021 16:35:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 876B210066E5;
+	Thu,  5 Aug 2021 17:29:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DD84781EA;
-	Thu,  5 Aug 2021 16:35:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8C9210016F2;
+	Thu,  5 Aug 2021 17:29:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7D07C4BB7C;
-	Thu,  5 Aug 2021 16:35:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFD8D4BB7C;
+	Thu,  5 Aug 2021 17:29:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 175GZc0P002424 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 5 Aug 2021 12:35:38 -0400
+	id 175HRVRW008075 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 5 Aug 2021 13:27:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BFFBC5C25D; Thu,  5 Aug 2021 16:35:38 +0000 (UTC)
+	id 42A1620BDB16; Thu,  5 Aug 2021 17:27:31 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.22.32.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1A1BA5C1A1;
-	Thu,  5 Aug 2021 16:35:33 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Anna Schumaker <anna.schumaker@netapp.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Jeff Layton <jlayton@redhat.com>, Steve French <sfrench@samba.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Mike Marshall <hubcap@omnibond.com>, Miklos Szeredi <miklos@szeredi.hu>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DE2020BDB1A
+	for <linux-cachefs@redhat.com>; Thu,  5 Aug 2021 17:27:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7896B8007B1
+	for <linux-cachefs@redhat.com>; Thu,  5 Aug 2021 17:27:27 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+	[209.85.167.45]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-110-E9Fa0C9MMXKQiyoOU8NmxQ-1; Thu, 05 Aug 2021 13:27:25 -0400
+X-MC-Unique: E9Fa0C9MMXKQiyoOU8NmxQ-1
+Received: by mail-lf1-f45.google.com with SMTP id p38so12689091lfa.0
+	for <linux-cachefs@redhat.com>; Thu, 05 Aug 2021 10:27:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=kSMSzayyNT2YehjLQ2Cwc0r8HqyEvjniy8Pw7lCSffg=;
+	b=qgrOR9UzBe+K6cha/QNozwrm/AyzU/Io0Ff78OJhel/qnfAoSLroaVhH4HFIhx9n7M
+	CqeNYhm8SCpqFhvCIxFvJkAiabd7W0D4MpMoDQPTB8TdKBFUxO6auhC2VkW6JpgAScMU
+	lgzlmb074Y+AOhv9zwbljPBe/KLl+I+TJOZ5slhDC/83kNAG4OjIQUNkTYttcR/2kF4/
+	9X2Wso3SXfQF5PAOUZwAUQttdVVqX8788wEd8BhFWr6x8JqekgglnYllfSnA0mYxxEfp
+	9Z2PwriDXZs71wfe8kKSjERFQwkcHdvAsI6cF4tU25HqWXU2V5eWia0B1xwurzjRlrev
+	0KCg==
+X-Gm-Message-State: AOAM533OXqo6NfElZd4H3XKZFoFo6IzhKUFq3SrpnxtGt4GVC5OlSt6H
+	fDpcMYEVsO6IKKhGbaps7JiLRwxyRMcKIITu06s=
+X-Google-Smtp-Source: ABdhPJzVtvQ0vWKUewSYulu9dno+evoWIwdH+TJEJBTgy70DBJ5Gkatzf4D+I+p7ihXZTZFDBEUHGg==
+X-Received: by 2002:a05:6512:3b91:: with SMTP id
+	g17mr4630920lfv.77.1628184443554; 
+	Thu, 05 Aug 2021 10:27:23 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com.
+	[209.85.167.46])
+	by smtp.gmail.com with ESMTPSA id x4sm464473ljh.130.2021.08.05.10.27.21
+	for <linux-cachefs@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Thu, 05 Aug 2021 10:27:22 -0700 (PDT)
+Received: by mail-lf1-f46.google.com with SMTP id c24so9280715lfi.11
+	for <linux-cachefs@redhat.com>; Thu, 05 Aug 2021 10:27:21 -0700 (PDT)
+X-Received: by 2002:a05:6512:2388:: with SMTP id
+	c8mr4369071lfv.201.1628184441363; 
+	Thu, 05 Aug 2021 10:27:21 -0700 (PDT)
+MIME-Version: 1.0
 References: <YQv+iwmhhZJ+/ndc@casper.infradead.org>
 	<YQvpDP/tdkG4MMGs@casper.infradead.org>
 	<YQvbiCubotHz6cN7@casper.infradead.org>
 	<1017390.1628158757@warthog.procyon.org.uk>
 	<1170464.1628168823@warthog.procyon.org.uk>
 	<1186271.1628174281@warthog.procyon.org.uk>
-MIME-Version: 1.0
-Date: Thu, 05 Aug 2021 17:35:33 +0100
-Message-ID: <1219713.1628181333@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+	<1219713.1628181333@warthog.procyon.org.uk>
+In-Reply-To: <1219713.1628181333@warthog.procyon.org.uk>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 5 Aug 2021 10:27:05 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjyEk9EuYgE3nBnRCRd_AmRYVOGACEjt0X33QnORd5-ig@mail.gmail.com>
+Message-ID: <CAHk-=wjyEk9EuYgE3nBnRCRd_AmRYVOGACEjt0X33QnORd5-ig@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, CIFS <linux-cifs@vger.kernel.org>,
+	"open list:NFS, SUNRPC, AND..." <linux-nfs@vger.kernel.org>,
+	linux-afs@lists.infradead.org, Miklos Szeredi <miklos@szeredi.hu>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	linux-fsdevel@vger.kernel.org,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Steve French <sfrench@samba.org>, Linux-MM <linux-mm@kvack.org>,
+	linux-cachefs@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-afs@lists.infradead.org, devel@lists.orangefs.org
-Subject: [Linux-cachefs] Canvassing for network filesystem write size vs
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	devel@lists.orangefs.org, Mike Marshall <hubcap@omnibond.com>
+Subject: Re: [Linux-cachefs] Canvassing for network filesystem write size vs
 	page size
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -85,88 +121,58 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <1219712.1628181333.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-With Willy's upcoming folio changes, from a filesystem point of view, we're
-going to be looking at folios instead of pages, where:
+On Thu, Aug 5, 2021 at 9:36 AM David Howells <dhowells@redhat.com> wrote:
+>
+> Some network filesystems, however, currently keep track of which byte ranges
+> are modified within a dirty page (AFS does; NFS seems to also) and only write
+> out the modified data.
 
- - a folio is a contiguous collection of pages;
+NFS definitely does. I haven't used NFS in two decades, but I worked
+on some of the code (read: I made nfs use the page cache both for
+reading and writing) back in my Transmeta days, because NFSv2 was the
+default filesystem setup back then.
 
- - each page in the folio might be standard PAGE_SIZE page (4K or 64K, say) or
-   a huge pages (say 2M each);
+See fs/nfs/write.c, although I have to admit that I don't recognize
+that code any more.
 
- - a folio has one dirty flag and one writeback flag that applies to all
-   constituent pages;
+It's fairly important to be able to do streaming writes without having
+to read the old contents for some loads. And read-modify-write cycles
+are death for performance, so you really want to coalesce writes until
+you have the whole page.
 
- - a complete folio currently is limited to PMD_SIZE or order 8, but could
-   theoretically go up to about 2GiB before various integer fields have to be
-   modified (not to mention the memory allocator).
+That said, I suspect it's also *very* filesystem-specific, to the
+point where it might not be worth trying to do in some generic manner.
 
-Willy is arguing that network filesystems should, except in certain very
-special situations (eg. O_SYNC), only write whole folios (limited to EOF).
+In particular, NFS had things like interesting credential issues, so
+if you have multiple concurrent writers that used different 'struct
+file *' to write to the file, you can't just mix the writes. You have
+to sync the writes from one writer before you start the writes for the
+next one, because one might succeed and the other not.
 
-Some network filesystems, however, currently keep track of which byte ranges
-are modified within a dirty page (AFS does; NFS seems to also) and only write
-out the modified data.
+So you can't just treat it as some random "page cache with dirty byte
+extents". You really have to be careful about credentials, timeouts,
+etc, and the pending writes have to keep a fair amount of state
+around.
 
-Also, there are limits to the maximum RPC payload sizes, so writing back large
-pages may necessitate multiple writes, possibly to multiple servers.
+At least that was the case two decades ago.
 
-What I'm trying to do is collate each network filesystem's properties (I'm
-including FUSE in that).
+[ goes off and looks. See "nfs_write_begin()" and friends in
+fs/nfs/file.c for some of the examples of these things, althjough it
+looks like the code is less aggressive about avoding the
+read-modify-write case than I thought I remembered, and only does it
+for write-only opens ]
 
-So we have the following filesystems:
+               Linus
 
- Plan9
- - Doesn't track bytes
- - Only writes single pages
-
- AFS
- - Max RPC payload theoretically ~5.5 TiB (OpenAFS), ~16EiB (Auristor/kAFS)
- - kAFS (Linux kernel)
-   - Tracks bytes, only writes back what changed
-   - Writes from up to 65535 contiguous pages.
- - OpenAFS/Auristor (UNIX/Linux)
-   - Deal with cache-sized blocks (configurable, but something from 8K to 2M),
-     reads and writes in these blocks
- - OpenAFS/Auristor (Windows)
-   - Track bytes, write back only what changed
-
- Ceph
- - File divided into objects (typically 2MiB in size), which may be scattered
-   over multiple servers.
- - Max RPC size is therefore object size.
- - Doesn't track bytes.
-
- CIFS/SMB
- - Writes back just changed bytes immediately under some circumstances
- - Doesn't track bytes and writes back whole pages otherwise.
- - SMB3 has a max RPC size of 16MiB, with a default of 4MiB
-
- FUSE
- - Doesn't track bytes.
- - Max 'RPC' size of 256 pages (I think).
-
- NFS
- - Tracks modified bytes within a page.
- - Max RPC size of 1MiB.
- - Files may be constructed of objects scattered over different servers.
-
- OrangeFS
- - Doesn't track bytes.
- - Multipage writes possible.
-
-If you could help me fill in the gaps, that would be great.
-
-Thanks,
-David
+            Linus
 
 --
 Linux-cachefs mailing list
