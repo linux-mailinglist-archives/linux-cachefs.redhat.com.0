@@ -1,70 +1,67 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 452313F76D7
-	for <lists+linux-cachefs@lfdr.de>; Wed, 25 Aug 2021 16:06:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1629900364;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=LEYM6BdeQvHHm3TQ2Lx2jeT23N/TZECy13JyaGFKSU0=;
-	b=WiqC4Ej3iRWGR0r52SyFW60DUBTBt/Iu7Q0qGnUjSwkJy0Kil9NDn5MFYe5OMKq4haJqiB
-	QdvgrvVcM7jLfsV3yJm0wu/ZrhRtsqKq10zkwV3iUKoWEIDTVFiGZaKjrXBlR8I4reMsah
-	H0wuw4gQeSRa2OTj1io2Mr5xkAN1Bz4=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1076C3F88BC
+	for <lists+linux-cachefs@lfdr.de>; Thu, 26 Aug 2021 15:24:57 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-255-n9MEWBWhOne5G07kTvi6QA-1; Wed, 25 Aug 2021 10:06:03 -0400
-X-MC-Unique: n9MEWBWhOne5G07kTvi6QA-1
+ us-mta-528-2z6oB0tdPJWxICORSBA3QQ-1; Thu, 26 Aug 2021 09:24:56 -0400
+X-MC-Unique: 2z6oB0tdPJWxICORSBA3QQ-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB40F94DC6;
-	Wed, 25 Aug 2021 14:06:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A49EA2C00F;
-	Wed, 25 Aug 2021 14:06:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8CAD71083E83;
+	Thu, 26 Aug 2021 13:24:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A10D19E77;
+	Thu, 26 Aug 2021 13:24:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9BD2E4BB7C;
-	Wed, 25 Aug 2021 14:05:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C8E7E18005A2;
+	Thu, 26 Aug 2021 13:24:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17PE5ukf021319 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 25 Aug 2021 10:05:56 -0400
+	id 17QDOlcP023481 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 26 Aug 2021 09:24:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3222560C13; Wed, 25 Aug 2021 14:05:56 +0000 (UTC)
+	id CF018208BDCC; Thu, 26 Aug 2021 13:24:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.36])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A820060C04;
-	Wed, 25 Aug 2021 14:05:52 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <6370d0a74c3ceb79c53305a64ba7a982d16d34b4.camel@redhat.com>
-References: <6370d0a74c3ceb79c53305a64ba7a982d16d34b4.camel@redhat.com>
-	<162431188431.2908479.14031376932042135080.stgit@warthog.procyon.org.uk>
-	<162431203107.2908479.3259582550347000088.stgit@warthog.procyon.org.uk>
-To: Jeff Layton <jlayton@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAF6A208BDCE
+	for <linux-cachefs@redhat.com>; Thu, 26 Aug 2021 13:24:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4275811E78
+	for <linux-cachefs@redhat.com>; Thu, 26 Aug 2021 13:24:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-331-tyWpiBIaO2O6SGbiNolaSw-1;
+	Thu, 26 Aug 2021 09:24:45 -0400
+X-MC-Unique: tyWpiBIaO2O6SGbiNolaSw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3591F6109F;
+	Thu, 26 Aug 2021 13:24:44 +0000 (UTC)
+From: Jeff Layton <jlayton@kernel.org>
+To: dhowells@redhat.com, linux-cachefs@redhat.com
+Date: Thu, 26 Aug 2021 09:24:41 -0400
+Message-Id: <20210826132443.64047-1-jlayton@kernel.org>
 MIME-Version: 1.0
-Date: Wed, 25 Aug 2021 15:05:51 +0100
-Message-ID: <2030919.1629900351@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
-Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
-	linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>,
-	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org
-Subject: Re: [Linux-cachefs] [PATCH 11/12] fscache: Fix fscache_cookie_put()
-	to not deref after dec
+Subject: [Linux-cachefs] [PATCH 0/2] netfs: allow fs driver to opt out of
+	readahead
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,25 +80,24 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <2030918.1629900351.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Jeff Layton <jlayton@redhat.com> wrote:
+These patches refactor a bit of Davids netfs-folio-regions code to allow
+the driver to tell the netfs layer not to bother doing any readahead.
+The main use-case is the situation where we can't get caps on a
+readahead.
 
-> > fscache_cookie_put() accesses the cookie it has just put inside the
-> > tracepoint that monitors the change - but this is something it's not
-> > allowed to do if we didn't reduce the count to zero.
-> 
-> Do you mean "if the count went to zero." ?
+Jeff Layton (2):
+  netfs: refactor arguments for netfs_alloc_read_request
+  netfs: add a new flag indicating that readahead should not be done
 
-No.  If *we* reduced the count to zero, it falls to us to destroy the object,
-so we're allowed to look into it again.
+ fs/netfs/read_helper.c | 42 +++++++++++++++++++++++++++---------------
+ include/linux/netfs.h  |  2 ++
+ 2 files changed, 29 insertions(+), 15 deletions(-)
 
-If we didn't reduce the count to zero, then someone else might destroy it
-before we look into it again.
-
-David
+-- 
+2.31.1
 
 --
 Linux-cachefs mailing list
