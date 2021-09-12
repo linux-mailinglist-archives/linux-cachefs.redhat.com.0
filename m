@@ -1,88 +1,68 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A983740465E
-	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Sep 2021 09:39:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id EB9BD407D93
+	for <lists+linux-cachefs@lfdr.de>; Sun, 12 Sep 2021 15:24:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1631453080;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=uDaD8fi704agrNl99I4Mj+opikNrIKG93cDN9puzbZo=;
+	b=VrEV6P7XqGh/DmlJBQglttg0utxpYppwiNoO6NSLmLKAnawLmNj+IcQ1kKCVSVp+vEa9hP
+	NxW1B5jljRENtEzVSRSMz6/jXrQE1Xtoiq1hgvzRt8Y4SUtsk1X2h/Kj/z+tEGhJuYT4Ln
+	5FSF2rV/qHDyzXch5SzqBduUDO/HTBs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-zi28hZ_gN6-SDMxgvesEEA-1; Thu, 09 Sep 2021 03:39:07 -0400
-X-MC-Unique: zi28hZ_gN6-SDMxgvesEEA-1
+ us-mta-569-mrDjbM9vOEmZqsW4fpG_9w-1; Sun, 12 Sep 2021 09:24:38 -0400
+X-MC-Unique: mrDjbM9vOEmZqsW4fpG_9w-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18168102CB76;
-	Thu,  9 Sep 2021 07:39:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04AEF1B400;
-	Thu,  9 Sep 2021 07:39:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 572DB1084683;
+	Sun, 12 Sep 2021 13:24:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E709577F2D;
+	Sun, 12 Sep 2021 13:24:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 628864E58F;
-	Thu,  9 Sep 2021 07:39:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58DB01809C81;
+	Sun, 12 Sep 2021 13:24:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 186B0wW1016804 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 6 Sep 2021 07:00:59 -0400
+	id 18CDLEux011627 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 12 Sep 2021 09:21:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0107463F51; Mon,  6 Sep 2021 11:00:58 +0000 (UTC)
+	id BC3052B0B7; Sun, 12 Sep 2021 13:21:14 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F019263F57
-	for <linux-cachefs@redhat.com>; Mon,  6 Sep 2021 11:00:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84DE9106656A
-	for <linux-cachefs@redhat.com>; Mon,  6 Sep 2021 11:00:54 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-456-KsGQq7zBNde6llon706XYQ-1; Mon, 06 Sep 2021 07:00:49 -0400
-X-MC-Unique: KsGQq7zBNde6llon706XYQ-1
-Received: from leknes.fjasle.eu ([92.116.67.85]) by mrelayeu.kundenserver.de
-	(mreue012 [212.227.15.167]) with ESMTPSA (Nemesis) id
-	1M6YEz-1mKiSF16Gf-006wug; Mon, 06 Sep 2021 13:00:46 +0200
-Received: by leknes.fjasle.eu (Postfix, from userid 1000)
-	id B0DE03C06F; Mon,  6 Sep 2021 13:00:41 +0200 (CEST)
-Date: Mon, 6 Sep 2021 13:00:41 +0200
-From: Nicolas Schier <nicolas@fjasle.eu>
-To: David Howells <dhowells@redhat.com>, linux-cachefs@redhat.com,
-	linux-kernel@vger.kernel.org
-Message-ID: <YTX02eiVawkpTquX@fjasle.eu>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A8081B472;
+	Sun, 12 Sep 2021 13:21:07 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:/H9DjLa+mnADC9aIrzArNFSQHwrOlJWq7UziF01SrgtYKe3fyS4
-	w8n/RCNKHDOjWJPKrESZshtcxMIdjp2GnubrLLAls0AC2rx+JM7YLGNgOjeWfPVgCluiG3I
-	c7TPivoD7ytkwANCCZPZkV23ovGWnpgnip6vi38nQkrBEdaqEgoGo77/fKRVMO8jgohNe54
-	AKv7WbI5NQ8xV0E6H+Iig==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:rJuJ/9MTm2k=:Cc1uw+93Nk28J9in4EW46Z
-	oSQ9x1kyGNjy64Uv8x3FrAQ9SAkwOH5eziVP/vJFVlOglQXkAxSPrUeDy22B1iq9t89l27z5C
-	VfZa6DCO6nSPSSE2DXZcIW/m+1S0/BLTM9BWsS9K6e6sKe5HOdwOV2ni4S5jNb0YIUyozvspl
-	kLzo7g6n81x2JhRuSQkspIsTI1yep2MQcq0o2iM/BQRLIRYtZMi+o1/hw+KC2R1JBsDIEJ4+g
-	NQNjwk4BpRb2ZSOvUUOVvlduMNzxf3Wvlx66kDnuHeGLNYnH2e3GzEdYJoWxqgxWSGmpSN5R4
-	CFrAsfS7oOWlYvxS7xUaYqrTlgIa8cWW2c5jjGkV62N81kTIJpU6+to4OHNfG1huncEPTvxkO
-	pGoV8Ns41uQs2uRJCzoEHdL2ev9HSveyxq/y0fKiTw71FGaZCp2BLGQYi2LcMYeMuzt6BkdrY
-	wy92yoKZueubbRzlmxae3In1HmYwvdCoa4Okz7ItUDKmYmro5Lj4SYEHIDBEW6xR1OCMjtRae
-	H09qevX485aX/dshUFb2HN1ISC7CepU5b9suTdhLmS+g5uxSqPa60x3yDmnEsYy4+gZ2CDy/f
-	1yimwlZoYnpFkerxPC9EM89MvOKWM5+J0x7lb+f69nBCZxrA0XEZXjEU+q5KSYYHsvSdbDDxM
-	XhP2TQx1ZuB1UGvVJXDYpum8+fc+M+HSE+2VTeFjn/ved34ToyB07jZ/GMUMqgRnmBcWP6J5N
-	tyytnFWbHC1Lqrs3KxjhsByyxnAckYu/tVIUfA==
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Date: Sun, 12 Sep 2021 14:21:07 +0100
+Message-ID: <1086693.1631452867@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18CDLEux011627
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Thu, 09 Sep 2021 03:39:00 -0400
-Cc: Nicolas Schier <nicolas@fjasle.eu>
-Subject: [Linux-cachefs] [PATCH] [RESEND] fscache: re-match
- MODULE_PARM_DESC() calls to module parameters
+Cc: Christoph Hellwig <hch@infradead.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Kent Overstreet <kent.overstreet@gmail.com>
+Subject: [Linux-cachefs] Decoupling filesystems from pages
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,65 +81,67 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <1086692.1631452867.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fix calls of MODULE_PARM_DESC() such that the first argument matches the
-actual module parameter name.  This changes the 'parm' section in the
-output of `modinfo fscache` from:
+Hi Johannes,
 
-    parm: defer_lookup:uint
-    parm: fscache_defer_lookup:Defer cookie lookup to background thread
-    parm: defer_create:uint
-    parm: fscache_defer_create:Defer cookie creation to background thread
-    parm: debug:uint
-    parm: fscache_debug:FS-Cache debugging mask
+> Wouldn't it make more sense to decouple filesystems from "paginess",
+> as David puts it, now instead? Avoid the risk of doing it twice, avoid
+> the more questionable churn inside mm code, avoid the confusing
+> proximity to the page and its API in the long-term...
 
-into:
+Let me seize that opening.  I've been working on doing this for network
+filesystems - at least those that want to buy in.  If you look here:
 
-    parm: defer_lookup:Defer cookie lookup to background thread (uint)
-    parm: defer_create:Defer cookie creation to background thread (uint)
-    parm: debug:FS-Cache debugging mask (uint)
-.
+https://lore.kernel.org/ceph-devel/162687506932.276387.14456718890524355509.stgit@warthog.procyon.org.uk/T/#m23428c315a77d8c5206b9646bf74c8ef18d4d38c
 
-Signed-off-by: Nicolas Schier <nicolas@fjasle.eu>
----
- fs/fscache/main.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+the current state of which is here:
 
---
-Resend unmodified as list approval for linux-cachefs@r.c timed out.
+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-folio-regions
 
-diff --git a/fs/fscache/main.c b/fs/fscache/main.c
-index c1e6cc9091aa..ccb06dc0a6e9 100644
---- a/fs/fscache/main.c
-+++ b/fs/fscache/main.c
-@@ -22,19 +22,19 @@ MODULE_LICENSE("GPL");
- unsigned fscache_defer_lookup = 1;
- module_param_named(defer_lookup, fscache_defer_lookup, uint,
- 		   S_IWUSR | S_IRUGO);
--MODULE_PARM_DESC(fscache_defer_lookup,
-+MODULE_PARM_DESC(defer_lookup,
- 		 "Defer cookie lookup to background thread");
- 
- unsigned fscache_defer_create = 1;
- module_param_named(defer_create, fscache_defer_create, uint,
- 		   S_IWUSR | S_IRUGO);
--MODULE_PARM_DESC(fscache_defer_create,
-+MODULE_PARM_DESC(defer_create,
- 		 "Defer cookie creation to background thread");
- 
- unsigned fscache_debug;
- module_param_named(debug, fscache_debug, uint,
- 		   S_IWUSR | S_IRUGO);
--MODULE_PARM_DESC(fscache_debug,
-+MODULE_PARM_DESC(debug,
- 		 "FS-Cache debugging mask");
- 
- struct kobject *fscache_root;
--- 
-2.30.1
+I've been looking at abstracting anything to do with pages out of the netfs
+and putting that stuff into a helper library.  The library handles all the
+caching stuff and just presents the filesystem with requests to read
+into/write from an iov_iter.  The filesystem doesn't then see pages at all.
+
+The motivation behind this is to make content encryption and compression
+transparent and automatically available to all participating filesystems -
+with the requirement that the data stored in the local disk cache
+(ie. fscache) is *also* encrypted.
+
+I have content encryption working for basic read and write on afs and Jeff
+Layton is looking at how to make it work with ceph - but it's very much a work
+in progress and things like truncate and mmap don't yet work with it.
+
+Anyway, the library, as I'm currently writing it, maintains a list of
+byte-range dirty regions on each inode, where a dirty region may span multiple
+folios and a folio may be contributory to multiple regions.  The fact that
+pages are involved is really then merely an implementation detail
+
+Content encryption/compression blocks may be any power-of-2 size, from 2 bytes
+to megabytes, and this need bear no relation to page size.  The library calls
+the crypto hooks for each crypto block in the chunk[*] to be crypted.
+
+[*] Terminology is such fun.  I have to deal with pages, crypto blocks, object
+    layout blocks, I/O blocks (rsize/wsize settings), regions.
+
+In fact ->readpage(), ->writepage() and ->launder_page() are difficult when I
+may be required to deal with blocks larger than the size of a page.  The page
+being poked may be in the middle of a block, so I'm endeavouring to work
+around that.  Using the regions should allow me to 'launder' an inode before
+invalidating the pages attached to it, and the dirty region objects can act
+instead of the dirty, writeback and fscache flags on a page.
+
+I've been building this on top of Willy's folio patchset, and so I've paused
+for the moment whilst I wait to see what becomes of that.  If folios doesn't
+get in or gets renamed, I have a load of reworking to do.
+
+Does this sound like something you'd be interested in looking at more
+generally than just network filesystems?
+
+David
 
 --
 Linux-cachefs mailing list
