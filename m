@@ -1,83 +1,81 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 487DF40B492
-	for <lists+linux-cachefs@lfdr.de>; Tue, 14 Sep 2021 18:26:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A09C340B4AE
+	for <lists+linux-cachefs@lfdr.de>; Tue, 14 Sep 2021 18:31:49 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-562-ialqAzmZOzm7VGbfoGX7HQ-1; Tue, 14 Sep 2021 12:26:57 -0400
-X-MC-Unique: ialqAzmZOzm7VGbfoGX7HQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-531-H4tmOUvlOuKF7H_xNOiyqg-1; Tue, 14 Sep 2021 12:31:47 -0400
+X-MC-Unique: H4tmOUvlOuKF7H_xNOiyqg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 55131100F942;
-	Tue, 14 Sep 2021 16:26:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53FDF1006AA2;
+	Tue, 14 Sep 2021 16:31:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 968C86C8F9;
-	Tue, 14 Sep 2021 16:26:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9961E1346F;
+	Tue, 14 Sep 2021 16:31:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A38AC1803B30;
-	Tue, 14 Sep 2021 16:26:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75A231803B30;
+	Tue, 14 Sep 2021 16:31:44 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18EGMNN3032050 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 14 Sep 2021 12:22:23 -0400
+	id 18EGVfjU032707 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 14 Sep 2021 12:31:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C2004201B070; Tue, 14 Sep 2021 16:22:23 +0000 (UTC)
+	id B188A202B183; Tue, 14 Sep 2021 16:31:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDE65201E75D
-	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 16:22:20 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ABE1D201AC62
+	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 16:31:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4100800B26
-	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 16:22:20 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
-	[209.85.167.51]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-24-V8wKzBRWOXyfvZcoC0vWVA-1; Tue, 14 Sep 2021 12:22:19 -0400
-X-MC-Unique: V8wKzBRWOXyfvZcoC0vWVA-1
-Received: by mail-lf1-f51.google.com with SMTP id i4so12906485lfv.4
-	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 09:22:18 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 051508934E6
+	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 16:31:39 +0000 (UTC)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+	[209.85.208.52]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-415-YyJIJbLcOCmV5Wb1r_5RqA-1; Tue, 14 Sep 2021 12:31:37 -0400
+X-MC-Unique: YyJIJbLcOCmV5Wb1r_5RqA-1
+Received: by mail-ed1-f52.google.com with SMTP id j13so20836519edv.13
+	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 09:31:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=3dYD2uKNORcxZ6YMCdwcOxjjHXEclNcfa/CTjAP47gc=;
-	b=45iSi6fEicEa/vVjwYfWTJ4cWt0Ey4QL91r/MbFfgoUz4fyaefkGKa3nCxmU/TilPl
-	bAtxsxbr7N2kKYIL9WnkZ74GhjzYO4AQGil9I3AtoYt9o534WR3hNQnUAYKUMk9bGL1k
-	62kcKcKCBiHkJZTg0JP87jQ2uWNvRCZq/ljVbViJNZ27asFfGMauTiAXliKNjPvV2wo9
-	dtevX54Ej0UgO4+8npaLBAlExweDOemyKhuwy606ZscKS6cW+OxOxgv64KGmNqq45FWO
-	kiRz/l4jiE8RZ5BW/GkO9AkCbSEc5KkR7GzNPyv/H4DLbwqbtvKqaYqmQ3oPfGfEI465
-	zwcA==
-X-Gm-Message-State: AOAM531UfZmwJAi2lSWEXLbdTAGhNORBH5tQRkoojnytn3nScEmQhH59
-	MwDdHney6k5PfFaeWb6HJIum8alkTQpCOFOgY8E=
-X-Google-Smtp-Source: ABdhPJxdmMPxf0gtgawnGFDisYo1lMbF3Vtf8PwmR6HeJflGiO3Ji476f1SFnwKs2J2kP7AS6I6X3w==
-X-Received: by 2002:a05:6512:11f1:: with SMTP id
-	p17mr13805724lfs.203.1631636537029; 
-	Tue, 14 Sep 2021 09:22:17 -0700 (PDT)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com.
-	[209.85.167.46])
-	by smtp.gmail.com with ESMTPSA id t4sm625910lfp.250.2021.09.14.09.22.14
-	for <linux-cachefs@redhat.com>
+	bh=uU34i+EgJe3tqn17AWoGwVGTTIh0KVlY0SraTTmp6T0=;
+	b=pYXJ3pLvCED9ffus5il4dgM8tSlvMgY5SVqIxj9tgAIEYXOvuGnnKN78B4GTj4w57x
+	qcmZAIMDiV7ktzwP4qG9wnQGjmfBoQAMvE2z43tYCGGdUIp17Y2PMvMAz+yCzfo5S75r
+	mAGb92LfP0jT9x1MzFpqqz7EKr6zO9QpcQNYu2/o3kmX43UwCflaSNAYnQN34JErGhvF
+	aLT+0m1ROk3CjFTWpOdgelvnDJ7nr/pMYSQEMkEDE8zPp0B+a1tpq6oJ3c09Tjx6Ijmg
+	hE7LSuk8ElZsvvIkpKYnax+Q5UBvDULHqop5coXS+oFESCAzA8YxK37lja0gPQdmEjhA
+	UJxg==
+X-Gm-Message-State: AOAM533MxpoeFHgRWPabh5poR6gQRIBQ9Mggpw0dSclSEzkuz1JTF66Z
+	Odz6wOstP8Mxo2RJbo/po9q4hVHubOhM7qdgjkE=
+X-Google-Smtp-Source: ABdhPJzd4sD3jaRuI3AQZ9whW84NNZbUDGqIb6O8sDH+hrryqOxkl7ngx00PVmyy7Ms0zbiTeUl+Xg==
+X-Received: by 2002:a50:d5c1:: with SMTP id g1mr5440867edj.296.1631637096048; 
+	Tue, 14 Sep 2021 09:31:36 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com.
+	[209.85.218.53]) by smtp.gmail.com with ESMTPSA id
+	s18sm5317699ejh.12.2021.09.14.09.31.35 for <linux-cachefs@redhat.com>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 14 Sep 2021 09:22:14 -0700 (PDT)
-Received: by mail-lf1-f46.google.com with SMTP id a4so30043621lfg.8
-	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 09:22:14 -0700 (PDT)
-X-Received: by 2002:a05:6512:3da5:: with SMTP id
-	k37mr14013881lfv.655.1631636533920; 
-	Tue, 14 Sep 2021 09:22:13 -0700 (PDT)
+	Tue, 14 Sep 2021 09:31:35 -0700 (PDT)
+Received: by mail-ej1-f53.google.com with SMTP id i21so30305489ejd.2
+	for <linux-cachefs@redhat.com>; Tue, 14 Sep 2021 09:31:35 -0700 (PDT)
+X-Received: by 2002:a2e:b53a:: with SMTP id z26mr15485756ljm.95.1631636661566; 
+	Tue, 14 Sep 2021 09:24:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <163162767601.438332.9017034724960075707.stgit@warthog.procyon.org.uk>
-In-Reply-To: <163162767601.438332.9017034724960075707.stgit@warthog.procyon.org.uk>
+	<CAHk-=wiVK+1CyEjW8u71zVPK8msea=qPpznX35gnX+s8sXnJTg@mail.gmail.com>
+In-Reply-To: <CAHk-=wiVK+1CyEjW8u71zVPK8msea=qPpznX35gnX+s8sXnJTg@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 14 Sep 2021 09:21:58 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiVK+1CyEjW8u71zVPK8msea=qPpznX35gnX+s8sXnJTg@mail.gmail.com>
-Message-ID: <CAHk-=wiVK+1CyEjW8u71zVPK8msea=qPpznX35gnX+s8sXnJTg@mail.gmail.com>
+Date: Tue, 14 Sep 2021 09:24:05 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgR_unCDRZ+8iTb5gBO6bgRkuS4JYBpi25v12Yp6TzWVA@mail.gmail.com>
+Message-ID: <CAHk-=wgR_unCDRZ+8iTb5gBO6bgRkuS4JYBpi25v12Yp6TzWVA@mail.gmail.com>
 To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -116,7 +114,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -124,20 +122,23 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 14, 2021 at 6:54 AM David Howells <dhowells@redhat.com> wrote:
+On Tue, Sep 14, 2021 at 9:21 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
->  (1) A simple fallback API is added that can read or write a single page
->      synchronously.  The functions for this have "deprecated" in their names
->      as they have to be removed at some point.
+> Call it "fallback" or "simple" or something that shows the intent, but
+> no, I'm not taking patches that introduce a _new_ interface and call
+> it "deprecated".
 
-I'm looking at those patches, and there's no way I'll apply anything
-that starts out with moving to a "deprecated" interface.
+Put another way: to call something "deprecated", you have to already
+have the replacement all ready to go.
 
-Call it "fallback" or "simple" or something that shows the intent, but
-no, I'm not taking patches that introduce a _new_ interface and call
-it "deprecated".
+And if you have that, then converting existing code to a deprecated
+model isn't the way to go.
 
-            Linus
+So in neither situation does it make any sense to convert anything to
+a model that is deprecated.
+
+          Linus
 
 --
 Linux-cachefs mailing list
