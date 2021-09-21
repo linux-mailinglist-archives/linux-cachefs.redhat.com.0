@@ -1,56 +1,65 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 76898411D1A
-	for <lists+linux-cachefs@lfdr.de>; Mon, 20 Sep 2021 19:15:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 78E66413273
+	for <lists+linux-cachefs@lfdr.de>; Tue, 21 Sep 2021 13:22:08 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-WaOeHbT3O2-DXMUMXm_04A-1; Mon, 20 Sep 2021 13:14:59 -0400
-X-MC-Unique: WaOeHbT3O2-DXMUMXm_04A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-559-imP_V0WWNluUgWWAQFXokg-1; Tue, 21 Sep 2021 07:22:06 -0400
+X-MC-Unique: imP_V0WWNluUgWWAQFXokg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05B3D809CD3;
-	Mon, 20 Sep 2021 17:14:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D36C5D6A8;
-	Mon, 20 Sep 2021 17:14:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BEF5100D075;
+	Tue, 21 Sep 2021 11:22:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52C027E464;
+	Tue, 21 Sep 2021 11:22:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97C43180598A;
-	Mon, 20 Sep 2021 17:14:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BC354E58F;
+	Tue, 21 Sep 2021 11:21:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18KHAf9f028232 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 20 Sep 2021 13:10:42 -0400
+	id 18LBFpfg021571 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 21 Sep 2021 07:15:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C2274113431D; Mon, 20 Sep 2021 17:10:41 +0000 (UTC)
+	id 1A95821449B1; Tue, 21 Sep 2021 11:15:51 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BD2E51002969
-	for <linux-cachefs@redhat.com>; Mon, 20 Sep 2021 17:10:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F6291161A66
-	for <linux-cachefs@redhat.com>; Mon, 20 Sep 2021 17:10:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-410-gdQKUnMWNAq7HLG4SpqrBg-1;
-	Mon, 20 Sep 2021 13:10:25 -0400
-X-MC-Unique: gdQKUnMWNAq7HLG4SpqrBg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1BA8660F5D;
-	Mon, 20 Sep 2021 17:10:23 +0000 (UTC)
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 20 Sep 2021 18:42:09 +0200
-Message-Id: <20210920163939.007798664@linuxfoundation.org>
-In-Reply-To: <20210920163933.258815435@linuxfoundation.org>
-References: <20210920163933.258815435@linuxfoundation.org>
-User-Agent: quilt/0.66
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1532E21449AD
+	for <linux-cachefs@redhat.com>; Tue, 21 Sep 2021 11:15:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C2BD800883
+	for <linux-cachefs@redhat.com>; Tue, 21 Sep 2021 11:15:47 +0000 (UTC)
+Received: from nautica.notk.org (nautica.notk.org [91.121.71.147]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-209-SdSsvsdGM7qCKFfnKElVAg-1; Tue, 21 Sep 2021 07:15:44 -0400
+X-MC-Unique: SdSsvsdGM7qCKFfnKElVAg-1
+Received: by nautica.notk.org (Postfix, from userid 108)
+	id A28D1C01F; Tue, 21 Sep 2021 13:15:42 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on nautica.notk.org
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=UNPARSEABLE_RELAY
+	autolearn=unavailable version=3.3.2
+Received: from odin.codewreck.org (localhost [127.0.0.1])
+	by nautica.notk.org (Postfix) with ESMTPS id 337E1C009;
+	Tue, 21 Sep 2021 13:15:36 +0200 (CEST)
+Received: from localhost (odin.codewreck.org [local])
+	by odin.codewreck.org (OpenSMTPD) with ESMTPA id a7c0d52c;
+	Tue, 21 Sep 2021 11:15:33 +0000 (UTC)
+Date: Tue, 21 Sep 2021 20:15:18 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <YUm+xucHxED+1MJp@codewreck.org>
+References: <163162767601.438332.9017034724960075707.stgit@warthog.procyon.org.uk>
+	<163162772646.438332.16323773205855053535.stgit@warthog.procyon.org.uk>
 MIME-Version: 1.0
+In-Reply-To: <163162772646.438332.16323773205855053535.stgit@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -59,12 +68,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org, linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [PATCH 4.19 167/293] fscache: Fix cookie key hashing
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
+	linux-afs@lists.infradead.org, Steve French <sfrench@samba.org>,
+	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Anna Schumaker <anna.schumaker@netapp.com>
+Subject: Re: [Linux-cachefs] [PATCH 4/8] 9p: (untested) Convert to using the
+ netfs helper lib to do reads and caching
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,145 +93,101 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: David Howells <dhowells@redhat.com>
+David Howells wrote on Tue, Sep 14, 2021 at 02:55:26PM +0100:
+> 9p: (untested) Convert to using the netfs helper lib to do reads and caching
 
-[ Upstream commit 35b72573e977ed6b18b094136a4fa3e0ffb13603 ]
+Finally tested to some extent: let's remove that (untested) tag.
 
-The current hash algorithm used for hashing cookie keys is really bad,
-producing almost no dispersion (after a test kernel build, ~30000 files
-were split over just 18 out of the 32768 hash buckets).
 
-Borrow the full_name_hash() hash function into fscache to do the hashing
-for cookie keys and, in the future, volume keys.
+> Convert the 9p filesystem to use the netfs helper lib to handle readpage,
+> readahead and write_begin, converting those into a common issue_op for the
+> filesystem itself to handle.  The netfs helper lib also handles reading
+> from fscache if a cache is available, and interleaving reads from both
+> sources.
+> 
+> This change also switches from the old fscache I/O API to the new one,
+> meaning that fscache no longer keeps track of netfs pages and instead does
+> async DIO between the backing files and the 9p file pagecache.  As a part
+> of this change, the handling of PG_fscache changes.  It now just means that
+> the cache has a write I/O operation in progress on a page (PG_locked
+> is used for a read I/O op).
+> 
+> Note that this is a cut-down version of the fscache rewrite and does not
+> change any of the cookie and cache coherency handling.
+> 
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> cc: Dominique Martinet <asmadeus@codewreck.org>
 
-I don't want to use full_name_hash() as-is because I want the hash value to
-be consistent across arches and over time as the hash value produced may
-get used on disk.
+can add either my sob or a reviewed-by tag from me instead.
+I'm honestly not familiar enough with some of the changes (parts
+checking PAGE_SIZE or similar) but I didn't spot any obvious error
+except the few ifdefs I commented on below, and will keep running a few
+more tests until next merge window.
 
-I can also optimise parts of it away as the key will always be a padded
-array of aligned 32-bit words.
+> cc: v9fs-developer@lists.sourceforge.net
+> cc: linux-cachefs@redhat.com
+> ---
+> 
+>  fs/9p/Kconfig    |    1 
+>  fs/9p/cache.c    |  137 -------------------------------------------
+>  fs/9p/cache.h    |   99 +------------------------------
+>  fs/9p/v9fs.h     |    9 +++
+>  fs/9p/vfs_addr.c |  174 ++++++++++++++++++++++++------------------------------
+>  fs/9p/vfs_file.c |   21 +++++--
+>  6 files changed, 108 insertions(+), 333 deletions(-)
+> 
+> diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+> index cce9ace651a2..a7e080916826 100644
+> --- a/fs/9p/vfs_addr.c
+> +++ b/fs/9p/vfs_addr.c
+> @@ -124,7 +117,14 @@ static int v9fs_release_page(struct page *page, gfp_t gfp)
+>  {
+>  	if (PagePrivate(page))
+>  		return 0;
+> -	return v9fs_fscache_release_page(page, gfp);
+> +#ifdef CONFIG_AFS_FSCACHE
 
-Fixes: ec0328e46d6e ("fscache: Maintain a catalogue of allocated cookies")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@redhat.com>
-cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/162431201844.2908479.8293647220901514696.stgit@warthog.procyon.org.uk/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/fscache/cookie.c   | 14 +-------------
- fs/fscache/internal.h |  2 ++
- fs/fscache/main.c     | 39 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 42 insertions(+), 13 deletions(-)
+s/AFS/9P/
 
-diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
-index c550512ce335..2ff05adfc22a 100644
---- a/fs/fscache/cookie.c
-+++ b/fs/fscache/cookie.c
-@@ -78,10 +78,8 @@ void fscache_free_cookie(struct fscache_cookie *cookie)
- static int fscache_set_key(struct fscache_cookie *cookie,
- 			   const void *index_key, size_t index_key_len)
- {
--	unsigned long long h;
- 	u32 *buf;
- 	int bufs;
--	int i;
- 
- 	bufs = DIV_ROUND_UP(index_key_len, sizeof(*buf));
- 
-@@ -95,17 +93,7 @@ static int fscache_set_key(struct fscache_cookie *cookie,
- 	}
- 
- 	memcpy(buf, index_key, index_key_len);
--
--	/* Calculate a hash and combine this with the length in the first word
--	 * or first half word
--	 */
--	h = (unsigned long)cookie->parent;
--	h += index_key_len + cookie->type;
--
--	for (i = 0; i < bufs; i++)
--		h += buf[i];
--
--	cookie->key_hash = h ^ (h >> 32);
-+	cookie->key_hash = fscache_hash(0, buf, bufs);
- 	return 0;
- }
- 
-diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-index d6209022e965..cc87288a5448 100644
---- a/fs/fscache/internal.h
-+++ b/fs/fscache/internal.h
-@@ -101,6 +101,8 @@ extern struct workqueue_struct *fscache_object_wq;
- extern struct workqueue_struct *fscache_op_wq;
- DECLARE_PER_CPU(wait_queue_head_t, fscache_object_cong_wait);
- 
-+extern unsigned int fscache_hash(unsigned int salt, unsigned int *data, unsigned int n);
-+
- static inline bool fscache_object_congested(void)
- {
- 	return workqueue_congested(WORK_CPU_UNBOUND, fscache_object_wq);
-diff --git a/fs/fscache/main.c b/fs/fscache/main.c
-index 30ad89db1efc..aa49234e9520 100644
---- a/fs/fscache/main.c
-+++ b/fs/fscache/main.c
-@@ -98,6 +98,45 @@ static struct ctl_table fscache_sysctls_root[] = {
- };
- #endif
- 
-+/*
-+ * Mixing scores (in bits) for (7,20):
-+ * Input delta: 1-bit      2-bit
-+ * 1 round:     330.3     9201.6
-+ * 2 rounds:   1246.4    25475.4
-+ * 3 rounds:   1907.1    31295.1
-+ * 4 rounds:   2042.3    31718.6
-+ * Perfect:    2048      31744
-+ *            (32*64)   (32*31/2 * 64)
-+ */
-+#define HASH_MIX(x, y, a)	\
-+	(	x ^= (a),	\
-+	y ^= x,	x = rol32(x, 7),\
-+	x += y,	y = rol32(y,20),\
-+	y *= 9			)
-+
-+static inline unsigned int fold_hash(unsigned long x, unsigned long y)
-+{
-+	/* Use arch-optimized multiply if one exists */
-+	return __hash_32(y ^ __hash_32(x));
-+}
-+
-+/*
-+ * Generate a hash.  This is derived from full_name_hash(), but we want to be
-+ * sure it is arch independent and that it doesn't change as bits of the
-+ * computed hash value might appear on disk.  The caller also guarantees that
-+ * the hashed data will be a series of aligned 32-bit words.
-+ */
-+unsigned int fscache_hash(unsigned int salt, unsigned int *data, unsigned int n)
-+{
-+	unsigned int a, x = 0, y = salt;
-+
-+	for (; n; n--) {
-+		a = *data++;
-+		HASH_MIX(x, y, a);
-+	}
-+	return fold_hash(x, y);
-+}
-+
- /*
-  * initialise the fs caching module
-  */
+> +	if (PageFsCache(page)) {
+> +		if (!(gfp & __GFP_DIRECT_RECLAIM) || !(gfp & __GFP_FS))
+> +			return 0;
+> +		wait_on_page_fscache(page);
+> +	}
+> +#endif
+> +	return 1;
+>  }
+>  
+>  /**
+> diff --git a/fs/9p/vfs_file.c b/fs/9p/vfs_file.c
+> index aab5e6538660..4b617d10cf28 100644
+> --- a/fs/9p/vfs_file.c
+> +++ b/fs/9p/vfs_file.c
+> @@ -542,14 +542,27 @@ v9fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  	p9_debug(P9_DEBUG_VFS, "page %p fid %lx\n",
+>  		 page, (unsigned long)filp->private_data);
+>  
+> +	v9inode = V9FS_I(inode);
+> +
+> +	/* Wait for the page to be written to the cache before we allow it to
+> +	 * be modified.  We then assume the entire page will need writing back.
+> +	 */
+> +#ifdef CONFIG_V9FS_FSCACHE
+
+s/V9FS/9P/
+
+
 -- 
-2.30.2
-
-
+Dominique
 
 --
 Linux-cachefs mailing list
