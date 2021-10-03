@@ -1,60 +1,60 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 931D64203B1
-	for <lists+linux-cachefs@lfdr.de>; Sun,  3 Oct 2021 21:22:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1756B4203B4
+	for <lists+linux-cachefs@lfdr.de>; Sun,  3 Oct 2021 21:22:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633288977;
+	s=mimecast20190719; t=1633288978;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qaJpx7t+YsSQupmLgHjmj+o/MfuP4lJ4ikb5K1RHI0k=;
-	b=PWC6uqvfO+6NhySJ4ncgmQ+4O2rAbN+z30cOmf43V4afUDXPvsA+5u+jfXHvrj5VTq2BZq
-	cJyFcPiKMGud6LaNmow8+y50b6QSwQC4CfiXZt4c7JGYLNgUZbPcAOMPNl3N0EMGzx9tsm
-	brtiHUjKjc016kBJkl4gpJOvWmASylc=
+	bh=QJCYjsGfzMNIygnNwacqVXJXTELcvz8tGZCr0ODFjpw=;
+	b=Rt4ZK22X741uGX4tUy1tUl4cwPrqeYCVyO5mX73L1fHKbgHo55Fxu98Rxdg72CIX2RguF/
+	i20pcbJusWHFn7z+OfxI/DQgeO2E1xfAiVortM4GEk/aMcoCBOhhi0w10zHq7fEQ1a7KlD
+	S0bRbnxscVH55MTNdx/fFmaJN2DXdAI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-265-SiyjGyr9OXCezt81lwQNrw-1; Sun, 03 Oct 2021 15:22:56 -0400
-X-MC-Unique: SiyjGyr9OXCezt81lwQNrw-1
+ us-mta-138-L6EThB-9OwyT9nyIBz8PPw-1; Sun, 03 Oct 2021 15:22:56 -0400
+X-MC-Unique: L6EThB-9OwyT9nyIBz8PPw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8912057224;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E087057226;
 	Sun,  3 Oct 2021 19:22:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B60E5C3E0;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D209F5C1CF;
 	Sun,  3 Oct 2021 19:22:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2492E1806D00;
-	Sun,  3 Oct 2021 19:22:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC21A4E590;
+	Sun,  3 Oct 2021 19:22:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
 	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 193JMj6b025530 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 3 Oct 2021 15:22:45 -0400
+	id 193JMk2p025535 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Sun, 3 Oct 2021 15:22:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C76805F4EC; Sun,  3 Oct 2021 19:22:45 +0000 (UTC)
+	id 867B55F4E9; Sun,  3 Oct 2021 19:22:46 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from dwysocha.rdu.csb (unknown [10.22.8.148])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 326135F4E8;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECA0A5F4E8;
 	Sun,  3 Oct 2021 19:22:45 +0000 (UTC)
 From: Dave Wysochanski <dwysocha@redhat.com>
 To: Trond Myklebust <trondmy@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@netapp.com>,
 	David Howells <dhowells@redhat.com>
-Date: Sun,  3 Oct 2021 15:22:34 -0400
-Message-Id: <1633288958-8481-4-git-send-email-dwysocha@redhat.com>
+Date: Sun,  3 Oct 2021 15:22:35 -0400
+Message-Id: <1633288958-8481-5-git-send-email-dwysocha@redhat.com>
 In-Reply-To: <1633288958-8481-1-git-send-email-dwysocha@redhat.com>
 References: <1633288958-8481-1-git-send-email-dwysocha@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: linux-cachefs@redhat.com
 Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [PATCH v1 3/7] NFS: Cleanup usage of nfs_inode in
-	fscache interface and handle i_size properly
+Subject: [Linux-cachefs] [PATCH v1 4/7] NFS: Convert NFS fscache
+	enable/disable dfprintks to tracepoints
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,86 +77,55 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A number of places in the fscache interface used nfs_inode when inode could
-be used, simplifying the code.  Also, handle the read of i_size properly by
-utilizing the i_size_read() interface.
+Convert the enable / disable NFS fscache dfprintks to tracepoints.
+Utilize the existing NFS inode trace event class, which allows us
+to keep the same output format to other NFS inode tracepoints.
 
 Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
 ---
- fs/nfs/fscache.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ fs/nfs/fscache.c  | 5 +++--
+ fs/nfs/nfstrace.h | 2 ++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
-index d3efb8ba4fb7..8f17fda5b8c9 100644
+index 8f17fda5b8c9..a2b517846787 100644
 --- a/fs/nfs/fscache.c
 +++ b/fs/nfs/fscache.c
-@@ -226,16 +226,16 @@ void nfs_fscache_release_super_cookie(struct super_block *sb)
- }
+@@ -19,6 +19,7 @@
+ #include "internal.h"
+ #include "iostat.h"
+ #include "fscache.h"
++#include "nfstrace.h"
  
- static void nfs_fscache_update_auxdata(struct nfs_fscache_inode_auxdata *auxdata,
--				  struct nfs_inode *nfsi)
-+				  struct inode *inode)
- {
- 	memset(auxdata, 0, sizeof(*auxdata));
--	auxdata->mtime_sec  = nfsi->vfs_inode.i_mtime.tv_sec;
--	auxdata->mtime_nsec = nfsi->vfs_inode.i_mtime.tv_nsec;
--	auxdata->ctime_sec  = nfsi->vfs_inode.i_ctime.tv_sec;
--	auxdata->ctime_nsec = nfsi->vfs_inode.i_ctime.tv_nsec;
-+	auxdata->mtime_sec  = inode->i_mtime.tv_sec;
-+	auxdata->mtime_nsec = inode->i_mtime.tv_nsec;
-+	auxdata->ctime_sec  = inode->i_ctime.tv_sec;
-+	auxdata->ctime_nsec = inode->i_ctime.tv_nsec;
+ #define NFSDBG_FACILITY		NFSDBG_FSCACHE
  
--	if (NFS_SERVER(&nfsi->vfs_inode)->nfs_client->rpc_ops->version == 4)
--		auxdata->change_attr = inode_peek_iversion_raw(&nfsi->vfs_inode);
-+	if (NFS_SERVER(inode)->nfs_client->rpc_ops->version == 4)
-+		auxdata->change_attr = inode_peek_iversion_raw(inode);
- }
- 
- /*
-@@ -251,13 +251,13 @@ void nfs_fscache_init_inode(struct inode *inode)
- 	if (!(nfss->fscache && S_ISREG(inode->i_mode)))
- 		return;
- 
--	nfs_fscache_update_auxdata(&auxdata, nfsi);
-+	nfs_fscache_update_auxdata(&auxdata, inode);
- 
- 	nfsi->fscache = fscache_acquire_cookie(NFS_SB(inode->i_sb)->fscache,
- 					       &nfs_fscache_inode_object_def,
- 					       nfsi->fh.data, nfsi->fh.size,
- 					       &auxdata, sizeof(auxdata),
--					       nfsi, nfsi->vfs_inode.i_size, false);
-+					       nfsi, i_size_read(inode), false);
- }
- 
- /*
-@@ -271,7 +271,7 @@ void nfs_fscache_clear_inode(struct inode *inode)
- 
- 	dfprintk(FSCACHE, "NFS: clear cookie (0x%p/0x%p)\n", nfsi, cookie);
- 
--	nfs_fscache_update_auxdata(&auxdata, nfsi);
-+	nfs_fscache_update_auxdata(&auxdata, inode);
- 	fscache_relinquish_cookie(cookie, &auxdata, false);
- 	nfsi->fscache = NULL;
- }
-@@ -311,7 +311,7 @@ void nfs_fscache_open_file(struct inode *inode, struct file *filp)
- 	if (!fscache_cookie_valid(cookie))
- 		return;
- 
--	nfs_fscache_update_auxdata(&auxdata, nfsi);
-+	nfs_fscache_update_auxdata(&auxdata, inode);
+@@ -314,11 +315,11 @@ void nfs_fscache_open_file(struct inode *inode, struct file *filp)
+ 	nfs_fscache_update_auxdata(&auxdata, inode);
  
  	if (inode_is_open_for_write(inode)) {
- 		dfprintk(FSCACHE, "NFS: nfsi 0x%p disabling cache\n", nfsi);
-@@ -319,7 +319,7 @@ void nfs_fscache_open_file(struct inode *inode, struct file *filp)
+-		dfprintk(FSCACHE, "NFS: nfsi 0x%p disabling cache\n", nfsi);
++		trace_nfs_disable_fscache_inode(inode);
+ 		clear_bit(NFS_INO_FSCACHE, &nfsi->flags);
  		fscache_disable_cookie(cookie, &auxdata, true);
  	} else {
- 		dfprintk(FSCACHE, "NFS: nfsi 0x%p enabling cache\n", nfsi);
--		fscache_enable_cookie(cookie, &auxdata, nfsi->vfs_inode.i_size,
-+		fscache_enable_cookie(cookie, &auxdata, i_size_read(inode),
+-		dfprintk(FSCACHE, "NFS: nfsi 0x%p enabling cache\n", nfsi);
++		trace_nfs_enable_fscache_inode(inode);
+ 		fscache_enable_cookie(cookie, &auxdata, i_size_read(inode),
  				      nfs_fscache_can_enable, inode);
  		if (fscache_cookie_enabled(cookie))
- 			set_bit(NFS_INO_FSCACHE, &NFS_I(inode)->flags);
+diff --git a/fs/nfs/nfstrace.h b/fs/nfs/nfstrace.h
+index 8a224871be74..b4177f57f69b 100644
+--- a/fs/nfs/nfstrace.h
++++ b/fs/nfs/nfstrace.h
+@@ -209,6 +209,8 @@
+ DEFINE_NFS_INODE_EVENT(nfs_fsync_enter);
+ DEFINE_NFS_INODE_EVENT_DONE(nfs_fsync_exit);
+ DEFINE_NFS_INODE_EVENT(nfs_access_enter);
++DEFINE_NFS_INODE_EVENT(nfs_enable_fscache_inode);
++DEFINE_NFS_INODE_EVENT(nfs_disable_fscache_inode);
+ 
+ TRACE_EVENT(nfs_access_exit,
+ 		TP_PROTO(
 -- 
 1.8.3.1
 
