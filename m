@@ -1,73 +1,99 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A5CAA42279D
-	for <lists+linux-cachefs@lfdr.de>; Tue,  5 Oct 2021 15:18:12 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B35234227B6
+	for <lists+linux-cachefs@lfdr.de>; Tue,  5 Oct 2021 15:24:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633439891;
+	s=mimecast20190719; t=1633440243;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yg5fK7aog3EFp2Xj32cNaHmpKI9sOETqZ4b3j88epsw=;
-	b=aCpu5VxMqypjSp4iRoZE7VMAM76vmRUlCC7NvV89c7NA6tItwbVxvAvY42iO+nBeWfQ8/Z
-	J24tg+8cVNphDEY4AWlIoPZTehywS4yRd+kD3w0DpD45ymGt8DoGZYJFIrnkiLbXFimFJm
-	1CEvuk8mzzfS/k90fmgUqeXM7OV+R/I=
+	bh=2oo3CzPsgB5EMBaFRbLRerifKYrZAxWCURgCXn7NC7o=;
+	b=eLjvLBjC+OKIMx1z92BiXU04z9E50fZcZnEOvzakJs4P4mvxkOyBCUtIKJIv0sD6ZG6aXM
+	+n+Zsqtv6qpx0xkcvcAiClGRBNwZf0pVGA4EyYHN2cU1l/fUwYbd4dcnx8zy4kGKwbglZn
+	4zMm90dXhQnEhfC8RHKQDUNhBRejLVI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-360-FYFjaVuiNzmomI-i0emrZQ-1; Tue, 05 Oct 2021 09:18:10 -0400
-X-MC-Unique: FYFjaVuiNzmomI-i0emrZQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-227-Da3r2gJXNJiavNaVDZXP4g-1; Tue, 05 Oct 2021 09:24:02 -0400
+X-MC-Unique: Da3r2gJXNJiavNaVDZXP4g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 627D819057A4;
-	Tue,  5 Oct 2021 13:18:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9BA8100D684;
+	Tue,  5 Oct 2021 13:24:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 021CC9AA2B;
-	Tue,  5 Oct 2021 13:18:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F8D060936;
+	Tue,  5 Oct 2021 13:24:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 343F74E58E;
-	Tue,  5 Oct 2021 13:18:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F44F4E58F;
+	Tue,  5 Oct 2021 13:24:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 195DFhsL005835 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 5 Oct 2021 09:15:43 -0400
+	id 195DNvlE006468 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 5 Oct 2021 09:23:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 17E1B17C58; Tue,  5 Oct 2021 13:15:43 +0000 (UTC)
+	id D4F892166B40; Tue,  5 Oct 2021 13:23:57 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 758A853E08;
-	Tue,  5 Oct 2021 13:15:41 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <23033528036059af4633f60b8325e48eab95ac36.camel@hammerspace.com>
-References: <23033528036059af4633f60b8325e48eab95ac36.camel@hammerspace.com>
-	<97eb17f51c8fd9a89f10d9dd0bf35f1075f6b236.camel@hammerspace.com>
-	<163189104510.2509237.10805032055807259087.stgit@warthog.procyon.org.uk>
-	<163189108292.2509237.12615909591150927232.stgit@warthog.procyon.org.uk>
-	<CALF+zO=165sRYRaxPpDS7DaQCpTe-YOa4FamSoMy5FV2uuG5Yg@mail.gmail.com>
-	<81120.1633099916@warthog.procyon.org.uk>
-To: Trond Myklebust <trondmy@hammerspace.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFC582166B2F
+	for <linux-cachefs@redhat.com>; Tue,  5 Oct 2021 13:23:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3684718A6582
+	for <linux-cachefs@redhat.com>; Tue,  5 Oct 2021 13:23:44 +0000 (UTC)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+	[209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-179-TNN6AsooMHiZJeCERbq01w-1; Tue, 05 Oct 2021 09:23:42 -0400
+X-MC-Unique: TNN6AsooMHiZJeCERbq01w-1
+Received: by mail-ed1-f70.google.com with SMTP id
+	d23-20020a50f697000000b003daf215e1efso6278581edn.23
+	for <linux-cachefs@redhat.com>; Tue, 05 Oct 2021 06:23:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=RKbR8FvCeBTSeT0pNhTRGhTE4CVwvkMvkOIjlwXIta8=;
+	b=Z5UT6gIYNurEb7MPivIlPCub9RP87kZ10C1dLkZkS1iQiROV3UWAK2LvLMEnB9i8oS
+	EZ3gWCtVYJQkjaZecu+gRJZ0fYxEIvOZVSSVYPeT6NerBMOWhB/8TOkWcjQwlcB/eqgI
+	eWH97+ee6nF1RS+QRNww05e4eIJFcS6j9AbVpfku3GY0PuYpjV0+ZUaxBbjmdo5jYifO
+	mn/m1TiFELmvyG5bPgi/Zky3HItfrmUj0WU/cvzHGMljdi86Ki4ccpjy8XZez5Pf9oLa
+	YJk2RHMqufN3zWUcikVDfFOlyFHwpjRdWJu3Pmvuz9zhzgbkSjVZ+u3SOBthJBGBHykd
+	pyow==
+X-Gm-Message-State: AOAM533rV4cBYNhX1HMjCpY3H8p72idyACz2vM5nTafPqI4jQ/myQlWK
+	tPsDMAhEiD5POs1E30n/L0i+n2SLLnGhBSxgguPEqwVCn/ZJBXImblH4qOKTjKi2c2i+NuF3I8E
+	pdZqNKLYXxF5yvb/XmIJbxqhuHcH4764fA3Uz7w==
+X-Received: by 2002:a05:6402:358c:: with SMTP id
+	y12mr25460199edc.159.1633440221782; 
+	Tue, 05 Oct 2021 06:23:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzdGA4t7WXHUSSGDTBF5EAERIk1rUUvS4aOVk+e37jrlTSplgDO4SduLt1XdrwMUBcmAUpFGK19GXYzmIfBAiU=
+X-Received: by 2002:a05:6402:358c:: with SMTP id
+	y12mr25460181edc.159.1633440221606; 
+	Tue, 05 Oct 2021 06:23:41 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 05 Oct 2021 14:15:40 +0100
-Message-ID: <1080874.1633439740@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <1633288958-8481-1-git-send-email-dwysocha@redhat.com>
+	<1633288958-8481-2-git-send-email-dwysocha@redhat.com>
+	<1078846.1633438369@warthog.procyon.org.uk>
+In-Reply-To: <1078846.1633438369@warthog.procyon.org.uk>
+From: David Wysochanski <dwysocha@redhat.com>
+Date: Tue, 5 Oct 2021 09:23:04 -0400
+Message-ID: <CALF+zOk1P22ePaDTwZto-hT+TcqYE=oepqwe13sFjYbPEFYxLw@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"willy@infradead.org" <willy@infradead.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
-	"anna.schumaker@netapp.com" <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] Can the GFP flags to releasepage() be trusted?
-	-- was Re: [PATCH v2 3/8] nfs: Move to using the alternate
-	fallback fscache I/O API
+Cc: linux-nfs <linux-nfs@vger.kernel.org>,
+	linux-cachefs <linux-cachefs@redhat.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	Trond Myklebust <trondmy@hammerspace.com>
+Subject: Re: [Linux-cachefs] [PATCH v1 1/7] NFS: Fixup patch 3/8 of
+	fscache-iter-3 v2
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,31 +107,78 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <1080873.1633439740.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Trond Myklebust <trondmy@hammerspace.com> wrote:
+On Tue, Oct 5, 2021 at 8:52 AM David Howells <dhowells@redhat.com> wrote:
+>
+> Dave Wysochanski <dwysocha@redhat.com> wrote:
+>
+> >
+> > Handle failed return values of fscache_fallback_read_page() in
+> > switch statement.
+>
+> After some discussion on IRC, the attached is probably better.  Returning 1
+> might result in 1 being returned through ->readpage(), which could be a
+> problem.
+>
+> David
+> ---
+> diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
+> index 5b0e78742444..68e266a37675 100644
+> --- a/fs/nfs/fscache.c
+> +++ b/fs/nfs/fscache.c
+> @@ -346,33 +346,18 @@ int __nfs_readpage_from_fscache(struct inode *inode, struct page *page)
+>
+>         ret = fscache_fallback_read_page(nfs_i_fscache(inode), page);
+>         if (ret < 0) {
+> -               dfprintk(FSCACHE, "NFS:    readpage_from_fscache: "
+> -                        "fscache_fallback_read_page failed ret = %d\n", ret);
+> -               return ret;
+> -       }
+> -
+> -       switch (ret) {
+> -       case 0: /* Read completed synchronously */
+> -               dfprintk(FSCACHE,
+> -                        "NFS:    readpage_from_fscache: read successful\n");
+> -               nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_OK);
+> -               SetPageUptodate(page);
+> -               return 0;
+> -
+> -       case -ENOBUFS: /* inode not in cache */
+> -       case -ENODATA: /* page not in cache */
+>                 nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_FAIL);
+>                 dfprintk(FSCACHE,
+> -                        "NFS:    readpage_from_fscache %d\n", ret);
+> -               SetPageChecked(page);
+> -               return 1;
+> -
+> -       default:
+> -               dfprintk(FSCACHE, "NFS:    readpage_from_fscache %d\n", ret);
+> -               nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_FAIL);
+> +                        "NFS:    readpage_from_fscache failed %d\n", ret);
+>                 SetPageChecked(page);
+> +               return ret;
+>         }
+> -       return ret;
+> +
+> +       /* Read completed synchronously */
+> +       dfprintk(FSCACHE, "NFS:    readpage_from_fscache: read successful\n");
+> +       nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_OK);
+> +       SetPageUptodate(page);
+> +       return 0;
+>  }
+>
+>  /*
+>
 
-> To elaborate a bit: we used to have code here that would check whether
-> the page had been cleaned but was unstable, and if an argument of
-> GFP_KERNEL or above was set, we'd try to call COMMIT to ensure the page
-> was synched to disk on the server (and we'd wait for that call to
-> complete).
-> 
-> That code would end up deadlocking in all sorts of horrible ways, so we
-> ended up having to pull it.
-
-I don't think that a deadlock should be possible with this.  PG_fscache is now
-only being used to indicate that a DIO write to the cache is in progress on
-the page.  It will complete and remove the mark at some point.
-
-David
+Yes this looks good.
+Acked-by: Dave Wysochanski <dwysocha@redhat.com>
 
 --
 Linux-cachefs mailing list
