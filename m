@@ -1,75 +1,96 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2452E428FF5
-	for <lists+linux-cachefs@lfdr.de>; Mon, 11 Oct 2021 16:01:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CECFD42C52A
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Oct 2021 17:47:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1634140054;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=EQ57PbunVF/e0UD9xkggDiGfedt7YTXn7HyAkV4ukwI=;
+	b=F3A45HVn9DaakmWRtejyiKUO0WZlvnZj5lC1Ul4HqI4yxAk4I2Li35yNSY3UruKgk6+mHV
+	owoQc4RluB9/5JIcU2U2k3tTAApFFpRC6F+GgC9PSUROz3dhB5wOwYtywvyLM0sBqShsv0
+	vB9XDv+nmH36T/zYge07p82jKTk2jew=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-548-M3FZwtXTOYGLe9ACMGcXgw-1; Mon, 11 Oct 2021 10:01:30 -0400
-X-MC-Unique: M3FZwtXTOYGLe9ACMGcXgw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-583-UqsKPMlKOwG5sIMqrWpCnw-1; Wed, 13 Oct 2021 11:47:31 -0400
+X-MC-Unique: UqsKPMlKOwG5sIMqrWpCnw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8410D102CE3F;
-	Mon, 11 Oct 2021 14:00:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1E4385074B;
+	Wed, 13 Oct 2021 15:47:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9005A60871;
-	Mon, 11 Oct 2021 14:00:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 428F760FB8;
+	Wed, 13 Oct 2021 15:47:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CCCA91809C84;
-	Mon, 11 Oct 2021 14:00:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D0761800FE4;
+	Wed, 13 Oct 2021 15:47:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19BE0b44029993 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 11 Oct 2021 10:00:37 -0400
+	id 19DFfwPr029695 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 11:41:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26F162026D67; Mon, 11 Oct 2021 14:00:37 +0000 (UTC)
+	id DBB08400E410; Wed, 13 Oct 2021 15:41:58 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2356F2026D60
-	for <linux-cachefs@redhat.com>; Mon, 11 Oct 2021 14:00:34 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D853140C1256
+	for <linux-cachefs@redhat.com>; Wed, 13 Oct 2021 15:41:58 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 418FB899EE5
-	for <linux-cachefs@redhat.com>; Mon, 11 Oct 2021 14:00:34 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-150-4YsRTIglObKEbF4Xg5KPIg-1;
-	Mon, 11 Oct 2021 10:00:27 -0400
-X-MC-Unique: 4YsRTIglObKEbF4Xg5KPIg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F3F8E61214;
-	Mon, 11 Oct 2021 14:00:23 +0000 (UTC)
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 11 Oct 2021 15:45:58 +0200
-Message-Id: <20211011134520.620511034@linuxfoundation.org>
-In-Reply-To: <20211011134517.833565002@linuxfoundation.org>
-References: <20211011134517.833565002@linuxfoundation.org>
-User-Agent: quilt/0.66
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C01A91066684
+	for <linux-cachefs@redhat.com>; Wed, 13 Oct 2021 15:41:58 +0000 (UTC)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+	[209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-309-VYJpHWW1OuGX6tejUbmBng-1; Wed, 13 Oct 2021 11:41:57 -0400
+X-MC-Unique: VYJpHWW1OuGX6tejUbmBng-1
+Received: by mail-ed1-f69.google.com with SMTP id
+	d3-20020a056402516300b003db863a248eso2590976ede.16
+	for <linux-cachefs@redhat.com>; Wed, 13 Oct 2021 08:41:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=YTsyQy90Y8vr99gRcn4sruIL3K1xPoiLMle2l3qSL3o=;
+	b=4xuRwBMPWRvQgDVzvJv3i+4wOVmJPqUdGoZQLTzLfZMr+zXOzRZjavMpKcQKuAC7kd
+	VNE+ZrHdKfwmyzHJi1XirGI+laWqVLlBdpIPFiQSGLkqp1O4k3PY4wah4lnz/KGgpc7i
+	Po4DWeym2ZMlTZeTVhu4sbVTfnUnTCcrujtvzdzpLGIPd0dQ0hFZuz7ndLzNj6Z2/c9X
+	zAGWNgwuuV+MsAq8Sm9DWnzUWmscUluj5oBz3YlkQL9u3+NE1iRyTmfG8yQOm1G1Snep
+	1J90+8B9Dye7JO404WITGv7Kx1iqG7zvi0gkCMb9VRQLLwcuxJ5VT3FrrnUd1uRlLw4t
+	vrug==
+X-Gm-Message-State: AOAM530AElRkk7pzdLiY6KI9eIF5VY5fCoWs/tfeh9E/ug2L2oZpE4nN
+	mpbBO1t4lx7Gw8TDjlyIdwHbTLI0Dpt2vTtwLPozBWzGXynjItYa4+S+yK4li6jJAci48EuroLv
+	YLKxESlrIbNwAkq6CrUNTE6H6vwtEmSBRJTUbyA==
+X-Received: by 2002:a17:906:5e17:: with SMTP id
+	n23mr286523eju.258.1634139716209; 
+	Wed, 13 Oct 2021 08:41:56 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxS4cVAWJkR7CbLvPFTXBfnS1sSmTtIpe5zZADoFU1ojmR6bmvi0WKIMzEMMmw+1gYr2qY6GVDMz+QhDc7rPLw=
+X-Received: by 2002:a17:906:5e17:: with SMTP id
+	n23mr286493eju.258.1634139715963; 
+	Wed, 13 Oct 2021 08:41:55 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+References: <1633645823-31235-1-git-send-email-dwysocha@redhat.com>
+In-Reply-To: <1633645823-31235-1-git-send-email-dwysocha@redhat.com>
+From: David Wysochanski <dwysocha@redhat.com>
+Date: Wed, 13 Oct 2021 11:41:19 -0400
+Message-ID: <CALF+zOnyGNG=wUHu2j04RWF0nQaAoQfse5e81a=U3pvdNXL26w@mail.gmail.com>
+To: Trond Myklebust <trondmy@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@netapp.com>,
+	David Howells <dhowells@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: linux-cachefs@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jeff Layton <jlayton@kernel.org>, stable@vger.kernel.org,
-	linux-mm@kvack.org, linux-cachefs@redhat.com,
-	linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
-	linux-afs@lists.infradead.org
-Subject: [Linux-cachefs] [PATCH 5.14 086/151] netfs: Fix READ/WRITE
-	confusion when calling iov_iter_xarray()
+Cc: linux-nfs <linux-nfs@vger.kernel.org>,
+	linux-cachefs <linux-cachefs@redhat.com>
+Subject: Re: [Linux-cachefs] [PATCH v2 0/7] Various NFS fscache cleanups
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,50 +112,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: David Howells <dhowells@redhat.com>
+On Thu, Oct 7, 2021 at 6:31 PM Dave Wysochanski <dwysocha@redhat.com> wrote:
+>
+> This patchset is on top of David Howells patchset he just posted as
+> v3 of "fscache: Replace and remove old I/O API" and is based on his
+> fscache-remove-old-io branch at
+> https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-remove-old-io
+> NOTE: fscache-remove-old-io was previously "fscache-iter-3" but it's been
+> renamed to better reflect the purpose.
+>
+> The series is also at:
+> https://github.com/DaveWysochanskiRH/kernel.git
+> https://github.com/DaveWysochanskiRH/kernel/tree/fscache-remove-old-io-nfs-fixes
+>
+> Testing is looking ok so far and is still ongoing at BakeAThon and in
+> my local testbed with tracepoints enabled via:
+> trace-cmd start -e fscache:* -e nfs:* -e nfs4:* -e cachefiles:*
+>
+> Changes in v2 of this series
+> - Dropped first patch of v1 series (dhowells updated his patch)
+> - Don't rename or change the value of NFSDBG_FSCACHE (Trond)
+> - Rename nfs_readpage_from_fscache and nfs_readpage_to_fscache
+> - Rename enable/disable tracepoints to start with "nfs_fscache"
+> - Rename fscache IO tracepoints to better reflect the new function names
+> - Place the fscache IO tracepoints at begin and end of the functions
+>
+> Dave Wysochanski (7):
+>   NFS: Use nfs_i_fscache() consistently within NFS fscache code
+>   NFS: Cleanup usage of nfs_inode in fscache interface and handle i_size
+>     properly
+>   NFS: Convert NFS fscache enable/disable dfprintks to tracepoints
+>   NFS: Rename fscache read and write pages functions
+>   NFS: Replace dfprintks with tracepoints in read and write page
+>     functions
+>   NFS: Remove remaining dfprintks related to fscache cookies
+>   NFS: Remove remaining usages of NFSDBG_FSCACHE
+>
+>  fs/nfs/fscache-index.c      |  2 -
+>  fs/nfs/fscache.c            | 76 +++++++++++++----------------------
+>  fs/nfs/fscache.h            | 25 ++++++------
+>  fs/nfs/nfstrace.h           | 98 +++++++++++++++++++++++++++++++++++++++++++++
+>  fs/nfs/read.c               |  4 +-
+>  include/uapi/linux/nfs_fs.h |  2 +-
+>  6 files changed, 140 insertions(+), 67 deletions(-)
+>
+> --
+> 1.8.3.1
+>
 
-[ Upstream commit 330de47d14af0c3995db81cc03cf5ca683d94d81 ]
+Just a report on the testing of this patchset, which also tested
+dhowells fscache-remove-old-io branch.  Overall this looks very
+stable.
 
-Fix netfs_clear_unread() to pass READ to iov_iter_xarray() instead of WRITE
-(the flag is about the operation accessing the buffer, not what sort of
-access it is doing to the buffer).
-
-Fixes: 3d3c95046742 ("netfs: Provide readahead and readpage netfs helpers")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-cc: linux-cachefs@redhat.com
-cc: linux-afs@lists.infradead.org
-cc: ceph-devel@vger.kernel.org
-cc: linux-cifs@vger.kernel.org
-cc: linux-nfs@vger.kernel.org
-cc: v9fs-developer@lists.sourceforge.net
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-mm@kvack.org
-Link: https://lore.kernel.org/r/162729351325.813557.9242842205308443901.stgit@warthog.procyon.org.uk/
-Link: https://lore.kernel.org/r/162886603464.3940407.3790841170414793899.stgit@warthog.procyon.org.uk
-Link: https://lore.kernel.org/r/163239074602.1243337.14154704004485867017.stgit@warthog.procyon.org.uk
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/netfs/read_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
-index 0b6cd3b8734c..994ec22d4040 100644
---- a/fs/netfs/read_helper.c
-+++ b/fs/netfs/read_helper.c
-@@ -150,7 +150,7 @@ static void netfs_clear_unread(struct netfs_read_subrequest *subreq)
- {
- 	struct iov_iter iter;
- 
--	iov_iter_xarray(&iter, WRITE, &subreq->rreq->mapping->i_pages,
-+	iov_iter_xarray(&iter, READ, &subreq->rreq->mapping->i_pages,
- 			subreq->start + subreq->transferred,
- 			subreq->len   - subreq->transferred);
- 	iov_iter_zero(iov_iter_count(&iter), &iter);
--- 
-2.33.0
-
-
+I ran some custom unit tests as well as many xfstest runs.  I saw
+no oops or other significant problems during any of the runs.
+I saw no differences in Failures on xfstest runs between 5.15.0-rc4
+and this set.
+I ran the following configurations of servers and NFS options for the
+runs (5.15.0-rc4, then 5.15.0-rc4 + this patchset).
+1. hammerspace (pnfs flexfiles): vers=4.1,fsc; vers=4.1,nofsc;
+vers=4.2,fsc; vers=4.2,nofsc
+2. ontap9.x (pnfs filelayout): vers=4.1,fsc; vers=4.1,nofsc
+3. rhel7u8 (3.10.0-1127.8.2.el7): vers=3,nofsc; vers=4.0,nofsc;
+vers=4.0,fsc; vers=4.2,fsc; vers=4.2,nofsc
+4. rhel8 (4.18.0-193.28.1.el8): vers=4.2,fsc
 
 --
 Linux-cachefs mailing list
