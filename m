@@ -2,168 +2,70 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BF4A942FCF5
-	for <lists+linux-cachefs@lfdr.de>; Fri, 15 Oct 2021 22:24:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E49A432033
+	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 16:50:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1634568645;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=WICBMb7kfnFU1kLo045tF9ENwa8Xg8VlibSHBE1gqBY=;
+	b=g1ANvd9DFDYaiXi6vn0klOipcnCR9Tuw1gxzjCZn4ZDCO4aQLcRf5up2sDop7UmZ2jmqdq
+	WkQKQh8QWayPYrs2bP7L4bMdXHJZLKTrWP6KjQQCvkNfHFySlKFq2lDtn1ULcaAOB1K7Ro
+	YqUa905eEL7bZM+pDziFj/i+9AOY96I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-327-B-en7kU5OdWlMkT8hBGKeQ-1; Fri, 15 Oct 2021 16:24:07 -0400
-X-MC-Unique: B-en7kU5OdWlMkT8hBGKeQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-333-st1pFVfGPc2EUqCH8yrgyA-1; Mon, 18 Oct 2021 10:50:41 -0400
+X-MC-Unique: st1pFVfGPc2EUqCH8yrgyA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7CB8A10A8E00;
-	Fri, 15 Oct 2021 20:24:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 336B680A5C0;
+	Mon, 18 Oct 2021 14:50:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC18C100E809;
-	Fri, 15 Oct 2021 20:24:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EF7970F5C;
+	Mon, 18 Oct 2021 14:50:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6319A1809C81;
-	Fri, 15 Oct 2021 20:24:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D6ABE180BAD1;
+	Mon, 18 Oct 2021 14:50:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FKJQqT030988 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 16:19:26 -0400
+	id 19IEoQkR027397 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 10:50:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7302240CFD11; Fri, 15 Oct 2021 20:19:26 +0000 (UTC)
+	id E3CCA70F5E; Mon, 18 Oct 2021 14:50:26 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C98140CFD0D
-	for <linux-cachefs@redhat.com>; Fri, 15 Oct 2021 20:19:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 502F41066559
-	for <linux-cachefs@redhat.com>; Fri, 15 Oct 2021 20:19:26 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
-	[205.220.177.32]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-226-ESh0kfSwPA69U-wsX-w_KA-1; Fri, 15 Oct 2021 16:19:22 -0400
-X-MC-Unique: ESh0kfSwPA69U-wsX-w_KA-1
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
-	19FJjBgA013279; Fri, 15 Oct 2021 20:18:53 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by mx0b-00069f02.pphosted.com with ESMTP id 3bqbgp9yv9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 15 Oct 2021 20:18:52 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19FK1Hhu090715;
-	Fri, 15 Oct 2021 20:18:43 GMT
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
-	(mail-bn8nam12lp2170.outbound.protection.outlook.com [104.47.55.170])
-	by userp3030.oracle.com with ESMTP id 3bkyvf02pa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 15 Oct 2021 20:18:42 +0000
-Received: from SJ0PR10MB4688.namprd10.prod.outlook.com (2603:10b6:a03:2db::24)
-	by BYAPR10MB2439.namprd10.prod.outlook.com (2603:10b6:a02:ba::11)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25;
-	Fri, 15 Oct 2021 20:18:40 +0000
-Received: from SJ0PR10MB4688.namprd10.prod.outlook.com
-	([fe80::f4fe:5b4:6bd9:4c5b]) by SJ0PR10MB4688.namprd10.prod.outlook.com
-	([fe80::f4fe:5b4:6bd9:4c5b%6]) with mapi id 15.20.4608.017;
-	Fri, 15 Oct 2021 20:18:40 +0000
-From: Chuck Lever III <chuck.lever@oracle.com>
-To: Trond Myklebust <trondmy@hammerspace.com>
-Thread-Topic: [PATCH 1/1] NFS: Convert from readpages() to readahead()
-Thread-Index: AQHXu9PCTxWz7e0uNku4Se2Jl0pkd6vJJJuAgAqUFgCAANNXNg==
-Date: Fri, 15 Oct 2021 20:18:40 +0000
-Message-ID: <E3E18FD8-5895-4C4D-90BF-2588A3C346E9@oracle.com>
-References: <1633649528-1321-1-git-send-email-dwysocha@redhat.com>
-	<1633649528-1321-2-git-send-email-dwysocha@redhat.com>
-	<3F1E7B93-EB8D-4744-8143-D44654CA6451@oracle.com>
-	<1fe6dbeac820b58f0790dcff492b62b7dd7e4fea.camel@hammerspace.com>
-In-Reply-To: <1fe6dbeac820b58f0790dcff492b62b7dd7e4fea.camel@hammerspace.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3a3c4e98-7b76-4b74-01e2-08d99018faa4
-x-ms-traffictypediagnostic: BYAPR10MB2439:
-x-microsoft-antispam-prvs: <BYAPR10MB243943448E82CDD3C3983AF993B99@BYAPR10MB2439.namprd10.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:663
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: V979x+2zCjIBXeA71j3hOeRPW3iVBqtTFBKq/zoZdS/6bf3Y08cia0MjTf15NtdXp5DvKvg845JiS1gbBZRqWWbiCRmnqCPhZ0hCPHIE1fxpTJ48Yykbg8IqYURharKMRFf34oqPsLoiq3vfeyuG8st+o9eHSy/U9C1wmelxXj/6oJsgGOEcF61FOvTkNqm5EaAwTJ9pFrLk5D0gWHgRfk/dBir0DqxR/h8+lnumb0/nldCYLXAOLkLoef+RrJnwSx13A5MWe+yOg+tzNPPgwTBuABpswVSRzLlwyNXNnszWmK4NELzEIpk7FXJryn8a3cNX0AFlnqZzer2wHrxi7Ik7xuX6dSEyb91dRAHm7S34BMakaemWAyEa3rIIrVDHCIs36VBz/aNlmestMetVIDQIrDQyF7LgvK0CikH8elSlPDLGPm9ndxVMetRykNjHpGxJ6dWJpyV1uHoZnltDsRjKDw3OcvuhMdinrBGN6hzRYRKIHvNoYj8QzkbLIkoYJ+0NfEg0y2r/I7pYtC41Wkj4PXpMrfSqMUIGxHbIrZenAMXjXi3HAg16av6FM7+rl8Pyq35SvBiE7hgZGl4D6zsZmDjn+zrtmrWgHceJQ5jRCq6wynD0/k8xMBgbpxSseU9wlRlBzYLqB90EtNiHu3sjSA237FFwVGlVTWXtsi0fVjUtiSUMXlgYNLo36ZYb0c3GEHiOgImz0yt0nVFRsjLGOZjzjKJ8w+ezOYOHXCE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:SJ0PR10MB4688.namprd10.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(366004)(36756003)(8676002)(2616005)(91956017)(186003)(33656002)(6486002)(38070700005)(4326008)(2906002)(86362001)(76116006)(6512007)(508600001)(53546011)(54906003)(66446008)(6506007)(66476007)(66946007)(38100700002)(316002)(83380400001)(5660300002)(66556008)(64756008)(122000001)(6916009)(71200400001)(8936002)(45980500001);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ajJBaU1iZVYvU3pxeEdmcEZBaHlqQ0wwSFFzNTVDc2RSclkxUFdxSnZUQlJW?=
-	=?utf-8?B?YXU4aGdxNkRxa1JJdGpCR2NVRG9XNHVNczdpWFl3N29LdHNzZkluZEN3bXV2?=
-	=?utf-8?B?ZStYQ3Z0OG55OGEzUnNCM0hlaVNCS3pybG1QS2tUNmdBdDUzRzRIQjJtUnZZ?=
-	=?utf-8?B?STV3cS9ySThNSDZFLzVGYWtIWFpLZ09GZXpqVEhWRktScGZpZnJJa0FUd3dz?=
-	=?utf-8?B?MnptU0xBTmNUUkV0OXJ1MWlXTjJvS2p0TTNvN2FDSHFVeGFJbTFyRkVoUmp5?=
-	=?utf-8?B?dTlxZ0RHZDlKQ3dUU2czNWFmZmNMRnRnYkhqRmpZNTJTSndibEpPSWwzejFE?=
-	=?utf-8?B?WSthZUc3b05ucCtXY2tpK0JRUzEwZDk3WEZLcHdMendWYXQzeU8zWDViclZV?=
-	=?utf-8?B?SkowbTZxTmE4M1dSVzc0bG92dVNmQlMzby93WlUwUWhVMGJ3L0htRU5ZcUN4?=
-	=?utf-8?B?bWRzcUFsNjBTbFgrL0xhd2JVL21hYndCbDQ0R1JzTlpwUXo2cDhIbUtQSHRC?=
-	=?utf-8?B?QWR5TE1zajVHcTY5RjI1akRBaGUxS0RyOXppOFNjdEl2SkdVeDFsR28rZEtB?=
-	=?utf-8?B?VTRGNnZjM1lpR1RXcHM5aFNWVHlIK2ZUa3JYTlNvUzArV0FaM3B5OUVJaDVL?=
-	=?utf-8?B?TGx1TGpzbW8ralRKT1RQVE01TTdQWW80TldwRW9TdnByVFZIblRENHV5Wm9j?=
-	=?utf-8?B?clUwb0pyZmlBNiswSFFYTUZPS3A3UHp4cUV0T1IvZW0zU21vQXpwRkR5K05J?=
-	=?utf-8?B?QlRLcml0emNiUndudDl1cTNxR1p5SFVBNWN0OGFwYkE4dXJ2WjlZRjIzTFFi?=
-	=?utf-8?B?M0xWMzcvdTBwSGsxZjE4WG5Ud1FBMGZ4T0dHdXdCM1phdjJnbTRJaGFHQjhT?=
-	=?utf-8?B?VWlMY2ZZbkdqMXJma2pyaDdlSlQ1RFUyNjdsN3NOSllJSldKd3lKUi9CZWlC?=
-	=?utf-8?B?NGdEakRkNTdGUElXMS8wa3pyWDRUT0xQUFVPVGpPSjVVdFFGdkV5VkZDeGQ3?=
-	=?utf-8?B?aDBZdTNOeHBVWWdYRUFTMjZ0TVlEbnJDR2ZyL0h2dk5yc1pnVVQ5dHhaaVVr?=
-	=?utf-8?B?a1BpNTAzSzYxektwNW9RVTF6VFFwc1BLUW5DN2Y5cVZUT002NEVnZkZRNDN0?=
-	=?utf-8?B?WndBZFZwakozYjNkbjBZUWJXTUJFZ1J6YVRvNmhzci9vdTB3YnVBYnBoSTF3?=
-	=?utf-8?B?bVRnWUJ4NHMyWE5mczFsZTMrMDB2dmxURzhzTHNvYzZtem05WEltLy9wdFZl?=
-	=?utf-8?B?czVsR05nTTZkUS9vM2RwalZXbms2R28wdXdzSGQ5KzZqVUJnVG5CMXVzUFZZ?=
-	=?utf-8?B?YWpmMHQvVit5eCsvWW1tblFvWFlSb2ljQmIzWEczMFduNytCcHh0RDFKNHZ4?=
-	=?utf-8?B?R292eXpIaTJFOXJ1THByeHljRmxmanBycHJFUG9nZUVaQ2h5TG1mdTdwcWts?=
-	=?utf-8?B?cnBjVy9jbFQxU0h2UTlzc0ZIc1U5T242Q2ZVeTExdUYyL296d29yVitmMldE?=
-	=?utf-8?B?YlJwNlFjRVU5WlRqSzc5N2RCeDNWbWRRMFQwWTRqTDlsUERDUThoNlV0dEVa?=
-	=?utf-8?B?M0lGQ3R4eWtCV0xBWVdvZXFVYVlqVGlJWWFZME51bFVMN09TSkxGZXZCUXM4?=
-	=?utf-8?B?QmhvUkV5V3BLZGF1RnBSVUMyMUtDbXhhcE5HNm5VZlp5aXRUVmZVcFV2cm5I?=
-	=?utf-8?B?aTVRekYyOERjNU0xd2t3R1dCajhldmVjTWJuaStlQlExdm5lTVJCWjBRWTFT?=
-	=?utf-8?B?WGdKYU1zV2NkYW1sYjBxemJzazJ2SkN0UFl6cktYZzgxR0dnellTeTJlK2o4?=
-	=?utf-8?B?N2xqNkVmQkYzSnpjbHRxRm1rbDhzU3ZJOUFSemw4WHFHcmtRNG14cDZiM1or?=
-	=?utf-8?Q?GwqiJTJF9ntOT?=
-x-ms-exchange-transport-forked: True
+Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A7E005F4F5;
+	Mon, 18 Oct 2021 14:50:16 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: linux-cachefs@redhat.com
+Date: Mon, 18 Oct 2021 15:50:15 +0100
+Message-ID: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB4688.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a3c4e98-7b76-4b74-01e2-08d99018faa4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2021 20:18:40.6839 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jhFy9set0V9g133a9Eh3oUas1SbFjjQw9D/4IjAHZg0b5ny4jgodhwuuuNkPGsXWkAd7tKXKaTfyhn99RpXFQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2439
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10138
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	phishscore=0 bulkscore=0
-	malwarescore=0 adultscore=0 mlxscore=0 spamscore=0 mlxlogscore=999
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2109230001 definitions=main-2110150121
-X-Proofpoint-GUID: 5ZX0h6W1Zhl5mS9orVrtwrPOUcfqM99m
-X-Proofpoint-ORIG-GUID: 5ZX0h6W1Zhl5mS9orVrtwrPOUcfqM99m
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 19FKJQqT030988
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: linux-cachefs@redhat.com
-Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"willy@infradead.org" <willy@infradead.org>,
-	"linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
-	"anna.schumaker@netapp.com" <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH 1/1] NFS: Convert from readpages() to
-	readahead()
+Cc: Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
+	Marc Dionne <marc.dionne@auristor.com>, linux-afs@lists.infradead.org,
+	Shyam Prasad N <nspmangalore@gmail.com>,
+	linux-cifs@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
+	Kent Overstreet <kent.overstreet@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	linux-nfs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	linux-kernel@vger.kernel.org, Steve French <sfrench@samba.org>,
+	linux-fsdevel@vger.kernel.org, Omar Sandoval <osandov@osandov.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Anna Schumaker <anna.schumaker@netapp.com>
+Subject: [Linux-cachefs] [PATCH 00/67] fscache: Rewrite index API and
+	management system
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -177,48 +79,307 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Cj4gT24gT2N0IDE1LCAyMDIxLCBhdCAzOjQyIEFNLCBUcm9uZCBNeWtsZWJ1c3QgPHRyb25kbXlA
-aGFtbWVyc3BhY2UuY29tPiB3cm90ZToKPiAKPiDvu79PbiBGcmksIDIwMjEtMTAtMDggYXQgMTQ6
-MDkgKzAwMDAsIENodWNrIExldmVyIElJSSB3cm90ZToKPj4gCj4+IAo+Pj4gT24gT2N0IDcsIDIw
-MjEsIGF0IDc6MzIgUE0sIERhdmUgV3lzb2NoYW5za2kgPGR3eXNvY2hhQHJlZGhhdC5jb20+Cj4+
-PiB3cm90ZToKPj4+IAo+Pj4gQ29udmVydCB0byB0aGUgbmV3IFZNIHJlYWRhaGVhZCgpIEFQSSB3
-aGljaCBpcyB0aGUgcHJlZmVycmVkIEFQSQo+Pj4gdG8gcmVhZCBtdWx0aXBsZSBwYWdlcywgYW5k
-IHJlbmFtZSB0aGUgTkZTSU9TXyogY291bnRlcnMgYW5kIHRoZQo+Pj4gdHJhY2Vwb2ludCBhcyBu
-ZWVkZWQuCj4+PiAKPj4+IFNpZ25lZC1vZmYtYnk6IERhdmUgV3lzb2NoYW5za2kgPGR3eXNvY2hh
-QHJlZGhhdC5jb20+Cj4+PiAtLS0KPj4+IGZzL25mcy9maWxlLmMgICAgICAgICAgICAgIHwgIDIg
-Ky0KPj4+IGZzL25mcy9uZnN0cmFjZS5oICAgICAgICAgIHwgIDIgKy0KPj4+IGZzL25mcy9yZWFk
-LmMgICAgICAgICAgICAgIHwgMjEgKysrKysrKysrKysrKysrLS0tLS0tCj4+PiBpbmNsdWRlL2xp
-bnV4L25mc19mcy5oICAgICB8ICAzICstLQo+Pj4gaW5jbHVkZS9saW51eC9uZnNfaW9zdGF0Lmgg
-fCAgNiArKystLS0KPj4+IDUgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgMTMgZGVs
-ZXRpb25zKC0pCj4+PiAKPj4+IGRpZmYgLS1naXQgYS9mcy9uZnMvZmlsZS5jIGIvZnMvbmZzL2Zp
-bGUuYwo+Pj4gaW5kZXggMjA5ZGFjMjA4NDc3Li5jYzc2ZDE3ZmE5N2YgMTAwNjQ0Cj4+PiAtLS0g
-YS9mcy9uZnMvZmlsZS5jCj4+PiArKysgYi9mcy9uZnMvZmlsZS5jCj4+PiBAQCAtNTE5LDcgKzUx
-OSw3IEBAIHN0YXRpYyB2b2lkIG5mc19zd2FwX2RlYWN0aXZhdGUoc3RydWN0IGZpbGUKPj4+ICpm
-aWxlKQo+Pj4gCj4+PiBjb25zdCBzdHJ1Y3QgYWRkcmVzc19zcGFjZV9vcGVyYXRpb25zIG5mc19m
-aWxlX2FvcHMgPSB7Cj4+PiAgICAgICAgIC5yZWFkcGFnZSA9IG5mc19yZWFkcGFnZSwKPj4+IC0g
-ICAgICAgLnJlYWRwYWdlcyA9IG5mc19yZWFkcGFnZXMsCj4+PiArICAgICAgIC5yZWFkYWhlYWQg
-PSBuZnNfcmVhZGFoZWFkLAo+Pj4gICAgICAgICAuc2V0X3BhZ2VfZGlydHkgPSBfX3NldF9wYWdl
-X2RpcnR5X25vYnVmZmVycywKPj4+ICAgICAgICAgLndyaXRlcGFnZSA9IG5mc193cml0ZXBhZ2Us
-Cj4+PiAgICAgICAgIC53cml0ZXBhZ2VzID0gbmZzX3dyaXRlcGFnZXMsCj4+PiBkaWZmIC0tZ2l0
-IGEvZnMvbmZzL25mc3RyYWNlLmggYi9mcy9uZnMvbmZzdHJhY2UuaAo+Pj4gaW5kZXggNzhiMGY2
-NDlkZDA5Li5kMmIyMDgwNzY1YTYgMTAwNjQ0Cj4+PiAtLS0gYS9mcy9uZnMvbmZzdHJhY2UuaAo+
-Pj4gKysrIGIvZnMvbmZzL25mc3RyYWNlLmgKPj4+IEBAIC05MTUsNyArOTE1LDcgQEAKPj4+ICAg
-ICAgICAgICAgICAgICApCj4+PiApOwo+Pj4gCj4+PiAtVFJBQ0VfRVZFTlQobmZzX2FvcHNfcmVh
-ZHBhZ2VzLAo+Pj4gK1RSQUNFX0VWRU5UKG5mc19hb3BzX3JlYWRhaGVhZCwKPj4gCj4+IEluIHYy
-IGFuZCB2MyBvZiBteSBwYXRjaCwgdGhpcyB0cmFjZXBvaW50IGhhcyBhbHJlYWR5IGJlZW4KPj4g
-cmVuYW1lZCB0byBuZnNfYW9wX3JlYWRhaGVhZC4KPiAKPiBEb2VzIHRoYXQgbWVhbiB5b3UncmUg
-Z29pbmcgdG8gcmVzZW5kLCBDaHVjaz8KCkkgcmUtc2VudCB0aGlzIG9uZSBwYXRjaCBhIGZldyBk
-YXlzIGFnbywgYnV0IEkgY2FuIHJlLXNlbmQgdGhlIHdob2xlIHNlcmllcyBhZ2FpbiB0byBiZSBz
-dXJlIGV2ZXJ5b25lIGhhcyB0aGUgbGF0ZXN0LgoKCgotLQpMaW51eC1jYWNoZWZzIG1haWxpbmcg
-bGlzdApMaW51eC1jYWNoZWZzQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZz
+
+Here's a set of patches that rewrites and simplifies the fscache index API
+to remove the complex operation scheduling and object state machine in
+favour of something much smaller and simpler.  It is built on top of the
+set of patches that removes the old API[1].
+
+The operation scheduling API was intended to handle sequencing of cache
+operations, which were all required (where possible) to run asynchronously
+in parallel with the operations being done by the network filesystem, while
+allowing the cache to be brought online and offline and interrupt service
+with invalidation.
+
+However, with the advent of the tmpfile capacity in the VFS, an opportunity
+arises to do invalidation much more easily, without having to wait for I/O
+that's actually in progress: Cachefiles can simply cut over its file
+pointer for the backing object attached to a cookie and abandon the
+in-progress I/O, dismissing it upon completion.
+
+Future work there would involve using Omar Sandoval's vfs_link() with
+AT_LINK_REPLACE[2] to allow an extant file to be displaced by a new hard
+link from a tmpfile as currently I have to unlink the old file first.
+
+These patches can also simplify the object state handling as I/O operations
+to the cache don't all have to be brought to a stop in order to invalidate
+a file.  To that end, and with an eye on to writing a new backing cache
+model in the future, I've taken the opportunity to simplify the indexing
+structure.
+
+I've separated the index cookie concept from the file cookie concept by
+type now.  The former is now called a "volume cookie" (struct
+fscache_volume) and there is a container of file cookies.  There are then
+just the two levels.  All the index cookieage is collapsed into a single
+volume cookie, and this has a single printable string as a key.  For
+instance, an AFS volume would have a key of something like
+"afs,example.com,1000555", combining the filesystem name, cell name and
+volume ID.  This is freeform, but must not have '/' chars in it.
+
+I've also eliminated all pointers back from fscache into the network
+filesystem.  This required the duplication of a little bit of data in the
+cookie (cookie key, coherency data and file size), but it's not actually
+that much.  This gets rid of problems with making sure we keep netfs data
+structures around so that the cache can access them.
+
+I have changed afs throughout the patch series, but I also have patches for
+9p, nfs and cifs.  Jeff Layton is handling ceph support.
+
+
+BITS THAT MAY BE CONTROVERSIAL
+==============================
+
+There are some bits I've added that may be controversial:
+
+ (1) I've provided a flag, S_KERNEL_FILE, that cachefiles uses to check if
+     a files is already being used by some other kernel service (e.g. a
+     duplicate cachefiles cache in the same directory) and reject it if it
+     is.  This isn't entirely necessary, but it helps prevent accidental
+     data corruption.
+
+     I don't want to use S_SWAPFILE as that has other effects, but quite
+     possibly swapon() should set S_KERNEL_FILE too.
+
+     Note that it doesn't prevent userspace from interfering, though
+     perhaps it should.
+
+ (2) Cachefiles wants to keep the backing file for a cookie open whilst we
+     might need to write to it from network filesystem writeback.  The
+     problem is that the network filesystem unuses its cookie when its file
+     is closed, and so we have nothing pinning the cachefiles file open and
+     it will get closed automatically after a short time to avoid
+     EMFILE/ENFILE problems.
+
+     Reopening the cache file, however, is a problem if this is being done
+     due to writeback triggered by exit().  Some filesystems will oops if
+     we try to open a file in that context because they want to access
+     current->fs or suchlike.
+
+     To get around this, I added the following:
+
+     (A) An inode flag, I_PINNING_FSCACHE_WB, to be set on a network
+     	 filesystem inode to indicate that we have a usage count on the
+     	 cookie caching that inode.
+
+     (B) A flag in struct writeback_control, unpinned_fscache_wb, that is
+     	 set when __writeback_single_inode() clears the last dirty page
+     	 from i_pages - at which point it clears I_PINNING_FSCACHE_WB and
+     	 sets this flag.
+
+	 This has to be done here so that clearing I_PINNING_FSCACHE_WB can
+	 be done atomically with the check of PAGECACHE_TAG_DIRTY that
+	 clears I_DIRTY_PAGES.
+
+     (C) A function, fscache_set_page_dirty(), which if it is not set, sets
+     	 I_PINNING_FSCACHE_WB and calls fscache_use_cookie() to pin the
+     	 cache resources.
+
+     (D) A function, fscache_unpin_writeback(), to be called by
+     	 ->write_inode() to unuse the cookie.
+
+     (E) A function, fscache_clear_inode_writeback(), to be called when the
+     	 inode is evicted, before clear_inode() is called.  This cleans up
+     	 any lingering I_PINNING_FSCACHE_WB.
+
+     The network filesystem can then use these tools to make sure that
+     fscache_write_to_cache() can write locally modified data to the cache
+     as well as to the server.
+
+     For the future, I'm working on write helpers for netfs lib that should
+     allow this facility to be removed by keeping track of the dirty
+     regions separately - but that's incomplete at the moment and is also
+     going to be affected by folios, one way or another, since it deals
+     with pages.
+
+
+These patches can be found also on:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-rewrite-indexing
+
+David
+
+Link: https://lore.kernel.org/r/163363935000.1980952.15279841414072653108.stgit@warthog.procyon.org.uk [1]
+Link: https://lore.kernel.org/r/cover.1580251857.git.osandov@fb.com/ [2]
+
+---
+Dave Wysochanski (3):
+      NFS: Convert fscache_acquire_cookie and fscache_relinquish_cookie
+      NFS: Convert fscache_enable_cookie and fscache_disable_cookie
+      NFS: Convert fscache invalidation and update aux_data and i_size
+
+David Howells (63):
+      mm: Stop filemap_read() from grabbing a superfluous page
+      vfs: Provide S_KERNEL_FILE inode flag
+      vfs, fscache: Force ->write_inode() to occur if cookie pinned for writeback
+      afs: Handle len being extending over page end in write_begin/write_end
+      afs: Fix afs_write_end() to handle len > page size
+      nfs, cifs, ceph, 9p: Disable use of fscache prior to its rewrite
+      fscache: Remove the netfs data from the cookie
+      fscache: Remove struct fscache_cookie_def
+      fscache: Remove store_limit* from struct fscache_object
+      fscache: Remove fscache_check_consistency()
+      fscache: Remove fscache_attr_changed()
+      fscache: Remove obsolete stats
+      fscache: Remove old I/O tracepoints
+      fscache: Temporarily disable fscache_invalidate()
+      fscache: Disable fscache_begin_operation()
+      fscache: Remove the I/O operation manager
+      fscache: Rename fscache_cookie_{get,put,see}()
+      cachefiles: Remove tree of active files and use S_CACHE_FILE inode flag
+      cachefiles: Don't set an xattr on the root of the cache
+      cachefiles: Remove some redundant checks on unsigned values
+      cachefiles: Prevent inode from going away when burying a dentry
+      cachefiles: Simplify the pathwalk and save the filename for an object
+      cachefiles: trace: Improve the lookup tracepoint
+      cachefiles: Remove separate backer dentry from cachefiles_object
+      cachefiles: Fold fscache_object into cachefiles_object
+      cachefiles: Change to storing file* rather than dentry*
+      cachefiles: trace: Log coherency checks
+      cachefiles: Trace truncations
+      cachefiles: Trace read and write operations
+      cachefiles: Round the cachefile size up to DIO block size
+      cachefiles: Don't use XATTR_ flags with vfs_setxattr()
+      fscache: Replace the object management state machine
+      cachefiles: Trace decisions in cachefiles_prepare_read()
+      cachefiles: Make cachefiles_write_prepare() check for space
+      fscache: Automatically close a file that's been unused for a while
+      fscache: Add stats for the cookie commit LRU
+      fscache: Move fscache_update_cookie() complete inline
+      fscache: Remove more obsolete stats
+      fscache: Note the object size during invalidation
+      vfs, fscache: Force ->write_inode() to occur if cookie pinned for writeback
+      afs: Render cache cookie key as big endian
+      cachefiles: Use tmpfile/link
+      fscache: Rewrite invalidation
+      cachefiles: Simplify the file lookup/creation/check code
+      fscache: Provide resize operation
+      cachefiles: Put more information in the xattr attached to the cache file
+      fscache: Implement "will_modify" parameter on fscache_use_cookie()
+      fscache: Add support for writing to the cache
+      fscache: Make fscache_clear_page_bits() conditional on cookie
+      fscache: Make fscache_write_to_cache() conditional on cookie
+      afs: Copy local writes to the cache when writing to the server
+      afs: Invoke fscache_resize_cookie() when handling ATTR_SIZE for setattr
+      afs: Add O_DIRECT read support
+      afs: Skip truncation on the server of data we haven't written yet
+      afs: Make afs_write_begin() return the THP subpage
+      cachefiles, afs: Drive FSCACHE_COOKIE_NO_DATA_TO_READ
+      nfs: Convert to new fscache volume/cookie API
+      9p: Use fscache indexing rewrite and reenable caching
+      9p: Copy local writes to the cache when writing to the server
+      netfs: Display the netfs inode number in the netfs_read tracepoint
+      cachefiles: Add tracepoints to log errors from ops on the backing fs
+      cachefiles: Add error injection support
+      cifs: Support fscache indexing rewrite (untested)
+
+Jeff Layton (1):
+      fscache: disable cookie when doing an invalidation for DIO write
+
+
+ fs/9p/cache.c                     |  184 +----
+ fs/9p/cache.h                     |   23 +-
+ fs/9p/v9fs.c                      |   14 +-
+ fs/9p/v9fs.h                      |   13 +-
+ fs/9p/vfs_addr.c                  |   55 +-
+ fs/9p/vfs_dir.c                   |   13 +-
+ fs/9p/vfs_file.c                  |    7 +-
+ fs/9p/vfs_inode.c                 |   24 +-
+ fs/9p/vfs_inode_dotl.c            |    3 +-
+ fs/9p/vfs_super.c                 |    3 +
+ fs/afs/Makefile                   |    3 -
+ fs/afs/cache.c                    |   68 --
+ fs/afs/cell.c                     |   12 -
+ fs/afs/file.c                     |   83 +-
+ fs/afs/fsclient.c                 |   18 +-
+ fs/afs/inode.c                    |  101 ++-
+ fs/afs/internal.h                 |   36 +-
+ fs/afs/main.c                     |   14 -
+ fs/afs/super.c                    |    1 +
+ fs/afs/volume.c                   |   15 +-
+ fs/afs/write.c                    |  170 +++-
+ fs/afs/yfsclient.c                |   12 +-
+ fs/cachefiles/Kconfig             |    8 +
+ fs/cachefiles/Makefile            |    3 +
+ fs/cachefiles/bind.c              |  186 +++--
+ fs/cachefiles/daemon.c            |   20 +-
+ fs/cachefiles/error_inject.c      |   46 ++
+ fs/cachefiles/interface.c         |  660 +++++++--------
+ fs/cachefiles/internal.h          |  191 +++--
+ fs/cachefiles/io.c                |  310 +++++--
+ fs/cachefiles/key.c               |  203 +++--
+ fs/cachefiles/main.c              |   20 +-
+ fs/cachefiles/namei.c             |  978 ++++++++++------------
+ fs/cachefiles/volume.c            |  128 +++
+ fs/cachefiles/xattr.c             |  367 +++------
+ fs/ceph/Kconfig                   |    2 +-
+ fs/cifs/Makefile                  |    2 +-
+ fs/cifs/cache.c                   |  105 ---
+ fs/cifs/cifsfs.c                  |   11 +-
+ fs/cifs/cifsglob.h                |    5 +-
+ fs/cifs/connect.c                 |    3 -
+ fs/cifs/file.c                    |   37 +-
+ fs/cifs/fscache.c                 |  201 ++---
+ fs/cifs/fscache.h                 |   51 +-
+ fs/cifs/inode.c                   |   18 +-
+ fs/fs-writeback.c                 |    8 +
+ fs/fscache/Kconfig                |    4 +
+ fs/fscache/Makefile               |    6 +-
+ fs/fscache/cache.c                |  541 ++++++-------
+ fs/fscache/cookie.c               | 1262 ++++++++++++++---------------
+ fs/fscache/fsdef.c                |   98 ---
+ fs/fscache/internal.h             |  213 +----
+ fs/fscache/io.c                   |  405 ++++++---
+ fs/fscache/main.c                 |  134 +--
+ fs/fscache/netfs.c                |   74 --
+ fs/fscache/object.c               | 1123 -------------------------
+ fs/fscache/operation.c            |  633 ---------------
+ fs/fscache/page.c                 |   84 --
+ fs/fscache/proc.c                 |   43 +-
+ fs/fscache/stats.c                |  202 ++---
+ fs/fscache/volume.c               |  449 ++++++++++
+ fs/netfs/read_helper.c            |    2 +-
+ fs/nfs/Makefile                   |    2 +-
+ fs/nfs/client.c                   |    4 -
+ fs/nfs/direct.c                   |    2 +
+ fs/nfs/file.c                     |    7 +-
+ fs/nfs/fscache-index.c            |  114 ---
+ fs/nfs/fscache.c                  |  264 ++----
+ fs/nfs/fscache.h                  |   89 +-
+ fs/nfs/inode.c                    |   11 +-
+ fs/nfs/super.c                    |    7 +-
+ fs/nfs/write.c                    |    1 +
+ include/linux/fs.h                |    4 +
+ include/linux/fscache-cache.h     |  463 +++--------
+ include/linux/fscache.h           |  626 +++++++-------
+ include/linux/netfs.h             |    4 +-
+ include/linux/nfs_fs_sb.h         |    9 +-
+ include/linux/writeback.h         |    1 +
+ include/trace/events/cachefiles.h |  483 ++++++++---
+ include/trace/events/fscache.h    |  631 +++++++--------
+ include/trace/events/netfs.h      |    5 +-
+ 81 files changed, 5140 insertions(+), 7295 deletions(-)
+ delete mode 100644 fs/afs/cache.c
+ create mode 100644 fs/cachefiles/error_inject.c
+ create mode 100644 fs/cachefiles/volume.c
+ delete mode 100644 fs/cifs/cache.c
+ delete mode 100644 fs/fscache/fsdef.c
+ delete mode 100644 fs/fscache/netfs.c
+ delete mode 100644 fs/fscache/object.c
+ delete mode 100644 fs/fscache/operation.c
+ create mode 100644 fs/fscache/volume.c
+ delete mode 100644 fs/nfs/fscache-index.c
+
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
