@@ -1,73 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E6843214E
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:01:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EEE043215F
+	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:01:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1634569261;
+	s=mimecast20190719; t=1634569268;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Zn6PLUgT4+RX8UZUwafgyhseuPMjnCzvf+LpRLMdnmQ=;
-	b=CzhtkEZqYHQcF1rBEkExjU2EYQAH+gXC9wuEnsuTu86SVJmvN9L7BnJNoKqRskz6hiR7UZ
-	lcJeP/wCAnIMV/y7xi30Y4tXnvCwvWLLfPGJJ5o1MsDHeHTI5YiJOscI85pmLF9n9si28t
-	89bX+16A8r8UuLpCxoIvoD7ert23Svs=
+	bh=4Cr0/1KmNA0rHEdWfDVdR9vv19UFUeq5kRHdFbFAovQ=;
+	b=EeuNgTLy9xcrnAm4veMb+cNruKoxV33OTc2fKCRSayL9gZq+fl2dPXt/JIO6VEhnJQ2sZA
+	xl1BwtNMf1ndOC7NUwC1BAwnDY9gJtb01iEAg7bcc2VAcbWgXdH5z5/mPYgZlHF/TgfDnW
+	aU+Nv1OSMQY9KfnFi/70pPcycyOPkgo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-305-fx5U2m2dOaieFNB6Ccsumg-1; Mon, 18 Oct 2021 11:00:58 -0400
-X-MC-Unique: fx5U2m2dOaieFNB6Ccsumg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-582-oQvEu3QbPFO0slOvLk4LgA-1; Mon, 18 Oct 2021 11:01:05 -0400
+X-MC-Unique: oQvEu3QbPFO0slOvLk4LgA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 065DF1023F4D;
-	Mon, 18 Oct 2021 15:00:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7BD4F80DDE6;
+	Mon, 18 Oct 2021 15:01:02 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E52B65C1D0;
-	Mon, 18 Oct 2021 15:00:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B176197FC;
+	Mon, 18 Oct 2021 15:01:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C04BE4EA29;
-	Mon, 18 Oct 2021 15:00:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4FA584EA2A;
+	Mon, 18 Oct 2021 15:01:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IF0pEw029195 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 11:00:51 -0400
+	id 19IF10D5029243 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 11:01:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B75760BD8; Mon, 18 Oct 2021 15:00:51 +0000 (UTC)
+	id D326660C82; Mon, 18 Oct 2021 15:01:00 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 420DC1980E;
-	Mon, 18 Oct 2021 15:00:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 943FF60BF4;
+	Mon, 18 Oct 2021 15:00:57 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 18 Oct 2021 16:00:47 +0100
-Message-ID: <163456924735.2614702.11449131617169771724.stgit@warthog.procyon.org.uk>
+Date: Mon, 18 Oct 2021 16:00:56 +0100
+Message-ID: <163456925673.2614702.17571187496574827113.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 References: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
 	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Matthew Wilcox <willy@infradead.org>, linux-afs@lists.infradead.org,
+	Matthew Wilcox <willy@infradead.org>,
+	linux-afs@lists.infradead.org, linux-fsdevel@vger.kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
 	v9fs-developer@lists.sourceforge.net, Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 40/67] vfs,
- fscache: Force ->write_inode() to occur if cookie pinned for
- writeback
+Subject: [Linux-cachefs] [PATCH 41/67] afs: Render cache cookie key as big
+	endian
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,118 +90,86 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use an inode flag, I_PINNING_FSCACHE_WB, to indicate that a cookie is
-pinned in use by that inode for the purposes of writeback.
-
-Pinning is necessary because the in-use pin from the open file is released
-before the writeback takes place, but if the resources aren't pinned, the
-dirty data can't be written to the cache.
+Render the parts of the cookie key for an afs inode cookie as big endian.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
 ---
 
- fs/fscache/io.c         |   38 ++++++++++++++++++++++++++++++++++++++
- include/linux/fscache.h |   41 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 79 insertions(+)
+ fs/afs/file.c     |    2 +-
+ fs/afs/inode.c    |   16 ++++++++--------
+ fs/afs/internal.h |    8 +++++++-
+ 3 files changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/fs/fscache/io.c b/fs/fscache/io.c
-index ef4b0606019d..25976413fe34 100644
---- a/fs/fscache/io.c
-+++ b/fs/fscache/io.c
-@@ -214,3 +214,41 @@ int __fscache_fallback_write_page(struct fscache_cookie *cookie, struct page *pa
- 	return ret;
- }
- EXPORT_SYMBOL(__fscache_fallback_write_page);
-+
-+/**
-+ * fscache_set_page_dirty - Mark page dirty and pin a cache object for writeback
-+ * @page: The page being dirtied
-+ * @cookie: The cookie referring to the cache object
-+ *
-+ * Set the dirty flag on a page and pin an in-use cache object in memory when
-+ * dirtying a page so that writeback can later write to it.  This is intended
-+ * to be called from the filesystem's ->set_page_dirty() method.
-+ *
-+ *  Returns 1 if PG_dirty was set on the page, 0 otherwise.
-+ */
-+int fscache_set_page_dirty(struct page *page, struct fscache_cookie *cookie)
-+{
-+	struct inode *inode = page->mapping->host;
-+	bool need_use = false;
-+
-+	_enter("");
-+
-+	if (!__set_page_dirty_nobuffers(page))
-+		return 0;
-+	if (!fscache_cookie_valid(cookie))
-+		return 1;
-+
-+	if (!(inode->i_state & I_PINNING_FSCACHE_WB)) {
-+		spin_lock(&inode->i_lock);
-+		if (!(inode->i_state & I_PINNING_FSCACHE_WB)) {
-+			inode->i_state |= I_PINNING_FSCACHE_WB;
-+			need_use = true;
-+		}
-+		spin_unlock(&inode->i_lock);
-+
-+		if (need_use)
-+			fscache_use_cookie(cookie, true);
-+	}
-+	return 1;
-+}
-+EXPORT_SYMBOL(fscache_set_page_dirty);
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index fa7eef2674bf..abf5413c3151 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -512,6 +512,47 @@ int fscache_write(struct netfs_cache_resources *cres,
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index b4666da93b54..5e29d433960d 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -189,7 +189,7 @@ int afs_release(struct inode *inode, struct file *file)
  
- #endif /* FSCACHE_USE_NEW_IO_API */
+ 	if ((file->f_mode & FMODE_WRITE)) {
+ 		i_size = i_size_read(&vnode->vfs_inode);
+-		aux.data_version = vnode->status.data_version;
++		afs_set_cache_aux(vnode, &aux);
+ 		fscache_unuse_cookie(afs_vnode_cache(vnode), &aux, &i_size);
+ 	} else {
+ 		fscache_unuse_cookie(afs_vnode_cache(vnode), NULL, NULL);
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index c21c1352b149..842570e4470f 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -413,9 +413,9 @@ static void afs_get_inode_cache(struct afs_vnode *vnode)
+ {
+ #ifdef CONFIG_AFS_FSCACHE
+ 	struct {
+-		u32 vnode_id;
+-		u32 unique;
+-		u32 vnode_id_ext[2];	/* Allow for a 96-bit key */
++		__be32 vnode_id;
++		__be32 unique;
++		__be32 vnode_id_ext[2];	/* Allow for a 96-bit key */
+ 	} __packed key;
+ 	struct afs_vnode_cache_aux aux;
  
-+#if __fscache_available
-+extern int fscache_set_page_dirty(struct page *page, struct fscache_cookie *cookie);
-+#else
-+#define fscache_set_page_dirty(PAGE, COOKIE) (__set_page_dirty_nobuffers((PAGE)))
-+#endif
-+
-+/**
-+ * fscache_unpin_writeback - Unpin writeback resources
-+ * @wbc: The writeback control
-+ * @cookie: The cookie referring to the cache object
-+ *
-+ * Unpin the writeback resources pinned by fscache_set_page_dirty().  This is
-+ * intended to be called by the netfs's ->write_inode() method.
-+ */
-+static inline void fscache_unpin_writeback(struct writeback_control *wbc,
-+					   struct fscache_cookie *cookie)
+@@ -424,11 +424,11 @@ static void afs_get_inode_cache(struct afs_vnode *vnode)
+ 		return;
+ 	}
+ 
+-	key.vnode_id		= vnode->fid.vnode;
+-	key.unique		= vnode->fid.unique;
+-	key.vnode_id_ext[0]	= vnode->fid.vnode >> 32;
+-	key.vnode_id_ext[1]	= vnode->fid.vnode_hi;
+-	aux.data_version	= vnode->status.data_version;
++	key.vnode_id		= htonl(vnode->fid.vnode);
++	key.unique		= htonl(vnode->fid.unique);
++	key.vnode_id_ext[0]	= htonl(vnode->fid.vnode >> 32);
++	key.vnode_id_ext[1]	= htonl(vnode->fid.vnode_hi);
++	afs_set_cache_aux(vnode, &aux);
+ 
+ 	vnode->cache = fscache_acquire_cookie(
+ 		vnode->volume->cache,
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index 8e168c3fa5d1..3180ba6bd46d 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -869,9 +869,15 @@ struct afs_operation {
+  * Cache auxiliary data.
+  */
+ struct afs_vnode_cache_aux {
+-	u64			data_version;
++	__be64			data_version;
+ } __packed;
+ 
++static inline void afs_set_cache_aux(struct afs_vnode *vnode,
++				     struct afs_vnode_cache_aux *aux)
 +{
-+	if (wbc->unpinned_fscache_wb)
-+		fscache_unuse_cookie(cookie, NULL, NULL);
++	aux->data_version = cpu_to_be64(vnode->status.data_version);
 +}
 +
-+/**
-+ * fscache_clear_inode_writeback - Clear writeback resources pinned by an inode
-+ * @cookie: The cookie referring to the cache object
-+ * @inode: The inode to clean up
-+ * @aux: Auxiliary data to apply to the inode
-+ *
-+ * Clear any writeback resources held by an inode when the inode is evicted.
-+ * This must be called before clear_inode() is called.
-+ */
-+static inline void fscache_clear_inode_writeback(struct fscache_cookie *cookie,
-+						 struct inode *inode,
-+						 const void *aux)
-+{
-+	if (inode->i_state & I_PINNING_FSCACHE_WB) {
-+		loff_t i_size = i_size_read(inode);
-+		fscache_unuse_cookie(cookie, aux, &i_size);
-+	}
-+
-+}
-+
- #ifdef FSCACHE_USE_FALLBACK_IO_API
- 
- /**
+ /*
+  * We use page->private to hold the amount of the page that we've written to,
+  * splitting the field into two parts.  However, we need to represent a range
 
 
 --
