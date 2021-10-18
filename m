@@ -1,73 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03A1743203B
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 16:51:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC57743205A
+	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 16:52:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1634568680;
+	s=mimecast20190719; t=1634568761;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xiuCe2IGxeXWCoMn1G/SwImVsbFygymZCqTVKrR5vk8=;
-	b=bwLVUVb9TcMO9bjOpaxKtoG1ogCZ8N296ELvybp+jo6Tkw89aJlnvMVOaBqhPUVF23/Hyv
-	lT77/Uat02XQpz3zmdj8djUI7VQor+uKcO8HMUgF9nvbQ9CU2A4wvn7Z52HBNsUmoaKrGP
-	uUDyM6bYDj7FijryEwSQQrDwpOL+HfY=
+	bh=VrJKpybNIxaYujIct2V9HVZJP+hlCCAuVT3cjA4ZQ7E=;
+	b=Mt/D/RsYjIEAfLOI0Q2G3lnmMFZsmSWnQiDVt1ZI3uKFNXbGkhXdZq+6jJGel/3njYBLMI
+	3axuLWwLWEoxfNdSdN2eCOyG7NA9T4qDl6a0axGgmlQdC5Ti6K/mD8jLaCcR+lVWyX3ke/
+	oCkP8I2cbnyObyzTARtMTK49wEBagK0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-535-J-3DpSCWPM-1IbcILqubQw-1; Mon, 18 Oct 2021 10:51:17 -0400
-X-MC-Unique: J-3DpSCWPM-1IbcILqubQw-1
+ us-mta-156-6lyY2dhpPLG6aSAVwjcvuQ-1; Mon, 18 Oct 2021 10:52:37 -0400
+X-MC-Unique: 6lyY2dhpPLG6aSAVwjcvuQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E6FB9100CCC1;
-	Mon, 18 Oct 2021 14:51:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5F5D64188;
-	Mon, 18 Oct 2021 14:51:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 06BB080363B;
+	Mon, 18 Oct 2021 14:52:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC3355F4EE;
+	Mon, 18 Oct 2021 14:52:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA9D61803B30;
-	Mon, 18 Oct 2021 14:51:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 674254A703;
+	Mon, 18 Oct 2021 14:52:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IEpCwG027537 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 10:51:12 -0400
+	id 19IEpcds027583 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 10:51:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C4EC1ADCD; Mon, 18 Oct 2021 14:51:12 +0000 (UTC)
+	id A84863AEA; Mon, 18 Oct 2021 14:51:38 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 27CFF68700;
-	Mon, 18 Oct 2021 14:51:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E028A9935;
+	Mon, 18 Oct 2021 14:51:18 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 18 Oct 2021 15:51:05 +0100
-Message-ID: <163456866523.2614702.2234665737111683988.stgit@warthog.procyon.org.uk>
+Date: Mon, 18 Oct 2021 15:51:18 +0100
+Message-ID: <163456867803.2614702.7027702062884078722.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 References: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
 	Matthew Wilcox <willy@infradead.org>, linux-afs@lists.infradead.org,
+	v9fs-developer@lists.sourceforge.net,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
-	v9fs-developer@lists.sourceforge.net, Omar Sandoval <osandov@osandov.com>,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	linux-fsdevel@vger.kernel.org, ceph-devel@vger.kernel.org,
+	Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 03/67] vfs,
- fscache: Force ->write_inode() to occur if cookie pinned for
- writeback
+Subject: [Linux-cachefs] [PATCH 04/67] afs: Handle len being extending over
+ page end in write_begin/write_end
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,93 +90,79 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use an inode flag, I_PINNING_FSCACHE_WB, to indicate that a cookie is
-pinned in use by that inode for the purposes of writeback.
+With transparent huge pages, in the future, write_begin() and write_end()
+may be passed a length parameter that, in combination with the offset into
+the page, exceeds the length of that page.  This allows
+grab_cache_page_write_begin() to better choose the size of THP to allocate.
 
-Pinning is necessary because the in-use pin from the open file is released
-before the writeback takes place, but if the resources aren't pinned, the
-dirty data can't be written to the cache.
+Fix afs's functions to handle this by trimming the length as needed after
+the page has been allocated.
 
+[Removed the now-unnecessary index var; spotted by kernel test robot]
+
+Fixes: e1b1240c1ff5 ("netfs: Add write_begin helper")
+Reported-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Signed-off-by: David Howells <dhowells@redhat.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
+cc: linux-afs@lists.infradead.org
+Link: https://lore.kernel.org/r/162367681795.460125.11729955608839747375.stgit@warthog.procyon.org.uk/ # v1
 ---
 
- fs/fs-writeback.c         |    8 ++++++++
- include/linux/fs.h        |    3 +++
- include/linux/fscache.h   |    1 +
- include/linux/writeback.h |    1 +
- 4 files changed, 13 insertions(+)
+ fs/afs/write.c |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 81ec192ce067..f3122831c4fe 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -1666,6 +1666,13 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
- 
- 	if (mapping_tagged(mapping, PAGECACHE_TAG_DIRTY))
- 		inode->i_state |= I_DIRTY_PAGES;
-+	else if (unlikely(inode->i_state & I_PINNING_FSCACHE_WB)) {
-+		if (!(inode->i_state & I_DIRTY_PAGES)) {
-+			inode->i_state &= ~I_PINNING_FSCACHE_WB;
-+			wbc->unpinned_fscache_wb = true;
-+			dirty |= I_PINNING_FSCACHE_WB; /* Cause write_inode */
-+		}
-+	}
- 
- 	spin_unlock(&inode->i_lock);
- 
-@@ -1675,6 +1682,7 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
- 		if (ret == 0)
- 			ret = err;
- 	}
-+	wbc->unpinned_fscache_wb = false;
- 	trace_writeback_single_inode(inode, wbc, nr_to_write);
- 	return ret;
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index f24370f5c774..c09830c9dc43 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -25,7 +25,8 @@ int afs_set_page_dirty(struct page *page)
  }
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 197493507744..336739fed3e9 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2420,6 +2420,8 @@ static inline void kiocb_clone(struct kiocb *kiocb, struct kiocb *kiocb_src,
-  *			Used to detect that mark_inode_dirty() should not move
-  * 			inode between dirty lists.
-  *
-+ * I_PINNING_FSCACHE_WB	Inode is pinning an fscache object for writeback.
-+ *
-  * Q: What is the difference between I_WILL_FREE and I_FREEING?
+ 
+ /*
+- * prepare to perform part of a write to a page
++ * Prepare to perform part of a write to a page.  Note that len may extend
++ * beyond the end of the page.
   */
- #define I_DIRTY_SYNC		(1 << 0)
-@@ -2442,6 +2444,7 @@ static inline void kiocb_clone(struct kiocb *kiocb, struct kiocb *kiocb_src,
- #define I_CREATING		(1 << 15)
- #define I_DONTCACHE		(1 << 16)
- #define I_SYNC_QUEUED		(1 << 17)
-+#define I_PINNING_FSCACHE_WB	(1 << 18)
+ int afs_write_begin(struct file *file, struct address_space *mapping,
+ 		    loff_t pos, unsigned len, unsigned flags,
+@@ -36,7 +37,6 @@ int afs_write_begin(struct file *file, struct address_space *mapping,
+ 	unsigned long priv;
+ 	unsigned f, from;
+ 	unsigned t, to;
+-	pgoff_t index;
+ 	int ret;
  
- #define I_DIRTY_INODE (I_DIRTY_SYNC | I_DIRTY_DATASYNC)
- #define I_DIRTY (I_DIRTY_INODE | I_DIRTY_PAGES)
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index 01558d155799..ba4878b56717 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -19,6 +19,7 @@
- #include <linux/pagemap.h>
- #include <linux/pagevec.h>
- #include <linux/list_bl.h>
-+#include <linux/writeback.h>
- #include <linux/netfs.h>
+ 	_enter("{%llx:%llu},%llx,%x",
+@@ -51,8 +51,8 @@ int afs_write_begin(struct file *file, struct address_space *mapping,
+ 	if (ret < 0)
+ 		return ret;
  
- #if defined(CONFIG_FSCACHE) || defined(CONFIG_FSCACHE_MODULE)
-diff --git a/include/linux/writeback.h b/include/linux/writeback.h
-index d1f65adf6a26..2fda288600d3 100644
---- a/include/linux/writeback.h
-+++ b/include/linux/writeback.h
-@@ -69,6 +69,7 @@ struct writeback_control {
- 	unsigned for_reclaim:1;		/* Invoked from the page allocator */
- 	unsigned range_cyclic:1;	/* range_start is cyclic */
- 	unsigned for_sync:1;		/* sync(2) WB_SYNC_ALL writeback */
-+	unsigned unpinned_fscache_wb:1;	/* Cleared I_PINNING_FSCACHE_WB */
+-	index = page->index;
+-	from = pos - index * PAGE_SIZE;
++	from = offset_in_thp(page, pos);
++	len = min_t(size_t, len, thp_size(page) - from);
+ 	to = from + len;
  
- 	/*
- 	 * When writeback IOs are bounced through async layers, only the
+ try_again:
+@@ -103,7 +103,8 @@ int afs_write_begin(struct file *file, struct address_space *mapping,
+ }
+ 
+ /*
+- * finalise part of a write to a page
++ * Finalise part of a write to a page.  Note that len may extend beyond the end
++ * of the page.
+  */
+ int afs_write_end(struct file *file, struct address_space *mapping,
+ 		  loff_t pos, unsigned len, unsigned copied,
+@@ -111,7 +112,7 @@ int afs_write_end(struct file *file, struct address_space *mapping,
+ {
+ 	struct afs_vnode *vnode = AFS_FS_I(file_inode(file));
+ 	unsigned long priv;
+-	unsigned int f, from = pos & (thp_size(page) - 1);
++	unsigned int f, from = offset_in_thp(page, pos);
+ 	unsigned int t, to = from + copied;
+ 	loff_t i_size, maybe_i_size;
+ 
 
 
 --
