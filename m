@@ -1,60 +1,60 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F37894321A0
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:03:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 932D64321AA
+	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:03:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1634569405;
+	s=mimecast20190719; t=1634569429;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/cl6TL959PSlyLeLhx4Jx3UH+OtOT7HRnDpf1w75DJU=;
-	b=MY+7tzIDThJGuRAsVh3/Kvj1xjppGeXO5Bnw9HFoCt7OEKclqOarLcsbj+zuXjx6ZNRp9p
-	Edaoo0sE7EwtzclNgO9SLS91xmGtWGhxhaUIQro6K/z85CW0Yj856Wb0p1SWv2T6d1nrGI
-	aROVt2byiW4qVA6vMkOIckveP1T57Xo=
+	bh=e+YXZF5BXWqAw7wy03xzIlruymtbYNcXqJQXzIZTxCE=;
+	b=jL6duF+zG7uZ34NOq4KGFAO4UdwWSZnQZVL5+R2XOtpfG2piRuo/pYg7VOL9OmEgo1Oc9k
+	60PATfYal/q2mSohSoXZF/ogi7m7lg8yT27CLSu87D9ZznPJ5H2OV0X91KlI1bt8tAP/+A
+	HyvlTtGm13yoU+KbWE4yCtdclGYpc+w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-162-lZMzRgjIMyOYAyraYGMb2g-1; Mon, 18 Oct 2021 11:03:21 -0400
-X-MC-Unique: lZMzRgjIMyOYAyraYGMb2g-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-151-UgMHXLrsN4ez_wnMP4zdRQ-1; Mon, 18 Oct 2021 11:03:46 -0400
+X-MC-Unique: UgMHXLrsN4ez_wnMP4zdRQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDCB61018725;
-	Mon, 18 Oct 2021 15:03:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 997EB6A914;
-	Mon, 18 Oct 2021 15:03:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46BE51018726;
+	Mon, 18 Oct 2021 15:03:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3822560C17;
+	Mon, 18 Oct 2021 15:03:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F1534EA29;
-	Mon, 18 Oct 2021 15:03:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9BF41806D03;
+	Mon, 18 Oct 2021 15:03:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IF3HpW029540 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 11:03:17 -0400
+	id 19IF3frs029569 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 11:03:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 73F9E17CEE; Mon, 18 Oct 2021 15:03:17 +0000 (UTC)
+	id 83C9460E1C; Mon, 18 Oct 2021 15:03:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E0E675DF21;
-	Mon, 18 Oct 2021 15:02:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7723A60CCC;
+	Mon, 18 Oct 2021 15:03:23 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 18 Oct 2021 16:02:27 +0100
-Message-ID: <163456934704.2614702.13459517221637847782.stgit@warthog.procyon.org.uk>
+Date: Mon, 18 Oct 2021 16:03:22 +0100
+Message-ID: <163456940271.2614702.17009440990784553871.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 References: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
@@ -65,8 +65,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 49/67] fscache: Add support for writing to
-	the cache
+Subject: [Linux-cachefs] [PATCH 50/67] fscache: Make
+ fscache_clear_page_bits() conditional on cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,206 +88,87 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add a pair of helpers for use by a netfs to write data to the cache.
+Make fscache_clear_page_bits() conditional on cookie not being NULL, rather
+than merely conditional on CONFIG_FSCACHE=[ym].  The problem with the
+latter is if a filesystem, say afs, has CONFIG_AFS_FSCACHE=n but calls into
+this function - in which it linkage will fail if CONFIG_FSCACHE is less
+than CONFIG_AFS.  Analogous problems can affect other filesystems, e.g. 9p.
+
+Making fscache_clear_page_bits() conditional on the cookie achieves two
+things:
+
+ (1) If cookie optimised down to constant NULL, the rest of the function is
+     thrown away and the slow path is never called.
+
+ (2) __fscache_clear_page_bits() isn't called if there's no cookie - and
+     so, in such a case, the pages won't iterated over attempting to clear
+     PG_fscache bits that haven't been set.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 ---
 
- fs/fscache/io.c         |  100 +++++++++++++++++++++++++++++++++++++++++++++++
- include/linux/fscache.h |   58 +++++++++++++++++++++++++++
- 2 files changed, 158 insertions(+)
+ fs/fscache/io.c         |    5 +++--
+ include/linux/fscache.h |    8 +++++---
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/fs/fscache/io.c b/fs/fscache/io.c
-index 8b1a865a0847..3910cba65545 100644
+index 3910cba65545..bc8d1ac0e85c 100644
 --- a/fs/fscache/io.c
 +++ b/fs/fscache/io.c
-@@ -11,6 +11,7 @@
- #include <linux/uio.h>
- #include <linux/bvec.h>
- #include <linux/slab.h>
-+#include <linux/uio.h>
- #include "internal.h"
+@@ -316,7 +316,8 @@ static void fscache_wreq_done(void *priv, ssize_t transferred_or_error,
+ {
+ 	struct fscache_write_request *wreq = priv;
  
- /**
-@@ -278,3 +279,102 @@ void __fscache_resize_cookie(struct fscache_cookie *cookie, loff_t new_size)
- 	}
+-	fscache_clear_page_bits(wreq->mapping, wreq->start, wreq->len);
++	fscache_clear_page_bits(fscache_cres_cookie(&wreq->cache_resources),
++				wreq->mapping, wreq->start, wreq->len);
+ 
+ 	if (wreq->term_func)
+ 		wreq->term_func(wreq->term_func_priv, transferred_or_error,
+@@ -373,7 +374,7 @@ void __fscache_write_to_cache(struct fscache_cookie *cookie,
+ abandon_free:
+ 	kfree(wreq);
+ abandon:
+-	fscache_clear_page_bits(mapping, start, len);
++	fscache_clear_page_bits(cookie, mapping, start, len);
+ 	if (term_func)
+ 		term_func(term_func_priv, ret, false);
  }
- EXPORT_SYMBOL(__fscache_resize_cookie);
-+
-+struct fscache_write_request {
-+	struct netfs_cache_resources cache_resources;
-+	struct address_space	*mapping;
-+	loff_t			start;
-+	size_t			len;
-+	netfs_io_terminated_t	term_func;
-+	void			*term_func_priv;
-+};
-+
-+void __fscache_clear_page_bits(struct address_space *mapping,
-+			       loff_t start, size_t len)
-+{
-+	pgoff_t first = start / PAGE_SIZE;
-+	pgoff_t last = (start + len - 1) / PAGE_SIZE;
-+	struct page *page;
-+
-+	if (len) {
-+		XA_STATE(xas, &mapping->i_pages, first);
-+
-+		rcu_read_lock();
-+		xas_for_each(&xas, page, last) {
-+			end_page_fscache(page);
-+		}
-+		rcu_read_unlock();
-+	}
-+}
-+EXPORT_SYMBOL(__fscache_clear_page_bits);
-+
-+/*
-+ * Deal with the completion of writing the data to the cache.
-+ */
-+static void fscache_wreq_done(void *priv, ssize_t transferred_or_error,
-+			      bool was_async)
-+{
-+	struct fscache_write_request *wreq = priv;
-+
-+	fscache_clear_page_bits(wreq->mapping, wreq->start, wreq->len);
-+
-+	if (wreq->term_func)
-+		wreq->term_func(wreq->term_func_priv, transferred_or_error,
-+				was_async);
-+	fscache_end_operation(&wreq->cache_resources);
-+	kfree(wreq);
-+}
-+
-+void __fscache_write_to_cache(struct fscache_cookie *cookie,
-+			      struct address_space *mapping,
-+			      loff_t start, size_t len, loff_t i_size,
-+			      netfs_io_terminated_t term_func,
-+			      void *term_func_priv)
-+{
-+	struct fscache_write_request *wreq;
-+	struct netfs_cache_resources *cres;
-+	struct iov_iter iter;
-+	int ret = -ENOBUFS;
-+
-+	if (!fscache_cookie_valid(cookie) || len == 0)
-+		goto abandon;
-+
-+	_enter("%llx,%zx", start, len);
-+
-+	wreq = kzalloc(sizeof(struct fscache_write_request), GFP_NOFS);
-+	if (!wreq)
-+		goto abandon;
-+	wreq->mapping		= mapping;
-+	wreq->start		= start;
-+	wreq->len		= len;
-+	wreq->term_func		= term_func;
-+	wreq->term_func_priv	= term_func_priv;
-+
-+	cres = &wreq->cache_resources;
-+	if (fscache_begin_operation(cres, cookie, FSCACHE_WANT_WRITE,
-+				    fscache_access_io_write) < 0)
-+		goto abandon_free;
-+
-+	ret = cres->ops->prepare_write(cres, &start, &len, i_size, false);
-+	if (ret < 0)
-+		goto abandon_end;
-+
-+	/* TODO: Consider clearing page bits now for space the write isn't
-+	 * covering.  This is more complicated than it appears when THPs are
-+	 * taken into account.
-+	 */
-+
-+	iov_iter_xarray(&iter, WRITE, &mapping->i_pages, start, len);
-+	fscache_write(cres, start, &iter, fscache_wreq_done, wreq);
-+	return;
-+
-+abandon_end:
-+	return fscache_wreq_done(wreq, ret, false);
-+abandon_free:
-+	kfree(wreq);
-+abandon:
-+	fscache_clear_page_bits(mapping, start, len);
-+	if (term_func)
-+		term_func(term_func_priv, ret, false);
-+}
-+EXPORT_SYMBOL(__fscache_write_to_cache);
 diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index 8ab691e52cc5..fe4d588641da 100644
+index fe4d588641da..847c076d05a6 100644
 --- a/include/linux/fscache.h
 +++ b/include/linux/fscache.h
-@@ -176,6 +176,10 @@ extern int __fscache_fallback_read_page(struct fscache_cookie *, struct page *);
- extern int __fscache_fallback_write_page(struct fscache_cookie *, struct page *);
- #endif
+@@ -549,6 +549,7 @@ int fscache_write(struct netfs_cache_resources *cres,
  
-+extern void __fscache_write_to_cache(struct fscache_cookie *, struct address_space *,
-+				     loff_t, size_t, loff_t, netfs_io_terminated_t, void *);
-+extern void __fscache_clear_page_bits(struct address_space *, loff_t, size_t);
-+
  /**
-  * fscache_acquire_volume - Register a volume as desiring caching services
-  * @volume_key: An identification string for the volume
-@@ -543,6 +547,60 @@ int fscache_write(struct netfs_cache_resources *cres,
- 	return ops->write(cres, start_pos, iter, term_func, term_func_priv);
+  * fscache_clear_page_bits - Clear the PG_fscache bits from a set of pages
++ * @cookie: The cookie representing the cache object
+  * @mapping: The netfs inode to use as the source
+  * @start: The start position in @mapping
+  * @len: The amount of data to unlock
+@@ -556,10 +557,11 @@ int fscache_write(struct netfs_cache_resources *cres,
+  * Clear the PG_fscache flag from a sequence of pages and wake up anyone who's
+  * waiting.
+  */
+-static inline void fscache_clear_page_bits(struct address_space *mapping,
++static inline void fscache_clear_page_bits(struct fscache_cookie *cookie,
++					   struct address_space *mapping,
+ 					   loff_t start, size_t len)
+ {
+-	if (fscache_available())
++	if (fscache_cookie_valid(cookie))
+ 		__fscache_clear_page_bits(mapping, start, len);
  }
  
-+/**
-+ * fscache_clear_page_bits - Clear the PG_fscache bits from a set of pages
-+ * @mapping: The netfs inode to use as the source
-+ * @start: The start position in @mapping
-+ * @len: The amount of data to unlock
-+ *
-+ * Clear the PG_fscache flag from a sequence of pages and wake up anyone who's
-+ * waiting.
-+ */
-+static inline void fscache_clear_page_bits(struct address_space *mapping,
-+					   loff_t start, size_t len)
-+{
-+	if (fscache_available())
-+		__fscache_clear_page_bits(mapping, start, len);
-+}
-+
-+/**
-+ * fscache_write_to_cache - Save a write to the cache and clear PG_fscache
-+ * @cookie: The cookie representing the cache object
-+ * @mapping: The netfs inode to use as the source
-+ * @start: The start position in @mapping
-+ * @len: The amount of data to write back
-+ * @i_size: The new size of the inode
-+ * @term_func: The function to call upon completion
-+ * @term_func_priv: The private data for @term_func
-+ *
-+ * Helper function for a netfs to write dirty data from an inode into the cache
-+ * object that's backing it.
-+ *
-+ * @start and @len describe the range of the data.  This does not need to be
-+ * page-aligned, but to satisfy DIO requirements, the cache may expand it up to
-+ * the page boundaries on either end.  All the pages covering the range must be
-+ * marked with PG_fscache.
-+ *
-+ * If given, @term_func will be called upon completion and supplied with
-+ * @term_func_priv.  Note that the PG_fscache flags will have been cleared by
-+ * this point, so the netfs must retain its own pin on the mapping.
-+ */
-+static inline void fscache_write_to_cache(struct fscache_cookie *cookie,
-+					  struct address_space *mapping,
-+					  loff_t start, size_t len, loff_t i_size,
-+					  netfs_io_terminated_t term_func,
-+					  void *term_func_priv)
-+{
-+	if (fscache_available()) {
-+		__fscache_write_to_cache(cookie, mapping, start, len, i_size,
-+					 term_func, term_func_priv);
-+	} else {
-+		fscache_clear_page_bits(mapping, start, len);
-+		if (term_func)
-+			term_func(term_func_priv, -ENOBUFS, false);
-+	}
-+
-+}
- #endif /* FSCACHE_USE_NEW_IO_API */
- 
- #if __fscache_available
+@@ -595,7 +597,7 @@ static inline void fscache_write_to_cache(struct fscache_cookie *cookie,
+ 		__fscache_write_to_cache(cookie, mapping, start, len, i_size,
+ 					 term_func, term_func_priv);
+ 	} else {
+-		fscache_clear_page_bits(mapping, start, len);
++		fscache_clear_page_bits(cookie, mapping, start, len);
+ 		if (term_func)
+ 			term_func(term_func_priv, -ENOBUFS, false);
+ 	}
 
 
 --
