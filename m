@@ -2,59 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A27432173
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92656432175
+	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Oct 2021 17:02:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1634569336;
+	s=mimecast20190719; t=1634569349;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iZ0d0QxM5KeqRslU1rGEvTnNyRaqhPntjIEY/mUtZe4=;
-	b=UMw9jXrsl6vFX2WzZl4EoPn+nV9gwy4nxL4vMYiycVNKAdejI+yGlSiuD4nqHVvmkymv/q
-	Z6PJ6rqvqHsbvBp17TfH3J3z2IGYhb2qb4akx4S23CvB/TswYr8rw7v59ZEYwOOPEzxgA2
-	4765lgn3pU/PEgXABd1FaxcMO8BbWG8=
+	bh=ZAfKGslvhBzSMzevh01qt2TdvJlJmGbIc9h2Cz4irzc=;
+	b=PsQ3VWsOohAfRFuTuF3SPm5Wy+3sG7yZ/Wp3fEEiNpkza/yY8qiagQhCJx7QRBhRSWhCKt
+	1UxvLByY7YrLnOjNvXzYoQ2HKcOpAOdRsZnnKJ4HoNNjgkAPA2fcpP4R9BW7nUdgVjKyXq
+	vbWjxGGYuLoc381ez4t1I12/kofCKAw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-193-uxvtoEshOWiS5XfrKjP6vw-1; Mon, 18 Oct 2021 11:02:13 -0400
-X-MC-Unique: uxvtoEshOWiS5XfrKjP6vw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-377-apyF8FS5PXi_-35wG7uquA-1; Mon, 18 Oct 2021 11:02:25 -0400
+X-MC-Unique: apyF8FS5PXi_-35wG7uquA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 24B2F802575;
-	Mon, 18 Oct 2021 15:02:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EEF7D707B6;
-	Mon, 18 Oct 2021 15:02:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 581BE101AFA8;
+	Mon, 18 Oct 2021 15:02:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4931760CC4;
+	Mon, 18 Oct 2021 15:02:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC30F4EA2F;
-	Mon, 18 Oct 2021 15:02:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 279921806D03;
+	Mon, 18 Oct 2021 15:02:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IF28Oc029406 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 11:02:08 -0400
+	id 19IF2LRo029443 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 11:02:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CC72370F5A; Mon, 18 Oct 2021 15:02:08 +0000 (UTC)
+	id C883F6788F; Mon, 18 Oct 2021 15:02:21 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A731D62A44;
-	Mon, 18 Oct 2021 15:02:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BE7D74DA31;
+	Mon, 18 Oct 2021 15:02:14 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 18 Oct 2021 16:02:01 +0100
-Message-ID: <163456932180.2614702.9793858366854318097.stgit@warthog.procyon.org.uk>
+Date: Mon, 18 Oct 2021 16:02:14 +0100
+Message-ID: <163456933400.2614702.3593094196519659430.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 References: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
@@ -65,8 +65,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	v9fs-developer@lists.sourceforge.net, Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 47/67] cachefiles: Put more information in
- the xattr attached to the cache file
+Subject: [Linux-cachefs] [PATCH 48/67] fscache: Implement "will_modify"
+ parameter on fscache_use_cookie()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,132 +88,239 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Put some more information into the xattr attached to a cache file including
-the size of the object (i_size may get rounded to a block size for DIO
-purposes), the point after which the server has no data and a content
-mapping type.
+Implement the "will_modify" parameter passed to fscache_use_cookie().
 
-Note that the new cache and the old cache will see each other's cache files
-as being incoherent and discard them.
+Setting this to true will henceforth cause the affected object to be marked
+as dirty on disk, subject to conflict resolution in the event that power
+failure or a crash occurs or the filesystem operates in disconnected mode.
+
+The dirty flag is removed when the cache object is discarded from memory.
+
+A cache hook is provided to prepare for writing - and this can be used to
+mark the object on disk.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 ---
 
- fs/cachefiles/interface.c |    1 +
- fs/cachefiles/internal.h  |   11 +++++++++++
- fs/cachefiles/xattr.c     |   25 +++++++++++++++++++------
- 3 files changed, 31 insertions(+), 6 deletions(-)
+ fs/cachefiles/interface.c         |    3 +++
+ fs/cachefiles/internal.h          |    2 +-
+ fs/cachefiles/xattr.c             |   20 ++++++++++++++++++++
+ fs/fscache/cookie.c               |   30 +++++++++++++++++++++++++++++-
+ include/linux/fscache-cache.h     |    3 +++
+ include/linux/fscache.h           |    2 ++
+ include/trace/events/cachefiles.h |    4 ++--
+ 7 files changed, 60 insertions(+), 4 deletions(-)
 
 diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
-index f90f6ddd07a5..751b0fec4591 100644
+index 751b0fec4591..96f30eba585a 100644
 --- a/fs/cachefiles/interface.c
 +++ b/fs/cachefiles/interface.c
-@@ -420,6 +420,7 @@ static bool cachefiles_invalidate_cookie(struct fscache_cookie *cookie)
+@@ -211,6 +211,8 @@ static void cachefiles_commit_object(struct cachefiles_object *object,
+ {
+ 	bool update = false;
  
- 	old_file = object->file;
- 	object->file = new_file;
-+	object->content_info = CACHEFILES_CONTENT_NO_DATA;
- 	set_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags);
- 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags);
- 
++	if (test_and_clear_bit(FSCACHE_COOKIE_LOCAL_WRITE, &object->cookie->flags))
++		update = true;
+ 	if (test_and_clear_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags))
+ 		update = true;
+ 	if (update)
+@@ -461,4 +463,5 @@ const struct fscache_cache_ops cachefiles_cache_ops = {
+ 	.invalidate_cookie	= cachefiles_invalidate_cookie,
+ 	.resize_cookie		= cachefiles_resize_cookie,
+ 	.begin_operation	= cachefiles_begin_operation,
++	.prepare_to_write	= cachefiles_prepare_to_write,
+ };
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index a2d2ed2f19eb..1d3e37bca087 100644
+index 1d3e37bca087..83cf2ca3a763 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -31,6 +31,16 @@ extern unsigned cachefiles_debug;
+@@ -239,7 +239,7 @@ extern int cachefiles_check_auxdata(struct cachefiles_object *object,
+ 				    struct file *file);
+ extern int cachefiles_remove_object_xattr(struct cachefiles_cache *cache,
+ 					  struct dentry *dentry);
+-
++extern void cachefiles_prepare_to_write(struct fscache_cookie *cookie);
  
- #define cachefiles_gfp (__GFP_RECLAIM | __GFP_NORETRY | __GFP_NOMEMALLOC)
- 
-+enum cachefiles_content {
-+	/* These values are saved on disk */
-+	CACHEFILES_CONTENT_NO_DATA	= 0, /* No content stored */
-+	CACHEFILES_CONTENT_SINGLE	= 1, /* Content is monolithic, all is present */
-+	CACHEFILES_CONTENT_ALL		= 2, /* Content is all present, no map */
-+	CACHEFILES_CONTENT_BACKFS_MAP	= 3, /* Content is piecemeal, mapped through backing fs */
-+	CACHEFILES_CONTENT_DIRTY	= 4, /* Content is dirty (only seen on disk) */
-+	nr__cachefiles_content
-+};
-+
  /*
-  * Cached volume representation.
-  */
-@@ -59,6 +69,7 @@ struct cachefiles_object {
- 	u8				key_hash;	/* Hash of object key */
- 	unsigned long			flags;
- #define CACHEFILES_OBJECT_USING_TMPFILE	0		/* Have an unlinked tmpfile */
-+	enum cachefiles_content		content_info:8;	/* Info about content presence */
- };
- 
- extern struct kmem_cache *cachefiles_object_jar;
+  * error handling
 diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
-index 50b2a4588946..ba3d050a5174 100644
+index ba3d050a5174..30adca42883b 100644
 --- a/fs/cachefiles/xattr.c
 +++ b/fs/cachefiles/xattr.c
-@@ -18,8 +18,11 @@
- #define CACHEFILES_COOKIE_TYPE_DATA 1
- 
- struct cachefiles_xattr {
--	uint8_t				type;
--	uint8_t				data[];
-+	__be64	object_size;	/* Actual size of the object */
-+	__be64	zero_point;	/* Size after which server has no data not written by us */
-+	__u8	type;		/* Type of object */
-+	__u8	content;	/* Content presence (enum cachefiles_content) */
-+	__u8	data[];		/* netfs coherency data */
- } __packed;
- 
- static const char cachefiles_xattr_cache[] =
-@@ -46,7 +49,10 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
- 	if (!buf)
- 		return -ENOMEM;
- 
--	buf->type = CACHEFILES_COOKIE_TYPE_DATA;
-+	buf->object_size	= cpu_to_be64(object->cookie->object_size);
-+	buf->zero_point		= 0;
-+	buf->type		= CACHEFILES_COOKIE_TYPE_DATA;
-+	buf->content		= object->content_info;
+@@ -53,6 +53,8 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
+ 	buf->zero_point		= 0;
+ 	buf->type		= CACHEFILES_COOKIE_TYPE_DATA;
+ 	buf->content		= object->content_info;
++	if (test_bit(FSCACHE_COOKIE_LOCAL_WRITE, &object->cookie->flags))
++		buf->content	= CACHEFILES_CONTENT_DIRTY;
  	if (len > 0)
  		memcpy(buf->data, fscache_get_aux(object->cookie), len);
  
-@@ -54,7 +60,7 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
- 			   buf, sizeof(struct cachefiles_xattr) + len, 0);
- 	if (ret < 0) {
- 		trace_cachefiles_coherency(object, file_inode(file)->i_ino,
--					   0,
-+					   buf->content,
- 					   cachefiles_coherency_set_fail);
- 		if (ret != -ENOMEM)
- 			cachefiles_io_error_obj(
-@@ -62,7 +68,7 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
- 				"Failed to set xattr with error %d", ret);
- 	} else {
- 		trace_cachefiles_coherency(object, file_inode(file)->i_ino,
--					   0,
-+					   buf->content,
- 					   cachefiles_coherency_set_ok);
- 	}
- 
-@@ -100,12 +106,19 @@ int cachefiles_check_auxdata(struct cachefiles_object *object, struct file *file
- 		why = cachefiles_coherency_check_type;
- 	} else if (memcmp(buf->data, p, len) != 0) {
- 		why = cachefiles_coherency_check_aux;
-+	} else if (be64_to_cpu(buf->object_size) != object->cookie->object_size) {
-+		why = cachefiles_coherency_check_objsize;
-+	} else if (buf->content == CACHEFILES_CONTENT_DIRTY) {
-+		// TODO: Begin conflict resolution
-+		pr_warn("Dirty object in cache\n");
-+		why = cachefiles_coherency_check_dirty;
- 	} else {
- 		why = cachefiles_coherency_check_ok;
- 		ret = 0;
- 	}
- 
--	trace_cachefiles_coherency(object, file_inode(file)->i_ino, 0, why);
-+	trace_cachefiles_coherency(object, file_inode(file)->i_ino,
-+				   buf->content, why);
- 	kfree(buf);
+@@ -145,3 +147,21 @@ int cachefiles_remove_object_xattr(struct cachefiles_cache *cache,
+ 	_leave(" = %d", ret);
  	return ret;
  }
++
++/*
++ * Stick a marker on the cache object to indicate that it's dirty.
++ */
++void cachefiles_prepare_to_write(struct fscache_cookie *cookie)
++{
++	const struct cred *saved_cred;
++	struct cachefiles_object *object = cookie->cache_priv;
++	struct cachefiles_cache *cache = object->volume->cache;
++
++	_enter("c=%08x", object->cookie->debug_id);
++
++	if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
++		cachefiles_begin_secure(cache, &saved_cred);
++		cachefiles_set_object_xattr(object);
++		cachefiles_end_secure(cache, saved_cred);
++	}
++}
+diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
+index 70bfbd269652..1420027cfe97 100644
+--- a/fs/fscache/cookie.c
++++ b/fs/fscache/cookie.c
+@@ -402,12 +402,20 @@ struct fscache_cookie *__fscache_acquire_cookie(
+ }
+ EXPORT_SYMBOL(__fscache_acquire_cookie);
+ 
++/*
++ * Prepare a cache object to be written to.
++ */
++static void fscache_prepare_to_write(struct fscache_cookie *cookie)
++{
++	cookie->volume->cache->ops->prepare_to_write(cookie);
++}
++
+ /*
+  * Look up a cookie to the cache.
+  */
+ static void fscache_lookup_cookie(struct fscache_cookie *cookie)
+ {
+-	bool changed_stage = false, need_withdraw = false;
++	bool changed_stage = false, need_withdraw = false, prep_write = false;
+ 
+ 	_enter("");
+ 
+@@ -429,6 +437,7 @@ static void fscache_lookup_cookie(struct fscache_cookie *cookie)
+ 
+ 	spin_lock(&cookie->lock);
+ 	if (cookie->stage != FSCACHE_COOKIE_STAGE_RELINQUISHING) {
++		prep_write = test_bit(FSCACHE_COOKIE_LOCAL_WRITE, &cookie->flags);
+ 		__fscache_set_cookie_stage(cookie, FSCACHE_COOKIE_STAGE_ACTIVE);
+ 		fscache_see_cookie(cookie, fscache_cookie_see_active);
+ 		changed_stage = true;
+@@ -436,6 +445,8 @@ static void fscache_lookup_cookie(struct fscache_cookie *cookie)
+ 	spin_unlock(&cookie->lock);
+ 	if (changed_stage)
+ 		wake_up_cookie_stage(cookie);
++	if (prep_write)
++		fscache_prepare_to_write(cookie);
+ 
+ out:
+ 	fscache_end_cookie_access(cookie, fscache_access_lookup_cookie_end);
+@@ -467,6 +478,10 @@ void __fscache_use_cookie(struct fscache_cookie *cookie, bool will_modify)
+ 	stage = cookie->stage;
+ 	switch (stage) {
+ 	case FSCACHE_COOKIE_STAGE_QUIESCENT:
++		if (will_modify) {
++			set_bit(FSCACHE_COOKIE_LOCAL_WRITE, &cookie->flags);
++			set_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
++		}
+ 		if (!fscache_begin_volume_access(cookie->volume,
+ 						 fscache_access_lookup_cookie))
+ 			break;
+@@ -484,8 +499,18 @@ void __fscache_use_cookie(struct fscache_cookie *cookie, bool will_modify)
+ 
+ 	case FSCACHE_COOKIE_STAGE_LOOKING_UP:
+ 	case FSCACHE_COOKIE_STAGE_CREATING:
++		if (will_modify)
++			set_bit(FSCACHE_COOKIE_LOCAL_WRITE, &cookie->flags);
++		break;
+ 	case FSCACHE_COOKIE_STAGE_ACTIVE:
+ 	case FSCACHE_COOKIE_STAGE_INVALIDATING:
++		if (will_modify &&
++		    !test_and_set_bit(FSCACHE_COOKIE_LOCAL_WRITE, &cookie->flags)) {
++			set_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
++			queue = true;
++		}
++		break;
++
+ 	case FSCACHE_COOKIE_STAGE_FAILED:
+ 	case FSCACHE_COOKIE_STAGE_WITHDRAWING:
+ 		break;
+@@ -551,6 +576,8 @@ static void __fscache_cookie_worker(struct fscache_cookie *cookie)
+ again:
+ 	switch (READ_ONCE(cookie->stage)) {
+ 	case FSCACHE_COOKIE_STAGE_ACTIVE:
++		if (test_and_clear_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags))
++			fscache_prepare_to_write(cookie);
+ 		break;
+ 
+ 	case FSCACHE_COOKIE_STAGE_LOOKING_UP:
+@@ -591,6 +618,7 @@ static void __fscache_cookie_worker(struct fscache_cookie *cookie)
+ 		clear_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &cookie->flags);
+ 		clear_bit(FSCACHE_COOKIE_DO_WITHDRAW, &cookie->flags);
+ 		clear_bit(FSCACHE_COOKIE_DO_COMMIT, &cookie->flags);
++		clear_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
+ 		set_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
+ 		fscache_set_cookie_stage(cookie, FSCACHE_COOKIE_STAGE_QUIESCENT);
+ 		break;
+diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
+index 2e7265e24df6..889ae37fae0f 100644
+--- a/include/linux/fscache-cache.h
++++ b/include/linux/fscache-cache.h
+@@ -76,6 +76,9 @@ struct fscache_cache_ops {
+ 	/* Begin an operation for the netfs lib */
+ 	bool (*begin_operation)(struct netfs_cache_resources *cres,
+ 				enum fscache_want_stage want_stage);
++
++	/* Prepare to write to a live cache object */
++	void (*prepare_to_write)(struct fscache_cookie *cookie);
+ };
+ 
+ static inline enum fscache_cache_state fscache_cache_state(const struct fscache_cache *cache)
+diff --git a/include/linux/fscache.h b/include/linux/fscache.h
+index 8148193045cd..8ab691e52cc5 100644
+--- a/include/linux/fscache.h
++++ b/include/linux/fscache.h
+@@ -125,10 +125,12 @@ struct fscache_cookie {
+ #define FSCACHE_COOKIE_NEEDS_UPDATE	4		/* T if attrs have been updated */
+ #define FSCACHE_COOKIE_HAS_BEEN_CACHED	5		/* T if cookie needs withdraw-on-relinq */
+ #define FSCACHE_COOKIE_DISABLED		6		/* T if cookie has been disabled */
++#define FSCACHE_COOKIE_LOCAL_WRITE	7		/* T if cookie has been modified locally */
+ #define FSCACHE_COOKIE_NACC_ELEVATED	8		/* T if n_accesses is incremented */
+ #define FSCACHE_COOKIE_DO_RELINQUISH	9		/* T if this cookie needs relinquishment */
+ #define FSCACHE_COOKIE_DO_WITHDRAW	10		/* T if this cookie needs withdrawing */
+ #define FSCACHE_COOKIE_DO_COMMIT	11		/* T if this cookie needs committing */
++#define FSCACHE_COOKIE_DO_PREP_TO_WRITE	12		/* T if cookie needs write preparation */
+ 
+ 	enum fscache_cookie_stage	stage;
+ 	u8				advice;		/* FSCACHE_ADV_* */
+diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
+index a7b31b248f2d..11447b20fc83 100644
+--- a/include/trace/events/cachefiles.h
++++ b/include/trace/events/cachefiles.h
+@@ -340,7 +340,7 @@ TRACE_EVENT(cachefiles_mark_inactive,
+ TRACE_EVENT(cachefiles_coherency,
+ 	    TP_PROTO(struct cachefiles_object *obj,
+ 		     ino_t ino,
+-		     int content,
++		     enum cachefiles_content content,
+ 		     enum cachefiles_coherency_trace why),
+ 
+ 	    TP_ARGS(obj, ino, content, why),
+@@ -349,7 +349,7 @@ TRACE_EVENT(cachefiles_coherency,
+ 	    TP_STRUCT__entry(
+ 		    __field(unsigned int,			obj	)
+ 		    __field(enum cachefiles_coherency_trace,	why	)
+-		    __field(int,				content	)
++		    __field(enum cachefiles_content,		content	)
+ 		    __field(u64,				ino	)
+ 			     ),
+ 
 
 
 --
