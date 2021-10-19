@@ -1,109 +1,109 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41F13433713
-	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Oct 2021 15:30:23 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3756433D23
+	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Oct 2021 19:13:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1634663606;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=MRsZUTPoFeUj4U0PvAR6WOAaO+evVUiLxPIc076e6lc=;
+	b=Xpu+6F/hCo72aGXqayUcX72ktMg2BiY5AVjoHVtOixrmJXnRIkh5VZWNJbBPM0Dde0bY6D
+	hYN8P1D/fn7GmJDhasDrIS8TaajdFi1iX0Ytc9RTS9/3mc7PH0mQPjkeo3bMwG+dp97KGt
+	1csABjLDMclv96PMBerK1aenQGQZZ+o=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-248-s2vLkBliPuOSsCHddpALVw-1; Tue, 19 Oct 2021 09:30:19 -0400
-X-MC-Unique: s2vLkBliPuOSsCHddpALVw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-33-5VaGOxAjP8SN5b_stiIW8w-1; Tue, 19 Oct 2021 13:13:23 -0400
+X-MC-Unique: 5VaGOxAjP8SN5b_stiIW8w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B673E8042D4;
-	Tue, 19 Oct 2021 13:30:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8B7979447;
-	Tue, 19 Oct 2021 13:30:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05BBA800685;
+	Tue, 19 Oct 2021 17:13:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3805A5BB06;
+	Tue, 19 Oct 2021 17:13:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 076F31801241;
-	Tue, 19 Oct 2021 13:30:09 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2B294E58F;
+	Tue, 19 Oct 2021 17:13:14 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19JDU2Qr023536 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 19 Oct 2021 09:30:02 -0400
+	id 19JHDAUE013884 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 19 Oct 2021 13:13:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C9A2EAFA3; Tue, 19 Oct 2021 13:30:02 +0000 (UTC)
+	id CE45FF4EAA; Tue, 19 Oct 2021 17:13:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 061B7E778A
-	for <linux-cachefs@redhat.com>; Tue, 19 Oct 2021 13:29:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7063F4EBE
+	for <linux-cachefs@redhat.com>; Tue, 19 Oct 2021 17:13:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C69B185A7A4
-	for <linux-cachefs@redhat.com>; Tue, 19 Oct 2021 13:29:59 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
-	[209.85.208.43]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-242-BuR2zzejMeKediJYUAuO9Q-1; Tue, 19 Oct 2021 09:29:57 -0400
-X-MC-Unique: BuR2zzejMeKediJYUAuO9Q-1
-Received: by mail-ed1-f43.google.com with SMTP id d3so13158733edp.3;
-	Tue, 19 Oct 2021 06:29:56 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2DA5800B28
+	for <linux-cachefs@redhat.com>; Tue, 19 Oct 2021 17:13:07 +0000 (UTC)
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+	[209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-98-Yu2qNAIeMBu0EMYpIEnyEA-1; Tue, 19 Oct 2021 13:13:06 -0400
+X-MC-Unique: Yu2qNAIeMBu0EMYpIEnyEA-1
+Received: by mail-qv1-f72.google.com with SMTP id
+	o15-20020a0cc38f000000b0038455e36f89so510253qvi.6
+	for <linux-cachefs@redhat.com>; Tue, 19 Oct 2021 10:13:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=l2fMMxDDiXx3vgfR9XbtY8zVEKvNNXiKJ69kmRp4vQM=;
-	b=pEZbBR/yqIj3I1gb7AvdqBveOj45Oej32nnpL34Z3byd/hWHbHLfcvZA6qgA0r3GwT
-	T+UewLvv8+J80t4AhwqgC8tm3de9Y7lKDYiT13FIZM8CzwgJM66EeV9RzuFmd+XbVo+B
-	8c7kIabzn9H6ofXAc0utVXq2K4UmP0ireVeBdspaDpF59Ew1k74wraiK5+OkYWHG79GW
-	YdMZE0s0r7nEndoLM/xg+5oIhlrhzE1N1yPEuqhiBzVlJelbhHACSIIMig+mJqCM6xmw
-	pBJLD7ObaqKyGyRQ6xS3bIyV+lIGypJxzB0QCZxM84azUf50MqLgXgLjeIRazIfLdwDy
-	WW8A==
-X-Gm-Message-State: AOAM532wukUx50Kobzu/kyj5IZIoEkDOLtbY9U6QM8raoFtmevCB8m4O
-	AvVKtQM1U5ONO/FoCatnFAKX+Fx8GkprMVmv
-X-Google-Smtp-Source: ABdhPJxWahGJ8G8VBCRpck8lubOrV68duQhqGE2fGaW+cOMH7JNqZ23pleYziort4M6b83EnrGSLMw==
-X-Received: by 2002:a05:6402:270e:: with SMTP id
-	y14mr53930799edd.190.1634650176605; 
-	Tue, 19 Oct 2021 06:29:36 -0700 (PDT)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
-	[209.85.128.46]) by smtp.gmail.com with ESMTPSA id
-	kd8sm10480762ejc.69.2021.10.19.06.29.36
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 19 Oct 2021 06:29:36 -0700 (PDT)
-Received: by mail-wm1-f46.google.com with SMTP id v127so11898606wme.5;
-	Tue, 19 Oct 2021 06:29:36 -0700 (PDT)
-X-Received: by 2002:a1c:a443:: with SMTP id n64mr6116840wme.32.1634650175559; 
-	Tue, 19 Oct 2021 06:29:35 -0700 (PDT)
-MIME-Version: 1.0
+	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+	:references:user-agent:mime-version:content-transfer-encoding;
+	bh=4i8IYWG9Vqjc7NrxHtrIVVcfleXY1klKtzfa0ewfz4w=;
+	b=CN63fC5lP/icJtHRKeqZGVyS7qaZzv6xld5py3TfdxEghfTrbOJd9cEdESL+0up8/B
+	8YQgl9+/AbI873BaieWBL+qUYgdVHCTqpswHRlioIkiHppbz/ovt9b7rz6lv1b7JlBIp
+	7/FmjtdXMseFe2NcqJU8mTMYGLUFlVy/nBxuFuqvyoKRwoUD79FPhieIntiO6RuN3Gm9
+	73AWdFncXKKcOisRmr82oNjlxULN0WiqKvuzZ8VBJpXDm5oO9C85iDc1iat0H4LzLijI
+	RorxzzRytGkXR5KkasAIQ0keFoGUcu2zRRWa1chPgFkaWMqSIYdB5EbceWxHDUstF++A
+	Ei0g==
+X-Gm-Message-State: AOAM532FthiSQk0lPjXVwTGsdr4je5XIqQ6OnEWIUFS6wwmGhaNSzCE6
+	BVomjFRuKQcsSMZNK+ShPws98hmlNnsPRr/2uLdZetxbynQeBceZdv02Wmtezk6mVN/VE1bZcD0
+	fB9RhlLNXABeGjntOv1jOdQ==
+X-Received: by 2002:ac8:59ce:: with SMTP id f14mr1309295qtf.418.1634663585807; 
+	Tue, 19 Oct 2021 10:13:05 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxCTLnI4O14CVDS0WnTvhZl4wAoj8tNDS3DFRVR0xteRC6rTs30rKL1ujbd9t4swW1RKTIeyw==
+X-Received: by 2002:ac8:59ce:: with SMTP id f14mr1309267qtf.418.1634663585628; 
+	Tue, 19 Oct 2021 10:13:05 -0700 (PDT)
+Received: from [192.168.1.3] (68-20-15-154.lightspeed.rlghnc.sbcglobal.net.
+	[68.20.15.154]) by smtp.gmail.com with ESMTPSA id
+	s203sm8190618qke.21.2021.10.19.10.13.04
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 19 Oct 2021 10:13:05 -0700 (PDT)
+Message-ID: <b8cd66bd0c6341b5f9fb8c885013bbb7a8abd3f2.camel@redhat.com>
+From: Jeff Layton <jlayton@redhat.com>
+To: David Howells <dhowells@redhat.com>, linux-cachefs@redhat.com
+Date: Tue, 19 Oct 2021 13:13:04 -0400
+In-Reply-To: <163456863216.2614702.6384850026368833133.stgit@warthog.procyon.org.uk>
 References: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
-In-Reply-To: <163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk>
-From: Marc Dionne <marc.dionne@auristor.com>
-Date: Tue, 19 Oct 2021 10:29:24 -0300
-X-Gmail-Original-Message-ID: <CAB9dFdumxi0U_339S3PfC4TL83Srqn+qGz2AAbJ995NiLhbxnw@mail.gmail.com>
-Message-ID: <CAB9dFdumxi0U_339S3PfC4TL83Srqn+qGz2AAbJ995NiLhbxnw@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+	<163456863216.2614702.6384850026368833133.stgit@warthog.procyon.org.uk>
+User-Agent: Evolution 3.40.4 (3.40.4-2.fc34)
+MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
-	linux-afs@lists.infradead.org, Shyam Prasad N <nspmangalore@gmail.com>,
-	linux-cifs@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
-	linux-cachefs@redhat.com, Trond Myklebust <trondmy@hammerspace.com>,
-	v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, Dominique,
+	Torvalds <torvalds@linux-foundation.org>,
+	Martinet <asmadeus@codewreck.org>, ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
 	Kent Overstreet <kent.overstreet@gmail.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	linux-nfs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Steve French <sfrench@samba.org>, linux-fsdevel@vger.kernel.org,
-	Omar Sandoval <osandov@osandov.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH 00/67] fscache: Rewrite index API and
- management system
+	Steve French <sfrench@samba.org>, linux-mm@kvack.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Trond Myklebust <trondmy@hammerspace.com>, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net,
+	Omar Sandoval <osandov@osandov.com>, Linus,
+	Anna Schumaker <anna.schumaker@netapp.com>, linux-afs@lists.infradead.org
+Subject: Re: [Linux-cachefs] [PATCH 01/67] mm: Stop filemap_read() from
+ grabbing a superfluous page
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -117,7 +117,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -125,69 +125,51 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 18, 2021 at 11:50 AM David Howells <dhowells@redhat.com> wrote:
->
->
-> Here's a set of patches that rewrites and simplifies the fscache index API
-> to remove the complex operation scheduling and object state machine in
-> favour of something much smaller and simpler.  It is built on top of the
-> set of patches that removes the old API[1].
+On Mon, 2021-10-18 at 15:50 +0100, David Howells wrote:
+> Under some circumstances, filemap_read() will allocate sufficient pages to
+> read to the end of the file, call readahead/readpages on them and copy the
+> data over - and then it will allocate another page at the EOF and call
+> readpage on that and then ignore it.  This is unnecessary and a waste of
+> time and resources.
+> 
+> filemap_read() *does* check for this, but only after it has already done
+> the allocation and I/O.  Fix this by checking before calling
+> filemap_get_pages() also.
+> 
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> Acked-by: Kent Overstreet <kent.overstreet@gmail.com>
+> cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+> cc: linux-mm@kvack.org
+> cc: linux-fsdevel@vger.kernel.org
+> Link: https://lore.kernel.org/r/160588481358.3465195.16552616179674485179.stgit@warthog.procyon.org.uk/
+> ---
+> 
+>  mm/filemap.c |    4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index dae481293b5d..c0cdc44c844e 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -2625,6 +2625,10 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
+>  		if ((iocb->ki_flags & IOCB_WAITQ) && already_read)
+>  			iocb->ki_flags |= IOCB_NOWAIT;
+>  
+> +		isize = i_size_read(inode);
+> +		if (unlikely(iocb->ki_pos >= isize))
+> +			goto put_pages;
+> +
+>  		error = filemap_get_pages(iocb, iter, &pvec);
+>  		if (error < 0)
+>  			break;
+> 
+> 
 
-Testing this series in our afs test framework, saw the oops pasted below.
+I would wager that it's worth checking for this. I imagine read calls
+beyond EOF are common enough that it's probably helpful to optimize that
+case:
 
-cachefiles_begin_operation+0x2d maps to cachefiles/io.c:565, where
-object is probably NULL (object->file is at offset 0x28).
-
-Marc
-===
-BUG: kernel NULL pointer dereference, address: 0000000000000028
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 0 P4D 0
-Oops: 0000 [#1] SMP NOPTI
-CPU: 5 PID: 16607 Comm: ar Tainted: G            E
-5.15.0-rc5.kafs_testing+ #37
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
-1.14.0-2.fc34 04/01/2014
-RIP: 0010:cachefiles_begin_operation+0x2d/0x80 [cachefiles]
-Code: 00 00 55 53 48 83 ec 08 48 8b 47 08 48 83 7f 10 00 48 8b 68 20
-74 0c b8 01 00 00 00 48 83 c4 08 5b 5d c3 48 c7 07 a0 12 1b a0 <48> 8b
-45 28 48 89 fb 48 85 c0 74 20 48 8d 7d 04 89 74 24 04 e8 3a
-RSP: 0018:ffffc90000d33b48 EFLAGS: 00010246
-RAX: ffff888014991420 RBX: ffff888100ae9cf0 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff888100ae9cf0
-RBP: 0000000000000000 R08: 00000000000006b8 R09: ffff88810e98e000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffff888014991434
-R13: 0000000000000002 R14: ffff888014991420 R15: 0000000000000002
-FS:  00007f72d0486b80(0000) GS:ffff888139940000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000028 CR3: 000000007bac8004 CR4: 0000000000770ee0
-PKRU: 55555554
-Call Trace:
- fscache_begin_operation.part.0+0x1e3/0x210 [fscache]
- netfs_write_begin+0x3fb/0x800 [netfs]
- ? __fscache_use_cookie+0x120/0x200 [fscache]
- afs_write_begin+0x58/0x2c0 [kafs]
- ? __vfs_getxattr+0x2a/0x70
- generic_perform_write+0xb1/0x1b0
- ? file_update_time+0xcf/0x120
- __generic_file_write_iter+0x14c/0x1d0
- generic_file_write_iter+0x5d/0xb0
- afs_file_write+0x73/0xa0 [kafs]
- new_sync_write+0x105/0x180
- vfs_write+0x1cb/0x260
- ksys_write+0x4f/0xc0
- do_syscall_64+0x35/0x80
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-RIP: 0033:0x7f72d059a7a7
-Code: 0d 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b7 0f 1f 00 f3 0f
-1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 01 00 00 00 0f 05 <48> 3d
-00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 48 89 74 24
-RSP: 002b:00007fffc31942b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 0000000000000008 RCX: 00007f72d059a7a7
-RDX: 0000000000000008 RSI: 000055fe42367730 RDI: 0000000000000003
-RBP: 000055fe42367730 R08: 0000000000000000 R09: 00007f72d066ca00
-R10: 000000000000007c R11: 0000000000000246 R12: 0000000000000008
+Acked-by: Jeff Layton <jlayton@redhat.com>
 
 --
 Linux-cachefs mailing list
