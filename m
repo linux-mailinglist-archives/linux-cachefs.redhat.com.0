@@ -2,81 +2,84 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5029F437EF1
-	for <lists+linux-cachefs@lfdr.de>; Fri, 22 Oct 2021 21:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED1F5437F53
+	for <lists+linux-cachefs@lfdr.de>; Fri, 22 Oct 2021 22:27:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-439-JAQR8ZHkOjWHoYyRWNfaxw-1; Fri, 22 Oct 2021 15:58:45 -0400
-X-MC-Unique: JAQR8ZHkOjWHoYyRWNfaxw-1
+ us-mta-565-XA2BFNu4PBGXrL-ecrk41Q-1; Fri, 22 Oct 2021 16:27:49 -0400
+X-MC-Unique: XA2BFNu4PBGXrL-ecrk41Q-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 153D61808317;
-	Fri, 22 Oct 2021 19:58:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 716A15D9DE;
-	Fri, 22 Oct 2021 19:58:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FE661808317;
+	Fri, 22 Oct 2021 20:27:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F6FA5D9DE;
+	Fri, 22 Oct 2021 20:27:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DC2731800B9E;
-	Fri, 22 Oct 2021 19:58:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 537334A702;
+	Fri, 22 Oct 2021 20:27:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19MJwYPx017492 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 22 Oct 2021 15:58:34 -0400
+	id 19MKP8s6018918 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 22 Oct 2021 16:25:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B2ACF40C1257; Fri, 22 Oct 2021 19:58:34 +0000 (UTC)
+	id 918EF1007259; Fri, 22 Oct 2021 20:25:08 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEA76400F3F3
-	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 19:58:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9555D185A7A4
-	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 19:58:34 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
-	[209.85.167.45]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-197-V1M0NdgnMoyph7uKK9UQsQ-1; Fri, 22 Oct 2021 15:58:33 -0400
-X-MC-Unique: V1M0NdgnMoyph7uKK9UQsQ-1
-Received: by mail-lf1-f45.google.com with SMTP id p16so136522lfa.2
-	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 12:58:32 -0700 (PDT)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C0C710070B8
+	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 20:25:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1CCBD899EC0
+	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 20:25:03 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+	[209.85.208.169]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-525--jw8PnFEMumJlsGGkXozjg-1; Fri, 22 Oct 2021 16:25:01 -0400
+X-MC-Unique: -jw8PnFEMumJlsGGkXozjg-1
+Received: by mail-lj1-f169.google.com with SMTP id u5so1488055ljo.8
+	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 13:25:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=OyTESXkijXq7pnJGTLADUG+9VskuYUOHv78z9I+1K/4=;
-	b=eZt7+Un2YXnG4N65QPH4orPLDT4YVhpLUW3bY+zjXn95CJY8lz9CnD/PzdPPqFdfbZ
-	6evbJuB55oBBY9AAcmEW9tovglWYSxIcE8LeOtdBSa3In9VU4qNuK0hXdz7W6D08G5Nl
-	2qlZjfciR4QWRzU8h1Y8E5reyX/6jg+F29VSQsvfTO5juVcI8etQ8RSZDRoWbCOvQumT
-	Z3oQdOf6zVBaAuc6/gc6pr144OHf9Y1yETIVGhFPmn55Mx9bucUUMb3mW+PZGQPP+2Wn
-	0aNPrGkZhtKSUpDZryHg3YFYaxq/BxO49bEWVnn+HESzxHpDJ8HefTiYjQXguguc1bJ2
-	OIJw==
-X-Gm-Message-State: AOAM530pIQ0k5Wa0pW7GYoWhzi5BV9JKUNztlGAVg3nXJ4ao/zn+FsG5
-	YtciCCsJFncdqQ9VUGN6mbb/VerJGam3BQRMWDQ=
-X-Google-Smtp-Source: ABdhPJz8Q3erTKNpU4RpSHhm7LVCM/P+6Ys8k4fs0LzbZSlb34cM43sSbGT2oIAqnnrfB6Son7Eewg==
-X-Received: by 2002:a05:6512:3e16:: with SMTP id
-	i22mr1698730lfv.374.1634932710939; 
-	Fri, 22 Oct 2021 12:58:30 -0700 (PDT)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
-	[209.85.208.182]) by smtp.gmail.com with ESMTPSA id
-	x10sm501590lfa.177.2021.10.22.12.58.28 for <linux-cachefs@redhat.com>
+	bh=VL4lca6iHsx6oQ/wg6H7clLpP/uNe7ZsGNa7hBqT+88=;
+	b=GOhLLMv34WepypoBBgzE5KOzPr19gDhCnHCB0aUN8UiAWm7XPdAKwMjLsHRzTBWfGN
+	e3VYz1IesCa2l0B43BlmS57QnbQvK1KH0cPEbNZC9QSIm6rdc8MV0WA/Tlx1s3TSFEld
+	zqOEa4L6b6Djfxs8I8j5Uy1kxX2UkMP5jdeRQh7y/xEFt6iZSz1vuyWgGvaeqQgrVfqp
+	amDFoN3cS3/KzNrzlQNVOumTT/FIQELoK2b5y4r7VjDcBNE/XLS9uqpDw8fzCBS1nx75
+	WowlcBeRxOvOiZPU//cDHIAZO3l/xYvzKQtxYk0NcMd4e7V/ruaj9og6BkF034mTiv+8
+	Ff5Q==
+X-Gm-Message-State: AOAM5305D/Rc/mbb1WQny8ztO5TksdOtJ3f3gnCYfG2v0o71ejO23b7B
+	wNPlIGNq6fb8ybCVVzdwBP5ry8nJ4sr63AciCI4=
+X-Google-Smtp-Source: ABdhPJwV/4pcmmzcr24VLvnl87mq28HzwcAchhNjVkXsr3B2//PaA5WgsMxtEpmlFleJbARHtGPAXQ==
+X-Received: by 2002:a05:651c:113b:: with SMTP id
+	e27mr2250758ljo.137.1634934299170; 
+	Fri, 22 Oct 2021 13:24:59 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com.
+	[209.85.208.173])
+	by smtp.gmail.com with ESMTPSA id w2sm895126lfq.0.2021.10.22.13.24.57
+	for <linux-cachefs@redhat.com>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 22 Oct 2021 12:58:28 -0700 (PDT)
-Received: by mail-lj1-f182.google.com with SMTP id 145so639795ljj.1
-	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 12:58:28 -0700 (PDT)
-X-Received: by 2002:a2e:5cc7:: with SMTP id q190mr2066391ljb.494.1634932708154;
-	Fri, 22 Oct 2021 12:58:28 -0700 (PDT)
+	Fri, 22 Oct 2021 13:24:58 -0700 (PDT)
+Received: by mail-lj1-f173.google.com with SMTP id w23so3459844lje.7
+	for <linux-cachefs@redhat.com>; Fri, 22 Oct 2021 13:24:57 -0700 (PDT)
+X-Received: by 2002:a2e:9945:: with SMTP id r5mr2174611ljj.249.1634934297582; 
+	Fri, 22 Oct 2021 13:24:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <163492911924.1038219.13107463173777870713.stgit@warthog.procyon.org.uk>
 	<CAHk-=wjmx7+PD0hzWj5Bg2b807xYD2KCZApTvFje=ufo+MxBMQ@mail.gmail.com>
 	<1041557.1634931616@warthog.procyon.org.uk>
-In-Reply-To: <1041557.1634931616@warthog.procyon.org.uk>
+	<CAHk-=wg2LQtWC3e4Z4EGQzEmsLjmk6jm67Ga6UMLY1MH6iDcNQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wg2LQtWC3e4Z4EGQzEmsLjmk6jm67Ga6UMLY1MH6iDcNQ@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 22 Oct 2021 09:58:12 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wg2LQtWC3e4Z4EGQzEmsLjmk6jm67Ga6UMLY1MH6iDcNQ@mail.gmail.com>
-Message-ID: <CAHk-=wg2LQtWC3e4Z4EGQzEmsLjmk6jm67Ga6UMLY1MH6iDcNQ@mail.gmail.com>
+Date: Fri, 22 Oct 2021 10:24:41 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wi7K64wo4PtROxq_cLhfq-c-3aCbW5CjRfnKYA439YFUw@mail.gmail.com>
+Message-ID: <CAHk-=wi7K64wo4PtROxq_cLhfq-c-3aCbW5CjRfnKYA439YFUw@mail.gmail.com>
 To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -86,7 +89,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
 	Dominique Martinet <asmadeus@codewreck.org>,
@@ -128,44 +131,30 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 22, 2021 at 9:40 AM David Howells <dhowells@redhat.com> wrote:
+On Fri, Oct 22, 2021 at 9:58 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> What's the best way to do this?  Is it fine to disable caching in all the
-> network filesystems and then directly remove the fscache and cachefiles
-> drivers and replace them?
+> and if (c) is the thing that all the network filesystem people want,
+> then what the heck is the point in keeping dead code around? At that
+> point, all the rename crap is just extra work, extra noise, and only a
+> distraction. There's no upside that I can see.
 
-So the basic issue with this whole "total rewrite" is that there's no
-way to bisect anything.
+Again, I'm not a fan of (c) as an option, but if done, then the
+simplest model would appear to be:
 
-And there's no way for people to say "I don't trust the rewrite, I
-want to keep using the old tested model".
+ - remove the old fscache code, obviously disabling the Kconfig for it
+for each filesystem, all in one fell swoop.
 
-Which makes this all painful and generally the wrong way to do
-anything like this, and there's fundamentally no "best way".
+ - add the new fscache code (possibly preferably in sane chunks that
+explains the parts).
 
-The real best way would be if the conversion could be done truly
-incrementally. Flag-days simply aren't good for development, because
-even if the patch to enable the new code might be some trivial
-one-liner, that doesn't _help_ anything. The switch-over switches from
-one code-base to another, with no help from "this is where the problem
-started".
+ - then do a "convert to new world order and enable" commit
+individually for each filesystem
 
-So in order of preference:
+but as mentioned, there's no sane way to bisect things, or have a sane
+development history in this kind of situation.
 
- (a) actual incremental changes where the code keeps working all the
-time, and no flag days
-
- (b) same interfaces, so at least you can do A/B testing and people
-can choose one or the other
-
- (c) total rewrite
-
-and if (c) is the thing that all the network filesystem people want,
-then what the heck is the point in keeping dead code around? At that
-point, all the rename crap is just extra work, extra noise, and only a
-distraction. There's no upside that I can see.
-
-                   Linus
+                Linus
 
 --
 Linux-cachefs mailing list
