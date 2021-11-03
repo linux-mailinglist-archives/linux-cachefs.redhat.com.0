@@ -2,71 +2,55 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09515443E3B
-	for <lists+linux-cachefs@lfdr.de>; Wed,  3 Nov 2021 09:15:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D072444243
+	for <lists+linux-cachefs@lfdr.de>; Wed,  3 Nov 2021 14:19:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-566-JoN-N444N1a31OQlCio7NQ-1; Wed, 03 Nov 2021 04:15:44 -0400
-X-MC-Unique: JoN-N444N1a31OQlCio7NQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-190-KePO6cn5OGKYKNDjQ7VGUg-1; Wed, 03 Nov 2021 09:19:35 -0400
+X-MC-Unique: KePO6cn5OGKYKNDjQ7VGUg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09ACACC621;
-	Wed,  3 Nov 2021 08:15:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C2A7C101F7A4;
+	Wed,  3 Nov 2021 13:19:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22B0A1B5B7;
-	Wed,  3 Nov 2021 08:15:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 095BE1948C;
+	Wed,  3 Nov 2021 13:19:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB09D1809C84;
-	Wed,  3 Nov 2021 08:15:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A0DAF1803B30;
+	Wed,  3 Nov 2021 13:19:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A38FYZu022383 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 3 Nov 2021 04:15:34 -0400
+	id 1A3DJKUE025884 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 3 Nov 2021 09:19:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB7482026D65; Wed,  3 Nov 2021 08:15:33 +0000 (UTC)
+	id 47D2A4010FE1; Wed,  3 Nov 2021 13:19:20 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E51EA2026D46
-	for <linux-cachefs@redhat.com>; Wed,  3 Nov 2021 08:15:31 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4301140CFD07
+	for <linux-cachefs@redhat.com>; Wed,  3 Nov 2021 13:19:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FB8C899EC2
-	for <linux-cachefs@redhat.com>; Wed,  3 Nov 2021 08:15:31 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
-	[209.85.215.171]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-28-ZM7W1CzlOU-shRkXW0udng-1; Wed, 03 Nov 2021 04:15:26 -0400
-X-MC-Unique: ZM7W1CzlOU-shRkXW0udng-1
-Received: by mail-pg1-f171.google.com with SMTP id j9so1751053pgh.1;
-	Wed, 03 Nov 2021 01:15:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=6/g1pCDTYXPMrURdzvLf7qrNknIjaeuJnxxrL+FZ9xQ=;
-	b=opPU4/zjv2wCHvs/MsIvC8PZJqTtXd47iOvrm6HWbtlfA8vh9S5YT2YWwu5Cks06Nu
-	2DIbJ54cSkbM0iiUPMEITALMVgousFwMfHMzwf5zVZEDK+7BojYw+0Gia8D3PMZ983Dk
-	2lnJE7k4WUq4J4nZV1V1R3R4t4oYBZXsw1vNYb6pt5trb34GEE673266jqrYVLGukIyk
-	6k9J4ln/uENQLNmAOuLbqaDuFbJDEkC14eP0gAG9SRFEONObwwuZNstexN4T1yQ9M1Yc
-	WFyBEqn6mZ55bUHDJA1g3hBnoahZlFRGWMFUHSxoeVBGMaBCM2f+u1AweN7a1hzCRBgX
-	p0ZQ==
-X-Gm-Message-State: AOAM532yQWU4baGncFeFoXhqVJwJJkYy1YTWkoE9QwmMqcB7qlQMv5x9
-	/WwWuRQQMIJs2XqDlFMZw/edfwDWbe1Dd36A+fL25AbiBFMhLg==
-X-Google-Smtp-Source: ABdhPJyn9YxhU1yLGSGKZzbhqhNMhFMhTVcsFjJ2ueKZny5pWstrpNPNRyT/P3oyAZa0qbkZTraZrRVKqjA0GKyxiUI=
-X-Received: by 2002:aa7:990e:0:b0:480:ff8f:d655 with SMTP id
-	z14-20020aa7990e000000b00480ff8fd655mr22595770pff.18.1635927324220;
-	Wed, 03 Nov 2021 01:15:24 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2AE968011AF
+	for <linux-cachefs@redhat.com>; Wed,  3 Nov 2021 13:19:20 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-530-KtI9bRmqPmCmHZs2Uf4t3w-1; Wed, 03 Nov 2021 09:19:16 -0400
+X-MC-Unique: KtI9bRmqPmCmHZs2Uf4t3w-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1miG7U-005DZJ-PP; Wed, 03 Nov 2021 13:16:32 +0000
+Date: Wed, 3 Nov 2021 13:16:00 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <YYKLkBwQdtn4ja+i@casper.infradead.org>
+References: <163584174921.4023316.8927114426959755223.stgit@warthog.procyon.org.uk>
+	<163584184628.4023316.9386282630968981869.stgit@warthog.procyon.org.uk>
 MIME-Version: 1.0
-References: <20210824031847.GA23326@raspberrypi>
-In-Reply-To: <20210824031847.GA23326@raspberrypi>
-From: Austin Kim <austindh.kim@gmail.com>
-Date: Wed, 3 Nov 2021 17:15:13 +0900
-Message-ID: <CADLLry4fgoj5CVeZ8M+QmzzvQ=GTj2AheBJA3eMeSTZT47scNA@mail.gmail.com>
-To: dhowells@redhat.com
+In-Reply-To: <163584184628.4023316.9386282630968981869.stgit@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,15 +59,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1A38FYZu022383
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: linux-cachefs@redhat.com
-Cc: linux-cachefs@redhat.com,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	=?UTF-8?B?6rmA64+Z7ZiE?= <austin.kim@lge.com>
-Subject: Re: [Linux-cachefs] [PATCH] cachefiles: remove always false
-	'datalen < 0' expression
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, ceph-devel@vger.kernel.org,
+	linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net,
+	Ilya Dryomov <idryomov@gmail.com>, linux-afs@lists.infradead.org,
+	devel@lists.orangefs.org
+Subject: Re: [Linux-cachefs] [PATCH v3 4/6] folio: Add a function to get the
+ host inode for a folio
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,36 +84,37 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-MjAyMeuFhCA47JuUIDI07J28ICjtmZQpIOyYpO2bhCAxMjoxOCwgQXVzdGluIEtpbSA8YXVzdGlu
-ZGgua2ltQGdtYWlsLmNvbT7ri5jsnbQg7J6R7ISxOgo+Cj4gRnJvbTogQXVzdGluIEtpbSA8YXVz
-dGluLmtpbUBsZ2UuY29tPgo+Cj4gU2luY2UgJ2RhdGFsZW4nIGlzIGRlY2xhcmVkIGFzIHNpemVf
-dCwgdGhlICdkYXRhbGVuIDwgMCcgZXhwcmVzc2lvbgo+IGlzIGFsd2F5cyBmYWxzZS4gV2hlcmUg
-c2l6ZV90IGlzIGRlZmluZWQgYXMgYmVsb3c7Cj4KPiAgICB0eXBlZGVmIHVuc2lnbmVkIGxvbmcg
-X19rZXJuZWxfdWxvbmdfdDsKPiAgICB0eXBlZGVmIF9fa2VybmVsX3Vsb25nX3QgX19rZXJuZWxf
-c2l6ZV90Owo+ICAgIHR5cGVkZWYgX19rZXJuZWxfc2l6ZV90IHNpemVfdDsKPgo+IFNvIGl0IGhh
-ZCBiZXR0ZXIgcmVtb3ZlIHVubmVjZXNzYXJ5ICdhbHdheXMgZmFsc2UnIGV4cHJlc3Npb24uCj4K
-PiBTaWduZWQtb2ZmLWJ5OiBBdXN0aW4gS2ltIDxhdXN0aW4ua2ltQGxnZS5jb20+Cj4gLS0tCj4g
-IGZzL2NhY2hlZmlsZXMvZGFlbW9uLmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2ZzL2NhY2hlZmlsZXMvZGFl
-bW9uLmMgYi9mcy9jYWNoZWZpbGVzL2RhZW1vbi5jCj4gaW5kZXggNzUyYzFlNDM0MTZmLi4xY2Zl
-ZDllMDgxMmEgMTAwNjQ0Cj4gLS0tIGEvZnMvY2FjaGVmaWxlcy9kYWVtb24uYwo+ICsrKyBiL2Zz
-L2NhY2hlZmlsZXMvZGFlbW9uLmMKPiBAQCAtMjI1LDcgKzIyNSw3IEBAIHN0YXRpYyBzc2l6ZV90
-IGNhY2hlZmlsZXNfZGFlbW9uX3dyaXRlKHN0cnVjdCBmaWxlICpmaWxlLAo+ICAgICAgICAgaWYg
-KHRlc3RfYml0KENBQ0hFRklMRVNfREVBRCwgJmNhY2hlLT5mbGFncykpCj4gICAgICAgICAgICAg
-ICAgIHJldHVybiAtRUlPOwo+Cj4gLSAgICAgICBpZiAoZGF0YWxlbiA8IDAgfHwgZGF0YWxlbiA+
-IFBBR0VfU0laRSAtIDEpCj4gKyAgICAgICBpZiAoZGF0YWxlbiA+IFBBR0VfU0laRSAtIDEpCj4g
-ICAgICAgICAgICAgICAgIHJldHVybiAtRU9QTk9UU1VQUDsKPgo+ICAgICAgICAgLyogZHJhZyB0
-aGUgY29tbWFuZCBzdHJpbmcgaW50byB0aGUga2VybmVsIHNvIHdlIGNhbiBwYXJzZSBpdCAqLwo+
-IC0tCj4gMi4yMC4xCj4KCklmIHlvdSBhcmUgYXZhaWxhYmxlLCB3b3VsZCB5b3UgcGxlYXNlIHJl
-dmlldyB0aGlzIHBhdGNoPwpJdCB3aWxsIG5vdCB0YWtlIGxvbmcuCgpCUiwKQXVzdGluIEtpbQoK
-Ci0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQpo
-dHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LWNhY2hlZnM=
+On Tue, Nov 02, 2021 at 08:30:46AM +0000, David Howells wrote:
+> Add a convenience function, folio_inode() that will get the host inode from
+> a folio's mapping.
+
+I'm not opposed, but it only saves two characters, so I'm not entirely
+sure it justifies its existance.  On the other hand, folio_inode() is
+clear about what it does.
+
+> + * For folios which are in the page cache, return the inode that is hosting
+> + * this folio belongs to.
+
+This looks like an editing mistake.  Either you meant
+'return the inode that hosts this folio' or
+'return the inode this folio belongs to'
+(and i prefer the second).
+
+With that grammo fixed,
+
+Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
