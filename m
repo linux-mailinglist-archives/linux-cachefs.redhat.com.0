@@ -2,80 +2,80 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E66A0446729
-	for <lists+linux-cachefs@lfdr.de>; Fri,  5 Nov 2021 17:40:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37317446724
+	for <lists+linux-cachefs@lfdr.de>; Fri,  5 Nov 2021 17:40:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-26-wJzvbkqwNhC7gBO-91lvxQ-1; Fri, 05 Nov 2021 12:40:16 -0400
-X-MC-Unique: wJzvbkqwNhC7gBO-91lvxQ-1
+ us-mta-98-wvFuxUBrOpG_v2WLqVb5Ww-1; Fri, 05 Nov 2021 12:40:14 -0400
+X-MC-Unique: wvFuxUBrOpG_v2WLqVb5Ww-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7D945362FD;
-	Fri,  5 Nov 2021 16:40:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1CBA619200C5;
+	Fri,  5 Nov 2021 16:40:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CFDC60BF1;
-	Fri,  5 Nov 2021 16:40:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D07FD60BF1;
+	Fri,  5 Nov 2021 16:40:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B2F44EA2A;
-	Fri,  5 Nov 2021 16:40:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56AD44EA2F;
+	Fri,  5 Nov 2021 16:40:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A5FrBFk031365 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 5 Nov 2021 11:53:11 -0400
+	id 1A5FihBP029623 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 5 Nov 2021 11:44:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 840162166B44; Fri,  5 Nov 2021 15:53:11 +0000 (UTC)
+	id D94034047279; Fri,  5 Nov 2021 15:44:43 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C93B2166B25
-	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:53:08 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D583B4047272
+	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:44:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 790EB108C0C1
-	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:53:08 +0000 (UTC)
-Received: from smtp-relay-internal-0.canonical.com
-	(smtp-relay-internal-0.canonical.com [185.125.188.122]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-221-ub1aTkAhMDCCqxcR4A1ZIA-1;
-	Fri, 05 Nov 2021 11:53:06 -0400
-X-MC-Unique: ub1aTkAhMDCCqxcR4A1ZIA-1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B76B7801E8D
+	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:44:43 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+	(smtp-relay-internal-1.canonical.com [185.125.188.123]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-397-3pfjQRoXNSaKCtWtIsnlTA-1;
+	Fri, 05 Nov 2021 11:44:42 -0400
+X-MC-Unique: 3pfjQRoXNSaKCtWtIsnlTA-1
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
 	[209.85.128.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
 	SHA256) (No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id
-	7697840020
-	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:43:39 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id
+	0ECFA3F1E0
+	for <linux-cachefs@redhat.com>; Fri,  5 Nov 2021 15:44:41 +0000 (UTC)
 Received: by mail-wm1-f70.google.com with SMTP id
-	g11-20020a1c200b000000b003320d092d08so3415192wmg.9
-	for <linux-cachefs@redhat.com>; Fri, 05 Nov 2021 08:43:39 -0700 (PDT)
+	c185-20020a1c35c2000000b003331dc61c6cso365276wma.6
+	for <linux-cachefs@redhat.com>; Fri, 05 Nov 2021 08:44:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=Kma2r6Cjt1RWiEDiySihOnGrp1HFvlTplV2HdiifHKA=;
-	b=SGjUZldX0o6dr6xt66eMk28tAkrt2cd79tU9tpE5pFnG9RTNf+JmZdCeL7Zdp1Qk0I
-	QiDDga9DXf6Ah2YXfchMQG+g3i4lKfeQpMunsQvPDx0coMwtcfTW1hpdL/ChY4nAlNya
-	bz3vxtZ6SJfA0kRKLvZnMDBLbIJak74YZuVrjnP6ZQc6wztMfgPPkriI4MS1CeOt9c8m
-	qJHs0RBG0REzZekiUWdn3ujgcMbEokTMHRjQBt8nK4HZqUgiE3IQ9dbAxGJE18+if/2g
-	JTlMT69gfkSdK3MBtC6KcwDi7KL/UtpHmANyuTyhuw5O0QgXTRXKuFmN4X+zIXWXMaAX
-	S4XQ==
-X-Gm-Message-State: AOAM5301bMQoBo2rlbWorEY4lz3NCmO9ZKcJ9oAgl9HxBuJFq852CI7m
-	V3Duq84Wx06EA3lmxFBymsgmk2I6kBrOq/yd0JdeWBCbBYz4pExaiUM72nouUP8j2JsPPBfmAzp
-	PlkXLFLp1sc9J1P84yfgVKSIEFYguDo2O3Qz1
-X-Received: by 2002:a1c:f601:: with SMTP id w1mr30738288wmc.112.1636127019052; 
-	Fri, 05 Nov 2021 08:43:39 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyoyh8Lr4yX65exQreiyo/watjC1Mfw4IA67+fs0m2xRDqQJ5/nM+wMDOQKHo1Bn9rMO/Br/w==
-X-Received: by 2002:a1c:f601:: with SMTP id w1mr30738272wmc.112.1636127018901; 
-	Fri, 05 Nov 2021 08:43:38 -0700 (PDT)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references:mime-version:content-transfer-encoding;
+	bh=jHLHivxStKmmA/vK1gxbQJ1JTHvdFc1nwcxGtaT2GSQ=;
+	b=wtwnCa/5sXo2BASCyWEezUSKOKzTiFit7ZLVU1tUTzTPPiiACd/xDr52I34ieqpRRK
+	LY6Ek6fyLBwhvOySdNVFGwCxSEGcmLEViNsJVuVSekHFeZeE9eG72xVDMQrCQuVDToRr
+	e6fkGceBbe6xrNgdaadJLnMSdvut9hh1ImAuby1RUrQ0Ta8nupQJR6myuIdJBHfvHRqH
+	GhqEflzzAaPbEktQIQpp+rtefS9NaKz2N7ngVNSUZfJiGjQ64ep8nAcVmvPRnOqiLX4a
+	JuPr02BSiWwOkCw3uThzdsImkuFYzJyleWZZXbrv7P6IK94Y35xWQi7K9boYq6ePgzKe
+	ed8g==
+X-Gm-Message-State: AOAM53366xJULH+G8cwb8tTOGDV9boOszyOS6KZZLk6zTdGO3w9IPdc2
+	d818j+Pfg2MgIQCPM8MNeDAxmB+GrP1eAqBEVcbOyeCBZKSu7igAW4MZkNAQq8oHr/3tCJL3x8r
+	IRvXya7pTNGQ/00i6m3a70opy4ANMtBElsYb4
+X-Received: by 2002:adf:fb44:: with SMTP id c4mr71913779wrs.179.1636127080592; 
+	Fri, 05 Nov 2021 08:44:40 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwubhhFLZ1HPTor4i3ntryLRhJH9bsSukDKTrsUDEYR79CovJvijb9h2VluKlN2+0XYoTfgRg==
+X-Received: by 2002:adf:fb44:: with SMTP id c4mr71913748wrs.179.1636127080324; 
+	Fri, 05 Nov 2021 08:44:40 -0700 (PDT)
 Received: from localhost.localdomain (lfbn-lyo-1-470-249.w2-7.abo.wanadoo.fr.
 	[2.7.60.249]) by smtp.gmail.com with ESMTPSA id
-	m2sm11245691wml.15.2021.11.05.08.43.37
+	l11sm8178812wrp.61.2021.11.05.08.44.39
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 05 Nov 2021 08:43:38 -0700 (PDT)
+	Fri, 05 Nov 2021 08:44:40 -0700 (PDT)
 From: Alexandre Ghiti <alexandre.ghiti@canonical.com>
 To: Steve French <sfrench@samba.org>, Jonathan Corbet <corbet@lwn.net>,
 	David Howells <dhowells@redhat.com>, Russell King <linux@armlinux.org.uk>,
@@ -98,8 +98,10 @@ To: Steve French <sfrench@samba.org>, Jonathan Corbet <corbet@lwn.net>,
 	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
 	linux-power@fi.rohmeurope.com
-Date: Fri,  5 Nov 2021 16:43:27 +0100
-Message-Id: <20211105154334.1841927-1-alexandre.ghiti@canonical.com>
+Date: Fri,  5 Nov 2021 16:43:28 +0100
+Message-Id: <20211105154334.1841927-2-alexandre.ghiti@canonical.com>
+In-Reply-To: <20211105154334.1841927-1-alexandre.ghiti@canonical.com>
+References: <20211105154334.1841927-1-alexandre.ghiti@canonical.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -109,13 +111,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1A5FrBFk031365
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1A5FihBP029623
 X-loop: linux-cachefs@redhat.com
-X-Mailman-Approved-At: Fri, 05 Nov 2021 12:40:09 -0400
+X-Mailman-Approved-At: Fri, 05 Nov 2021 12:40:08 -0400
 Cc: Alexandre Ghiti <alexandre.ghiti@canonical.com>
-Subject: [Linux-cachefs] [PATCH 0/7] Cleanup after removal of configs
+Subject: [Linux-cachefs] [PATCH 1/7] Documentation,
+	arch: Remove leftovers from fscache/cachefiles histograms
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -137,56 +140,158 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-While bumping from 5.13 to 5.15, I found that a few deleted configs had
-left some pieces here and there: this patchset cleans that.
+A few references to the fscache and cachefiles histograms were left in
+the Documentation and some arch defconfigs: remove them since those
+configs do not exist anymore.
 
-Alexandre Ghiti (7):
-  Documentation, arch: Remove leftovers from fscache/cachefiles
-    histograms
-  Documentation, arch: Remove leftovers from raw device
-  Documentation, arch: Remove leftovers from CIFS_WEAK_PW_HASH
-  arch: Remove leftovers from mandatory file locking
-  Documentation, arch, fs: Remove leftovers from fscache object list
-  include: mfd: Remove leftovers from bd70528 watchdog
-  arch: Remove leftovers from prism54 wireless driver
+Fixes: 6ae9bd8bb037("fscache, cachefiles: Remove the histogram stuff")
+Signed-off-by: Alexandre Ghiti <alexandre.ghiti@canonical.com>
+---
+ .../filesystems/caching/cachefiles.rst        | 34 -------------------
+ Documentation/filesystems/caching/fscache.rst | 34 ++-----------------
+ arch/arm/configs/axm55xx_defconfig            |  2 --
+ arch/mips/configs/nlm_xlp_defconfig           |  1 -
+ arch/mips/configs/nlm_xlr_defconfig           |  1 -
+ 5 files changed, 2 insertions(+), 70 deletions(-)
 
- Documentation/admin-guide/cifs/usage.rst      |   7 +-
- Documentation/admin-guide/devices.txt         |   8 +-
- .../filesystems/caching/cachefiles.rst        |  34 -----
- Documentation/filesystems/caching/fscache.rst | 123 +-----------------
- arch/arm/configs/axm55xx_defconfig            |   3 -
- arch/arm/configs/cm_x300_defconfig            |   1 -
- arch/arm/configs/ezx_defconfig                |   1 -
- arch/arm/configs/imote2_defconfig             |   1 -
- arch/arm/configs/nhk8815_defconfig            |   1 -
- arch/arm/configs/pxa_defconfig                |   1 -
- arch/arm/configs/spear13xx_defconfig          |   1 -
- arch/arm/configs/spear3xx_defconfig           |   1 -
- arch/arm/configs/spear6xx_defconfig           |   1 -
- arch/mips/configs/decstation_64_defconfig     |   1 -
- arch/mips/configs/decstation_defconfig        |   1 -
- arch/mips/configs/decstation_r4k_defconfig    |   1 -
- arch/mips/configs/fuloong2e_defconfig         |   1 -
- arch/mips/configs/ip27_defconfig              |   1 -
- arch/mips/configs/malta_defconfig             |   1 -
- arch/mips/configs/malta_kvm_defconfig         |   1 -
- arch/mips/configs/malta_qemu_32r6_defconfig   |   1 -
- arch/mips/configs/maltaaprp_defconfig         |   1 -
- arch/mips/configs/maltasmvp_defconfig         |   1 -
- arch/mips/configs/maltasmvp_eva_defconfig     |   1 -
- arch/mips/configs/maltaup_defconfig           |   1 -
- arch/mips/configs/maltaup_xpa_defconfig       |   1 -
- arch/mips/configs/nlm_xlp_defconfig           |   2 -
- arch/mips/configs/nlm_xlr_defconfig           |   2 -
- arch/powerpc/configs/pmac32_defconfig         |   1 -
- arch/powerpc/configs/ppc6xx_defconfig         |   1 -
- arch/powerpc/configs/pseries_defconfig        |   1 -
- arch/sh/configs/titan_defconfig               |   1 -
- fs/fscache/object.c                           |   3 -
- fs/fscache/proc.c                             |  12 --
- include/linux/mfd/rohm-bd70528.h              |  24 ----
- 35 files changed, 6 insertions(+), 237 deletions(-)
-
+diff --git a/Documentation/filesystems/caching/cachefiles.rst b/Documentation/filesystems/caching/cachefiles.rst
+index e58bc1fd312a..e59861458029 100644
+--- a/Documentation/filesystems/caching/cachefiles.rst
++++ b/Documentation/filesystems/caching/cachefiles.rst
+@@ -424,40 +424,6 @@ for CacheFiles to run in a context of a specific security label, or to create
+ files and directories with another security label.
+ 
+ 
+-Statistical Information
+-=======================
+-
+-If FS-Cache is compiled with the following option enabled::
+-
+-	CONFIG_CACHEFILES_HISTOGRAM=y
+-
+-then it will gather certain statistics and display them through a proc file.
+-
+- /proc/fs/cachefiles/histogram
+-
+-     ::
+-
+-	cat /proc/fs/cachefiles/histogram
+-	JIFS  SECS  LOOKUPS   MKDIRS    CREATES
+-	===== ===== ========= ========= =========
+-
+-     This shows the breakdown of the number of times each amount of time
+-     between 0 jiffies and HZ-1 jiffies a variety of tasks took to run.  The
+-     columns are as follows:
+-
+-	=======		=======================================================
+-	COLUMN		TIME MEASUREMENT
+-	=======		=======================================================
+-	LOOKUPS		Length of time to perform a lookup on the backing fs
+-	MKDIRS		Length of time to perform a mkdir on the backing fs
+-	CREATES		Length of time to perform a create on the backing fs
+-	=======		=======================================================
+-
+-     Each row shows the number of events that took a particular range of times.
+-     Each step is 1 jiffy in size.  The JIFS column indicates the particular
+-     jiffy range covered, and the SECS field the equivalent number of seconds.
+-
+-
+ Debugging
+ =========
+ 
+diff --git a/Documentation/filesystems/caching/fscache.rst b/Documentation/filesystems/caching/fscache.rst
+index 70de86922b6a..66e31a6d1070 100644
+--- a/Documentation/filesystems/caching/fscache.rst
++++ b/Documentation/filesystems/caching/fscache.rst
+@@ -201,10 +201,9 @@ Statistical Information
+ If FS-Cache is compiled with the following options enabled::
+ 
+ 	CONFIG_FSCACHE_STATS=y
+-	CONFIG_FSCACHE_HISTOGRAM=y
+ 
+-then it will gather certain statistics and display them through a number of
+-proc files.
++then it will gather certain statistics and display them through the following
++proc file.
+ 
+ /proc/fs/fscache/stats
+ ----------------------
+@@ -413,35 +412,6 @@ proc files.
+ 
+ 
+ 
+-/proc/fs/fscache/histogram
+---------------------------
+-
+-     ::
+-
+-	cat /proc/fs/fscache/histogram
+-	JIFS  SECS  OBJ INST  OP RUNS   OBJ RUNS  RETRV DLY RETRIEVLS
+-	===== ===== ========= ========= ========= ========= =========
+-
+-     This shows the breakdown of the number of times each amount of time
+-     between 0 jiffies and HZ-1 jiffies a variety of tasks took to run.  The
+-     columns are as follows:
+-
+-	=========	=======================================================
+-	COLUMN		TIME MEASUREMENT
+-	=========	=======================================================
+-	OBJ INST	Length of time to instantiate an object
+-	OP RUNS		Length of time a call to process an operation took
+-	OBJ RUNS	Length of time a call to process an object event took
+-	RETRV DLY	Time between an requesting a read and lookup completing
+-	RETRIEVLS	Time between beginning and end of a retrieval
+-	=========	=======================================================
+-
+-     Each row shows the number of events that took a particular range of times.
+-     Each step is 1 jiffy in size.  The JIFS column indicates the particular
+-     jiffy range covered, and the SECS field the equivalent number of seconds.
+-
+-
+-
+ Object List
+ ===========
+ 
+diff --git a/arch/arm/configs/axm55xx_defconfig b/arch/arm/configs/axm55xx_defconfig
+index 46075216ee6d..b36e0b347d1f 100644
+--- a/arch/arm/configs/axm55xx_defconfig
++++ b/arch/arm/configs/axm55xx_defconfig
+@@ -204,11 +204,9 @@ CONFIG_FUSE_FS=y
+ CONFIG_CUSE=y
+ CONFIG_FSCACHE=y
+ CONFIG_FSCACHE_STATS=y
+-CONFIG_FSCACHE_HISTOGRAM=y
+ CONFIG_FSCACHE_DEBUG=y
+ CONFIG_FSCACHE_OBJECT_LIST=y
+ CONFIG_CACHEFILES=y
+-CONFIG_CACHEFILES_HISTOGRAM=y
+ CONFIG_ISO9660_FS=y
+ CONFIG_UDF_FS=y
+ CONFIG_MSDOS_FS=y
+diff --git a/arch/mips/configs/nlm_xlp_defconfig b/arch/mips/configs/nlm_xlp_defconfig
+index 32c290611723..c97f00ece828 100644
+--- a/arch/mips/configs/nlm_xlp_defconfig
++++ b/arch/mips/configs/nlm_xlp_defconfig
+@@ -420,7 +420,6 @@ CONFIG_FUSE_FS=y
+ CONFIG_CUSE=m
+ CONFIG_FSCACHE=m
+ CONFIG_FSCACHE_STATS=y
+-CONFIG_FSCACHE_HISTOGRAM=y
+ CONFIG_CACHEFILES=m
+ CONFIG_ISO9660_FS=m
+ CONFIG_JOLIET=y
+diff --git a/arch/mips/configs/nlm_xlr_defconfig b/arch/mips/configs/nlm_xlr_defconfig
+index bf9b9244929e..60ea102783d9 100644
+--- a/arch/mips/configs/nlm_xlr_defconfig
++++ b/arch/mips/configs/nlm_xlr_defconfig
+@@ -372,7 +372,6 @@ CONFIG_FUSE_FS=y
+ CONFIG_CUSE=m
+ CONFIG_FSCACHE=m
+ CONFIG_FSCACHE_STATS=y
+-CONFIG_FSCACHE_HISTOGRAM=y
+ CONFIG_CACHEFILES=m
+ CONFIG_ISO9660_FS=m
+ CONFIG_JOLIET=y
 -- 
 2.32.0
 
