@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC95F461882
-	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:28:45 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA415461884
+	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:28:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638196125;
+	s=mimecast20190719; t=1638196131;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oEaCGEIgfrGxS+LQpHALtgMCUkKz7uZAzOR/Z9RzaXQ=;
-	b=Pk+HcYWJzoxREKZLsiIR5mKAMKjesZwXV0gTVxhBjxuariNTJVjoiWawr5tGdg6Ho9q3tx
-	OaEwXkX/pDdCHiuwXzOOkc3a2Zkk9i0u7J5BPjNpyvwE8Dw5RLjNjVii9JzBEdCb3ywEWV
-	2zsilVahzEJqYMwznLlxpI6MWMu6+Z8=
+	bh=ZfD03jhXv2OEAAh6dpQM/tQgANPN221YZxVIyAFkYCQ=;
+	b=BHO2pp2xcfafI9sEuG2WGTB/oGiY6c8yBjceRIOsPgzOr5R/qZ5hprl4YCEd0XHKv3QkN0
+	/AHgaQ3IollhBtRjBGtFqAq8L2yxSO/nCCZp7UJLGpwr5pmGLIHxlAvZxhdBkkgpZlrml4
+	48u7cUtFeSg0tZ42cHiAyZO0SV+g+/A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-142-pY0JzObVPLaNkW_Ww3-DMA-1; Mon, 29 Nov 2021 09:28:42 -0500
-X-MC-Unique: pY0JzObVPLaNkW_Ww3-DMA-1
+ us-mta-329-vnd0z8kFOiO0p_tcaMGnjA-1; Mon, 29 Nov 2021 09:28:50 -0500
+X-MC-Unique: vnd0z8kFOiO0p_tcaMGnjA-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09C2F10B744E;
-	Mon, 29 Nov 2021 14:28:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 911C010B7464;
+	Mon, 29 Nov 2021 14:28:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED34979452;
-	Mon, 29 Nov 2021 14:28:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E52A76608;
+	Mon, 29 Nov 2021 14:28:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D83B14BB7C;
-	Mon, 29 Nov 2021 14:28:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6BFC94BB7C;
+	Mon, 29 Nov 2021 14:28:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATEScm3000644 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 09:28:38 -0500
+	id 1ATESlFd000671 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 09:28:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F41AD19724; Mon, 29 Nov 2021 14:28:37 +0000 (UTC)
+	id 068EB5C232; Mon, 29 Nov 2021 14:28:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3C20E196E5;
-	Mon, 29 Nov 2021 14:28:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0B1905C1C5;
+	Mon, 29 Nov 2021 14:28:43 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 29 Nov 2021 14:28:24 +0000
-Message-ID: <163819610438.215744.4223265964131424954.stgit@warthog.procyon.org.uk>
+Date: Mon, 29 Nov 2021 14:28:43 +0000
+Message-ID: <163819612321.215744.9738308885948264476.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 References: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
@@ -68,8 +68,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 23/64] fscache: Provide a function to let
- the netfs update its coherency data
+Subject: [Linux-cachefs] [PATCH 24/64] netfs: Pass more information on how
+ to deal with a hole in the cache
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,58 +91,95 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Provide a function to let the netfs update its coherency data:
+Pass more information to the cache on how to deal with a hole if it
+encounters one when trying to read from the cache.  Three options are
+provided:
 
-	void fscache_update_cookie(struct fscache_cookie *cookie,
-				   const void *aux_data,
-				   const loff_t *object_size);
+ (1) NETFS_READ_HOLE_IGNORE.  Read the hole along with the data, assuming
+     it to be a punched-out extent by the backing filesystem.
 
-This will update the auxiliary data and/or the size of the object attached
-to a cookie if either pointer is not-NULL and flag that the disk needs to
-be updated.
+ (2) NETFS_READ_HOLE_CLEAR.  If there's a hole, erase the requested region
+     of the cache and clear the read buffer.
 
-Note that fscache_unuse_cookie() also allows this to be done.
+ (3) NETFS_READ_HOLE_FAIL.  Fail the read if a hole is detected.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: linux-cachefs@redhat.com
 ---
 
- include/linux/fscache.h |   22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ fs/netfs/read_helper.c |    8 ++++----
+ include/linux/netfs.h  |   11 ++++++++++-
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index b60be20107e1..ccdfdfc700cd 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -330,6 +330,28 @@ void __fscache_update_cookie(struct fscache_cookie *cookie, const void *aux_data
- 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &cookie->flags);
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 7dc79fa8a1f3..08df413efdf3 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -170,7 +170,7 @@ static void netfs_cache_read_terminated(void *priv, ssize_t transferred_or_error
+  */
+ static void netfs_read_from_cache(struct netfs_read_request *rreq,
+ 				  struct netfs_read_subrequest *subreq,
+-				  bool seek_data)
++				  enum netfs_read_from_hole read_hole)
+ {
+ 	struct netfs_cache_resources *cres = &rreq->cache_resources;
+ 	struct iov_iter iter;
+@@ -180,7 +180,7 @@ static void netfs_read_from_cache(struct netfs_read_request *rreq,
+ 			subreq->start + subreq->transferred,
+ 			subreq->len   - subreq->transferred);
+ 
+-	cres->ops->read(cres, subreq->start, &iter, seek_data,
++	cres->ops->read(cres, subreq->start, &iter, read_hole,
+ 			netfs_cache_read_terminated, subreq);
  }
  
-+/**
-+ * fscache_update_cookie - Request that a cache object be updated
-+ * @cookie: The cookie representing the cache object
-+ * @aux_data: The updated auxiliary data for the cookie (may be NULL)
-+ * @object_size: The current size of the object (may be NULL)
-+ *
-+ * Request an update of the index data for the cache object associated with the
-+ * cookie.  The auxiliary data on the cookie will be updated first if @aux_data
-+ * is set and the object size will be updated and the object possibly trimmed
-+ * if @object_size is set.
-+ *
-+ * See Documentation/filesystems/caching/netfs-api.rst for a complete
-+ * description.
+@@ -466,7 +466,7 @@ static void netfs_rreq_short_read(struct netfs_read_request *rreq,
+ 	netfs_get_read_subrequest(subreq);
+ 	atomic_inc(&rreq->nr_rd_ops);
+ 	if (subreq->source == NETFS_READ_FROM_CACHE)
+-		netfs_read_from_cache(rreq, subreq, true);
++		netfs_read_from_cache(rreq, subreq, NETFS_READ_HOLE_CLEAR);
+ 	else
+ 		netfs_read_from_server(rreq, subreq);
+ }
+@@ -794,7 +794,7 @@ static bool netfs_rreq_submit_slice(struct netfs_read_request *rreq,
+ 		netfs_read_from_server(rreq, subreq);
+ 		break;
+ 	case NETFS_READ_FROM_CACHE:
+-		netfs_read_from_cache(rreq, subreq, false);
++		netfs_read_from_cache(rreq, subreq, NETFS_READ_HOLE_IGNORE);
+ 		break;
+ 	default:
+ 		BUG();
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 5a46fde65759..b46c39d98bbd 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -196,6 +196,15 @@ struct netfs_read_request_ops {
+ 	void (*cleanup)(struct address_space *mapping, void *netfs_priv);
+ };
+ 
++/*
++ * How to handle reading from a hole.
 + */
-+static inline
-+void fscache_update_cookie(struct fscache_cookie *cookie, const void *aux_data,
-+			   const loff_t *object_size)
-+{
-+	if (fscache_cookie_enabled(cookie))
-+		__fscache_update_cookie(cookie, aux_data, object_size);
-+}
++enum netfs_read_from_hole {
++	NETFS_READ_HOLE_IGNORE,
++	NETFS_READ_HOLE_CLEAR,
++	NETFS_READ_HOLE_FAIL,
++};
 +
- /**
-  * fscache_invalidate - Notify cache that an object needs invalidation
-  * @cookie: The cookie representing the cache object
+ /*
+  * Table of operations for access to a cache.  This is obtained by
+  * rreq->ops->begin_cache_operation().
+@@ -208,7 +217,7 @@ struct netfs_cache_ops {
+ 	int (*read)(struct netfs_cache_resources *cres,
+ 		    loff_t start_pos,
+ 		    struct iov_iter *iter,
+-		    bool seek_data,
++		    enum netfs_read_from_hole read_hole,
+ 		    netfs_io_terminated_t term_func,
+ 		    void *term_func_priv);
+ 
 
 
 --
