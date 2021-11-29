@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEAF446196C
-	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:35:34 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36C72461971
+	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:35:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638196534;
+	s=mimecast20190719; t=1638196546;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pC2AV7q4QG0hRc6C8fclcQxRP6D9RmGXUuRpJws+YuA=;
-	b=gQd1Hs14f+FAexsMoFUjzrte70QJz6piNrZ1hsP4WjMB1JYUmhxS6VKhzPT8L+p//JTS7c
-	CV/n5ncLZILIhbZkH9hkjqFymBepKHMpxF/Wtgzg6lnN/gXcLaYkJM2RIoCnK7xMskFic5
-	MYEmFLSvz74U7nvaDNNJTQrziGEPR6s=
+	bh=Q6Oc3dqVzCRQ6aQZGYDg/dSEYnRlqIjK0JnViiZ+2Gg=;
+	b=JD4QiXS2CZaMUvsXsVhP2UL3Bek14OfsdvFtM+vFxS253Wa8bZJRzEHRIWq2oy+kCCe4WV
+	1FWl+t3TA9ZSqIQ7rXfK+DKwK4boxF8P/d8IC2TB5SVZ0BYxpECWLzt/g5PVMOSl4b3XZ4
+	5UPRfuZKtsN0lcFCdfAnZs9hzzSNhV0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-371-0vMEvQrAN4esjBu-mDd7Vg-1; Mon, 29 Nov 2021 09:35:31 -0500
-X-MC-Unique: 0vMEvQrAN4esjBu-mDd7Vg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-474-atbCm1XbMDWr8ZXX5YVLEA-1; Mon, 29 Nov 2021 09:35:43 -0500
+X-MC-Unique: atbCm1XbMDWr8ZXX5YVLEA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E31BB84A611;
-	Mon, 29 Nov 2021 14:35:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D147D100EBC1;
-	Mon, 29 Nov 2021 14:35:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E419210168C6;
+	Mon, 29 Nov 2021 14:35:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5CE560C0F;
+	Mon, 29 Nov 2021 14:35:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BF4011809C89;
-	Mon, 29 Nov 2021 14:35:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C2D844BB7C;
+	Mon, 29 Nov 2021 14:35:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATEZQST003023 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 09:35:26 -0500
+	id 1ATEZasN003039 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 09:35:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E64505FC22; Mon, 29 Nov 2021 14:35:26 +0000 (UTC)
+	id 68A0F101F6D4; Mon, 29 Nov 2021 14:35:36 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C462276613;
-	Mon, 29 Nov 2021 14:34:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F3F931002388;
+	Mon, 29 Nov 2021 14:35:32 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 29 Nov 2021 14:34:54 +0000
-Message-ID: <163819649497.215744.2872504990762846767.stgit@warthog.procyon.org.uk>
+Date: Mon, 29 Nov 2021 14:35:32 +0000
+Message-ID: <163819653216.215744.17210522251617386509.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 References: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
@@ -68,8 +68,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 52/64] cachefiles: Allow cachefiles to
-	actually function
+Subject: [Linux-cachefs] [PATCH 53/64] fscache,
+	cachefiles: Display stats of no-space events
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +83,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,30 +91,213 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Remove the block that allowed cachefiles to be compiled but prevented it
-from actually starting a cache.
+Add stat counters of no-space events that caused caching not to happen and
+display in /proc/fs/fscache/stats.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
+cc: linux-cachefs@redhat.com
 ---
 
- fs/cachefiles/daemon.c |    4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/cachefiles/cache.c         |   18 +++++++++++++++---
+ fs/cachefiles/daemon.c        |    2 +-
+ fs/cachefiles/internal.h      |   11 +++++++++--
+ fs/cachefiles/io.c            |    7 +++++--
+ fs/cachefiles/namei.c         |    6 ++++--
+ fs/fscache/stats.c            |    8 ++++++++
+ include/linux/fscache-cache.h |    6 ++++++
+ 7 files changed, 48 insertions(+), 10 deletions(-)
 
+diff --git a/fs/cachefiles/cache.c b/fs/cachefiles/cache.c
+index 2f7f5381afbe..327cea71557f 100644
+--- a/fs/cachefiles/cache.c
++++ b/fs/cachefiles/cache.c
+@@ -147,7 +147,7 @@ int cachefiles_add_cache(struct cachefiles_cache *cache)
+ 	pr_info("File cache on %s registered\n", cache_cookie->name);
+ 
+ 	/* check how much space the cache has */
+-	cachefiles_has_space(cache, 0, 0);
++	cachefiles_has_space(cache, 0, 0, cachefiles_has_space_check);
+ 	cachefiles_end_secure(cache, saved_cred);
+ 	_leave(" = 0 [%px]", cache->cache);
+ 	return 0;
+@@ -175,7 +175,8 @@ int cachefiles_add_cache(struct cachefiles_cache *cache)
+  * cache
+  */
+ int cachefiles_has_space(struct cachefiles_cache *cache,
+-			 unsigned fnr, unsigned bnr)
++			 unsigned fnr, unsigned bnr,
++			 enum cachefiles_has_space_for reason)
+ {
+ 	struct kstatfs stats;
+ 	u64 b_avail, b_writing;
+@@ -233,7 +234,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ 	ret = -ENOBUFS;
+ 	if (stats.f_ffree < cache->fstop ||
+ 	    b_avail < cache->bstop)
+-		goto begin_cull;
++		goto stop_and_begin_cull;
+ 
+ 	ret = 0;
+ 	if (stats.f_ffree < cache->fcull ||
+@@ -252,6 +253,17 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ 	//_leave(" = 0");
+ 	return 0;
+ 
++stop_and_begin_cull:
++	switch (reason) {
++	case cachefiles_has_space_for_write:
++		fscache_count_no_write_space();
++		break;
++	case cachefiles_has_space_for_create:
++		fscache_count_no_create_space();
++		break;
++	default:
++		break;
++	}
+ begin_cull:
+ 	if (!test_and_set_bit(CACHEFILES_CULLING, &cache->flags)) {
+ 		_debug("### CULL CACHE ###");
 diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 61e8740d01be..45af558a696e 100644
+index 45af558a696e..40a792421fc1 100644
 --- a/fs/cachefiles/daemon.c
 +++ b/fs/cachefiles/daemon.c
-@@ -703,9 +703,7 @@ static int cachefiles_daemon_bind(struct cachefiles_cache *cache, char *args)
- 		return -EBUSY;
- 	}
+@@ -170,7 +170,7 @@ static ssize_t cachefiles_daemon_read(struct file *file, char __user *_buffer,
+ 		return 0;
  
--	pr_warn("Cache is disabled for development\n");
--	return -ENOANO; // Don't allow the cache to operate yet
--	//return cachefiles_add_cache(cache);
-+	return cachefiles_add_cache(cache);
+ 	/* check how much space the cache has */
+-	cachefiles_has_space(cache, 0, 0);
++	cachefiles_has_space(cache, 0, 0, cachefiles_has_space_check);
+ 
+ 	/* summarise */
+ 	f_released = atomic_xchg(&cache->f_released, 0);
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index 77c899b3eaa5..5396baad45ed 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -130,10 +130,17 @@ static inline void cachefiles_state_changed(struct cachefiles_cache *cache)
+  * cache.c
+  */
+ extern int cachefiles_add_cache(struct cachefiles_cache *cache);
+-extern int cachefiles_has_space(struct cachefiles_cache *cache,
+-				unsigned fnr, unsigned bnr);
+ extern void cachefiles_withdraw_cache(struct cachefiles_cache *cache);
+ 
++enum cachefiles_has_space_for {
++	cachefiles_has_space_check,
++	cachefiles_has_space_for_write,
++	cachefiles_has_space_for_create,
++};
++extern int cachefiles_has_space(struct cachefiles_cache *cache,
++				unsigned fnr, unsigned bnr,
++				enum cachefiles_has_space_for reason);
++
+ /*
+  * daemon.c
+  */
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index d284984da1fa..74ef4d1fc562 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -468,7 +468,8 @@ static int __cachefiles_prepare_write(struct netfs_cache_resources *cres,
+ 	 * space, we need to see if it's fully allocated.  If it's not, we may
+ 	 * want to cull it.
+ 	 */
+-	if (cachefiles_has_space(cache, 0, *_len / PAGE_SIZE) == 0)
++	if (cachefiles_has_space(cache, 0, *_len / PAGE_SIZE,
++				 cachefiles_has_space_check) == 0)
+ 		return 0; /* Enough space to simply overwrite the whole block */
+ 
+ 	pos = cachefiles_inject_read_error();
+@@ -483,6 +484,7 @@ static int __cachefiles_prepare_write(struct netfs_cache_resources *cres,
+ 		return 0; /* Fully allocated */
+ 
+ 	/* Partially allocated, but insufficient space: cull. */
++	fscache_count_no_write_space();
+ 	pos = cachefiles_inject_remove_error();
+ 	if (pos == 0)
+ 		ret = vfs_fallocate(file, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+@@ -498,7 +500,8 @@ static int __cachefiles_prepare_write(struct netfs_cache_resources *cres,
+ 	return ret;
+ 
+ check_space:
+-	return cachefiles_has_space(cache, 0, *_len / PAGE_SIZE);
++	return cachefiles_has_space(cache, 0, *_len / PAGE_SIZE,
++				    cachefiles_has_space_for_write);
  }
  
+ static int cachefiles_prepare_write(struct netfs_cache_resources *cres,
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index 9e05bc8dc44b..7e24a7a2234d 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -115,7 +115,8 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 
+ 	/* we need to create the subdir if it doesn't exist yet */
+ 	if (d_is_negative(subdir)) {
+-		ret = cachefiles_has_space(cache, 1, 0);
++		ret = cachefiles_has_space(cache, 1, 0,
++					   cachefiles_has_space_for_create);
+ 		if (ret < 0)
+ 			goto mkdir_error;
+ 
+@@ -511,7 +512,8 @@ static bool cachefiles_create_file(struct cachefiles_object *object)
+ 	struct file *file;
+ 	int ret;
+ 
+-	ret = cachefiles_has_space(object->volume->cache, 1, 0);
++	ret = cachefiles_has_space(object->volume->cache, 1, 0,
++				   cachefiles_has_space_for_create);
+ 	if (ret < 0)
+ 		return false;
+ 
+diff --git a/fs/fscache/stats.c b/fs/fscache/stats.c
+index 798ee68b3e9d..db2f4e225dd9 100644
+--- a/fs/fscache/stats.c
++++ b/fs/fscache/stats.c
+@@ -42,6 +42,10 @@ atomic_t fscache_n_read;
+ EXPORT_SYMBOL(fscache_n_read);
+ atomic_t fscache_n_write;
+ EXPORT_SYMBOL(fscache_n_write);
++atomic_t fscache_n_no_write_space;
++EXPORT_SYMBOL(fscache_n_no_write_space);
++atomic_t fscache_n_no_create_space;
++EXPORT_SYMBOL(fscache_n_no_create_space);
+ 
  /*
+  * display the general statistics
+@@ -82,6 +86,10 @@ int fscache_stats_show(struct seq_file *m, void *v)
+ 		   atomic_read(&fscache_n_relinquishes_retire),
+ 		   atomic_read(&fscache_n_relinquishes_dropped));
+ 
++	seq_printf(m, "NoSpace: nwr=%u ncr=%u\n",
++		   atomic_read(&fscache_n_no_write_space),
++		   atomic_read(&fscache_n_no_create_space));
++
+ 	seq_printf(m, "IO     : rd=%u wr=%u\n",
+ 		   atomic_read(&fscache_n_read),
+ 		   atomic_read(&fscache_n_write));
+diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
+index 491518f53f01..1d7d43171243 100644
+--- a/include/linux/fscache-cache.h
++++ b/include/linux/fscache-cache.h
+@@ -186,11 +186,17 @@ static inline void fscache_wait_for_objects(struct fscache_cache *cache)
+ #ifdef CONFIG_FSCACHE_STATS
+ extern atomic_t fscache_n_read;
+ extern atomic_t fscache_n_write;
++extern atomic_t fscache_n_no_write_space;
++extern atomic_t fscache_n_no_create_space;
+ #define fscache_count_read() atomic_inc(&fscache_n_read)
+ #define fscache_count_write() atomic_inc(&fscache_n_write)
++#define fscache_count_no_write_space() atomic_inc(&fscache_n_no_write_space)
++#define fscache_count_no_create_space() atomic_inc(&fscache_n_no_create_space)
+ #else
+ #define fscache_count_read() do {} while(0)
+ #define fscache_count_write() do {} while(0)
++#define fscache_count_no_write_space() do {} while(0)
++#define fscache_count_no_create_space() do {} while(0)
+ #endif
+ 
+ #endif /* _LINUX_FSCACHE_CACHE_H */
 
 
 --
