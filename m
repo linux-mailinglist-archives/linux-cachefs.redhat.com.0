@@ -2,55 +2,55 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E65461840
-	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:26:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC78461842
+	for <lists+linux-cachefs@lfdr.de>; Mon, 29 Nov 2021 15:26:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638195998;
+	s=mimecast20190719; t=1638196008;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=RZgtBaswINrkAuPeBDV+TdNvoucxZuPjZkSijpG66cQ=;
-	b=CGWUUB2zZR8S4AY+SHtce8oJHnPUJr/EoHWbM+EFZMrkFNncdaoEA250FkU/EuJR3IgB4i
-	crqHmmFFk5lR6uClUhvVgOjdreMZ1OUgz2zSSD9Th3/GeaRNJ7lQ6YgdbnvR41odC47o9D
-	+eVE654jUGc3hOwlq+HJ2Xffy48Imog=
+	bh=P2iL94egmyWuKgeCjaZalUjDxKHVxu3hBBOgyE+0LVY=;
+	b=F7E+z/RIxeg5WJEy+ro6dSNJCQjgvQ7t9rJXhegNUh7v6WUPhLLEfY14s2TOF/pNINX6qT
+	ExVppZBBNjlIfecDAQXSwl4EvikXgl6ha85yuMC1aylURTQjs4x3SQdaa2AsDQ4yykgiD4
+	srNmI7xlSEYSR8bcBDeY2Ij+GynQgAg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-86-EHX6z-oXNkKOSWI53J45ZQ-1; Mon, 29 Nov 2021 09:26:35 -0500
-X-MC-Unique: EHX6z-oXNkKOSWI53J45ZQ-1
+ us-mta-450-4PDVfSayMYWLROK8GKAVYg-1; Mon, 29 Nov 2021 09:26:45 -0500
+X-MC-Unique: 4PDVfSayMYWLROK8GKAVYg-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 13DC4344E3;
-	Mon, 29 Nov 2021 14:26:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6633410168F9;
+	Mon, 29 Nov 2021 14:26:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0367C57CAA;
-	Mon, 29 Nov 2021 14:26:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57EE772FA4;
+	Mon, 29 Nov 2021 14:26:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E73731809C89;
-	Mon, 29 Nov 2021 14:26:32 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 425591809C89;
+	Mon, 29 Nov 2021 14:26:43 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATEQVIf000420 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 09:26:31 -0500
+	id 1ATEQfKI000447 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 09:26:41 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 563835D9DE; Mon, 29 Nov 2021 14:26:31 +0000 (UTC)
+	id 34A2E5ED49; Mon, 29 Nov 2021 14:26:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A73E5D9C0;
-	Mon, 29 Nov 2021 14:26:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 68E0C5D9DE;
+	Mon, 29 Nov 2021 14:26:37 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Mon, 29 Nov 2021 14:26:27 +0000
-Message-ID: <163819598741.215744.891281275151382095.stgit@warthog.procyon.org.uk>
+Date: Mon, 29 Nov 2021 14:26:36 +0000
+Message-ID: <163819599657.215744.15799615296912341745.stgit@warthog.procyon.org.uk>
 In-Reply-To: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 References: <163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
@@ -68,8 +68,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH 16/64] fscache: Add a function for a cache
- backend to note an I/O error
+Subject: [Linux-cachefs] [PATCH 17/64] fscache: Implement simple cookie
+	state machine
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,60 +91,506 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add a function to the backend API to note an I/O error in a cache.
+Implement a very simple cookie state machine to handle lookup, withdrawal,
+relinquishment and, eventually, timed committing and invalidation.
+
+Three cache methods are provided: ->lookup_cookie() to look up and, if
+necessary, create a data storage object; ->withdraw_cookie() to free the
+resources associated with that object and potentially delete it; and
+->prepare_to_write(), to do prepare for changes to the cached data to be
+modified locally.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: linux-cachefs@redhat.com
 ---
 
- fs/fscache/cache.c            |   20 ++++++++++++++++++++
- include/linux/fscache-cache.h |    2 ++
- 2 files changed, 22 insertions(+)
+ fs/fscache/cookie.c            |  311 ++++++++++++++++++++++++++++++++++------
+ include/linux/fscache-cache.h  |   27 +++
+ include/linux/fscache.h        |    2 
+ include/trace/events/fscache.h |    4 +
+ 4 files changed, 292 insertions(+), 52 deletions(-)
 
-diff --git a/fs/fscache/cache.c b/fs/fscache/cache.c
-index bbd102be91c4..25eac61f1c29 100644
---- a/fs/fscache/cache.c
-+++ b/fs/fscache/cache.c
-@@ -321,6 +321,26 @@ void fscache_end_cache_access(struct fscache_cache *cache, enum fscache_access_t
- 		wake_up_var(&cache->n_accesses);
+diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
+index 3dd150182d97..51bf52ea712c 100644
+--- a/fs/fscache/cookie.c
++++ b/fs/fscache/cookie.c
+@@ -15,7 +15,8 @@
+ 
+ struct kmem_cache *fscache_cookie_jar;
+ 
+-static void fscache_drop_cookie(struct fscache_cookie *cookie);
++static void fscache_cookie_worker(struct work_struct *work);
++static void fscache_unhash_cookie(struct fscache_cookie *cookie);
+ 
+ #define fscache_cookie_hash_shift 15
+ static struct hlist_bl_head fscache_cookie_hash[1 << fscache_cookie_hash_shift];
+@@ -57,6 +58,19 @@ static void fscache_free_cookie(struct fscache_cookie *cookie)
+ 	kmem_cache_free(fscache_cookie_jar, cookie);
  }
  
-+/**
-+ * fscache_io_error - Note a cache I/O error
-+ * @cache: The record describing the cache
-+ *
-+ * Note that an I/O error occurred in a cache and that it should no longer be
-+ * used for anything.  This also reports the error into the kernel log.
-+ *
-+ * See Documentation/filesystems/caching/backend-api.rst for a complete
-+ * description.
-+ */
-+void fscache_io_error(struct fscache_cache *cache)
++static void __fscache_queue_cookie(struct fscache_cookie *cookie)
 +{
-+	if (fscache_set_cache_state_maybe(cache,
-+					  FSCACHE_CACHE_IS_ACTIVE,
-+					  FSCACHE_CACHE_GOT_IOERROR))
-+		pr_err("Cache '%s' stopped due to I/O error\n",
-+		       cache->name);
++	if (!queue_work(fscache_wq, &cookie->work))
++		fscache_put_cookie(cookie, fscache_cookie_put_over_queued);
 +}
-+EXPORT_SYMBOL(fscache_io_error);
 +
++static void fscache_queue_cookie(struct fscache_cookie *cookie,
++				 enum fscache_cookie_trace where)
++{
++	fscache_get_cookie(cookie, where);
++	__fscache_queue_cookie(cookie);
++}
++
+ /*
+  * Initialise the access gate on a cookie by keeping its n_accesses counter
+  * raised by 1.  This will prevent end-access from transitioning it to 0 until
+@@ -72,15 +86,6 @@ static void fscache_init_access_gate(struct fscache_cookie *cookie)
+ 	set_bit(FSCACHE_COOKIE_NACC_ELEVATED, &cookie->flags);
+ }
+ 
+-static void __fscache_end_cookie_access(struct fscache_cookie *cookie)
+-{
+-	if (test_bit(FSCACHE_COOKIE_DO_RELINQUISH, &cookie->flags))
+-		fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_RELINQUISHING);
+-	else if (test_bit(FSCACHE_COOKIE_DO_WITHDRAW, &cookie->flags))
+-		fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_WITHDRAWING);
+-	// PLACEHOLDER: Schedule cookie cleanup
+-}
+-
  /**
-  * fscache_withdraw_cache - Withdraw a cache from the active service
-  * @cache: The cache cookie
+  * fscache_end_cookie_access - Unpin a cache at the end of an access.
+  * @cookie: A data file cookie
+@@ -101,7 +106,7 @@ void fscache_end_cookie_access(struct fscache_cookie *cookie,
+ 	trace_fscache_access(cookie->debug_id, refcount_read(&cookie->ref),
+ 			     n_accesses, why);
+ 	if (n_accesses == 0)
+-		__fscache_end_cookie_access(cookie);
++		fscache_queue_cookie(cookie, fscache_cookie_get_end_access);
+ }
+ EXPORT_SYMBOL(fscache_end_cookie_access);
+ 
+@@ -172,35 +177,58 @@ static inline void wake_up_cookie_state(struct fscache_cookie *cookie)
+ 	wake_up_var(&cookie->state);
+ }
+ 
++/*
++ * Change the state a cookie is at and wake up anyone waiting for that.  Impose
++ * an ordering between the stuff stored in the cookie and the state member.
++ * Paired with fscache_cookie_state().
++ */
+ static void __fscache_set_cookie_state(struct fscache_cookie *cookie,
+ 				       enum fscache_cookie_state state)
+ {
+-	cookie->state = state;
++	smp_store_release(&cookie->state, state);
+ }
+ 
+-/*
+- * Change the state a cookie is at and wake up anyone waiting for that - but
+- * only if the cookie isn't already marked as being in a cleanup state.
+- */
+-void fscache_set_cookie_state(struct fscache_cookie *cookie,
+-			      enum fscache_cookie_state state)
++static void fscache_set_cookie_state(struct fscache_cookie *cookie,
++				     enum fscache_cookie_state state)
+ {
+-	bool changed = false;
+-
+ 	spin_lock(&cookie->lock);
+-	switch (cookie->state) {
+-	case FSCACHE_COOKIE_STATE_RELINQUISHING:
+-		break;
+-	default:
+-		__fscache_set_cookie_state(cookie, state);
+-		changed = true;
+-		break;
+-	}
++	__fscache_set_cookie_state(cookie, state);
+ 	spin_unlock(&cookie->lock);
+-	if (changed)
+-		wake_up_cookie_state(cookie);
++	wake_up_cookie_state(cookie);
++}
++
++/**
++ * fscache_cookie_lookup_negative - Note negative lookup
++ * @cookie: The cookie that was being looked up
++ *
++ * Note that some part of the metadata path in the cache doesn't exist and so
++ * we can release any waiting readers in the certain knowledge that there's
++ * nothing for them to actually read.
++ *
++ * This function uses no locking and must only be called from the state machine.
++ */
++void fscache_cookie_lookup_negative(struct fscache_cookie *cookie)
++{
++	set_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
++	fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_CREATING);
+ }
+-EXPORT_SYMBOL(fscache_set_cookie_state);
++EXPORT_SYMBOL(fscache_cookie_lookup_negative);
++
++/**
++ * fscache_caching_failed - Report that a failure stopped caching on a cookie
++ * @cookie: The cookie that was affected
++ *
++ * Tell fscache that caching on a cookie needs to be stopped due to some sort
++ * of failure.
++ *
++ * This function uses no locking and must only be called from the state machine.
++ */
++void fscache_caching_failed(struct fscache_cookie *cookie)
++{
++	clear_bit(FSCACHE_COOKIE_IS_CACHING, &cookie->flags);
++	fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_FAILED);
++}
++EXPORT_SYMBOL(fscache_caching_failed);
+ 
+ /*
+  * Set the index key in a cookie.  The cookie struct has space for a 16-byte
+@@ -293,10 +321,10 @@ static struct fscache_cookie *fscache_alloc_cookie(
+ 
+ 	refcount_set(&cookie->ref, 1);
+ 	cookie->debug_id = atomic_inc_return(&fscache_cookie_debug_id);
+-	cookie->state = FSCACHE_COOKIE_STATE_QUIESCENT;
+ 	spin_lock_init(&cookie->lock);
+ 	INIT_LIST_HEAD(&cookie->commit_link);
+-	INIT_WORK(&cookie->work, NULL /* PLACEHOLDER */);
++	INIT_WORK(&cookie->work, fscache_cookie_worker);
++	__fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_QUIESCENT);
+ 
+ 	write_lock(&fscache_cookies_lock);
+ 	list_add_tail(&cookie->proc_link, &fscache_cookies);
+@@ -418,6 +446,184 @@ struct fscache_cookie *__fscache_acquire_cookie(
+ }
+ EXPORT_SYMBOL(__fscache_acquire_cookie);
+ 
++/*
++ * Prepare a cache object to be written to.
++ */
++static void fscache_prepare_to_write(struct fscache_cookie *cookie)
++{
++	cookie->volume->cache->ops->prepare_to_write(cookie);
++}
++
++/*
++ * Look up a cookie in the cache.
++ */
++static void fscache_perform_lookup(struct fscache_cookie *cookie)
++{
++	enum fscache_access_trace trace = fscache_access_lookup_cookie_end_failed;
++	bool need_withdraw = false;
++
++	_enter("");
++
++	if (!cookie->volume->cache_priv) {
++		fscache_create_volume(cookie->volume, true);
++		if (!cookie->volume->cache_priv) {
++			fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_QUIESCENT);
++			goto out;
++		}
++	}
++
++	if (!cookie->volume->cache->ops->lookup_cookie(cookie)) {
++		if (cookie->state != FSCACHE_COOKIE_STATE_FAILED)
++			fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_QUIESCENT);
++		need_withdraw = true;
++		_leave(" [fail]");
++		goto out;
++	}
++
++	fscache_see_cookie(cookie, fscache_cookie_see_active);
++	fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_ACTIVE);
++	trace = fscache_access_lookup_cookie_end;
++
++out:
++	fscache_end_cookie_access(cookie, trace);
++	if (need_withdraw)
++		fscache_withdraw_cookie(cookie);
++	fscache_end_volume_access(cookie->volume, cookie, trace);
++}
++
++/*
++ * Perform work upon the cookie, such as committing its cache state,
++ * relinquishing it or withdrawing the backing cache.  We're protected from the
++ * cache going away under us as object withdrawal must come through this
++ * non-reentrant work item.
++ */
++static void fscache_cookie_state_machine(struct fscache_cookie *cookie)
++{
++	enum fscache_cookie_state state;
++	bool wake = false;
++
++	_enter("c=%x", cookie->debug_id);
++
++again:
++	spin_lock(&cookie->lock);
++again_locked:
++	state = cookie->state;
++	switch (state) {
++	case FSCACHE_COOKIE_STATE_QUIESCENT:
++		/* The QUIESCENT state is jumped to the LOOKING_UP state by
++		 * fscache_use_cookie().
++		 */
++
++		if (atomic_read(&cookie->n_accesses) == 0 &&
++		    test_bit(FSCACHE_COOKIE_DO_RELINQUISH, &cookie->flags)) {
++			__fscache_set_cookie_state(cookie,
++						   FSCACHE_COOKIE_STATE_RELINQUISHING);
++			wake = true;
++			goto again_locked;
++		}
++		break;
++
++	case FSCACHE_COOKIE_STATE_LOOKING_UP:
++		spin_unlock(&cookie->lock);
++		fscache_init_access_gate(cookie);
++		fscache_perform_lookup(cookie);
++		goto again;
++
++	case FSCACHE_COOKIE_STATE_ACTIVE:
++		if (test_and_clear_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags)) {
++			spin_unlock(&cookie->lock);
++			fscache_prepare_to_write(cookie);
++			spin_lock(&cookie->lock);
++		}
++		fallthrough;
++
++	case FSCACHE_COOKIE_STATE_FAILED:
++		if (atomic_read(&cookie->n_accesses) != 0)
++			break;
++		if (test_bit(FSCACHE_COOKIE_DO_RELINQUISH, &cookie->flags)) {
++			__fscache_set_cookie_state(cookie,
++						   FSCACHE_COOKIE_STATE_RELINQUISHING);
++			wake = true;
++			goto again_locked;
++		}
++		if (test_bit(FSCACHE_COOKIE_DO_WITHDRAW, &cookie->flags)) {
++			__fscache_set_cookie_state(cookie,
++						   FSCACHE_COOKIE_STATE_WITHDRAWING);
++			wake = true;
++			goto again_locked;
++		}
++		break;
++
++	case FSCACHE_COOKIE_STATE_RELINQUISHING:
++	case FSCACHE_COOKIE_STATE_WITHDRAWING:
++		if (cookie->cache_priv) {
++			spin_unlock(&cookie->lock);
++			cookie->volume->cache->ops->withdraw_cookie(cookie);
++			spin_lock(&cookie->lock);
++		}
++
++		switch (state) {
++		case FSCACHE_COOKIE_STATE_RELINQUISHING:
++			fscache_see_cookie(cookie, fscache_cookie_see_relinquish);
++			fscache_unhash_cookie(cookie);
++			__fscache_set_cookie_state(cookie,
++						   FSCACHE_COOKIE_STATE_DROPPED);
++			wake = true;
++			goto out;
++		case FSCACHE_COOKIE_STATE_WITHDRAWING:
++			fscache_see_cookie(cookie, fscache_cookie_see_withdraw);
++			break;
++		default:
++			BUG();
++		}
++
++		clear_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &cookie->flags);
++		clear_bit(FSCACHE_COOKIE_DO_WITHDRAW, &cookie->flags);
++		clear_bit(FSCACHE_COOKIE_DO_LRU_DISCARD, &cookie->flags);
++		clear_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
++		set_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
++		__fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_QUIESCENT);
++		wake = true;
++		break;
++
++	case FSCACHE_COOKIE_STATE_DROPPED:
++		break;
++
++	default:
++		WARN_ONCE(1, "Cookie %x in unexpected state %u\n",
++			  cookie->debug_id, state);
++		break;
++	}
++
++out:
++	spin_unlock(&cookie->lock);
++	if (wake)
++		wake_up_cookie_state(cookie);
++	_leave("");
++}
++
++static void fscache_cookie_worker(struct work_struct *work)
++{
++	struct fscache_cookie *cookie = container_of(work, struct fscache_cookie, work);
++
++	fscache_see_cookie(cookie, fscache_cookie_see_work);
++	fscache_cookie_state_machine(cookie);
++	fscache_put_cookie(cookie, fscache_cookie_put_work);
++}
++
++/*
++ * Wait for the object to become inactive.  The cookie's work item will be
++ * scheduled when someone transitions n_accesses to 0 - but if someone's
++ * already done that, schedule it anyway.
++ */
++static void __fscache_withdraw_cookie(struct fscache_cookie *cookie)
++{
++	if (test_and_clear_bit(FSCACHE_COOKIE_NACC_ELEVATED, &cookie->flags))
++		fscache_end_cookie_access(cookie, fscache_access_cache_unpin);
++	else
++		fscache_queue_cookie(cookie, fscache_cookie_get_end_access);
++}
++
+ /*
+  * Remove a cookie from the hash table.
+  */
+@@ -432,21 +638,27 @@ static void fscache_unhash_cookie(struct fscache_cookie *cookie)
+ 	hlist_bl_lock(h);
+ 	hlist_bl_del(&cookie->hash_link);
+ 	hlist_bl_unlock(h);
++	fscache_stat(&fscache_n_relinquishes_dropped);
+ }
+ 
+-/*
+- * Finalise a cookie after all its resources have been disposed of.
+- */
+-static void fscache_drop_cookie(struct fscache_cookie *cookie)
++static void fscache_drop_withdraw_cookie(struct fscache_cookie *cookie)
+ {
+-	spin_lock(&cookie->lock);
+-	__fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_DROPPED);
+-	spin_unlock(&cookie->lock);
+-	wake_up_cookie_state(cookie);
++	__fscache_withdraw_cookie(cookie);
++}
+ 
+-	fscache_unhash_cookie(cookie);
+-	fscache_stat(&fscache_n_relinquishes_dropped);
++/**
++ * fscache_withdraw_cookie - Mark a cookie for withdrawal
++ * @cookie: The cookie to be withdrawn.
++ *
++ * Allow the cache backend to withdraw the backing for a cookie for its own
++ * reasons, even if that cookie is in active use.
++ */
++void fscache_withdraw_cookie(struct fscache_cookie *cookie)
++{
++	set_bit(FSCACHE_COOKIE_DO_WITHDRAW, &cookie->flags);
++	fscache_drop_withdraw_cookie(cookie);
+ }
++EXPORT_SYMBOL(fscache_withdraw_cookie);
+ 
+ /*
+  * Allow the netfs to release a cookie back to the cache.
+@@ -473,12 +685,13 @@ void __fscache_relinquish_cookie(struct fscache_cookie *cookie, bool retire)
+ 	ASSERTCMP(atomic_read(&cookie->volume->n_cookies), >, 0);
+ 	atomic_dec(&cookie->volume->n_cookies);
+ 
+-	set_bit(FSCACHE_COOKIE_DO_RELINQUISH, &cookie->flags);
+-
+-	if (test_bit(FSCACHE_COOKIE_HAS_BEEN_CACHED, &cookie->flags))
+-		; // PLACEHOLDER: Do something here if the cookie was cached
+-	else
+-		fscache_drop_cookie(cookie);
++	if (test_bit(FSCACHE_COOKIE_HAS_BEEN_CACHED, &cookie->flags)) {
++		set_bit(FSCACHE_COOKIE_DO_RELINQUISH, &cookie->flags);
++		fscache_drop_withdraw_cookie(cookie);
++	} else {
++		fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_DROPPED);
++		fscache_unhash_cookie(cookie);
++	}
+ 	fscache_put_cookie(cookie, fscache_cookie_put_relinquish);
+ }
+ EXPORT_SYMBOL(__fscache_relinquish_cookie);
 diff --git a/include/linux/fscache-cache.h b/include/linux/fscache-cache.h
-index a10b66ca3544..936ef731bbc7 100644
+index 936ef731bbc7..ae6a75976450 100644
 --- a/include/linux/fscache-cache.h
 +++ b/include/linux/fscache-cache.h
-@@ -73,6 +73,8 @@ extern int fscache_add_cache(struct fscache_cache *cache,
+@@ -57,6 +57,15 @@ struct fscache_cache_ops {
+ 
+ 	/* Free the cache's data attached to a volume */
+ 	void (*free_volume)(struct fscache_volume *volume);
++
++	/* Look up a cookie in the cache */
++	bool (*lookup_cookie)(struct fscache_cookie *cookie);
++
++	/* Withdraw an object without any cookie access counts held */
++	void (*withdraw_cookie)(struct fscache_cookie *cookie);
++
++	/* Prepare to write to a live cache object */
++	void (*prepare_to_write)(struct fscache_cookie *cookie);
+ };
+ 
+ extern struct workqueue_struct *fscache_wq;
+@@ -72,6 +81,7 @@ extern int fscache_add_cache(struct fscache_cache *cache,
+ 			     void *cache_priv);
  extern void fscache_withdraw_cache(struct fscache_cache *cache);
  extern void fscache_withdraw_volume(struct fscache_volume *volume);
++extern void fscache_withdraw_cookie(struct fscache_cookie *cookie);
  
-+extern void fscache_io_error(struct fscache_cache *cache);
-+
- extern void fscache_end_volume_access(struct fscache_volume *volume,
- 				      struct fscache_cookie *cookie,
+ extern void fscache_io_error(struct fscache_cache *cache);
+ 
+@@ -85,8 +95,21 @@ extern void fscache_put_cookie(struct fscache_cookie *cookie,
+ 			       enum fscache_cookie_trace where);
+ extern void fscache_end_cookie_access(struct fscache_cookie *cookie,
  				      enum fscache_access_trace why);
+-extern void fscache_set_cookie_state(struct fscache_cookie *cookie,
+-				     enum fscache_cookie_state state);
++extern void fscache_cookie_lookup_negative(struct fscache_cookie *cookie);
++extern void fscache_caching_failed(struct fscache_cookie *cookie);
++
++/**
++ * fscache_cookie_state - Read the state of a cookie
++ * @cookie: The cookie to query
++ *
++ * Get the state of a cookie, imposing an ordering between the cookie contents
++ * and the state value.  Paired with fscache_set_cookie_state().
++ */
++static inline
++enum fscache_cookie_state fscache_cookie_state(struct fscache_cookie *cookie)
++{
++	return smp_load_acquire(&cookie->state);
++}
+ 
+ /**
+  * fscache_get_key - Get a pointer to the cookie key
+diff --git a/include/linux/fscache.h b/include/linux/fscache.h
+index e25e1b8bb91b..0568414bd392 100644
+--- a/include/linux/fscache.h
++++ b/include/linux/fscache.h
+@@ -111,7 +111,7 @@ struct fscache_cookie {
+ #define FSCACHE_COOKIE_NACC_ELEVATED	8		/* T if n_accesses is incremented */
+ #define FSCACHE_COOKIE_DO_RELINQUISH	9		/* T if this cookie needs relinquishment */
+ #define FSCACHE_COOKIE_DO_WITHDRAW	10		/* T if this cookie needs withdrawing */
+-#define FSCACHE_COOKIE_DO_COMMIT	11		/* T if this cookie needs committing */
++#define FSCACHE_COOKIE_DO_LRU_DISCARD	11		/* T if this cookie needs LRU discard */
+ #define FSCACHE_COOKIE_DO_PREP_TO_WRITE	12		/* T if cookie needs write preparation */
+ #define FSCACHE_COOKIE_HAVE_DATA	13		/* T if this cookie has data stored */
+ 
+diff --git a/include/trace/events/fscache.h b/include/trace/events/fscache.h
+index c16b2ca4bf3f..8b3594de9d2c 100644
+--- a/include/trace/events/fscache.h
++++ b/include/trace/events/fscache.h
+@@ -68,6 +68,8 @@ enum fscache_access_trace {
+ 	fscache_access_acquire_volume_end,
+ 	fscache_access_cache_pin,
+ 	fscache_access_cache_unpin,
++	fscache_access_lookup_cookie_end,
++	fscache_access_lookup_cookie_end_failed,
+ 	fscache_access_relinquish_volume,
+ 	fscache_access_relinquish_volume_end,
+ 	fscache_access_unlive,
+@@ -124,6 +126,8 @@ enum fscache_access_trace {
+ 	EM(fscache_access_acquire_volume_end,	"END   acq_vol")	\
+ 	EM(fscache_access_cache_pin,		"PIN   cache  ")	\
+ 	EM(fscache_access_cache_unpin,		"UNPIN cache  ")	\
++	EM(fscache_access_lookup_cookie_end,	"END   lookup ")	\
++	EM(fscache_access_lookup_cookie_end_failed,"END   lookupf")	\
+ 	EM(fscache_access_relinquish_volume,	"BEGIN rlq_vol")	\
+ 	EM(fscache_access_relinquish_volume_end,"END   rlq_vol")	\
+ 	E_(fscache_access_unlive,		"END   unlive ")
 
 
 --
