@@ -1,68 +1,87 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0871346D042
-	for <lists+linux-cachefs@lfdr.de>; Wed,  8 Dec 2021 10:40:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638956449;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=0yo0Hicg4gqI3vhea6d5LY/4THp7MUxu4cGHf1jtres=;
-	b=G/ZV6CuE8UhXqu0ybSdwRZ18EnWlW8yM42QjpVcX9WcHzSc+6SwXx8XJhPCXDTIkpMUfGY
-	37iJvq05jR8cHZfB7JbAvTNa0++mnl/yCW9czZartFACmI5+xMVJvOikLQOjw+1JS4321T
-	Yl6B55MmnJBlWtUUCtDEU6VlQV4uq+U=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D189A46D649
+	for <lists+linux-cachefs@lfdr.de>; Wed,  8 Dec 2021 15:58:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-250-LCp_G9wVMFiHRKj1b6WRog-1; Wed, 08 Dec 2021 04:40:46 -0500
-X-MC-Unique: LCp_G9wVMFiHRKj1b6WRog-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-585-9pYg12yoPF-iu5QWyDs0gw-1; Wed, 08 Dec 2021 09:58:49 -0500
+X-MC-Unique: 9pYg12yoPF-iu5QWyDs0gw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B4AFA61268;
-	Wed,  8 Dec 2021 09:40:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B736A100F942;
+	Wed,  8 Dec 2021 14:58:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACEFE17CD9;
-	Wed,  8 Dec 2021 09:40:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 246A860843;
+	Wed,  8 Dec 2021 14:58:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B72A41809CB8;
-	Wed,  8 Dec 2021 09:40:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D3D9F1809CB9;
+	Wed,  8 Dec 2021 14:58:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B89eYtd008994 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 8 Dec 2021 04:40:34 -0500
+	id 1B8EjBgQ023420 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 8 Dec 2021 09:45:12 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0292D45D74; Wed,  8 Dec 2021 09:40:34 +0000 (UTC)
+	id A616840CFD11; Wed,  8 Dec 2021 14:45:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5920F45D72;
-	Wed,  8 Dec 2021 09:40:13 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20211206172340.fded3873aed7e853b54ab276@linux-foundation.org>
-References: <20211206172340.fded3873aed7e853b54ab276@linux-foundation.org>
-	<1638760762-27239-1-git-send-email-huangzhaoyang@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A114E40CFD08
+	for <linux-cachefs@redhat.com>; Wed,  8 Dec 2021 14:45:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8716F1064FAD
+	for <linux-cachefs@redhat.com>; Wed,  8 Dec 2021 14:45:11 +0000 (UTC)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+	[209.85.215.170]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-282-SK_fyrcMPp-xt_uomxrJ4g-1; Wed, 08 Dec 2021 09:45:10 -0500
+X-MC-Unique: SK_fyrcMPp-xt_uomxrJ4g-1
+Received: by mail-pg1-f170.google.com with SMTP id g16so2265752pgi.1;
+	Wed, 08 Dec 2021 06:45:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=Zsky/SImT4uldRT10XDmxx67FpXPJPw2EiqrddSCfA4=;
+	b=ZmqYBGb29oNuB8SetXdqz2M+KGeIXQD+Oxqai895kLUZaklqGC2UXpSRBGkqQXImrP
+	BGq9sit8bq+BXRm05eB8bknvcoTBySll/ePxRgSGN/yuWMJW8wPMQoQmu5HUgN7/IhEg
+	DGFL3gur2qFLq/pC5K7TO6h/VDakLNoL1XJVS4TO4OpYOA829PEmzpacijrLAXiBn3yZ
+	rLN2jgbwEyffegKw8QbZORxPndcSz1o3x4+NFKztWHnli4hB00qWZBl2Xkcu18O3AxoD
+	bPuSe30RLHgGTjFM2G1vzEWgNGS0m4WLZksDjN6QhCFhG2PdziyCi8UrsP8H8pE2thZm
+	gLcg==
+X-Gm-Message-State: AOAM5333jKd7sOHUmiI3mfs7iVlUUx0mUDvC7nZwAW/6W/FAGLNyqSg6
+	66Zx13HGUFAKzsjwKg0rT4+jcBfu4Lbu6C2I45xbe+JDqVk=
+X-Google-Smtp-Source: ABdhPJxc9cTDpHs08QVitQUMjgdgvv2YzEHQg7VXhoJnZm5HfFqj3S9MqMfDZ9Mcj5uBqJK725+RUAiLGePH+urT03Q=
+X-Received: by 2002:a63:b50a:: with SMTP id y10mr26513587pge.596.1638974708424;
+	Wed, 08 Dec 2021 06:45:08 -0800 (PST)
 MIME-Version: 1.0
-Date: Wed, 08 Dec 2021 09:40:12 +0000
-Message-ID: <2502103.1638956412@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B89eYtd008994
+References: <CANT5p=qXbQU4g4VX=W9mOQo1SjMxnFGfpkLOJWgCpicyDLvt-w@mail.gmail.com>
+	<1355654.1638798741@warthog.procyon.org.uk>
+In-Reply-To: <1355654.1638798741@warthog.procyon.org.uk>
+From: Shyam Prasad N <nspmangalore@gmail.com>
+Date: Wed, 8 Dec 2021 20:14:56 +0530
+Message-ID: <CANT5p=ogoa2ndAs5n5zzy4+NR-T6tyKmyB_1xQyqw6BTgBaXtw@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: linux-cachefs@redhat.com
-Cc: Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
-	Huangzhaoyang <huangzhaoyang@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cachefs@redhat.com
-Subject: Re: [Linux-cachefs] [PATCH] mm: mask DIRECT_RECLAIM in kswapd
+Cc: Steve French <smfrench@gmail.com>, Paulo Alcantara <pc@cjr.nz>,
+	linux-cachefs@redhat.com, CIFS <linux-cifs@vger.kernel.org>
+Subject: Re: [Linux-cachefs] [PATCH] cifs: wait for tcon resource_id before
+	getting fscache super
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,52 +95,56 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <2502102.1638956412.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Andrew Morton <akpm@linux-foundation.org> wrote:
+On Mon, Dec 6, 2021 at 7:22 PM David Howells <dhowells@redhat.com> wrote:
+>
+> Shyam Prasad N <nspmangalore@gmail.com> wrote:
+>
+> > @@ -1376,6 +1376,13 @@ struct inode *cifs_root_iget(struct super_block *sb)
+> >   inode = ERR_PTR(rc);
+> >   }
+> >
+> > + /*
+> > + * The cookie is initialized from volume info returned above.
+> > + * Inside cifs_fscache_get_super_cookie it checks
+> > + * that we do not get super cookie twice.
+> > + */
+> > + cifs_fscache_get_super_cookie(tcon);
+>
+> Ummm...  Does this handle the errors correctly?  What happens if rc != 0 at
+> this point and the inode has been marked failed?  It looks like it will
+> abandon creation of the superblock without cleaning up the super cookie.
+> Maybe - or maybe it can't happen because of the:
+>
+>         iget_no_retry:
+>                 if (!inode) {
+>                         inode = ERR_PTR(rc);
+>                         goto out;
+>                 }
+>
+> check - but then why is rc being checked?
+>
+> > +
+> >  out:
+> >   kfree(path);
+> >   free_xid(xid);
+>
+> David
+>
 
-> >       __fscache_maybe_release_page
-> > 	...
-> >          if (!(gfp & __GFP_DIRECT_RECLAIM) || !(gfp & __GFP_FS)) {
-> >                  fscache_stat(&fscache_n_store_vmscan_busy);
-> >                  return false;
-> >          }
-> 
-> Well, we have thus far been permitting kswapd's memory allocations to
-> enter direct reclaim.  Forbidding that kernel-wide might be the right
-> thing to do, or might not be.  But disabling it kernel-wide because of
-> a peculiar hack in fscache is not good justification.
+Thanks David. I think that there still needs to be more error handling here.
+I'll check on this and send out another patch.
 
-It's avoiding sleeping in ->releasepage() if fscache is doing something with
-the page.  With the old I/O still used by nfs and cifs, PG_fscache means that
-the page is known to fscache and it might be doing something with it in the
-background.  You have to ask fscache to release the page, which may require
-I/O to take place, to get rid of the mark.
-
-With the new I/O, as used by 9p, afs and ceph, where we're doing async DIO
-between the page and the cache, PG_fscache just means that there's a DIO write
-in progress from the page.  It will be cleared when the DIO completes.
-
-I'm fine with changing the condition in the if-statement.  Note that in my
-fscache-rewrite branch:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-rewrite
-
-I've been changing this to:
-
-	if (!gfpflags_allow_blocking(gfp) || !(gfp & __GFP_FS))
-
-and the old I/O is gone.  This is aimed at the next merge window.  If you want
-me to change it there, let me know.
-
-David
+-- 
+Regards,
+Shyam
 
 --
 Linux-cachefs mailing list
