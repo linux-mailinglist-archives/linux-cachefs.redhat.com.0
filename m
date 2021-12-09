@@ -1,85 +1,71 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A847746F226
-	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Dec 2021 18:35:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC79646F440
+	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Dec 2021 20:49:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-198-rts4-KKnPZKQwhvaRu4ceQ-1; Thu, 09 Dec 2021 12:35:39 -0500
-X-MC-Unique: rts4-KKnPZKQwhvaRu4ceQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-581-u2BlNWduMEipn8Ew1ToEXQ-1; Thu, 09 Dec 2021 14:49:41 -0500
+X-MC-Unique: u2BlNWduMEipn8Ew1ToEXQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A8137100D688;
-	Thu,  9 Dec 2021 17:35:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99185794B2;
-	Thu,  9 Dec 2021 17:35:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A7C3100F94D;
+	Thu,  9 Dec 2021 19:49:39 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 50D7B1F43D;
+	Thu,  9 Dec 2021 19:49:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82AD21809CB8;
-	Thu,  9 Dec 2021 17:35:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 33E864A7CA;
+	Thu,  9 Dec 2021 19:42:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B9HZY7w023482 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 9 Dec 2021 12:35:34 -0500
+	id 1B9JggrP000845 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 9 Dec 2021 14:42:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 882C32026D46; Thu,  9 Dec 2021 17:35:34 +0000 (UTC)
+	id 6E132400E12D; Thu,  9 Dec 2021 19:42:42 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 839242026D2F
-	for <linux-cachefs@redhat.com>; Thu,  9 Dec 2021 17:35:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69D6F400F3F1
+	for <linux-cachefs@redhat.com>; Thu,  9 Dec 2021 19:42:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9935D800882
-	for <linux-cachefs@redhat.com>; Thu,  9 Dec 2021 17:35:31 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
-	[209.85.208.49]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-286-V6q7Nt1NMqalbYppQcyYBA-1; Thu, 09 Dec 2021 12:35:29 -0500
-X-MC-Unique: V6q7Nt1NMqalbYppQcyYBA-1
-Received: by mail-ed1-f49.google.com with SMTP id l25so22061637eda.11
-	for <linux-cachefs@redhat.com>; Thu, 09 Dec 2021 09:35:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=0Ief/4lrcrFC9yHQblzF1a8RET0HNi3QQm3divo4aI0=;
-	b=gKGjNAqSJTQyQ+FMRV8m1oOAIqL1xwvTDxeqCAmcgK29clI+sq07As9Rv2vD6/Am0G
-	AhU+iEqgWijUZd4tGzjwUwpXnAUsh2X4yQuQAc0kvPFYws6vDmMxR2gQR/G6JvL/YZh3
-	Gs3qUcHCe4l/IRRXHnXiFRdOA+P+hAbeMtyFQ0upOTHtESrG1kNNySzMQL9YNds9hEHR
-	aygZ2pnk2P2e/X9cTdOnNc1JmyCDE1CUa6fSLCkl13jdlznXjnOFTmi+KuXGiUjOS0nB
-	8CPSyQugTdlG02tnBY3JzpJGrZwdCUfQkhGZnI59u474BVvOED5sNBdQ6isgJmPCvuqS
-	NfeA==
-X-Gm-Message-State: AOAM533p5MYDLuvqrJdHt6vo6iK+8P/1skrItpwWxjosIACUMyvYjpds
-	NKbzDpRMnedPsEChNolbenllKa0EqfoIvDV2
-X-Google-Smtp-Source: ABdhPJwck+R+upNqWOlVcSJAhSYy2S5wk/oSlLwBr0rq1BFN6UtHcFDd6d5CPAAmn+AWGIC/YvpUNg==
-X-Received: by 2002:a50:eb98:: with SMTP id y24mr31179489edr.339.1639071172872;
-	Thu, 09 Dec 2021 09:32:52 -0800 (PST)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
-	[209.85.221.49])
-	by smtp.gmail.com with ESMTPSA id i8sm258095edc.12.2021.12.09.09.32.51
-	for <linux-cachefs@redhat.com>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 09 Dec 2021 09:32:51 -0800 (PST)
-Received: by mail-wr1-f49.google.com with SMTP id j3so11028448wrp.1
-	for <linux-cachefs@redhat.com>; Thu, 09 Dec 2021 09:32:51 -0800 (PST)
-X-Received: by 2002:a05:6000:1c2:: with SMTP id
-	t2mr7703596wrx.378.1639071170949; 
-	Thu, 09 Dec 2021 09:32:50 -0800 (PST)
-MIME-Version: 1.0
-References: <163906878733.143852.5604115678965006622.stgit@warthog.procyon.org.uk>
-	<163906890630.143852.13972180614535611154.stgit@warthog.procyon.org.uk>
-In-Reply-To: <163906890630.143852.13972180614535611154.stgit@warthog.procyon.org.uk>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 9 Dec 2021 09:32:34 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wg35xyf-HgOLcKdWVxm11vNomLVe44b1FsxvV6jDqw2CA@mail.gmail.com>
-Message-ID: <CAHk-=wg35xyf-HgOLcKdWVxm11vNomLVe44b1FsxvV6jDqw2CA@mail.gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3249A3804069
+	for <linux-cachefs@redhat.com>; Thu,  9 Dec 2021 19:42:42 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-514-SKWWAdH_OEKgz03Gif0leg-1; Thu, 09 Dec 2021 14:42:40 -0500
+X-MC-Unique: SKWWAdH_OEKgz03Gif0leg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 5BD48CE27B0;
+	Thu,  9 Dec 2021 19:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A868C004DD;
+	Thu,  9 Dec 2021 19:35:45 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+	[127.0.0.1])
+	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
+	7662260A37; Thu,  9 Dec 2021 19:35:45 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <2420479.1638912905@warthog.procyon.org.uk>
+References: <2420479.1638912905@warthog.procyon.org.uk>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <2420479.1638912905@warthog.procyon.org.uk>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
+	tags/netfs-fixes-20211207
+X-PR-Tracked-Commit-Id: 3cfef1b612e15a0c2f5b1c9d3f3f31ad72d56fcd
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2990c89d1df457bd623371324998ee849806ddd3
+Message-Id: <163907854547.11961.11637701892287062553.pr-tracker-bot@kernel.org>
+Date: Thu, 09 Dec 2021 19:35:45 +0000
 To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -89,23 +75,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: linux-cachefs@redhat.com
-Cc: CIFS <linux-cifs@vger.kernel.org>, "open list:NFS, SUNRPC,
-	AND..." <linux-nfs@vger.kernel.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Cc: Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
+	jlayton@kernel.org, linux-kernel@vger.kernel.org,
 	Matthew Wilcox <willy@infradead.org>,
-	linux-afs@lists.infradead.org, Steve French <sfrench@samba.org>,
-	v9fs-developer@lists.sourceforge.net, linux-cachefs@redhat.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Trond Myklebust <trondmy@hammerspace.com>,
-	ceph-devel@vger.kernel.org, Omar Sandoval <osandov@osandov.com>,
-	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [PATCH v2 09/67] fscache: Implement volume
-	registration
+	linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+	torvalds@linux-foundation.org
+Subject: Re: [Linux-cachefs] [GIT PULL] netfs: Potential deadlock and error
+	handling fixes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -117,9 +95,10 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -127,60 +106,18 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 9, 2021 at 8:55 AM David Howells <dhowells@redhat.com> wrote:
->
-> +static long fscache_compare_volume(const struct fscache_volume *a,
-> +                                  const struct fscache_volume *b)
-> +{
-> +       size_t klen;
-> +
-> +       if (a->key_hash != b->key_hash)
-> +               return (long)a->key_hash - (long)b->key_hash;
-> +       if (a->cache != b->cache)
-> +               return (long)a->cache    - (long)b->cache;
-> +       if (a->key[0] != b->key[0])
-> +               return (long)a->key[0]   - (long)b->key[0];
-> +
-> +       klen = round_up(a->key[0] + 1, sizeof(unsigned int));
-> +       return memcmp(a->key, b->key, klen);
+The pull request you sent on Tue, 07 Dec 2021 21:35:05 +0000:
 
-None of this is endianness-independent except for the final memcmp()
-(and that one assumes the data is just a "stream of bytes")
+> git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/netfs-fixes-20211207
 
-In fact, even if everybody is little-endian, the above gives different
-results on 32-bit and 64-bit architectures, since you're doing math in
-(possibly) 64 bits but using a 32-bit "key_hash". So sign bits will
-differ, afaik.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2990c89d1df457bd623371324998ee849806ddd3
 
-And once again, that key_hash isn't actually endianness-independent anyway:
+Thank you!
 
-> +       volume->key_hash = fscache_hash(0, (unsigned int *)key,
-> +                                       hlen / sizeof(unsigned int));
-
-Yeah, for the same key data, this will give entirely different results
-on LE vs BE, unless you've made sure to always convert whatever keys
-from soem on-disk fixed-32-bit-endianness format to a in-memory host
-endianness.
-
-Which is a fundamental design mistake in itself. That kind of "one
-endianness on disk, another in memory" is garbage.
-
-I'm not sure any of these matter - maybe all these hashes are entirely
-for in-memory stuff and never haev any longer lifetimes, so the fact
-that they get calculated and compared differently depending on
-endianness and depending on word size may not matter at all. You may
-only care about "stable on the native architecture".
-
-But then you shouldn't have your own hash function that you claim is
-somehow endianness-safe.
-
-If you really want to be endianness safe, *ALL* the data you work on
-needs to be a proper fixed endianness format. All throught the code.
-Make all key pointers always be "__le32 *", and never randomly cast
-the pointer from some other data like I see in every use I actually
-looked at.
-
-                  Linus
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
 --
 Linux-cachefs mailing list
