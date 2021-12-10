@@ -1,48 +1,48 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BED22470301
-	for <lists+linux-cachefs@lfdr.de>; Fri, 10 Dec 2021 15:41:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA3C3470306
+	for <lists+linux-cachefs@lfdr.de>; Fri, 10 Dec 2021 15:41:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1639147282;
+	s=mimecast20190719; t=1639147311;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=X1n+7vlYJ410i5x3/nwLCkT//QADRgnsyvRTTA0J9hQ=;
-	b=MhpfV+ikSOQaSXRQD39cSg5UXm4oQAXFEWSwpkwtyqwMtfkGzrktWW5X6XvbaEjbFkMdX9
-	e9cUVm05BYVcInw3MvfrZZaTMH+SGe9MG+uI5KRWJqsxup6MC+wJlYwBXbQ/RaaVRNz1pe
-	8cr1wV9tU+XMLOMz+yMEYmkJjaxDaTY=
+	bh=b2ifWyKqPBAU0jbZUYHcNlq+Ha//XAyPrE7FyxVC0JY=;
+	b=Cs/6XWNso8nsJE4ky1yRIpHT3N//+yaqr6EQVgZ2f/8K4MNM1SJ6mlIdd34Uloz1hCcnM+
+	RWhfieLU113b7t7SkJkmSe8ocJFNcB1D8t99Y4qI8YFFwswvEnPoa+K3y2+lS+9wdAWKi1
+	mzNmmf2kYXM3HuKvj5KNa6D4r3UfI+s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-97-fMy_P41VMami4OMy--FzAw-1; Fri, 10 Dec 2021 09:41:17 -0500
-X-MC-Unique: fMy_P41VMami4OMy--FzAw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-61-nKEZiWNJPTC4tPeNB8j01Q-1; Fri, 10 Dec 2021 09:41:48 -0500
+X-MC-Unique: nKEZiWNJPTC4tPeNB8j01Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23315100D680;
-	Fri, 10 Dec 2021 14:41:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DCDCA100F942;
+	Fri, 10 Dec 2021 14:41:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43D156B8EF;
-	Fri, 10 Dec 2021 14:41:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFBF7A211;
+	Fri, 10 Dec 2021 14:41:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DAF724BB7B;
-	Fri, 10 Dec 2021 14:41:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77D8A4BB7C;
+	Fri, 10 Dec 2021 14:41:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BAEaS6F008044 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 10 Dec 2021 09:36:28 -0500
+	id 1BAEfhHw008324 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 10 Dec 2021 09:41:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CB71010589CE; Fri, 10 Dec 2021 14:36:27 +0000 (UTC)
+	id 10C4360C7F; Fri, 10 Dec 2021 14:41:43 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.122])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6223F10016F7;
-	Fri, 10 Dec 2021 14:36:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6873360C04;
+	Fri, 10 Dec 2021 14:41:21 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
@@ -56,11 +56,11 @@ References: <CAHk-=whtkzB446+hX0zdLsdcUJsJ=8_-0S1mE_R+YurThfUbLA@mail.gmail.com>
 	<159180.1639087053@warthog.procyon.org.uk>
 To: Linus Torvalds <torvalds@linux-foundation.org>
 MIME-Version: 1.0
-Date: Fri, 10 Dec 2021 14:35:59 +0000
-Message-ID: <288130.1639146959@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Date: Fri, 10 Dec 2021 14:41:20 +0000
+Message-ID: <288398.1639147280@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1BAEaS6F008044
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1BAEfhHw008324
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, "open list:NFS,
 	SUNRPC, AND..." <linux-nfs@vger.kernel.org>,
@@ -90,146 +90,149 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <288129.1639146959.1@warthog.procyon.org.uk>
+Content-ID: <288397.1639147280.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> > What I'm trying to get at is that the hash needs to be consistent, no matter
-> > the endianness of the cpu, for any particular input blob.
+> But as mentioned for the other patches, you should then also be a lot
+> more careful about always using the end result as an 'unsigned int'
+> (or maybe 'u32') too, and when comparing hashes for binary search or
+> other, you should always do th4e compare in some stable format.
 > 
-> Yeah, if that's the case, then you should probably make that "unsigned
-> int *data" argument probably just be "void *" and then:
+> Because doing
 > 
-> >                 a = *data++;   <<<<<<<
-> >                 HASH_MIX(x, y, a);
-> >         }
-> >         return fold_hash(x, y);
-> > }
-> >
-> > The marked line should probably use something like le/be32_to_cpu().
+>         return (long)hash_a - (long)hash_b;
 > 
-> Yes, it should be using a '__le32 *' inside that function and you
-> should use l32_to_cpu(). Obviously, BE would work too, but cause
-> unnecessary work on common hardware.
+> and looking at the sign doesn't actually result in a stable ordering
+> on 32-bit architectures. You don't get a transitive ordering (ie a < b
+> and b < c doesn't imply a < c).
+> 
+> And presumably if the hashes are meaningful across machines, then hash
+> comparisons should also be meaningful across machines.
+> 
+> So when comparing hashes, you need to compare them either in a truly
+> bigger signed type (and make sure that doesn't get truncated) - kind
+> of like how a lot of 'memcmp()' functions do 'unsigned char'
+> subtractions in an 'int' - or you need to compare them _as_ 'unsigned
+> int'.
+> 
+> Otherwise the comparisons will be all kinds of messed up.
 
-Okay, how about I make the attached change to make the hashing stable?  This
-will make fscache_hash() take an opaque buffer and a length (the length must
-be a multiple of four).
+I don't think it should matter in this case, as the in-memory hash tables are
+an independent of what's on disk (and not even necessarily the same size).
+They're only used for duplicate detection.  The idea was to be able to shorten
+the scanning of a hash bucket by half on average, but I didn't make it do
+that.  It's just that I use the same hash value as a quick check first.
+
+However, since the comparator functions are only used to see if they're the
+same or different, the attached change makes them return bool instead, no
+cast or subtraction required.
 
 David
 ---
 diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
-index e287952292c5..65cf2ae22a70 100644
+index 65cf2ae22a70..ca36b598d6b5 100644
 --- a/fs/fscache/cookie.c
 +++ b/fs/fscache/cookie.c
-@@ -269,22 +269,23 @@ EXPORT_SYMBOL(fscache_caching_failed);
- static int fscache_set_key(struct fscache_cookie *cookie,
- 			   const void *index_key, size_t index_key_len)
- {
--	u32 *buf;
--	int bufs;
-+	void *buf;
-+	size_t buf_size;
- 
--	bufs = DIV_ROUND_UP(index_key_len, sizeof(*buf));
-+	buf_size = round_up(index_key_len, sizeof(__le32));
- 
- 	if (index_key_len > sizeof(cookie->inline_key)) {
--		buf = kcalloc(bufs, sizeof(*buf), GFP_KERNEL);
-+		buf = kzalloc(buf_size, GFP_KERNEL);
- 		if (!buf)
- 			return -ENOMEM;
- 		cookie->key = buf;
- 	} else {
--		buf = (u32 *)cookie->inline_key;
-+		buf = cookie->inline_key;
- 	}
- 
- 	memcpy(buf, index_key, index_key_len);
--	cookie->key_hash = fscache_hash(cookie->volume->key_hash, buf, bufs);
-+	cookie->key_hash = fscache_hash(cookie->volume->key_hash,
-+					buf, buf_size);
+@@ -289,17 +289,15 @@ static int fscache_set_key(struct fscache_cookie *cookie,
  	return 0;
  }
  
-diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-index 87884f4b34fb..f121c21590dc 100644
---- a/fs/fscache/internal.h
-+++ b/fs/fscache/internal.h
-@@ -86,7 +86,7 @@ static inline void fscache_end_operation(struct netfs_cache_resources *cres)
-  */
- extern unsigned fscache_debug;
- 
--extern unsigned int fscache_hash(unsigned int salt, unsigned int *data, unsigned int n);
-+extern unsigned int fscache_hash(unsigned int salt, const void *data, size_t len);
- 
- /*
-  * proc.c
-diff --git a/fs/fscache/main.c b/fs/fscache/main.c
-index 01d57433702c..dad85fd84f6f 100644
---- a/fs/fscache/main.c
-+++ b/fs/fscache/main.c
-@@ -53,15 +53,16 @@ static inline unsigned int fold_hash(unsigned long x, unsigned long y)
- /*
-  * Generate a hash.  This is derived from full_name_hash(), but we want to be
-  * sure it is arch independent and that it doesn't change as bits of the
-- * computed hash value might appear on disk.  The caller also guarantees that
-- * the hashed data will be a series of aligned 32-bit words.
-+ * computed hash value might appear on disk.  The caller must guarantee that
-+ * the source data is a multiple of four bytes in size.
-  */
--unsigned int fscache_hash(unsigned int salt, unsigned int *data, unsigned int n)
-+unsigned int fscache_hash(unsigned int salt, const void *data, size_t len)
+-static long fscache_compare_cookie(const struct fscache_cookie *a,
+-				   const struct fscache_cookie *b)
++static bool fscache_cookie_same(const struct fscache_cookie *a,
++				const struct fscache_cookie *b)
  {
--	unsigned int a, x = 0, y = salt;
-+	const __le32 *p = data;
-+	unsigned int a, x = 0, y = salt, n = len / sizeof(__le32);
+ 	const void *ka, *kb;
  
- 	for (; n; n--) {
--		a = *data++;
-+		a = le32_to_cpu(*p++);
- 		HASH_MIX(x, y, a);
+-	if (a->key_hash != b->key_hash)
+-		return (long)a->key_hash - (long)b->key_hash;
+-	if (a->volume != b->volume)
+-		return (long)a->volume - (long)b->volume;
+-	if (a->key_len != b->key_len)
+-		return (long)a->key_len - (long)b->key_len;
++	if (a->key_hash	!= b->key_hash ||
++	    a->volume	!= b->volume ||
++	    a->key_len	!= b->key_len)
++		return false;
+ 
+ 	if (a->key_len <= sizeof(a->inline_key)) {
+ 		ka = &a->inline_key;
+@@ -308,7 +306,7 @@ static long fscache_compare_cookie(const struct fscache_cookie *a,
+ 		ka = a->key;
+ 		kb = b->key;
  	}
- 	return fold_hash(x, y);
-diff --git a/fs/fscache/volume.c b/fs/fscache/volume.c
-index edd3c245010e..26a6b8f315e1 100644
---- a/fs/fscache/volume.c
-+++ b/fs/fscache/volume.c
-@@ -131,7 +131,7 @@ static long fscache_compare_volume(const struct fscache_volume *a,
- 	if (a->key[0] != b->key[0])
- 		return (long)a->key[0]   - (long)b->key[0];
- 
--	klen = round_up(a->key[0] + 1, sizeof(unsigned int));
-+	klen = round_up(a->key[0] + 1, sizeof(__le32));
- 	return memcmp(a->key, b->key, klen);
+-	return memcmp(ka, kb, a->key_len);
++	return memcmp(ka, kb, a->key_len) == 0;
  }
  
-@@ -225,7 +225,7 @@ static struct fscache_volume *fscache_alloc_volume(const char *volume_key,
- 	 * hashing easier.
- 	 */
- 	klen = strlen(volume_key);
--	hlen = round_up(1 + klen + 1, sizeof(unsigned int));
-+	hlen = round_up(1 + klen + 1, sizeof(__le32));
- 	key = kzalloc(hlen, GFP_KERNEL);
- 	if (!key)
- 		goto err_vol;
-@@ -233,8 +233,7 @@ static struct fscache_volume *fscache_alloc_volume(const char *volume_key,
- 	memcpy(key + 1, volume_key, klen);
+ static atomic_t fscache_cookie_debug_id = ATOMIC_INIT(1);
+@@ -399,7 +397,7 @@ static bool fscache_hash_cookie(struct fscache_cookie *candidate)
  
- 	volume->key = key;
--	volume->key_hash = fscache_hash(0, (unsigned int *)key,
--					hlen / sizeof(unsigned int));
-+	volume->key_hash = fscache_hash(0, key, hlen);
+ 	hlist_bl_lock(h);
+ 	hlist_bl_for_each_entry(cursor, p, h, hash_link) {
+-		if (fscache_compare_cookie(candidate, cursor) == 0) {
++		if (fscache_cookie_same(candidate, cursor)) {
+ 			if (!test_bit(FSCACHE_COOKIE_RELINQUISHED, &cursor->flags))
+ 				goto collision;
+ 			wait_for = fscache_get_cookie(cursor,
+diff --git a/fs/fscache/volume.c b/fs/fscache/volume.c
+index 26a6b8f315e1..0e80fd8fd14a 100644
+--- a/fs/fscache/volume.c
++++ b/fs/fscache/volume.c
+@@ -119,20 +119,18 @@ void fscache_end_volume_access(struct fscache_volume *volume,
+ }
+ EXPORT_SYMBOL(fscache_end_volume_access);
  
- 	volume->debug_id = atomic_inc_return(&fscache_volume_debug_id);
- 	down_write(&fscache_addremove_sem);
+-static long fscache_compare_volume(const struct fscache_volume *a,
+-				   const struct fscache_volume *b)
++static bool fscache_volume_same(const struct fscache_volume *a,
++				const struct fscache_volume *b)
+ {
+ 	size_t klen;
+ 
+-	if (a->key_hash != b->key_hash)
+-		return (long)a->key_hash - (long)b->key_hash;
+-	if (a->cache != b->cache)
+-		return (long)a->cache    - (long)b->cache;
+-	if (a->key[0] != b->key[0])
+-		return (long)a->key[0]   - (long)b->key[0];
++	if (a->key_hash	!= b->key_hash ||
++	    a->cache	!= b->cache ||
++	    a->key[0]	!= b->key[0])
++		return false;
+ 
+ 	klen = round_up(a->key[0] + 1, sizeof(__le32));
+-	return memcmp(a->key, b->key, klen);
++	return memcmp(a->key, b->key, klen) == 0;
+ }
+ 
+ static bool fscache_is_acquire_pending(struct fscache_volume *volume)
+@@ -170,7 +168,7 @@ static bool fscache_hash_volume(struct fscache_volume *candidate)
+ 
+ 	hlist_bl_lock(h);
+ 	hlist_bl_for_each_entry(cursor, p, h, hash_link) {
+-		if (fscache_compare_volume(candidate, cursor) == 0) {
++		if (fscache_volume_same(candidate, cursor)) {
+ 			if (!test_bit(FSCACHE_VOLUME_RELINQUISHED, &cursor->flags))
+ 				goto collision;
+ 			fscache_see_volume(cursor, fscache_volume_get_hash_collision);
+@@ -335,7 +333,7 @@ static void fscache_wake_pending_volume(struct fscache_volume *volume,
+ 	struct hlist_bl_node *p;
+ 
+ 	hlist_bl_for_each_entry(cursor, p, h, hash_link) {
+-		if (fscache_compare_volume(cursor, volume) == 0) {
++		if (fscache_volume_same(cursor, volume)) {
+ 			fscache_see_volume(cursor, fscache_volume_see_hash_wake);
+ 			clear_bit(FSCACHE_VOLUME_ACQUIRE_PENDING, &cursor->flags);
+ 			wake_up_bit(&cursor->flags, FSCACHE_VOLUME_ACQUIRE_PENDING);
 
 --
 Linux-cachefs mailing list
