@@ -2,72 +2,55 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD22471CD7
-	for <lists+linux-cachefs@lfdr.de>; Sun, 12 Dec 2021 21:15:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73775473034
+	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Dec 2021 16:13:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402--iOLm7XcOUCfgDOJV-ZXvA-1; Sun, 12 Dec 2021 15:15:00 -0500
-X-MC-Unique: -iOLm7XcOUCfgDOJV-ZXvA-1
+ us-mta-24-IlggWKgIPCOB3tromykX3w-1; Mon, 13 Dec 2021 10:13:04 -0500
+X-MC-Unique: IlggWKgIPCOB3tromykX3w-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D36C71853022;
-	Sun, 12 Dec 2021 20:14:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1819281CCBE;
+	Mon, 13 Dec 2021 15:13:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71693100164A;
-	Sun, 12 Dec 2021 20:14:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E56C100EBAD;
+	Mon, 13 Dec 2021 15:12:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 872BC1809CB8;
-	Sun, 12 Dec 2021 20:14:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5BBF81809CB8;
+	Mon, 13 Dec 2021 15:12:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BCKEddm021560 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Sun, 12 Dec 2021 15:14:39 -0500
+	id 1BDFAU5d009284 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 13 Dec 2021 10:10:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1483B1121315; Sun, 12 Dec 2021 20:14:39 +0000 (UTC)
+	id 226C0492C3B; Mon, 13 Dec 2021 15:10:30 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 106351121314
-	for <linux-cachefs@redhat.com>; Sun, 12 Dec 2021 20:14:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67163800B28
-	for <linux-cachefs@redhat.com>; Sun, 12 Dec 2021 20:14:35 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
-	[209.85.167.46]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-19-PE0F5b-lNkSvJS6btZ9JNw-1; Sun, 12 Dec 2021 15:14:31 -0500
-X-MC-Unique: PE0F5b-lNkSvJS6btZ9JNw-1
-Received: by mail-lf1-f46.google.com with SMTP id k37so27414942lfv.3;
-	Sun, 12 Dec 2021 12:14:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=P9iBGIirnE079mDC33m+ZeyiHq9a58D+yeiB4U9Jaqo=;
-	b=nZSo6n5nsmWKuY1F1kLhUcPMgakh0JDIgZw6bNwiXvghStmRKTvoLg1Xp4kdBbvt2f
-	38v6aO+ioecXe7hEHmAPonGP0HmBDzDsbhH1FiIuu4MWkR4+vsNixmGax7Mkan9CfoLC
-	pXtB6aZjs+9mmg2J7FOW9jvm0VlCiVx8M1yNZ2eGrtWDFg9UaR4HnpKt3SIPWDC5UMr8
-	zEjPpVjTLGGvF9FDm1K6yuU9I1NR6scqz/DpRk7y+BJgd3Qe5ykbxS8krV/5rnKWqD6E
-	xH+Xy7tEPMyZZ9vydiAexXzgLkO8nlSUsFgx1DCjvz6oi6PAGmdHtZHVPYs7L6zClLt5
-	nnMQ==
-X-Gm-Message-State: AOAM533a1G2olXRil+VXpvZgpA8K2nTz8oF2aCMoeIoY8ocNoYZ0/8gj
-	3XOvga8CiJDSnza440SAsfGglcfmUDSK7ZcoSMOP6Qb5
-X-Google-Smtp-Source: ABdhPJztDTs592zdaCAV22rEoc3dFDuVKaf9eiwmQtAt59lSuvVTsiLV8ugzBjsdTaZqTsX/Gu3b3Fqp6l4+BQ7aRtM=
-X-Received: by 2002:a19:770a:: with SMTP id s10mr26522774lfc.234.1639340069605;
-	Sun, 12 Dec 2021 12:14:29 -0800 (PST)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E3E2492CA4
+	for <linux-cachefs@redhat.com>; Mon, 13 Dec 2021 15:10:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 043101071CE0
+	for <linux-cachefs@redhat.com>; Mon, 13 Dec 2021 15:10:30 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-338-5W6qkAdaP9OWAnAu2NB9BQ-1; Mon, 13 Dec 2021 10:10:28 -0500
+X-MC-Unique: 5W6qkAdaP9OWAnAu2NB9BQ-1
+Date: Mon, 13 Dec 2021 16:10:24 +0100
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: linux-cachefs@redhat.com, linux-kernel@vger.kernel.org
+Message-ID: <YbdiYN+wU1RN9mWo@linutronix.de>
+References: <20211118165442.hekmz7xgisdzsyuh@linutronix.de>
+	<20211202205240.giqxuxqemlxxoobw@linutronix.de>
 MIME-Version: 1.0
-References: <20211105154334.1841927-1-alexandre.ghiti@canonical.com>
-	<20211105154334.1841927-4-alexandre.ghiti@canonical.com>
-In-Reply-To: <20211105154334.1841927-4-alexandre.ghiti@canonical.com>
-From: Steve French <smfrench@gmail.com>
-Date: Sun, 12 Dec 2021 14:14:18 -0600
-Message-ID: <CAH2r5muPS_PSFpdy1xw2mUNcOJ-CRY5EWU1Zwo9DK+UX6VcDvw@mail.gmail.com>
-To: Alexandre Ghiti <alexandre.ghiti@canonical.com>
+In-Reply-To: <20211202205240.giqxuxqemlxxoobw@linutronix.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -76,31 +59,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-loop: linux-cachefs@redhat.com
-Cc: Rich Felker <dalias@libc.org>, linux-doc@vger.kernel.org,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	linux-mips@vger.kernel.org, Paul Mackerras <paulus@samba.org>,
-	samba-technical <samba-technical@lists.samba.org>,
-	Lee Jones <lee.jones@linaro.org>, CIFS <linux-cifs@vger.kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-sh@vger.kernel.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Yoshinori Sato <ysato@users.osdn.me>,
-	Russell King <linux@armlinux.org.uk>, linux-cachefs@redhat.com,
-	LAK <linux-arm-kernel@lists.infradead.org>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Kalle Valo <kvalo@codeaurora.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	LKML <linux-kernel@vger.kernel.org>, Ronnie Sahlberg <lsahlber@redhat.com>,
-	Steve French <sfrench@samba.org>, Luis Chamberlain <mcgrof@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-cachefs] [PATCH 3/7] Documentation,
-	arch: Remove leftovers from CIFS_WEAK_PW_HASH
+Cc: Tejun Heo <tj@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	Gregor Beck <gregor.beck@gmail.com>
+Subject: Re: [Linux-cachefs] [PATCH v2 REPOST] fscache: Use only one
+	fscache_object_cong_wait.
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -119,247 +83,143 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-You can add my RB is you would like to this.
+On 2021-12-02 21:52:45 [+0100], To linux-cachefs@redhat.com wrote:
+> On 2021-11-18 17:54:44 [+0100], To linux-cachefs@redhat.com wrote:
+> > In the commit mentioned below, fscache was converted from slow-work to
+> > workqueue. slow_work_enqueue() and slow_work_sleep_till_thread_needed()
+> > did not use a per-CPU workqueue. They choose from two global waitqueues
+> > depending on the SLOW_WORK_VERY_SLOW bit which was not set so it always
+> > one waitqueue.
+> > 
+> > I can't find out how it is ensured that a waiter on certain CPU is woken
+> > up be the other side. My guess is that the timeout in schedule_timeout()
+> > ensures that it does not wait forever (or a random wake up).
+> > 
+> > fscache_object_sleep_till_congested() must be invoked from preemptible
+> > context in order for schedule() to work. In this case this_cpu_ptr()
+> > should complain with CONFIG_DEBUG_PREEMPT enabled except the thread is
+> > bound to one CPU.
+> > 
+> > wake_up() wakes only one waiter and I'm not sure if it is guaranteed
+> > that only one waiter exists.
+> > 
+> > Replace the per-CPU waitqueue with one global waitqueue.
+> > 
+> > Fixes: 8b8edefa2fffb ("fscache: convert object to use workqueue instead of slow-work")
+> > Reported-by: Gregor Beck <gregor.beck@gmail.com>
+> > Cc: stable-rt@vger.kernel.org
+> > Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> 
+> I noticed that -next gained commit
+>    608bfec640edb ("fscache: Remove the contents of the fscache driver, pending rewrite")
+> 
+> which removes slow_work_sleep_till_thread_needed() and the per-CPU
+> variable. Since it looks like a bug, what happens stable wise?
 
-Also note an additional typo in the existing config description
-"laintext" instead of "plaintext"
+a gentle ping.
 
-On Fri, Nov 5, 2021 at 11:11 AM Alexandre Ghiti
-<alexandre.ghiti@canonical.com> wrote:
->
-> This config was removed so remove all references to it.
->
-> Fixes: 76a3c92ec9e0 ("cifs: remove support for NTLM and weaker authentication algorithms")
-> Signed-off-by: Alexandre Ghiti <alexandre.ghiti@canonical.com>
-> ---
->  Documentation/admin-guide/cifs/usage.rst    | 7 +++----
->  arch/arm/configs/cm_x300_defconfig          | 1 -
->  arch/arm/configs/ezx_defconfig              | 1 -
->  arch/arm/configs/imote2_defconfig           | 1 -
->  arch/arm/configs/nhk8815_defconfig          | 1 -
->  arch/arm/configs/pxa_defconfig              | 1 -
->  arch/mips/configs/fuloong2e_defconfig       | 1 -
->  arch/mips/configs/malta_qemu_32r6_defconfig | 1 -
->  arch/mips/configs/maltaaprp_defconfig       | 1 -
->  arch/mips/configs/maltasmvp_defconfig       | 1 -
->  arch/mips/configs/maltasmvp_eva_defconfig   | 1 -
->  arch/mips/configs/maltaup_defconfig         | 1 -
->  arch/mips/configs/nlm_xlp_defconfig         | 1 -
->  arch/mips/configs/nlm_xlr_defconfig         | 1 -
->  arch/powerpc/configs/ppc6xx_defconfig       | 1 -
->  arch/sh/configs/titan_defconfig             | 1 -
->  16 files changed, 3 insertions(+), 19 deletions(-)
->
-> diff --git a/Documentation/admin-guide/cifs/usage.rst b/Documentation/admin-guide/cifs/usage.rst
-> index f170d8820258..3766bf8a1c20 100644
-> --- a/Documentation/admin-guide/cifs/usage.rst
-> +++ b/Documentation/admin-guide/cifs/usage.rst
-> @@ -734,10 +734,9 @@ SecurityFlags              Flags which control security negotiation and
->                         using weaker password hashes is 0x37037 (lanman,
->                         plaintext, ntlm, ntlmv2, signing allowed).  Some
->                         SecurityFlags require the corresponding menuconfig
-> -                       options to be enabled (lanman and plaintext require
-> -                       CONFIG_CIFS_WEAK_PW_HASH for example).  Enabling
-> -                       plaintext authentication currently requires also
-> -                       enabling lanman authentication in the security flags
-> +                       options to be enabled.  Enabling plaintext
-> +                       authentication currently requires also enabling
-> +                       lanman authentication in the security flags
->                         because the cifs module only supports sending
->                         laintext passwords using the older lanman dialect
->                         form of the session setup SMB.  (e.g. for authentication
-> diff --git a/arch/arm/configs/cm_x300_defconfig b/arch/arm/configs/cm_x300_defconfig
-> index 502a9d870ca4..45769d0ddd4e 100644
-> --- a/arch/arm/configs/cm_x300_defconfig
-> +++ b/arch/arm/configs/cm_x300_defconfig
-> @@ -146,7 +146,6 @@ CONFIG_NFS_V3_ACL=y
->  CONFIG_NFS_V4=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_PARTITION_ADVANCED=y
->  CONFIG_NLS_CODEPAGE_437=m
->  CONFIG_NLS_ISO8859_1=m
-> diff --git a/arch/arm/configs/ezx_defconfig b/arch/arm/configs/ezx_defconfig
-> index a49e699e52de..ec84d80096b1 100644
-> --- a/arch/arm/configs/ezx_defconfig
-> +++ b/arch/arm/configs/ezx_defconfig
-> @@ -314,7 +314,6 @@ CONFIG_NFSD_V3_ACL=y
->  CONFIG_SMB_FS=m
->  CONFIG_CIFS=m
->  CONFIG_CIFS_STATS=y
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/arm/configs/imote2_defconfig b/arch/arm/configs/imote2_defconfig
-> index 118c4c927f26..6db871d4e077 100644
-> --- a/arch/arm/configs/imote2_defconfig
-> +++ b/arch/arm/configs/imote2_defconfig
-> @@ -288,7 +288,6 @@ CONFIG_NFSD_V3_ACL=y
->  CONFIG_SMB_FS=m
->  CONFIG_CIFS=m
->  CONFIG_CIFS_STATS=y
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/arm/configs/nhk8815_defconfig b/arch/arm/configs/nhk8815_defconfig
-> index 23595fc5a29a..907d6512821a 100644
-> --- a/arch/arm/configs/nhk8815_defconfig
-> +++ b/arch/arm/configs/nhk8815_defconfig
-> @@ -127,7 +127,6 @@ CONFIG_NFS_FS=y
->  CONFIG_NFS_V3_ACL=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_NLS_CODEPAGE_437=y
->  CONFIG_NLS_ASCII=y
->  CONFIG_NLS_ISO8859_1=y
-> diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
-> index 58f4834289e6..dedaaae3d0d8 100644
-> --- a/arch/arm/configs/pxa_defconfig
-> +++ b/arch/arm/configs/pxa_defconfig
-> @@ -699,7 +699,6 @@ CONFIG_NFSD_V3_ACL=y
->  CONFIG_NFSD_V4=y
->  CONFIG_CIFS=m
->  CONFIG_CIFS_STATS=y
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_DEFAULT="utf8"
-> diff --git a/arch/mips/configs/fuloong2e_defconfig b/arch/mips/configs/fuloong2e_defconfig
-> index 5c24ac7fdf56..ba47c5e929b7 100644
-> --- a/arch/mips/configs/fuloong2e_defconfig
-> +++ b/arch/mips/configs/fuloong2e_defconfig
-> @@ -206,7 +206,6 @@ CONFIG_NFSD_V3_ACL=y
->  CONFIG_NFSD_V4=y
->  CONFIG_CIFS=m
->  CONFIG_CIFS_STATS2=y
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_CIFS_DEBUG2=y
-> diff --git a/arch/mips/configs/malta_qemu_32r6_defconfig b/arch/mips/configs/malta_qemu_32r6_defconfig
-> index 614af02d83e6..6fb9bc29f4a0 100644
-> --- a/arch/mips/configs/malta_qemu_32r6_defconfig
-> +++ b/arch/mips/configs/malta_qemu_32r6_defconfig
-> @@ -165,7 +165,6 @@ CONFIG_TMPFS=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/mips/configs/maltaaprp_defconfig b/arch/mips/configs/maltaaprp_defconfig
-> index 9c051f8fd330..eb72df528243 100644
-> --- a/arch/mips/configs/maltaaprp_defconfig
-> +++ b/arch/mips/configs/maltaaprp_defconfig
-> @@ -166,7 +166,6 @@ CONFIG_TMPFS=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/mips/configs/maltasmvp_defconfig b/arch/mips/configs/maltasmvp_defconfig
-> index 2e90d97551d6..1fb40d310f49 100644
-> --- a/arch/mips/configs/maltasmvp_defconfig
-> +++ b/arch/mips/configs/maltasmvp_defconfig
-> @@ -167,7 +167,6 @@ CONFIG_TMPFS=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/mips/configs/maltasmvp_eva_defconfig b/arch/mips/configs/maltasmvp_eva_defconfig
-> index d1f7fdb27284..75cb778c6149 100644
-> --- a/arch/mips/configs/maltasmvp_eva_defconfig
-> +++ b/arch/mips/configs/maltasmvp_eva_defconfig
-> @@ -169,7 +169,6 @@ CONFIG_TMPFS=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/mips/configs/maltaup_defconfig b/arch/mips/configs/maltaup_defconfig
-> index 48e5bd492452..7b4f247dc60c 100644
-> --- a/arch/mips/configs/maltaup_defconfig
-> +++ b/arch/mips/configs/maltaup_defconfig
-> @@ -165,7 +165,6 @@ CONFIG_TMPFS=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
->  CONFIG_NLS_CODEPAGE_437=m
-> diff --git a/arch/mips/configs/nlm_xlp_defconfig b/arch/mips/configs/nlm_xlp_defconfig
-> index c97f00ece828..1c8b73d03263 100644
-> --- a/arch/mips/configs/nlm_xlp_defconfig
-> +++ b/arch/mips/configs/nlm_xlp_defconfig
-> @@ -459,7 +459,6 @@ CONFIG_NFSD=m
->  CONFIG_NFSD_V3_ACL=y
->  CONFIG_NFSD_V4=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_UPCALL=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
-> diff --git a/arch/mips/configs/nlm_xlr_defconfig b/arch/mips/configs/nlm_xlr_defconfig
-> index 60ea102783d9..11acfc173058 100644
-> --- a/arch/mips/configs/nlm_xlr_defconfig
-> +++ b/arch/mips/configs/nlm_xlr_defconfig
-> @@ -411,7 +411,6 @@ CONFIG_NFSD=m
->  CONFIG_NFSD_V3_ACL=y
->  CONFIG_NFSD_V4=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_UPCALL=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
-> diff --git a/arch/powerpc/configs/ppc6xx_defconfig b/arch/powerpc/configs/ppc6xx_defconfig
-> index 6697c5e6682f..bb549cb1c3e3 100644
-> --- a/arch/powerpc/configs/ppc6xx_defconfig
-> +++ b/arch/powerpc/configs/ppc6xx_defconfig
-> @@ -1022,7 +1022,6 @@ CONFIG_NFSD=m
->  CONFIG_NFSD_V3_ACL=y
->  CONFIG_NFSD_V4=y
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_CIFS_UPCALL=y
->  CONFIG_CIFS_XATTR=y
->  CONFIG_CIFS_POSIX=y
-> diff --git a/arch/sh/configs/titan_defconfig b/arch/sh/configs/titan_defconfig
-> index ba887f1351be..cd5c58916c65 100644
-> --- a/arch/sh/configs/titan_defconfig
-> +++ b/arch/sh/configs/titan_defconfig
-> @@ -242,7 +242,6 @@ CONFIG_NFSD=y
->  CONFIG_NFSD_V3=y
->  CONFIG_SMB_FS=m
->  CONFIG_CIFS=m
-> -CONFIG_CIFS_WEAK_PW_HASH=y
->  CONFIG_PARTITION_ADVANCED=y
->  CONFIG_NLS_CODEPAGE_437=m
->  CONFIG_NLS_ASCII=m
-> --
-> 2.32.0
->
-
-
--- 
-Thanks,
-
-Steve
+> > ---
+> > Previous post
+> >   https://lore.kernel.org/all/20211029083839.xwwt7jgzru3kcpii@linutronix.de/
+> > 
+> >  fs/fscache/internal.h |    1 -
+> >  fs/fscache/main.c     |    6 ------
+> >  fs/fscache/object.c   |   13 +++++--------
+> >  3 files changed, 5 insertions(+), 15 deletions(-)
+> > 
+> > --- a/fs/fscache/internal.h
+> > +++ b/fs/fscache/internal.h
+> > @@ -81,7 +81,6 @@ extern unsigned fscache_debug;
+> >  extern struct kobject *fscache_root;
+> >  extern struct workqueue_struct *fscache_object_wq;
+> >  extern struct workqueue_struct *fscache_op_wq;
+> > -DECLARE_PER_CPU(wait_queue_head_t, fscache_object_cong_wait);
+> >  
+> >  extern unsigned int fscache_hash(unsigned int salt, unsigned int *data, unsigned int n);
+> >  
+> > --- a/fs/fscache/main.c
+> > +++ b/fs/fscache/main.c
+> > @@ -41,8 +41,6 @@ struct kobject *fscache_root;
+> >  struct workqueue_struct *fscache_object_wq;
+> >  struct workqueue_struct *fscache_op_wq;
+> >  
+> > -DEFINE_PER_CPU(wait_queue_head_t, fscache_object_cong_wait);
+> > -
+> >  /* these values serve as lower bounds, will be adjusted in fscache_init() */
+> >  static unsigned fscache_object_max_active = 4;
+> >  static unsigned fscache_op_max_active = 2;
+> > @@ -138,7 +136,6 @@ unsigned int fscache_hash(unsigned int s
+> >  static int __init fscache_init(void)
+> >  {
+> >  	unsigned int nr_cpus = num_possible_cpus();
+> > -	unsigned int cpu;
+> >  	int ret;
+> >  
+> >  	fscache_object_max_active =
+> > @@ -161,9 +158,6 @@ static int __init fscache_init(void)
+> >  	if (!fscache_op_wq)
+> >  		goto error_op_wq;
+> >  
+> > -	for_each_possible_cpu(cpu)
+> > -		init_waitqueue_head(&per_cpu(fscache_object_cong_wait, cpu));
+> > -
+> >  	ret = fscache_proc_init();
+> >  	if (ret < 0)
+> >  		goto error_proc;
+> > --- a/fs/fscache/object.c
+> > +++ b/fs/fscache/object.c
+> > @@ -798,6 +798,8 @@ void fscache_object_destroy(struct fscac
+> >  }
+> >  EXPORT_SYMBOL(fscache_object_destroy);
+> >  
+> > +static DECLARE_WAIT_QUEUE_HEAD(fscache_object_cong_wait);
+> > +
+> >  /*
+> >   * enqueue an object for metadata-type processing
+> >   */
+> > @@ -806,16 +808,12 @@ void fscache_enqueue_object(struct fscac
+> >  	_enter("{OBJ%x}", object->debug_id);
+> >  
+> >  	if (fscache_get_object(object, fscache_obj_get_queue) >= 0) {
+> > -		wait_queue_head_t *cong_wq =
+> > -			&get_cpu_var(fscache_object_cong_wait);
+> >  
+> >  		if (queue_work(fscache_object_wq, &object->work)) {
+> >  			if (fscache_object_congested())
+> > -				wake_up(cong_wq);
+> > +				wake_up(&fscache_object_cong_wait);
+> >  		} else
+> >  			fscache_put_object(object, fscache_obj_put_queue);
+> > -
+> > -		put_cpu_var(fscache_object_cong_wait);
+> >  	}
+> >  }
+> >  
+> > @@ -833,16 +831,15 @@ void fscache_enqueue_object(struct fscac
+> >   */
+> >  bool fscache_object_sleep_till_congested(signed long *timeoutp)
+> >  {
+> > -	wait_queue_head_t *cong_wq = this_cpu_ptr(&fscache_object_cong_wait);
+> >  	DEFINE_WAIT(wait);
+> >  
+> >  	if (fscache_object_congested())
+> >  		return true;
+> >  
+> > -	add_wait_queue_exclusive(cong_wq, &wait);
+> > +	add_wait_queue_exclusive(&fscache_object_cong_wait, &wait);
+> >  	if (!fscache_object_congested())
+> >  		*timeoutp = schedule_timeout(*timeoutp);
+> > -	finish_wait(cong_wq, &wait);
+> > +	finish_wait(&fscache_object_cong_wait, &wait);
+> >  
+> >  	return fscache_object_congested();
+> >  }
+ 
+Sebastian
 
 --
 Linux-cachefs mailing list
