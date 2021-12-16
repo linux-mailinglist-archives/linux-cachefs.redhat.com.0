@@ -1,84 +1,84 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 337D4476E0F
-	for <lists+linux-cachefs@lfdr.de>; Thu, 16 Dec 2021 10:48:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 084C6476E1E
+	for <lists+linux-cachefs@lfdr.de>; Thu, 16 Dec 2021 10:49:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-46-LqFZJMnqMxK2aFKXHQieSg-1; Thu, 16 Dec 2021 04:48:07 -0500
-X-MC-Unique: LqFZJMnqMxK2aFKXHQieSg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-637-NJMS098vNjWDwCR1Q2TLkw-1; Thu, 16 Dec 2021 04:49:10 -0500
+X-MC-Unique: NJMS098vNjWDwCR1Q2TLkw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 06CF28015CD;
-	Thu, 16 Dec 2021 09:48:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBE3710A48A7;
-	Thu, 16 Dec 2021 09:48:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DCC831934100;
+	Thu, 16 Dec 2021 09:49:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCBBD7E64F;
+	Thu, 16 Dec 2021 09:49:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B8AD81809CB8;
-	Thu, 16 Dec 2021 09:48:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.7])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8819E4BB7C;
+	Thu, 16 Dec 2021 09:49:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BG9m2nq004072 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 16 Dec 2021 04:48:02 -0500
+	id 1BG9n4nf004114 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 16 Dec 2021 04:49:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 84766140240A; Thu, 16 Dec 2021 09:48:02 +0000 (UTC)
+	id 42B0D401E77; Thu, 16 Dec 2021 09:49:04 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F8231402409
-	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:48:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EC2D401E61
+	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:49:04 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 603A41C8C291
-	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:48:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 259B21C8C293
+	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:49:04 +0000 (UTC)
 Received: from smtp-relay-internal-0.canonical.com
 	(smtp-relay-internal-0.canonical.com [185.125.188.122]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-631-sLfVH8_0OQChRvWhB8aOog-1; Thu, 16 Dec 2021 04:48:00 -0500
-X-MC-Unique: sLfVH8_0OQChRvWhB8aOog-1
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
-	[209.85.221.69])
+	us-mta-379-2aHXWXukMDifEDHu4BMpew-1; Thu, 16 Dec 2021 04:49:02 -0500
+X-MC-Unique: 2aHXWXukMDifEDHu4BMpew-1
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+	[209.85.221.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
 	SHA256) (No client certificate requested)
 	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id
-	61DC53FFD8
-	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:47:59 +0000 (UTC)
-Received: by mail-wr1-f69.google.com with SMTP id
-	t30-20020adfa2de000000b001a24004e1fbso483590wra.10
-	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 01:47:59 -0800 (PST)
+	3B5C740265
+	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 09:49:00 +0000 (UTC)
+Received: by mail-wr1-f70.google.com with SMTP id
+	l13-20020adfbd8d000000b001a23a990dbfso603540wrh.5
+	for <linux-cachefs@redhat.com>; Thu, 16 Dec 2021 01:49:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references:mime-version:content-transfer-encoding;
-	bh=UA5EztZHI/uiiMUXLzWoUuv2dZPMgtdfvbN4/RIGhNw=;
-	b=NoEvtAq1nBUzD2DaHHB1OIR3jXyPMfB5b0eFEenTxUw9PM6AjRhLjmCgMte/X2TDpx
-	jFEms3l1koj3knIzTaIyrQhqQ6xeIdQxREk7efVc1ikrcJCmVPnR3ibbRexgtTX27hO4
-	x0XzwBhqFJ5ItvZlsQvj8l6cdDol/2yg6flpiM6aFCJBpdzQDaVgTxt2XIIjSp5k+XNE
-	/tHdDJmQxPLIwFIquN5tsWASTjzx9nsU3OdUYh4dvBJHpSQLsCKEQ/4aXTO+2RvZzIuw
-	SqCQDo2kHPC1lhLgEQEECmiP1MuHW8JGd/dH2L0EDNuVnoIqruSDIz67WkA69ZTdS212
-	BG4w==
-X-Gm-Message-State: AOAM530Sc+o23fW356F8Zj5nGtO0dnN8bLVa50/ON7dXwZ4D5JVH4xgR
-	ZzemdCO1eqJEQ6juxTy7zTDaNCmH1+9hnLnXm5re1+6hTUMVg0mzEhF0if/T1Ri4Sy1kZtNn+5z
-	fNHP2mU/NEfnm/S467MDqyjydfi4TKhoebOZ3
-X-Received: by 2002:a1c:740c:: with SMTP id p12mr316011wmc.140.1639648078003; 
-	Thu, 16 Dec 2021 01:47:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyePI8Du4Q8VFJBsAu6osq6C3A++AYoB7smlNaZZ2VPRzrhLbuU04wBMA93ArT9KvS81ExrOQ==
-X-Received: by 2002:a1c:740c:: with SMTP id p12mr315973wmc.140.1639648077773; 
-	Thu, 16 Dec 2021 01:47:57 -0800 (PST)
+	bh=WUEOV0Puf0rdsNKOWUqNq9jf3IbOHS9FDzqSlVW9pZ4=;
+	b=LxNz491FZtPglNp1erOcMT0fl0pPGtYmnv1wlE0G2eLH6beScu47zJLaHEX806bH2u
+	HjmlKFZ5kk81kjwjB4OjSVBMRer++41L7caA9krY7fCBcFaWOu3rQHtstqYvXr26JE+y
+	7GAPe+igiFvZmZDmrluRbAF1Wl5ZeQk4/AuRPeNBEwSCGdobkkx1lxJNIqe5qQqQL29/
+	wUL8BsVdBcejH5wq+sgqBmfZj0fAmbIiY4OhR2cUE/0jJ56BoEvJwWU44qZDOYRltykq
+	Rxj3PxJGCd+8cNuQ5Zu2gdm5C/j3/uwLRvwiBzZKn5HDjA+RkeKI9K/FH89M0h7D377R
+	cLog==
+X-Gm-Message-State: AOAM533Qg8zmZqq+4i3QTDEmMJgz9A2xOpjTb3UPMB6coR+1aH2GRb86
+	j5E1Mp0sobKS0YmUcU7ao3zsC4E/XZZAKbHrTUe3ogtmDgYVXuaAnAPFIm3E2CXX9SBhPV8ZyhK
+	9p3LBlAE358H627vVviSOAXaWv29i46eWNo4o
+X-Received: by 2002:a5d:69c5:: with SMTP id s5mr8274614wrw.283.1639648139312; 
+	Thu, 16 Dec 2021 01:48:59 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy4D7RcuSiJhn58Bkp9nDVxQgFgFxFbQZtRi6SJVIaJvvuUPrIa3b5F/cBoS8baOoKUv8xnUw==
+X-Received: by 2002:a5d:69c5:: with SMTP id s5mr8274584wrw.283.1639648139155; 
+	Thu, 16 Dec 2021 01:48:59 -0800 (PST)
 Received: from alex.home (lfbn-gre-1-195-1.w90-112.abo.wanadoo.fr.
 	[90.112.158.1]) by smtp.gmail.com with ESMTPSA id
-	g124sm7250562wme.28.2021.12.16.01.47.56
+	m36sm4145891wms.25.2021.12.16.01.48.58
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 16 Dec 2021 01:47:57 -0800 (PST)
+	Thu, 16 Dec 2021 01:48:58 -0800 (PST)
 From: Alexandre Ghiti <alexandre.ghiti@canonical.com>
 To: Steve French <sfrench@samba.org>, Jonathan Corbet <corbet@lwn.net>,
 	David Howells <dhowells@redhat.com>, Russell King <linux@armlinux.org.uk>,
@@ -101,8 +101,8 @@ To: Steve French <sfrench@samba.org>, Jonathan Corbet <corbet@lwn.net>,
 	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
 	linux-power@fi.rohmeurope.com
-Date: Thu, 16 Dec 2021 10:44:23 +0100
-Message-Id: <20211216094426.2083802-4-alexandre.ghiti@canonical.com>
+Date: Thu, 16 Dec 2021 10:44:24 +0100
+Message-Id: <20211216094426.2083802-5-alexandre.ghiti@canonical.com>
 In-Reply-To: <20211216094426.2083802-1-alexandre.ghiti@canonical.com>
 References: <20211216094426.2083802-1-alexandre.ghiti@canonical.com>
 MIME-Version: 1.0
@@ -114,14 +114,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1BG9m2nq004072
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1BG9n4nf004114
 X-loop: linux-cachefs@redhat.com
-Cc: Steve French <smfrench@gmail.com>,
-	Alexandre Ghiti <alexandre.ghiti@canonical.com>
-Subject: [Linux-cachefs] [PATCH v2 3/6] Documentation,
-	arch: Remove leftovers from CIFS_WEAK_PW_HASH
+Cc: Alexandre Ghiti <alexandre.ghiti@canonical.com>
+Subject: [Linux-cachefs] [PATCH v2 4/6] arch: Remove leftovers from
+	mandatory file locking
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -135,7 +134,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -145,201 +144,51 @@ Content-Transfer-Encoding: 7bit
 
 This config was removed so remove all references to it.
 
-Fixes: 76a3c92ec9e0 ("cifs: remove support for NTLM and weaker authentication algorithms")
+Fixes: f7e33bdbd6d1 ("fs: remove mandatory file locking support")
 Signed-off-by: Alexandre Ghiti <alexandre.ghiti@canonical.com>
-Reviewed-by: Steve French <smfrench@gmail.com>
-Acked-by: Arnd Bergmann <arnd@arndb.de> [arch/arm/configs]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 ---
- Documentation/admin-guide/cifs/usage.rst    | 7 +++----
- arch/arm/configs/cm_x300_defconfig          | 1 -
- arch/arm/configs/ezx_defconfig              | 1 -
- arch/arm/configs/imote2_defconfig           | 1 -
- arch/arm/configs/nhk8815_defconfig          | 1 -
- arch/arm/configs/pxa_defconfig              | 1 -
- arch/mips/configs/fuloong2e_defconfig       | 1 -
- arch/mips/configs/malta_qemu_32r6_defconfig | 1 -
- arch/mips/configs/maltaaprp_defconfig       | 1 -
- arch/mips/configs/maltasmvp_defconfig       | 1 -
- arch/mips/configs/maltasmvp_eva_defconfig   | 1 -
- arch/mips/configs/maltaup_defconfig         | 1 -
- arch/powerpc/configs/ppc6xx_defconfig       | 1 -
- arch/sh/configs/titan_defconfig             | 1 -
- 14 files changed, 3 insertions(+), 17 deletions(-)
+ arch/mips/configs/decstation_64_defconfig  | 1 -
+ arch/mips/configs/decstation_defconfig     | 1 -
+ arch/mips/configs/decstation_r4k_defconfig | 1 -
+ 3 files changed, 3 deletions(-)
 
-diff --git a/Documentation/admin-guide/cifs/usage.rst b/Documentation/admin-guide/cifs/usage.rst
-index f170d8820258..3766bf8a1c20 100644
---- a/Documentation/admin-guide/cifs/usage.rst
-+++ b/Documentation/admin-guide/cifs/usage.rst
-@@ -734,10 +734,9 @@ SecurityFlags		Flags which control security negotiation and
- 			using weaker password hashes is 0x37037 (lanman,
- 			plaintext, ntlm, ntlmv2, signing allowed).  Some
- 			SecurityFlags require the corresponding menuconfig
--			options to be enabled (lanman and plaintext require
--			CONFIG_CIFS_WEAK_PW_HASH for example).  Enabling
--			plaintext authentication currently requires also
--			enabling lanman authentication in the security flags
-+			options to be enabled.  Enabling plaintext
-+			authentication currently requires also enabling
-+			lanman authentication in the security flags
- 			because the cifs module only supports sending
- 			laintext passwords using the older lanman dialect
- 			form of the session setup SMB.  (e.g. for authentication
-diff --git a/arch/arm/configs/cm_x300_defconfig b/arch/arm/configs/cm_x300_defconfig
-index 502a9d870ca4..45769d0ddd4e 100644
---- a/arch/arm/configs/cm_x300_defconfig
-+++ b/arch/arm/configs/cm_x300_defconfig
-@@ -146,7 +146,6 @@ CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_PARTITION_ADVANCED=y
- CONFIG_NLS_CODEPAGE_437=m
- CONFIG_NLS_ISO8859_1=m
-diff --git a/arch/arm/configs/ezx_defconfig b/arch/arm/configs/ezx_defconfig
-index a49e699e52de..ec84d80096b1 100644
---- a/arch/arm/configs/ezx_defconfig
-+++ b/arch/arm/configs/ezx_defconfig
-@@ -314,7 +314,6 @@ CONFIG_NFSD_V3_ACL=y
- CONFIG_SMB_FS=m
- CONFIG_CIFS=m
- CONFIG_CIFS_STATS=y
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/arm/configs/imote2_defconfig b/arch/arm/configs/imote2_defconfig
-index 118c4c927f26..6db871d4e077 100644
---- a/arch/arm/configs/imote2_defconfig
-+++ b/arch/arm/configs/imote2_defconfig
-@@ -288,7 +288,6 @@ CONFIG_NFSD_V3_ACL=y
- CONFIG_SMB_FS=m
- CONFIG_CIFS=m
- CONFIG_CIFS_STATS=y
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/arm/configs/nhk8815_defconfig b/arch/arm/configs/nhk8815_defconfig
-index 23595fc5a29a..907d6512821a 100644
---- a/arch/arm/configs/nhk8815_defconfig
-+++ b/arch/arm/configs/nhk8815_defconfig
-@@ -127,7 +127,6 @@ CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_NLS_CODEPAGE_437=y
- CONFIG_NLS_ASCII=y
- CONFIG_NLS_ISO8859_1=y
-diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
-index 58f4834289e6..dedaaae3d0d8 100644
---- a/arch/arm/configs/pxa_defconfig
-+++ b/arch/arm/configs/pxa_defconfig
-@@ -699,7 +699,6 @@ CONFIG_NFSD_V3_ACL=y
- CONFIG_NFSD_V4=y
- CONFIG_CIFS=m
- CONFIG_CIFS_STATS=y
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_DEFAULT="utf8"
-diff --git a/arch/mips/configs/fuloong2e_defconfig b/arch/mips/configs/fuloong2e_defconfig
-index 5c24ac7fdf56..ba47c5e929b7 100644
---- a/arch/mips/configs/fuloong2e_defconfig
-+++ b/arch/mips/configs/fuloong2e_defconfig
-@@ -206,7 +206,6 @@ CONFIG_NFSD_V3_ACL=y
- CONFIG_NFSD_V4=y
- CONFIG_CIFS=m
- CONFIG_CIFS_STATS2=y
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_CIFS_DEBUG2=y
-diff --git a/arch/mips/configs/malta_qemu_32r6_defconfig b/arch/mips/configs/malta_qemu_32r6_defconfig
-index 614af02d83e6..6fb9bc29f4a0 100644
---- a/arch/mips/configs/malta_qemu_32r6_defconfig
-+++ b/arch/mips/configs/malta_qemu_32r6_defconfig
-@@ -165,7 +165,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/mips/configs/maltaaprp_defconfig b/arch/mips/configs/maltaaprp_defconfig
-index 9c051f8fd330..eb72df528243 100644
---- a/arch/mips/configs/maltaaprp_defconfig
-+++ b/arch/mips/configs/maltaaprp_defconfig
-@@ -166,7 +166,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/mips/configs/maltasmvp_defconfig b/arch/mips/configs/maltasmvp_defconfig
-index 2e90d97551d6..1fb40d310f49 100644
---- a/arch/mips/configs/maltasmvp_defconfig
-+++ b/arch/mips/configs/maltasmvp_defconfig
-@@ -167,7 +167,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/mips/configs/maltasmvp_eva_defconfig b/arch/mips/configs/maltasmvp_eva_defconfig
-index d1f7fdb27284..75cb778c6149 100644
---- a/arch/mips/configs/maltasmvp_eva_defconfig
-+++ b/arch/mips/configs/maltasmvp_eva_defconfig
-@@ -169,7 +169,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/mips/configs/maltaup_defconfig b/arch/mips/configs/maltaup_defconfig
-index 48e5bd492452..7b4f247dc60c 100644
---- a/arch/mips/configs/maltaup_defconfig
-+++ b/arch/mips/configs/maltaup_defconfig
-@@ -165,7 +165,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_ROOT_NFS=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
- CONFIG_NLS_CODEPAGE_437=m
-diff --git a/arch/powerpc/configs/ppc6xx_defconfig b/arch/powerpc/configs/ppc6xx_defconfig
-index 6697c5e6682f..bb549cb1c3e3 100644
---- a/arch/powerpc/configs/ppc6xx_defconfig
-+++ b/arch/powerpc/configs/ppc6xx_defconfig
-@@ -1022,7 +1022,6 @@ CONFIG_NFSD=m
- CONFIG_NFSD_V3_ACL=y
- CONFIG_NFSD_V4=y
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_CIFS_UPCALL=y
- CONFIG_CIFS_XATTR=y
- CONFIG_CIFS_POSIX=y
-diff --git a/arch/sh/configs/titan_defconfig b/arch/sh/configs/titan_defconfig
-index ba887f1351be..cd5c58916c65 100644
---- a/arch/sh/configs/titan_defconfig
-+++ b/arch/sh/configs/titan_defconfig
-@@ -242,7 +242,6 @@ CONFIG_NFSD=y
- CONFIG_NFSD_V3=y
- CONFIG_SMB_FS=m
- CONFIG_CIFS=m
--CONFIG_CIFS_WEAK_PW_HASH=y
- CONFIG_PARTITION_ADVANCED=y
- CONFIG_NLS_CODEPAGE_437=m
- CONFIG_NLS_ASCII=m
+diff --git a/arch/mips/configs/decstation_64_defconfig b/arch/mips/configs/decstation_64_defconfig
+index 85f1955b4b00..e2ed105f8c97 100644
+--- a/arch/mips/configs/decstation_64_defconfig
++++ b/arch/mips/configs/decstation_64_defconfig
+@@ -144,7 +144,6 @@ CONFIG_EXT2_FS_SECURITY=y
+ CONFIG_EXT3_FS=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT3_FS_SECURITY=y
+-# CONFIG_MANDATORY_FILE_LOCKING is not set
+ CONFIG_ISO9660_FS=y
+ CONFIG_JOLIET=y
+ CONFIG_PROC_KCORE=y
+diff --git a/arch/mips/configs/decstation_defconfig b/arch/mips/configs/decstation_defconfig
+index 30a6eafdb1d0..7e987d6f5e34 100644
+--- a/arch/mips/configs/decstation_defconfig
++++ b/arch/mips/configs/decstation_defconfig
+@@ -140,7 +140,6 @@ CONFIG_EXT2_FS_SECURITY=y
+ CONFIG_EXT3_FS=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT3_FS_SECURITY=y
+-# CONFIG_MANDATORY_FILE_LOCKING is not set
+ CONFIG_ISO9660_FS=y
+ CONFIG_JOLIET=y
+ CONFIG_PROC_KCORE=y
+diff --git a/arch/mips/configs/decstation_r4k_defconfig b/arch/mips/configs/decstation_r4k_defconfig
+index e2b58dbf4aa9..6df5f6f2ac8e 100644
+--- a/arch/mips/configs/decstation_r4k_defconfig
++++ b/arch/mips/configs/decstation_r4k_defconfig
+@@ -140,7 +140,6 @@ CONFIG_EXT2_FS_SECURITY=y
+ CONFIG_EXT3_FS=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT3_FS_SECURITY=y
+-# CONFIG_MANDATORY_FILE_LOCKING is not set
+ CONFIG_ISO9660_FS=y
+ CONFIG_JOLIET=y
+ CONFIG_PROC_KCORE=y
 -- 
 2.32.0
 
