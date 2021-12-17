@@ -2,59 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D2EB47932E
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Dec 2021 18:54:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F067D479328
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Dec 2021 18:54:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1639763688;
+	s=mimecast20190719; t=1639763682;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pQESXvz3QELWzXLnUDNBHNAmtstU41zO/wqz5WIeFMw=;
-	b=TCLcfNZ9wqAFWf+t5LrrnZhGn8pyy6AKSZdrE2QtVF2yiJRPqSFqwRJ9AxOHK6KnGn+VVB
-	NC/xpEAP7T02OcSlND83YrA86A96Y330lTXhw+GU/rHFxzQxBxpDuYmXZ3S2J7XXVC3at+
-	GQBC27qZj+kXpja+J5LWPME6o6FI/dg=
+	bh=gys/OfKX7xqfsyV27rtUzjSkveU9Ioq6qZ3frQ1n/Uc=;
+	b=bw0qja8etFyMuE1jyT2lmjfJ+5kMfDp47/fQHWSKwFgnrCc5S6moUftcj5Yymk61JExfXs
+	IHAp9O7CWlI9AlVeEAmR8KTi6KmFRySxn924iU3ou+hi7XIT+b4RUbdpZFlKayMWNEqxhL
+	1k7F8vdNnewPGRuxovMq4N8iarwZ6Cc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-340-HyrjMP5_PYigdl3d5eliaA-1; Fri, 17 Dec 2021 12:54:40 -0500
-X-MC-Unique: HyrjMP5_PYigdl3d5eliaA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-584-fJboNicJPLuwJ3jA7Gi5FA-1; Fri, 17 Dec 2021 12:54:40 -0500
+X-MC-Unique: fJboNicJPLuwJ3jA7Gi5FA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8AF610144E1;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B890594DC6;
 	Fri, 17 Dec 2021 17:54:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 41A0278C19;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42DBA1037F39;
 	Fri, 17 Dec 2021 17:54:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA2191809CB8;
-	Fri, 17 Dec 2021 17:54:37 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA0284A7CA;
+	Fri, 17 Dec 2021 17:54:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BHHsVQp007932 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Fri, 17 Dec 2021 12:54:31 -0500
+	id 1BHHsWS5007943 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 17 Dec 2021 12:54:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D39761037F3D; Fri, 17 Dec 2021 17:54:31 +0000 (UTC)
+	id 6E17E1037F3C; Fri, 17 Dec 2021 17:54:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from dwysocha.rdu.csb (unknown [10.22.8.133])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 671E41037F39;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 002371037F39;
 	Fri, 17 Dec 2021 17:54:31 +0000 (UTC)
 From: Dave Wysochanski <dwysocha@redhat.com>
 To: Anna Schumaker <anna.schumaker@netapp.com>,
 	David Howells <dhowells@redhat.com>
-Date: Fri, 17 Dec 2021 12:54:22 -0500
-Message-Id: <1639763665-4917-2-git-send-email-dwysocha@redhat.com>
+Date: Fri, 17 Dec 2021 12:54:23 -0500
+Message-Id: <1639763665-4917-3-git-send-email-dwysocha@redhat.com>
 In-Reply-To: <1639763665-4917-1-git-send-email-dwysocha@redhat.com>
 References: <1639763665-4917-1-git-send-email-dwysocha@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: linux-cachefs@redhat.com
 Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com
-Subject: [Linux-cachefs] [PATCH v2 1/4] NFS: Cleanup usage of nfs_inode in
-	fscache interface and handle i_size properly
+Subject: [Linux-cachefs] [PATCH v2 2/4] NFS: Rename fscache read and write
+	pages functions
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,7 +69,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 MIME-Version: 1.0
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -77,108 +77,134 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A number of places in the fscache interface used nfs_inode when inode could
-be used, simplifying the code.  Also, handle the read of i_size properly by
-utilizing the i_size_read() interface.
+Rename NFS fscache functions in a more consistent fashion
+to better reflect when we read from and write to fscache.
 
 Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
 ---
- fs/nfs/fscache.c | 10 ++++------
- fs/nfs/fscache.h | 18 +++++++++---------
- 2 files changed, 13 insertions(+), 15 deletions(-)
+ fs/nfs/fscache.c |  6 +++---
+ fs/nfs/fscache.h | 27 ++++++++++-----------------
+ fs/nfs/read.c    |  4 ++--
+ 3 files changed, 15 insertions(+), 22 deletions(-)
 
 diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
-index cfe901650ab0..81bd2770e640 100644
+index 81bd2770e640..62fbce28fe85 100644
 --- a/fs/nfs/fscache.c
 +++ b/fs/nfs/fscache.c
-@@ -173,7 +173,7 @@ void nfs_fscache_init_inode(struct inode *inode)
- 	if (!(nfss->fscache && S_ISREG(inode->i_mode)))
- 		return;
- 
--	nfs_fscache_update_auxdata(&auxdata, nfsi);
-+	nfs_fscache_update_auxdata(&auxdata, inode);
- 
- 	nfsi->fscache = fscache_acquire_cookie(NFS_SB(inode->i_sb)->fscache,
- 					       0,
-@@ -181,7 +181,7 @@ void nfs_fscache_init_inode(struct inode *inode)
- 					       nfsi->fh.size,
- 					       &auxdata,      /* aux_data */
- 					       sizeof(auxdata),
--					       i_size_read(&nfsi->vfs_inode));
-+					       i_size_read(inode));
- }
- 
+@@ -317,7 +317,7 @@ static int fscache_fallback_write_page(struct inode *inode, struct page *page,
  /*
-@@ -220,7 +220,6 @@ void nfs_fscache_clear_inode(struct inode *inode)
- void nfs_fscache_open_file(struct inode *inode, struct file *filp)
+  * Retrieve a page from fscache
+  */
+-int __nfs_readpage_from_fscache(struct inode *inode, struct page *page)
++int __nfs_fscache_read_page(struct inode *inode, struct page *page)
  {
- 	struct nfs_fscache_inode_auxdata auxdata;
--	struct nfs_inode *nfsi = NFS_I(inode);
- 	struct fscache_cookie *cookie = nfs_i_fscache(inode);
- 	bool open_for_write = inode_is_open_for_write(inode);
+ 	int ret;
  
-@@ -230,7 +229,7 @@ void nfs_fscache_open_file(struct inode *inode, struct file *filp)
- 	fscache_use_cookie(cookie, open_for_write);
- 	if (open_for_write) {
- 		dfprintk(FSCACHE, "NFS: nfsi 0x%p disabling cache\n", nfsi);
--		nfs_fscache_update_auxdata(&auxdata, nfsi);
-+		nfs_fscache_update_auxdata(&auxdata, inode);
- 		fscache_invalidate(cookie, &auxdata, i_size_read(inode),
- 				   FSCACHE_INVAL_DIO_WRITE);
- 	}
-@@ -240,11 +239,10 @@ void nfs_fscache_open_file(struct inode *inode, struct file *filp)
- void nfs_fscache_release_file(struct inode *inode, struct file *filp)
+@@ -351,7 +351,7 @@ int __nfs_readpage_from_fscache(struct inode *inode, struct page *page)
+  * Store a newly fetched page in fscache.  We can be certain there's no page
+  * stored in the cache as yet otherwise we would've read it from there.
+  */
+-void __nfs_readpage_to_fscache(struct inode *inode, struct page *page)
++void __nfs_fscache_write_page(struct inode *inode, struct page *page)
  {
- 	struct nfs_fscache_inode_auxdata auxdata;
--	struct nfs_inode *nfsi = NFS_I(inode);
- 	struct fscache_cookie *cookie = nfs_i_fscache(inode);
+ 	int ret;
  
- 	if (fscache_cookie_valid(cookie)) {
--		nfs_fscache_update_auxdata(&auxdata, nfsi);
-+		nfs_fscache_update_auxdata(&auxdata, inode);
- 		fscache_unuse_cookie(cookie, &auxdata, NULL);
- 	}
- }
+@@ -362,7 +362,7 @@ void __nfs_readpage_to_fscache(struct inode *inode, struct page *page)
+ 	ret = fscache_fallback_write_page(inode, page, true);
+ 
+ 	dfprintk(FSCACHE,
+-		 "NFS:     readpage_to_fscache: p:%p(i:%lu f:%lx) ret %d\n",
++		 "NFS:     nfs_fscache_write_page: p:%p(i:%lu f:%lx) ret %d\n",
+ 		 page, page->index, page->flags, ret);
+ 
+ 	if (ret != 0) {
 diff --git a/fs/nfs/fscache.h b/fs/nfs/fscache.h
-index e0220fc40366..5cf7238e4886 100644
+index 5cf7238e4886..ab7962ffe5f0 100644
 --- a/fs/nfs/fscache.h
 +++ b/fs/nfs/fscache.h
-@@ -85,16 +85,16 @@ static inline void nfs_readpage_to_fscache(struct inode *inode,
+@@ -44,10 +44,8 @@ struct nfs_fscache_inode_auxdata {
+ extern void nfs_fscache_open_file(struct inode *, struct file *);
+ extern void nfs_fscache_release_file(struct inode *, struct file *);
+ 
+-extern int __nfs_readpage_from_fscache(struct inode *, struct page *);
+-extern void __nfs_read_completion_to_fscache(struct nfs_pgio_header *hdr,
+-					     unsigned long bytes);
+-extern void __nfs_readpage_to_fscache(struct inode *, struct page *);
++extern int __nfs_fscache_read_page(struct inode *, struct page *);
++extern void __nfs_fscache_write_page(struct inode *, struct page *);
+ 
+ static inline int nfs_fscache_release_page(struct page *page, gfp_t gfp)
+ {
+@@ -65,11 +63,10 @@ static inline int nfs_fscache_release_page(struct page *page, gfp_t gfp)
+ /*
+  * Retrieve a page from an inode data storage object.
+  */
+-static inline int nfs_readpage_from_fscache(struct inode *inode,
+-					    struct page *page)
++static inline int nfs_fscache_read_page(struct inode *inode, struct page *page)
+ {
+-	if (NFS_I(inode)->fscache)
+-		return __nfs_readpage_from_fscache(inode, page);
++	if (nfs_i_fscache(inode))
++		return __nfs_fscache_read_page(inode, page);
+ 	return -ENOBUFS;
+ }
+ 
+@@ -77,11 +74,11 @@ static inline int nfs_readpage_from_fscache(struct inode *inode,
+  * Store a page newly fetched from the server in an inode data storage object
+  * in the cache.
+  */
+-static inline void nfs_readpage_to_fscache(struct inode *inode,
++static inline void nfs_fscache_write_page(struct inode *inode,
+ 					   struct page *page)
+ {
+-	if (NFS_I(inode)->fscache)
+-		__nfs_readpage_to_fscache(inode, page);
++	if (nfs_i_fscache(inode))
++		__nfs_fscache_write_page(inode, page);
  }
  
  static inline void nfs_fscache_update_auxdata(struct nfs_fscache_inode_auxdata *auxdata,
--					      struct nfs_inode *nfsi)
-+					      struct inode *inode)
+@@ -135,15 +132,11 @@ static inline int nfs_fscache_release_page(struct page *page, gfp_t gfp)
  {
- 	memset(auxdata, 0, sizeof(*auxdata));
--	auxdata->mtime_sec  = nfsi->vfs_inode.i_mtime.tv_sec;
--	auxdata->mtime_nsec = nfsi->vfs_inode.i_mtime.tv_nsec;
--	auxdata->ctime_sec  = nfsi->vfs_inode.i_ctime.tv_sec;
--	auxdata->ctime_nsec = nfsi->vfs_inode.i_ctime.tv_nsec;
-+	auxdata->mtime_sec  = inode->i_mtime.tv_sec;
-+	auxdata->mtime_nsec = inode->i_mtime.tv_nsec;
-+	auxdata->ctime_sec  = inode->i_ctime.tv_sec;
-+	auxdata->ctime_nsec = inode->i_ctime.tv_nsec;
- 
--	if (NFS_SERVER(&nfsi->vfs_inode)->nfs_client->rpc_ops->version == 4)
--		auxdata->change_attr = inode_peek_iversion_raw(&nfsi->vfs_inode);
-+	if (NFS_SERVER(inode)->nfs_client->rpc_ops->version == 4)
-+		auxdata->change_attr = inode_peek_iversion_raw(inode);
+ 	return 1; /* True: may release page */
  }
+-static inline int nfs_readpage_from_fscache(struct inode *inode,
+-					    struct page *page)
++static inline int nfs_fscache_read_page(struct inode *inode, struct page *page)
+ {
+ 	return -ENOBUFS;
+ }
+-static inline void nfs_readpage_to_fscache(struct inode *inode,
+-					   struct page *page) {}
+-
+-
++static inline void nfs_fscache_write_page(struct inode *inode, struct page *page) {}
+ static inline void nfs_fscache_invalidate(struct inode *inode, int flags) {}
  
- /*
-@@ -106,9 +106,9 @@ static inline void nfs_fscache_invalidate(struct inode *inode, int flags)
- 	struct nfs_inode *nfsi = NFS_I(inode);
+ static inline const char *nfs_server_fscache_state(struct nfs_server *server)
+diff --git a/fs/nfs/read.c b/fs/nfs/read.c
+index eb00229c1a50..f84b6b73c45b 100644
+--- a/fs/nfs/read.c
++++ b/fs/nfs/read.c
+@@ -123,7 +123,7 @@ static void nfs_readpage_release(struct nfs_page *req, int error)
+ 		struct address_space *mapping = page_file_mapping(page);
  
- 	if (nfsi->fscache) {
--		nfs_fscache_update_auxdata(&auxdata, nfsi);
-+		nfs_fscache_update_auxdata(&auxdata, inode);
- 		fscache_invalidate(nfsi->fscache, &auxdata,
--				   i_size_read(&nfsi->vfs_inode), flags);
-+				   i_size_read(inode), flags);
+ 		if (PageUptodate(page))
+-			nfs_readpage_to_fscache(inode, page);
++			nfs_fscache_write_page(inode, page);
+ 		else if (!PageError(page) && !PagePrivate(page))
+ 			generic_error_remove_page(mapping, page);
+ 		unlock_page(page);
+@@ -306,7 +306,7 @@ static void nfs_readpage_result(struct rpc_task *task,
+ 	aligned_len = min_t(unsigned int, ALIGN(len, rsize), PAGE_SIZE);
+ 
+ 	if (!IS_SYNC(page->mapping->host)) {
+-		error = nfs_readpage_from_fscache(page->mapping->host, page);
++		error = nfs_fscache_read_page(page->mapping->host, page);
+ 		if (error == 0)
+ 			goto out_unlock;
  	}
- }
- 
 -- 
 1.8.3.1
 
