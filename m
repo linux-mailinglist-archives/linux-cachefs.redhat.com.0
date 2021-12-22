@@ -1,64 +1,86 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F3D47C219
-	for <lists+linux-cachefs@lfdr.de>; Tue, 21 Dec 2021 16:01:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1640098910;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=gQLLqt3wds9einSFkpABIffWnnM9MK7SVxp3BUZi5Xg=;
-	b=cj6ZdsYJ8AWEZ0EqouT/hUEC89QK/6KLPAFLungfFI+gZ4+cwKvlKzmv1D6nDoaBwLeYWB
-	DtRmp8waT5Qw5tUIyK04XSns8IMoy0CzjNswGp3wik5fPM6S3QHlIiHha8JFRxd8pGkGzu
-	IzO8RqZ6P1VQ3Sg1IbD0hmPTYgw8QTo=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A6F47CDCF
+	for <lists+linux-cachefs@lfdr.de>; Wed, 22 Dec 2021 09:02:57 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-329-H88xn2HcMP2n4cmIGVMUaA-1; Tue, 21 Dec 2021 10:01:44 -0500
-X-MC-Unique: H88xn2HcMP2n4cmIGVMUaA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-22-hNGu4s0NOgKw9choteeY_Q-1; Wed, 22 Dec 2021 03:02:53 -0500
+X-MC-Unique: hNGu4s0NOgKw9choteeY_Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1250B100D84F;
-	Tue, 21 Dec 2021 15:00:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F040519C8;
-	Tue, 21 Dec 2021 15:00:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2D195233;
+	Wed, 22 Dec 2021 08:02:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E17F4048;
+	Wed, 22 Dec 2021 08:02:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 86B4C4BB7C;
-	Tue, 21 Dec 2021 15:00:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AE331809CB8;
+	Wed, 22 Dec 2021 08:02:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BLF0mk5010193 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 21 Dec 2021 10:00:48 -0500
+	id 1BM82eNp022780 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 22 Dec 2021 03:02:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F2B7A418E; Tue, 21 Dec 2021 15:00:47 +0000 (UTC)
+	id B24F040149AA; Wed, 22 Dec 2021 08:02:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.165])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 14EBC5BD34;
-	Tue, 21 Dec 2021 15:00:20 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CAGWkznHcuiwPPMZE95nYG=EFkM8NmLUQZooS5+a+GigP50qksg@mail.gmail.com>
-References: <CAGWkznHcuiwPPMZE95nYG=EFkM8NmLUQZooS5+a+GigP50qksg@mail.gmail.com>
-	<1638952658-20285-1-git-send-email-huangzhaoyang@gmail.com>
-	<2868725.1638995206@warthog.procyon.org.uk>
-To: Zhaoyang Huang <huangzhaoyang@gmail.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AE6864035788
+	for <linux-cachefs@redhat.com>; Wed, 22 Dec 2021 08:02:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95F5228EB6EA
+	for <linux-cachefs@redhat.com>; Wed, 22 Dec 2021 08:02:40 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+	[209.85.160.179]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-594-5R4QEZ96NMO_MPvJjxcepg-1; Wed, 22 Dec 2021 03:02:39 -0500
+X-MC-Unique: 5R4QEZ96NMO_MPvJjxcepg-1
+Received: by mail-qt1-f179.google.com with SMTP id v22so1231968qtx.8;
+	Wed, 22 Dec 2021 00:02:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=eEHO9mF2ihCkk9k6a/idoNBNvOKWMCPKO1yXdk6ABVQ=;
+	b=gswSJlyXzib5qBp4JXB/vDdp82j2jF8tHEuwe81GumtD0yPRptKyq//MsVq6Yu61qT
+	W2NWVmBSY5qxfzVOXdNdfeQxs1JmZhqObcECcfX4xqMe/qnK/v0bAzDLBcIKap0eFj+G
+	ifx/gICYzsGQbtcSUQQW+V+/amuwc3e1z1Y94YDSpNHaaJL/SmpABCDJp7SQE8Xqi40c
+	C7KZActpO8txnrogdQc6sKg06bMTZZ1QITfuYn0W8aW5IwRC0l7G7ygXJPLt5WcIdwad
+	zemZjq5WLwl3hjFVq51f3ud2TZWBwVfEfEgL7bzstu5keyTsXPUnyMyn41EuOEcxxpN7
+	XEfw==
+X-Gm-Message-State: AOAM530QMdbpvNfB9X7+TwahsqRig79j4n9JGfBAvQlbXXUGC8WHi4tU
+	dkA0ujA2PA1xYp86kccJW7+qOGB6APOaDSb5Q4pUgoZ6wBiAcg==
+X-Google-Smtp-Source: ABdhPJxE83WxXenOaQLGWEZKR8S/ngERCAo39PxXlPYIFzgmWE6XIX8ED0EEjeGPv4PBFRACkMEpCHVVp18YzJq+fQQ=
+X-Received: by 2002:a05:622a:120b:: with SMTP id
+	y11mr1275305qtx.544.1640160158101; 
+	Wed, 22 Dec 2021 00:02:38 -0800 (PST)
 MIME-Version: 1.0
-Date: Tue, 21 Dec 2021 15:00:20 +0000
-Message-ID: <73896.1640098820@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1BLF0mk5010193
+References: <1638952658-20285-1-git-send-email-huangzhaoyang@gmail.com>
+	<2868725.1638995206@warthog.procyon.org.uk>
+	<CAGWkznHcuiwPPMZE95nYG=EFkM8NmLUQZooS5+a+GigP50qksg@mail.gmail.com>
+	<73896.1640098820@warthog.procyon.org.uk>
+In-Reply-To: <73896.1640098820@warthog.procyon.org.uk>
+From: Zhaoyang Huang <huangzhaoyang@gmail.com>
+Date: Wed, 22 Dec 2021 16:02:18 +0800
+Message-ID: <CAGWkznGgyS5VrcuYkWR_7sbDOkr0k2mDNUwF6F6N-Y_3GGtoJA@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: linux-cachefs@redhat.com
 Cc: Marc Dionne <marc.dionne@auristor.com>, linux-cachefs@redhat.com,
 	LKML <linux-kernel@vger.kernel.org>,
@@ -78,35 +100,42 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <73895.1640098820.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Zhaoyang Huang <huangzhaoyang@gmail.com> wrote:
-
-> > > -             if (!(gfp_flags & __GFP_DIRECT_RECLAIM) || !(gfp_flags & __GFP_FS))
-> > > +             if (current_is_kswapd() || !(gfp_flags & __GFP_FS))
-> > >                       return false;
-> > >               wait_on_page_fscache(page);
-> ...
-> If the gfp flag here is used for judging kswapd context, I think the
-> answer is yes as kswapd applied __GFP_DIRECT_RECLAIM.
-
-Now I come to look at applying it, I'm not sure whether this change is right.
-
-I don't know if kswapd has anything to do with it.  The check is to see if
-we're allowed to block at this point - and wait is just for the completion of
-a DIO write to disk.
-
-It would seem like gfpflags_allow_blocking() is the right thing to call - and
-that should use current_is_kswapd() if appropriate.
-
-David
+On Tue, Dec 21, 2021 at 11:01 PM David Howells <dhowells@redhat.com> wrote:
+>
+> Zhaoyang Huang <huangzhaoyang@gmail.com> wrote:
+>
+> > > > -             if (!(gfp_flags & __GFP_DIRECT_RECLAIM) || !(gfp_flags & __GFP_FS))
+> > > > +             if (current_is_kswapd() || !(gfp_flags & __GFP_FS))
+> > > >                       return false;
+> > > >               wait_on_page_fscache(page);
+> > ...
+> > If the gfp flag here is used for judging kswapd context, I think the
+> > answer is yes as kswapd applied __GFP_DIRECT_RECLAIM.
+>
+> Now I come to look at applying it, I'm not sure whether this change is right.
+>
+> I don't know if kswapd has anything to do with it.  The check is to see if
+> we're allowed to block at this point - and wait is just for the completion of
+> a DIO write to disk.
+>
+> It would seem like gfpflags_allow_blocking() is the right thing to call - and
+> that should use current_is_kswapd() if appropriate.
+>
+> David
+According to my understanding, this check is redundant according to
+current vmscan logic. For the allocation which deny
+__GFP_DIRECT_RECLAIM could NOT have the context reach here as there is
+no synchronous reclaiming. while kswapd also has __GFP_DIRECT_RECLAIM
+set and would also block on the page's release.
+>
 
 --
 Linux-cachefs mailing list
