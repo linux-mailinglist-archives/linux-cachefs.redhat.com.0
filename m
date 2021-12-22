@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED73C47DA92
-	for <lists+linux-cachefs@lfdr.de>; Thu, 23 Dec 2021 00:24:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 801EA47DAC8
+	for <lists+linux-cachefs@lfdr.de>; Thu, 23 Dec 2021 00:25:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1640215466;
+	s=mimecast20190719; t=1640215519;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iP3q2dNkTYhzc4bySJbNvEiuHcLetBnQxgRWKb5Hwjg=;
-	b=XYzx9zY8UARlfcG+s+NXo+ZsHtsLz9xugm20CrUR9IV7eTa7yEuYmhN2zx+eoaxQV7P7VJ
-	BytPfIIPSp8u2dGYUY+nMiMM6YbsQLo3jXQCpu0F+/mF/YkLwNr9yEbq/MancRqA+n3b1x
-	hfFZNpw78tzlxPdZlOj/Ar2/xrqA4zM=
+	bh=roxTB5+R/XfxPWJJCyh7/1fMB0yoO9gtg7bXMmlsxqY=;
+	b=hiXpC9YS1FyTHbX26TVtMqHvCY55xQXXef1SSVcM1LGIfHm5hH9583aS496TGjFthJwRjC
+	5UyuXK8+R3tr11PfFqqgusBb5n9/YXyHROGXPOcPSXua9r16bJDdLKhuChkQ4cartCsDlh
+	yd6HoU0ZuHDglC8pg0ZlhroN8x3BAI8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-302-Bbcq8UiPNVGCN9k_5V5qrA-1; Wed, 22 Dec 2021 18:24:21 -0500
-X-MC-Unique: Bbcq8UiPNVGCN9k_5V5qrA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-447-d9FWt-FoOaCRMWjkJalOQA-1; Wed, 22 Dec 2021 18:25:18 -0500
+X-MC-Unique: d9FWt-FoOaCRMWjkJalOQA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7FE801080865;
-	Wed, 22 Dec 2021 23:24:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 393862E17C;
-	Wed, 22 Dec 2021 23:24:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5581680BCA8;
+	Wed, 22 Dec 2021 23:25:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4806210911BA;
+	Wed, 22 Dec 2021 23:25:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F32384CA93;
-	Wed, 22 Dec 2021 23:24:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B42F180B617;
+	Wed, 22 Dec 2021 23:25:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BMNOHJp001222 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 22 Dec 2021 18:24:17 -0500
+	id 1BMNOWQ7001236 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 22 Dec 2021 18:24:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9DA137EA26; Wed, 22 Dec 2021 23:24:17 +0000 (UTC)
+	id 5BC9077457; Wed, 22 Dec 2021 23:24:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.165])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 040817ED7A;
-	Wed, 22 Dec 2021 23:24:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BA41A75748;
+	Wed, 22 Dec 2021 23:24:23 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Wed, 22 Dec 2021 23:24:12 +0000
-Message-ID: <164021545212.640689.5064821392307582927.stgit@warthog.procyon.org.uk>
+Date: Wed, 22 Dec 2021 23:24:22 +0000
+Message-ID: <164021546287.640689.3501604495002415631.stgit@warthog.procyon.org.uk>
 In-Reply-To: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
 References: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: linux-cachefs@redhat.com
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
@@ -68,8 +68,8 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
 	ceph-devel@vger.kernel.org, Omar Sandoval <osandov@osandov.com>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: [Linux-cachefs] [PATCH v4 41/68] cachefiles: Implement volume
-	support
+Subject: [Linux-cachefs] [PATCH v4 42/68] cachefiles: Add tracepoints for
+	calls to the VFS
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +83,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,283 +91,227 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Implement support for creating the directory layout for a volume on disk
-and setting up and withdrawing volume caching.
-
-Each volume has a directory named for the volume key under the root of the
-cache (prefixed with an 'I' to indicate to cachefilesd that it's an index)
-and then creates a bunch of hash bucket subdirectories under that (named as
-'@' plus a hex number) in which cookie files will be created.
+Add tracepoints in cachefiles to monitor when it does various VFS
+operations, such as mkdir.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/163819635314.215744.13081522301564537723.stgit@warthog.procyon.org.uk/ # v1
-Link: https://lore.kernel.org/r/163906936397.143852.17788457778396467161.stgit@warthog.procyon.org.uk/ # v2
-Link: https://lore.kernel.org/r/163967143860.1823006.7185205806080225038.stgit@warthog.procyon.org.uk/ # v3
+Link: https://lore.kernel.org/r/163819638517.215744.12773133137536579766.stgit@warthog.procyon.org.uk/ # v1
+Link: https://lore.kernel.org/r/163906938316.143852.17227990869551737803.stgit@warthog.procyon.org.uk/ # v2
+Link: https://lore.kernel.org/r/163967147139.1823006.4909879317496543392.stgit@warthog.procyon.org.uk/ # v3
 ---
 
- fs/cachefiles/Makefile    |    3 +
- fs/cachefiles/cache.c     |   28 ++++++++++-
- fs/cachefiles/daemon.c    |    2 +
- fs/cachefiles/interface.c |    2 +
- fs/cachefiles/internal.h  |   20 ++++++++
- fs/cachefiles/volume.c    |  118 +++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 171 insertions(+), 2 deletions(-)
- create mode 100644 fs/cachefiles/volume.c
+ include/trace/events/cachefiles.h |  176 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 176 insertions(+)
 
-diff --git a/fs/cachefiles/Makefile b/fs/cachefiles/Makefile
-index 92af5daee8ce..d67210ece9cd 100644
---- a/fs/cachefiles/Makefile
-+++ b/fs/cachefiles/Makefile
-@@ -9,7 +9,8 @@ cachefiles-y := \
- 	interface.o \
- 	main.o \
- 	namei.o \
--	security.o
-+	security.o \
-+	volume.o
+diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
+index 6331cd29880d..5975ea4977b2 100644
+--- a/include/trace/events/cachefiles.h
++++ b/include/trace/events/cachefiles.h
+@@ -18,6 +18,21 @@
+ #ifndef __CACHEFILES_DECLARE_TRACE_ENUMS_ONCE_ONLY
+ #define __CACHEFILES_DECLARE_TRACE_ENUMS_ONCE_ONLY
  
- cachefiles-$(CONFIG_CACHEFILES_ERROR_INJECTION) += error_inject.o
- 
-diff --git a/fs/cachefiles/cache.c b/fs/cachefiles/cache.c
-index 0462e7af87fb..c4b9280ca0cd 100644
---- a/fs/cachefiles/cache.c
-+++ b/fs/cachefiles/cache.c
-@@ -262,6 +262,32 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
- 	return ret;
- }
- 
-+/*
-+ * Withdraw volumes.
-+ */
-+static void cachefiles_withdraw_volumes(struct cachefiles_cache *cache)
-+{
-+	_enter("");
-+
-+	for (;;) {
-+		struct cachefiles_volume *volume = NULL;
-+
-+		spin_lock(&cache->object_list_lock);
-+		if (!list_empty(&cache->volumes)) {
-+			volume = list_first_entry(&cache->volumes,
-+						  struct cachefiles_volume, cache_link);
-+			list_del_init(&volume->cache_link);
-+		}
-+		spin_unlock(&cache->object_list_lock);
-+		if (!volume)
-+			break;
-+
-+		cachefiles_withdraw_volume(volume);
-+	}
-+
-+	_leave("");
-+}
-+
- /*
-  * Sync a cache to backing disk.
-  */
-@@ -303,7 +329,7 @@ void cachefiles_withdraw_cache(struct cachefiles_cache *cache)
- 	// PLACEHOLDER: Withdraw objects
- 	fscache_wait_for_objects(fscache);
- 
--	// PLACEHOLDER: Withdraw volume
-+	cachefiles_withdraw_volumes(cache);
- 	cachefiles_sync_cache(cache);
- 	cache->cache = NULL;
- 	fscache_relinquish_cache(fscache);
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index a449ee661987..337597a4e30c 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -105,6 +105,8 @@ static int cachefiles_daemon_open(struct inode *inode, struct file *file)
- 
- 	mutex_init(&cache->daemon_mutex);
- 	init_waitqueue_head(&cache->daemon_pollwq);
-+	INIT_LIST_HEAD(&cache->volumes);
-+	spin_lock_init(&cache->object_list_lock);
- 
- 	/* set default caching limits
- 	 * - limit at 1% free space and/or free files
-diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
-index 564ea8fa6641..1793e46bd3e7 100644
---- a/fs/cachefiles/interface.c
-+++ b/fs/cachefiles/interface.c
-@@ -15,4 +15,6 @@
- 
- const struct fscache_cache_ops cachefiles_cache_ops = {
- 	.name			= "cachefiles",
-+	.acquire_volume		= cachefiles_acquire_volume,
-+	.free_volume		= cachefiles_free_volume,
- };
-diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 77e874c2bbe7..ab0e9307be7b 100644
---- a/fs/cachefiles/internal.h
-+++ b/fs/cachefiles/internal.h
-@@ -19,6 +19,17 @@
- struct cachefiles_cache;
- struct cachefiles_object;
- 
-+/*
-+ * Cached volume representation.
-+ */
-+struct cachefiles_volume {
-+	struct cachefiles_cache		*cache;
-+	struct list_head		cache_link;	/* Link in cache->volumes */
-+	struct fscache_volume		*vcookie;	/* The netfs's representation */
-+	struct dentry			*dentry;	/* The volume dentry */
-+	struct dentry			*fanout[256];	/* Fanout subdirs */
++enum fscache_why_object_killed {
++	FSCACHE_OBJECT_IS_STALE,
++	FSCACHE_OBJECT_IS_WEIRD,
++	FSCACHE_OBJECT_INVALIDATED,
++	FSCACHE_OBJECT_NO_SPACE,
++	FSCACHE_OBJECT_WAS_RETIRED,
++	FSCACHE_OBJECT_WAS_CULLED,
 +};
 +
++enum cachefiles_trunc_trace {
++	cachefiles_trunc_dio_adjust,
++	cachefiles_trunc_expand_tmpfile,
++	cachefiles_trunc_shrink,
++};
++
+ enum cachefiles_error_trace {
+ 	cachefiles_trace_fallocate_error,
+ 	cachefiles_trace_getxattr_error,
+@@ -43,6 +58,19 @@ enum cachefiles_error_trace {
  /*
-  * Data file records.
+  * Define enum -> string mappings for display.
   */
-@@ -35,6 +46,8 @@ struct cachefiles_cache {
- 	struct dentry			*store;		/* Directory into which live objects go */
- 	struct dentry			*graveyard;	/* directory into which dead objects go */
- 	struct file			*cachefilesd;	/* manager daemon handle */
-+	struct list_head		volumes;	/* List of volume objects */
-+	spinlock_t			object_list_lock; /* Lock for volumes and object_list */
- 	const struct cred		*cache_cred;	/* security override for accessing cache */
- 	struct mutex			daemon_mutex;	/* command serialisation mutex */
- 	wait_queue_head_t		daemon_pollwq;	/* poll waitqueue for daemon */
-@@ -163,6 +176,13 @@ static inline void cachefiles_end_secure(struct cachefiles_cache *cache,
- 	revert_creds(saved_cred);
- }
++#define cachefiles_obj_kill_traces				\
++	EM(FSCACHE_OBJECT_IS_STALE,	"stale")		\
++	EM(FSCACHE_OBJECT_IS_WEIRD,	"weird")		\
++	EM(FSCACHE_OBJECT_INVALIDATED,	"inval")		\
++	EM(FSCACHE_OBJECT_NO_SPACE,	"no_space")		\
++	EM(FSCACHE_OBJECT_WAS_RETIRED,	"was_retired")		\
++	E_(FSCACHE_OBJECT_WAS_CULLED,	"was_culled")
++
++#define cachefiles_trunc_traces						\
++	EM(cachefiles_trunc_dio_adjust,		"DIOADJ")		\
++	EM(cachefiles_trunc_expand_tmpfile,	"EXPTMP")		\
++	E_(cachefiles_trunc_shrink,		"SHRINK")
++
+ #define cachefiles_error_traces						\
+ 	EM(cachefiles_trace_fallocate_error,	"fallocate")		\
+ 	EM(cachefiles_trace_getxattr_error,	"getxattr")		\
+@@ -71,6 +99,8 @@ enum cachefiles_error_trace {
+ #define EM(a, b) TRACE_DEFINE_ENUM(a);
+ #define E_(a, b) TRACE_DEFINE_ENUM(a);
  
-+/*
-+ * volume.c
-+ */
-+void cachefiles_acquire_volume(struct fscache_volume *volume);
-+void cachefiles_free_volume(struct fscache_volume *volume);
-+void cachefiles_withdraw_volume(struct cachefiles_volume *volume);
-+
++cachefiles_obj_kill_traces;
++cachefiles_trunc_traces;
+ cachefiles_error_traces;
+ 
  /*
-  * Error handling
-  */
-diff --git a/fs/cachefiles/volume.c b/fs/cachefiles/volume.c
-new file mode 100644
-index 000000000000..4a14f5e72764
---- /dev/null
-+++ b/fs/cachefiles/volume.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Volume handling.
-+ *
-+ * Copyright (C) 2021 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ */
+@@ -83,6 +113,152 @@ cachefiles_error_traces;
+ #define E_(a, b)	{ a, b }
+ 
+ 
++TRACE_EVENT(cachefiles_lookup,
++	    TP_PROTO(struct cachefiles_object *obj,
++		     struct dentry *de),
 +
-+#include <linux/fs.h>
-+#include <linux/slab.h>
-+#include "internal.h"
-+#include <trace/events/fscache.h>
++	    TP_ARGS(obj, de),
 +
-+/*
-+ * Allocate and set up a volume representation.  We make sure all the fanout
-+ * directories are created and pinned.
-+ */
-+void cachefiles_acquire_volume(struct fscache_volume *vcookie)
-+{
-+	struct cachefiles_volume *volume;
-+	struct cachefiles_cache *cache = vcookie->cache->cache_priv;
-+	const struct cred *saved_cred;
-+	struct dentry *vdentry, *fan;
-+	size_t len;
-+	char *name;
-+	int n_accesses, i;
++	    TP_STRUCT__entry(
++		    __field(unsigned int,		obj	)
++		    __field(short,			error	)
++		    __field(unsigned long,		ino	)
++			     ),
 +
-+	_enter("");
++	    TP_fast_assign(
++		    __entry->obj	= obj->debug_id;
++		    __entry->ino	= (!IS_ERR(de) && d_backing_inode(de) ?
++					   d_backing_inode(de)->i_ino : 0);
++		    __entry->error	= IS_ERR(de) ? PTR_ERR(de) : 0;
++			   ),
 +
-+	volume = kzalloc(sizeof(struct cachefiles_volume), GFP_KERNEL);
-+	if (!volume)
-+		return;
-+	volume->vcookie = vcookie;
-+	volume->cache = cache;
-+	INIT_LIST_HEAD(&volume->cache_link);
++	    TP_printk("o=%08x i=%lx e=%d",
++		      __entry->obj, __entry->ino, __entry->error)
++	    );
 +
-+	cachefiles_begin_secure(cache, &saved_cred);
++TRACE_EVENT(cachefiles_tmpfile,
++	    TP_PROTO(struct cachefiles_object *obj, struct inode *backer),
 +
-+	len = vcookie->key[0];
-+	name = kmalloc(len + 3, GFP_NOFS);
-+	if (!name)
-+		goto error_vol;
-+	name[0] = 'I';
-+	memcpy(name + 1, vcookie->key + 1, len);
-+	name[len + 1] = 0;
++	    TP_ARGS(obj, backer),
 +
-+	vdentry = cachefiles_get_directory(cache, cache->store, name, NULL);
-+	if (IS_ERR(vdentry))
-+		goto error_name;
-+	volume->dentry = vdentry;
++	    TP_STRUCT__entry(
++		    __field(unsigned int,			obj	)
++		    __field(unsigned int,			backer	)
++			     ),
 +
-+	for (i = 0; i < 256; i++) {
-+		sprintf(name, "@%02x", i);
-+		fan = cachefiles_get_directory(cache, vdentry, name, NULL);
-+		if (IS_ERR(fan))
-+			goto error_fan;
-+		volume->fanout[i] = fan;
-+	}
++	    TP_fast_assign(
++		    __entry->obj	= obj->debug_id;
++		    __entry->backer	= backer->i_ino;
++			   ),
 +
-+	cachefiles_end_secure(cache, saved_cred);
++	    TP_printk("o=%08x b=%08x",
++		      __entry->obj,
++		      __entry->backer)
++	    );
 +
-+	vcookie->cache_priv = volume;
-+	n_accesses = atomic_inc_return(&vcookie->n_accesses); /* Stop wakeups on dec-to-0 */
-+	trace_fscache_access_volume(vcookie->debug_id, 0,
-+				    refcount_read(&vcookie->ref),
-+				    n_accesses, fscache_access_cache_pin);
++TRACE_EVENT(cachefiles_link,
++	    TP_PROTO(struct cachefiles_object *obj, struct inode *backer),
 +
-+	spin_lock(&cache->object_list_lock);
-+	list_add(&volume->cache_link, &volume->cache->volumes);
-+	spin_unlock(&cache->object_list_lock);
++	    TP_ARGS(obj, backer),
 +
-+	kfree(name);
-+	return;
++	    TP_STRUCT__entry(
++		    __field(unsigned int,			obj	)
++		    __field(unsigned int,			backer	)
++			     ),
 +
-+error_fan:
-+	for (i = 0; i < 256; i++)
-+		cachefiles_put_directory(volume->fanout[i]);
-+	cachefiles_put_directory(volume->dentry);
-+error_name:
-+	kfree(name);
-+error_vol:
-+	kfree(volume);
-+	cachefiles_end_secure(cache, saved_cred);
-+}
++	    TP_fast_assign(
++		    __entry->obj	= obj->debug_id;
++		    __entry->backer	= backer->i_ino;
++			   ),
 +
-+/*
-+ * Release a volume representation.
-+ */
-+static void __cachefiles_free_volume(struct cachefiles_volume *volume)
-+{
-+	int i;
++	    TP_printk("o=%08x b=%08x",
++		      __entry->obj,
++		      __entry->backer)
++	    );
 +
-+	_enter("");
++TRACE_EVENT(cachefiles_unlink,
++	    TP_PROTO(struct cachefiles_object *obj,
++		     struct dentry *de,
++		     enum fscache_why_object_killed why),
 +
-+	volume->vcookie->cache_priv = NULL;
++	    TP_ARGS(obj, de, why),
 +
-+	for (i = 0; i < 256; i++)
-+		cachefiles_put_directory(volume->fanout[i]);
-+	cachefiles_put_directory(volume->dentry);
-+	kfree(volume);
-+}
++	    /* Note that obj may be NULL */
++	    TP_STRUCT__entry(
++		    __field(unsigned int,		obj		)
++		    __field(struct dentry *,		de		)
++		    __field(enum fscache_why_object_killed, why		)
++			     ),
 +
-+void cachefiles_free_volume(struct fscache_volume *vcookie)
-+{
-+	struct cachefiles_volume *volume = vcookie->cache_priv;
++	    TP_fast_assign(
++		    __entry->obj	= obj ? obj->debug_id : UINT_MAX;
++		    __entry->de		= de;
++		    __entry->why	= why;
++			   ),
 +
-+	if (volume) {
-+		spin_lock(&volume->cache->object_list_lock);
-+		list_del_init(&volume->cache_link);
-+		spin_unlock(&volume->cache->object_list_lock);
-+		__cachefiles_free_volume(volume);
-+	}
-+}
++	    TP_printk("o=%08x d=%p w=%s",
++		      __entry->obj, __entry->de,
++		      __print_symbolic(__entry->why, cachefiles_obj_kill_traces))
++	    );
 +
-+void cachefiles_withdraw_volume(struct cachefiles_volume *volume)
-+{
-+	fscache_withdraw_volume(volume->vcookie);
-+	__cachefiles_free_volume(volume);
-+}
++TRACE_EVENT(cachefiles_rename,
++	    TP_PROTO(struct cachefiles_object *obj,
++		     struct dentry *de,
++		     struct dentry *to,
++		     enum fscache_why_object_killed why),
++
++	    TP_ARGS(obj, de, to, why),
++
++	    /* Note that obj may be NULL */
++	    TP_STRUCT__entry(
++		    __field(unsigned int,		obj		)
++		    __field(struct dentry *,		de		)
++		    __field(struct dentry *,		to		)
++		    __field(enum fscache_why_object_killed, why		)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->obj	= obj ? obj->debug_id : UINT_MAX;
++		    __entry->de		= de;
++		    __entry->to		= to;
++		    __entry->why	= why;
++			   ),
++
++	    TP_printk("o=%08x d=%p t=%p w=%s",
++		      __entry->obj, __entry->de, __entry->to,
++		      __print_symbolic(__entry->why, cachefiles_obj_kill_traces))
++	    );
++
++TRACE_EVENT(cachefiles_trunc,
++	    TP_PROTO(struct cachefiles_object *obj, struct inode *backer,
++		     loff_t from, loff_t to, enum cachefiles_trunc_trace why),
++
++	    TP_ARGS(obj, backer, from, to, why),
++
++	    TP_STRUCT__entry(
++		    __field(unsigned int,			obj	)
++		    __field(unsigned int,			backer	)
++		    __field(enum cachefiles_trunc_trace,	why	)
++		    __field(loff_t,				from	)
++		    __field(loff_t,				to	)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->obj	= obj->debug_id;
++		    __entry->backer	= backer->i_ino;
++		    __entry->from	= from;
++		    __entry->to		= to;
++		    __entry->why	= why;
++			   ),
++
++	    TP_printk("o=%08x b=%08x %s l=%llx->%llx",
++		      __entry->obj,
++		      __entry->backer,
++		      __print_symbolic(__entry->why, cachefiles_trunc_traces),
++		      __entry->from,
++		      __entry->to)
++	    );
++
+ TRACE_EVENT(cachefiles_mark_active,
+ 	    TP_PROTO(struct cachefiles_object *obj,
+ 		     struct inode *inode),
 
 
 --
