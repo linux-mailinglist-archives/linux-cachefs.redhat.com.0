@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FB547FCEE
-	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 13:55:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A8F47FD35
+	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 14:01:58 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-511-99YV5V-xP1aWsYDMpTwY3Q-1; Mon, 27 Dec 2021 07:55:22 -0500
-X-MC-Unique: 99YV5V-xP1aWsYDMpTwY3Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-528-UNikqTK0MwCktXp0-VoXTA-1; Mon, 27 Dec 2021 08:01:54 -0500
+X-MC-Unique: UNikqTK0MwCktXp0-VoXTA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EAA901800D50;
-	Mon, 27 Dec 2021 12:55:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0CE084D1E;
-	Mon, 27 Dec 2021 12:55:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53FAB802C96;
+	Mon, 27 Dec 2021 13:01:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46552703B7;
+	Mon, 27 Dec 2021 13:01:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 835EC4A7CB;
-	Mon, 27 Dec 2021 12:55:19 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1568D1832B18;
+	Mon, 27 Dec 2021 13:01:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BRCtH19003140 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 27 Dec 2021 07:55:17 -0500
+	id 1BRD1n6K004327 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 27 Dec 2021 08:01:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEFF51410F38; Mon, 27 Dec 2021 12:55:16 +0000 (UTC)
+	id D32C01410F38; Mon, 27 Dec 2021 13:01:49 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA4A8140EBFE
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 12:55:16 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9351140EBFE
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A03731C05158
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 12:55:16 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
-	(out30-57.freemail.mail.aliyun.com [115.124.30.57]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FCB7185A7B2
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:49 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+	(out30-45.freemail.mail.aliyun.com [115.124.30.45]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-631-7xXYNVCwNTyE8UBaH9CAzg-1; Mon, 27 Dec 2021 07:55:12 -0500
-X-MC-Unique: 7xXYNVCwNTyE8UBaH9CAzg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407;
+	us-mta-374-aX3MKL2GOKSgZ_meHbMKLQ-1; Mon, 27 Dec 2021 08:01:45 -0500
+X-MC-Unique: aX3MKL2GOKSgZ_meHbMKLQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R231e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V.vxTKl_1640609705
+	TI=SMTPD_---0V.w7GZ4_1640609706
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V.vxTKl_1640609705) by smtp.aliyun-inc.com(127.0.0.1);
-	Mon, 27 Dec 2021 20:55:06 +0800
+	fp:SMTPD_---0V.w7GZ4_1640609706) by smtp.aliyun-inc.com(127.0.0.1);
+	Mon, 27 Dec 2021 20:55:07 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon, 27 Dec 2021 20:54:39 +0800
-Message-Id: <20211227125444.21187-19-jefflexu@linux.alibaba.com>
+Date: Mon, 27 Dec 2021 20:54:40 +0800
+Message-Id: <20211227125444.21187-20-jefflexu@linux.alibaba.com>
 In-Reply-To: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 References: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -73,8 +73,8 @@ Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v1 18/23] cachefiles: use idr tree managing
-	pending demand read
+Subject: [Linux-cachefs] [PATCH v1 19/23] cachefiles: implement
+	.demand_read() for demand read
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +88,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,65 +96,114 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is in prep for implementing .demand_read() callback for cachefiles.
+Implement .demand_read() callback for cachefiels backend.
 
-In the following patch, .demand_read() callback is responsible for
-notifying user daemon the requested file range (hole) to read. Then
-.demand_read() callback will get blocked until user daemon has prepared
-data and filled the hole.
-
-This patch introduces an idr tree to manage all these pending
-demand-read IO.
+.demand_read() callback is responsible for notifying user daemon the
+pending request to process, and will get blocked until user daemon has
+prepared data and filled the hole.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/daemon.c   | 3 +++
- fs/cachefiles/internal.h | 4 ++++
- 2 files changed, 7 insertions(+)
+ fs/cachefiles/internal.h | 12 +++++++++
+ fs/cachefiles/io.c       | 56 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
 
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 892a9bdba53f..01496fa8c263 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -118,6 +118,8 @@ static int cachefiles_daemon_open(struct inode *inode, struct file *file)
- 	INIT_LIST_HEAD(&cache->volumes);
- 	INIT_LIST_HEAD(&cache->object_list);
- 	spin_lock_init(&cache->object_list_lock);
-+	idr_init(&cache->reqs);
-+	spin_lock_init(&cache->reqs_lock);
- 
- 	/* set default caching limits
- 	 * - limit at 1% free space and/or free files
-@@ -152,6 +154,7 @@ static int cachefiles_daemon_release(struct inode *inode, struct file *file)
- 	cachefiles_daemon_unbind(cache);
- 
- 	/* clean up the control file interface */
-+	idr_destroy(&cache->reqs);
- 	cache->cachefilesd = NULL;
- 	file->private_data = NULL;
- 	cachefiles_open = 0;
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index a8e6500889d7..af8ac8107f77 100644
+index af8ac8107f77..eeb6ad7dcd49 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -15,6 +15,7 @@
- #include <linux/fscache-cache.h>
- #include <linux/cred.h>
- #include <linux/security.h>
-+#include <linux/idr.h>
- 
- #define CACHEFILES_DIO_BLOCK_SIZE 4096
- 
-@@ -102,6 +103,9 @@ struct cachefiles_cache {
- 	char				*rootdirname;	/* name of cache root directory */
- 	char				*secctx;	/* LSM security context */
- 	char				*tag;		/* cache binding tag */
-+
-+	struct idr			reqs;
-+	spinlock_t			reqs_lock;
+@@ -61,6 +61,18 @@ struct cachefiles_object {
+ #define CACHEFILES_OBJECT_USING_TMPFILE	0		/* Have an unlinked tmpfile */
  };
  
- #include <trace/events/cachefiles.h>
++struct cachefiles_req_in {
++	uint64_t id;
++	uint64_t off;
++	uint64_t len;
++	char path[NAME_MAX];
++};
++
++struct cachefiles_req {
++	struct completion done;
++	struct cachefiles_req_in req_in;
++};
++
+ /*
+  * Cache files cache definition
+  */
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index 60b1eac2ce78..376603e5ed99 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -539,12 +539,68 @@ static void cachefiles_end_operation(struct netfs_cache_resources *cres)
+ 	fscache_end_cookie_access(fscache_cres_cookie(cres), fscache_access_io_end);
+ }
+ 
++static struct cachefiles_req *cachefiles_alloc_req(struct cachefiles_object *object,
++						   loff_t start_pos,
++						   size_t len)
++{
++	struct cachefiles_req *req;
++	struct cachefiles_req_in *req_in;
++
++	req = kzalloc(sizeof(*req), GFP_KERNEL);
++	if (!req)
++		return NULL;
++
++	req_in = &req->req_in;
++
++	req_in->off = start_pos;
++	req_in->len = len;
++	strncpy(req_in->path, object->d_name, sizeof(req_in->path));
++
++	init_completion(&req->done);
++
++	return req;
++}
++
++int cachefiles_demand_read(struct netfs_cache_resources *cres,
++			   loff_t start_pos, size_t len)
++{
++	struct cachefiles_object *object;
++	struct cachefiles_cache *cache;
++	struct cachefiles_req *req;
++	int ret;
++
++	object = cachefiles_cres_object(cres);
++	cache = object->volume->cache;
++
++	req = cachefiles_alloc_req(object, start_pos, len);
++	if (!req)
++		return -ENOMEM;
++
++	spin_lock(&cache->reqs_lock);
++	ret = idr_alloc(&cache->reqs, req, 0, 0, GFP_KERNEL);
++	if (ret >= 0)
++		req->req_in.id = ret;
++	spin_unlock(&cache->reqs_lock);
++	if (ret < 0) {
++		kfree(req);
++		return -ENOMEM;
++	}
++
++	wake_up_all(&cache->daemon_pollwq);
++
++	wait_for_completion(&req->done);
++	kfree(req);
++
++	return 0;
++}
++
+ static const struct netfs_cache_ops cachefiles_netfs_cache_ops = {
+ 	.end_operation		= cachefiles_end_operation,
+ 	.read			= cachefiles_read,
+ 	.write			= cachefiles_write,
+ 	.prepare_read		= cachefiles_prepare_read,
+ 	.prepare_write		= cachefiles_prepare_write,
++	.demand_read		= cachefiles_demand_read,
+ };
+ 
+ /*
 -- 
 2.27.0
 
