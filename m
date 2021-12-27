@@ -2,58 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C9B47FD2E
-	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 14:01:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AE3147FD2C
+	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 14:01:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-227-Wyx14nemN8e12ek-My3CiA-1; Mon, 27 Dec 2021 08:01:33 -0500
-X-MC-Unique: Wyx14nemN8e12ek-My3CiA-1
+ us-mta-75-o_sjXe-aP9qdHnzHf6SOZA-1; Mon, 27 Dec 2021 08:01:16 -0500
+X-MC-Unique: o_sjXe-aP9qdHnzHf6SOZA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D7251006AA4;
-	Mon, 27 Dec 2021 13:01:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34DDC7E2FD;
-	Mon, 27 Dec 2021 13:01:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE7FA190A7A2;
+	Mon, 27 Dec 2021 13:01:13 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C145C7E910;
+	Mon, 27 Dec 2021 13:01:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DCC911832B19;
-	Mon, 27 Dec 2021 13:01:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80DF64A7C8;
+	Mon, 27 Dec 2021 13:01:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BRD1T7m004228 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 27 Dec 2021 08:01:29 -0500
+	id 1BRD1BS2004201 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 27 Dec 2021 08:01:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 167EA2026D65; Mon, 27 Dec 2021 13:01:29 +0000 (UTC)
+	id 4990F1121320; Mon, 27 Dec 2021 13:01:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 123DD2026D4D
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42061112131E
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B453C101A52D
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:25 +0000 (UTC)
-Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
-	[47.88.44.36]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-480-HUXii9m6NL-XTykAbJrRBA-1; Mon, 27 Dec 2021 08:01:22 -0500
-X-MC-Unique: HUXii9m6NL-XTykAbJrRBA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R311e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58B6380029D
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:08 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-505-u8oBb58-PKq9hfMC8adR6A-1; Mon, 27 Dec 2021 08:01:04 -0500
+X-MC-Unique: u8oBb58-PKq9hfMC8adR6A-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V.wXYT2_1640609685
+	TI=SMTPD_---0V.xJoPB_1640609686
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V.wXYT2_1640609685) by smtp.aliyun-inc.com(127.0.0.1);
-	Mon, 27 Dec 2021 20:54:46 +0800
+	fp:SMTPD_---0V.xJoPB_1640609686) by smtp.aliyun-inc.com(127.0.0.1);
+	Mon, 27 Dec 2021 20:54:47 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon, 27 Dec 2021 20:54:22 +0800
-Message-Id: <20211227125444.21187-2-jefflexu@linux.alibaba.com>
+Date: Mon, 27 Dec 2021 20:54:23 +0800
+Message-Id: <20211227125444.21187-3-jefflexu@linux.alibaba.com>
 In-Reply-To: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 References: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -65,14 +67,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
 Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v1 01/23] cachefiles: add cachefiles_demand
-	devnode
+Subject: [Linux-cachefs] [PATCH v1 02/23] cachefiles: add mode command to
+	distinguish modes
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,97 +96,87 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-fscache/cachefiles used to serve as a local cache for remote fs. The
-following patches will introduce a new use case, in which local
-read-only fs could implement demand reading with fscache. By then the
-user daemon needs to read and poll on the devnode, and thus the original
-cachefiles devnode can't be reused in this case.
-
-Thus create a new devnode specifically for the new mode. The following
-patches will add more file_operations.
+Add one flag bit to distinguish the new introduced demand-read mode from
+the original mode. User daemon could set the specified mode with 'mode'
+command. If user daemon doesn't ever explicitly set the mode, then the
+behaviour is the same with that prior this patch, i.e. cachefiles serves
+as the local cache for remote fs by default.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/daemon.c   |  8 ++++++++
+ fs/cachefiles/daemon.c   | 32 ++++++++++++++++++++++++++++++++
  fs/cachefiles/internal.h |  1 +
- fs/cachefiles/main.c     | 12 ++++++++++++
- 3 files changed, 21 insertions(+)
+ 2 files changed, 33 insertions(+)
 
 diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 40a792421fc1..871f1e0f423d 100644
+index 871f1e0f423d..892a9bdba53f 100644
 --- a/fs/cachefiles/daemon.c
 +++ b/fs/cachefiles/daemon.c
-@@ -56,6 +56,14 @@ const struct file_operations cachefiles_daemon_fops = {
- 	.llseek		= noop_llseek,
+@@ -41,6 +41,7 @@ static int cachefiles_daemon_dir(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_inuse(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_secctx(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_tag(struct cachefiles_cache *, char *);
++static int cachefiles_daemon_mode(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_bind(struct cachefiles_cache *, char *);
+ static void cachefiles_daemon_unbind(struct cachefiles_cache *);
+ 
+@@ -83,6 +84,7 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
+ 	{ "inuse",	cachefiles_daemon_inuse		},
+ 	{ "secctx",	cachefiles_daemon_secctx	},
+ 	{ "tag",	cachefiles_daemon_tag		},
++	{ "mode",	cachefiles_daemon_mode		},
+ 	{ "",		NULL				}
  };
  
-+const struct file_operations cachefiles_demand_fops = {
-+	.owner		= THIS_MODULE,
-+	.open		= cachefiles_daemon_open,
-+	.release	= cachefiles_daemon_release,
-+	.write		= cachefiles_daemon_write,
-+	.llseek		= noop_llseek,
-+};
+@@ -671,6 +673,36 @@ static int cachefiles_daemon_inuse(struct cachefiles_cache *cache, char *args)
+ 	return -EINVAL;
+ }
+ 
++/*
++ * Set the cache mode
++ * - command: "mode cache|demand"
++ */
++static int cachefiles_daemon_mode(struct cachefiles_cache *cache, char *args)
++{
++	_enter(",%s", args);
 +
- struct cachefiles_daemon_cmd {
- 	char name[8];
- 	int (*handler)(struct cachefiles_cache *cache, char *args);
++	if (test_bit(CACHEFILES_READY, &cache->flags)) {
++		pr_err("Cache already started\n");
++		return -EINVAL;
++	}
++
++	if (!*args) {
++		pr_err("Empty mode specified\n");
++		return -EINVAL;
++	}
++
++	if (!strncmp(args, "cache", strlen("cache"))) {
++		clear_bit(CACHEFILES_DEMAND_MODE, &cache->flags);
++	} else if (!strncmp(args, "demand", strlen("demand"))) {
++		set_bit(CACHEFILES_DEMAND_MODE, &cache->flags);
++	} else {
++		pr_err("Invalid mode specified\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /*
+  * Bind a directory as a cache
+  */
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 421423819d63..e0ed811d628d 100644
+index e0ed811d628d..a8e6500889d7 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -145,6 +145,7 @@ extern int cachefiles_has_space(struct cachefiles_cache *cache,
-  * daemon.c
-  */
- extern const struct file_operations cachefiles_daemon_fops;
-+extern const struct file_operations cachefiles_demand_fops;
- 
- /*
-  * error_inject.c
-diff --git a/fs/cachefiles/main.c b/fs/cachefiles/main.c
-index 3f369c6f816d..0a423274d283 100644
---- a/fs/cachefiles/main.c
-+++ b/fs/cachefiles/main.c
-@@ -39,6 +39,12 @@ static struct miscdevice cachefiles_dev = {
- 	.fops	= &cachefiles_daemon_fops,
- };
- 
-+static struct miscdevice cachefiles_demand_dev = {
-+	.minor	= MISC_DYNAMIC_MINOR,
-+	.name	= "cachefiles_demand",
-+	.fops	= &cachefiles_demand_fops,
-+};
-+
- /*
-  * initialise the fs caching module
-  */
-@@ -52,6 +58,9 @@ static int __init cachefiles_init(void)
- 	ret = misc_register(&cachefiles_dev);
- 	if (ret < 0)
- 		goto error_dev;
-+	ret = misc_register(&cachefiles_demand_dev);
-+	if (ret < 0)
-+		goto error_demand_dev;
- 
- 	/* create an object jar */
- 	ret = -ENOMEM;
-@@ -68,6 +77,8 @@ static int __init cachefiles_init(void)
- 	return 0;
- 
- error_object_jar:
-+	misc_deregister(&cachefiles_demand_dev);
-+error_demand_dev:
- 	misc_deregister(&cachefiles_dev);
- error_dev:
- 	cachefiles_unregister_error_injection();
-@@ -86,6 +97,7 @@ static void __exit cachefiles_exit(void)
- 	pr_info("Unloading\n");
- 
- 	kmem_cache_destroy(cachefiles_object_jar);
-+	misc_deregister(&cachefiles_demand_dev);
- 	misc_deregister(&cachefiles_dev);
- 	cachefiles_unregister_error_injection();
- }
+@@ -98,6 +98,7 @@ struct cachefiles_cache {
+ #define CACHEFILES_DEAD			1	/* T if cache dead */
+ #define CACHEFILES_CULLING		2	/* T if cull engaged */
+ #define CACHEFILES_STATE_CHANGED	3	/* T if state changed (poll trigger) */
++#define CACHEFILES_DEMAND_MODE		4	/* T if works in demand read mode for read-only fs */
+ 	char				*rootdirname;	/* name of cache root directory */
+ 	char				*secctx;	/* LSM security context */
+ 	char				*tag;		/* cache binding tag */
 -- 
 2.27.0
 
