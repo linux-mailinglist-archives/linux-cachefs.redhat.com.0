@@ -1,60 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E04947FCF3
-	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 13:55:29 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B0147FD30
+	for <lists+linux-cachefs@lfdr.de>; Mon, 27 Dec 2021 14:01:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-643-iDlIdyWiNK6taQBtXeIKRw-1; Mon, 27 Dec 2021 07:55:25 -0500
-X-MC-Unique: iDlIdyWiNK6taQBtXeIKRw-1
+ us-mta-296-XSQ1mlqoNHik-mv2s-imGg-1; Mon, 27 Dec 2021 08:01:40 -0500
+X-MC-Unique: XSQ1mlqoNHik-mv2s-imGg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 798498015CD;
-	Mon, 27 Dec 2021 12:55:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 012A436393;
+	Mon, 27 Dec 2021 13:01:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42190752CE;
-	Mon, 27 Dec 2021 12:55:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE3FD7553C;
+	Mon, 27 Dec 2021 13:01:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 054ED4A700;
-	Mon, 27 Dec 2021 12:55:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F2334A7C8;
+	Mon, 27 Dec 2021 13:01:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BRCtL2t003169 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 27 Dec 2021 07:55:21 -0500
+	id 1BRD1bo1004271 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 27 Dec 2021 08:01:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4111A492CAC; Mon, 27 Dec 2021 12:55:21 +0000 (UTC)
+	id 3D59EC08096; Mon, 27 Dec 2021 13:01:37 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CDA1492CA4
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 12:55:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21DFB1064FB3
-	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 12:55:21 +0000 (UTC)
-Received: from out30-56.freemail.mail.aliyun.com
-	(out30-56.freemail.mail.aliyun.com [115.124.30.56]) by
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 389C0C08092
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C79433C01D82
+	for <linux-cachefs@redhat.com>; Mon, 27 Dec 2021 13:01:36 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-637-0TH1xhhqO8a0IETcQZTGqw-1; Mon, 27 Dec 2021 07:55:17 -0500
-X-MC-Unique: 0TH1xhhqO8a0IETcQZTGqw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
+	us-mta-96-Nw7_R81kPtSLJbz6NRcE0g-1; Mon, 27 Dec 2021 08:00:51 -0500
+X-MC-Unique: Nw7_R81kPtSLJbz6NRcE0g-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V.xJoSm_1640609709
+	TI=SMTPD_---0V.wXYWr_1640609710
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V.xJoSm_1640609709) by smtp.aliyun-inc.com(127.0.0.1);
-	Mon, 27 Dec 2021 20:55:10 +0800
+	fp:SMTPD_---0V.wXYWr_1640609710) by smtp.aliyun-inc.com(127.0.0.1);
+	Mon, 27 Dec 2021 20:55:11 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon, 27 Dec 2021 20:54:42 +0800
-Message-Id: <20211227125444.21187-22-jefflexu@linux.alibaba.com>
+Date: Mon, 27 Dec 2021 20:54:43 +0800
+Message-Id: <20211227125444.21187-23-jefflexu@linux.alibaba.com>
 In-Reply-To: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 References: <20211227125444.21187-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,13 +67,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: linux-cachefs@redhat.com
 Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v1 21/23] cachefiles: implement .read() for
+Subject: [Linux-cachefs] [PATCH v1 22/23] cachefiles: add done command for
 	demand read
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
@@ -95,70 +96,78 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Once notified, user daemon need to get more details of the request by
-reading the devnode. The readed information includes the file range of
-the request, with which user daemon could somehow prepare corresponding
-data (e.g. download from remote through network) and fill the hole.
+Once has prepared data and filled the hole, user daemon could notify
+cachefiles backend by writing 'done' command to devnode.
+
+With done command, the id originally readed from devnode is transferred
+back to cachefiles backend. This id identifies the position of the
+completed request inside the idr tree, and thus cachefiles backend could
+find the corresponding completed request once gets notified.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/daemon.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ fs/cachefiles/daemon.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 311dcd911a85..ce4cc5617dfc 100644
+index ce4cc5617dfc..36d0bcf5fc3f 100644
 --- a/fs/cachefiles/daemon.c
 +++ b/fs/cachefiles/daemon.c
-@@ -29,6 +29,8 @@ static ssize_t cachefiles_daemon_write(struct file *, const char __user *,
- 				       size_t, loff_t *);
- static __poll_t cachefiles_daemon_poll(struct file *,
- 					   struct poll_table_struct *);
-+static ssize_t cachefiles_demand_read(struct file *, char __user *, size_t,
-+				      loff_t *);
- static __poll_t cachefiles_demand_poll(struct file *,
- 					   struct poll_table_struct *);
- static int cachefiles_daemon_frun(struct cachefiles_cache *, char *);
-@@ -63,6 +65,7 @@ const struct file_operations cachefiles_demand_fops = {
- 	.owner		= THIS_MODULE,
- 	.open		= cachefiles_daemon_open,
- 	.release	= cachefiles_daemon_release,
-+	.read		= cachefiles_demand_read,
- 	.write		= cachefiles_daemon_write,
- 	.poll		= cachefiles_demand_poll,
- 	.llseek		= noop_llseek,
-@@ -322,6 +325,32 @@ static __poll_t cachefiles_daemon_poll(struct file *file,
- 	return mask;
+@@ -48,6 +48,7 @@ static int cachefiles_daemon_tag(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_mode(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_bind(struct cachefiles_cache *, char *);
+ static void cachefiles_daemon_unbind(struct cachefiles_cache *);
++static int cachefiles_daemon_done(struct cachefiles_cache *, char *);
+ 
+ static unsigned long cachefiles_open;
+ 
+@@ -91,6 +92,7 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
+ 	{ "secctx",	cachefiles_daemon_secctx	},
+ 	{ "tag",	cachefiles_daemon_tag		},
+ 	{ "mode",	cachefiles_daemon_mode		},
++	{ "done",	cachefiles_daemon_done		},
+ 	{ "",		NULL				}
+ };
+ 
+@@ -604,6 +606,38 @@ static int cachefiles_daemon_tag(struct cachefiles_cache *cache, char *args)
+ 	return 0;
  }
  
-+static ssize_t cachefiles_demand_read(struct file *file, char __user *_buffer,
-+				      size_t buflen, loff_t *pos)
++/*
++ * Request completion
++ * - command: "done <id>"
++ */
++static int cachefiles_daemon_done(struct cachefiles_cache *cache, char *args)
 +{
-+	struct cachefiles_cache *cache = file->private_data;
++	unsigned long id;
++	int ret;
 +	struct cachefiles_req *req;
-+	int n, id = 0;
 +
-+	if (!test_bit(CACHEFILES_READY, &cache->flags))
-+		return 0;
++	_enter(",%s", args);
++
++	if (!*args) {
++		pr_err("Empty id specified\n");
++		return -EINVAL;
++	}
++
++	ret = kstrtoul(args, 0, &id);
++	if (ret)
++		return ret;
 +
 +	spin_lock(&cache->reqs_lock);
-+	req = idr_get_next(&cache->reqs, &id);
++	req = idr_remove(&cache->reqs, id);
 +	spin_unlock(&cache->reqs_lock);
 +	if (!req)
-+		return 0;
++		return -EINVAL;
 +
-+	n = sizeof(req->req_in);
-+	if (n > buflen)
-+		return -EMSGSIZE;
++	complete(&req->done);
 +
-+	if (copy_to_user(_buffer, &req->req_in, n) != 0)
-+		return -EFAULT;
-+
-+	return n;
++	return 0;
 +}
 +
- static __poll_t cachefiles_demand_poll(struct file *file,
- 					   struct poll_table_struct *poll)
- {
+ /*
+  * Request a node in the cache be culled from the current working directory
+  * - command: "cull <name>"
 -- 
 2.27.0
 
