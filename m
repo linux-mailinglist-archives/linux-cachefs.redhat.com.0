@@ -1,87 +1,98 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4239E484027
-	for <lists+linux-cachefs@lfdr.de>; Tue,  4 Jan 2022 11:50:47 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6EB4840CC
+	for <lists+linux-cachefs@lfdr.de>; Tue,  4 Jan 2022 12:28:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1641295703;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=fa6LSNu2ObrwxZa2PMpy4QrWVGAj7ZljtZ8SAlDSO7U=;
+	b=WU/TGklRZLSsICdsPq6E3cO/ZlNIxmgUeHcdDNkO+CNC1SJP5dMNn6VrAhiE5KBxOU0JGK
+	x4A6e10hpLgF0PV/c2ydPZ2Iu9r+o6zj8EY8m6XWhuAmAaoetssBQGEUagc9ELbYoU3hFZ
+	GCgPmYHcbygQ8tcYqdKmv4A9K/mXy0c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-321-m-Qkca4DP4-6wNMyaN9K3Q-1; Tue, 04 Jan 2022 05:50:43 -0500
-X-MC-Unique: m-Qkca4DP4-6wNMyaN9K3Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-468-TQthJLA3Nkek0PdQO0mlsg-1; Tue, 04 Jan 2022 06:28:20 -0500
+X-MC-Unique: TQthJLA3Nkek0PdQO0mlsg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF6C91800D50;
-	Tue,  4 Jan 2022 10:50:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 037C47E11D;
-	Tue,  4 Jan 2022 10:50:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 144F71006AA5;
+	Tue,  4 Jan 2022 11:28:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A09017AB53;
+	Tue,  4 Jan 2022 11:28:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27DB24BB7C;
-	Tue,  4 Jan 2022 10:50:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 142381809CB8;
+	Tue,  4 Jan 2022 11:28:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 204AoSia005943 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 4 Jan 2022 05:50:28 -0500
+	id 204BSBVV008521 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 4 Jan 2022 06:28:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E546400F3FF; Tue,  4 Jan 2022 10:50:28 +0000 (UTC)
+	id 313BE2166B2F; Tue,  4 Jan 2022 11:28:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79EE3401A972
-	for <linux-cachefs@redhat.com>; Tue,  4 Jan 2022 10:50:28 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2ADA82166B2D
+	for <linux-cachefs@redhat.com>; Tue,  4 Jan 2022 11:28:02 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5694E38035AA
-	for <linux-cachefs@redhat.com>; Tue,  4 Jan 2022 10:50:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
-	[139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C1404805F4A
+	for <linux-cachefs@redhat.com>; Tue,  4 Jan 2022 11:28:02 +0000 (UTC)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+	[209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-591-10MInreKPKivWGPJ5AHJkQ-1; Tue, 04 Jan 2022 05:50:24 -0500
-X-MC-Unique: 10MInreKPKivWGPJ5AHJkQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9128761311;
-	Tue,  4 Jan 2022 10:50:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D5FC36AEB;
-	Tue,  4 Jan 2022 10:50:20 +0000 (UTC)
-Message-ID: <1f25d125ffee734644abfe5c63ca4c90d95104aa.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: David Howells <dhowells@redhat.com>, linux-cachefs@redhat.com
-Date: Tue, 04 Jan 2022 05:50:19 -0500
-In-Reply-To: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
-References: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
-User-Agent: Evolution 3.42.2 (3.42.2-1.fc35)
+	us-mta-616-LLvbCi5cOTuEa6UmF-cV9g-1; Tue, 04 Jan 2022 06:28:01 -0500
+X-MC-Unique: LLvbCi5cOTuEa6UmF-cV9g-1
+Received: by mail-ed1-f69.google.com with SMTP id
+	v18-20020a056402349200b003f8d3b7ee8dso21636851edc.23
+	for <linux-cachefs@redhat.com>; Tue, 04 Jan 2022 03:28:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=HlBER4WgX6ndKILPb0byGZYRXu9jMjcwREPF5DXKhDY=;
+	b=g9CW90xn80LwocHsGtzMGBVDLteYnoIFxgZ9tGOikK1D1HH/P/wlsqn1tSTCyD+Wfz
+	iNi7S9MSj7n4QB20+6d3+LhNkSYKpguvY/lQBk5HPJhAkdl16YC2ANYGDL3z1tFKAkNe
+	W+71HJPifInWIYCg8adlI9b6UKoHr8h1SzljkNWcHp2JNxz2SZh3/YFPxvTIuIzkUOZu
+	0ZiUIoyZICe0eVRKmg2oz5JUww6EOBHdRBTI8XfV9BQbXT+PvRL7//MAFsb/BQuZ654+
+	HJ2EY07ljs/sqzVy7ucdbzFJMaLZDBKKH/T6Bu0uLea0zbLjspVaaAGCFXOjpi6XdgTm
+	0GAw==
+X-Gm-Message-State: AOAM530ZhBST+hX5OkJTfITVsfZGIqARLluwfyEn32kM4CJs2cOzNRQX
+	Q7MdQxN3xFBfliuIdnU5gJAUr1kGhFBFyznEqM0DO6D7HMG7Lvg0dTr8b5TBwnnbpg3x6TKWXOu
+	p8oHiOB0b8oDh9D2geqh1C+G9D5K0qz3STXHISg==
+X-Received: by 2002:a17:907:76f4:: with SMTP id
+	kg20mr38939366ejc.54.1641295679746; 
+	Tue, 04 Jan 2022 03:27:59 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxGD13hxfXf6UMxSq3qzVERliPxuD4fJN7jkGaY3+WhM3fxbyBO7zjMV2o2jHYN1GMiKxEX4dIi2Sg5K4NisXQ=
+X-Received: by 2002:a17:907:76f4:: with SMTP id
+	kg20mr38939351ejc.54.1641295679251; 
+	Tue, 04 Jan 2022 03:27:59 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+References: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
+In-Reply-To: <164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
+From: David Wysochanski <dwysocha@redhat.com>
+Date: Tue, 4 Jan 2022 06:27:20 -0500
+Message-ID: <CALF+zOnfUf4=c+digFzNjgjJN6wdxwusUvMN1=0YeTommx8fBg@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
-	Marc Dionne <marc.dionne@auristor.com>, Linus,
-	linux-afs@lists.infradead.org, Prasad N <nspmangalore@gmail.com>,
-	linux-cifs@vger.kernel.org, Trond,
-	Matthew Wilcox <willy@infradead.org>, Shyam,
-	Myklebust <trondmy@hammerspace.com>,
-	v9fs-developer@lists.sourceforge.net, Dave,
-	Alexander Viro <viro@zeniv.linux.org.uk>, ceph-devel@vger.kernel.org,
+Cc: linux-nfs <linux-nfs@vger.kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	linux-nfs@vger.kernel.org, Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
-	linux-kernel@vger.kernel.org, Steve French <sfrench@samba.org>,
-	linux-fsdevel@vger.kernel.org, Omar Sandoval <osandov@osandov.com>,
-	Torvalds <torvalds@linux-foundation.org>,
+	linux-cachefs <linux-cachefs@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	Anna Schumaker <anna.schumaker@netapp.com>
 Subject: Re: [Linux-cachefs] [PATCH v4 00/68] fscache, cachefiles: Rewrite
 X-BeenThere: linux-cachefs@redhat.com
@@ -97,7 +108,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,12 +116,14 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
+On Wed, Dec 22, 2021 at 6:13 PM David Howells <dhowells@redhat.com> wrote:
+>
+>
 > Here's a set of patches implements a rewrite of the fscache driver and a
 > matching rewrite of the cachefiles driver, significantly simplifying the
 > code compared to what's upstream, removing the complex operation scheduling
 > and object state machine in favour of something much smaller and simpler.
-> 
+>
 > The patchset is structured such that the first few patches disable fscache
 > use by the network filesystems using it, remove the cachefiles driver
 > entirely and as much of the fscache driver as can be got away with without
@@ -118,33 +131,33 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 > recreate fscache and then cachefiles, attempting to add the pieces in a
 > logical order.  Finally, the filesystems are reenabled and then the very
 > last patch changes the documentation.
-> 
-> 
+>
+>
 > WHY REWRITE?
 > ============
-> 
+>
 > Fscache's operation scheduling API was intended to handle sequencing of
 > cache operations, which were all required (where possible) to run
 > asynchronously in parallel with the operations being done by the network
 > filesystem, whilst allowing the cache to be brought online and offline and
 > to interrupt service for invalidation.
-> 
+>
 > With the advent of the tmpfile capacity in the VFS, however, an opportunity
 > arises to do invalidation much more simply, without having to wait for I/O
 > that's actually in progress: Cachefiles can simply create a tmpfile, cut
 > over the file pointer for the backing object attached to a cookie and
 > abandon the in-progress I/O, dismissing it upon completion.
-> 
+>
 > Future work here would involve using Omar Sandoval's vfs_link() with
 > AT_LINK_REPLACE[1] to allow an extant file to be displaced by a new hard
 > link from a tmpfile as currently I have to unlink the old file first.
-> 
+>
 > These patches can also simplify the object state handling as I/O operations
 > to the cache don't all have to be brought to a stop in order to invalidate
 > a file.  To that end, and with an eye on to writing a new backing cache
 > model in the future, I've taken the opportunity to simplify the indexing
 > structure.
-> 
+>
 > I've separated the index cookie concept from the file cookie concept by C
 > type now.  The former is now called a "volume cookie" (struct
 > fscache_volume) and there is a container of file cookies.  There are then
@@ -153,13 +166,13 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 > instance, an AFS volume would have a key of something like
 > "afs,example.com,1000555", combining the filesystem name, cell name and
 > volume ID.  This is freeform, but must not have '/' chars in it.
-> 
+>
 > I've also eliminated all pointers back from fscache into the network
 > filesystem.  This required the duplication of a little bit of data in the
 > cookie (cookie key, coherency data and file size), but it's not actually
 > that much.  This gets rid of problems with making sure we keep netfs data
 > structures around so that the cache can access them.
-> 
+>
 > These patches mean that most of the code that was in the drivers before is
 > simply gone and those drivers are now almost entirely new code.  That being
 > the case, there doesn't seem any particular reason to try and maintain
@@ -167,23 +180,23 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 > where things are cut over as there's a single point everything has to go
 > through (ie. /dev/cachefiles) and it can't be in use by two drivers at
 > once.
-> 
-> 
+>
+>
 > ISSUES YET OUTSTANDING
 > ======================
-> 
+>
 > There are some issues still outstanding, unaddressed by this patchset, that
 > will need fixing in future patchsets, but that don't stop this series from
 > being usable:
-> 
+>
 >  (1) The cachefiles driver needs to stop using the backing filesystem's
 >      metadata to store information about what parts of the cache are
 >      populated.  This is not reliable with modern extent-based filesystems.
-> 
+>
 >      Fixing this is deferred to a separate patchset as it involves
 >      negotiation with the network filesystem and the VM as to how much data
 >      to download to fulfil a read - which brings me on to (2)...
-> 
+>
 >  (2) NFS and CIFS do not take account of how the cache would like I/O to be
 >      structured to meet its granularity requirements.  Previously, the
 >      cache used page granularity, which was fine as the network filesystems
@@ -191,7 +204,7 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >      or whatever) did whatever it did out of sight.  However, we now have
 >      folios to deal with and the cache will now have to store its own
 >      metadata to track its contents.
-> 
+>
 >      The change I'm looking at making for cachefiles is to store content
 >      bitmaps in one or more xattrs and making a bit in the map correspond
 >      to something like a 256KiB block.  However, the size of an xattr and
@@ -199,92 +212,92 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >      looking at covering 1GiB of data per 512-byte map and storing each map
 >      in an xattr.  Cachefiles has the potential to grow into a fully
 >      fledged filesystem of its very own if I'm not careful.
-> 
+>
 >      However, I'm also looking at changing things even more radically and
 >      going to a different model of how the cache is arranged and managed -
 >      one that's more akin to the way, say, openafs does things - which
 >      brings me on to (3)...
-> 
+>
 >  (3) The way cachefilesd does culling is very inefficient for large caches
 >      and it would be better to move it into the kernel if I can as
 >      cachefilesd has to keep asking the kernel if it can cull a file.
 >      Changing the way the backend works would allow this to be addressed.
-> 
-> 
+>
+>
 > BITS THAT MAY BE CONTROVERSIAL
 > ==============================
-> 
+>
 > There are some bits I've added that may be controversial:
-> 
+>
 >  (1) I've provided a flag, S_KERNEL_FILE, that cachefiles uses to check if
 >      a files is already being used by some other kernel service (e.g. a
 >      duplicate cachefiles cache in the same directory) and reject it if it
 >      is.  This isn't entirely necessary, but it helps prevent accidental
 >      data corruption.
-> 
+>
 >      I don't want to use S_SWAPFILE as that has other effects, but quite
 >      possibly swapon() should set S_KERNEL_FILE too.
-> 
+>
 >      Note that it doesn't prevent userspace from interfering, though
 >      perhaps it should.  (I have made it prevent a marked directory from
 >      being rmdir-able).
-> 
+>
 >  (2) Cachefiles wants to keep the backing file for a cookie open whilst we
 >      might need to write to it from network filesystem writeback.  The
 >      problem is that the network filesystem unuses its cookie when its file
 >      is closed, and so we have nothing pinning the cachefiles file open and
 >      it will get closed automatically after a short time to avoid
 >      EMFILE/ENFILE problems.
-> 
+>
 >      Reopening the cache file, however, is a problem if this is being done
 >      due to writeback triggered by exit().  Some filesystems will oops if
 >      we try to open a file in that context because they want to access
 >      current->fs or suchlike.
-> 
+>
 >      To get around this, I added the following:
-> 
+>
 >      (A) An inode flag, I_PINNING_FSCACHE_WB, to be set on a network
->      	 filesystem inode to indicate that we have a usage count on the
->      	 cookie caching that inode.
-> 
+>          filesystem inode to indicate that we have a usage count on the
+>          cookie caching that inode.
+>
 >      (B) A flag in struct writeback_control, unpinned_fscache_wb, that is
->      	 set when __writeback_single_inode() clears the last dirty page
->      	 from i_pages - at which point it clears I_PINNING_FSCACHE_WB and
->      	 sets this flag.
-> 
-> 	 This has to be done here so that clearing I_PINNING_FSCACHE_WB can
-> 	 be done atomically with the check of PAGECACHE_TAG_DIRTY that
-> 	 clears I_DIRTY_PAGES.
-> 
+>          set when __writeback_single_inode() clears the last dirty page
+>          from i_pages - at which point it clears I_PINNING_FSCACHE_WB and
+>          sets this flag.
+>
+>          This has to be done here so that clearing I_PINNING_FSCACHE_WB can
+>          be done atomically with the check of PAGECACHE_TAG_DIRTY that
+>          clears I_DIRTY_PAGES.
+>
 >      (C) A function, fscache_set_page_dirty(), which if it is not set, sets
->      	 I_PINNING_FSCACHE_WB and calls fscache_use_cookie() to pin the
->      	 cache resources.
-> 
+>          I_PINNING_FSCACHE_WB and calls fscache_use_cookie() to pin the
+>          cache resources.
+>
 >      (D) A function, fscache_unpin_writeback(), to be called by
->      	 ->write_inode() to unuse the cookie.
-> 
+>          ->write_inode() to unuse the cookie.
+>
 >      (E) A function, fscache_clear_inode_writeback(), to be called when the
->      	 inode is evicted, before clear_inode() is called.  This cleans up
->      	 any lingering I_PINNING_FSCACHE_WB.
-> 
+>          inode is evicted, before clear_inode() is called.  This cleans up
+>          any lingering I_PINNING_FSCACHE_WB.
+>
 >      The network filesystem can then use these tools to make sure that
 >      fscache_write_to_cache() can write locally modified data to the cache
 >      as well as to the server.
-> 
+>
 >      For the future, I'm working on write helpers for netfs lib that should
 >      allow this facility to be removed by keeping track of the dirty
 >      regions separately - but that's incomplete at the moment and is also
 >      going to be affected by folios, one way or another, since it deals
 >      with pages.
-> 
-> 
+>
+>
 > These patches can be found also on:
-> 
-> 	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-rewrite
-> 
+>
+>         https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-rewrite
+>
 > David
-> 
-> 
+>
+>
 > Changes
 > =======
 > ver #4:
@@ -297,7 +310,7 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >  - Add an expanded version of a patch to use current_is_kswapd() instead of
 >    !gfpflags_allow_blocking()[8].
 >  - Removed a couple of debugging print statements.
-> 
+>
 > ver #3:
 >  - Fixed a race in the cookie state machine between LRU discard and
 >    relinquishment[4].
@@ -307,7 +320,7 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >  - Added a patch to store volume coherency data in an xattr.
 >  - Added a check that the cookie is unhashed before being freed.
 >  - Fixed fscache to use remove_proc_subtree() to remove /proc/fs/fscache/.
-> 
+>
 > ver #2:
 >  - Fix an unused-var warning due to CONFIG_9P_FSCACHE=n.
 >  - Use gfpflags_allow_blocking() rather than using flag directly.
@@ -327,8 +340,8 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >  - In NFS, need to unuse a cookie on file-release, not inode-clear.
 >  - Filled in the NFS cache I/O routines, borrowing from the previously posted
 >    fallback I/O code[3].
-> 
-> 
+>
+>
 > Link: https://lore.kernel.org/r/cover.1580251857.git.osandov@fb.com/ [1]
 > Link: https://lore.kernel.org/r/20211207134451.66296-1-jlayton@kernel.org/ [2]
 > Link: https://lore.kernel.org/r/163189108292.2509237.12615909591150927232.stgit@warthog.procyon.org.uk/ [3]
@@ -337,73 +350,73 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 > Link: https://lore.kernel.org/r/61b90f3d.H1IkoeQfEsGNhvq9%lkp@intel.com/ [6]
 > Link: https://lore.kernel.org/r/CAHk-=wh2dr=NgVSVj0sw-gSuzhxhLRV5FymfPS146zGgF4kBjA@mail.gmail.com/ [7]
 > Link: https://lore.kernel.org/r/1638952658-20285-1-git-send-email-huangzhaoyang@gmail.com/ [8]
-> 
-> 
+>
+>
 > References
 > ==========
-> 
+>
 > These patches have been published for review before, firstly as part of a
 > larger set:
-> 
+>
 > Link: https://lore.kernel.org/r/158861203563.340223.7585359869938129395.stgit@warthog.procyon.org.uk/
-> 
+>
 > Link: https://lore.kernel.org/r/159465766378.1376105.11619976251039287525.stgit@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/159465784033.1376674.18106463693989811037.stgit@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/159465821598.1377938.2046362270225008168.stgit@warthog.procyon.org.uk/
-> 
+>
 > Link: https://lore.kernel.org/r/160588455242.3465195.3214733858273019178.stgit@warthog.procyon.org.uk/
-> 
+>
 > Then as a cut-down set:
-> 
+>
 > Link: https://lore.kernel.org/r/161118128472.1232039.11746799833066425131.stgit@warthog.procyon.org.uk/ # v1
 > Link: https://lore.kernel.org/r/161161025063.2537118.2009249444682241405.stgit@warthog.procyon.org.uk/ # v2
 > Link: https://lore.kernel.org/r/161340385320.1303470.2392622971006879777.stgit@warthog.procyon.org.uk/ # v3
 > Link: https://lore.kernel.org/r/161539526152.286939.8589700175877370401.stgit@warthog.procyon.org.uk/ # v4
 > Link: https://lore.kernel.org/r/161653784755.2770958.11820491619308713741.stgit@warthog.procyon.org.uk/ # v5
-> 
+>
 > I split out a set to just restructure the I/O, which got merged back in to
 > this one:
-> 
+>
 > Link: https://lore.kernel.org/r/163363935000.1980952.15279841414072653108.stgit@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/163189104510.2509237.10805032055807259087.stgit@warthog.procyon.org.uk/ # v2
 > Link: https://lore.kernel.org/r/163363935000.1980952.15279841414072653108.stgit@warthog.procyon.org.uk/ # v3
 > Link: https://lore.kernel.org/r/163551653404.1877519.12363794970541005441.stgit@warthog.procyon.org.uk/ # v4
-> 
+>
 > ... and a larger set to do the conversion, also merged back into this one:
-> 
+>
 > Link: https://lore.kernel.org/r/163456861570.2614702.14754548462706508617.stgit@warthog.procyon.org.uk/ # v1
 > Link: https://lore.kernel.org/r/163492911924.1038219.13107463173777870713.stgit@warthog.procyon.org.uk/ # v2
-> 
+>
 > Older versions of this one:
-> 
+>
 > Link: https://lore.kernel.org/r/163819575444.215744.318477214576928110.stgit@warthog.procyon.org.uk/ # v1
 > Link: https://lore.kernel.org/r/163906878733.143852.5604115678965006622.stgit@warthog.procyon.org.uk/ # v2
 > Link: https://lore.kernel.org/r/163967073889.1823006.12237147297060239168.stgit@warthog.procyon.org.uk/ # v3
-> 
+>
 > Proposals/information about the design have been published here:
-> 
+>
 > Link: https://lore.kernel.org/r/24942.1573667720@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/2758811.1610621106@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/1441311.1598547738@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/160655.1611012999@warthog.procyon.org.uk/
-> 
+>
 > And requests for information:
-> 
+>
 > Link: https://lore.kernel.org/r/3326.1579019665@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/4467.1579020509@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/3577430.1579705075@warthog.procyon.org.uk/
-> 
+>
 > I've posted partial patches to try and help 9p and cifs along:
-> 
+>
 > Link: https://lore.kernel.org/r/1514086.1605697347@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/1794123.1605713481@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/241017.1612263863@warthog.procyon.org.uk/
 > Link: https://lore.kernel.org/r/270998.1612265397@warthog.procyon.org.uk/
-> 
+>
 > ---
 > Dave Wysochanski (1):
 >       nfs: Convert to new fscache volume/cookie API
-> 
+>
 > David Howells (65):
 >       fscache, cachefiles: Disable configuration
 >       cachefiles: Delete the cachefiles driver pending rewrite
@@ -470,12 +483,12 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >       fscache: Rewrite documentation
 >       fscache: Add a tracepoint for cookie use/unuse
 >       9p, afs, ceph, cifs, nfs: Use current_is_kswapd() rather than gfpflags_allow_blocking()
-> 
+>
 > Jeff Layton (2):
 >       ceph: conversion to new fscache API
 >       ceph: add fscache writeback support
-> 
-> 
+>
+>
 >  .../filesystems/caching/backend-api.rst       |  850 ++++------
 >  .../filesystems/caching/cachefiles.rst        |    6 +-
 >  Documentation/filesystems/caching/fscache.rst |  525 ++----
@@ -598,13 +611,25 @@ On Wed, 2021-12-22 at 23:13 +0000, David Howells wrote:
 >  delete mode 100644 fs/fscache/page.c
 >  create mode 100644 fs/fscache/volume.c
 >  delete mode 100644 fs/nfs/fscache-index.c
-> 
-> 
+>
+>
 
-I tested these on ceph with the caches both enabled and disabled and
-everything looks good.
+Tested this with NFS and fscache enabled and disabled looks very
+stable.  You can add
+Tested-by: Dave Wysochanski <dwysocha@redhat.com>
 
-Tested-by: Jeff Layton <jlayton@kernel.org>
+Since this set was on top of 5.16.0-rc4, I compared runs of vanilla
+5.16.0-rc4 and this set.
+No new failures were seen, no oops or warns, or other stability
+issues, and many runs I ran back to back without reboots.
+
+Summary of tests
+- NFS fscache unit tests: PASS
+- xfstests vers=4.2,fsc,nofsc (Hammerspace pNFS flexfiles, RHEL 8u4): PASS
+- xfstests vers=4.1,fsc,nofsc (Hammerspace pNFS flexfiles, NetApp
+Ontap 9.x pNFS files): PASS
+- xfstests vers=4.0,fsc,nofsc (NetApp Ontap 9.x pNFS files, RHEL 8u4): PASS
+- xfstests vers=3 (RHEL 8u4): PASS
 
 --
 Linux-cachefs mailing list
