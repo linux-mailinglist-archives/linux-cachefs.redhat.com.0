@@ -2,73 +2,76 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F081486CB2
-	for <lists+linux-cachefs@lfdr.de>; Thu,  6 Jan 2022 22:49:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB7C1487660
+	for <lists+linux-cachefs@lfdr.de>; Fri,  7 Jan 2022 12:20:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1641554424;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=JLldDwEFIkneBR7O3eauGVtdsU/jrrekDqvmexuv6ww=;
+	b=LbMyoWa8E8gi4NnKY937CKWztm+MR559HS0V6pTq2ElSNnwgcgwMEhDyLiW/wg3gKNs/8F
+	m+cd7V/Lo0nCdZz862WQRksLOpbEzBZT4XNrJdkONU3G7c0DXhczEvSiqUJhLT8PUNEhqG
+	vqROvtKGaK6UfOYXSsW/JspjK3BjoLs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-107-W9O96B2SMmmu-U3ATNioTg-1; Thu, 06 Jan 2022 16:49:44 -0500
-X-MC-Unique: W9O96B2SMmmu-U3ATNioTg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-505-WIlygwkWNx6B3pg3lRmOtA-1; Fri, 07 Jan 2022 06:20:21 -0500
+X-MC-Unique: WIlygwkWNx6B3pg3lRmOtA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22E391083F60;
-	Thu,  6 Jan 2022 21:49:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2F0678D87;
-	Thu,  6 Jan 2022 21:49:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8A7331800D50;
+	Fri,  7 Jan 2022 11:20:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3763106F758;
+	Fri,  7 Jan 2022 11:20:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EC70B4BB7C;
-	Thu,  6 Jan 2022 21:49:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1CFB41809CB8;
+	Fri,  7 Jan 2022 11:20:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 206Lncb1027854 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Thu, 6 Jan 2022 16:49:38 -0500
+	id 207BK5j1017721 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Fri, 7 Jan 2022 06:20:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 05CE32026614; Thu,  6 Jan 2022 21:49:38 +0000 (UTC)
+	id 1BC0E7E213; Fri,  7 Jan 2022 11:20:05 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 013A42026D6B
-	for <linux-cachefs@redhat.com>; Thu,  6 Jan 2022 21:49:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19C8480029D
-	for <linux-cachefs@redhat.com>; Thu,  6 Jan 2022 21:49:35 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-340-sACJIapwO9G4MkXW3A7q7g-1; Thu, 06 Jan 2022 16:49:31 -0500
-X-MC-Unique: sACJIapwO9G4MkXW3A7q7g-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 42EFBB8244D;
-	Thu,  6 Jan 2022 21:49:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660ECC36AE3;
-	Thu,  6 Jan 2022 21:49:28 +0000 (UTC)
-Message-ID: <693ab77bab10b38b1ddab373211c24722e79fee2.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>, idryomov@gmail.com,
-	ceph-devel@vger.kernel.org, dhowells@redhat.com, linux-cachefs@redhat.com
-Date: Thu, 06 Jan 2022 16:49:27 -0500
-In-Reply-To: <20211228124419.103020-1-jefflexu@linux.alibaba.com>
-References: <20211228124419.103020-1-jefflexu@linux.alibaba.com>
-User-Agent: Evolution 3.42.2 (3.42.2-1.fc35)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.165])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7D1597E23A;
+	Fri,  7 Jan 2022 11:19:53 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <1e102cc81aaf71df2b7f5ae906b79c188a34a111.camel@kernel.org>
+References: <1e102cc81aaf71df2b7f5ae906b79c188a34a111.camel@kernel.org>
+	<164021479106.640689.17404516570194656552.stgit@warthog.procyon.org.uk>
+	<164021549223.640689.14762875188193982341.stgit@warthog.procyon.org.uk>
+To: Jeff Layton <jlayton@kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Date: Fri, 07 Jan 2022 11:19:52 +0000
+Message-ID: <3149374.1641554392@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 207BK5j1017721
 X-loop: linux-cachefs@redhat.com
-Subject: Re: [Linux-cachefs] [PATCH] netfs: make ops->init_rreq() optional
+Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
+	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>,
+	linux-afs@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Trond Myklebust <trondmy@hammerspace.com>,
+	v9fs-developer@lists.sourceforge.net, Omar Sandoval <osandov@osandov.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Anna Schumaker <anna.schumaker@netapp.com>
+Subject: Re: [Linux-cachefs] [PATCH v4 44/68] cachefiles: Implement key to
+	filename encoding
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,75 +85,55 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <3149373.1641554392.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2021-12-28 at 20:44 +0800, Jeffle Xu wrote:
-> Hi, recently I'm developing erofs over fscache for implementing
-> on-demand read, and erofs also implements an empty .init_rreq()
-> callback[1].
-> 
-> [1] https://lkml.org/lkml/2021/12/27/224
-> 
-> If folks don't like this cleanup and prefer empty callback in upper fs,
-> I'm also fine with that.
-> ---
-> There's already upper fs implementing empty .init_rreq() callback, and
-> thus make it optional.
-> 
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-> ---
->  fs/ceph/addr.c         | 5 -----
->  fs/netfs/read_helper.c | 3 ++-
->  2 files changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-> index e53c8541f5b2..c3537dfd8c04 100644
-> --- a/fs/ceph/addr.c
-> +++ b/fs/ceph/addr.c
-> @@ -291,10 +291,6 @@ static void ceph_netfs_issue_op(struct netfs_read_subrequest *subreq)
->  	dout("%s: result %d\n", __func__, err);
->  }
->  
-> -static void ceph_init_rreq(struct netfs_read_request *rreq, struct file *file)
-> -{
-> -}
-> -
->  static void ceph_readahead_cleanup(struct address_space *mapping, void *priv)
->  {
->  	struct inode *inode = mapping->host;
-> @@ -306,7 +302,6 @@ static void ceph_readahead_cleanup(struct address_space *mapping, void *priv)
->  }
->  
->  static const struct netfs_read_request_ops ceph_netfs_read_ops = {
-> -	.init_rreq		= ceph_init_rreq,
->  	.is_cache_enabled	= ceph_is_cache_enabled,
->  	.begin_cache_operation	= ceph_begin_cache_operation,
->  	.issue_op		= ceph_netfs_issue_op,
-> diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
-> index 75c76cbb27cc..0befb0747c59 100644
-> --- a/fs/netfs/read_helper.c
-> +++ b/fs/netfs/read_helper.c
-> @@ -55,7 +55,8 @@ static struct netfs_read_request *netfs_alloc_read_request(
->  		INIT_WORK(&rreq->work, netfs_rreq_work);
->  		refcount_set(&rreq->usage, 1);
->  		__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
-> -		ops->init_rreq(rreq, file);
-> +		if (ops->init_rreq)
-> +			ops->init_rreq(rreq, file);
->  		netfs_stat(&netfs_n_rh_rreq);
->  	}
->  
+Jeff Layton <jlayton@kernel.org> wrote:
 
-This looks reasonable to me, since ceph doesn't need anything here
-anyway.
+> Since most cookies are fairly small, is there any real benefit to
+> optimizing for length here? How much inflation are we talking about?
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Taking AFS as an example, a vnode is represented at the file level by two
+numbers: a 32-bit or 96-bit file ID and a 32-bit uniquifier.  If it's a 96-bit
+file ID, a lot of the time, the upper 64-bits will be zero, so we're talking
+something like:
+
+	S421d4,1f07f34,,
+
+instead of:
+
+	S000421d401f07f340000000000000000
+
+or:
+
+	E0AAQh1AHwfzQAAAAAAAAAAA==
+
+The first makes for a more readable name in the cache.  The real fun is with
+NFS, where the name can be very long.  For one that's just 5 words in length:
+
+	T81010001,1,20153e2,,a906194b
+
+instead of:
+
+	T8101000100000001020153e200000000a906194b
+
+or:
+
+	E0gQEAAQAAAAECAVPiAAAAAKkGGUs=
+
+(The letter on the front represents the encoding scheme; in the base64 encoding
+the second digit indicates the amount of padding).
+
+I don't know how much difference it makes to the backing filesystem's
+directory packing - and it may depend on the particular filesystem.
+
+David
 
 --
 Linux-cachefs mailing list
