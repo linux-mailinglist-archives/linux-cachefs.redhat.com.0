@@ -2,100 +2,82 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78DCF48BB8B
-	for <lists+linux-cachefs@lfdr.de>; Wed, 12 Jan 2022 00:40:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0364448BEB9
+	for <lists+linux-cachefs@lfdr.de>; Wed, 12 Jan 2022 07:56:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-STLZnUoGP9eeswIpupxi7g-1; Tue, 11 Jan 2022 18:40:08 -0500
-X-MC-Unique: STLZnUoGP9eeswIpupxi7g-1
+ us-mta-466-eqE7F155OMm8BmlXSU3Peg-1; Wed, 12 Jan 2022 01:56:22 -0500
+X-MC-Unique: eqE7F155OMm8BmlXSU3Peg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C06E81EE60;
-	Tue, 11 Jan 2022 23:40:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B368181CCB4;
+	Wed, 12 Jan 2022 06:56:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C69F15E4B7;
-	Tue, 11 Jan 2022 23:40:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 440C85E4A2;
+	Wed, 12 Jan 2022 06:56:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB5164BB7C;
-	Tue, 11 Jan 2022 23:40:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B3894BB7B;
+	Wed, 12 Jan 2022 06:56:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20BNdsee009156 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 11 Jan 2022 18:39:55 -0500
+	id 20C6tTRo009524 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 12 Jan 2022 01:55:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CA588218013F; Tue, 11 Jan 2022 23:39:54 +0000 (UTC)
+	id CCEC9202660C; Wed, 12 Jan 2022 06:55:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4C78217B403
-	for <linux-cachefs@redhat.com>; Tue, 11 Jan 2022 23:39:43 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C14BA85A5AA
-	for <linux-cachefs@redhat.com>; Tue, 11 Jan 2022 23:39:43 +0000 (UTC)
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=dkim.mimecast.com; s=201903; t=1641944383;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=4Z3sqpGIFVL84J+SH3/JqcsCmk3/t539vZt80mjQAn0=;
-	b=h9Jjz50vPJAK19SmG1VbvITsUBCgAp0Q6Qm+5EMFNWVbIPijXmd4VTJq+RqV4IdWXJZj9r
-	Oq/yC07zi9GV6p0dCnCaSqVHoyrFT47bb7xBUZSQsDNBfYZwXgjBtAsUrajjJyWUKPMw3k
-	7cIWowiiYqx5ym3UlQnLWXmR46H8kSM99IBFgwGglR+QzZ5g6MIJJf8VsQEYVEtdVsIer0
-	GsycbzrYkL0BU8wAEsPD5DOEJsE+8H/4ggyJgxxVPt1oP8bjGk2nIiRunTnxB8HgpQ9zoK
-	fkXC7FAB+4W8Dp37HbpdC/oNPtI8EQyeXAd+AXVFSeBHprtiC2m2kV3+NwXwkA==
-ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1641944383; a=rsa-sha256;
-	cv=none;
-	b=ZP3zK7L4k5jpKtlQ8f7sYfD+YzxQLHxDlaVNyiH8Xtwyl5EZr5piRBN+rdSy5xN1Cn47BV
-	E0OrVkNX0mgq86DIVlmQi1lIND7f/KQJDG+Vt0hvMc0oP4CivHTsIhJe+iQuVrX3QMVfUi
-	YJhq/UzjexMarnLmCKGUivqRK67vWdq9p6Z4xP7UnYRvi/q6orYm7u1iZMPe06nQBnjrHb
-	2ix9UHfA+3CfLu54yLrpUNQApcZYLL1LZvoNHoZTVB7w6wwmB4MieaD+xNQrtsCIOQ9Z83
-	ZRI6x/kYpt6RmMu4dKEpkM7UUt6DpWjPgKYCSzDd1FDQNLj8jZBbEZ5m19eRiw==
-ARC-Authentication-Results: i=1; relay.mimecast.com;
-	dkim=pass header.d=canb.auug.org.au header.s=201702 header.b=CAL+VhB7; 
-	dmarc=none;
-	spf=pass (relay.mimecast.com: domain of sfr@canb.auug.org.au designates
-	150.107.74.76 as permitted sender)
-	smtp.mailfrom=sfr@canb.auug.org.au
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-377-sz1zn9JvOo6Q7QW22NajpQ-1; Tue, 11 Jan 2022 18:39:42 -0500
-X-MC-Unique: sz1zn9JvOo6Q7QW22NajpQ-1
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
-	server-digest SHA256) (No client certificate requested)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4JYRmM5gZ5z4xmx;
-	Wed, 12 Jan 2022 10:31:47 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
-	s=201702; t=1641943919;
-	bh=4Z3sqpGIFVL84J+SH3/JqcsCmk3/t539vZt80mjQAn0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=CAL+VhB7tnGuerjBXg+KBrIXNM5L47Grr2Z7MctVembeA/rhXP/4Qlff+eCDzsasV
-	m07b4UblcBcm43Gt6g+CJaaPiTBASmT/8BpIYuXG0NheZif123+Jx3mSG4ghjD5Bnr
-	vKKAPvQRgL6gxoRfQc3w+t52HyU2Os/2DuZKOZTS1fOqFAoDtgP7C2312g4o2oCT9E
-	ERz+u6FsuLxtJw9CYnZASZbrKyZ1A31xsC+V69GzuN44Trb8RVnjGBHrbSpTbGiYjQ
-	FJEC1IE7aJxnO2oJnV8uNmJItDD1jVnRm6IH/ot9+21m/9tIAwlSSUqFWNTrs1TqXI
-	8mSVssM+Jlbjw==
-Date: Wed, 12 Jan 2022 10:31:46 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20220112103146.03c88319@canb.auug.org.au>
-In-Reply-To: <510611.1641942444@warthog.procyon.org.uk>
-References: <510611.1641942444@warthog.procyon.org.uk>
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8457200BA61
+	for <linux-cachefs@redhat.com>; Wed, 12 Jan 2022 06:55:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD188811E76
+	for <linux-cachefs@redhat.com>; Wed, 12 Jan 2022 06:55:26 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+	[209.85.208.53]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-620-6JhZPnQ7O-a0uhEnxN1Y8g-1; Wed, 12 Jan 2022 01:55:23 -0500
+X-MC-Unique: 6JhZPnQ7O-a0uhEnxN1Y8g-1
+Received: by mail-ed1-f53.google.com with SMTP id k15so5767823edk.13;
+	Tue, 11 Jan 2022 22:55:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=vl5u6B/NkvNJJrH/cXFVPgO5CF7nm3Ynkvj2GDXNtJU=;
+	b=NPiE+4FRa4CQB4kzFxO5wUPcdZ4w+UJELCVk2hsSGOozp5BdGoMNdRQwoFHzeAaiVt
+	+EnOKeLycgCxhWMC3cBwaEy+Al6sQYZSKKBwy6NBNp4iPZiEq6IXkjv9mxgvgh2e0Nil
+	O2NS3njHZlCvxQifoJgdo2EtKqTgAd1I2uQZIPMCxp0DI1kIp+ANDcujGj8FmE8PZf2c
+	o7kvGZqQFk0jL8VvQMyUKk/wse+LzBIelSVMcaopxY0CVCkU5TnY/imA48fg5yU9AZ8r
+	addBgjmwcR9dZCNLS37wGfXBw03y5rebJ5d+/CTTA0myAx0+SWYMfaSycivUOutok6dl
+	POBQ==
+X-Gm-Message-State: AOAM531EVU0FrigGWXgDla0eXN+9ZgpNIMofhenfMRsvRT8K65yEwThr
+	wYyp7qYRLxzYQL9Kd/opSkKki4iEJjFtq23htBJTEFAPubw=
+X-Google-Smtp-Source: ABdhPJw2dp4pENOTW0DM0T1kXaPoptToYEjJt7vxe6sneERB0ePQGEzsjNKYal8VGW1mNoMl9ygGt/t0o1rc6UVSIRE=
+X-Received: by 2002:aa7:cac7:: with SMTP id l7mr7850424edt.302.1641970521816; 
+	Tue, 11 Jan 2022 22:55:21 -0800 (PST)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	dkim=pass header.d=canb.auug.org.au header.s=201702 header.b=CAL+VhB7; 
-	dmarc=none;
-	spf=pass (relay.mimecast.com: domain of sfr@canb.auug.org.au designates
-	150.107.74.76 as permitted sender)
-	smtp.mailfrom=sfr@canb.auug.org.au
-X-Mimecast-Spam-Score: -5
+References: <CADJHv_u3bqj82sFUWT=JJBWd1kjc14FUbVBd_9r18cMQOeudJw@mail.gmail.com>
+	<CANT5p=rjTGNu2WooxRcu4JMM9wSyYY6S3kXtdfQ5caj1WnAEOA@mail.gmail.com>
+	<CANT5p=pW1t5ggVsrMgNWi+CBpym5XXQ1dSwm-eH=vpczmL_nTg@mail.gmail.com>
+	<CANT5p=oQeR90LPJKRUJ6eF+ti3Mefs48FfasT=fE79vyZKQU5g@mail.gmail.com>
+	<CADJHv_s1-P20E=m+tWMYtWF-vJjcsEC3jq4Qd7seLxFJebgX2g@mail.gmail.com>
+	<CADJHv_tfZRPtXqxTG-cnkXx=BQjq-danJQ0Q-rZZwS8PeCr_Eg@mail.gmail.com>
+	<CANT5p=pdtZ0nNQYat6CJDqGQawiEnPAbST=1Q8JKs9GN9oA8nw@mail.gmail.com>
+	<CADJHv_uZPY374k6vtbk2_VSC3YhejDT0fuuvyEJm6y2weqGLmg@mail.gmail.com>
+	<3790640.1641819409@warthog.procyon.org.uk>
+	<4126222.1641887321@warthog.procyon.org.uk>
+	<20220111141305.56z36gaogt72kwja@xzhoux.usersys.redhat.com>
+	<491547.1641939439@warthog.procyon.org.uk>
+In-Reply-To: <491547.1641939439@warthog.procyon.org.uk>
+From: Murphy Zhou <jencce.kernel@gmail.com>
+Date: Wed, 12 Jan 2022 14:55:09 +0800
+Message-ID: <CADJHv_uZe3UaO3Ei6vP1o5C2Pcasr6UCiiBvs7F_KV2731V0pQ@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -104,24 +86,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: linux-cachefs@redhat.com
-Cc: Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
-	Dionne <marc.dionne@auristor.com>, linux-afs@lists.infradead.org,
-	Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org, Marc,
-	Matthew Wilcox <willy@infradead.org>, linux-cachefs@redhat.com,
-	Trond Myklebust <trondmy@hammerspace.com>,
-	v9fs-developer@lists.sourceforge.net, Daire Byrne <daire@dneg.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	ceph-devel@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
-	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	Steve French <sfrench@samba.org>, linux-fsdevel@vger.kernel.org,
-	Omar Sandoval <osandov@osandov.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Anna Schumaker <anna.schumaker@netapp.com>
-Subject: Re: [Linux-cachefs] [GIT PULL] fscache, cachefiles: Rewrite
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, Steve French <smfrench@gmail.com>,
+	linux-cachefs@redhat.com
+Subject: Re: [Linux-cachefs] [ linux-next ] 20211206 tree cifs panic
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -133,66 +102,75 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8611314713363182034=="
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-
---===============8611314713363182034==
-Content-Type: multipart/signed; boundary="Sig_/TSD_6X.o4QL4mtle5E/6NvU";
-	protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/TSD_6X.o4QL4mtle5E/6NvU
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Hi David,
-
-On Tue, 11 Jan 2022 23:07:24 +0000 David Howells <dhowells@redhat.com> wrot=
-e:
->
->     I think also that a conflict[10] spotted by Stephen Rothwell between =
-my
->     series and some changes that went in since the branching point
->     shouldn't be an issue with this removed.
-
-There is also this conflict against the pifdf tree (which may or may
-not be merged before this):
-
-https://lore.kernel.org/all/20211206090755.3c6f6fe4@canb.auug.org.au/
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/TSD_6X.o4QL4mtle5E/6NvU
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmHeE2IACgkQAVBC80lX
-0GykKgf+LY4OWHMyvWj+UkQIEcaKG5r9OhPcLyt0zfDe0PRZQmlxXnY3gTri4emO
-7Fj3IMkvEOSOP3VZlIRTpYauhwuCpB+yQDB/8X303z+a2aF9f/K1wrt0wvfGAqUY
-qlGXd0zwWB9XPkGCkYEMi5oVP6TbMKajCMkq5rFhZcQS7YfHrWS/uJhpcmeVU0gn
-BYKtZyQ5RBY8RImGGBnhGjQLxhXBn90mi729iNaFVPzeonasUxYQzZaiWSMGxWov
-a2RcKHhg+dwlj1BTgB3lEnny9EM57priTBX8HnJwconRDhrWaGBv+k973nnHHZq0
-x1fteziRSjCPvg4mlWtvA8XrBSjL1g==
-=alke
------END PGP SIGNATURE-----
-
---Sig_/TSD_6X.o4QL4mtle5E/6NvU--
-
-
---===============8611314713363182034==
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+On Wed, Jan 12, 2022 at 6:17 AM David Howells <dhowells@redhat.com> wrote:
+>
+> Can you try applying the attached patch?  It has some debugging to check that
+> the cifs file it's trying to close actually got opened.  It turns out that
+> some paths through were either managing to escape that or were going through
+> when they shouldn't have been.
+
+With this patch on 0111 tree, the panic is gone.
+
+The panic looks like:
+
+[   85.319031] Attempt to set a LOCK_MAND lock via flock(2). This
+support has been removed and the request ignored.
+[   85.320889] FS-Cache:
+[   85.321265] FS-Cache: Assertion failed
+[   85.321763] FS-Cache: ffffffffffffffff == 0 is false
+[   85.322740] ------------[ cut here ]------------
+[   85.323508] kernel BUG at fs/fscache/cookie.c:957!
+[   85.324439] invalid opcode: 0000 [#1] PREEMPT SMP PTI
+[   85.325266] CPU: 0 PID: 7 Comm: kworker/0:1 Not tainted
+5.16.0-next-20220107-next-20220107 #1
+[   85.326672] Hardware name: Red Hat KVM/RHEL-AV, BIOS 1.15.0-1.el9 04/01/2014
+[   85.327830] Workqueue: deferredclose smb2_deferred_work_close [cifs]
+[   85.328975] RIP: 0010:__fscache_relinquish_cookie.cold+0x2a/0x5c [fscache]
+[   85.330214] Code: 48 c7 c7 bd 63 c7 c0 e8 ff ed 20 d5 48 c7 c7 cb
+63 c7 c0 e8 f3 ed 20 d5 48 63 75 04 31 d2 48 c7 c7 d8 70 c7 c0 e8 e1
+ed 20 d5 <0f> 0b 48 c7 c7 bd 63 c7 c0 e8 d3 ed 20 d5 48 c7 c7 cb 63 c7
+c0 e8
+[   85.333222] RSP: 0018:ffffac8b00043d40 EFLAGS: 00010246
+[   85.334070] RAX: 0000000000000028 RBX: ffff900ac2954d88 RCX: 0000000000000000
+[   85.335230] RDX: 0000000000000000 RSI: ffff900b3dc1fcc0 RDI: ffff900b3dc1fcc0
+[   85.336388] RBP: ffff900addd19370 R08: 0000000000000000 R09: ffffac8b00043b88
+[   85.337587] R10: ffffac8b00043b80 R11: ffffffff971e5a68 R12: ffff900ac2954cf8
+[   85.338808] R13: ffff900ac367b000 R14: 000000000000001a R15: ffff900b0d5e7a00
+[   85.339333] FS-Cache:
+[   85.339969] FS:  0000000000000000(0000) GS:ffff900b3dc00000(0000)
+knlGS:0000000000000000
+[   85.340333] FS-Cache: Assertion failed
+[   85.341652] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   85.341654] CR2: 00007f364bb6cf18 CR3: 0000000002202006 CR4: 0000000000170ef0
+[   85.341657] Call Trace:
+[   85.341660]  <TASK>
+[   85.342161] FS-Cache: ffffffffffffffff == 0 is false
+[   85.343111]  cifs_fscache_release_inode_cookie+0x22/0x80 [cifs]
+[   85.344035] ------------[ cut here ]------------
+[   85.344443]  cifsFileInfo_put_final+0x39/0x150 [cifs]
+[   85.344731] kernel BUG at fs/fscache/cookie.c:957!
+[   85.345570]  _cifsFileInfo_put+0x23d/0x3e0 [cifs]
+[   85.349557]  ? smb2_deferred_work_close+0x30/0x60 [cifs]
+[   85.350466]  process_one_work+0x1e5/0x3b0
+[   85.351745]  worker_thread+0x50/0x3a0
+[   85.352929]  ? rescuer_thread+0x370/0x370
+[   85.354218]  kthread+0xca/0xf0
+[   85.355309]  ? kthread_complete_and_exit+0x20/0x20
+[   85.356644]  ret_from_fork+0x22/0x30
+[   85.357853]  </TASK>
 
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
 https://listman.redhat.com/mailman/listinfo/linux-cachefs
---===============8611314713363182034==--
 
