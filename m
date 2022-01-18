@@ -1,60 +1,60 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F6849269F
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 080EA4926A0
 	for <lists+linux-cachefs@lfdr.de>; Tue, 18 Jan 2022 14:12:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-288-bfIBqLShOMSsvSYlNB90_w-1; Tue, 18 Jan 2022 08:12:44 -0500
-X-MC-Unique: bfIBqLShOMSsvSYlNB90_w-1
+ us-mta-159-6hjVVvt3OOC2zp53BOPi5w-1; Tue, 18 Jan 2022 08:12:44 -0500
+X-MC-Unique: 6hjVVvt3OOC2zp53BOPi5w-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D2C983DD24;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88125874980;
 	Tue, 18 Jan 2022 13:12:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 891716E1F4;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BAE25DBA2;
 	Tue, 18 Jan 2022 13:12:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 70C361806D1C;
-	Tue, 18 Jan 2022 13:12:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F81F4A7CA;
+	Tue, 18 Jan 2022 13:12:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20IDCdf2010121 for <linux-cachefs@listman.util.phx.redhat.com>;
+	id 20IDCdDM010120 for <linux-cachefs@listman.util.phx.redhat.com>;
 	Tue, 18 Jan 2022 08:12:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6D976492D1D; Tue, 18 Jan 2022 13:12:39 +0000 (UTC)
+	id 4D7AD401E3D; Tue, 18 Jan 2022 13:12:39 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69A81492D19
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A573401E3C
 	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50DA13C61340
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32A54185A79C
 	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:39 +0000 (UTC)
 Received: from out30-45.freemail.mail.aliyun.com
 	(out30-45.freemail.mail.aliyun.com [115.124.30.45]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-437-45lJnsm_NJ-O82rOazCJOw-1; Tue, 18 Jan 2022 08:12:37 -0500
-X-MC-Unique: 45lJnsm_NJ-O82rOazCJOw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	us-mta-223-sqTcnIw8MTOEsvKueRa5cw-1; Tue, 18 Jan 2022 08:12:35 -0500
+X-MC-Unique: sqTcnIw8MTOEsvKueRa5cw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V2C2ax2_1642511549
+	TI=SMTPD_---0V2C5CoQ_1642511550
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V2C2ax2_1642511549) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 18 Jan 2022 21:12:30 +0800
+	fp:SMTPD_---0V2C5CoQ_1642511550) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 18 Jan 2022 21:12:31 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Tue, 18 Jan 2022 21:12:07 +0800
-Message-Id: <20220118131216.85338-12-jefflexu@linux.alibaba.com>
+Date: Tue, 18 Jan 2022 21:12:08 +0800
+Message-Id: <20220118131216.85338-13-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
 References: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,14 +66,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: linux-cachefs@redhat.com
 Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v2 11/20] erofs: add cookie context helper
-	functions
+Subject: [Linux-cachefs] [PATCH v2 12/20] erofs: add anonymous inode
+	managing page cache of blob file
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,138 +95,125 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce 'struct erofs_cookie_ctx' for managing cookie for backing
-file, and the following introduced API for reading from backing file.
-
-Besides, introduce two helper functions for initializing and cleaning
-up erofs_cookie_ctx.
-
-struct erofs_cookie_ctx *
-erofs_fscache_get_ctx(struct super_block *sb, char *path);
-
-void erofs_fscache_put_ctx(struct erofs_cookie_ctx *ctx);
+Introduce one anonymous inode for managing page cache of corresponding
+blob file. Then erofs could read directly from the address space of the
+anonymous inode when cache hit.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/erofs/fscache.c  | 78 +++++++++++++++++++++++++++++++++++++++++++++
- fs/erofs/internal.h |  8 +++++
- 2 files changed, 86 insertions(+)
+ fs/erofs/fscache.c  | 45 ++++++++++++++++++++++++++++++++++++++++++---
+ fs/erofs/internal.h |  3 ++-
+ 2 files changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-index 9c32f42e1056..10c3f5ea9e24 100644
+index 10c3f5ea9e24..74683df6144d 100644
 --- a/fs/erofs/fscache.c
 +++ b/fs/erofs/fscache.c
-@@ -6,6 +6,84 @@
+@@ -6,6 +6,9 @@
  
  static struct fscache_volume *volume;
  
-+static int erofs_fscache_init_cookie(struct erofs_fscache_context *ctx,
-+				     char *path)
-+{
-+	struct fscache_cookie *cookie;
-+
-+	/*
-+	 * @object_size shall be non-zero to avoid
-+	 * FSCACHE_COOKIE_NO_DATA_TO_READ.
-+	 */
-+	cookie = fscache_acquire_cookie(volume, 0,
-+					path, strlen(path),
-+					NULL, 0, -1);
-+	if (!cookie)
-+		return -EINVAL;
-+
-+	fscache_use_cookie(cookie, false);
-+	ctx->cookie = cookie;
-+	return 0;
-+}
-+
-+static inline
-+void erofs_fscache_cleanup_cookie(struct erofs_fscache_context *ctx)
-+{
-+	struct fscache_cookie *cookie = ctx->cookie;
-+
-+	fscache_unuse_cookie(cookie, NULL, NULL);
-+	fscache_relinquish_cookie(cookie, false);
-+	ctx->cookie = NULL;
-+}
-+
-+static int erofs_fscahce_init_ctx(struct erofs_fscache_context *ctx,
-+				  struct super_block *sb, char *path)
-+{
-+	int ret;
-+
-+	ret = erofs_fscache_init_cookie(ctx, path);
-+	if (ret) {
-+		erofs_err(sb, "failed to init cookie");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static inline
-+void erofs_fscache_cleanup_ctx(struct erofs_fscache_context *ctx)
-+{
-+	erofs_fscache_cleanup_cookie(ctx);
-+}
-+
-+struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
-+						char *path)
-+{
-+	struct erofs_fscache_context *ctx;
-+	int ret;
-+
-+	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = erofs_fscahce_init_ctx(ctx, sb, path);
-+	if (ret) {
-+		kfree(ctx);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return ctx;
-+}
-+
-+void erofs_fscache_put_ctx(struct erofs_fscache_context *ctx)
-+{
-+	if (!ctx)
-+		return;
-+
-+	erofs_fscache_cleanup_ctx(ctx);
-+	kfree(ctx);
-+}
-+
- int __init erofs_init_fscache(void)
- {
- 	volume = fscache_acquire_volume("erofs", NULL, NULL, 0);
-diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-index c2608a469107..1f5bc69e8e9f 100644
---- a/fs/erofs/internal.h
-+++ b/fs/erofs/internal.h
-@@ -97,6 +97,10 @@ struct erofs_sb_lz4_info {
- 	u16 max_pclusterblks;
- };
- 
-+struct erofs_fscache_context {
-+	struct fscache_cookie *cookie;
++static const struct address_space_operations erofs_fscache_blob_aops = {
 +};
 +
+ static int erofs_fscache_init_cookie(struct erofs_fscache_context *ctx,
+ 				     char *path)
+ {
+@@ -36,8 +39,34 @@ void erofs_fscache_cleanup_cookie(struct erofs_fscache_context *ctx)
+ 	ctx->cookie = NULL;
+ }
+ 
++static int erofs_fscache_get_inode(struct erofs_fscache_context *ctx,
++				   struct super_block *sb)
++{
++	struct inode *const inode = new_inode(sb);
++
++	if (!inode)
++		return -ENOMEM;
++
++	set_nlink(inode, 1);
++	inode->i_size = OFFSET_MAX;
++
++	inode->i_mapping->a_ops = &erofs_fscache_blob_aops;
++	mapping_set_gfp_mask(inode->i_mapping,
++			GFP_NOFS | __GFP_HIGHMEM | __GFP_MOVABLE);
++	ctx->inode = inode;
++	return 0;
++}
++
++static inline
++void erofs_fscache_put_inode(struct erofs_fscache_context *ctx)
++{
++	iput(ctx->inode);
++	ctx->inode = NULL;
++}
++
+ static int erofs_fscahce_init_ctx(struct erofs_fscache_context *ctx,
+-				  struct super_block *sb, char *path)
++				  struct super_block *sb, char *path,
++				  bool need_inode)
+ {
+ 	int ret;
+ 
+@@ -47,6 +76,15 @@ static int erofs_fscahce_init_ctx(struct erofs_fscache_context *ctx,
+ 		return ret;
+ 	}
+ 
++	if (need_inode) {
++		ret = erofs_fscache_get_inode(ctx, sb);
++		if (ret) {
++			erofs_err(sb, "failed to get anonymous inode");
++			erofs_fscache_cleanup_cookie(ctx);
++			return ret;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+@@ -54,10 +92,11 @@ static inline
+ void erofs_fscache_cleanup_ctx(struct erofs_fscache_context *ctx)
+ {
+ 	erofs_fscache_cleanup_cookie(ctx);
++	erofs_fscache_put_inode(ctx);
+ }
+ 
+ struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
+-						char *path)
++						char *path, bool need_inode)
+ {
+ 	struct erofs_fscache_context *ctx;
+ 	int ret;
+@@ -66,7 +105,7 @@ struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
+ 	if (!ctx)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = erofs_fscahce_init_ctx(ctx, sb, path);
++	ret = erofs_fscahce_init_ctx(ctx, sb, path, need_inode);
+ 	if (ret) {
+ 		kfree(ctx);
+ 		return ERR_PTR(ret);
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index 1f5bc69e8e9f..bb5e992fe0df 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -99,6 +99,7 @@ struct erofs_sb_lz4_info {
+ 
+ struct erofs_fscache_context {
+ 	struct fscache_cookie *cookie;
++	struct inode *inode;
+ };
+ 
  struct erofs_sb_info {
- 	struct erofs_mount_opts opt;	/* options */
- #ifdef CONFIG_EROFS_FS_ZIP
-@@ -621,6 +625,10 @@ static inline int z_erofs_load_lzma_config(struct super_block *sb,
- int erofs_init_fscache(void);
+@@ -626,7 +627,7 @@ int erofs_init_fscache(void);
  void erofs_exit_fscache(void);
  
-+struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
-+						char *path);
-+void erofs_fscache_put_ctx(struct erofs_fscache_context *ctx);
-+
- #define EFSCORRUPTED    EUCLEAN         /* Filesystem is corrupted */
+ struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
+-						char *path);
++						char *path, bool need_inode);
+ void erofs_fscache_put_ctx(struct erofs_fscache_context *ctx);
  
- #endif	/* __EROFS_INTERNAL_H */
+ #define EFSCORRUPTED    EUCLEAN         /* Filesystem is corrupted */
 -- 
 2.27.0
 
