@@ -1,61 +1,60 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BABDF4926AA
-	for <lists+linux-cachefs@lfdr.de>; Tue, 18 Jan 2022 14:12:55 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA304926B2
+	for <lists+linux-cachefs@lfdr.de>; Tue, 18 Jan 2022 14:13:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-82-Bcy-KDi2MZ--0KnYYsDKvw-1; Tue, 18 Jan 2022 08:12:51 -0500
-X-MC-Unique: Bcy-KDi2MZ--0KnYYsDKvw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-517-d9ZlrtY9M1yatzg7RLCaug-1; Tue, 18 Jan 2022 08:12:54 -0500
+X-MC-Unique: d9ZlrtY9M1yatzg7RLCaug-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C75C1B2C985;
-	Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43DF27CD69;
-	Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 245A3760C8;
+	Tue, 18 Jan 2022 13:12:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5E9381C0A;
+	Tue, 18 Jan 2022 13:12:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 314E34BB7C;
-	Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D3871806D1C;
+	Tue, 18 Jan 2022 13:12:51 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20IDClY0010211 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 18 Jan 2022 08:12:47 -0500
+	id 20IDCnWc010234 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 18 Jan 2022 08:12:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E2080C15E74; Tue, 18 Jan 2022 13:12:46 +0000 (UTC)
+	id 4975DC202C6; Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB951C159F6
-	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C18E2382CB41
-	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:46 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
-	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) by
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45DCBC202CA
+	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2ED10823F8E
+	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:49 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-224-dIgU9P5GPXOjzW2yw7FBVA-1; Tue, 18 Jan 2022 08:12:44 -0500
-X-MC-Unique: dIgU9P5GPXOjzW2yw7FBVA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R621e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	us-mta-455-gXc-RbM9MWCaAYV0KNS23A-1; Tue, 18 Jan 2022 08:12:45 -0500
+X-MC-Unique: gXc-RbM9MWCaAYV0KNS23A-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V2C5CpP_1642511559
+	TI=SMTPD_---0V2C2ayE_1642511560
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V2C5CpP_1642511559) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 18 Jan 2022 21:12:40 +0800
+	fp:SMTPD_---0V2C2ayE_1642511560) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 18 Jan 2022 21:12:41 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Tue, 18 Jan 2022 21:12:15 +0800
-Message-Id: <20220118131216.85338-20-jefflexu@linux.alibaba.com>
+Date: Tue, 18 Jan 2022 21:12:16 +0800
+Message-Id: <20220118131216.85338-21-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
 References: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -73,7 +72,7 @@ Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v2 19/20] erofs: add 'uuid' mount option
+Subject: [Linux-cachefs] [PATCH v2 20/20] erofs: support on-demand reading
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,7 +86,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,150 +94,42 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce 'uuid' mount option to enable the nodev mode, in which erofs
-could be mounted from blob files instead of blkdev. By then users could
-specify the path of bootstrap blob file containing the complete erofs
-image.
+Implement the .issue_op() callback, and all work is done by
+netfs_ondemand_read().
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/erofs/Kconfig |  2 +-
- fs/erofs/super.c | 43 ++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 37 insertions(+), 8 deletions(-)
+ fs/erofs/fscache.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
-index f57255ab88ed..37a2cc82ecc2 100644
---- a/fs/erofs/Kconfig
-+++ b/fs/erofs/Kconfig
-@@ -2,7 +2,7 @@
- 
- config EROFS_FS
- 	tristate "EROFS filesystem support"
--	depends on BLOCK
-+	depends on BLOCK && FSCACHE_ONDEMAND
- 	select FS_IOMAP
- 	select LIBCRC32C
- 	help
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index f058a04a00c7..3f8557bac786 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -400,6 +400,7 @@ enum {
- 	Opt_dax,
- 	Opt_dax_enum,
- 	Opt_device,
-+	Opt_uuid,
- 	Opt_err
- };
- 
-@@ -424,6 +425,7 @@ static const struct fs_parameter_spec erofs_fs_parameters[] = {
- 	fsparam_flag("dax",             Opt_dax),
- 	fsparam_enum("dax",		Opt_dax_enum, erofs_dax_param_enums),
- 	fsparam_string("device",	Opt_device),
-+	fsparam_string("uuid",		Opt_uuid),
- 	{}
- };
- 
-@@ -519,6 +521,12 @@ static int erofs_fc_parse_param(struct fs_context *fc,
- 		}
- 		++ctx->devs->extra_devices;
- 		break;
-+	case Opt_uuid:
-+		kfree(ctx->opt.uuid);
-+		ctx->opt.uuid = kstrdup(param->string, GFP_KERNEL);
-+		if (!ctx->opt.uuid)
-+			return -ENOMEM;
-+		break;
- 	default:
- 		return -ENOPARAM;
- 	}
-@@ -593,9 +601,14 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	sb->s_magic = EROFS_SUPER_MAGIC;
- 
--	if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
--		erofs_err(sb, "failed to set erofs blksize");
--		return -EINVAL;
-+	if (erofs_bdev_mode(sb)) {
-+		if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
-+			erofs_err(sb, "failed to set erofs blksize");
-+			return -EINVAL;
-+		}
-+	} else {
-+		sb->s_blocksize = EROFS_BLKSIZ;
-+		sb->s_blocksize_bits = LOG_BLOCK_SIZE;
- 	}
- 
- 	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
-@@ -604,11 +617,12 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	sb->s_fs_info = sbi;
- 	sbi->opt = ctx->opt;
--	sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
- 	sbi->devs = ctx->devs;
- 	ctx->devs = NULL;
- 
--	if (!erofs_bdev_mode(sb)) {
-+	if (erofs_bdev_mode(sb)) {
-+		sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
-+	} else {
- 		struct erofs_fscache_context *bootstrap;
- 
- 		bootstrap = erofs_fscache_get_ctx(sb, ctx->opt.uuid, true);
-@@ -616,6 +630,7 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 			return PTR_ERR(bootstrap);
- 
- 		sbi->bootstrap = bootstrap;
-+		sbi->dax_dev = NULL;
- 	}
- 
- 	err = erofs_read_superblock(sb);
-@@ -678,6 +693,11 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- static int erofs_fc_get_tree(struct fs_context *fc)
+diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
+index e8df35ee4ba8..9ba668c42098 100644
+--- a/fs/erofs/fscache.c
++++ b/fs/erofs/fscache.c
+@@ -28,9 +28,15 @@ static void erofs_noop_cleanup(struct address_space *mapping, void *netfs_priv)
  {
-+	struct erofs_fs_context *ctx = fc->fs_private;
-+
-+	if (ctx->opt.uuid)
-+		return get_tree_nodev(fc, erofs_fc_fill_super);
-+
- 	return get_tree_bdev(fc, erofs_fc_fill_super);
  }
  
-@@ -727,6 +747,7 @@ static void erofs_fc_free(struct fs_context *fc)
- 	struct erofs_fs_context *ctx = fc->fs_private;
- 
- 	erofs_free_dev_context(ctx->devs);
-+	kfree(ctx->opt.uuid);
- 	kfree(ctx);
- }
- 
-@@ -767,7 +788,10 @@ static void erofs_kill_sb(struct super_block *sb)
- 
- 	WARN_ON(sb->s_magic != EROFS_SUPER_MAGIC);
- 
--	kill_block_super(sb);
-+	if (erofs_bdev_mode(sb))
-+		kill_block_super(sb);
-+	else
-+		generic_shutdown_super(sb);
- 
- 	sbi = EROFS_SB(sb);
- 	if (!sbi)
-@@ -885,7 +909,12 @@ static int erofs_statfs(struct dentry *dentry, struct kstatfs *buf)
- {
- 	struct super_block *sb = dentry->d_sb;
- 	struct erofs_sb_info *sbi = EROFS_SB(sb);
--	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
-+	u64 id;
++static void erofs_issue_op(struct netfs_read_subrequest *subreq)
++{
++	netfs_ondemand_read(subreq);
++}
 +
-+	if (erofs_bdev_mode(sb))
-+		id = huge_encode_dev(sb->s_bdev->bd_dev);
-+	else
-+		id = 0; /* TODO */
+ static const struct netfs_read_request_ops erofs_blob_req_ops = {
+ 	.begin_cache_operation  = erofs_blob_begin_cache_operation,
+ 	.cleanup		= erofs_noop_cleanup,
++	.issue_op		= erofs_issue_op,
+ };
  
- 	buf->f_type = sb->s_magic;
- 	buf->f_bsize = EROFS_BLKSIZ;
+ static int erofs_begin_cache_operation(struct netfs_read_request *rreq)
+@@ -58,6 +64,7 @@ static const struct netfs_read_request_ops erofs_req_ops = {
+ 	.begin_cache_operation  = erofs_begin_cache_operation,
+ 	.cleanup		= erofs_noop_cleanup,
+ 	.clamp_length		= erofs_clamp_length,
++	.issue_op		= erofs_issue_op,
+ };
+ 
+ static int erofs_fscache_blob_readpage(struct file *data, struct page *page)
 -- 
 2.27.0
 
