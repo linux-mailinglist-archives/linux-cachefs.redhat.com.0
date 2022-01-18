@@ -2,60 +2,61 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3946549268F
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B073492690
 	for <lists+linux-cachefs@lfdr.de>; Tue, 18 Jan 2022 14:12:40 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-220-wYNipUe4M-WPEgZdqjB1Eg-1; Tue, 18 Jan 2022 08:12:35 -0500
-X-MC-Unique: wYNipUe4M-WPEgZdqjB1Eg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-336-qC8KsjL5PUavo3SK2e0Yjg-1; Tue, 18 Jan 2022 08:12:35 -0500
+X-MC-Unique: qC8KsjL5PUavo3SK2e0Yjg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9E290101F7BB;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED231102CB2E;
 	Tue, 18 Jan 2022 13:12:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D193F6E1E8;
-	Tue, 18 Jan 2022 13:12:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC1D66A023;
+	Tue, 18 Jan 2022 13:12:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8F634BB7C;
-	Tue, 18 Jan 2022 13:12:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D43A94A7C9;
+	Tue, 18 Jan 2022 13:12:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20IDCSQV010019 for <linux-cachefs@listman.util.phx.redhat.com>;
+	id 20IDCS5t010029 for <linux-cachefs@listman.util.phx.redhat.com>;
 	Tue, 18 Jan 2022 08:12:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EEAB5401E56; Tue, 18 Jan 2022 13:12:27 +0000 (UTC)
+	id 83D2E53BB; Tue, 18 Jan 2022 13:12:28 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB246401E3D
-	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C731E8011A5
-	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:27 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
-	(out30-44.freemail.mail.aliyun.com [115.124.30.44]) by
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8033153C4
+	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62114382CB40
+	for <linux-cachefs@redhat.com>; Tue, 18 Jan 2022 13:12:25 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-519-1NIn0sTmPUisHrE8aALDjA-1; Tue, 18 Jan 2022 08:12:22 -0500
-X-MC-Unique: 1NIn0sTmPUisHrE8aALDjA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R421e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	us-mta-557-DIMpv4MPMnKSP6Bxnyou3A-1; Tue, 18 Jan 2022 08:12:22 -0500
+X-MC-Unique: DIMpv4MPMnKSP6Bxnyou3A-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R481e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V2C1owk_1642511536
+	TI=SMTPD_---0V2C2avm_1642511537
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V2C1owk_1642511536) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 18 Jan 2022 21:12:17 +0800
+	fp:SMTPD_---0V2C2avm_1642511537) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 18 Jan 2022 21:12:18 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Tue, 18 Jan 2022 21:11:56 +0800
-Message-Id: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
+Date: Tue, 18 Jan 2022 21:11:57 +0800
+Message-Id: <20220118131216.85338-2-jefflexu@linux.alibaba.com>
+In-Reply-To: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
+References: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -65,14 +66,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: linux-cachefs@redhat.com
 Cc: tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
 	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
 	gerry@linux.alibaba.com
-Subject: [Linux-cachefs] [PATCH v2 00/20] fscache,
-	erofs: fscache-based demand-read semantics
+Subject: [Linux-cachefs] [PATCH v2 01/20] netfs: make @file optional in
+	netfs_alloc_read_request()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,198 +95,80 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-changes since v1:
-- rebase to v5.17
-- erofs: In chunk based layout, since the logical file offset has the
-  same remainder over PAGE_SIZE with the corresponding physical address
-  inside the data blob file, the file page cache can be directly
-  transferred to netfs library to contain the data from data blob file.
-  (patch 15) (Gao Xiang)
-- netfs,cachefiles: manage logical/physical offset separately. (patch 2)
-  (It is used by erofs_begin_cache_operation() in patch 15.)
-- cachefiles: introduce a new devnode specificaly for on-demand reading.
-  (patch 6)
-- netfs,fscache,cachefiles: add new CONFIG_* for on-demand reading.
-  (patch 3/5)
-- You could start a quick test by
-  https://github.com/lostjeffle/demand-read-cachefilesd
-- add more background information (mainly introduction to nydus) in the
-  "Background" part of this cover letter
+Make the @file parameter optional, and derive inode from the @folio
+parameter instead in order to support file system internal requests.
 
-[Important Issues]
-The following issues still need further discussion. Thanks for your time
-and patience.
+@file parameter can't be removed completely, since it also works as
+the private data of ops->init_rreq().
 
-1. I noticed that there's refactoring of netfs library[1], and patch 1
-is not needed since [2].
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+---
+ fs/netfs/read_helper.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-2. The current implementation will severely conflict with the
-refactoring of netfs library[1][2]. The assumption of 'struct
-netfs_i_context' [2] is that, every file in the upper netfs will
-correspond to only one backing file. While in our scenario, one file in
-erofs can correspond to multiple backing files. That is, the content of
-one file can be divided into multiple chunks, and are distrubuted over
-multiple blob files, i.e. multiple backing files. Currently I have no
-good idea solving this conflic.
-
-Besides there are still two quetions:
-- What's the plan of [1]? When is it planned to be merged?
-- It seems that all upper fs using fscache is going to use netfs API,
-  while the APIs like fscache_read_or_alloc_page() are deprecated. Is
-  that true?
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/commit/?h=netfs-lib&id=087d913752522fb9aa6d3effdb9a8c7908c779dd
-
-
-RFC: https://lore.kernel.org/all/YbRL2glGzjfZkVbH@B-P7TQMD6M-0146.local/t/
-v1: https://lore.kernel.org/lkml/47831875-4bdd-8398-9f2d-0466b31a4382@linux.alibaba.com/T/
-
-
-[Background]
-============
-Nydus is a remote container snapthotter specially optimised for container
-images distribution over network. It has recently been accepted as a
-sub-project of containerd[1]. Nydus is an excellent container image
-acceleration solution, since it only pulls data from remote when it's
-really needed, a.k.a. on-demand reading.
-
-erofs (Enhanced Read-Only File System) is a filesystem specially
-optimised for read-only scenarios. (Documentation/filesystem/erofs.rst)
-
-Recently we are focusing on erofs in container images distribution
-scenario [2], trying to combine it with nydus. In this case, erofs can
-be mounted from one bootstrap file (metadata) with (optional) multiple
-data blob files (data) stored on another local filesystem. (All these
-files are actually image files in erofs disk format.)
-
-To accelerate the container startup (fetching container image from remote
-and then start the container), we do hope that the bootstrap blob file
-could support demand read. That is, erofs can be mounted and accessed
-even when the bootstrap/data blob files have not been fully downloaded.
-
-That means we have to manage the cache state of the bootstrap/data blob
-files (if cache hit, read directly from the local cache; if cache miss,
-fetch the data somehow). It would be painful and may be dumb for erofs to
-implement the cache management itself. Thus we prefer fscache/cachefiles
-to do the cache management. Besides, the demand-read feature shall be
-general and it can benefit other using scenarios if it can be implemented
-in fscache level.
-
-[1] https://d7y.io/en-us/blog/containerd_accepted_nydus-snapshotter.html
-[2] https://sched.co/pcdL
-
-
-[Overall Design]
-================
-The upper fs uses a backing file on the local fs as the local cache
-(exactly the "cachefiles" way), and relies on fscache to detect if data
-is ready or not (cache hit/miss). Since currently fscache detects cache
-hit/miss by detecting the hole of the backing files, our demand-read
-mechanism also relies on the hole detecting.
-
-1. initial phase
-On the first beginning, the user daemon will touch the backing files
-(bootstrap/data blob files) under corresponding directory (under
-<root>/cache/<volume>/<fan>/) in advance. These backing files are
-completely sparse files (with zero disk usage). Since these backing
-files are all read-only and the file size is known prior mounting, user
-daemon will set corresponding file size and thus create all these sparse
-backing files in advance.
-
-2. cache miss
-When a file range (of bootstrap/data blob file) is accessed for the
-first time, a cache miss will be triggered and then .issue_op() will be
-called to fetch the data somehow.
-
-In the demand-read case, we relies on a user daemon to fetch the data
-from local/remote. In this case, .issue_op() just packages the file
-range into a message and informs the user daemon. User daemon needs to
-poll and wait on the devnode (/dev/cachefiles_demand). Once awaken, the
-user daemon will read the devnode to get the file range information, and
-then fetch the data corresponding to the file range somehow, e.g.
-download from remote through network. Once data ready, the user daemon
-will write the fetched data into the backing file and then inform
-cachefiles backend by writing to the devnode. Cachefiles backend getting
-blocked on the previous .issue_op() calling will be awaken then. By then
-the data has been ready in the backing file, and the netfs API will
-re-initiate a read request from the backing file.
-
-3. cache hit
-Once data is already ready in the backing file, netfs API will read from
-the backing file directly.
-
-
-[Advantage of fscache-based demand-read]
-========================================
-1. Asynchronous Prefetch
-In current mechanism, fscache is responsible for cache state management,
-while the data plane (fetch data from local/remote on cache miss) is
-done on the user daemon side.
-
-If data has already been ready in the backing file, netfs API will read
-from the backing file directly and won't be trapped to user space anymore.
-Thus the user daemon could fetch data (from remote) asynchronously on the
-background, and thus accelerate the backing file accessing in some degree.
-
-2. Support massive blob files
-Besides this mechanism supports a large amount of backing files, and
-thus can benefit the densely employed scenario.
-
-In our using scenario, one container image can correspond to one
-bootstrap file (required) and multiple data blob files (optional). For
-example, one container image for node.js will corresponds to ~20 files
-in total. In densely employed environment, there could be as many as
-hundreds of containers and thus thousands of backing files on one
-machine.
-
-[Test]
-You could start a quick test by
-https://github.com/lostjeffle/demand-read-cachefilesd
-
-
-Jeffle Xu (20):
-  netfs: make @file optional in netfs_alloc_read_request()
-  netfs,cachefiles: manage logical/physical offset separately
-  netfs,fscache: support on-demand reading
-  cachefiles: extract generic daemon write function
-  cachefiles: detect backing file size in on-demand read mode
-  cachefiles: introduce new devnode for on-demand read mode
-  erofs: use meta buffers for erofs_read_superblock()
-  erofs: export erofs_map_blocks()
-  erofs: add mode checking helper
-  erofs: register global fscache volume
-  erofs: add cookie context helper functions
-  erofs: add anonymous inode managing page cache of blob file
-  erofs: register cookie context for bootstrap blob
-  erofs: implement fscache-based metadata read
-  erofs: implement fscache-based data read for non-inline layout
-  erofs: implement fscache-based data read for inline layout
-  erofs: register cookie context for data blobs
-  erofs: implement fscache-based data read for data blobs
-  erofs: add 'uuid' mount option
-  erofs: support on-demand reading
-
- fs/cachefiles/Kconfig    |   8 +
- fs/cachefiles/daemon.c   | 147 ++++++++++++++++-
- fs/cachefiles/internal.h |  23 +++
- fs/cachefiles/io.c       |  82 +++++++++-
- fs/cachefiles/main.c     |  27 ++++
- fs/cachefiles/namei.c    |  60 ++++++-
- fs/erofs/Kconfig         |   2 +-
- fs/erofs/Makefile        |   3 +-
- fs/erofs/data.c          |  18 ++-
- fs/erofs/fscache.c       | 339 +++++++++++++++++++++++++++++++++++++++
- fs/erofs/inode.c         |   6 +-
- fs/erofs/internal.h      |  30 ++++
- fs/erofs/super.c         | 101 +++++++++---
- fs/fscache/Kconfig       |   8 +
- fs/netfs/Kconfig         |   8 +
- fs/netfs/read_helper.c   |  65 ++++++--
- include/linux/netfs.h    |  10 ++
- 17 files changed, 886 insertions(+), 51 deletions(-)
- create mode 100644 fs/erofs/fscache.c
-
+diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
+index 8c58cff420ba..ca84918b6b5d 100644
+--- a/fs/netfs/read_helper.c
++++ b/fs/netfs/read_helper.c
+@@ -39,7 +39,7 @@ static void netfs_put_subrequest(struct netfs_read_subrequest *subreq,
+ 
+ static struct netfs_read_request *netfs_alloc_read_request(
+ 	const struct netfs_read_request_ops *ops, void *netfs_priv,
+-	struct file *file)
++	struct inode *inode, struct file *file)
+ {
+ 	static atomic_t debug_ids;
+ 	struct netfs_read_request *rreq;
+@@ -48,7 +48,7 @@ static struct netfs_read_request *netfs_alloc_read_request(
+ 	if (rreq) {
+ 		rreq->netfs_ops	= ops;
+ 		rreq->netfs_priv = netfs_priv;
+-		rreq->inode	= file_inode(file);
++		rreq->inode	= inode;
+ 		rreq->i_size	= i_size_read(rreq->inode);
+ 		rreq->debug_id	= atomic_inc_return(&debug_ids);
+ 		INIT_LIST_HEAD(&rreq->subrequests);
+@@ -870,6 +870,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ 		     void *netfs_priv)
+ {
+ 	struct netfs_read_request *rreq;
++	struct inode *inode = file_inode(ractl->file);
+ 	unsigned int debug_index = 0;
+ 	int ret;
+ 
+@@ -878,7 +879,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ 	if (readahead_count(ractl) == 0)
+ 		goto cleanup;
+ 
+-	rreq = netfs_alloc_read_request(ops, netfs_priv, ractl->file);
++	rreq = netfs_alloc_read_request(ops, netfs_priv, inode, ractl->file);
+ 	if (!rreq)
+ 		goto cleanup;
+ 	rreq->mapping	= ractl->mapping;
+@@ -948,12 +949,13 @@ int netfs_readpage(struct file *file,
+ 		   void *netfs_priv)
+ {
+ 	struct netfs_read_request *rreq;
++	struct inode *inode = folio_file_mapping(folio)->host;
+ 	unsigned int debug_index = 0;
+ 	int ret;
+ 
+ 	_enter("%lx", folio_index(folio));
+ 
+-	rreq = netfs_alloc_read_request(ops, netfs_priv, file);
++	rreq = netfs_alloc_read_request(ops, netfs_priv, inode, file);
+ 	if (!rreq) {
+ 		if (netfs_priv)
+ 			ops->cleanup(folio_file_mapping(folio), netfs_priv);
+@@ -1122,7 +1124,7 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
+ 	}
+ 
+ 	ret = -ENOMEM;
+-	rreq = netfs_alloc_read_request(ops, netfs_priv, file);
++	rreq = netfs_alloc_read_request(ops, netfs_priv, inode, file);
+ 	if (!rreq)
+ 		goto error;
+ 	rreq->mapping		= folio_file_mapping(folio);
 -- 
 2.27.0
 
