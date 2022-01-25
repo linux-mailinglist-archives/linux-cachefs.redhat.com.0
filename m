@@ -1,60 +1,67 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37CB949B576
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5614D49B577
 	for <lists+linux-cachefs@lfdr.de>; Tue, 25 Jan 2022 14:57:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1643119075;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iIjuNbOVXKodcImE+8ldm2Osh3QCt0kVXU/kyPbmunk=;
-	b=LsEarryJ0YOte5j4p7Y2joApKgpEZPl3B4Ia71l5cMEmy5CpOo9d+vQgcNiiWBJwmt3Ix2
-	ujtroKJYuCc81HluTdcIAO5UmYBryIGDlzuhSsJZZu6nb93pDJz3va4w6zkG7o0pkmjLIn
-	xXUClKTqYda1Ss6d2J/znPGai0UcA4U=
+	bh=fLV2/oHQTgiOfMkKg/NViIInBXyu9+Tgg2LlXEfSeEU=;
+	b=TuP8Ctma4f/vp7UPp2WR+W9dJ8CkEJnZXOv1XTBDkuvBwmN0UhfWYJMjvL6szeQp5RUq/b
+	cqB8gd+we/NdhPVbn09wzWeQkQLZy6S9lIqDWh/Kg4xcxVk6YYsyfGIS+kFbJbOZvfnpow
+	yhKXu72cVM5A5NJQ6amuc2uSEgLz6fE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-660-7L06ZAzMOb670Uc28N5gCg-1; Tue, 25 Jan 2022 08:57:52 -0500
-X-MC-Unique: 7L06ZAzMOb670Uc28N5gCg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-171-Y_20_RNZPXiIvmfUCkMl_A-1; Tue, 25 Jan 2022 08:57:52 -0500
+X-MC-Unique: Y_20_RNZPXiIvmfUCkMl_A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC14686A078;
-	Tue, 25 Jan 2022 13:57:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 04F61344B5;
+	Tue, 25 Jan 2022 13:57:50 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 290437E121;
-	Tue, 25 Jan 2022 13:57:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDC5B8049D;
+	Tue, 25 Jan 2022 13:57:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F20161809CB8;
-	Tue, 25 Jan 2022 13:57:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E6761809CB9;
+	Tue, 25 Jan 2022 13:57:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20PDvdFb023175 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 25 Jan 2022 08:57:39 -0500
+	id 20PDvlQK023185 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 25 Jan 2022 08:57:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 76B2A7C141; Tue, 25 Jan 2022 13:57:39 +0000 (UTC)
+	id 4CA968049D; Tue, 25 Jan 2022 13:57:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.5])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C4EA27D3D6;
-	Tue, 25 Jan 2022 13:57:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8FA307D73F;
+	Tue, 25 Jan 2022 13:57:45 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: smfrench@gmail.com, nspmangalore@gmail.com
-Date: Tue, 25 Jan 2022 13:57:04 +0000
-Message-ID: <164311902471.2806745.10187041199819525677.stgit@warthog.procyon.org.uk>
+Date: Tue, 25 Jan 2022 13:57:44 +0000
+Message-ID: <164311906472.2806745.605202239282432844.stgit@warthog.procyon.org.uk>
+In-Reply-To: <164311902471.2806745.10187041199819525677.stgit@warthog.procyon.org.uk>
+References: <164311902471.2806745.10187041199819525677.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/0.23
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: linux-cachefs@redhat.com
 Cc: linux-cifs@vger.kernel.org, jlayton@kernel.org,
 	Matthew Wilcox <willy@infradead.org>, linux-cachefs@redhat.com,
 	linux-fsdevel@vger.kernel.org
-Subject: [Linux-cachefs] [RFC][RFC PATCH 0/7] cifs: In-progress conversion
- to use iov_iters and netfslib
+Subject: [Linux-cachefs] [RFC PATCH 1/7] cifs: Transition from ->readpages()
+	to ->readahead()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,7 +75,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -76,76 +83,305 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Transition the cifs filesystem from using the old ->readpages() method to
+using the new ->readahead() method.
 
-Hi Steve,
+For the moment, this removes any invocation of fscache to read data from
+the local cache, leaving that to another patch.
 
-Okay, I've has a go at crudely splitting up my conversion of cifs to use
-netfslib into separate patches and I thought I'd post it for you and Shyam
-to have a look over:
-
- (1) The conversion from ->readpages() to ->readahead().
-
- (2) A patch that does some random miscellaneous bits.
-
- (3) Change the I/O paths to use an iterator all the way to the socket
-     instead of a page list.  Note that cifs won't compile from this patch
-     until patch 6.
-
- (4) Replace cifs's writepages implementation with the one from afs and
-     make it deal with variable rsize and stuff like that.  This sets up
-     iterators rather than page lists.
-
-     This also makes direct/unbuffered write use an iterator.  This
-     probably requires more massaging to make it handle credits.
-
- (5) Modify cifs_readahead() to hand an iterator down.
-
- (6) Make direct and unbuffered reads hand an iterator down.  Note that the
-     iterator refers to the original buffers and bounce pages aren't used.
-
- (7) Make cifs use netfslib for reading.
-
-As stated, patches 3, 4 and 5 don't compile because the pagelist struct
-members disappeared to make way for the iterators.  This avoids duplicating
-various functions in the transport and transport security code.  I'm not
-sure how best to deal with this - maybe by setting up bvecs instead of
-pagelists at the top level and then I can hand a bvec-class iter down.
-
-The patches can also be found here.  Note that this requires some of the
-patches from my netfs-lib branch.
-
-https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=cifs-experimental
-
-David
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <smfrench@gmail.com>
+cc: Shyam Prasad N <nspmangalore@gmail.com>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: linux-cifs@vger.kernel.org
+cc: linux-cachefs@redhat.com
 ---
-David Howells (7):
-      cifs: Transition from ->readpages() to ->readahead()
-      cifs: Miscellaneous bits
-      cifs: Change the I/O paths to use an iterator rather than a page list
-      cifs: Make cifs_writepages() hand an iterator down
-      cifs: Make cifs_readahead() pass an iterator down
-      cifs: Get direct I/O and unbuffered I/O working with iterators
-      cifs: Use netfslib to handle reads
 
+ fs/cifs/file.c |  169 +++++++++++---------------------------------------------
+ 1 file changed, 33 insertions(+), 136 deletions(-)
 
- fs/cifs/Kconfig        |    1 +
- fs/cifs/cifsencrypt.c  |   40 +-
- fs/cifs/cifsfs.c       |    8 +-
- fs/cifs/cifsfs.h       |    6 +-
- fs/cifs/cifsglob.h     |   34 +-
- fs/cifs/cifsproto.h    |   11 +-
- fs/cifs/cifssmb.c      |  233 +++--
- fs/cifs/connect.c      |   18 +-
- fs/cifs/file.c         | 1930 ++++++++++------------------------------
- fs/cifs/fscache.c      |   31 -
- fs/cifs/fscache.h      |   52 --
- fs/cifs/inode.c        |   17 +-
- fs/cifs/misc.c         |  109 ---
- fs/cifs/smb2ops.c      |  365 ++++----
- fs/cifs/smb2pdu.c      |   27 +-
- fs/cifs/transport.c    |   37 +-
- fs/netfs/read_helper.c |    7 +-
- 17 files changed, 888 insertions(+), 2038 deletions(-)
+diff --git a/fs/cifs/file.c b/fs/cifs/file.c
+index 015fd415e5ee..1cce7e5b2334 100644
+--- a/fs/cifs/file.c
++++ b/fs/cifs/file.c
+@@ -4269,8 +4269,6 @@ cifs_readv_complete(struct work_struct *work)
+ 	for (i = 0; i < rdata->nr_pages; i++) {
+ 		struct page *page = rdata->pages[i];
+ 
+-		lru_cache_add(page);
+-
+ 		if (rdata->result == 0 ||
+ 		    (rdata->result == -EAGAIN && got_bytes)) {
+ 			flush_dcache_page(page);
+@@ -4340,7 +4338,6 @@ readpages_fill_pages(struct TCP_Server_Info *server,
+ 			 * fill them until the writes are flushed.
+ 			 */
+ 			zero_user(page, 0, PAGE_SIZE);
+-			lru_cache_add(page);
+ 			flush_dcache_page(page);
+ 			SetPageUptodate(page);
+ 			unlock_page(page);
+@@ -4350,7 +4347,6 @@ readpages_fill_pages(struct TCP_Server_Info *server,
+ 			continue;
+ 		} else {
+ 			/* no need to hold page hostage */
+-			lru_cache_add(page);
+ 			unlock_page(page);
+ 			put_page(page);
+ 			rdata->pages[i] = NULL;
+@@ -4393,92 +4389,16 @@ cifs_readpages_copy_into_pages(struct TCP_Server_Info *server,
+ 	return readpages_fill_pages(server, rdata, iter, iter->count);
+ }
+ 
+-static int
+-readpages_get_pages(struct address_space *mapping, struct list_head *page_list,
+-		    unsigned int rsize, struct list_head *tmplist,
+-		    unsigned int *nr_pages, loff_t *offset, unsigned int *bytes)
+-{
+-	struct page *page, *tpage;
+-	unsigned int expected_index;
+-	int rc;
+-	gfp_t gfp = readahead_gfp_mask(mapping);
+-
+-	INIT_LIST_HEAD(tmplist);
+-
+-	page = lru_to_page(page_list);
+-
+-	/*
+-	 * Lock the page and put it in the cache. Since no one else
+-	 * should have access to this page, we're safe to simply set
+-	 * PG_locked without checking it first.
+-	 */
+-	__SetPageLocked(page);
+-	rc = add_to_page_cache_locked(page, mapping,
+-				      page->index, gfp);
+-
+-	/* give up if we can't stick it in the cache */
+-	if (rc) {
+-		__ClearPageLocked(page);
+-		return rc;
+-	}
+-
+-	/* move first page to the tmplist */
+-	*offset = (loff_t)page->index << PAGE_SHIFT;
+-	*bytes = PAGE_SIZE;
+-	*nr_pages = 1;
+-	list_move_tail(&page->lru, tmplist);
+-
+-	/* now try and add more pages onto the request */
+-	expected_index = page->index + 1;
+-	list_for_each_entry_safe_reverse(page, tpage, page_list, lru) {
+-		/* discontinuity ? */
+-		if (page->index != expected_index)
+-			break;
+-
+-		/* would this page push the read over the rsize? */
+-		if (*bytes + PAGE_SIZE > rsize)
+-			break;
+-
+-		__SetPageLocked(page);
+-		rc = add_to_page_cache_locked(page, mapping, page->index, gfp);
+-		if (rc) {
+-			__ClearPageLocked(page);
+-			break;
+-		}
+-		list_move_tail(&page->lru, tmplist);
+-		(*bytes) += PAGE_SIZE;
+-		expected_index++;
+-		(*nr_pages)++;
+-	}
+-	return rc;
+-}
+-
+-static int cifs_readpages(struct file *file, struct address_space *mapping,
+-	struct list_head *page_list, unsigned num_pages)
++static void cifs_readahead(struct readahead_control *ractl)
+ {
+ 	int rc;
+-	int err = 0;
+-	struct list_head tmplist;
+-	struct cifsFileInfo *open_file = file->private_data;
+-	struct cifs_sb_info *cifs_sb = CIFS_FILE_SB(file);
++	struct cifsFileInfo *open_file = ractl->file->private_data;
++	struct cifs_sb_info *cifs_sb = CIFS_FILE_SB(ractl->file);
+ 	struct TCP_Server_Info *server;
+ 	pid_t pid;
+ 	unsigned int xid;
+ 
+ 	xid = get_xid();
+-	/*
+-	 * Reads as many pages as possible from fscache. Returns -ENOBUFS
+-	 * immediately if the cookie is negative
+-	 *
+-	 * After this point, every page in the list might have PG_fscache set,
+-	 * so we will need to clean that up off of every page we don't use.
+-	 */
+-	rc = cifs_readpages_from_fscache(mapping->host, mapping, page_list,
+-					 &num_pages);
+-	if (rc == 0) {
+-		free_xid(xid);
+-		return rc;
+-	}
+ 
+ 	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
+ 		pid = open_file->pid;
+@@ -4489,39 +4409,32 @@ static int cifs_readpages(struct file *file, struct address_space *mapping,
+ 	server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
+ 
+ 	cifs_dbg(FYI, "%s: file=%p mapping=%p num_pages=%u\n",
+-		 __func__, file, mapping, num_pages);
++		 __func__, ractl->file, ractl->mapping, readahead_count(ractl));
+ 
+ 	/*
+-	 * Start with the page at end of list and move it to private
+-	 * list. Do the same with any following pages until we hit
+-	 * the rsize limit, hit an index discontinuity, or run out of
+-	 * pages. Issue the async read and then start the loop again
+-	 * until the list is empty.
+-	 *
+-	 * Note that list order is important. The page_list is in
+-	 * the order of declining indexes. When we put the pages in
+-	 * the rdata->pages, then we want them in increasing order.
++	 * Chop the readahead request up into rsize-sized read requests.
+ 	 */
+-	while (!list_empty(page_list) && !err) {
+-		unsigned int i, nr_pages, bytes, rsize;
+-		loff_t offset;
+-		struct page *page, *tpage;
++	while (readahead_count(ractl) - ractl->_batch_count) {
++		unsigned int i, nr_pages, got, rsize;
++		struct page *page;
+ 		struct cifs_readdata *rdata;
+ 		struct cifs_credits credits_on_stack;
+ 		struct cifs_credits *credits = &credits_on_stack;
+ 
+ 		if (open_file->invalidHandle) {
+ 			rc = cifs_reopen_file(open_file, true);
+-			if (rc == -EAGAIN)
+-				continue;
+-			else if (rc)
++			if (rc) {
++				if (rc == -EAGAIN)
++					continue;
+ 				break;
++			}
+ 		}
+ 
+ 		rc = server->ops->wait_mtu_credits(server, cifs_sb->ctx->rsize,
+ 						   &rsize, credits);
+ 		if (rc)
+ 			break;
++		nr_pages = min_t(size_t, rsize / PAGE_SIZE, readahead_count(ractl));
+ 
+ 		/*
+ 		 * Give up immediately if rsize is too small to read an entire
+@@ -4529,16 +4442,7 @@ static int cifs_readpages(struct file *file, struct address_space *mapping,
+ 		 * reach this point however since we set ra_pages to 0 when the
+ 		 * rsize is smaller than a cache page.
+ 		 */
+-		if (unlikely(rsize < PAGE_SIZE)) {
+-			add_credits_and_wake_if(server, credits, 0);
+-			free_xid(xid);
+-			return 0;
+-		}
+-
+-		nr_pages = 0;
+-		err = readpages_get_pages(mapping, page_list, rsize, &tmplist,
+-					 &nr_pages, &offset, &bytes);
+-		if (!nr_pages) {
++		if (unlikely(!nr_pages)) {
+ 			add_credits_and_wake_if(server, credits, 0);
+ 			break;
+ 		}
+@@ -4546,36 +4450,31 @@ static int cifs_readpages(struct file *file, struct address_space *mapping,
+ 		rdata = cifs_readdata_alloc(nr_pages, cifs_readv_complete);
+ 		if (!rdata) {
+ 			/* best to give up if we're out of mem */
+-			list_for_each_entry_safe(page, tpage, &tmplist, lru) {
+-				list_del(&page->lru);
+-				lru_cache_add(page);
+-				unlock_page(page);
+-				put_page(page);
+-			}
+-			rc = -ENOMEM;
+ 			add_credits_and_wake_if(server, credits, 0);
+ 			break;
+ 		}
+ 
+-		rdata->cfile = cifsFileInfo_get(open_file);
+-		rdata->server = server;
+-		rdata->mapping = mapping;
+-		rdata->offset = offset;
+-		rdata->bytes = bytes;
+-		rdata->pid = pid;
+-		rdata->pagesz = PAGE_SIZE;
+-		rdata->tailsz = PAGE_SIZE;
++		got = __readahead_batch(ractl, rdata->pages, nr_pages);
++		if (got != nr_pages) {
++			pr_warn("__readahead_batch() returned %u/%u\n",
++				got, nr_pages);
++			nr_pages = got;
++		}
++
++		rdata->nr_pages = nr_pages;
++		rdata->bytes	= readahead_batch_length(ractl);
++		rdata->cfile	= cifsFileInfo_get(open_file);
++		rdata->server	= server;
++		rdata->mapping	= ractl->mapping;
++		rdata->offset	= readahead_pos(ractl);
++		rdata->pid	= pid;
++		rdata->pagesz	= PAGE_SIZE;
++		rdata->tailsz	= PAGE_SIZE;
+ 		rdata->read_into_pages = cifs_readpages_read_into_pages;
+ 		rdata->copy_into_pages = cifs_readpages_copy_into_pages;
+-		rdata->credits = credits_on_stack;
+-
+-		list_for_each_entry_safe(page, tpage, &tmplist, lru) {
+-			list_del(&page->lru);
+-			rdata->pages[rdata->nr_pages++] = page;
+-		}
++		rdata->credits	= credits_on_stack;
+ 
+ 		rc = adjust_credits(server, &rdata->credits, rdata->bytes);
+-
+ 		if (!rc) {
+ 			if (rdata->cfile->invalidHandle)
+ 				rc = -EAGAIN;
+@@ -4587,7 +4486,6 @@ static int cifs_readpages(struct file *file, struct address_space *mapping,
+ 			add_credits_and_wake_if(server, &rdata->credits, 0);
+ 			for (i = 0; i < rdata->nr_pages; i++) {
+ 				page = rdata->pages[i];
+-				lru_cache_add(page);
+ 				unlock_page(page);
+ 				put_page(page);
+ 			}
+@@ -4600,7 +4498,6 @@ static int cifs_readpages(struct file *file, struct address_space *mapping,
+ 	}
+ 
+ 	free_xid(xid);
+-	return rc;
+ }
+ 
+ /*
+@@ -4905,7 +4802,7 @@ void cifs_oplock_break(struct work_struct *work)
+  * In the non-cached mode (mount with cache=none), we shunt off direct read and write requests
+  * so this method should never be called.
+  *
+- * Direct IO is not yet supported in the cached mode. 
++ * Direct IO is not yet supported in the cached mode.
+  */
+ static ssize_t
+ cifs_direct_io(struct kiocb *iocb, struct iov_iter *iter)
+@@ -4987,7 +4884,7 @@ static int cifs_set_page_dirty(struct page *page)
+ 
+ const struct address_space_operations cifs_addr_ops = {
+ 	.readpage = cifs_readpage,
+-	.readpages = cifs_readpages,
++	.readahead = cifs_readahead,
+ 	.writepage = cifs_writepage,
+ 	.writepages = cifs_writepages,
+ 	.write_begin = cifs_write_begin,
 
 
 --
