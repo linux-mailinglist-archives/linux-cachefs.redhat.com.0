@@ -2,65 +2,64 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA6949C33A
-	for <lists+linux-cachefs@lfdr.de>; Wed, 26 Jan 2022 06:28:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5155A49C388
+	for <lists+linux-cachefs@lfdr.de>; Wed, 26 Jan 2022 07:16:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-112-WWhWo3y3PCepquAKTJMvuw-1; Wed, 26 Jan 2022 00:28:02 -0500
-X-MC-Unique: WWhWo3y3PCepquAKTJMvuw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-132-9KFHVvvQNOqS-Dw3SQmZjA-1; Wed, 26 Jan 2022 01:16:15 -0500
+X-MC-Unique: 9KFHVvvQNOqS-Dw3SQmZjA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2CB1F1006AA5;
-	Wed, 26 Jan 2022 05:28:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2EC51042B7F;
-	Wed, 26 Jan 2022 05:27:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 193B2814245;
+	Wed, 26 Jan 2022 06:16:13 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A25D4DC06;
+	Wed, 26 Jan 2022 06:16:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B701A1809CB8;
-	Wed, 26 Jan 2022 05:27:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7422A4BB7C;
+	Wed, 26 Jan 2022 06:16:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20Q5QiIe002730 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 26 Jan 2022 00:26:45 -0500
+	id 20Q6G73R005586 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 26 Jan 2022 01:16:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6FE2F1120ABD; Wed, 26 Jan 2022 05:26:44 +0000 (UTC)
+	id D9708401E8D; Wed, 26 Jan 2022 06:16:07 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BB0F112133E
-	for <linux-cachefs@redhat.com>; Wed, 26 Jan 2022 05:26:41 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5551401E6A
+	for <linux-cachefs@redhat.com>; Wed, 26 Jan 2022 06:16:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72A4C296A603
-	for <linux-cachefs@redhat.com>; Wed, 26 Jan 2022 05:26:41 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
-	(out30-131.freemail.mail.aliyun.com [115.124.30.131]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B723780B707
+	for <linux-cachefs@redhat.com>; Wed, 26 Jan 2022 06:16:07 +0000 (UTC)
+Received: from out30-56.freemail.mail.aliyun.com
+	(out30-56.freemail.mail.aliyun.com [115.124.30.56]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-197-OQ1n-7iVO6KfSC90i4lhwA-1; Wed, 26 Jan 2022 00:26:38 -0500
-X-MC-Unique: OQ1n-7iVO6KfSC90i4lhwA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	us-mta-221-YSDchs8UPWaHneYt4KeRew-1; Wed, 26 Jan 2022 01:16:05 -0500
+X-MC-Unique: YSDchs8UPWaHneYt4KeRew-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R821e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V2tupFr_1643174792
+	TI=SMTPD_---0V2uAg.f_1643177453
 Received: from 30.225.24.77(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V2tupFr_1643174792) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 26 Jan 2022 13:26:33 +0800
-Message-ID: <2946d871-b9e1-cf29-6d39-bcab30f2854f@linux.alibaba.com>
-Date: Wed, 26 Jan 2022 13:26:32 +0800
+	fp:SMTPD_---0V2uAg.f_1643177453) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 26 Jan 2022 14:10:55 +0800
+Message-ID: <8f88459a-97e0-8b8d-3ec9-260d482a0d38@linux.alibaba.com>
+Date: Wed, 26 Jan 2022 14:10:53 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
 	Gecko/20100101 Thunderbird/91.3.2
 To: David Howells <dhowells@redhat.com>
-References: <2815558.1643127330@warthog.procyon.org.uk>
-	<20220118131216.85338-1-jefflexu@linux.alibaba.com>
-	<3116562.1643142458@warthog.procyon.org.uk>
+References: <20220118131216.85338-1-jefflexu@linux.alibaba.com>
+	<2815558.1643127330@warthog.procyon.org.uk>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-In-Reply-To: <3116562.1643142458@warthog.procyon.org.uk>
+In-Reply-To: <2815558.1643127330@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,7 +68,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: linux-cachefs@redhat.com
 Cc: chao@kernel.org, tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, linux-cachefs@redhat.com,
@@ -91,7 +90,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,75 +101,121 @@ Content-Transfer-Encoding: 7bit
 
 
 
-On 1/26/22 4:27 AM, David Howells wrote:
-> David Howells <dhowells@redhat.com> wrote:
+On 1/26/22 12:15 AM, David Howells wrote:
+> Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
 > 
->>  (1) Duplicate the cachefiles backend.  You can discard a lot of it, since a
->>      much of it is concerned with managing local modifications - which you're
->>      not going to do since you have a R/O filesystem and you're looking at
->>      importing files into the cache externally to the kernel.
+>> The following issues still need further discussion. Thanks for your time
+>> and patience.
+>>
+>> 1. I noticed that there's refactoring of netfs library[1],
+>> ...
+>> [1] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib
 > 
-> Take the attached as a start.  It's completely untested.  I've stripped out
-> anything to do with writing to the cache, making directories, etc. as that can
-> probably be delegated to the on-demand creation.  You could drive on-demand
-> creation from the points where it would create files.  I've put some "TODO"
-> comments in there as markers.
+> Yes.  I'm working towards getting netfslib to do handling writes and dio as
+> well as reads, along with content crypto/compression, and the idea I'm aiming
+> towards is that you just point your address_space_ops at netfs directly if
+> possible - but it's going to require its own context now to manage pending
+> writes.
+> 
+> See my netfs-experimental branch for more of that - it's still a work in
+> progress, though.
 
-Thanks for your inspiring work. Some questions below.
+Got it.
 
 > 
-> You could also strip out everything to do with invalidation and also make it
-> just fail if it encounters a file type that it doesn't like or a file that is
-> not correctly labelled for a coherency attribute.
+> Btw, you could set rreq->netfs_priv in ->init_rreq() rather than passing it in
+> to netfs_readpage().
 > 
-> Also, since you aren't intending to write anything or create new files here,
-> there's no need to do the space checking - so I've got rid of all that too.
+>> 2. The current implementation will severely conflict with the
+>> refactoring of netfs library[1][2]. The assumption of 'struct
+>> netfs_i_context' [2] is that, every file in the upper netfs will
+>> correspond to only one backing file. While in our scenario, one file in
+>> erofs can correspond to multiple backing files. That is, the content of
+>> one file can be divided into multiple chunks, and are distrubuted over
+>> multiple blob files, i.e. multiple backing files. Currently I have no
+>> good idea solving this conflic.
 > 
-> I've also made it open the backing files read only and got rid of the trimming
-> to I/O blocksize for DIO purposes.  The userspace side can take care of that -
-> and, besides, you want to have multiple files within a backing file, right?
+> I can think of a couple of options to explore:
 > 
-> You might want to stop it from marking cache *files* in use (but only mark
-> directories).  It doesn't matter so much as you aren't going to get coherency
-> issues from having multiple writers to the same file.
+>  (1) Duplicate the cachefiles backend.  You can discard a lot of it, since a
+>      much of it is concerned with managing local modifications - which you're
+>      not going to do since you have a R/O filesystem and you're looking at
+>      importing files into the cache externally to the kernel.
 > 
 
 
-> You then need to add a file offset member to the erofscache_object struct, set
-> that when the backing file is looked up and add it to the file position in
-> erofscache_read().  You also need to look at erofscache_prepare_read().  If
-> your files are contiguous complete blobs, that can be a lot simpler.
+>      I would suggest looking to see if you can do the blob mapping in the
+>      backend rather than passing the offset down.  Maybe make the cookie index
+>      key hold the index too, e.g. "/path/to/file+offset".
 
-To be honest, I'm not sure if I get your points correctly. Do you mean
-each file in erofs has only one chunk (and thus corresponds to only one
-backing blob file), so that netfs lib can work well while given the only
-cookie associated with the netfs file?
-
-By the way, let me explain the blob mapping in erofs further. To
-implement deduplication, one erofs file can be divided into multiple
-chunks, while these chunks can be distributed over several backing blob
-files quite randomly (rather than a round-robin style). Each erofs file
-maintains an on-disk map describing the mapping relationship between
-chunks and backing blob files. Something like the extent map. Thus
-there's a multi-to-multi relationship between erofs file and backing
-blob file.
-
-Thus each erofs file can correspond to multiple cookies in this way,
-i.e. one 'struct netfs_i_context' can correspond to multiple cookies.
-Besides, the mapping relationship between chunks and backing blob files
-is totally implemented in upper fs (i.e. erofs), I have no idea how we
-can "do the blob mapping in the backend" [1]. So I don't think we can
-use netfs lib **directly** even with this R/O fscache backend
-implemented. Please correct me if I misunderstand it.
-
+Have been discussed in [1].
 
 [1]
-https://lore.kernel.org/lkml/Yeeye2AUZITDsdh8@B-P7TQMD6M-0146.local/T/#mfbb2053476760d8fac723c57dad529192a5084c6
+https://lore.kernel.org/lkml/Yeeye2AUZITDsdh8@B-P7TQMD6M-0146.local/T/#m25b1229f96bf24929fb73746a07e9996e8222ac6
 
 
-Besides, IMHO it may suffer great challenges when implementing a new R/O
-backend, since there's quite many code duplication. I know it's just a
-starting version from scratch, but I'm not sure if it's worth it.
+"/path/to/file+offset"
+		^
+
+Besides, what does the 'offset' mean?
+
+
+> 
+>      Btw, do you still need cachefilesd for its culling duties?
+
+Yes we still need cache management in this on-demand scenario, in case
+of backing files exhausting the available blocks. (Though these backing
+files are prepared by daemon in advance, these files can all be sparse
+files.) And similarly the actual culling work should be done under
+protection of S_KERNEL_FILE, so that the culled backing file can't be
+picked back up.
+
+> 
+>  (2) Do you actually need to go through netfslib?  Might it be easier to call
+>      fscache_read() directly?  Have a look at fs/nfs/fscache.c
+
+It would be great if we can use fscache_read() directly.
+
+
+> 
+>> Besides there are still two quetions:
+>> - What's the plan of [1]? When is it planned to be merged?
+> 
+> Hopefully next merge window, but that's going to depend on a number of things.
+> 
+>> - It seems that all upper fs using fscache is going to use netfs API,
+>>   while the APIs like fscache_read_or_alloc_page() are deprecated. Is
+>>   that true?
+> 
+> fscache_read_or_alloc_page() is gone completely.
+> 
+> You don't have to use the netfs API.  You can talk to fscache directly,
+> doing DIO from the cache to an xarray-class iov_iter constructed from your
+> inode's pagecache.
+> 
+> netfslib provides/will provide a number of services, such as multipage
+> folios, transparent caching, crypto, compression and hiding the existence of
+> pages/folios from the filesystem as entirely as possible.  However, you
+> already have some of these implemented on top of iomap for the blockdev
+> interface, it would appear.
+> 
+
+Got it.
+
+
+In summary,
+
+1) I prefer option 2, i.e. calling fscache_read() directly, as the one
+at hand. In this case, the conflict with the netfs lib refactoring can
+be avoided. Besides, there will be less modification needed to
+cachefiles/netfs. Patch 1~3 are no longer required, while patch 4~6 are
+still needed, which mainly introduce the new devnode.
+
+2) Later we can change to option 1, i.e. calling netfs lib and also a
+potential new R/O backend, if the issues in [1] can be clarified or solved.
+
+[1]
+https://lore.kernel.org/lkml/Yeeye2AUZITDsdh8@B-P7TQMD6M-0146.local/T/#m25b1229f96bf24929fb73746a07e9996e8222ac6
 
 -- 
 Thanks,
