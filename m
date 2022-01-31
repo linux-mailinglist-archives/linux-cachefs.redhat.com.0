@@ -2,75 +2,71 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FBFC4A4BB7
-	for <lists+linux-cachefs@lfdr.de>; Mon, 31 Jan 2022 17:20:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0930C4A4C08
+	for <lists+linux-cachefs@lfdr.de>; Mon, 31 Jan 2022 17:28:58 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-362-A1b7ZlEgPUm1I4H7ppiWhw-1; Mon, 31 Jan 2022 11:20:40 -0500
-X-MC-Unique: A1b7ZlEgPUm1I4H7ppiWhw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-652-ydIxcyFAMOKULWVWUPF-KQ-1; Mon, 31 Jan 2022 11:28:54 -0500
+X-MC-Unique: ydIxcyFAMOKULWVWUPF-KQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D69C53E744;
-	Mon, 31 Jan 2022 16:20:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E8C79835B50;
+	Mon, 31 Jan 2022 16:28:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E23897AB54;
-	Mon, 31 Jan 2022 16:20:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 603CA753C0;
+	Mon, 31 Jan 2022 16:28:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C37518095C9;
-	Mon, 31 Jan 2022 16:20:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E68E61809CB8;
+	Mon, 31 Jan 2022 16:28:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20VGKW6W012416 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 31 Jan 2022 11:20:32 -0500
+	id 20VGSoeq012702 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 31 Jan 2022 11:28:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 176E11121332; Mon, 31 Jan 2022 16:20:32 +0000 (UTC)
+	id 2F35740CFD1D; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11E05112132E
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:20:28 +0000 (UTC)
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B27240CFD0F
+	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6D3B3C01B82
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:20:27 +0000 (UTC)
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
-	[209.85.166.169]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 134843821BE9
+	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+	[209.85.166.41]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-197-Q7L842KdPsWmgEH83YJ23w-1; Mon, 31 Jan 2022 11:20:26 -0500
-X-MC-Unique: Q7L842KdPsWmgEH83YJ23w-1
-Received: by mail-il1-f169.google.com with SMTP id i1so11842553ils.5;
-	Mon, 31 Jan 2022 08:20:25 -0800 (PST)
+	us-mta-648-hAL5MRlwOuG0i3hRcuqE5Q-1; Mon, 31 Jan 2022 11:28:46 -0500
+X-MC-Unique: hAL5MRlwOuG0i3hRcuqE5Q-1
+Received: by mail-io1-f41.google.com with SMTP id q204so17580901iod.8;
+	Mon, 31 Jan 2022 08:28:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=UbFm592rz0IKfu+VnJFNxz1Msppocc460xkpKheRmIo=;
-	b=gATGqbsSlSwlyfBP/9GZ+SaBS986+mxgSuvFwNu5/9CBuk3MbAdQ+4y+/rjdpBVhwW
-	JvEKBC97/uAQAyVL0YocMxHA4CKupWPl05TzPyzY6ya9igJMTS9RpAJA6k3B8z3zmi5m
-	PEFlGxSFfzPgolWKyx1fJo5XtBhjzdt4RhxhQdXIp9FidQvbU8uE3tJdzo6fwr1TMOQJ
-	HN9S5dk54vpvShbJW/2Pr3dadJqKjftJkYrOMAyL79iVgxVS8182lSsItr2C5qTExScU
-	JvzJOqnQaFQnL/XbdH6OGkLuENanhFGZnTbJPssh73T6XqvuLxKAk96ypIJRkM/s62s0
-	1dzQ==
-X-Gm-Message-State: AOAM533zAqTwg7xgaOdPRjmgT/iqZyN+EXrxQ55awCAFhA9fNYRiLstx
-	SLg4ClcxzbfYcXopn79tPwfWuEnrrnvmwyVVot2wY3shIqE=
-X-Google-Smtp-Source: ABdhPJyRorRaMlWkkgIN9K2SnqW/g5GLCJG6D2tuEyorWa6Y39EQqCnR0aSGdXlSeCoGJkW+S6ipBxaQeGvq99bLJmk=
-X-Received: by 2002:a05:6e02:1708:: with SMTP id
-	u8mr5000825ill.319.1643646025247; 
-	Mon, 31 Jan 2022 08:20:25 -0800 (PST)
+	bh=FWHxzL6ukBtNWpYV3M+KSic9V4wnJNgq8ieHpEwO93o=;
+	b=Zqok/vVwk16n+YP7YV1WABEjvJc/+yVMbWV0s7bsxHo5+Yftsjxpy6EOxMm7abSE4W
+	hmf0t+AwDsSLNhTeQwKNbhL3tq09DIZl32ARH0/vkG48zSRCa/UrgeHrMubfqQNdjUZC
+	zTBuLnfRobUS6CmMzARFNgVITsK5Fereum4/lnk40yGplL3yAINETtHJpHF7V6q6C4DM
+	mPxDCth2wO+dlMe7fZME78VLcEG8JXMGCn+drJd5CltG7cuU+32bcVx4v3O3lqmt/Nq4
+	2yw5hwC9PAgdKNvM91iGrdIDS24Xx/66u7/eS4OFw6+FUPzbAkGXTeGhPUSYfulahGiY
+	nCSg==
+X-Gm-Message-State: AOAM532sQu21UTGkhLvtnFQBDsABdB8KYfbZpJpgP4o2fZBNpNCG0Ud3
+	TcJLZ3OM+DHFMpNjGmN+gHNLVDDJk5eU04zTg+HkHt0y6nw=
+X-Google-Smtp-Source: ABdhPJxNb3/z0NjiVlXTcilGZskFbZSPKskFhMTsV47EDfmw8oXlq6P8d86Mev/eeZ6FGVTUKhcSVzplXAu06yRfSts=
+X-Received: by 2002:a02:b0c3:: with SMTP id w3mr11342820jah.1.1643646525134;
+	Mon, 31 Jan 2022 08:28:45 -0800 (PST)
 MIME-Version: 1.0
 References: <164364196407.1476539.8450117784231043601.stgit@warthog.procyon.org.uk>
-	<164364197646.1476539.3635698398603811895.stgit@warthog.procyon.org.uk>
-	<CAOQ4uxiorvXhhJbCsGo-B7aBX0BbSYp7wUHmYS1e1xxJ4dpF3w@mail.gmail.com>
-	<1531209.1643643128@warthog.procyon.org.uk>
-In-Reply-To: <1531209.1643643128@warthog.procyon.org.uk>
+In-Reply-To: <164364196407.1476539.8450117784231043601.stgit@warthog.procyon.org.uk>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 31 Jan 2022 18:20:14 +0200
-Message-ID: <CAOQ4uxhc6FW-io5mC=FN=vFawEAwjXZO7kCcGt5gzqq3ON1Y7w@mail.gmail.com>
+Date: Mon, 31 Jan 2022 18:28:34 +0200
+Message-ID: <CAOQ4uxgyfQULxH_ot5eAH1V7uAi4FVn5V4aKEHyJtWvnw0SODQ@mail.gmail.com>
 To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -80,7 +76,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: linux-cachefs@redhat.com
 Cc: Miklos Szeredi <miklos@szeredi.hu>, Jeff Layton <jlayton@kernel.org>,
 	overlayfs <linux-unionfs@vger.kernel.org>,
@@ -89,8 +85,9 @@ Cc: Miklos Szeredi <miklos@szeredi.hu>, Jeff Layton <jlayton@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Linux-cachefs] [PATCH 1/5] vfs, overlayfs,
- cachefiles: Turn I_OVL_INUSE into something generic
+Subject: Re: [Linux-cachefs] [RFC][PATCH 0/5] vfs, overlayfs,
+ cachefiles: Combine I_OVL_INUSE and S_KERNEL_FILE and split out
+ no-remove
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,7 +101,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,44 +109,45 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 31, 2022 at 5:32 PM David Howells <dhowells@redhat.com> wrote:
+On Mon, Jan 31, 2022 at 5:12 PM David Howells <dhowells@redhat.com> wrote:
 >
-> Amir Goldstein <amir73il@gmail.com> wrote:
 >
-> > Please leave ovl_* as wrappers instead of changing super.c.
+> Hi Amir,
 >
-> Do you want them turning into inline functions?
+> How about this as a set of patches to do what you suggest[1] and hoist the
+> handler functions for I_OVL_INUSE into common code and rename the flag to
+> I_EXCL_INUSE.  This can then be shared with cachefiles - allowing me to get
+> rid of S_KERNEL_FILE.
 >
 
-inline would be fine.
+They look like what I had in mind.
+Unfortunately, I had forgotten about another use that ovl makes of the flag
+(see comment on patch 1/5). I'd made a suggestion on how to get rid of that use
+case, but I hope this won't complicate things too much for you.
 
-But I just noticed something that may wreck this party.
+> I did split out the functionality for preventing file/dir removal to a
+> separate flag, I_NO_REMOVE, so that it's not tied to I_EXCL_INUSE in case
+> overlayfs doesn't want to use it.  The downside to that, though is that it
+> requires a separate locking of i_lock to set/clear it.
+>
+> I also added four general tracepoints to log successful lock/unlock,
+> failure to lock and a bad unlock.  The lock tracepoints log which driver
+> asked for the lock and all tracepoints allow the driver to log an arbitrary
+> reference number (in cachefiles's case this is the object debug ID).
+>
+> Questions:
+>
+>  (1) Should it be using a flag in i_state or a flag in i_flags?  I'm not
+>      sure what the difference is really.
 
-The assumption, when I proposed this merger, was that an inode for
-upper/work and is exclusively owned by ovl driver, so there should be no
-conflicts with other drivers setting inuse flag.
+Me neither.
 
-However, in ovl_check_layer(), we walk back to root to verify that an ovl
-layer of a new instance is not a descendant of another ovl upper/work inuse.
-So the meaning of I_OVL_INUSE is somewhat stronger than an exclusive inode lock.
-It implies ownership on the entire subtree.
+>
+>  (2) Do we really need to take i_lock when testing I_EXCL_INUSE?  Would
+>      READ_ONCE() suffice?
+>
 
-I guess there is no conflict with cachefiles since ovl upper/work should not be
-intersecting with any cachefiles storage, but that complicates the
-semantics when
-it comes to a generic flag.
-
-OTOH, I am not sure if this check on ovl mount is so smart to begin with.
-This check was added (after the exclusive ownership meaning) to silence syzbot
-that kept mutating to weird overlapping ovl setups.
-I think that a better approach would be to fail a lookup in the upper layer
-that results with a d_mountpoint() - those are not expected inside the overlay
-upper layer AFAICT.
-
-Anyway, I can make those changes if Miklos agrees with them, but I don't
-want to complicate your work on this, so maybe for now, create the I_EXCL_INUSE
-generic flag without changing overlayfs and I can make the cleanup to get rid of
-I_OVL_INUSE later.
+For ovl_is_inuse() I think READ_ONCE() should suffice.
 
 Thanks,
 Amir.
