@@ -1,93 +1,63 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0930C4A4C08
-	for <lists+linux-cachefs@lfdr.de>; Mon, 31 Jan 2022 17:28:58 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 111E14A4D91
+	for <lists+linux-cachefs@lfdr.de>; Mon, 31 Jan 2022 18:53:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1643651591;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=JwN8pC1ulch5PzCi3IMq3AsTLQje0q5eOJ34kpOnX3w=;
+	b=hgkJ6FMNhN5tCqjHx4jZZVwuM2l5Jvxqk/vtcjshvOCNvl5RjzzPXdFabnY9PUWHJSPSwB
+	SLLjzbyfaxMtM9XoqnTC6U4BvuAZrn/wnyCV1F28/QrSCGLJJEVfanPU+J/+Is35VTJBkR
+	IKIP2iGfciwgjJFGmEeLiyQOEi3WIjg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-ydIxcyFAMOKULWVWUPF-KQ-1; Mon, 31 Jan 2022 11:28:54 -0500
-X-MC-Unique: ydIxcyFAMOKULWVWUPF-KQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-651-amWXMHUGNvSUx7srWXZZlg-1; Mon, 31 Jan 2022 12:53:07 -0500
+X-MC-Unique: amWXMHUGNvSUx7srWXZZlg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E8C79835B50;
-	Mon, 31 Jan 2022 16:28:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0999E1091DAA;
+	Mon, 31 Jan 2022 17:53:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 603CA753C0;
-	Mon, 31 Jan 2022 16:28:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5F0D838CE;
+	Mon, 31 Jan 2022 17:53:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E68E61809CB8;
-	Mon, 31 Jan 2022 16:28:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD7DC1809CB8;
+	Mon, 31 Jan 2022 17:53:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20VGSoeq012702 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 31 Jan 2022 11:28:50 -0500
+	id 20VHqxI5018781 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Mon, 31 Jan 2022 12:52:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2F35740CFD1D; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
+	id D3CCB838CE; Mon, 31 Jan 2022 17:52:59 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B27240CFD0F
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 134843821BE9
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 16:28:50 +0000 (UTC)
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
-	[209.85.166.41]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-648-hAL5MRlwOuG0i3hRcuqE5Q-1; Mon, 31 Jan 2022 11:28:46 -0500
-X-MC-Unique: hAL5MRlwOuG0i3hRcuqE5Q-1
-Received: by mail-io1-f41.google.com with SMTP id q204so17580901iod.8;
-	Mon, 31 Jan 2022 08:28:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=FWHxzL6ukBtNWpYV3M+KSic9V4wnJNgq8ieHpEwO93o=;
-	b=Zqok/vVwk16n+YP7YV1WABEjvJc/+yVMbWV0s7bsxHo5+Yftsjxpy6EOxMm7abSE4W
-	hmf0t+AwDsSLNhTeQwKNbhL3tq09DIZl32ARH0/vkG48zSRCa/UrgeHrMubfqQNdjUZC
-	zTBuLnfRobUS6CmMzARFNgVITsK5Fereum4/lnk40yGplL3yAINETtHJpHF7V6q6C4DM
-	mPxDCth2wO+dlMe7fZME78VLcEG8JXMGCn+drJd5CltG7cuU+32bcVx4v3O3lqmt/Nq4
-	2yw5hwC9PAgdKNvM91iGrdIDS24Xx/66u7/eS4OFw6+FUPzbAkGXTeGhPUSYfulahGiY
-	nCSg==
-X-Gm-Message-State: AOAM532sQu21UTGkhLvtnFQBDsABdB8KYfbZpJpgP4o2fZBNpNCG0Ud3
-	TcJLZ3OM+DHFMpNjGmN+gHNLVDDJk5eU04zTg+HkHt0y6nw=
-X-Google-Smtp-Source: ABdhPJxNb3/z0NjiVlXTcilGZskFbZSPKskFhMTsV47EDfmw8oXlq6P8d86Mev/eeZ6FGVTUKhcSVzplXAu06yRfSts=
-X-Received: by 2002:a02:b0c3:: with SMTP id w3mr11342820jah.1.1643646525134;
-	Mon, 31 Jan 2022 08:28:45 -0800 (PST)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A3D0838D2;
+	Mon, 31 Jan 2022 17:52:48 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: smfrench@gmail.com
+Date: Mon, 31 Jan 2022 17:52:47 +0000
+Message-ID: <164365156782.2040161.8222945480682704501.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/1.4
 MIME-Version: 1.0
-References: <164364196407.1476539.8450117784231043601.stgit@warthog.procyon.org.uk>
-In-Reply-To: <164364196407.1476539.8450117784231043601.stgit@warthog.procyon.org.uk>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 31 Jan 2022 18:28:34 +0200
-Message-ID: <CAOQ4uxgyfQULxH_ot5eAH1V7uAi4FVn5V4aKEHyJtWvnw0SODQ@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: linux-cachefs@redhat.com
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Jeff Layton <jlayton@kernel.org>,
-	overlayfs <linux-unionfs@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Christoph Hellwig <hch@infradead.org>, linux-cachefs@redhat.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Linux-cachefs] [RFC][PATCH 0/5] vfs, overlayfs,
- cachefiles: Combine I_OVL_INUSE and S_KERNEL_FILE and split out
- no-remove
+Cc: linux-cifs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org
+Subject: [Linux-cachefs] [PATCH] cachefiles: Fix the volume coherency check
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,7 +71,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -109,48 +79,61 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 31, 2022 at 5:12 PM David Howells <dhowells@redhat.com> wrote:
->
->
-> Hi Amir,
->
-> How about this as a set of patches to do what you suggest[1] and hoist the
-> handler functions for I_OVL_INUSE into common code and rename the flag to
-> I_EXCL_INUSE.  This can then be shared with cachefiles - allowing me to get
-> rid of S_KERNEL_FILE.
->
+Fix the cache volume coherency attribute check.  It was copied from the
+file coherency check which uses as struct to lay out the xattr, and so
+needs to add a bit on to find the coherency data - but the volume coherency
+attribute only contains the coherency data, so we shouldn't be using the
+layout struct for it.
 
-They look like what I had in mind.
-Unfortunately, I had forgotten about another use that ovl makes of the flag
-(see comment on patch 1/5). I'd made a suggestion on how to get rid of that use
-case, but I hope this won't complicate things too much for you.
+This has passed unnoticed so far because it only affects cifs at the
+moment, and cifs had its fscache component disabled.
 
-> I did split out the functionality for preventing file/dir removal to a
-> separate flag, I_NO_REMOVE, so that it's not tied to I_EXCL_INUSE in case
-> overlayfs doesn't want to use it.  The downside to that, though is that it
-> requires a separate locking of i_lock to set/clear it.
->
-> I also added four general tracepoints to log successful lock/unlock,
-> failure to lock and a bad unlock.  The lock tracepoints log which driver
-> asked for the lock and all tracepoints allow the driver to log an arbitrary
-> reference number (in cachefiles's case this is the object debug ID).
->
-> Questions:
->
->  (1) Should it be using a flag in i_state or a flag in i_flags?  I'm not
->      sure what the difference is really.
+This can now be checked by enabling CONFIG_CIFS_FSCACHE, enabling the
+following tracepoint:
 
-Me neither.
+	/sys/kernel/debug/tracing/events/cachefiles/cachefiles_vol_coherency/enable
 
->
->  (2) Do we really need to take i_lock when testing I_EXCL_INUSE?  Would
->      READ_ONCE() suffice?
->
+and making a cifs mount.  Without this change, the trace shows a
+cachefiles_vol_coherency line with "VOL BAD cmp" in it; with this change it
+shows "VOL OK" instead.
 
-For ovl_is_inuse() I think READ_ONCE() should suffice.
+Fixes: 32e150037dce ("fscache, cachefiles: Store the volume coherency data")
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: Steve French <smfrench@gmail.com>
+cc: linux-cifs@vger.kernel.org
+cc: linux-cachefs@redhat.com
+---
 
-Thanks,
-Amir.
+ fs/cachefiles/xattr.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index 83f41bd0c3a9..c6171e818a7c 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -218,10 +218,10 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
+  */
+ int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
+ {
+-	struct cachefiles_xattr *buf;
+ 	struct dentry *dentry = volume->dentry;
+ 	unsigned int len = volume->vcookie->coherency_len;
+ 	const void *p = volume->vcookie->coherency;
++	void *buf;
+ 	enum cachefiles_coherency_trace why;
+ 	ssize_t xlen;
+ 	int ret = -ESTALE;
+@@ -245,7 +245,7 @@ int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
+ 					"Failed to read xattr with error %zd", xlen);
+ 		}
+ 		why = cachefiles_coherency_vol_check_xattr;
+-	} else if (memcmp(buf->data, p, len) != 0) {
++	} else if (memcmp(buf, p, len) != 0) {
+ 		why = cachefiles_coherency_vol_check_cmp;
+ 	} else {
+ 		why = cachefiles_coherency_vol_check_ok;
+
 
 --
 Linux-cachefs mailing list
