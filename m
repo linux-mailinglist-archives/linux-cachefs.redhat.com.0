@@ -2,76 +2,70 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEB24A4EAE
-	for <lists+linux-cachefs@lfdr.de>; Mon, 31 Jan 2022 19:43:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 265704A5A66
+	for <lists+linux-cachefs@lfdr.de>; Tue,  1 Feb 2022 11:44:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1643712269;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=9mjkWVeE/6Jc5Z+VuoJTGKDbNwOxz5EQmDp//ssdjSU=;
+	b=INvagfsKsDQGOXnYmZek3ApaG64dOfJCr16w8+JnWZWCSMeDzoOD26q7CyVd9joXjCBElu
+	f4QmpIxl9BMGPVK+rU1cqYEsngv29pGY5f488WdfHltJhy2emXBx/PHInOO+bAGjejqzte
+	+IwxkCdbp8BTvDmrq+YzeXfpLLadjUk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-281-ecfGm2AMNKuVDrzQoRwsyg-1; Mon, 31 Jan 2022 13:43:35 -0500
-X-MC-Unique: ecfGm2AMNKuVDrzQoRwsyg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-627-wZvLu8UpMBWCVjbEg0VuUg-1; Tue, 01 Feb 2022 05:44:25 -0500
+X-MC-Unique: wZvLu8UpMBWCVjbEg0VuUg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C12918A224C;
-	Mon, 31 Jan 2022 18:43:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D84D74EBE;
-	Mon, 31 Jan 2022 18:43:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4FAFC18A0F1C;
+	Tue,  1 Feb 2022 10:44:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B95E22DFF;
+	Tue,  1 Feb 2022 10:44:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A7421809CB8;
-	Mon, 31 Jan 2022 18:43:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E5FD04BB7B;
+	Tue,  1 Feb 2022 10:44:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20VIhRbP022409 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Mon, 31 Jan 2022 13:43:28 -0500
+	id 211AiA5S027211 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 1 Feb 2022 05:44:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D2BB11121330; Mon, 31 Jan 2022 18:43:27 +0000 (UTC)
+	id 4FF594F875; Tue,  1 Feb 2022 10:44:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEFFD112132C
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 18:43:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC29A85A5A8
-	for <linux-cachefs@redhat.com>; Mon, 31 Jan 2022 18:43:24 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-117-LJhgdkaZMBW-Fzhpbpn8Hw-1; Mon, 31 Jan 2022 13:43:22 -0500
-X-MC-Unique: LJhgdkaZMBW-Fzhpbpn8Hw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 93CB3B82BDA;
-	Mon, 31 Jan 2022 18:43:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1109C340E8;
-	Mon, 31 Jan 2022 18:43:19 +0000 (UTC)
-Message-ID: <cc2a90295935c8841abf5d0538590eb5202a745c.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: David Howells <dhowells@redhat.com>, smfrench@gmail.com
-Date: Mon, 31 Jan 2022 13:43:18 -0500
-In-Reply-To: <164365156782.2040161.8222945480682704501.stgit@warthog.procyon.org.uk>
-References: <164365156782.2040161.8222945480682704501.stgit@warthog.procyon.org.uk>
-User-Agent: Evolution 3.42.3 (3.42.3-1.fc35)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 629534F840;
+	Tue,  1 Feb 2022 10:44:07 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <164364202369.1476539.452557132083658522.stgit@warthog.procyon.org.uk>
+References: <164364202369.1476539.452557132083658522.stgit@warthog.procyon.org.uk>
+	<164364196407.1476539.8450117784231043601.stgit@warthog.procyon.org.uk>
+To: Amir Goldstein <amir73il@gmail.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Date: Tue, 01 Feb 2022 10:44:06 +0000
+Message-ID: <738171.1643712246@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 211AiA5S027211
 X-loop: linux-cachefs@redhat.com
-Cc: linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org,
-	linux-cachefs@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-cachefs] [PATCH] cachefiles: Fix the volume coherency
-	check
+Cc: Christoph Hellwig <hch@infradead.org>, Miklos Szeredi <miklos@szeredi.hu>,
+	Jeff Layton <jlayton@kernel.org>, linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org, torvalds@linux-foundation.org
+Subject: Re: [Linux-cachefs] [PATCH 2/5] vfs: Add tracepoints for
+	inode_excl_inuse_trylock/unlock
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,73 +79,298 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <738170.1643712246.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2022-01-31 at 17:52 +0000, David Howells wrote:
-> Fix the cache volume coherency attribute check.  It was copied from the
-> file coherency check which uses as struct to lay out the xattr, and so
-> needs to add a bit on to find the coherency data - but the volume coherency
-> attribute only contains the coherency data, so we shouldn't be using the
-> layout struct for it.
-> 
-> This has passed unnoticed so far because it only affects cifs at the
-> moment, and cifs had its fscache component disabled.
-> 
-> This can now be checked by enabling CONFIG_CIFS_FSCACHE, enabling the
-> following tracepoint:
-> 
-> 	/sys/kernel/debug/tracing/events/cachefiles/cachefiles_vol_coherency/enable
-> 
-> and making a cifs mount.  Without this change, the trace shows a
-> cachefiles_vol_coherency line with "VOL BAD cmp" in it; with this change it
-> shows "VOL OK" instead.
-> 
-> Fixes: 32e150037dce ("fscache, cachefiles: Store the volume coherency data")
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Jeff Layton <jlayton@kernel.org>
-> cc: Steve French <smfrench@gmail.com>
-> cc: linux-cifs@vger.kernel.org
-> cc: linux-cachefs@redhat.com
-> ---
-> 
->  fs/cachefiles/xattr.c |    4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
-> index 83f41bd0c3a9..c6171e818a7c 100644
-> --- a/fs/cachefiles/xattr.c
-> +++ b/fs/cachefiles/xattr.c
-> @@ -218,10 +218,10 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
->   */
->  int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
->  {
-> -	struct cachefiles_xattr *buf;
->  	struct dentry *dentry = volume->dentry;
->  	unsigned int len = volume->vcookie->coherency_len;
->  	const void *p = volume->vcookie->coherency;
-> +	void *buf;
->  	enum cachefiles_coherency_trace why;
->  	ssize_t xlen;
->  	int ret = -ESTALE;
-> @@ -245,7 +245,7 @@ int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
->  					"Failed to read xattr with error %zd", xlen);
->  		}
->  		why = cachefiles_coherency_vol_check_xattr;
-> -	} else if (memcmp(buf->data, p, len) != 0) {
-> +	} else if (memcmp(buf, p, len) != 0) {
->  		why = cachefiles_coherency_vol_check_cmp;
->  	} else {
->  		why = cachefiles_coherency_vol_check_ok;
-> 
-> 
+I forgot to add the tracepoint header to the commit.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+David
+---
+commit c8cefa2ac359254ecebfb20dcd0676bf9a167277
+Author: David Howells <dhowells@redhat.com>
+Date:   Mon Jan 31 11:52:44 2022 +0000
+
+    vfs: Add tracepoints for inode_excl_inuse_trylock/unlock
+    
+    Add tracepoints for inode_excl_inuse_trylock/unlock() to record successful
+    and lock, failed lock, successful unlock and unlock when it wasn't locked.
+    
+    Signed-off-by: David Howells <dhowells@redhat.com>
+    cc: Amir Goldstein <amir73il@gmail.com>
+    cc: Miklos Szeredi <miklos@szeredi.hu>
+    cc: linux-unionfs@vger.kernel.org
+    cc: linux-cachefs@redhat.com
+
+diff --git a/fs/inode.c b/fs/inode.c
+index 954719f66113..61b93a89853f 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -22,6 +22,8 @@
+ #include <linux/iversion.h>
+ #include <trace/events/writeback.h>
+ #include "internal.h"
++#define CREATE_TRACE_POINTS
++#include <trace/events/vfs.h>
+ 
+ /*
+  * Inode locking rules:
+@@ -2409,11 +2411,14 @@ EXPORT_SYMBOL(current_time);
+ /**
+  * inode_excl_inuse_trylock - Try to exclusively lock an inode for kernel access
+  * @dentry: Reference to the inode to be locked
++ * @o: Private reference for the kernel service
++ * @who: Which kernel service is trying to gain the lock
+  *
+  * Try to gain exclusive access to an inode for a kernel service, returning
+  * true if successful.
+  */
+-bool inode_excl_inuse_trylock(struct dentry *dentry)
++bool inode_excl_inuse_trylock(struct dentry *dentry, unsigned int o,
++			      enum inode_excl_inuse_by who)
+ {
+ 	struct inode *inode = d_inode(dentry);
+ 	bool locked = false;
+@@ -2421,7 +2426,10 @@ bool inode_excl_inuse_trylock(struct dentry *dentry)
+ 	spin_lock(&inode->i_lock);
+ 	if (!(inode->i_state & I_EXCL_INUSE)) {
+ 		inode->i_state |= I_EXCL_INUSE;
++		trace_inode_excl_inuse_lock(inode, o, who);
+ 		locked = true;
++	} else {
++		trace_inode_excl_inuse_lock_failed(inode, o, who);
+ 	}
+ 	spin_unlock(&inode->i_lock);
+ 
+@@ -2432,18 +2440,23 @@ EXPORT_SYMBOL(inode_excl_inuse_trylock);
+ /**
+  * inode_excl_inuse_unlock - Unlock exclusive kernel access to an inode
+  * @dentry: Reference to the inode to be unlocked
++ * @o: Private reference for the kernel service
+  *
+  * Drop exclusive access to an inode for a kernel service.  A warning is given
+  * if the inode was not marked for exclusive access.
+  */
+-void inode_excl_inuse_unlock(struct dentry *dentry)
++void inode_excl_inuse_unlock(struct dentry *dentry, unsigned int o)
+ {
+ 	if (dentry) {
+ 		struct inode *inode = d_inode(dentry);
+ 
+ 		spin_lock(&inode->i_lock);
+-		WARN_ON(!(inode->i_state & I_EXCL_INUSE));
+-		inode->i_state &= ~I_EXCL_INUSE;
++		if (WARN_ON(!(inode->i_state & I_EXCL_INUSE))) {
++			trace_inode_excl_inuse_unlock_bad(inode, o);
++		} else {
++			inode->i_state &= ~I_EXCL_INUSE;
++			trace_inode_excl_inuse_unlock(inode, o);
++		}
+ 		spin_unlock(&inode->i_lock);
+ 	}
+ }
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index 5c3361a2dc7c..6434ae11496d 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -224,10 +224,10 @@ static void ovl_free_fs(struct ovl_fs *ofs)
+ 	dput(ofs->indexdir);
+ 	dput(ofs->workdir);
+ 	if (ofs->workdir_locked)
+-		inode_excl_inuse_unlock(ofs->workbasedir);
++		inode_excl_inuse_unlock(ofs->workbasedir, 0);
+ 	dput(ofs->workbasedir);
+ 	if (ofs->upperdir_locked)
+-		inode_excl_inuse_unlock(ovl_upper_mnt(ofs)->mnt_root);
++		inode_excl_inuse_unlock(ovl_upper_mnt(ofs)->mnt_root, 0);
+ 
+ 	/* Hack!  Reuse ofs->layers as a vfsmount array before freeing it */
+ 	mounts = (struct vfsmount **) ofs->layers;
+@@ -1239,7 +1239,8 @@ static int ovl_get_upper(struct super_block *sb, struct ovl_fs *ofs,
+ 	if (upper_mnt->mnt_sb->s_flags & SB_NOSEC)
+ 		sb->s_flags |= SB_NOSEC;
+ 
+-	if (inode_excl_inuse_trylock(ovl_upper_mnt(ofs)->mnt_root)) {
++	if (inode_excl_inuse_trylock(ovl_upper_mnt(ofs)->mnt_root, 0,
++				     inode_excl_inuse_by_overlayfs)) {
+ 		ofs->upperdir_locked = true;
+ 	} else {
+ 		err = ovl_report_in_use(ofs, "upperdir");
+@@ -1499,7 +1500,8 @@ static int ovl_get_workdir(struct super_block *sb, struct ovl_fs *ofs,
+ 
+ 	ofs->workbasedir = dget(workpath.dentry);
+ 
+-	if (inode_excl_inuse_trylock(ofs->workbasedir)) {
++	if (inode_excl_inuse_trylock(ofs->workbasedir, 0,
++				     inode_excl_inuse_by_overlayfs)) {
+ 		ofs->workdir_locked = true;
+ 	} else {
+ 		err = ovl_report_in_use(ofs, "workdir");
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 4c15e270f1ac..f461883d66a8 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2389,8 +2389,13 @@ static inline bool inode_is_dirtytime_only(struct inode *inode)
+ 				  I_FREEING | I_WILL_FREE)) == I_DIRTY_TIME;
+ }
+ 
+-bool inode_excl_inuse_trylock(struct dentry *dentry);
+-void inode_excl_inuse_unlock(struct dentry *dentry);
++enum inode_excl_inuse_by {
++	inode_excl_inuse_by_overlayfs,
++};
++
++bool inode_excl_inuse_trylock(struct dentry *dentry, unsigned int o,
++			      enum inode_excl_inuse_by who);
++void inode_excl_inuse_unlock(struct dentry *dentry, unsigned int o);
+ 
+ static inline bool inode_is_excl_inuse(struct dentry *dentry)
+ {
+diff --git a/include/trace/events/vfs.h b/include/trace/events/vfs.h
+new file mode 100644
+index 000000000000..f053752109dd
+--- /dev/null
++++ b/include/trace/events/vfs.h
+@@ -0,0 +1,134 @@
++/* VFS tracepoints
++ *
++ * Copyright (C) 2022 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM vfs
++
++#if !defined(_TRACE_VFS_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_VFS_H
++
++#include <linux/tracepoint.h>
++#include <linux/fs.h>
++
++/*
++ * Define enum -> string mappings for display.
++ */
++#define inode_excl_inuse_by_traces				\
++	EM(inode_excl_inuse_by_cachefiles,	"cachefiles")	\
++	E_(inode_excl_inuse_by_overlayfs,	"overlayfs")
++
++
++/*
++ * Export enum symbols via userspace.
++ */
++#undef EM
++#undef E_
++#define EM(a, b) TRACE_DEFINE_ENUM(a);
++#define E_(a, b) TRACE_DEFINE_ENUM(a);
++
++inode_excl_inuse_by_traces;
++
++/*
++ * Now redefine the EM() and E_() macros to map the enums to the strings that
++ * will be printed in the output.
++ */
++#undef EM
++#undef E_
++#define EM(a, b)	{ a, b },
++#define E_(a, b)	{ a, b }
++
++
++TRACE_EVENT(inode_excl_inuse_lock,
++	    TP_PROTO(struct inode *inode, unsigned int o,
++		     enum inode_excl_inuse_by who),
++
++	    TP_ARGS(inode, o, who),
++
++	    TP_STRUCT__entry(
++		    __field(ino_t,			inode		)
++		    __field(unsigned int,		o		)
++		    __field(enum inode_excl_inuse_by,	who		)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->inode	= inode->i_ino;
++		    __entry->o		= o;
++		    __entry->who	= who;
++			   ),
++
++	    TP_printk("B=%lx %s o=%08x",
++		      __entry->inode,
++		      __print_symbolic(__entry->who, inode_excl_inuse_by_traces),
++		      __entry->o)
++	    );
++
++TRACE_EVENT(inode_excl_inuse_lock_failed,
++	    TP_PROTO(struct inode *inode, unsigned int o,
++		     enum inode_excl_inuse_by who),
++
++	    TP_ARGS(inode, o, who),
++
++	    TP_STRUCT__entry(
++		    __field(ino_t,			inode		)
++		    __field(unsigned int,		o		)
++		    __field(enum inode_excl_inuse_by,	who		)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->inode	= inode->i_ino;
++		    __entry->o		= o;
++		    __entry->who	= who;
++			   ),
++
++	    TP_printk("B=%lx %s o=%08x",
++		      __entry->inode,
++		      __print_symbolic(__entry->who, inode_excl_inuse_by_traces),
++		      __entry->o)
++	    );
++
++TRACE_EVENT(inode_excl_inuse_unlock,
++	    TP_PROTO(struct inode *inode, unsigned int o),
++
++	    TP_ARGS(inode, o),
++
++	    TP_STRUCT__entry(
++		    __field(ino_t,			inode		)
++		    __field(unsigned int,		o		)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->inode	= inode->i_ino;
++		    __entry->o		= o;
++			   ),
++
++	    TP_printk("B=%lx o=%08x",
++		      __entry->inode,
++		      __entry->o)
++	    );
++
++TRACE_EVENT(inode_excl_inuse_unlock_bad,
++	    TP_PROTO(struct inode *inode, unsigned int o),
++
++	    TP_ARGS(inode, o),
++
++	    TP_STRUCT__entry(
++		    __field(ino_t,			inode		)
++		    __field(unsigned int,		o		)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->inode	= inode->i_ino;
++		    __entry->o		= o;
++			   ),
++
++	    TP_printk("B=%lx o=%08x",
++		      __entry->inode,
++		      __entry->o)
++	    );
++
++#endif /* _TRACE_VFS_H */
++
++/* This part must be outside protection */
++#include <trace/define_trace.h>
 
 --
 Linux-cachefs mailing list
