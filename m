@@ -2,59 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CCE04AE9B1
-	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Feb 2022 07:01:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 003014AE9AB
+	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Feb 2022 07:01:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-647-jK5uUsz1N96fdu8z3Woo8g-1; Wed, 09 Feb 2022 01:01:33 -0500
-X-MC-Unique: jK5uUsz1N96fdu8z3Woo8g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-67-KpifeNbgN4yet1WXWoKvIQ-1; Wed, 09 Feb 2022 01:01:31 -0500
+X-MC-Unique: KpifeNbgN4yet1WXWoKvIQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01C8E5108F;
-	Wed,  9 Feb 2022 06:01:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EFD8F84B9B1;
+	Wed,  9 Feb 2022 06:01:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8C7355F6E;
-	Wed,  9 Feb 2022 06:01:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB8155BC3A;
+	Wed,  9 Feb 2022 06:01:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 326914BB7B;
-	Wed,  9 Feb 2022 06:01:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C93534A7C8;
+	Wed,  9 Feb 2022 06:01:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21961KMF002639 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 9 Feb 2022 01:01:20 -0500
+	id 21961OEQ002670 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 9 Feb 2022 01:01:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9561F407E240; Wed,  9 Feb 2022 06:01:20 +0000 (UTC)
+	id 82710401411; Wed,  9 Feb 2022 06:01:24 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F634407E241
-	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EADE401DB6
+	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E00551C05B12
-	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:19 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
-	(out30-44.freemail.mail.aliyun.com [115.124.30.44]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66A452A2AD49
+	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:24 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-144-yln1gdX6OWGfkldMsuYNbw-1; Wed, 09 Feb 2022 01:01:17 -0500
-X-MC-Unique: yln1gdX6OWGfkldMsuYNbw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	us-mta-206-8s2j3om8NQehYkCskvOvbQ-1; Wed, 09 Feb 2022 01:01:19 -0500
+X-MC-Unique: 8s2j3om8NQehYkCskvOvbQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=15; SR=0;
-	TI=SMTPD_---0V3zwJkJ_1644386472
+	TI=SMTPD_---0V3zg5IE_1644386473
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V3zwJkJ_1644386472) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 09 Feb 2022 14:01:13 +0800
+	fp:SMTPD_---0V3zg5IE_1644386473) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 09 Feb 2022 14:01:14 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
 	chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed,  9 Feb 2022 14:00:49 +0800
-Message-Id: <20220209060108.43051-4-jefflexu@linux.alibaba.com>
+Date: Wed,  9 Feb 2022 14:00:50 +0800
+Message-Id: <20220209060108.43051-5-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
 References: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,15 +67,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: linux-cachefs@redhat.com
 Cc: gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com, willy@infradead.org,
 	linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
 	bo.liu@linux.alibaba.com, linux-fsdevel@vger.kernel.org,
 	eguan@linux.alibaba.com, gerry@linux.alibaba.com,
 	torvalds@linux-foundation.org
-Subject: [Linux-cachefs] [PATCH v3 03/22] cachefiles: extract generic
-	function for daemon methods
+Subject: [Linux-cachefs] [PATCH v3 04/22] cachefiles: detect backing file
+	size in on-demand read mode
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +89,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,128 +97,148 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-... so that the following new devnode can reuse most of the code when
-implementing its own methods.
+Fscache/cachefiles used to serve as a local cache for remote fs. The
+following patches will introduce a new use case, in which local
+read-only fs could implement on-demand reading with fscache. Then in
+this case, the upper read-only fs may has no idea on the size of the
+backed file.
+
+It is worth nothing that, in this scenario, user daemon is responsible
+for preparing all backing files with correct file size in the first
+beginning. (Backing files are all sparse files in this case). And since
+it's read-only, we can get the backing file size at runtime as the
+object size.
+
+This patch also adds one flag bit to distinguish the new introduced
+on-demand read mode from the original mode. The following patch will
+introduce a user configures it.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/daemon.c | 70 +++++++++++++++++++++++++++---------------
- 1 file changed, 45 insertions(+), 25 deletions(-)
+ fs/cachefiles/Kconfig    | 13 +++++++++
+ fs/cachefiles/internal.h |  1 +
+ fs/cachefiles/namei.c    | 60 +++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 73 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 7ac04ee2c0a0..6b8d7c5bbe5d 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -78,6 +78,34 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
- 	{ "",		NULL				}
- };
- 
-+static struct cachefiles_cache *cachefiles_daemon_open_cache(void)
-+{
-+	struct cachefiles_cache *cache;
+diff --git a/fs/cachefiles/Kconfig b/fs/cachefiles/Kconfig
+index 719faeeda168..cef412cfd127 100644
+--- a/fs/cachefiles/Kconfig
++++ b/fs/cachefiles/Kconfig
+@@ -26,3 +26,16 @@ config CACHEFILES_ERROR_INJECTION
+ 	help
+ 	  This permits error injection to be enabled in cachefiles whilst a
+ 	  cache is in service.
 +
-+	/* allocate a cache record */
-+	cache = kzalloc(sizeof(struct cachefiles_cache), GFP_KERNEL);
-+	if (cache) {
-+		mutex_init(&cache->daemon_mutex);
-+		init_waitqueue_head(&cache->daemon_pollwq);
-+		INIT_LIST_HEAD(&cache->volumes);
-+		INIT_LIST_HEAD(&cache->object_list);
-+		spin_lock_init(&cache->object_list_lock);
++config CACHEFILES_ONDEMAND
++	bool "Support for on-demand reading"
++	depends on CACHEFILES
++	default n
++	help
++	  This permits on-demand read mode of cachefiles. In this mode, when
++	  cache miss, the cachefiles backend instead of the upper fs using
++	  fscache is responsible for fetching data, e.g. through user daemon.
++	  Then after the data's ready, upper fs can reinitiate a read from the
++	  cache.
 +
-+		/* set default caching limits
-+		 * - limit at 1% free space and/or free files
-+		 * - cull below 5% free space and/or free files
-+		 * - cease culling above 7% free space and/or free files
-+		 */
-+		cache->frun_percent = 7;
-+		cache->fcull_percent = 5;
-+		cache->fstop_percent = 1;
-+		cache->brun_percent = 7;
-+		cache->bcull_percent = 5;
-+		cache->bstop_percent = 1;
-+	}
-+
-+	return cache;
-+}
- 
- /*
-  * Prepare a cache for caching.
-@@ -96,31 +124,13 @@ static int cachefiles_daemon_open(struct inode *inode, struct file *file)
- 	if (xchg(&cachefiles_open, 1) == 1)
- 		return -EBUSY;
- 
--	/* allocate a cache record */
--	cache = kzalloc(sizeof(struct cachefiles_cache), GFP_KERNEL);
-+
-+	cache = cachefiles_daemon_open_cache();
- 	if (!cache) {
- 		cachefiles_open = 0;
- 		return -ENOMEM;
- 	}
- 
--	mutex_init(&cache->daemon_mutex);
--	init_waitqueue_head(&cache->daemon_pollwq);
--	INIT_LIST_HEAD(&cache->volumes);
--	INIT_LIST_HEAD(&cache->object_list);
--	spin_lock_init(&cache->object_list_lock);
--
--	/* set default caching limits
--	 * - limit at 1% free space and/or free files
--	 * - cull below 5% free space and/or free files
--	 * - cease culling above 7% free space and/or free files
--	 */
--	cache->frun_percent = 7;
--	cache->fcull_percent = 5;
--	cache->fstop_percent = 1;
--	cache->brun_percent = 7;
--	cache->bcull_percent = 5;
--	cache->bstop_percent = 1;
--
- 	file->private_data = cache;
- 	cache->cachefilesd = file;
- 	return 0;
-@@ -209,10 +219,11 @@ static ssize_t cachefiles_daemon_read(struct file *file, char __user *_buffer,
- /*
-  * Take a command from cachefilesd, parse it and act on it.
-  */
--static ssize_t cachefiles_daemon_write(struct file *file,
--				       const char __user *_data,
--				       size_t datalen,
--				       loff_t *pos)
-+static ssize_t cachefiles_daemon_do_write(struct file *file,
-+					  const char __user *_data,
-+					  size_t datalen,
-+					  loff_t *pos,
-+			const struct cachefiles_daemon_cmd *cmds)
- {
- 	const struct cachefiles_daemon_cmd *cmd;
- 	struct cachefiles_cache *cache = file->private_data;
-@@ -261,7 +272,7 @@ static ssize_t cachefiles_daemon_write(struct file *file,
- 	}
- 
- 	/* run the appropriate command handler */
--	for (cmd = cachefiles_daemon_cmds; cmd->name[0]; cmd++)
-+	for (cmd = cmds; cmd->name[0]; cmd++)
- 		if (strcmp(cmd->name, data) == 0)
- 			goto found_command;
- 
-@@ -284,6 +295,15 @@ static ssize_t cachefiles_daemon_write(struct file *file,
- 	goto error;
++	  If unsure, say N.
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index 1a837de7b070..8400501bbd56 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -98,6 +98,7 @@ struct cachefiles_cache {
+ #define CACHEFILES_DEAD			1	/* T if cache dead */
+ #define CACHEFILES_CULLING		2	/* T if cull engaged */
+ #define CACHEFILES_STATE_CHANGED	3	/* T if state changed (poll trigger) */
++#define CACHEFILES_ONDEMAND_MODE	4	/* T if in on-demand read mode */
+ 	char				*rootdirname;	/* name of cache root directory */
+ 	char				*secctx;	/* LSM security context */
+ 	char				*tag;		/* cache binding tag */
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index 7ebc29210b70..90479cb55e0a 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -510,15 +510,69 @@ struct file *cachefiles_create_tmpfile(struct cachefiles_object *object)
+ 	return file;
  }
  
-+static ssize_t cachefiles_daemon_write(struct file *file,
-+				       const char __user *_data,
-+				       size_t datalen,
-+				       loff_t *pos)
++#ifdef CONFIG_CACHEFILES_ONDEMAND
++static inline bool cachefiles_can_create_file(struct cachefiles_cache *cache)
 +{
-+	return cachefiles_daemon_do_write(file, _data, datalen, pos,
-+					  cachefiles_daemon_cmds);
++	/*
++	 * On-demand read mode requires that backing files have been prepared
++	 * with correct file size under corresponding directory in the very
++	 * first begginning. We can get here when the backing file doesn't exist
++	 * under corresponding directory, or the file size is unexpected 0.
++	 */
++	return !test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags);
++
 +}
 +
++/*
++ * Fs using fscache for on-demand reading may have no idea of the file size of
++ * backing files. Thus the on-demand read mode requires that backing files shall
++ * be prepared with correct file size under corresponding directory by the user
++ * daemon in the first beginning. Then the backend is responsible for taking the
++ * file size of the backing file as the object size at runtime.
++ */
++static int cachefiles_recheck_size(struct cachefiles_object *object,
++				   struct file *file)
++{
++	loff_t size;
++	struct cachefiles_cache *cache = object->volume->cache;
++
++	if (!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags))
++		return 0;
++
++	size = i_size_read(file_inode(file));
++	if (!size)
++		return -EINVAL;
++
++	object->cookie->object_size = size;
++	return 0;
++}
++#else
++static inline bool cachefiles_can_create_file(struct cachefiles_cache *cache)
++{
++	return true;
++}
++
++static int cachefiles_recheck_size(struct cachefiles_object *object,
++				   struct file *file)
++{
++	return 0;
++}
++#endif
++
++
  /*
-  * Poll for culling state
-  * - use EPOLLOUT to indicate culling state
+  * Create a new file.
+  */
+ static bool cachefiles_create_file(struct cachefiles_object *object)
+ {
++	struct cachefiles_cache *cache = object->volume->cache;
+ 	struct file *file;
+ 	int ret;
+ 
+-	ret = cachefiles_has_space(object->volume->cache, 1, 0,
++	if (!cachefiles_can_create_file(cache))
++		return false;
++
++	ret = cachefiles_has_space(cache, 1, 0,
+ 				   cachefiles_has_space_for_create);
+ 	if (ret < 0)
+ 		return false;
+@@ -573,6 +627,10 @@ static bool cachefiles_open_file(struct cachefiles_object *object,
+ 	}
+ 	_debug("file -> %pd positive", dentry);
+ 
++	ret = cachefiles_recheck_size(object, file);
++	if (ret < 0)
++		goto check_failed;
++
+ 	ret = cachefiles_check_auxdata(object, file);
+ 	if (ret < 0)
+ 		goto check_failed;
 -- 
 2.27.0
 
