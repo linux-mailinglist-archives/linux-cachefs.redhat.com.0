@@ -1,74 +1,62 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052434AE4E0
-	for <lists+linux-cachefs@lfdr.de>; Tue,  8 Feb 2022 23:45:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7AE64AE9A9
+	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Feb 2022 07:01:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-22-ltbg78gcPfuAAnlpeqNSQg-1; Tue, 08 Feb 2022 17:45:05 -0500
-X-MC-Unique: ltbg78gcPfuAAnlpeqNSQg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-57-4W4YH_-8PtuFxXUgLyKqow-1; Wed, 09 Feb 2022 01:01:31 -0500
+X-MC-Unique: 4W4YH_-8PtuFxXUgLyKqow-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 449051091DA1;
-	Tue,  8 Feb 2022 22:45:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98055108BC;
-	Tue,  8 Feb 2022 22:45:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F387B814251;
+	Wed,  9 Feb 2022 06:01:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32CA055F6D;
+	Wed,  9 Feb 2022 06:01:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B49F146FA3;
-	Tue,  8 Feb 2022 22:44:59 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C00B1809C87;
+	Wed,  9 Feb 2022 06:01:23 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 218602hW016765 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 8 Feb 2022 01:00:02 -0500
+	id 21961Jnx002626 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Wed, 9 Feb 2022 01:01:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED86D401E2C; Tue,  8 Feb 2022 06:00:01 +0000 (UTC)
+	id 32090401411; Wed,  9 Feb 2022 06:01:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E82B3401470
-	for <linux-cachefs@redhat.com>; Tue,  8 Feb 2022 06:00:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6CCC401DB6
+	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C620429AA385
-	for <linux-cachefs@redhat.com>; Tue,  8 Feb 2022 06:00:01 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
-	[209.85.167.46]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-646-cFsSNNimNjicB9DmN_VNuQ-1; Tue, 08 Feb 2022 00:59:57 -0500
-X-MC-Unique: cFsSNNimNjicB9DmN_VNuQ-1
-Received: by mail-lf1-f46.google.com with SMTP id o2so5843228lfd.1;
-	Mon, 07 Feb 2022 21:59:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=EfGADbB0VJcBRVSrlBtVgr5CcpMyD2nLwPZhQK1LRdo=;
-	b=IBVgqovLVFS5xWPlv8lNPEfxX993ai/Cp7eAaQ3NeP0DqnQMv9YeOBm6hdsHFVYESG
-	KtQtvs3lluWqXwJDrjKFOdCQf0i1wedmtlPdrsRrOCZmxmSmqRsbq/66rbciDRnlydUx
-	KWaGw31JSlcSbPHHQD+SpcsDPw6Stksc5X6jxSIGKFLU0fVZn/JNi55HfupH4f26VNWA
-	wessmpDlMRL1D2El+4yv73IasUlqQuwGoPoo+KmAdNx+sar13IRz1iFd8Qqyiy7m3KOm
-	Xk6+LOYnKZdGTEtRq55rn+lYGgHJNq8FYBbWQNHpMPXMNNN06wIZ5Tj04S5GWrlzVm0p
-	dQsQ==
-X-Gm-Message-State: AOAM532uZyeSPCGN8bLekwEreL85s/IEp9Lrdki7udbhLRv934BldNFe
-	cpKZ8tCvvl4TByaoIUqatzFIaov8lxhsKasgA7vonTieFfQ=
-X-Google-Smtp-Source: ABdhPJyfzk3yInv1hbZ9FiA1UVXi9DiqLJ6Md0JokzWJSUzzIJvpT1ZJ3icbeLjw4WF4ZBe8ZLzXumwNCaGDCOaRfi0=
-X-Received: by 2002:a05:6512:b95:: with SMTP id
-	b21mr2087053lfv.664.1644299995292; 
-	Mon, 07 Feb 2022 21:59:55 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD2C4802D1F
+	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 06:01:18 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-627-mQJdM-CnNRu8SoJ0OC6coA-1; Wed, 09 Feb 2022 01:01:14 -0500
+X-MC-Unique: mQJdM-CnNRu8SoJ0OC6coA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=15; SR=0;
+	TI=SMTPD_---0V3zaQQM_1644386468
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0V3zaQQM_1644386468) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 09 Feb 2022 14:01:09 +0800
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
+To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org
+Date: Wed,  9 Feb 2022 14:00:46 +0800
+Message-Id: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-References: <164311902471.2806745.10187041199819525677.stgit@warthog.procyon.org.uk>
-	<164311919732.2806745.2743328800847071763.stgit@warthog.procyon.org.uk>
-In-Reply-To: <164311919732.2806745.2743328800847071763.stgit@warthog.procyon.org.uk>
-From: Rohith Surabattula <rohiths.msft@gmail.com>
-Date: Tue, 8 Feb 2022 11:29:44 +0530
-Message-ID: <CACdtm0YtxAUMet_PSxpg69OR9_TQbMQOzU5Kbm_5YDe_C7Nb-w@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,10 +67,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: linux-cachefs@redhat.com
-Cc: nspmangalore@gmail.com, linux-cifs@vger.kernel.org, jlayton@kernel.org,
-	smfrench@gmail.com, linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org
-Subject: Re: [Linux-cachefs] [RFC PATCH 7/7] cifs: Use netfslib to handle
-	reads
+Cc: gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com, willy@infradead.org,
+	linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	bo.liu@linux.alibaba.com, linux-fsdevel@vger.kernel.org,
+	eguan@linux.alibaba.com, gerry@linux.alibaba.com,
+	torvalds@linux-foundation.org
+Subject: [Linux-cachefs] [PATCH v3 00/22] fscache,
+	erofs: fscache-based demand-read semantics
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,1339 +95,179 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi David,
+changes since v2:
+- fscache,erofs: Now erofs uses fscache_read() directly instead of netfs
+  library to read data from cache, to avoid the potential conflict with
+  the following netfs library refactoring [1] (patch 12) (David Howells)
+- erofs: Implement fscache-based readahead. The current implementation
+  is quite rough and is synchronous though. Need to be improved in the
+  following iteration.
+- cachefiles_ondemand: use xarray instead of IDR managing pending read
+  requests (patch 5) (Matthew Wilcox)
+- I also upload this patch set at:
+  https://github.com/lostjeffle/linux/commits/jingbo/dev-erofs-fscache
 
-I have tested netfs integration with fsc mount option enabled. But, I
-observed function "netfs_cache_prepare_read" always returns
-"NETFS_DOWNLOAD_FROM_SERVER" because cres->ops(i.e cachefiles
-operations) is not set.
+[1] https://lore.kernel.org/all/2946d871-b9e1-cf29-6d39-bcab30f2854f@linux.alibaba.com/t/#mfbb2053476760d8fac723c57dad529192a5084c6
 
-static enum netfs_read_source netfs_cache_prepare_read(struct
-netfs_read_subrequest *subreq,
-                                                       loff_t i_size)
-{
-        struct netfs_read_request *rreq = subreq->rreq;
-        struct netfs_cache_resources *cres = &rreq->cache_resources;
+RFC: https://lore.kernel.org/all/YbRL2glGzjfZkVbH@B-P7TQMD6M-0146.local/t/
+v1: https://lore.kernel.org/lkml/47831875-4bdd-8398-9f2d-0466b31a4382@linux.alibaba.com/T/
+v2: https://lore.kernel.org/all/2946d871-b9e1-cf29-6d39-bcab30f2854f@linux.alibaba.com/t/
 
-        if (cres->ops)
-                return cres->ops->prepare_read(subreq, i_size);
-        if (subreq->start >= rreq->i_size)
-                return NETFS_FILL_WITH_ZEROES;
-        return NETFS_DOWNLOAD_FROM_SERVER;
 
-I have used cifs-experimental branch in your repo to test netfs changes.
+[Background]
+============
+Nydus is a remote container snapthotter specially optimised for container
+images distribution over network. It has recently been accepted as a
+sub-project of containerd[1]. Nydus is an excellent container image
+acceleration solution, since it only pulls data from remote when it's
+really needed, a.k.a. on-demand reading.
 
-Please let me know if any work needs to be done for netfs to integrate
-with cachefiles?
+erofs (Enhanced Read-Only File System) is a filesystem specially
+optimised for read-only scenarios. (Documentation/filesystem/erofs.rst)
 
-Regards,
-Rohith
+Recently we are focusing on erofs in container images distribution
+scenario [2], trying to combine it with nydus. In this case, erofs can
+be mounted from one bootstrap file (metadata) with (optional) multiple
+data blob files (data) stored on another local filesystem. (All these
+files are actually image files in erofs disk format.)
 
-On Wed, Jan 26, 2022 at 1:24 AM David Howells <dhowells@redhat.com> wrote:
->
->
-> ---
->
->  fs/cifs/Kconfig        |    1
->  fs/cifs/cifsfs.c       |    6
->  fs/cifs/cifsfs.h       |    3
->  fs/cifs/cifsglob.h     |    6
->  fs/cifs/cifssmb.c      |    9 -
->  fs/cifs/file.c         |  824 ++++++++----------------------------------------
->  fs/cifs/fscache.c      |   31 --
->  fs/cifs/fscache.h      |   52 ---
->  fs/cifs/inode.c        |   17 +
->  fs/cifs/smb2pdu.c      |   15 +
->  fs/netfs/read_helper.c |    7
->  11 files changed, 182 insertions(+), 789 deletions(-)
->
-> diff --git a/fs/cifs/Kconfig b/fs/cifs/Kconfig
-> index 3b7e3b9e4fd2..c47e2d3a101f 100644
-> --- a/fs/cifs/Kconfig
-> +++ b/fs/cifs/Kconfig
-> @@ -2,6 +2,7 @@
->  config CIFS
->         tristate "SMB3 and CIFS support (advanced network filesystem)"
->         depends on INET
-> +       select NETFS_SUPPORT
->         select NLS
->         select CRYPTO
->         select CRYPTO_MD5
-> diff --git a/fs/cifs/cifsfs.c b/fs/cifs/cifsfs.c
-> index a56cb9c8c5ff..bd06df3bb24b 100644
-> --- a/fs/cifs/cifsfs.c
-> +++ b/fs/cifs/cifsfs.c
-> @@ -936,7 +936,7 @@ cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter)
->         struct inode *inode = file_inode(iocb->ki_filp);
->
->         if (iocb->ki_flags & IOCB_DIRECT)
-> -               return cifs_user_readv(iocb, iter);
-> +               return netfs_direct_read_iter(iocb, iter);
->
->         rc = cifs_revalidate_mapping(inode);
->         if (rc)
-> @@ -1314,7 +1314,7 @@ const struct file_operations cifs_file_strict_ops = {
->  };
->
->  const struct file_operations cifs_file_direct_ops = {
-> -       .read_iter = cifs_direct_readv,
-> +       .read_iter = netfs_direct_read_iter,
->         .write_iter = cifs_direct_writev,
->         .open = cifs_open,
->         .release = cifs_close,
-> @@ -1370,7 +1370,7 @@ const struct file_operations cifs_file_strict_nobrl_ops = {
->  };
->
->  const struct file_operations cifs_file_direct_nobrl_ops = {
-> -       .read_iter = cifs_direct_readv,
-> +       .read_iter = netfs_direct_read_iter,
->         .write_iter = cifs_direct_writev,
->         .open = cifs_open,
->         .release = cifs_close,
-> diff --git a/fs/cifs/cifsfs.h b/fs/cifs/cifsfs.h
-> index 1c77bbc0815f..c7d5c268fc47 100644
-> --- a/fs/cifs/cifsfs.h
-> +++ b/fs/cifs/cifsfs.h
-> @@ -85,6 +85,7 @@ extern const struct inode_operations cifs_dfs_referral_inode_operations;
->
->
->  /* Functions related to files and directories */
-> +extern const struct netfs_request_ops cifs_req_ops;
->  extern const struct file_operations cifs_file_ops;
->  extern const struct file_operations cifs_file_direct_ops; /* if directio mnt */
->  extern const struct file_operations cifs_file_strict_ops; /* if strictio mnt */
-> @@ -94,8 +95,6 @@ extern const struct file_operations cifs_file_strict_nobrl_ops;
->  extern int cifs_open(struct inode *inode, struct file *file);
->  extern int cifs_close(struct inode *inode, struct file *file);
->  extern int cifs_closedir(struct inode *inode, struct file *file);
-> -extern ssize_t cifs_user_readv(struct kiocb *iocb, struct iov_iter *to);
-> -extern ssize_t cifs_direct_readv(struct kiocb *iocb, struct iov_iter *to);
->  extern ssize_t cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to);
->  extern ssize_t cifs_user_writev(struct kiocb *iocb, struct iov_iter *from);
->  extern ssize_t cifs_direct_writev(struct kiocb *iocb, struct iov_iter *from);
-> diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
-> index 3a4fed645636..938e4e9827ed 100644
-> --- a/fs/cifs/cifsglob.h
-> +++ b/fs/cifs/cifsglob.h
-> @@ -1313,18 +1313,14 @@ struct cifs_aio_ctx {
->
->  /* asynchronous read support */
->  struct cifs_readdata {
-> +       struct netfs_read_subrequest    *subreq;
->         struct kref                     refcount;
-> -       struct list_head                list;
-> -       struct completion               done;
->         struct cifsFileInfo             *cfile;
-> -       struct address_space            *mapping;
-> -       struct cifs_aio_ctx             *ctx;
->         __u64                           offset;
->         ssize_t                         got_bytes;
->         unsigned int                    bytes;
->         pid_t                           pid;
->         int                             result;
-> -       struct work_struct              work;
->         struct iov_iter                 iter;
->         struct kvec                     iov[2];
->         struct TCP_Server_Info          *server;
-> diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-> index 38e7276352e2..c9fb77a8b31b 100644
-> --- a/fs/cifs/cifssmb.c
-> +++ b/fs/cifs/cifssmb.c
-> @@ -23,6 +23,7 @@
->  #include <linux/swap.h>
->  #include <linux/task_io_accounting_ops.h>
->  #include <linux/uaccess.h>
-> +#include <linux/netfs.h>
->  #include "cifspdu.h"
->  #include "cifsfs.h"
->  #include "cifsglob.h"
-> @@ -1609,7 +1610,13 @@ cifs_readv_callback(struct mid_q_entry *mid)
->                 rdata->result = -EIO;
->         }
->
-> -       queue_work(cifsiod_wq, &rdata->work);
-> +       if (rdata->result == 0 || rdata->result == -EAGAIN)
-> +               iov_iter_advance(&rdata->subreq->iter, rdata->got_bytes);
-> +       netfs_subreq_terminated(rdata->subreq,
-> +                               (rdata->result == 0 || rdata->result == -EAGAIN) ?
-> +                               rdata->got_bytes : rdata->result,
-> +                               false);
-> +       kref_put(&rdata->refcount, cifs_readdata_release);
->         DeleteMidQEntry(mid);
->         add_credits(server, &credits, 0);
->  }
-> diff --git a/fs/cifs/file.c b/fs/cifs/file.c
-> index f9b9a1562e17..36559de02e37 100644
-> --- a/fs/cifs/file.c
-> +++ b/fs/cifs/file.c
-> @@ -21,6 +21,7 @@
->  #include <linux/slab.h>
->  #include <linux/swap.h>
->  #include <linux/mm.h>
-> +#include <linux/netfs.h>
->  #include <asm/div64.h>
->  #include "cifsfs.h"
->  #include "cifspdu.h"
-> @@ -3306,12 +3307,8 @@ static struct cifs_readdata *cifs_readdata_alloc(work_func_t complete)
->         struct cifs_readdata *rdata;
->
->         rdata = kzalloc(sizeof(*rdata), GFP_KERNEL);
-> -       if (rdata) {
-> +       if (rdata)
->                 kref_init(&rdata->refcount);
-> -               INIT_LIST_HEAD(&rdata->list);
-> -               init_completion(&rdata->done);
-> -               INIT_WORK(&rdata->work, complete);
-> -       }
->
->         return rdata;
->  }
-> @@ -3322,8 +3319,6 @@ cifs_readdata_release(struct kref *refcount)
->         struct cifs_readdata *rdata = container_of(refcount,
->                                         struct cifs_readdata, refcount);
->
-> -       if (rdata->ctx)
-> -               kref_put(&rdata->ctx->refcount, cifs_aio_ctx_release);
->  #ifdef CONFIG_CIFS_SMB_DIRECT
->         if (rdata->mr) {
->                 smbd_deregister_mr(rdata->mr);
-> @@ -3336,370 +3331,6 @@ cifs_readdata_release(struct kref *refcount)
->         kfree(rdata);
->  }
->
-> -static void collect_uncached_read_data(struct cifs_aio_ctx *ctx);
-> -
-> -static void
-> -cifs_uncached_readv_complete(struct work_struct *work)
-> -{
-> -       struct cifs_readdata *rdata = container_of(work,
-> -                                               struct cifs_readdata, work);
-> -
-> -       complete(&rdata->done);
-> -       collect_uncached_read_data(rdata->ctx);
-> -       /* the below call can possibly free the last ref to aio ctx */
-> -       kref_put(&rdata->refcount, cifs_readdata_release);
-> -}
-> -
-> -static int cifs_resend_rdata(struct cifs_readdata *rdata,
-> -                       struct list_head *rdata_list,
-> -                       struct cifs_aio_ctx *ctx)
-> -{
-> -       unsigned int rsize;
-> -       struct cifs_credits credits;
-> -       int rc;
-> -       struct TCP_Server_Info *server;
-> -
-> -       /* XXX: should we pick a new channel here? */
-> -       server = rdata->server;
-> -
-> -       do {
-> -               if (rdata->cfile->invalidHandle) {
-> -                       rc = cifs_reopen_file(rdata->cfile, true);
-> -                       if (rc == -EAGAIN)
-> -                               continue;
-> -                       else if (rc)
-> -                               break;
-> -               }
-> -
-> -               /*
-> -                * Wait for credits to resend this rdata.
-> -                * Note: we are attempting to resend the whole rdata not in
-> -                * segments
-> -                */
-> -               do {
-> -                       rc = server->ops->wait_mtu_credits(server, rdata->bytes,
-> -                                               &rsize, &credits);
-> -
-> -                       if (rc)
-> -                               goto fail;
-> -
-> -                       if (rsize < rdata->bytes) {
-> -                               add_credits_and_wake_if(server, &credits, 0);
-> -                               msleep(1000);
-> -                       }
-> -               } while (rsize < rdata->bytes);
-> -               rdata->credits = credits;
-> -
-> -               rc = adjust_credits(server, &rdata->credits, rdata->bytes);
-> -               if (!rc) {
-> -                       if (rdata->cfile->invalidHandle)
-> -                               rc = -EAGAIN;
-> -                       else {
-> -#ifdef CONFIG_CIFS_SMB_DIRECT
-> -                               if (rdata->mr) {
-> -                                       rdata->mr->need_invalidate = true;
-> -                                       smbd_deregister_mr(rdata->mr);
-> -                                       rdata->mr = NULL;
-> -                               }
-> -#endif
-> -                               rc = server->ops->async_readv(rdata);
-> -                       }
-> -               }
-> -
-> -               /* If the read was successfully sent, we are done */
-> -               if (!rc) {
-> -                       /* Add to aio pending list */
-> -                       list_add_tail(&rdata->list, rdata_list);
-> -                       return 0;
-> -               }
-> -
-> -               /* Roll back credits and retry if needed */
-> -               add_credits_and_wake_if(server, &rdata->credits, 0);
-> -       } while (rc == -EAGAIN);
-> -
-> -fail:
-> -       kref_put(&rdata->refcount, cifs_readdata_release);
-> -       return rc;
-> -}
-> -
-> -static int
-> -cifs_send_async_read(loff_t offset, size_t len, struct cifsFileInfo *open_file,
-> -                    struct cifs_sb_info *cifs_sb, struct list_head *rdata_list,
-> -                    struct cifs_aio_ctx *ctx)
-> -{
-> -       struct cifs_readdata *rdata;
-> -       unsigned int rsize;
-> -       struct cifs_credits credits_on_stack;
-> -       struct cifs_credits *credits = &credits_on_stack;
-> -       size_t cur_len;
-> -       int rc;
-> -       pid_t pid;
-> -       struct TCP_Server_Info *server;
-> -
-> -       server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
-> -
-> -       if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
-> -               pid = open_file->pid;
-> -       else
-> -               pid = current->tgid;
-> -
-> -       do {
-> -               if (open_file->invalidHandle) {
-> -                       rc = cifs_reopen_file(open_file, true);
-> -                       if (rc == -EAGAIN)
-> -                               continue;
-> -                       else if (rc)
-> -                               break;
-> -               }
-> -
-> -               rc = server->ops->wait_mtu_credits(server, cifs_sb->ctx->rsize,
-> -                                                  &rsize, credits);
-> -               if (rc)
-> -                       break;
-> -
-> -               cur_len = min_t(const size_t, len, rsize);
-> -
-> -               rdata = cifs_readdata_alloc(cifs_uncached_readv_complete);
-> -               if (!rdata) {
-> -                       add_credits_and_wake_if(server, credits, 0);
-> -                       rc = -ENOMEM;
-> -                       break;
-> -               }
-> -
-> -               rdata->server   = server;
-> -               rdata->cfile    = cifsFileInfo_get(open_file);
-> -               rdata->offset   = offset;
-> -               rdata->bytes    = cur_len;
-> -               rdata->pid      = pid;
-> -               rdata->credits  = credits_on_stack;
-> -               rdata->ctx      = ctx;
-> -               kref_get(&ctx->refcount);
-> -
-> -               rdata->iter     = ctx->iter;
-> -               iov_iter_advance(&rdata->iter, offset - ctx->pos);
-> -               iov_iter_truncate(&rdata->iter, cur_len);
-> -
-> -               rc = adjust_credits(server, &rdata->credits, rdata->bytes);
-> -
-> -               if (!rc) {
-> -                       if (rdata->cfile->invalidHandle)
-> -                               rc = -EAGAIN;
-> -                       else
-> -                               rc = server->ops->async_readv(rdata);
-> -               }
-> -
-> -               if (rc) {
-> -                       add_credits_and_wake_if(server, &rdata->credits, 0);
-> -                       kref_put(&rdata->refcount, cifs_readdata_release);
-> -                       if (rc == -EAGAIN)
-> -                               continue;
-> -                       break;
-> -               }
-> -
-> -               list_add_tail(&rdata->list, rdata_list);
-> -               offset += cur_len;
-> -               len -= cur_len;
-> -       } while (len > 0);
-> -
-> -       return rc;
-> -}
-> -
-> -static void
-> -collect_uncached_read_data(struct cifs_aio_ctx *ctx)
-> -{
-> -       struct cifs_readdata *rdata, *tmp;
-> -       struct iov_iter *to = &ctx->iter;
-> -       struct cifs_sb_info *cifs_sb;
-> -       int rc;
-> -
-> -       cifs_sb = CIFS_SB(ctx->cfile->dentry->d_sb);
-> -
-> -       mutex_lock(&ctx->aio_mutex);
-> -
-> -       if (list_empty(&ctx->list)) {
-> -               mutex_unlock(&ctx->aio_mutex);
-> -               return;
-> -       }
-> -
-> -       rc = ctx->rc;
-> -       /* the loop below should proceed in the order of increasing offsets */
-> -again:
-> -       list_for_each_entry_safe(rdata, tmp, &ctx->list, list) {
-> -               if (!rc) {
-> -                       if (!try_wait_for_completion(&rdata->done)) {
-> -                               mutex_unlock(&ctx->aio_mutex);
-> -                               return;
-> -                       }
-> -
-> -                       if (rdata->result == -EAGAIN) {
-> -                               /* resend call if it's a retryable error */
-> -                               struct list_head tmp_list;
-> -                               unsigned int got_bytes = rdata->got_bytes;
-> -
-> -                               list_del_init(&rdata->list);
-> -                               INIT_LIST_HEAD(&tmp_list);
-> -
-> -                               if (ctx->direct_io) {
-> -                                       /*
-> -                                        * Re-use rdata as this is a
-> -                                        * direct I/O
-> -                                        */
-> -                                       rc = cifs_resend_rdata(
-> -                                               rdata,
-> -                                               &tmp_list, ctx);
-> -                               } else {
-> -                                       rc = cifs_send_async_read(
-> -                                               rdata->offset + got_bytes,
-> -                                               rdata->bytes - got_bytes,
-> -                                               rdata->cfile, cifs_sb,
-> -                                               &tmp_list, ctx);
-> -
-> -                                       kref_put(&rdata->refcount,
-> -                                               cifs_readdata_release);
-> -                               }
-> -
-> -                               list_splice(&tmp_list, &ctx->list);
-> -
-> -                               goto again;
-> -                       } else if (rdata->result)
-> -                               rc = rdata->result;
-> -
-> -                       /* if there was a short read -- discard anything left */
-> -                       if (rdata->got_bytes && rdata->got_bytes < rdata->bytes)
-> -                               rc = -ENODATA;
-> -
-> -                       ctx->total_len += rdata->got_bytes;
-> -               }
-> -               list_del_init(&rdata->list);
-> -               kref_put(&rdata->refcount, cifs_readdata_release);
-> -       }
-> -
-> -       if (!ctx->direct_io)
-> -               ctx->total_len = ctx->len - iov_iter_count(to);
-> -
-> -       /* mask nodata case */
-> -       if (rc == -ENODATA)
-> -               rc = 0;
-> -
-> -       ctx->rc = (rc == 0) ? (ssize_t)ctx->total_len : rc;
-> -
-> -       mutex_unlock(&ctx->aio_mutex);
-> -
-> -       if (ctx->iocb && ctx->iocb->ki_complete)
-> -               ctx->iocb->ki_complete(ctx->iocb, ctx->rc);
-> -       else
-> -               complete(&ctx->done);
-> -}
-> -
-> -static ssize_t __cifs_readv(
-> -       struct kiocb *iocb, struct iov_iter *to, bool direct)
-> -{
-> -       size_t len;
-> -       struct file *file = iocb->ki_filp;
-> -       struct cifs_sb_info *cifs_sb;
-> -       struct cifsFileInfo *cfile;
-> -       struct cifs_tcon *tcon;
-> -       ssize_t rc, total_read = 0;
-> -       loff_t offset = iocb->ki_pos;
-> -       struct cifs_aio_ctx *ctx;
-> -
-> -       /*
-> -        * iov_iter_get_pages_alloc() doesn't work with ITER_KVEC,
-> -        * fall back to data copy read path
-> -        * this could be improved by getting pages directly in ITER_KVEC
-> -        */
-> -       if (direct && iov_iter_is_kvec(to)) {
-> -               cifs_dbg(FYI, "use non-direct cifs_user_readv for kvec I/O\n");
-> -               direct = false;
-> -       }
-> -
-> -       len = iov_iter_count(to);
-> -       if (!len)
-> -               return 0;
-> -
-> -       cifs_sb = CIFS_FILE_SB(file);
-> -       cfile = file->private_data;
-> -       tcon = tlink_tcon(cfile->tlink);
-> -
-> -       if (!tcon->ses->server->ops->async_readv)
-> -               return -ENOSYS;
-> -
-> -       if ((file->f_flags & O_ACCMODE) == O_WRONLY)
-> -               cifs_dbg(FYI, "attempting read on write only file instance\n");
-> -
-> -       ctx = cifs_aio_ctx_alloc();
-> -       if (!ctx)
-> -               return -ENOMEM;
-> -
-> -       ctx->pos        = offset;
-> -       ctx->direct_io  = direct;
-> -       ctx->len        = len;
-> -       ctx->cfile      = cifsFileInfo_get(cfile);
-> -
-> -       if (!is_sync_kiocb(iocb))
-> -               ctx->iocb = iocb;
-> -
-> -       if (iter_is_iovec(to))
-> -               ctx->should_dirty = true;
-> -
-> -       rc = extract_iter_to_iter(to, len, &ctx->iter, &ctx->bv);
-> -       if (rc < 0) {
-> -               kref_put(&ctx->refcount, cifs_aio_ctx_release);
-> -               return rc;
-> -       }
-> -       ctx->npages = rc;
-> -
-> -       /* grab a lock here due to read response handlers can access ctx */
-> -       mutex_lock(&ctx->aio_mutex);
-> -
-> -       rc = cifs_send_async_read(offset, len, cfile, cifs_sb, &ctx->list, ctx);
-> -
-> -       /* if at least one read request send succeeded, then reset rc */
-> -       if (!list_empty(&ctx->list))
-> -               rc = 0;
-> -
-> -       mutex_unlock(&ctx->aio_mutex);
-> -
-> -       if (rc) {
-> -               kref_put(&ctx->refcount, cifs_aio_ctx_release);
-> -               return rc;
-> -       }
-> -
-> -       if (!is_sync_kiocb(iocb)) {
-> -               kref_put(&ctx->refcount, cifs_aio_ctx_release);
-> -               return -EIOCBQUEUED;
-> -       }
-> -
-> -       rc = wait_for_completion_killable(&ctx->done);
-> -       if (rc) {
-> -               mutex_lock(&ctx->aio_mutex);
-> -               ctx->rc = rc = -EINTR;
-> -               total_read = ctx->total_len;
-> -               mutex_unlock(&ctx->aio_mutex);
-> -       } else {
-> -               rc = ctx->rc;
-> -               total_read = ctx->total_len;
-> -       }
-> -
-> -       kref_put(&ctx->refcount, cifs_aio_ctx_release);
-> -
-> -       if (total_read) {
-> -               iocb->ki_pos += total_read;
-> -               return total_read;
-> -       }
-> -       return rc;
-> -}
-> -
-> -ssize_t cifs_direct_readv(struct kiocb *iocb, struct iov_iter *to)
-> -{
-> -       return __cifs_readv(iocb, to, true);
-> -}
-> -
-> -ssize_t cifs_user_readv(struct kiocb *iocb, struct iov_iter *to)
-> -{
-> -       return __cifs_readv(iocb, to, false);
-> -}
-> -
->  ssize_t
->  cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to)
->  {
-> @@ -3720,12 +3351,15 @@ cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to)
->          * pos+len-1.
->          */
->         if (!CIFS_CACHE_READ(cinode))
-> -               return cifs_user_readv(iocb, to);
-> +               return netfs_direct_read_iter(iocb, to);
->
->         if (cap_unix(tcon->ses) &&
->             (CIFS_UNIX_FCNTL_CAP & le64_to_cpu(tcon->fsUnixInfo.Capability)) &&
-> -           ((cifs_sb->mnt_cifs_flags & CIFS_MOUNT_NOPOSIXBRL) == 0))
-> +           ((cifs_sb->mnt_cifs_flags & CIFS_MOUNT_NOPOSIXBRL) == 0)) {
-> +               if (iocb->ki_flags & IOCB_DIRECT)
-> +                       return netfs_direct_read_iter(iocb, to);
->                 return generic_file_read_iter(iocb, to);
-> +       }
->
->         /*
->          * We need to hold the sem to be sure nobody modifies lock list
-> @@ -3734,104 +3368,16 @@ cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to)
->         down_read(&cinode->lock_sem);
->         if (!cifs_find_lock_conflict(cfile, iocb->ki_pos, iov_iter_count(to),
->                                      tcon->ses->server->vals->shared_lock_type,
-> -                                    0, NULL, CIFS_READ_OP))
-> -               rc = generic_file_read_iter(iocb, to);
-> +                                    0, NULL, CIFS_READ_OP)) {
-> +               if (iocb->ki_flags & IOCB_DIRECT)
-> +                       rc = netfs_direct_read_iter(iocb, to);
-> +               else
-> +                       rc = generic_file_read_iter(iocb, to);
-> +       }
->         up_read(&cinode->lock_sem);
->         return rc;
->  }
->
-> -static ssize_t
-> -cifs_read(struct file *file, char *read_data, size_t read_size, loff_t *offset)
-> -{
-> -       int rc = -EACCES;
-> -       unsigned int bytes_read = 0;
-> -       unsigned int total_read;
-> -       unsigned int current_read_size;
-> -       unsigned int rsize;
-> -       struct cifs_sb_info *cifs_sb;
-> -       struct cifs_tcon *tcon;
-> -       struct TCP_Server_Info *server;
-> -       unsigned int xid;
-> -       char *cur_offset;
-> -       struct cifsFileInfo *open_file;
-> -       struct cifs_io_parms io_parms = {0};
-> -       int buf_type = CIFS_NO_BUFFER;
-> -       __u32 pid;
-> -
-> -       xid = get_xid();
-> -       cifs_sb = CIFS_FILE_SB(file);
-> -
-> -       /* FIXME: set up handlers for larger reads and/or convert to async */
-> -       rsize = min_t(unsigned int, cifs_sb->ctx->rsize, CIFSMaxBufSize);
-> -
-> -       if (file->private_data == NULL) {
-> -               rc = -EBADF;
-> -               free_xid(xid);
-> -               return rc;
-> -       }
-> -       open_file = file->private_data;
-> -       tcon = tlink_tcon(open_file->tlink);
-> -       server = cifs_pick_channel(tcon->ses);
-> -
-> -       if (!server->ops->sync_read) {
-> -               free_xid(xid);
-> -               return -ENOSYS;
-> -       }
-> -
-> -       if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
-> -               pid = open_file->pid;
-> -       else
-> -               pid = current->tgid;
-> -
-> -       if ((file->f_flags & O_ACCMODE) == O_WRONLY)
-> -               cifs_dbg(FYI, "attempting read on write only file instance\n");
-> -
-> -       for (total_read = 0, cur_offset = read_data; read_size > total_read;
-> -            total_read += bytes_read, cur_offset += bytes_read) {
-> -               do {
-> -                       current_read_size = min_t(uint, read_size - total_read,
-> -                                                 rsize);
-> -                       /*
-> -                        * For windows me and 9x we do not want to request more
-> -                        * than it negotiated since it will refuse the read
-> -                        * then.
-> -                        */
-> -                       if (!(tcon->ses->capabilities &
-> -                               tcon->ses->server->vals->cap_large_files)) {
-> -                               current_read_size = min_t(uint,
-> -                                       current_read_size, CIFSMaxBufSize);
-> -                       }
-> -                       if (open_file->invalidHandle) {
-> -                               rc = cifs_reopen_file(open_file, true);
-> -                               if (rc != 0)
-> -                                       break;
-> -                       }
-> -                       io_parms.pid = pid;
-> -                       io_parms.tcon = tcon;
-> -                       io_parms.offset = *offset;
-> -                       io_parms.length = current_read_size;
-> -                       io_parms.server = server;
-> -                       rc = server->ops->sync_read(xid, &open_file->fid, &io_parms,
-> -                                                   &bytes_read, &cur_offset,
-> -                                                   &buf_type);
-> -               } while (rc == -EAGAIN);
-> -
-> -               if (rc || (bytes_read == 0)) {
-> -                       if (total_read) {
-> -                               break;
-> -                       } else {
-> -                               free_xid(xid);
-> -                               return rc;
-> -                       }
-> -               } else {
-> -                       cifs_stats_bytes_read(tcon, total_read);
-> -                       *offset += bytes_read;
-> -               }
-> -       }
-> -       free_xid(xid);
-> -       return total_read;
-> -}
-> -
->  /*
->   * If the page is mmap'ed into a process' page tables, then we need to make
->   * sure that it doesn't change while being written back.
-> @@ -3901,224 +3447,149 @@ int cifs_file_mmap(struct file *file, struct vm_area_struct *vma)
->  }
->
->  /*
-> - * Unlock a bunch of folios in the pagecache.
-> + * Issue a read operation on behalf of the netfs helper functions.  We're asked
-> + * to make a read of a certain size at a point in the file.  We are permitted
-> + * to only read a portion of that, but as long as we read something, the netfs
-> + * helper will call us again so that we can issue another read.
->   */
-> -static void cifs_unlock_folios(struct address_space *mapping, pgoff_t first, pgoff_t last)
-> -{
-> -       struct folio *folio;
-> -       XA_STATE(xas, &mapping->i_pages, first);
-> -
-> -       rcu_read_lock();
-> -       xas_for_each(&xas, folio, last) {
-> -               folio_unlock(folio);
-> -       }
-> -       rcu_read_unlock();
-> -}
-> -
-> -static void cifs_readahead_complete(struct work_struct *work)
-> -{
-> -       struct cifs_readdata *rdata = container_of(work,
-> -                                                  struct cifs_readdata, work);
-> -       struct folio *folio;
-> -       pgoff_t last;
-> -       bool good = rdata->result == 0 || (rdata->result == -EAGAIN && rdata->got_bytes);
-> -
-> -       XA_STATE(xas, &rdata->mapping->i_pages, rdata->offset / PAGE_SIZE);
-> -
-> -#if 0
-> -       if (good)
-> -               cifs_readpage_to_fscache(rdata->mapping->host, page);
-> -#endif
-> -
-> -       if (iov_iter_count(&rdata->iter) > 0)
-> -               iov_iter_zero(iov_iter_count(&rdata->iter), &rdata->iter);
-> -
-> -       last = round_down(rdata->offset + rdata->got_bytes - 1, PAGE_SIZE);
-> -
-> -       xas_for_each(&xas, folio, last) {
-> -               if (good) {
-> -                       flush_dcache_folio(folio);
-> -                       folio_mark_uptodate(folio);
-> -               }
-> -               folio_unlock(folio);
-> -       }
-> -
-> -       kref_put(&rdata->refcount, cifs_readdata_release);
-> -}
-> -
-> -static void cifs_readahead(struct readahead_control *ractl)
-> +static void cifs_req_issue_op(struct netfs_read_subrequest *subreq)
->  {
-> -       struct cifsFileInfo *open_file = ractl->file->private_data;
-> -       struct cifs_sb_info *cifs_sb = CIFS_FILE_SB(ractl->file);
-> +       struct netfs_read_request *rreq = subreq->rreq;
->         struct TCP_Server_Info *server;
-> +       struct cifs_readdata *rdata;
-> +       struct cifsFileInfo *open_file = rreq->netfs_priv;
-> +       struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-> +       struct cifs_credits credits_on_stack, *credits = &credits_on_stack;
->         unsigned int xid;
->         pid_t pid;
->         int rc = 0;
-> +       unsigned int rsize;
->
->         xid = get_xid();
->
->         if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
->                 pid = open_file->pid;
->         else
-> -               pid = current->tgid;
-> +               pid = current->tgid; // Ummm...  This may be a workqueue
->
->         server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
->
-> -       cifs_dbg(FYI, "%s: file=%p mapping=%p num_pages=%u\n",
-> -                __func__, ractl->file, ractl->mapping, readahead_count(ractl));
-> -
-> -       /*
-> -        * Chop the readahead request up into rsize-sized read requests.
-> -        */
-> -       while (readahead_count(ractl) - ractl->_batch_count) {
-> -               unsigned int i, nr_pages, rsize;
-> -               struct cifs_readdata *rdata;
-> -               struct cifs_credits credits_on_stack;
-> -               struct cifs_credits *credits = &credits_on_stack;
-> +       cifs_dbg(FYI, "%s: op=%08x[%x] mapping=%p len=%zu/%zu\n",
-> +                __func__, rreq->debug_id, subreq->debug_index, rreq->mapping,
-> +                subreq->transferred, subreq->len);
->
-> -               if (open_file->invalidHandle) {
-> +       if (open_file->invalidHandle) {
-> +               do {
->                         rc = cifs_reopen_file(open_file, true);
-> -                       if (rc) {
-> -                               if (rc == -EAGAIN)
-> -                                       continue;
-> -                               break;
-> -                       }
-> -               }
-> -
-> -               rc = server->ops->wait_mtu_credits(server, cifs_sb->ctx->rsize,
-> -                                                  &rsize, credits);
-> +               } while (rc == -EAGAIN);
->                 if (rc)
-> -                       break;
-> -               nr_pages = min_t(size_t, rsize / PAGE_SIZE, readahead_count(ractl));
-> -
-> -               /*
-> -                * Give up immediately if rsize is too small to read an entire
-> -                * page. The VFS will fall back to readpage. We should never
-> -                * reach this point however since we set ra_pages to 0 when the
-> -                * rsize is smaller than a cache page.
-> -                */
-> -               if (unlikely(!nr_pages)) {
-> -                       add_credits_and_wake_if(server, credits, 0);
-> -                       break;
-> -               }
-> -
-> -               rdata = cifs_readdata_alloc(cifs_readahead_complete);
-> -               if (!rdata) {
-> -                       /* best to give up if we're out of mem */
-> -                       add_credits_and_wake_if(server, credits, 0);
-> -                       break;
-> -               }
-> +                       goto out;
-> +       }
->
-> -               rdata->offset   = readahead_pos(ractl);
-> -               rdata->bytes    = nr_pages * PAGE_SIZE;
-> -               rdata->cfile    = cifsFileInfo_get(open_file);
-> -               rdata->server   = server;
-> -               rdata->mapping  = ractl->mapping;
-> -               rdata->pid      = pid;
-> -               rdata->credits  = credits_on_stack;
-> +       rc = server->ops->wait_mtu_credits(server, cifs_sb->ctx->rsize, &rsize, credits);
-> +       if (rc)
-> +               goto out;
->
-> -               for (i = 0; i < nr_pages; i++)
-> -                       if (!readahead_folio(ractl))
-> -                               BUG();
-> +       rdata = cifs_readdata_alloc(NULL);
-> +       if (!rdata) {
-> +               add_credits_and_wake_if(server, credits, 0);
-> +               rc = -ENOMEM;
-> +               goto out;
-> +       }
->
-> -               iov_iter_xarray(&rdata->iter, READ, &rdata->mapping->i_pages,
-> -                               rdata->offset, rdata->bytes);
-> +       __set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
-> +       rdata->subreq   = subreq;
-> +       rdata->cfile    = cifsFileInfo_get(open_file);
-> +       rdata->server   = server;
-> +       rdata->offset   = subreq->start + subreq->transferred;
-> +       rdata->bytes    = subreq->len   - subreq->transferred;
-> +       rdata->pid      = pid;
-> +       rdata->credits  = credits_on_stack;
-> +       rdata->iter     = subreq->iter;
->
-> -               rc = adjust_credits(server, &rdata->credits, rdata->bytes);
-> -               if (!rc) {
-> -                       if (rdata->cfile->invalidHandle)
-> -                               rc = -EAGAIN;
-> -                       else
-> -                               rc = server->ops->async_readv(rdata);
-> -               }
-> +       rc = adjust_credits(server, &rdata->credits, rdata->bytes);
-> +       if (!rc) {
-> +               if (rdata->cfile->invalidHandle)
-> +                       rc = -EAGAIN;
-> +               else
-> +                       rc = server->ops->async_readv(rdata);
-> +       }
->
-> -               if (rc) {
-> -                       add_credits_and_wake_if(server, &rdata->credits, 0);
-> -                       cifs_unlock_folios(rdata->mapping,
-> -                                          rdata->offset / PAGE_SIZE,
-> -                                          (rdata->offset + rdata->bytes - 1) / PAGE_SIZE);
-> -                       /* Fallback to the readpage in error/reconnect cases */
-> -                       kref_put(&rdata->refcount, cifs_readdata_release);
-> -                       break;
-> -               }
-> +       if (rc) {
-> +               add_credits_and_wake_if(server, &rdata->credits, 0);
-> +               /* Fallback to the readpage in error/reconnect cases */
-> +               kref_put(&rdata->refcount, cifs_readdata_release);
-> +               goto out;
->         }
->
-> +       kref_put(&rdata->refcount, cifs_readdata_release);
-> +
-> +out:
->         free_xid(xid);
-> +       if (rc)
-> +               netfs_subreq_terminated(subreq, rc, false);
-> +}
-> +
-> +static int cifs_init_rreq(struct netfs_read_request *rreq, struct file *file)
-> +{
-> +       rreq->netfs_priv = file->private_data;
-> +       return 0;
->  }
->
->  /*
-> - * cifs_readpage_worker must be called with the page pinned
-> + * Expand the size of a readahead to the size of the rsize, if at least as
-> + * large as a page, allowing for the possibility that rsize is not pow-2
-> + * aligned.
->   */
-> -static int cifs_readpage_worker(struct file *file, struct page *page,
-> -       loff_t *poffset)
-> +static void cifs_expand_readahead(struct netfs_read_request *rreq)
->  {
-> -       char *read_data;
-> -       int rc;
-> +       struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-> +       unsigned int rsize = cifs_sb->ctx->rsize;
-> +       loff_t misalignment, i_size = i_size_read(rreq->inode);
->
-> -       /* Is the page cached? */
-> -       rc = cifs_readpage_from_fscache(file_inode(file), page);
-> -       if (rc == 0)
-> -               goto read_complete;
-> -
-> -       read_data = kmap(page);
-> -       /* for reads over a certain size could initiate async read ahead */
-> -
-> -       rc = cifs_read(file, read_data, PAGE_SIZE, poffset);
-> -
-> -       if (rc < 0)
-> -               goto io_error;
-> -       else
-> -               cifs_dbg(FYI, "Bytes read %d\n", rc);
-> +       if (rsize < PAGE_SIZE)
-> +               return;
->
-> -       /* we do not want atime to be less than mtime, it broke some apps */
-> -       file_inode(file)->i_atime = current_time(file_inode(file));
-> -       if (timespec64_compare(&(file_inode(file)->i_atime), &(file_inode(file)->i_mtime)))
-> -               file_inode(file)->i_atime = file_inode(file)->i_mtime;
-> +       if (rsize < INT_MAX)
-> +               rsize = roundup_pow_of_two(rsize);
->         else
-> -               file_inode(file)->i_atime = current_time(file_inode(file));
-> +               rsize = ((unsigned int)INT_MAX + 1) / 2;
->
-> -       if (PAGE_SIZE > rc)
-> -               memset(read_data + rc, 0, PAGE_SIZE - rc);
-> -
-> -       flush_dcache_page(page);
-> -       SetPageUptodate(page);
-> -
-> -       /* send this page to the cache */
-> -       cifs_readpage_to_fscache(file_inode(file), page);
-> -
-> -       rc = 0;
-> -
-> -io_error:
-> -       kunmap(page);
-> -       unlock_page(page);
-> +       misalignment = rreq->start & (rsize - 1);
-> +       if (misalignment) {
-> +               rreq->start -= misalignment;
-> +               rreq->len += misalignment;
-> +       }
->
-> -read_complete:
-> -       return rc;
-> +       rreq->len = round_up(rreq->len, rsize);
-> +       if (rreq->start < i_size && rreq->len > i_size - rreq->start)
-> +               rreq->len = i_size - rreq->start;
->  }
->
-> -static int cifs_readpage(struct file *file, struct page *page)
-> +static void cifs_rreq_done(struct netfs_read_request *rreq)
->  {
-> -       loff_t offset = page_file_offset(page);
-> -       int rc = -EACCES;
-> -       unsigned int xid;
-> +       struct inode *inode = rreq->inode;
->
-> -       xid = get_xid();
-> -
-> -       if (file->private_data == NULL) {
-> -               rc = -EBADF;
-> -               free_xid(xid);
-> -               return rc;
-> -       }
-> -
-> -       cifs_dbg(FYI, "readpage %p at offset %d 0x%x\n",
-> -                page, (int)offset, (int)offset);
-> -
-> -       rc = cifs_readpage_worker(file, page, &offset);
-> +       /* we do not want atime to be less than mtime, it broke some apps */
-> +       inode->i_atime = current_time(inode);
-> +       if (timespec64_compare(&inode->i_atime, &inode->i_mtime))
-> +               inode->i_atime = inode->i_mtime;
-> +       else
-> +               inode->i_atime = current_time(inode);
-> +}
->
-> -       free_xid(xid);
-> -       return rc;
-> +static void cifs_req_cleanup(struct address_space *mapping, void *netfs_priv)
-> +{
->  }
->
-> +const struct netfs_request_ops cifs_req_ops = {
-> +       .init_rreq              = cifs_init_rreq,
-> +       .expand_readahead       = cifs_expand_readahead,
-> +       .issue_op               = cifs_req_issue_op,
-> +       .done                   = cifs_rreq_done,
-> +       .cleanup                = cifs_req_cleanup,
-> +};
-> +
->  static int is_inode_writable(struct cifsInodeInfo *cifs_inode)
->  {
->         struct cifsFileInfo *open_file;
-> @@ -4168,34 +3639,20 @@ static int cifs_write_begin(struct file *file, struct address_space *mapping,
->                         loff_t pos, unsigned len, unsigned flags,
->                         struct page **pagep, void **fsdata)
->  {
-> -       int oncethru = 0;
-> -       pgoff_t index = pos >> PAGE_SHIFT;
-> -       loff_t offset = pos & (PAGE_SIZE - 1);
-> -       loff_t page_start = pos & PAGE_MASK;
-> -       loff_t i_size;
-> -       struct page *page;
-> -       int rc = 0;
-> +       struct folio *folio;
-> +       int rc;
->
->         cifs_dbg(FYI, "write_begin from %lld len %d\n", (long long)pos, len);
->
-> -start:
-> -       page = grab_cache_page_write_begin(mapping, index, flags);
-> -       if (!page) {
-> -               rc = -ENOMEM;
-> -               goto out;
-> -       }
-> -
-> -       if (PageUptodate(page))
-> -               goto out;
-> -
-> -       /*
-> -        * If we write a full page it will be up to date, no need to read from
-> -        * the server. If the write is short, we'll end up doing a sync write
-> -        * instead.
-> +       /* Prefetch area to be written into the cache if we're caching this
-> +        * file.  We need to do this before we get a lock on the page in case
-> +        * there's more than one writer competing for the same cache block.
->          */
-> -       if (len == PAGE_SIZE)
-> -               goto out;
-> +       rc = netfs_write_begin(file, mapping, pos, len, flags, &folio, fsdata);
-> +       if (rc < 0)
-> +               return rc;
->
-> +#if 0
->         /*
->          * optimize away the read when we have an oplock, and we're not
->          * expecting to use any of the data we'd be reading in. That
-> @@ -4210,34 +3667,17 @@ static int cifs_write_begin(struct file *file, struct address_space *mapping,
->                                            offset + len,
->                                            PAGE_SIZE);
->                         /*
-> -                        * PageChecked means that the parts of the page
-> -                        * to which we're not writing are considered up
-> -                        * to date. Once the data is copied to the
-> -                        * page, it can be set uptodate.
-> +                        * Marking a folio checked means that the parts of the
-> +                        * page to which we're not writing are considered up to
-> +                        * date. Once the data is copied to the page, it can be
-> +                        * set uptodate.
->                          */
-> -                       SetPageChecked(page);
-> +                       folio_set_checked(folio);
->                         goto out;
->                 }
->         }
-> -
-> -       if ((file->f_flags & O_ACCMODE) != O_WRONLY && !oncethru) {
-> -               /*
-> -                * might as well read a page, it is fast enough. If we get
-> -                * an error, we don't need to return it. cifs_write_end will
-> -                * do a sync write instead since PG_uptodate isn't set.
-> -                */
-> -               cifs_readpage_worker(file, page, &page_start);
-> -               put_page(page);
-> -               oncethru = 1;
-> -               goto start;
-> -       } else {
-> -               /* we could try using another file handle if there is one -
-> -                  but how would we lock it to prevent close of that handle
-> -                  racing with this read? In any case
-> -                  this will be written out by write_end so is fine */
-> -       }
-> -out:
-> -       *pagep = page;
-> +#endif
-> +       *pagep = folio_page(folio, (pos - folio_pos(folio)) / PAGE_SIZE);
->         return rc;
->  }
->
-> @@ -4429,8 +3869,8 @@ static int cifs_set_page_dirty(struct page *page)
->  #endif
->
->  const struct address_space_operations cifs_addr_ops = {
-> -       .readpage = cifs_readpage,
-> -       .readahead = cifs_readahead,
-> +       .readpage = netfs_readpage,
-> +       .readahead = netfs_readahead,
->         .writepage = cifs_writepage,
->         .writepages = cifs_writepages,
->         .write_begin = cifs_write_begin,
-> @@ -4455,7 +3895,7 @@ const struct address_space_operations cifs_addr_ops = {
->   * to leave cifs_readpages out of the address space operations.
->   */
->  const struct address_space_operations cifs_addr_ops_smallbuf = {
-> -       .readpage = cifs_readpage,
-> +       .readpage = netfs_readpage,
->         .writepage = cifs_writepage,
->         .writepages = cifs_writepages,
->         .write_begin = cifs_write_begin,
-> diff --git a/fs/cifs/fscache.c b/fs/cifs/fscache.c
-> index a7e7e5a97b7f..bb1c3a372de4 100644
-> --- a/fs/cifs/fscache.c
-> +++ b/fs/cifs/fscache.c
-> @@ -134,34 +134,3 @@ void cifs_fscache_release_inode_cookie(struct inode *inode)
->                 cifsi->netfs_ctx.cache = NULL;
->         }
->  }
-> -
-> -/*
-> - * Retrieve a page from FS-Cache
-> - */
-> -int __cifs_readpage_from_fscache(struct inode *inode, struct page *page)
-> -{
-> -       cifs_dbg(FYI, "%s: (fsc:%p, p:%p, i:0x%p\n",
-> -                __func__, cifs_inode_cookie(inode), page, inode);
-> -       return -ENOBUFS; // Needs conversion to using netfslib
-> -}
-> -
-> -/*
-> - * Retrieve a set of pages from FS-Cache
-> - */
-> -int __cifs_readpages_from_fscache(struct inode *inode,
-> -                               struct address_space *mapping,
-> -                               struct list_head *pages,
-> -                               unsigned *nr_pages)
-> -{
-> -       cifs_dbg(FYI, "%s: (0x%p/%u/0x%p)\n",
-> -                __func__, cifs_inode_cookie(inode), *nr_pages, inode);
-> -       return -ENOBUFS; // Needs conversion to using netfslib
-> -}
-> -
-> -void __cifs_readpage_to_fscache(struct inode *inode, struct page *page)
-> -{
-> -       cifs_dbg(FYI, "%s: (fsc: %p, p: %p, i: %p)\n",
-> -                __func__, cifs_inode_cookie(inode), page, inode);
-> -
-> -       // Needs conversion to using netfslib
-> -}
-> diff --git a/fs/cifs/fscache.h b/fs/cifs/fscache.h
-> index 9f6e42e85d14..fdc03cd7b881 100644
-> --- a/fs/cifs/fscache.h
-> +++ b/fs/cifs/fscache.h
-> @@ -58,14 +58,6 @@ void cifs_fscache_fill_coherency(struct inode *inode,
->  }
->
->
-> -extern int cifs_fscache_release_page(struct page *page, gfp_t gfp);
-> -extern int __cifs_readpage_from_fscache(struct inode *, struct page *);
-> -extern int __cifs_readpages_from_fscache(struct inode *,
-> -                                        struct address_space *,
-> -                                        struct list_head *,
-> -                                        unsigned *);
-> -extern void __cifs_readpage_to_fscache(struct inode *, struct page *);
-> -
->  static inline struct fscache_cookie *cifs_inode_cookie(struct inode *inode)
->  {
->         return netfs_i_cookie(inode);
-> @@ -80,33 +72,6 @@ static inline void cifs_invalidate_cache(struct inode *inode, unsigned int flags
->                            i_size_read(inode), flags);
->  }
->
-> -static inline int cifs_readpage_from_fscache(struct inode *inode,
-> -                                            struct page *page)
-> -{
-> -       if (cifs_inode_cookie(inode))
-> -               return __cifs_readpage_from_fscache(inode, page);
-> -
-> -       return -ENOBUFS;
-> -}
-> -
-> -static inline int cifs_readpages_from_fscache(struct inode *inode,
-> -                                             struct address_space *mapping,
-> -                                             struct list_head *pages,
-> -                                             unsigned *nr_pages)
-> -{
-> -       if (cifs_inode_cookie(inode))
-> -               return __cifs_readpages_from_fscache(inode, mapping, pages,
-> -                                                    nr_pages);
-> -       return -ENOBUFS;
-> -}
-> -
-> -static inline void cifs_readpage_to_fscache(struct inode *inode,
-> -                                           struct page *page)
-> -{
-> -       if (PageFsCache(page))
-> -               __cifs_readpage_to_fscache(inode, page);
-> -}
-> -
->  #else /* CONFIG_CIFS_FSCACHE */
->  static inline
->  void cifs_fscache_fill_coherency(struct inode *inode,
-> @@ -123,23 +88,6 @@ static inline void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool upd
->  static inline struct fscache_cookie *cifs_inode_cookie(struct inode *inode) { return NULL; }
->  static inline void cifs_invalidate_cache(struct inode *inode, unsigned int flags) {}
->
-> -static inline int
-> -cifs_readpage_from_fscache(struct inode *inode, struct page *page)
-> -{
-> -       return -ENOBUFS;
-> -}
-> -
-> -static inline int cifs_readpages_from_fscache(struct inode *inode,
-> -                                             struct address_space *mapping,
-> -                                             struct list_head *pages,
-> -                                             unsigned *nr_pages)
-> -{
-> -       return -ENOBUFS;
-> -}
-> -
-> -static inline void cifs_readpage_to_fscache(struct inode *inode,
-> -                       struct page *page) {}
-> -
->  #endif /* CONFIG_CIFS_FSCACHE */
->
->  #endif /* _CIFS_FSCACHE_H */
-> diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
-> index 7d8b3ceb2af3..b6a9ded9fbb2 100644
-> --- a/fs/cifs/inode.c
-> +++ b/fs/cifs/inode.c
-> @@ -26,6 +26,19 @@
->  #include "fs_context.h"
->  #include "cifs_ioctl.h"
->
-> +/*
-> + * Set parameters for the netfs library
-> + */
-> +static void cifs_set_netfs_context(struct inode *inode)
-> +{
-> +       struct netfs_i_context *ctx = netfs_i_context(inode);
-> +       struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
-> +
-> +       netfs_i_context_init(inode, &cifs_req_ops);
-> +       ctx->rsize = cifs_sb->ctx->rsize;
-> +       ctx->wsize = cifs_sb->ctx->wsize;
-> +}
-> +
->  static void cifs_set_ops(struct inode *inode)
->  {
->         struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
-> @@ -209,8 +222,10 @@ cifs_fattr_to_inode(struct inode *inode, struct cifs_fattr *fattr)
->
->         if (fattr->cf_flags & CIFS_FATTR_DFS_REFERRAL)
->                 inode->i_flags |= S_AUTOMOUNT;
-> -       if (inode->i_state & I_NEW)
-> +       if (inode->i_state & I_NEW) {
-> +               cifs_set_netfs_context(inode);
->                 cifs_set_ops(inode);
-> +       }
->         return 0;
->  }
->
-> diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-> index ebbea7526ee2..0d76cffb4e75 100644
-> --- a/fs/cifs/smb2pdu.c
-> +++ b/fs/cifs/smb2pdu.c
-> @@ -23,6 +23,7 @@
->  #include <linux/uuid.h>
->  #include <linux/pagemap.h>
->  #include <linux/xattr.h>
-> +#include <linux/netfs.h>
->  #include "cifsglob.h"
->  #include "cifsacl.h"
->  #include "cifsproto.h"
-> @@ -4185,7 +4186,19 @@ smb2_readv_callback(struct mid_q_entry *mid)
->                                      tcon->tid, tcon->ses->Suid,
->                                      rdata->offset, rdata->got_bytes);
->
-> -       queue_work(cifsiod_wq, &rdata->work);
-> +       if (rdata->result == -ENODATA) {
-> +               /* We may have got an EOF error because fallocate
-> +                * failed to enlarge the file.
-> +                */
-> +               if (rdata->subreq->start < rdata->subreq->rreq->i_size)
-> +                       rdata->result = 0;
-> +       }
-> +       if (rdata->result == 0 || rdata->result == -EAGAIN)
-> +               iov_iter_advance(&rdata->subreq->iter, rdata->got_bytes);
-> +       netfs_subreq_terminated(rdata->subreq,
-> +                               (rdata->result == 0 || rdata->result == -EAGAIN) ?
-> +                               rdata->got_bytes : rdata->result, false);
-> +       kref_put(&rdata->refcount, cifs_readdata_release);
->         DeleteMidQEntry(mid);
->         add_credits(server, &credits, 0);
->  }
-> diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
-> index df13c9b22ca8..1fa242140dc4 100644
-> --- a/fs/netfs/read_helper.c
-> +++ b/fs/netfs/read_helper.c
-> @@ -553,8 +553,13 @@ static void netfs_rreq_assess_dio(struct netfs_read_request *rreq)
->         list_for_each_entry(subreq, &rreq->subrequests, rreq_link) {
->                 if (subreq->error || subreq->transferred == 0)
->                         break;
-> -               for (i = 0; i < subreq->bv_count; i++)
-> +               for (i = 0; i < subreq->bv_count; i++) {
->                         flush_dcache_page(subreq->bv[i].bv_page);
-> +                       // TODO: cifs marks pages in the destination buffer
-> +                       // dirty under some circumstances after a read.  Do we
-> +                       // need to do that too?
-> +                       set_page_dirty(subreq->bv[i].bv_page);
-> +               }
->                 transferred += subreq->transferred;
->                 if (subreq->transferred < subreq->len)
->                         break;
->
->
+To accelerate the container startup (fetching container image from remote
+and then start the container), we do hope that the bootstrap blob file
+could support demand read. That is, erofs can be mounted and accessed
+even when the bootstrap/data blob files have not been fully downloaded.
+
+That means we have to manage the cache state of the bootstrap/data blob
+files (if cache hit, read directly from the local cache; if cache miss,
+fetch the data somehow). It would be painful and may be dumb for erofs to
+implement the cache management itself. Thus we prefer fscache/cachefiles
+to do the cache management. Besides, the demand-read feature shall be
+general and it can benefit other using scenarios if it can be implemented
+in fscache level.
+
+[1] https://d7y.io/en-us/blog/containerd_accepted_nydus-snapshotter.html
+[2] https://sched.co/pcdL
+
+
+[Overall Design]
+================
+The upper fs uses a backing file on the local fs as the local cache
+(exactly the "cachefiles" way), and relies on fscache to detect if data
+is ready or not (cache hit/miss). Since currently fscache detects cache
+hit/miss by detecting the hole of the backing files, our demand-read
+mechanism also relies on the hole detecting.
+
+1. initial phase
+On the first beginning, the user daemon will touch the backing files
+(bootstrap/data blob files) under corresponding directory (under
+<root>/cache/<volume>/<fan>/) in advance. These backing files are
+completely sparse files (with zero disk usage). Since these backing
+files are all read-only and the file size is known prior mounting, user
+daemon will set corresponding file size and thus create all these sparse
+backing files in advance.
+
+2. cache miss
+When a file range (of bootstrap/data blob file) is accessed for the
+first time, a cache miss will be triggered and then .issue_op() will be
+called to fetch the data somehow.
+
+In the demand-read case, we relies on a user daemon to fetch the data
+from local/remote. In this case, .issue_op() just packages the file
+range into a message and informs the user daemon. User daemon needs to
+poll and wait on the devnode (/dev/cachefiles_demand). Once awaken, the
+user daemon will read the devnode to get the file range information, and
+then fetch the data corresponding to the file range somehow, e.g.
+download from remote through network. Once data ready, the user daemon
+will write the fetched data into the backing file and then inform
+cachefiles backend by writing to the devnode. Cachefiles backend getting
+blocked on the previous .issue_op() calling will be awaken then. By then
+the data has been ready in the backing file, and the upper fs will
+reinitiate a read request from the backing file.
+
+3. cache hit
+Once data is already ready in the backing file, upper fs will read from
+the backing file directly.
+
+
+[Advantage of fscache-based demand-read]
+========================================
+1. Asynchronous Prefetch
+In current mechanism, fscache is responsible for cache state management,
+while the data plane (fetch data from local/remote on cache miss) is
+done on the user daemon side.
+
+If data has already been ready in the backing file, the upper fs (e.g.
+erofs) will read from the backing file directly and won't be trapped to
+user space anymore. Thus the user daemon could fetch data (from remote)
+asynchronously on the background, and thus accelerate the backing file
+accessing in some degree.
+
+2. Support massive blob files
+Besides this mechanism supports a large amount of backing files, and
+thus can benefit the densely employed scenario.
+
+In our using scenario, one container image can correspond to one
+bootstrap file (required) and multiple data blob files (optional). For
+example, one container image for node.js will corresponds to ~20 files
+in total. In densely employed environment, there could be as many as
+hundreds of containers and thus thousands of backing files on one
+machine.
+
+
+[Test]
+==========
+You could start a quick test by
+https://github.com/lostjeffle/demand-read-cachefilesd
+
+
+
+Jeffle Xu (22):
+  fscache: export fscache_end_operation()
+  fscache: add a method to support on-demand read semantics
+  cachefiles: extract generic function for daemon methods
+  cachefiles: detect backing file size in on-demand read mode
+  cachefiles: introduce new devnode for on-demand read mode
+  erofs: use meta buffers for erofs_read_superblock()
+  erofs: export erofs_map_blocks()
+  erofs: add mode checking helper
+  erofs: register global fscache volume
+  erofs: add cookie context helper functions
+  erofs: add anonymous inode managing page cache of blob file
+  erofs: add erofs_fscache_read_page() helper
+  erofs: register cookie context for bootstrap blob
+  erofs: implement fscache-based metadata read
+  erofs: implement fscache-based data read for non-inline layout
+  erofs: implement fscache-based data read for inline layout
+  erofs: register cookie context for data blobs
+  erofs: implement fscache-based data read for data blobs
+  erofs: implement fscache-based data readahead for hole
+  erofs: implement fscache-based data readahead for non-inline layout
+  erofs: implement fscache-based data readahead for inline layout
+  erofs: add 'uuid' mount option
+
+ Documentation/filesystems/netfs_library.rst |  18 +
+ fs/cachefiles/Kconfig                       |  13 +
+ fs/cachefiles/daemon.c                      | 243 +++++++++--
+ fs/cachefiles/internal.h                    |  12 +
+ fs/cachefiles/io.c                          |  60 +++
+ fs/cachefiles/main.c                        |  27 ++
+ fs/cachefiles/namei.c                       |  60 ++-
+ fs/erofs/Makefile                           |   3 +-
+ fs/erofs/data.c                             |  18 +-
+ fs/erofs/fscache.c                          | 451 ++++++++++++++++++++
+ fs/erofs/inode.c                            |   6 +-
+ fs/erofs/internal.h                         |  30 ++
+ fs/erofs/super.c                            | 106 ++++-
+ fs/fscache/internal.h                       |  11 -
+ fs/nfs/fscache.c                            |   8 -
+ include/linux/fscache.h                     |  39 ++
+ include/linux/netfs.h                       |   4 +
+ include/uapi/linux/cachefiles_ondemand.h    |  14 +
+ 18 files changed, 1050 insertions(+), 73 deletions(-)
+ create mode 100644 fs/erofs/fscache.c
+ create mode 100644 include/uapi/linux/cachefiles_ondemand.h
+
+-- 
+2.27.0
 
 --
 Linux-cachefs mailing list
