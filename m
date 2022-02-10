@@ -1,72 +1,70 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C81654AEB86
-	for <lists+linux-cachefs@lfdr.de>; Wed,  9 Feb 2022 08:54:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D514B05F3
+	for <lists+linux-cachefs@lfdr.de>; Thu, 10 Feb 2022 06:58:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-645-1FepPT6ROiWIuY2yCUCfrw-1; Wed, 09 Feb 2022 02:54:16 -0500
-X-MC-Unique: 1FepPT6ROiWIuY2yCUCfrw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-594-dFTrTeuCOBalv0Autkapdw-1; Thu, 10 Feb 2022 00:58:41 -0500
+X-MC-Unique: dFTrTeuCOBalv0Autkapdw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94D9285EE63;
-	Wed,  9 Feb 2022 07:54:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 12B5A7AB4C;
-	Wed,  9 Feb 2022 07:54:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA05F84DA44;
+	Thu, 10 Feb 2022 05:58:39 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 518E0519C9;
+	Thu, 10 Feb 2022 05:58:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D13A6180BAAE;
-	Wed,  9 Feb 2022 07:54:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD3284BB7C;
+	Thu, 10 Feb 2022 05:58:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 2197r7Mq014501 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Wed, 9 Feb 2022 02:53:07 -0500
+	id 21A5wTJe022102 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Thu, 10 Feb 2022 00:58:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4508D4010A07; Wed,  9 Feb 2022 07:53:07 +0000 (UTC)
+	id 06E8D2166B1B; Thu, 10 Feb 2022 05:58:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 41121400E13A
-	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 07:53:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19547106655B
-	for <linux-cachefs@redhat.com>; Wed,  9 Feb 2022 07:53:07 +0000 (UTC)
-Received: from out30-56.freemail.mail.aliyun.com
-	(out30-56.freemail.mail.aliyun.com [115.124.30.56]) by
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02E812166B25
+	for <linux-cachefs@redhat.com>; Thu, 10 Feb 2022 05:58:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1361E2A5954C
+	for <linux-cachefs@redhat.com>; Thu, 10 Feb 2022 05:58:26 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+	(out30-43.freemail.mail.aliyun.com [115.124.30.43]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-466-QQWS2Nk2OaOgmsWbulcV4w-1; Wed, 09 Feb 2022 02:53:05 -0500
-X-MC-Unique: QQWS2Nk2OaOgmsWbulcV4w-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407;
+	us-mta-609-cvQWbT8uOY-uC_45UeiKIw-1; Thu, 10 Feb 2022 00:58:21 -0500
+X-MC-Unique: cvQWbT8uOY-uC_45UeiKIw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
 	MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=16; SR=0;
-	TI=SMTPD_---0V3zwdmU_1644393177
+	TI=SMTPD_---0V42eJYQ_1644472693
 Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
-	fp:SMTPD_---0V3zwdmU_1644393177) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 09 Feb 2022 15:52:59 +0800
-Date: Wed, 9 Feb 2022 15:52:55 +0800
+	fp:SMTPD_---0V42eJYQ_1644472693) by smtp.aliyun-inc.com(127.0.0.1);
+	Thu, 10 Feb 2022 13:58:15 +0800
+Date: Thu, 10 Feb 2022 13:58:13 +0800
 From: Gao Xiang <hsiangkao@linux.alibaba.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>
-Message-ID: <YgNy121L0gYjqj6K@B-P7TQMD6M-0146.local>
-Mail-Followup-To: Jeffle Xu <jefflexu@linux.alibaba.com>,
-	dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	torvalds@linux-foundation.org, gregkh@linuxfoundation.org,
-	willy@infradead.org, linux-fsdevel@vger.kernel.org,
+To: David Howells <dhowells@redhat.com>
+Message-ID: <YgSpdW1LjK2901ix@B-P7TQMD6M-0146.local>
+Mail-Followup-To: David Howells <dhowells@redhat.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>, linux-cachefs@redhat.com,
+	xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com,
+	willy@infradead.org, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
-	tao.peng@linux.alibaba.com, gerry@linux.alibaba.com,
-	eguan@linux.alibaba.com, linux-kernel@vger.kernel.org
+	linux-fsdevel@vger.kernel.org, eguan@linux.alibaba.com,
+	gerry@linux.alibaba.com, torvalds@linux-foundation.org
 References: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
-	<20220209060108.43051-7-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <20220209060108.43051-7-jefflexu@linux.alibaba.com>
+In-Reply-To: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,17 +73,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: linux-cachefs@redhat.com
-Cc: linux-erofs@lists.ozlabs.org, chao@kernel.org, tao.peng@linux.alibaba.com,
+Cc: gregkh@linuxfoundation.org, chao@kernel.org, tao.peng@linux.alibaba.com,
 	willy@infradead.org, linux-kernel@vger.kernel.org,
 	joseph.qi@linux.alibaba.com, linux-cachefs@redhat.com,
-	bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+	bo.liu@linux.alibaba.com, torvalds@linux-foundation.org,
 	linux-fsdevel@vger.kernel.org, xiang@kernel.org,
-	gerry@linux.alibaba.com, torvalds@linux-foundation.org,
+	gerry@linux.alibaba.com, linux-erofs@lists.ozlabs.org,
 	eguan@linux.alibaba.com
-Subject: Re: [Linux-cachefs] [PATCH v3 06/22] erofs: use meta buffers for
- erofs_read_superblock()
+Subject: Re: [Linux-cachefs] [PATCH v3 00/22] fscache,
+ erofs: fscache-based demand-read semantics
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 	<mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Sender: linux-cachefs-bounces@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,66 +106,42 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 09, 2022 at 02:00:52PM +0800, Jeffle Xu wrote:
-> The only change is that, meta buffers read cache page without __GFP_FS
-> flag, which shall not matter.
+Hi David,
+
+On Wed, Feb 09, 2022 at 02:00:46PM +0800, Jeffle Xu wrote:
+
+...
+
 > 
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+> 
+> Jeffle Xu (22):
+>   fscache: export fscache_end_operation()
+>   fscache: add a method to support on-demand read semantics
+>   cachefiles: extract generic function for daemon methods
+>   cachefiles: detect backing file size in on-demand read mode
+>   cachefiles: introduce new devnode for on-demand read mode
 
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+...
 
-(If this patchset left behind anyway, I will submit this cleanup
- independently for the next cycle.)
+> 
+>  Documentation/filesystems/netfs_library.rst |  18 +
+>  fs/cachefiles/Kconfig                       |  13 +
+>  fs/cachefiles/daemon.c                      | 243 +++++++++--
+>  fs/cachefiles/internal.h                    |  12 +
+>  fs/cachefiles/io.c                          |  60 +++
+>  fs/cachefiles/main.c                        |  27 ++
+>  fs/cachefiles/namei.c                       |  60 ++-
+
+Would you mind taking a review at this version? We follow your previous
+advices written in v2 and it reuses almost all cachefiles code except
+that it has slightly different implication of cachefile file size and
+a new daemon node.
+
+I think it could be as the first step to implement fscache-based
+on-demand read.
 
 Thanks,
 Gao Xiang
-
-> ---
->  fs/erofs/super.c | 13 +++++--------
->  1 file changed, 5 insertions(+), 8 deletions(-)
-> 
-> diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-> index 915eefe0d7e2..12755217631f 100644
-> --- a/fs/erofs/super.c
-> +++ b/fs/erofs/super.c
-> @@ -281,21 +281,19 @@ static int erofs_init_devices(struct super_block *sb,
->  static int erofs_read_superblock(struct super_block *sb)
->  {
->  	struct erofs_sb_info *sbi;
-> -	struct page *page;
-> +	struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
->  	struct erofs_super_block *dsb;
->  	unsigned int blkszbits;
->  	void *data;
->  	int ret;
->  
-> -	page = read_mapping_page(sb->s_bdev->bd_inode->i_mapping, 0, NULL);
-> -	if (IS_ERR(page)) {
-> +	data = erofs_read_metabuf(&buf, sb, 0, EROFS_KMAP);
-> +	if (IS_ERR(data)) {
->  		erofs_err(sb, "cannot read erofs superblock");
-> -		return PTR_ERR(page);
-> +		return PTR_ERR(data);
->  	}
->  
->  	sbi = EROFS_SB(sb);
-> -
-> -	data = kmap(page);
->  	dsb = (struct erofs_super_block *)(data + EROFS_SUPER_OFFSET);
->  
->  	ret = -EINVAL;
-> @@ -365,8 +363,7 @@ static int erofs_read_superblock(struct super_block *sb)
->  	if (erofs_sb_has_ztailpacking(sbi))
->  		erofs_info(sb, "EXPERIMENTAL compressed inline data feature in use. Use at your own risk!");
->  out:
-> -	kunmap(page);
-> -	put_page(page);
-> +	erofs_put_metabuf(&buf);
->  	return ret;
->  }
->  
-> -- 
-> 2.27.0
 
 --
 Linux-cachefs mailing list
