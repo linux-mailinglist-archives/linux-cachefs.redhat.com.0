@@ -1,66 +1,64 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5774B66E2
-	for <lists+linux-cachefs@lfdr.de>; Tue, 15 Feb 2022 10:03:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 037D84B69A5
+	for <lists+linux-cachefs@lfdr.de>; Tue, 15 Feb 2022 11:46:28 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-590-cW9MQIVIO_-Yt8pkQrYunQ-1; Tue, 15 Feb 2022 04:03:38 -0500
-X-MC-Unique: cW9MQIVIO_-Yt8pkQrYunQ-1
+ us-mta-127-pP9GVcg8MY-e9M-c1hOt5A-1; Tue, 15 Feb 2022 05:46:26 -0500
+X-MC-Unique: pP9GVcg8MY-e9M-c1hOt5A-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB70E1091DA2;
-	Tue, 15 Feb 2022 09:03:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E27332F26;
+	Tue, 15 Feb 2022 10:46:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B73555F7E;
-	Tue, 15 Feb 2022 09:03:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACA005E4B7;
+	Tue, 15 Feb 2022 10:46:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 196E41809C88;
-	Tue, 15 Feb 2022 09:03:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0AFE1809C88;
+	Tue, 15 Feb 2022 10:46:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21F93QLT005675 for <linux-cachefs@listman.util.phx.redhat.com>;
-	Tue, 15 Feb 2022 04:03:28 -0500
+	id 21FAkJiX013729 for <linux-cachefs@listman.util.phx.redhat.com>;
+	Tue, 15 Feb 2022 05:46:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D60DB5361D9; Tue, 15 Feb 2022 09:03:26 +0000 (UTC)
+	id C61D81121330; Tue, 15 Feb 2022 10:46:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D201C5361C5
-	for <linux-cachefs@redhat.com>; Tue, 15 Feb 2022 09:03:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8C10811E84
-	for <linux-cachefs@redhat.com>; Tue, 15 Feb 2022 09:03:26 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
-	(out30-131.freemail.mail.aliyun.com [115.124.30.131]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-481-5PAFvm49OwuAgfbk3J0oqA-1; Tue, 15 Feb 2022 04:03:22 -0500
-X-MC-Unique: 5PAFvm49OwuAgfbk3J0oqA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0V4Xi.eo_1644915796
-Received: from 30.225.24.85(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0V4Xi.eo_1644915796) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 15 Feb 2022 17:03:17 +0800
-Message-ID: <bd9cb3bb-e29c-d4b3-e9bf-915b9771b553@linux.alibaba.com>
-Date: Tue, 15 Feb 2022 17:03:16 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
-	Gecko/20100101 Thunderbird/91.6.0
-From: JeffleXu <jefflexu@linux.alibaba.com>
-To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1C81112132D
+	for <linux-cachefs@redhat.com>; Tue, 15 Feb 2022 10:46:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B10A80088A
+	for <linux-cachefs@redhat.com>; Tue, 15 Feb 2022 10:46:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+	[139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-111-GCIfCm3yMxm_QyVDEECiCg-1; Tue, 15 Feb 2022 05:46:11 -0500
+X-MC-Unique: GCIfCm3yMxm_QyVDEECiCg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2327261456;
+	Tue, 15 Feb 2022 10:37:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2BEC340EB;
+	Tue, 15 Feb 2022 10:37:24 +0000 (UTC)
+Date: Tue, 15 Feb 2022 11:37:22 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <YguCYmvdyRAOjHcP@kroah.com>
 References: <20220209060108.43051-1-jefflexu@linux.alibaba.com>
 	<20220209060108.43051-6-jefflexu@linux.alibaba.com>
-In-Reply-To: <20220209060108.43051-6-jefflexu@linux.alibaba.com>
+	<bd9cb3bb-e29c-d4b3-e9bf-915b9771b553@linux.alibaba.com>
+MIME-Version: 1.0
+In-Reply-To: <bd9cb3bb-e29c-d4b3-e9bf-915b9771b553@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,12 +67,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: linux-cachefs@redhat.com
-Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	willy@infradead.org, joseph.qi@linux.alibaba.com,
-	linux-fsdevel@vger.kernel.org, gerry@linux.alibaba.com,
-	torvalds@linux-foundation.org
+Cc: torvalds@linux-foundation.org, chao@kernel.org,
+	linux-kernel@vger.kernel.org, willy@infradead.org,
+	joseph.qi@linux.alibaba.com, linux-cachefs@redhat.com,
+	linux-fsdevel@vger.kernel.org, xiang@kernel.org,
+	gerry@linux.alibaba.com, linux-erofs@lists.ozlabs.org
 Subject: Re: [Linux-cachefs] [PATCH v3 05/22] cachefiles: introduce new
  devnode for on-demand read mode
 X-BeenThere: linux-cachefs@redhat.com
@@ -95,58 +94,19 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi David,
-
-FYI I've updated this patch on [1].
-
-[1]
-https://github.com/lostjeffle/linux/commit/589dd838dc539aee291d1032406653a8f6269e6f.
-
-This new version mainly adds cachefiles_ondemand_flush_reqs(), which
-drains the pending read requests when cachefilesd is going to exit.
-
-On 2/9/22 2:00 PM, Jeffle Xu wrote:
-> This patch introduces a new devnode 'cachefiles_ondemand' to support the
-> newly introduced on-demand read mode.
+On Tue, Feb 15, 2022 at 05:03:16PM +0800, JeffleXu wrote:
+> Hi David,
 > 
-> The precondition for on-demand reading semantics is that, all blob files
-> have been placed under corresponding directory with correct file size
-> (sparse files) on the first beginning. When upper fs starts to access
-> the blob file, it will "cache miss" (hit the hole) and then turn to user
-> daemon for preparing the data.
+> FYI I've updated this patch on [1].
 > 
-> The interaction between kernel and user daemon is described as below.
-> 1. Once cache miss, .ondemand_read() callback of corresponding fscache
->    backend is called to prepare the data. As for cachefiles, it just
->    packages related metadata (file range to read, etc.) into a pending
->    read request, and then the process triggering cache miss will fall
->    asleep until the corresponding data gets fetched later.
-> 2. User daemon needs to poll on the devnode ('cachefiles_ondemand'),
->    waiting for pending read request.
-> 3. Once there's pending read request, user daemon will be notified and
->    shall read the devnode ('cachefiles_ondemand') to fetch one pending
->    read request to process.
-> 4. For the fetched read request, user daemon need to somehow prepare the
->    data (e.g. download from remote through network) and then write the
->    fetched data into the backing file to fill the hole.
-> 5. After that, user daemon need to notify cachefiles backend by writing a
->    'done' command to devnode ('cachefiles_ondemand'). It will also
->    awake the previous asleep process triggering cache miss.
-> 6. By the time the process gets awaken, the data has been ready in the
->    backing file. Then process can re-initiate a read request from the
->    backing file.
-> 
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-> ---
+> [1]
+> https://github.com/lostjeffle/linux/commit/589dd838dc539aee291d1032406653a8f6269e6f.
 
-
--- 
-Thanks,
-Jeffle
+We can not review random github links :(
 
 --
 Linux-cachefs mailing list
