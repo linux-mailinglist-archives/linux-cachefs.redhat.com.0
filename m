@@ -2,60 +2,61 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7CBF4CFE94
-	for <lists+linux-cachefs@lfdr.de>; Mon,  7 Mar 2022 13:33:28 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C85D4CFE8C
+	for <lists+linux-cachefs@lfdr.de>; Mon,  7 Mar 2022 13:33:21 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-583-2CFuOUKtN1unSyia5tvwwA-1; Mon, 07 Mar 2022 07:33:24 -0500
-X-MC-Unique: 2CFuOUKtN1unSyia5tvwwA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-155-GR8kmkaBOwyop09xsflZMw-1; Mon, 07 Mar 2022 07:33:19 -0500
+X-MC-Unique: GR8kmkaBOwyop09xsflZMw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0AEC83C17B4C;
-	Mon,  7 Mar 2022 12:33:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEA19185A7BA;
+	Mon,  7 Mar 2022 12:33:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E0F522026987;
-	Mon,  7 Mar 2022 12:33:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9C9D42166B40;
+	Mon,  7 Mar 2022 12:33:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6A35919305A7;
-	Mon,  7 Mar 2022 12:33:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51EA5193058F;
+	Mon,  7 Mar 2022 12:33:18 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 66FCE1931BE7 for <linux-cachefs@listman.corp.redhat.com>;
- Mon,  7 Mar 2022 12:33:21 +0000 (UTC)
+ ESMTP id 40C111931BDD for <linux-cachefs@listman.corp.redhat.com>;
+ Mon,  7 Mar 2022 12:33:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5765F200AD52; Mon,  7 Mar 2022 12:33:21 +0000 (UTC)
+ id 33BB140D282C; Mon,  7 Mar 2022 12:33:17 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 521372026614
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F57D40D282B
  for <linux-cachefs@redhat.com>; Mon,  7 Mar 2022 12:33:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC66D8038E3
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16804899EC4
  for <linux-cachefs@redhat.com>; Mon,  7 Mar 2022 12:33:17 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43]) by relay.mimecast.com
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-650-d3-AWlBkPZmsXN-cRXBmtg-1; Mon, 07 Mar 2022 07:33:13 -0500
-X-MC-Unique: d3-AWlBkPZmsXN-cRXBmtg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=15; SR=0; TI=SMTPD_---0V6WFbBz_1646656388
+ us-mta-672-dBI0hmlbMQOp4i4kll2BMQ-1; Mon, 07 Mar 2022 07:33:15 -0500
+X-MC-Unique: dBI0hmlbMQOp4i4kll2BMQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R291e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=15; SR=0; TI=SMTPD_---0V6VOena_1646656390
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V6WFbBz_1646656388) by smtp.aliyun-inc.com(127.0.0.1);
- Mon, 07 Mar 2022 20:33:09 +0800
+ fp:SMTPD_---0V6VOena_1646656390) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 07 Mar 2022 20:33:11 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon,  7 Mar 2022 20:32:46 +0800
-Message-Id: <20220307123305.79520-3-jefflexu@linux.alibaba.com>
+Date: Mon,  7 Mar 2022 20:32:47 +0800
+Message-Id: <20220307123305.79520-4-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220307123305.79520-1-jefflexu@linux.alibaba.com>
 References: <20220307123305.79520-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,8 +67,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [PATCH v4 02/21] cachefiles: export write routine
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Linux-cachefs] [PATCH v4 03/21] cachefiles: introduce on-demand
+ read mode
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,7 +88,7 @@ Cc: gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com, willy@infradead.org,
  torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,162 +96,287 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Extract and export the generic routine of writing data to cache files.
+Fscache/cachefiles used to serve as a local cache for remote fs. This
+patch, along with the following patches, introduces a new on-demand read
+mode for cachefiles, which can boost the scenario where on-demand read
+semantics is needed, e.g. container image distribution.
 
-This is used by the following patch implementing on-demand read mode.
-Since it will be called inside cachefiles, make the interface generic
-and unrelated to netfs_cache_resources.
+The essential difference between the original mode and on-demand read
+mode is that, in the original mode, when cache miss, netfs itself will
+fetch data from remote, and then write the fetched data into cache file.
+While in on-demand read mode, a user daemon is responsible for fetching
+data and then writing to the cache file.
 
-It is worth nothing that, ki->inval_counter is not initialized after
-this cleanup. It shall not make any visible difference, since
-inval_counter is no longer used in the write completion routine, i.e.
-cachefiles_write_complete().
+This patch only adds the command to enable on-demand read mode. An
+optional parameter to "bind" command is added. On-demand mode will be
+turned on when this optional argument matches "ondemand" exactly, i.e.
+"bind ondemand". Otherwise cachefiles will keep working in the original
+mode.
+
+The following patches will implement the data plane of on-demand read
+mode.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/internal.h | 10 +++++++
- fs/cachefiles/io.c       | 61 +++++++++++++++++++++++-----------------
- 2 files changed, 45 insertions(+), 26 deletions(-)
+ fs/cachefiles/Kconfig    |  11 ++++
+ fs/cachefiles/daemon.c   | 132 +++++++++++++++++++++++++++++++--------
+ fs/cachefiles/internal.h |   6 ++
+ 3 files changed, 124 insertions(+), 25 deletions(-)
 
-diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index c793d33b0224..e80673d0ab97 100644
---- a/fs/cachefiles/internal.h
-+++ b/fs/cachefiles/internal.h
-@@ -201,6 +201,16 @@ extern void cachefiles_put_object(struct cachefiles_object *object,
-  */
- extern bool cachefiles_begin_operation(struct netfs_cache_resources *cres,
- 				       enum fscache_want_state want_state);
-+extern int __cachefiles_prepare_write(struct cachefiles_object *object,
-+				      struct file *file,
-+				      loff_t *_start, size_t *_len,
-+				      bool no_space_allocated_yet);
-+extern int __cachefiles_write(struct cachefiles_object *object,
-+			      struct file *file,
-+			      loff_t start_pos,
-+			      struct iov_iter *iter,
-+			      netfs_io_terminated_t term_func,
-+			      void *term_func_priv);
+diff --git a/fs/cachefiles/Kconfig b/fs/cachefiles/Kconfig
+index 719faeeda168..58aad1fb4c5c 100644
+--- a/fs/cachefiles/Kconfig
++++ b/fs/cachefiles/Kconfig
+@@ -26,3 +26,14 @@ config CACHEFILES_ERROR_INJECTION
+ 	help
+ 	  This permits error injection to be enabled in cachefiles whilst a
+ 	  cache is in service.
++
++config CACHEFILES_ONDEMAND
++	bool "Support for on-demand read"
++	depends on CACHEFILES
++	default n
++	help
++	  This permits on-demand read mode of cachefiles. In this mode, when
++	  cache miss, the cachefiles backend instead of netfs, is responsible
++          for fetching data, e.g. through user daemon.
++
++	  If unsure, say N.
+diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
+index 7ac04ee2c0a0..c0c3a3cbee28 100644
+--- a/fs/cachefiles/daemon.c
++++ b/fs/cachefiles/daemon.c
+@@ -78,6 +78,65 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
+ 	{ "",		NULL				}
+ };
  
- /*
-  * key.c
-diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
-index 753986ea1583..8dbc1eb254a3 100644
---- a/fs/cachefiles/io.c
-+++ b/fs/cachefiles/io.c
-@@ -278,36 +278,33 @@ static void cachefiles_write_complete(struct kiocb *iocb, long ret)
- /*
-  * Initiate a write to the cache.
-  */
--static int cachefiles_write(struct netfs_cache_resources *cres,
--			    loff_t start_pos,
--			    struct iov_iter *iter,
--			    netfs_io_terminated_t term_func,
--			    void *term_func_priv)
-+int __cachefiles_write(struct cachefiles_object *object,
-+		       struct file *file,
-+		       loff_t start_pos,
-+		       struct iov_iter *iter,
-+		       netfs_io_terminated_t term_func,
-+		       void *term_func_priv)
- {
--	struct cachefiles_object *object;
- 	struct cachefiles_cache *cache;
- 	struct cachefiles_kiocb *ki;
- 	struct inode *inode;
--	struct file *file;
- 	unsigned int old_nofs;
--	ssize_t ret = -ENOBUFS;
-+	ssize_t ret;
- 	size_t len = iov_iter_count(iter);
- 
--	if (!fscache_wait_for_operation(cres, FSCACHE_WANT_WRITE))
--		goto presubmission_error;
- 	fscache_count_write();
--	object = cachefiles_cres_object(cres);
- 	cache = object->volume->cache;
--	file = cachefiles_cres_file(cres);
- 
- 	_enter("%pD,%li,%llx,%zx/%llx",
- 	       file, file_inode(file)->i_ino, start_pos, len,
- 	       i_size_read(file_inode(file)));
- 
--	ret = -ENOMEM;
- 	ki = kzalloc(sizeof(struct cachefiles_kiocb), GFP_KERNEL);
--	if (!ki)
--		goto presubmission_error;
-+	if (!ki) {
-+		if (term_func)
-+			term_func(term_func_priv, -ENOMEM, false);
-+		return -ENOMEM;
-+	}
- 
- 	refcount_set(&ki->ki_refcnt, 2);
- 	ki->iocb.ki_filp	= file;
-@@ -316,7 +313,6 @@ static int cachefiles_write(struct netfs_cache_resources *cres,
- 	ki->iocb.ki_hint	= ki_hint_validate(file_write_hint(file));
- 	ki->iocb.ki_ioprio	= get_current_ioprio();
- 	ki->object		= object;
--	ki->inval_counter	= cres->inval_counter;
- 	ki->start		= start_pos;
- 	ki->len			= len;
- 	ki->term_func		= term_func;
-@@ -371,11 +367,24 @@ static int cachefiles_write(struct netfs_cache_resources *cres,
- 	cachefiles_put_kiocb(ki);
- 	_leave(" = %zd", ret);
- 	return ret;
-+}
- 
--presubmission_error:
--	if (term_func)
--		term_func(term_func_priv, ret, false);
--	return ret;
-+static int cachefiles_write(struct netfs_cache_resources *cres,
-+			    loff_t start_pos,
-+			    struct iov_iter *iter,
-+			    netfs_io_terminated_t term_func,
-+			    void *term_func_priv)
++#ifdef CONFIG_CACHEFILES_ONDEMAND
++static inline void cachefiles_ondemand_open(struct cachefiles_cache *cache)
 +{
-+	if (!fscache_wait_for_operation(cres, FSCACHE_WANT_WRITE)) {
-+		if (term_func)
-+			term_func(term_func_priv, -ENOBUFS, false);
-+		return -ENOBUFS;
++	xa_init_flags(&cache->reqs, XA_FLAGS_ALLOC);
++	rwlock_init(&cache->reqs_lock);
++}
++
++static inline void cachefiles_ondemand_release(struct cachefiles_cache *cache)
++{
++	xa_destroy(&cache->reqs);
++}
++
++static inline __poll_t cachefiles_ondemand_mask(struct cachefiles_cache *cache)
++{
++	__poll_t mask = 0;
++
++	if (!xa_empty(&cache->reqs))
++		mask |= EPOLLIN;
++
++	if (test_bit(CACHEFILES_CULLING, &cache->flags))
++		mask |= EPOLLOUT;
++
++	return mask;
++}
++
++static inline
++bool cachefiles_ondemand_daemon_bind(struct cachefiles_cache *cache, char *args)
++{
++	if (!strcmp(args, "ondemand")) {
++		set_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags);
++		return true;
 +	}
 +
-+	return __cachefiles_write(cachefiles_cres_object(cres),
-+				  cachefiles_cres_file(cres),
-+				  start_pos, iter,
-+				  term_func, term_func_priv);
++	return false;
++}
++
++#else
++static inline void cachefiles_ondemand_open(struct cachefiles_cache *cache) {}
++static inline void cachefiles_ondemand_release(struct cachefiles_cache *cache) {}
++
++static inline
++__poll_t cachefiles_ondemand_mask(struct cachefiles_cache *cache)
++{
++	return 0;
++}
++
++static inline
++bool cachefiles_ondemand_daemon_bind(struct cachefiles_cache *cache, char *args)
++{
++	return false;
++}
++#endif
++
++static inline
++ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
++					char __user *_buffer, size_t buflen)
++{
++	return -EOPNOTSUPP;
++}
+ 
+ /*
+  * Prepare a cache for caching.
+@@ -108,6 +167,7 @@ static int cachefiles_daemon_open(struct inode *inode, struct file *file)
+ 	INIT_LIST_HEAD(&cache->volumes);
+ 	INIT_LIST_HEAD(&cache->object_list);
+ 	spin_lock_init(&cache->object_list_lock);
++	cachefiles_ondemand_open(cache);
+ 
+ 	/* set default caching limits
+ 	 * - limit at 1% free space and/or free files
+@@ -139,6 +199,7 @@ static int cachefiles_daemon_release(struct inode *inode, struct file *file)
+ 
+ 	set_bit(CACHEFILES_DEAD, &cache->flags);
+ 
++	cachefiles_ondemand_release(cache);
+ 	cachefiles_daemon_unbind(cache);
+ 
+ 	/* clean up the control file interface */
+@@ -152,23 +213,15 @@ static int cachefiles_daemon_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-/*
+- * Read the cache state.
+- */
+-static ssize_t cachefiles_daemon_read(struct file *file, char __user *_buffer,
+-				      size_t buflen, loff_t *pos)
++static ssize_t cachefiles_do_daemon_read(struct cachefiles_cache *cache,
++					 char __user *_buffer,
++					 size_t buflen)
+ {
+-	struct cachefiles_cache *cache = file->private_data;
+ 	unsigned long long b_released;
+ 	unsigned f_released;
+ 	char buffer[256];
+ 	int n;
+ 
+-	//_enter(",,%zu,", buflen);
+-
+-	if (!test_bit(CACHEFILES_READY, &cache->flags))
+-		return 0;
+-
+ 	/* check how much space the cache has */
+ 	cachefiles_has_space(cache, 0, 0, cachefiles_has_space_check);
+ 
+@@ -206,6 +259,25 @@ static ssize_t cachefiles_daemon_read(struct file *file, char __user *_buffer,
+ 	return n;
+ }
+ 
++/*
++ * Read the cache state.
++ */
++static ssize_t cachefiles_daemon_read(struct file *file, char __user *_buffer,
++				      size_t buflen, loff_t *pos)
++{
++	struct cachefiles_cache *cache = file->private_data;
++
++	//_enter(",,%zu,", buflen);
++
++	if (!test_bit(CACHEFILES_READY, &cache->flags))
++		return 0;
++
++	if (likely(!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags)))
++		return cachefiles_do_daemon_read(cache, _buffer, buflen);
++	else
++		return cachefiles_ondemand_daemon_read(cache, _buffer, buflen);
++}
++
+ /*
+  * Take a command from cachefilesd, parse it and act on it.
+  */
+@@ -284,6 +356,21 @@ static ssize_t cachefiles_daemon_write(struct file *file,
+ 	goto error;
+ }
+ 
++
++static inline
++__poll_t cachefiles_daemon_mask(struct cachefiles_cache *cache)
++{
++	__poll_t mask = 0;
++
++	if (test_bit(CACHEFILES_STATE_CHANGED, &cache->flags))
++		mask |= EPOLLIN;
++
++	if (test_bit(CACHEFILES_CULLING, &cache->flags))
++		mask |= EPOLLOUT;
++
++	return mask;
++}
++
+ /*
+  * Poll for culling state
+  * - use EPOLLOUT to indicate culling state
+@@ -292,18 +379,13 @@ static __poll_t cachefiles_daemon_poll(struct file *file,
+ 					   struct poll_table_struct *poll)
+ {
+ 	struct cachefiles_cache *cache = file->private_data;
+-	__poll_t mask;
+ 
+ 	poll_wait(file, &cache->daemon_pollwq, poll);
+-	mask = 0;
+-
+-	if (test_bit(CACHEFILES_STATE_CHANGED, &cache->flags))
+-		mask |= EPOLLIN;
+-
+-	if (test_bit(CACHEFILES_CULLING, &cache->flags))
+-		mask |= EPOLLOUT;
+ 
+-	return mask;
++	if (likely(!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags)))
++		return cachefiles_daemon_mask(cache);
++	else
++		return cachefiles_ondemand_mask(cache);
  }
  
  /*
-@@ -486,13 +495,12 @@ static enum netfs_read_source cachefiles_prepare_read(struct netfs_read_subreque
- /*
-  * Prepare for a write to occur.
-  */
--static int __cachefiles_prepare_write(struct netfs_cache_resources *cres,
--				      loff_t *_start, size_t *_len, loff_t i_size,
--				      bool no_space_allocated_yet)
-+int __cachefiles_prepare_write(struct cachefiles_object *object,
-+			       struct file *file,
-+			       loff_t *_start, size_t *_len,
-+			       bool no_space_allocated_yet)
- {
--	struct cachefiles_object *object = cachefiles_cres_object(cres);
- 	struct cachefiles_cache *cache = object->volume->cache;
--	struct file *file = cachefiles_cres_file(cres);
- 	loff_t start = *_start, pos;
- 	size_t len = *_len, down;
- 	int ret;
-@@ -579,7 +587,8 @@ static int cachefiles_prepare_write(struct netfs_cache_resources *cres,
+@@ -687,11 +769,6 @@ static int cachefiles_daemon_bind(struct cachefiles_cache *cache, char *args)
+ 	    cache->brun_percent  >= 100)
+ 		return -ERANGE;
+ 
+-	if (*args) {
+-		pr_err("'bind' command doesn't take an argument\n");
+-		return -EINVAL;
+-	}
+-
+ 	if (!cache->rootdirname) {
+ 		pr_err("No cache directory specified\n");
+ 		return -EINVAL;
+@@ -703,6 +780,11 @@ static int cachefiles_daemon_bind(struct cachefiles_cache *cache, char *args)
+ 		return -EBUSY;
  	}
  
- 	cachefiles_begin_secure(cache, &saved_cred);
--	ret = __cachefiles_prepare_write(cres, _start, _len, i_size,
-+	ret = __cachefiles_prepare_write(object, cachefiles_cres_file(cres),
-+					 _start, _len,
- 					 no_space_allocated_yet);
- 	cachefiles_end_secure(cache, saved_cred);
- 	return ret;
++	if (!cachefiles_ondemand_daemon_bind(cache, args) && *args) {
++		pr_err("'bind' command doesn't take an argument\n");
++		return -EINVAL;
++	}
++
+ 	/* Make sure we have copies of the tag string */
+ 	if (!cache->tag) {
+ 		/*
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index e80673d0ab97..3f791882fa3f 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -15,6 +15,7 @@
+ #include <linux/fscache-cache.h>
+ #include <linux/cred.h>
+ #include <linux/security.h>
++#include <linux/xarray.h>
+ 
+ #define CACHEFILES_DIO_BLOCK_SIZE 4096
+ 
+@@ -98,9 +99,14 @@ struct cachefiles_cache {
+ #define CACHEFILES_DEAD			1	/* T if cache dead */
+ #define CACHEFILES_CULLING		2	/* T if cull engaged */
+ #define CACHEFILES_STATE_CHANGED	3	/* T if state changed (poll trigger) */
++#define CACHEFILES_ONDEMAND_MODE	4	/* T if in on-demand read mode */
+ 	char				*rootdirname;	/* name of cache root directory */
+ 	char				*secctx;	/* LSM security context */
+ 	char				*tag;		/* cache binding tag */
++#ifdef CONFIG_CACHEFILES_ONDEMAND
++	struct xarray			reqs;		/* xarray of pending on-demand requests */
++	rwlock_t			reqs_lock;	/* Lock for reqs xarray */
++#endif
+ };
+ 
+ #include <trace/events/cachefiles.h>
 -- 
 2.27.0
 
