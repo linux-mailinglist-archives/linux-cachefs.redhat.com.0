@@ -2,64 +2,64 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72E84D4E7B
-	for <lists+linux-cachefs@lfdr.de>; Thu, 10 Mar 2022 17:17:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 205224D4E7C
+	for <lists+linux-cachefs@lfdr.de>; Thu, 10 Mar 2022 17:18:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1646929065;
+	s=mimecast20190719; t=1646929079;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DdAvhp3ptVkXl3x6fgOZd2Qr4FzN69vbiY/w2OMYSPA=;
-	b=cdh5Jcfw0JXBQsmdBBtMEiAhQu8VZ2EN9fct/tEMQ9GiG5pjNYnMzIZbtM5Jf3KsMtw02q
-	7c53v2ojtifp2qexhpWo4MYOM0M0ij6o7onYaWamL44E3HAu03X1XpJomszEeyMLcHe5s2
-	MGAs3veQKwqtAc/lF77Sw6Wa4NfhyWM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=MB3bwtXc16tAZaXEoPEzs5gVSJxAiiqnD4hbQdyg+58=;
+	b=eMqhLaGX7XtUCZ8463oa4kFKK5N6emXnoC8oDMrYZVFLJLl4vzwuu7lQT7CnAfqHByg6FJ
+	BKCv1JMO5r7XIaqxfSGohU6zLVgHRSLRqkfIONgBiEjZMTwaOcLCx3E/CTFNy+vc7G6/b7
+	snqOeXxQhJAanUaY+1EuFNj3vDTUA84=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-PqXP6eqUPWCMa9NJVY2JCw-1; Thu, 10 Mar 2022 11:17:32 -0500
-X-MC-Unique: PqXP6eqUPWCMa9NJVY2JCw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-297-xcwuLj-IN5O0GJCwOv3TJg-1; Thu, 10 Mar 2022 11:17:56 -0500
+X-MC-Unique: xcwuLj-IN5O0GJCwOv3TJg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD9D33C01C1D;
-	Thu, 10 Mar 2022 16:17:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3502980280A;
+	Thu, 10 Mar 2022 16:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9A24D14582EE;
-	Thu, 10 Mar 2022 16:17:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E474D4010A19;
+	Thu, 10 Mar 2022 16:17:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 57FAD194E009;
-	Thu, 10 Mar 2022 16:17:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA731194E00C;
+	Thu, 10 Mar 2022 16:17:52 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 27C3419452D2 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 10 Mar 2022 16:17:29 +0000 (UTC)
+ ESMTP id EEB8819452D2 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 10 Mar 2022 16:17:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B7D857AC6B; Thu, 10 Mar 2022 16:17:28 +0000 (UTC)
+ id ADBD1106F968; Thu, 10 Mar 2022 16:17:51 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 61BC97F0D9;
- Thu, 10 Mar 2022 16:17:22 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 814D3106F979;
+ Thu, 10 Mar 2022 16:17:34 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
  Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
  Kingdom.
  Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Thu, 10 Mar 2022 16:17:21 +0000
-Message-ID: <164692904155.2099075.14717645623034355995.stgit@warthog.procyon.org.uk>
+Date: Thu, 10 Mar 2022 16:17:34 +0000
+Message-ID: <164692905398.2099075.5238033621684646524.stgit@warthog.procyon.org.uk>
 In-Reply-To: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
 References: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/1.4
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Subject: [Linux-cachefs] [PATCH v3 10/20] netfs: Refactor arguments for
- netfs_alloc_read_request
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Subject: [Linux-cachefs] [PATCH v3 11/20] netfs: Change ->init_request() to
+ return an error code
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +81,7 @@ Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
  Anna Schumaker <anna.schumaker@netapp.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,216 +89,187 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Pass start and len to the rreq allocator. This should ensure that the
-fields are set so that ->init_request() can use them.
+Change the request initialisation function to return an error code so that
+the network filesystem can return a failure (ENOMEM, for example).
 
-Also add a parameter to indicates the origin of the request.  Ceph can use
-this to tell whether to get caps.
+This will also allow ceph to abort a ->readahead() op if the server refuses
+to give it a cap allowing local caching from within the netfslib framework
+(errors aren't passed back through ->readahead(), so returning, say,
+-ENOBUFS will cause the op to be aborted).
 
-Changes
-=======
-ver #3)
- - Change the author to me as Jeff feels that most of the patch is my
-   changes now.
-
-ver #2)
- - Show the request origin in the netfs_rreq tracepoint.
-
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Co-developed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/164622989020.3564931.17517006047854958747.stgit@warthog.procyon.org.uk/ # v1
-Link: https://lore.kernel.org/r/164678208569.1200972.12153682697842916557.stgit@warthog.procyon.org.uk/ # v2
+Link: https://lore.kernel.org/r/164678212401.1200972.16537041523832944934.stgit@warthog.procyon.org.uk/ # v2
 ---
 
- fs/netfs/internal.h          |    7 +++++--
- fs/netfs/objects.c           |   13 ++++++++++---
- fs/netfs/read_helper.c       |   23 +++++++++++------------
- include/linux/netfs.h        |    7 +++++++
- include/trace/events/netfs.h |   11 ++++++++++-
- 5 files changed, 43 insertions(+), 18 deletions(-)
+ fs/9p/vfs_addr.c       |    3 ++-
+ fs/afs/file.c          |    3 ++-
+ fs/netfs/objects.c     |   41 ++++++++++++++++++++++++-----------------
+ fs/netfs/read_helper.c |   20 ++++++++++++--------
+ include/linux/netfs.h  |    2 +-
+ 5 files changed, 41 insertions(+), 28 deletions(-)
 
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index a0b7d1bf9f3d..89837e904fa7 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -17,9 +17,12 @@
- /*
-  * objects.c
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index fdc1033a1546..91d3926c9559 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -56,12 +56,13 @@ static void v9fs_issue_read(struct netfs_io_subrequest *subreq)
+  * @rreq: The read request
+  * @file: The file being read from
   */
--struct netfs_io_request *netfs_alloc_request(const struct netfs_request_ops *ops,
-+struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
-+					     struct file *file,
-+					     const struct netfs_request_ops *ops,
- 					     void *netfs_priv,
--					     struct file *file);
-+					     loff_t start, size_t len,
-+					     enum netfs_io_origin origin);
- void netfs_get_request(struct netfs_io_request *rreq, enum netfs_rreq_ref_trace what);
- void netfs_clear_subrequests(struct netfs_io_request *rreq, bool was_async);
- void netfs_put_request(struct netfs_io_request *rreq, bool was_async,
+-static void v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
++static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+ {
+ 	struct p9_fid *fid = file->private_data;
+ 
+ 	refcount_inc(&fid->count);
+ 	rreq->netfs_priv = fid;
++	return 0;
+ }
+ 
+ /**
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index b19d635eed12..6469d7f98ef5 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -359,9 +359,10 @@ static int afs_symlink_readpage(struct file *file, struct page *page)
+ 	return ret;
+ }
+ 
+-static void afs_init_request(struct netfs_io_request *rreq, struct file *file)
++static int afs_init_request(struct netfs_io_request *rreq, struct file *file)
+ {
+ 	rreq->netfs_priv = key_get(afs_file_key(file));
++	return 0;
+ }
+ 
+ static bool afs_is_cache_enabled(struct inode *inode)
 diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 39097893e847..986d7a9d25dd 100644
+index 986d7a9d25dd..ae18827e156b 100644
 --- a/fs/netfs/objects.c
 +++ b/fs/netfs/objects.c
-@@ -11,17 +11,24 @@
- /*
-  * Allocate an I/O request and initialise it.
-  */
--struct netfs_io_request *netfs_alloc_request(
--	const struct netfs_request_ops *ops, void *netfs_priv,
--	struct file *file)
-+struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
-+					     struct file *file,
-+					     const struct netfs_request_ops *ops,
-+					     void *netfs_priv,
-+					     loff_t start, size_t len,
-+					     enum netfs_io_origin origin)
+@@ -20,27 +20,34 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
  {
  	static atomic_t debug_ids;
  	struct netfs_io_request *rreq;
++	int ret;
  
  	rreq = kzalloc(sizeof(struct netfs_io_request), GFP_KERNEL);
- 	if (rreq) {
-+		rreq->start	= start;
-+		rreq->len	= len;
-+		rreq->origin	= origin;
- 		rreq->netfs_ops	= ops;
- 		rreq->netfs_priv = netfs_priv;
-+		rreq->mapping	= mapping;
- 		rreq->inode	= file_inode(file);
- 		rreq->i_size	= i_size_read(rreq->inode);
- 		rreq->debug_id	= atomic_inc_return(&debug_ids);
+-	if (rreq) {
+-		rreq->start	= start;
+-		rreq->len	= len;
+-		rreq->origin	= origin;
+-		rreq->netfs_ops	= ops;
+-		rreq->netfs_priv = netfs_priv;
+-		rreq->mapping	= mapping;
+-		rreq->inode	= file_inode(file);
+-		rreq->i_size	= i_size_read(rreq->inode);
+-		rreq->debug_id	= atomic_inc_return(&debug_ids);
+-		INIT_LIST_HEAD(&rreq->subrequests);
+-		INIT_WORK(&rreq->work, netfs_rreq_work);
+-		refcount_set(&rreq->ref, 1);
+-		__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
+-		if (ops->init_request)
+-			ops->init_request(rreq, file);
+-		netfs_stat(&netfs_n_rh_rreq);
++	if (!rreq)
++		return ERR_PTR(-ENOMEM);
++
++	rreq->start	= start;
++	rreq->len	= len;
++	rreq->origin	= origin;
++	rreq->netfs_ops	= ops;
++	rreq->netfs_priv = netfs_priv;
++	rreq->mapping	= mapping;
++	rreq->inode	= file_inode(file);
++	rreq->i_size	= i_size_read(rreq->inode);
++	rreq->debug_id	= atomic_inc_return(&debug_ids);
++	INIT_LIST_HEAD(&rreq->subrequests);
++	INIT_WORK(&rreq->work, netfs_rreq_work);
++	refcount_set(&rreq->ref, 1);
++	__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
++	if (rreq->netfs_ops->init_request) {
++		ret = rreq->netfs_ops->init_request(rreq, file);
++		if (ret < 0) {
++			kfree(rreq);
++			return ERR_PTR(ret);
++		}
+ 	}
+ 
++	netfs_stat(&netfs_n_rh_rreq);
+ 	return rreq;
+ }
+ 
 diff --git a/fs/netfs/read_helper.c b/fs/netfs/read_helper.c
-index 8f277da487b6..dea085715286 100644
+index dea085715286..b5176f4320f4 100644
 --- a/fs/netfs/read_helper.c
 +++ b/fs/netfs/read_helper.c
-@@ -763,12 +763,13 @@ void netfs_readahead(struct readahead_control *ractl,
- 	if (readahead_count(ractl) == 0)
+@@ -768,7 +768,7 @@ void netfs_readahead(struct readahead_control *ractl,
+ 				   readahead_pos(ractl),
+ 				   readahead_length(ractl),
+ 				   NETFS_READAHEAD);
+-	if (!rreq)
++	if (IS_ERR(rreq))
  		goto cleanup;
  
--	rreq = netfs_alloc_request(ops, netfs_priv, ractl->file);
-+	rreq = netfs_alloc_request(ractl->mapping, ractl->file,
-+				   ops, netfs_priv,
-+				   readahead_pos(ractl),
-+				   readahead_length(ractl),
-+				   NETFS_READAHEAD);
- 	if (!rreq)
- 		goto cleanup;
--	rreq->mapping	= ractl->mapping;
--	rreq->start	= readahead_pos(ractl);
--	rreq->len	= readahead_length(ractl);
- 
  	if (ops->begin_cache_operation) {
- 		ret = ops->begin_cache_operation(rreq);
-@@ -838,16 +839,15 @@ int netfs_readpage(struct file *file,
- 
- 	_enter("%lx", folio_index(folio));
- 
--	rreq = netfs_alloc_request(ops, netfs_priv, file);
-+	rreq = netfs_alloc_request(folio->mapping, file, ops, netfs_priv,
-+				   folio_file_pos(folio), folio_size(folio),
-+				   NETFS_READPAGE);
- 	if (!rreq) {
- 		if (netfs_priv)
- 			ops->cleanup(folio_file_mapping(folio), netfs_priv);
- 		folio_unlock(folio);
- 		return -ENOMEM;
- 	}
--	rreq->mapping	= folio_file_mapping(folio);
--	rreq->start	= folio_file_pos(folio);
--	rreq->len	= folio_size(folio);
- 
- 	if (ops->begin_cache_operation) {
- 		ret = ops->begin_cache_operation(rreq);
-@@ -1008,12 +1008,11 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
+@@ -842,11 +842,9 @@ int netfs_readpage(struct file *file,
+ 	rreq = netfs_alloc_request(folio->mapping, file, ops, netfs_priv,
+ 				   folio_file_pos(folio), folio_size(folio),
+ 				   NETFS_READPAGE);
+-	if (!rreq) {
+-		if (netfs_priv)
+-			ops->cleanup(folio_file_mapping(folio), netfs_priv);
+-		folio_unlock(folio);
+-		return -ENOMEM;
++	if (IS_ERR(rreq)) {
++		ret = PTR_ERR(rreq);
++		goto alloc_error;
  	}
  
- 	ret = -ENOMEM;
--	rreq = netfs_alloc_request(ops, netfs_priv, file);
-+	rreq = netfs_alloc_request(mapping, file, ops, netfs_priv,
-+				   folio_file_pos(folio), folio_size(folio),
-+				   NETFS_READ_FOR_WRITE);
- 	if (!rreq)
+ 	if (ops->begin_cache_operation) {
+@@ -887,6 +885,11 @@ int netfs_readpage(struct file *file,
+ out:
+ 	netfs_put_request(rreq, false, netfs_rreq_trace_put_hold);
+ 	return ret;
++alloc_error:
++	if (netfs_priv)
++		ops->cleanup(folio_file_mapping(folio), netfs_priv);
++	folio_unlock(folio);
++	return ret;
+ }
+ EXPORT_SYMBOL(netfs_readpage);
+ 
+@@ -1007,12 +1010,13 @@ int netfs_write_begin(struct file *file, struct address_space *mapping,
+ 		goto have_folio_no_wait;
+ 	}
+ 
+-	ret = -ENOMEM;
+ 	rreq = netfs_alloc_request(mapping, file, ops, netfs_priv,
+ 				   folio_file_pos(folio), folio_size(folio),
+ 				   NETFS_READ_FOR_WRITE);
+-	if (!rreq)
++	if (IS_ERR(rreq)) {
++		ret = PTR_ERR(rreq);
  		goto error;
--	rreq->mapping		= folio_file_mapping(folio);
--	rreq->start		= folio_file_pos(folio);
--	rreq->len		= folio_size(folio);
++	}
  	rreq->no_unlock_folio	= folio_index(folio);
  	__set_bit(NETFS_RREQ_NO_UNLOCK_FOLIO, &rreq->flags);
  	netfs_priv = NULL;
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index c702bd8ea8da..7dc741d9b21b 100644
+index 7dc741d9b21b..4b99e38f73d9 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -150,6 +150,12 @@ struct netfs_io_subrequest {
- #define NETFS_SREQ_NO_PROGRESS		4	/* Set if we didn't manage to read any data */
- };
- 
-+enum netfs_io_origin {
-+	NETFS_READAHEAD,		/* This read was triggered by readahead */
-+	NETFS_READPAGE,			/* This read is a synchronous read */
-+	NETFS_READ_FOR_WRITE,		/* This read is to prepare a write */
-+} __mode(byte);
-+
- /*
-  * Descriptor for an I/O helper request.  This is used to make multiple I/O
-  * operations to a variety of data stores and then stitch the result together.
-@@ -167,6 +173,7 @@ struct netfs_io_request {
- 	size_t			submitted;	/* Amount submitted for I/O so far */
- 	size_t			len;		/* Length of the request */
- 	short			error;		/* 0 or error that occurred */
-+	enum netfs_io_origin	origin;		/* Origin of the request */
- 	loff_t			i_size;		/* Size of the file */
- 	loff_t			start;		/* Start position */
- 	pgoff_t			no_unlock_folio; /* Don't unlock this folio after read */
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index 556859b0f107..f00e3e1821c8 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -21,6 +21,11 @@
- 	EM(netfs_read_trace_readpage,		"READPAGE ")	\
- 	E_(netfs_read_trace_write_begin,	"WRITEBEGN")
- 
-+#define netfs_rreq_origins					\
-+	EM(NETFS_READAHEAD,			"RA")		\
-+	EM(NETFS_READPAGE,			"RP")		\
-+	E_(NETFS_READ_FOR_WRITE,		"RW")
-+
- #define netfs_rreq_traces					\
- 	EM(netfs_rreq_trace_assess,		"ASSESS ")	\
- 	EM(netfs_rreq_trace_copy,		"COPY   ")	\
-@@ -101,6 +106,7 @@ enum netfs_sreq_ref_trace { netfs_sreq_ref_traces } __mode(byte);
- #define E_(a, b) TRACE_DEFINE_ENUM(a);
- 
- netfs_read_traces;
-+netfs_rreq_origins;
- netfs_rreq_traces;
- netfs_sreq_sources;
- netfs_sreq_traces;
-@@ -159,17 +165,20 @@ TRACE_EVENT(netfs_rreq,
- 	    TP_STRUCT__entry(
- 		    __field(unsigned int,		rreq		)
- 		    __field(unsigned int,		flags		)
-+		    __field(enum netfs_io_origin,	origin		)
- 		    __field(enum netfs_rreq_trace,	what		)
- 			     ),
- 
- 	    TP_fast_assign(
- 		    __entry->rreq	= rreq->debug_id;
- 		    __entry->flags	= rreq->flags;
-+		    __entry->origin	= rreq->origin;
- 		    __entry->what	= what;
- 			   ),
- 
--	    TP_printk("R=%08x %s f=%02x",
-+	    TP_printk("R=%08x %s %s f=%02x",
- 		      __entry->rreq,
-+		      __print_symbolic(__entry->origin, netfs_rreq_origins),
- 		      __print_symbolic(__entry->what, netfs_rreq_traces),
- 		      __entry->flags)
- 	    );
+@@ -193,7 +193,7 @@ struct netfs_io_request {
+  */
+ struct netfs_request_ops {
+ 	bool (*is_cache_enabled)(struct inode *inode);
+-	void (*init_request)(struct netfs_io_request *rreq, struct file *file);
++	int (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 	int (*begin_cache_operation)(struct netfs_io_request *rreq);
+ 	void (*expand_readahead)(struct netfs_io_request *rreq);
+ 	bool (*clamp_length)(struct netfs_io_subrequest *subreq);
 
 
 --
