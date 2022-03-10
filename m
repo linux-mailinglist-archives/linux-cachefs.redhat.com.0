@@ -2,64 +2,64 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0D84D4E4A
-	for <lists+linux-cachefs@lfdr.de>; Thu, 10 Mar 2022 17:15:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152584D4E4B
+	for <lists+linux-cachefs@lfdr.de>; Thu, 10 Mar 2022 17:15:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1646928909;
+	s=mimecast20190719; t=1646928916;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zdjA5rdEnZUJEZyMwrlBl/GqAakx4pOLAxM+8vesu1M=;
-	b=TsFSF4elOY+kfWxeDZDTrx3L3uonIilLAPqfyPXJVVkCFEDa+6YT4caRP76B1/+JnHSgHs
-	lJEPwUEfgSCdbpTC3DfEYqta2Md2n8Fr6DgH7kuolO65DeoSezCXn0FQRuhPlpNTwYsdFN
-	Lee9uh348yj4kruAw4tAm2yYT5i2YMo=
+	bh=6aH1xsIZtNYcxowfMpph1D2mKo68JXJis3XDneob04A=;
+	b=XtNkHxLpxpD+oeGT2wBw30Cqq9Kb+9QEDPQ/Gw6qySY+midJaoQ4xkrGl6YAx5SkG3KooY
+	XmellxJebxjXYl+Fzl0rQ4sF/OrMNI22+98V0TYYw85CmyatjX+t21UK01XvvnI64UfnDB
+	deUU8hHjA2iuxiUr8BRJsgSYOhcrdy4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-156-qLo-ouhwOAO286ZljkJo6A-1; Thu, 10 Mar 2022 11:15:04 -0500
-X-MC-Unique: qLo-ouhwOAO286ZljkJo6A-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-30-LaR5C3m3MLGIK-xYyLqe5g-1; Thu, 10 Mar 2022 11:15:13 -0500
+X-MC-Unique: LaR5C3m3MLGIK-xYyLqe5g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BA971C06908;
-	Thu, 10 Mar 2022 16:15:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5DAD72A2AD4B;
+	Thu, 10 Mar 2022 16:15:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 00EAA401E32;
-	Thu, 10 Mar 2022 16:15:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 179FE2166B2F;
+	Thu, 10 Mar 2022 16:15:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BFEAD19451EF;
-	Thu, 10 Mar 2022 16:15:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D4EB119451F3;
+	Thu, 10 Mar 2022 16:15:11 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 464AA19452D2 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 10 Mar 2022 16:15:01 +0000 (UTC)
+ ESMTP id 70E4019452D2 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 10 Mar 2022 16:15:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E5B5A8359A; Thu, 10 Mar 2022 16:15:00 +0000 (UTC)
+ id 1E49A86590; Thu, 10 Mar 2022 16:15:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C39DF83585;
- Thu, 10 Mar 2022 16:14:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1D01386599;
+ Thu, 10 Mar 2022 16:15:06 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
  Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
  Kingdom.
  Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Thu, 10 Mar 2022 16:14:43 +0000
-Message-ID: <164692888334.2099075.5166283293894267365.stgit@warthog.procyon.org.uk>
+Date: Thu, 10 Mar 2022 16:15:06 +0000
+Message-ID: <164692890614.2099075.12960653141802151575.stgit@warthog.procyon.org.uk>
 In-Reply-To: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
 References: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/1.4
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Subject: [Linux-cachefs] [PATCH v3 01/20] fscache: export
- fscache_end_operation()
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Subject: [Linux-cachefs] [PATCH v3 02/20] netfs: Generate enums from trace
+ symbol mapping lists
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,16 +72,15 @@ List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Cc: Steve French <sfrench@samba.org>, linux-nfs@vger.kernel.org,
- linux-cifs@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
+ Dominique Martinet <asmadeus@codewreck.org>, ceph-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Anna Schumaker <anna.schumaker@netapp.com>,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
  Ilya Dryomov <idryomov@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Anna Schumaker <anna.schumaker@netapp.com>
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,114 +88,114 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
+netfs has a number of lists of symbols for use in tracing, listed in an
+enum and then listed again in a symbol->string mapping for use with
+__print_symbolic().  This is, however, redundant.
 
-Export fscache_end_operation() to avoid code duplication.
+Instead, use the symbol->string mapping list to also generate the enum
+where the enum is in the same file.
 
-Besides, considering the paired fscache_begin_read_operation() is
-already exported, it shall make sense to also export
-fscache_end_operation().
+Changes
+=======
+ver #3)
+ - #undef EM and E_ at the end of the trace file[1].
 
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Acked-by: Jeff Layton <jlayton@redhat.com>
 cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/20220302125134.131039-2-jefflexu@linux.alibaba.com/ # Jeffle's v4
-Link: https://lore.kernel.org/r/164622971432.3564931.12184135678781328146.stgit@warthog.procyon.org.uk/ # v1
-Link: https://lore.kernel.org/r/164678190346.1200972.7453733431978569479.stgit@warthog.procyon.org.uk/ # v2
+Link: https://lore.kernel.org/r/c2f4b3dc107b106e04c48f54945a12715cccfdf3.camel@redhat.com/ [1]
+Link: https://lore.kernel.org/r/164622980839.3564931.5673300162465266909.stgit@warthog.procyon.org.uk/ # v1
+Link: https://lore.kernel.org/r/164678192454.1200972.4428834328108580460.stgit@warthog.procyon.org.uk/ # v2
+Link: https://lore.kernel.org/r/CALF+zOkB38_MB5QwNUtqTU4WjMaLUJ5+Piwsn3pMxkO3d4J7Kg@mail.gmail.com/ # v2
 ---
 
- fs/cifs/fscache.c       |    8 --------
- fs/fscache/internal.h   |   11 -----------
- fs/nfs/fscache.c        |    8 --------
- include/linux/fscache.h |   14 ++++++++++++++
- 4 files changed, 14 insertions(+), 27 deletions(-)
+ include/trace/events/netfs.h |   59 +++++++++++-------------------------------
+ 1 file changed, 16 insertions(+), 43 deletions(-)
 
-diff --git a/fs/cifs/fscache.c b/fs/cifs/fscache.c
-index 33af72e0ac0c..b47c2011ce5b 100644
---- a/fs/cifs/fscache.c
-+++ b/fs/cifs/fscache.c
-@@ -134,14 +134,6 @@ void cifs_fscache_release_inode_cookie(struct inode *inode)
- 	}
- }
- 
--static inline void fscache_end_operation(struct netfs_cache_resources *cres)
--{
--	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
--
--	if (ops)
--		ops->end_operation(cres);
--}
--
+diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
+index e6f4ebbb4c69..4d0bf02d490a 100644
+--- a/include/trace/events/netfs.h
++++ b/include/trace/events/netfs.h
+@@ -15,49 +15,6 @@
  /*
-  * Fallback page reading interface.
+  * Define enums for tracing information.
   */
-diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-index f121c21590dc..ed1c9ed737f2 100644
---- a/fs/fscache/internal.h
-+++ b/fs/fscache/internal.h
-@@ -70,17 +70,6 @@ static inline void fscache_see_cookie(struct fscache_cookie *cookie,
- 			     where);
- }
+-#ifndef __NETFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
+-#define __NETFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
+-
+-enum netfs_read_trace {
+-	netfs_read_trace_expanded,
+-	netfs_read_trace_readahead,
+-	netfs_read_trace_readpage,
+-	netfs_read_trace_write_begin,
+-};
+-
+-enum netfs_rreq_trace {
+-	netfs_rreq_trace_assess,
+-	netfs_rreq_trace_done,
+-	netfs_rreq_trace_free,
+-	netfs_rreq_trace_resubmit,
+-	netfs_rreq_trace_unlock,
+-	netfs_rreq_trace_unmark,
+-	netfs_rreq_trace_write,
+-};
+-
+-enum netfs_sreq_trace {
+-	netfs_sreq_trace_download_instead,
+-	netfs_sreq_trace_free,
+-	netfs_sreq_trace_prepare,
+-	netfs_sreq_trace_resubmit_short,
+-	netfs_sreq_trace_submit,
+-	netfs_sreq_trace_terminated,
+-	netfs_sreq_trace_write,
+-	netfs_sreq_trace_write_skip,
+-	netfs_sreq_trace_write_term,
+-};
+-
+-enum netfs_failure {
+-	netfs_fail_check_write_begin,
+-	netfs_fail_copy_to_cache,
+-	netfs_fail_read,
+-	netfs_fail_short_readpage,
+-	netfs_fail_short_write_begin,
+-	netfs_fail_prepare_write,
+-};
+-
+-#endif
+-
+ #define netfs_read_traces					\
+ 	EM(netfs_read_trace_expanded,		"EXPANDED ")	\
+ 	EM(netfs_read_trace_readahead,		"READAHEAD")	\
+@@ -98,6 +55,20 @@ enum netfs_failure {
+ 	EM(netfs_fail_short_write_begin,	"short-write-begin")	\
+ 	E_(netfs_fail_prepare_write,		"prep-write")
  
--/*
-- * io.c
-- */
--static inline void fscache_end_operation(struct netfs_cache_resources *cres)
--{
--	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
--
--	if (ops)
--		ops->end_operation(cres);
--}
--
- /*
-  * main.c
-  */
-diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
-index cfe901650ab0..39654ca72d3d 100644
---- a/fs/nfs/fscache.c
-+++ b/fs/nfs/fscache.c
-@@ -249,14 +249,6 @@ void nfs_fscache_release_file(struct inode *inode, struct file *filp)
- 	}
- }
- 
--static inline void fscache_end_operation(struct netfs_cache_resources *cres)
--{
--	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
--
--	if (ops)
--		ops->end_operation(cres);
--}
--
- /*
-  * Fallback page reading interface.
-  */
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index 296c5f1d9f35..d2430da8aa67 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -456,6 +456,20 @@ int fscache_begin_read_operation(struct netfs_cache_resources *cres,
- 	return -ENOBUFS;
- }
- 
-+/**
-+ * fscache_end_operation - End the read operation for the netfs lib
-+ * @cres: The cache resources for the read operation
-+ *
-+ * Clean up the resources at the end of the read request.
-+ */
-+static inline void fscache_end_operation(struct netfs_cache_resources *cres)
-+{
-+	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
++#ifndef __NETFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
++#define __NETFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
 +
-+	if (ops)
-+		ops->end_operation(cres);
-+}
++#undef EM
++#undef E_
++#define EM(a, b) a,
++#define E_(a, b) a
 +
- /**
-  * fscache_read - Start a read from the cache.
-  * @cres: The cache resources to use
++enum netfs_read_trace { netfs_read_traces } __mode(byte);
++enum netfs_rreq_trace { netfs_rreq_traces } __mode(byte);
++enum netfs_sreq_trace { netfs_sreq_traces } __mode(byte);
++enum netfs_failure { netfs_failures } __mode(byte);
++
++#endif
+ 
+ /*
+  * Export enum symbols via userspace.
+@@ -258,6 +229,8 @@ TRACE_EVENT(netfs_failure,
+ 		      __entry->error)
+ 	    );
+ 
++#undef EM
++#undef E_
+ #endif /* _TRACE_NETFS_H */
+ 
+ /* This part must be outside protection */
 
 
 --
