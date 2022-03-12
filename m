@@ -2,60 +2,77 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 245224D65AA
-	for <lists+linux-cachefs@lfdr.de>; Fri, 11 Mar 2022 17:02:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647014569;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Qtfr+/L+Jvj6GS7y++Xe4gwE37Azh5FDlyKLNQ8uteA=;
-	b=a5wirqZW50exy8mkY1PRjZBG2bB0o87rWGYez440qKumu4dr+oOW1futVAUdFn+BnNnKJf
-	HrdSIMgVF7blvPuOV5Tw3NB5O3pnMrBhy1fLlEdDoVh4ojKFJBUKCqUa8NjcQhDwqEa7DP
-	hl4Ija6tkOrZ8uNw8ehZFHFLYysHBco=
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FA054D6D81
+	for <lists+linux-cachefs@lfdr.de>; Sat, 12 Mar 2022 09:14:11 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-589-bLZ9zjMDPfil1nSOCZMYOQ-1; Fri, 11 Mar 2022 11:02:46 -0500
-X-MC-Unique: bLZ9zjMDPfil1nSOCZMYOQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-259-EaDH7WogOXO4s5w14meSXQ-1; Sat, 12 Mar 2022 03:14:06 -0500
+X-MC-Unique: EaDH7WogOXO4s5w14meSXQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95FBC2A2AD55;
-	Fri, 11 Mar 2022 16:02:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFB911C068D1;
+	Sat, 12 Mar 2022 08:14:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D2AEE40CFD0A;
-	Fri, 11 Mar 2022 16:02:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 728831457F05;
+	Sat, 12 Mar 2022 08:14:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3E5831940363;
-	Fri, 11 Mar 2022 16:02:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F30A8194036E;
+	Sat, 12 Mar 2022 08:14:03 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BA8661940341 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 11 Mar 2022 16:02:30 +0000 (UTC)
+ ESMTP id 493421940349 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 12 Mar 2022 08:14:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 18AAE866D8; Fri, 11 Mar 2022 16:02:30 +0000 (UTC)
+ id 25CBB463EB3; Sat, 12 Mar 2022 08:14:02 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EB50F866D6;
- Fri, 11 Mar 2022 16:02:18 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: torvalds@linux-foundation.org
-Date: Fri, 11 Mar 2022 16:02:18 +0000
-Message-ID: <164701453798.2588911.12798385110642752783.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/1.4
+Received: from mimecast-mx02.redhat.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 217DF463EBA
+ for <linux-cachefs@redhat.com>; Sat, 12 Mar 2022 08:14:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07865299E764
+ for <linux-cachefs@redhat.com>; Sat, 12 Mar 2022 08:14:02 +0000 (UTC)
+Received: from nautica.notk.org (nautica.notk.org [91.121.71.147]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-641-stS2ukuTMdufmLPpo-NDxg-1; Sat, 12 Mar 2022 03:13:58 -0500
+X-MC-Unique: stS2ukuTMdufmLPpo-NDxg-1
+Received: by nautica.notk.org (Postfix, from userid 108)
+ id 5D0E1C01E; Sat, 12 Mar 2022 09:13:56 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on nautica.notk.org
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=UNPARSEABLE_RELAY
+ autolearn=unavailable version=3.3.2
+Received: from odin.codewreck.org (localhost [127.0.0.1])
+ by nautica.notk.org (Postfix) with ESMTPS id 1ADC3C009;
+ Sat, 12 Mar 2022 09:13:50 +0100 (CET)
+Received: from localhost (odin.codewreck.org [local])
+ by odin.codewreck.org (OpenSMTPD) with ESMTPA id 72c8ef7a;
+ Sat, 12 Mar 2022 08:13:47 +0000 (UTC)
+Date: Sat, 12 Mar 2022 17:13:32 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <YixWLJXyWtD+STvl@codewreck.org>
+References: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Subject: [Linux-cachefs] [PATCH] cachefiles: Fix volume coherency attribute
+In-Reply-To: <164692883658.2099075.5745824552116419504.stgit@warthog.procyon.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Linux-cachefs] [PATCH v3 00/20] netfs: Prep for write helpers
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,154 +84,37 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cifs@vger.kernel.org, rohiths.msft@gmail.com,
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
  Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- Steve French <smfrench@gmail.com>, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org
+ Anna Schumaker <anna.schumaker@netapp.com>, Steve French <sfrench@samba.org>,
+ linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+ v9fs-developer@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+ Ilya Dryomov <idryomov@gmail.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-afs@lists.infradead.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A network filesystem may set coherency data on a volume cookie, and if
-given, cachefiles will store this in an xattr on the directory in the cache
-corresponding to the volume.
+David Howells wrote on Thu, Mar 10, 2022 at 04:13:56PM +0000:
+> The patches can be found on this branch:
+> 
+> 	http://git.kernel.org/cgit/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-next
 
-The function that sets the xattr just stores the contents of the volume
-coherency buffer directly into the xattr, with nothing added; the checking
-function, on the other hand, has a cut'n'paste error whereby it tries to
-interpret the xattr contents as would be the xattr on an ordinary file
-(using the cachefiles_xattr struct).  This results in a failure to match
-the coherency data because the buffer ends up being shifted by 18 bytes.
+Looks good to me from the 9p side:
+Tested-by: Dominique Martinet <asmadeus@codewreck.org> # 9p
 
-Fix this by defining a structure specifically for the volume xattr and
-making both the setting and checking functions use it.
+writes being done by 4k chunk is really slow so will be glad to see this
+finished, keep it up! :)
 
-Since the volume coherency doesn't work if used, take the opportunity to
-insert a reserved field for future use, set it to 0 and check that it is 0.
-Log mismatch through the appropriate tracepoint.
-
-Note that this only affects cifs; 9p, afs, ceph and nfs don't use the
-volume coherency data at the moment.
-
-Fixes: 32e150037dce ("fscache, cachefiles: Store the volume coherency data")
-Reported-by: Rohith Surabattula <rohiths.msft@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-cc: Steve French <smfrench@gmail.com>
-cc: linux-cifs@vger.kernel.org
-cc: linux-cachefs@redhat.com
----
-
- fs/cachefiles/xattr.c             |   23 ++++++++++++++++++++---
- include/trace/events/cachefiles.h |    2 ++
- 2 files changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
-index 83f41bd0c3a9..35465109d9c4 100644
---- a/fs/cachefiles/xattr.c
-+++ b/fs/cachefiles/xattr.c
-@@ -28,6 +28,11 @@ struct cachefiles_xattr {
- static const char cachefiles_xattr_cache[] =
- 	XATTR_USER_PREFIX "CacheFiles.cache";
- 
-+struct cachefiles_vol_xattr {
-+	__be32	reserved;	/* Reserved, should be 0 */
-+	__u8	data[];		/* netfs volume coherency data */
-+} __packed;
-+
- /*
-  * set the state xattr on a cache file
-  */
-@@ -185,6 +190,7 @@ void cachefiles_prepare_to_write(struct fscache_cookie *cookie)
-  */
- bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
- {
-+	struct cachefiles_vol_xattr *buf;
- 	unsigned int len = volume->vcookie->coherency_len;
- 	const void *p = volume->vcookie->coherency;
- 	struct dentry *dentry = volume->dentry;
-@@ -192,10 +198,17 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
- 
- 	_enter("%x,#%d", volume->vcookie->debug_id, len);
- 
-+	len += sizeof(*buf);
-+	buf = kmalloc(len, GFP_KERNEL);
-+	if (!buf)
-+		return false;
-+	buf->reserved = cpu_to_be32(0);
-+	memcpy(buf->data, p, len);
-+
- 	ret = cachefiles_inject_write_error();
- 	if (ret == 0)
- 		ret = vfs_setxattr(&init_user_ns, dentry, cachefiles_xattr_cache,
--				   p, len, 0);
-+				   buf, len, 0);
- 	if (ret < 0) {
- 		trace_cachefiles_vfs_error(NULL, d_inode(dentry), ret,
- 					   cachefiles_trace_setxattr_error);
-@@ -209,6 +222,7 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
- 					       cachefiles_coherency_vol_set_ok);
- 	}
- 
-+	kfree(buf);
- 	_leave(" = %d", ret);
- 	return ret == 0;
- }
-@@ -218,7 +232,7 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
-  */
- int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
- {
--	struct cachefiles_xattr *buf;
-+	struct cachefiles_vol_xattr *buf;
- 	struct dentry *dentry = volume->dentry;
- 	unsigned int len = volume->vcookie->coherency_len;
- 	const void *p = volume->vcookie->coherency;
-@@ -228,6 +242,7 @@ int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
- 
- 	_enter("");
- 
-+	len += sizeof(*buf);
- 	buf = kmalloc(len, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
-@@ -245,7 +260,9 @@ int cachefiles_check_volume_xattr(struct cachefiles_volume *volume)
- 					"Failed to read xattr with error %zd", xlen);
- 		}
- 		why = cachefiles_coherency_vol_check_xattr;
--	} else if (memcmp(buf->data, p, len) != 0) {
-+	} else if (buf->reserved != cpu_to_be32(0)) {
-+		why = cachefiles_coherency_vol_check_resv;
-+	} else if (memcmp(buf->data, p, len - sizeof(*buf)) != 0) {
- 		why = cachefiles_coherency_vol_check_cmp;
- 	} else {
- 		why = cachefiles_coherency_vol_check_ok;
-diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
-index 002d0ae4f9bc..311c14a20e70 100644
---- a/include/trace/events/cachefiles.h
-+++ b/include/trace/events/cachefiles.h
-@@ -56,6 +56,7 @@ enum cachefiles_coherency_trace {
- 	cachefiles_coherency_set_ok,
- 	cachefiles_coherency_vol_check_cmp,
- 	cachefiles_coherency_vol_check_ok,
-+	cachefiles_coherency_vol_check_resv,
- 	cachefiles_coherency_vol_check_xattr,
- 	cachefiles_coherency_vol_set_fail,
- 	cachefiles_coherency_vol_set_ok,
-@@ -139,6 +140,7 @@ enum cachefiles_error_trace {
- 	EM(cachefiles_coherency_set_ok,		"SET ok  ")		\
- 	EM(cachefiles_coherency_vol_check_cmp,	"VOL BAD cmp ")		\
- 	EM(cachefiles_coherency_vol_check_ok,	"VOL OK      ")		\
-+	EM(cachefiles_coherency_vol_check_resv,	"VOL BAD resv")	\
- 	EM(cachefiles_coherency_vol_check_xattr,"VOL BAD xatt")		\
- 	EM(cachefiles_coherency_vol_set_fail,	"VOL SET fail")		\
- 	E_(cachefiles_coherency_vol_set_ok,	"VOL SET ok  ")
-
+-- 
+Dominique
 
 --
 Linux-cachefs mailing list
