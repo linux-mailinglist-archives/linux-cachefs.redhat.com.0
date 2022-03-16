@@ -2,61 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919174DB106
-	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:18:09 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id B3BFB4DB11A
+	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:18:36 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-442-Y_BgGO_oOdqfX5RUhsG2Hw-1; Wed, 16 Mar 2022 09:18:05 -0400
-X-MC-Unique: Y_BgGO_oOdqfX5RUhsG2Hw-1
+ us-mta-634-BdzbXPshPICTW2J0HMEnPg-1; Wed, 16 Mar 2022 09:18:32 -0400
+X-MC-Unique: BdzbXPshPICTW2J0HMEnPg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAADC899ECD;
-	Wed, 16 Mar 2022 13:18:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0D53381AA06;
+	Wed, 16 Mar 2022 13:18:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BF8351400E73;
-	Wed, 16 Mar 2022 13:18:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 94ED51427AE6;
+	Wed, 16 Mar 2022 13:18:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D65F1940355;
-	Wed, 16 Mar 2022 13:18:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ED984193F514;
+	Wed, 16 Mar 2022 13:18:30 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DFCE31949761 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 16 Mar 2022 13:17:39 +0000 (UTC)
+ ESMTP id 068A01949761 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 16 Mar 2022 13:17:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D0E09434840; Wed, 16 Mar 2022 13:17:39 +0000 (UTC)
+ id DBA01400E43D; Wed, 16 Mar 2022 13:17:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CCC31434842
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D6D0E4010A05
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB7FD85A5BC
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:39 +0000 (UTC)
-Received: from out30-133.freemail.mail.aliyun.com
- (out30-133.freemail.mail.aliyun.com [115.124.30.133]) by relay.mimecast.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE68A1044561
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:40 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-651-KdkeWPysMQ-lkO7egd-b1g-1; Wed, 16 Mar 2022 09:17:37 -0400
-X-MC-Unique: KdkeWPysMQ-lkO7egd-b1g-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7NDH9x_1647436651
+ us-mta-414-qbvwQ0IuMY2A5WF1ikYgew-1; Wed, 16 Mar 2022 09:17:38 -0400
+X-MC-Unique: qbvwQ0IuMY2A5WF1ikYgew-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R511e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7N1EXY_1647436652
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V7NDH9x_1647436651) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 16 Mar 2022 21:17:32 +0800
+ fp:SMTPD_---0V7N1EXY_1647436652) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 16 Mar 2022 21:17:33 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed, 16 Mar 2022 21:17:06 +0800
-Message-Id: <20220316131723.111553-6-jefflexu@linux.alibaba.com>
+Date: Wed, 16 Mar 2022 21:17:07 +0800
+Message-Id: <20220316131723.111553-7-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 References: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -67,9 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Linux-cachefs] [PATCH v5 05/22] cachefiles: notify user daemon
- when withdrawing cookie
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Linux-cachefs] [PATCH v5 06/22] cachefiles: implement on-demand
+ read
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,128 +95,221 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Notify user daemon that cookie is going to be withdrawed, providing a
-hint that the associated anon_fd can be closed. The anon_fd attached in
-the CLOSE request shall be same with that in the previous OPEN request.
+Implement the data plane of on-demand read mode.
 
-Be noted that this is only a hint. User daemon can close the anon_fd
-when receiving the CLOSE request, then it will receive another anon_fd
-if the cookie gets looked up. Or it can also ignore the CLOSE request,
-and keep writing data into the anon_fd. However the next time cookie
-gets looked up, the user daemon will still receive another anon_fd.
+A new NETFS_READ_HOLE_ONDEMAND flag is introduced to indicate that
+on-demand read should be done when a cache miss encountered. In this
+case, the read routine will send a READ request to user daemon, along
+with the anonymous fd and the file range that shall be read. Now user
+daemon is responsible for fetching data in the given file range, and
+then writing the fetched data into cache file with the given anonymous
+fd.
+
+After sending the READ request, the read routine will hang there, until
+the READ request is handled by user daemon. Then it will retry to read
+from the same file range. If a cache miss is encountered again on the
+same file range, the read routine will fail then.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/daemon.c          | 27 +++++++++++++++++++++++++++
- fs/cachefiles/interface.c       |  2 ++
- fs/cachefiles/internal.h        |  4 ++++
- include/uapi/linux/cachefiles.h |  5 +++++
- 4 files changed, 38 insertions(+)
+ fs/cachefiles/daemon.c          | 65 +++++++++++++++++++++++++++++++++
+ fs/cachefiles/internal.h        |  9 +++++
+ fs/cachefiles/io.c              | 11 ++++++
+ include/linux/netfs.h           |  1 +
+ include/uapi/linux/cachefiles.h |  7 ++++
+ 5 files changed, 93 insertions(+)
 
 diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 3c3a461f8cd8..2ecfdf194206 100644
+index 2ecfdf194206..29af8943f270 100644
 --- a/fs/cachefiles/daemon.c
 +++ b/fs/cachefiles/daemon.c
-@@ -338,6 +338,12 @@ static ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
- 		goto err_put_fd;
- 	}
+@@ -47,6 +47,7 @@ static int cachefiles_daemon_bind(struct cachefiles_cache *, char *);
+ static void cachefiles_daemon_unbind(struct cachefiles_cache *);
+ #ifdef CONFIG_CACHEFILES_ONDEMAND
+ static int cachefiles_ondemand_cinit(struct cachefiles_cache *, char *);
++static int cachefiles_ondemand_cread(struct cachefiles_cache *, char *);
+ #endif
  
-+	/* CLOSE request doesn't look forward a reply */
-+	if (msg->opcode == CACHEFILES_OP_CLOSE) {
-+		xa_erase(&cache->reqs, id);
-+		complete(&req->done);
+ static unsigned long cachefiles_open;
+@@ -82,6 +83,7 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
+ 	{ "tag",	cachefiles_daemon_tag		},
+ #ifdef CONFIG_CACHEFILES_ONDEMAND
+ 	{ "cinit",	cachefiles_ondemand_cinit	},
++	{ "cread",	cachefiles_ondemand_cread	},
+ #endif
+ 	{ "",		NULL				}
+ };
+@@ -264,6 +266,36 @@ static int cachefiles_ondemand_cinit(struct cachefiles_cache *cache, char *args)
+ 	return ret;
+ }
+ 
++/*
++ * Read request completion
++ * - command: "cread <id>"
++ */
++static int cachefiles_ondemand_cread(struct cachefiles_cache *cache, char *args)
++{
++	struct cachefiles_req *req;
++	unsigned long id;
++	int ret;
++
++	if (!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags))
++		return -EOPNOTSUPP;
++
++	if (!*args) {
++		pr_err("Empty id specified\n");
++		return -EINVAL;
 +	}
 +
- 	return n;
- 
- err_put_fd:
-@@ -452,6 +458,19 @@ static int init_open_req(struct cachefiles_req *req, void *private)
++	ret = kstrtoul(args, 0, &id);
++	if (ret)
++		return ret;
++
++	req = xa_erase(&cache->reqs, id);
++	if (!req)
++		return -EINVAL;
++
++	complete(&req->done);
++	return 0;
++}
++
+ static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
+ {
+ 	struct cachefiles_object *object;
+@@ -471,6 +503,28 @@ static int init_close_req(struct cachefiles_req *req, void *private)
  	return 0;
  }
  
-+static int init_close_req(struct cachefiles_req *req, void *private)
++struct cachefiles_read_ctx {
++	loff_t off;
++	size_t len;
++};
++
++static int init_read_req(struct cachefiles_req *req, void *private)
 +{
 +	struct cachefiles_object *object = req->object;
-+	struct cachefiles_close *load = (void *)req->msg.data;
++	struct cachefiles_read *load = (void *)&req->msg.data;
++	struct cachefiles_read_ctx *read_ctx = private;
 +	int fd = object->fd;
 +
++	/* Stop enqueuig request when daemon closes anon_fd prematurely. */
 +	if (WARN_ON_ONCE(fd == -1))
 +		return -EIO;
 +
-+	load->fd = fd;
++	load->off = read_ctx->off;
++	load->len = read_ctx->len;
++	load->fd  = fd;
 +	return 0;
 +}
 +
  int cachefiles_ondemand_init_object(struct cachefiles_object *object)
  {
  	struct fscache_cookie *cookie = object->cookie;
-@@ -477,6 +496,14 @@ int cachefiles_ondemand_init_object(struct cachefiles_object *object)
- 					    init_open_req, NULL);
+@@ -504,6 +558,17 @@ void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object)
+ 				     init_close_req, NULL);
  }
  
-+void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object)
++int cachefiles_ondemand_read(struct cachefiles_object *object,
++			     loff_t pos, size_t len)
 +{
-+	cachefiles_ondemand_send_req(object,
-+				     CACHEFILES_OP_CLOSE,
-+				     sizeof(struct cachefiles_close),
-+				     init_close_req, NULL);
++	struct cachefiles_read_ctx read_ctx = {pos, len};
++
++	return cachefiles_ondemand_send_req(object,
++					    CACHEFILES_OP_READ,
++					    sizeof(struct cachefiles_read),
++					    init_read_req, &read_ctx);
 +}
 +
  #else
  static inline void cachefiles_ondemand_open(struct cachefiles_cache *cache) {}
  static inline void cachefiles_ondemand_release(struct cachefiles_cache *cache) {}
-diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
-index ae93cee9d25d..c5b8fefd4ccc 100644
---- a/fs/cachefiles/interface.c
-+++ b/fs/cachefiles/interface.c
-@@ -322,6 +322,8 @@ static void cachefiles_commit_object(struct cachefiles_object *object,
- static void cachefiles_clean_up_object(struct cachefiles_object *object,
- 				       struct cachefiles_cache *cache)
- {
-+	cachefiles_ondemand_cleanup_object(object);
-+
- 	if (test_bit(FSCACHE_COOKIE_RETIRED, &object->cookie->flags)) {
- 		if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
- 			cachefiles_see_object(object, cachefiles_obj_see_clean_delete);
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 8450ebd77949..eaac9fae74eb 100644
+index eaac9fae74eb..770b37e23bcc 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -167,6 +167,7 @@ extern const struct file_operations cachefiles_daemon_fops;
- 
+@@ -168,6 +168,8 @@ extern const struct file_operations cachefiles_daemon_fops;
  #ifdef CONFIG_CACHEFILES_ONDEMAND
  extern int cachefiles_ondemand_init_object(struct cachefiles_object *object);
-+extern void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object);
+ extern void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object);
++extern int cachefiles_ondemand_read(struct cachefiles_object *object,
++				    loff_t pos, size_t len);
  
  #else
  static inline
-@@ -174,6 +175,9 @@ int cachefiles_ondemand_init_object(struct cachefiles_object *object)
- {
- 	return 0;
- }
+@@ -178,6 +180,13 @@ int cachefiles_ondemand_init_object(struct cachefiles_object *object)
+ 
+ static inline
+ void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object) {}
 +
 +static inline
-+void cachefiles_ondemand_cleanup_object(struct cachefiles_object *object) {}
++int cachefiles_ondemand_read(struct cachefiles_object *object,
++			     loff_t pos, size_t len)
++{
++	return -EOPNOTSUPP;
++}
  #endif
  
  /*
-diff --git a/include/uapi/linux/cachefiles.h b/include/uapi/linux/cachefiles.h
-index 5ea7285863f1..47e53043cfad 100644
---- a/include/uapi/linux/cachefiles.h
-+++ b/include/uapi/linux/cachefiles.h
-@@ -8,6 +8,7 @@
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index 8dbc1eb254a3..ee1283ba7a2c 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -95,6 +95,7 @@ static int cachefiles_read(struct netfs_cache_resources *cres,
+ 	       file, file_inode(file)->i_ino, start_pos, len,
+ 	       i_size_read(file_inode(file)));
  
- enum cachefiles_opcode {
- 	CACHEFILES_OP_OPEN,
-+	CACHEFILES_OP_CLOSE,
++retry:
+ 	/* If the caller asked us to seek for data before doing the read, then
+ 	 * we should do that now.  If we find a gap, we fill it with zeros.
+ 	 */
+@@ -119,6 +120,16 @@ static int cachefiles_read(struct netfs_cache_resources *cres,
+ 			if (read_hole == NETFS_READ_HOLE_FAIL)
+ 				goto presubmission_error;
+ 
++			if (read_hole == NETFS_READ_HOLE_ONDEMAND) {
++				if (!cachefiles_ondemand_read(object, off, len)) {
++					/* fail the read if no progress achieved */
++					read_hole = NETFS_READ_HOLE_FAIL;
++					goto retry;
++				}
++
++				goto presubmission_error;
++			}
++
+ 			iov_iter_zero(len, iter);
+ 			skipped = len;
+ 			ret = 0;
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 614f22213e21..2a9c50d3a928 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -203,6 +203,7 @@ enum netfs_read_from_hole {
+ 	NETFS_READ_HOLE_IGNORE,
+ 	NETFS_READ_HOLE_CLEAR,
+ 	NETFS_READ_HOLE_FAIL,
++	NETFS_READ_HOLE_ONDEMAND,
  };
  
  /*
-@@ -36,4 +37,8 @@ enum cachefiles_open_flags {
- 	CACHEFILES_OPEN_WANT_CACHE_SIZE,
+diff --git a/include/uapi/linux/cachefiles.h b/include/uapi/linux/cachefiles.h
+index 47e53043cfad..48a0dbac9a92 100644
+--- a/include/uapi/linux/cachefiles.h
++++ b/include/uapi/linux/cachefiles.h
+@@ -9,6 +9,7 @@
+ enum cachefiles_opcode {
+ 	CACHEFILES_OP_OPEN,
+ 	CACHEFILES_OP_CLOSE,
++	CACHEFILES_OP_READ,
  };
  
-+struct cachefiles_close {
+ /*
+@@ -41,4 +42,10 @@ struct cachefiles_close {
+ 	__u32 fd;
+ };
+ 
++struct cachefiles_read {
++	__u64 off;
++	__u64 len;
 +	__u32 fd;
 +};
 +
