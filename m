@@ -1,61 +1,62 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDAD94DB0FA
-	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:18:02 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6004DB0F2
+	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:17:54 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-59-Eb7rQS5QNiiPWhawx2gobw-1; Wed, 16 Mar 2022 09:17:58 -0400
-X-MC-Unique: Eb7rQS5QNiiPWhawx2gobw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-166-6rASCUFlMk2m032eRhDo2A-1; Wed, 16 Mar 2022 09:17:50 -0400
+X-MC-Unique: 6rASCUFlMk2m032eRhDo2A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18EF93C23FA0;
-	Wed, 16 Mar 2022 13:17:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D6CB185A7BA;
+	Wed, 16 Mar 2022 13:17:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D183434840;
-	Wed, 16 Mar 2022 13:17:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DB44E200C0CF;
+	Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CD8581940347;
-	Wed, 16 Mar 2022 13:17:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9B09C1940346;
+	Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 200931949761 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 16 Mar 2022 13:17:42 +0000 (UTC)
+ ESMTP id DBD1C19451ED for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 16 Mar 2022 13:17:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0169D40CFD10; Wed, 16 Mar 2022 13:17:42 +0000 (UTC)
+ id BC2A9434844; Wed, 16 Mar 2022 13:17:46 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F15FD400E54B
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B8636434842
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA7F81C04B46
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:41 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A06A829DD9A3
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:46 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-628-BBUpfCwKP1qU0t5V-Xynww-1; Wed, 16 Mar 2022 09:17:39 -0400
-X-MC-Unique: BBUpfCwKP1qU0t5V-Xynww-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R341e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7NDHAL_1647436654
+ us-mta-513-3PchXp7vMraK-3DxEVi4Ew-1; Wed, 16 Mar 2022 09:17:42 -0400
+X-MC-Unique: 3PchXp7vMraK-3DxEVi4Ew-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R411e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7Mu9.1_1647436655
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V7NDHAL_1647436654) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 16 Mar 2022 21:17:35 +0800
+ fp:SMTPD_---0V7Mu9.1_1647436655) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 16 Mar 2022 21:17:36 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed, 16 Mar 2022 21:17:08 +0800
-Message-Id: <20220316131723.111553-8-jefflexu@linux.alibaba.com>
+Date: Wed, 16 Mar 2022 21:17:09 +0800
+Message-Id: <20220316131723.111553-9-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 References: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +67,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Linux-cachefs] [PATCH v5 07/22] cachefiles: document on-demand
- read mode
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [Linux-cachefs] [PATCH v5 08/22] erofs: use meta buffers for
+ erofs_read_superblock()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,7 +88,7 @@ Cc: gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com, willy@infradead.org,
  gerry@linux.alibaba.com, torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,204 +96,55 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Document new user interface introduced by on-demand read mode.
+The only change is that, meta buffers read cache page without __GFP_FS
+flag, which shall not matter.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 ---
- .../filesystems/caching/cachefiles.rst        | 176 ++++++++++++++++++
- 1 file changed, 176 insertions(+)
+ fs/erofs/super.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/filesystems/caching/cachefiles.rst b/Documentation/filesystems/caching/cachefiles.rst
-index 8bf396b76359..c8286c901eae 100644
---- a/Documentation/filesystems/caching/cachefiles.rst
-+++ b/Documentation/filesystems/caching/cachefiles.rst
-@@ -28,6 +28,8 @@ Cache on Already Mounted Filesystem
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index 915eefe0d7e2..12755217631f 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -281,21 +281,19 @@ static int erofs_init_devices(struct super_block *sb,
+ static int erofs_read_superblock(struct super_block *sb)
+ {
+ 	struct erofs_sb_info *sbi;
+-	struct page *page;
++	struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
+ 	struct erofs_super_block *dsb;
+ 	unsigned int blkszbits;
+ 	void *data;
+ 	int ret;
  
-  (*) Debugging.
+-	page = read_mapping_page(sb->s_bdev->bd_inode->i_mapping, 0, NULL);
+-	if (IS_ERR(page)) {
++	data = erofs_read_metabuf(&buf, sb, 0, EROFS_KMAP);
++	if (IS_ERR(data)) {
+ 		erofs_err(sb, "cannot read erofs superblock");
+-		return PTR_ERR(page);
++		return PTR_ERR(data);
+ 	}
  
-+ (*) On-demand Read.
-+
+ 	sbi = EROFS_SB(sb);
+-
+-	data = kmap(page);
+ 	dsb = (struct erofs_super_block *)(data + EROFS_SUPER_OFFSET);
  
+ 	ret = -EINVAL;
+@@ -365,8 +363,7 @@ static int erofs_read_superblock(struct super_block *sb)
+ 	if (erofs_sb_has_ztailpacking(sbi))
+ 		erofs_info(sb, "EXPERIMENTAL compressed inline data feature in use. Use at your own risk!");
+ out:
+-	kunmap(page);
+-	put_page(page);
++	erofs_put_metabuf(&buf);
+ 	return ret;
+ }
  
- Overview
-@@ -482,3 +484,177 @@ the control file.  For example::
- 	echo $((1|4|8)) >/sys/module/cachefiles/parameters/debug
- 
- will turn on all function entry debugging.
-+
-+
-+On-demand Read
-+==============
-+
-+When working in original mode, cachefiles mainly serves as a local cache for
-+remote networking fs, while in on-demand read mode, cachefiles can boost the
-+scenario where on-demand read semantics is needed, e.g. container image
-+distribution.
-+
-+The essential difference between these two modes is that, in original mode,
-+when cache miss, netfs itself will fetch data from remote, and then write the
-+fetched data into cache file. While in on-demand read mode, a user daemon is
-+responsible for fetching data and then writing to the cache file.
-+
-+``CONFIG_CACHEFILES_ONDEMAND`` shall be enabled to support on-demand read mode.
-+
-+
-+Protocol Communication
-+----------------------
-+
-+The on-demand read mode relies on a simple protocol used for communication
-+between kernel and user daemon. The model is like::
-+
-+	kernel --[request]--> user daemon --[reply]--> kernel
-+
-+The cachefiles kernel module will send requests to user daemon when needed.
-+User daemon needs to poll on the devnode ('/dev/cachefiles') to check if
-+there's pending request to be processed. A POLLIN event will be returned
-+when there's pending request.
-+
-+Then user daemon needs to read the devnode to fetch one request and process it
-+accordingly. It is worth nothing that each read only gets one request. When
-+finished processing the request, user dameon needs to write the reply to the
-+devnode.
-+
-+Each request is started with a message header like::
-+
-+	struct cachefiles_msg {
-+		__u32 id;
-+		__u32 opcode;
-+		__u32 len;
-+		__u8  data[];
-+	};
-+
-+	* ``id`` identifies the position of this request in an internal xarray
-+	  managing all pending requests.
-+
-+	* ``opcode`` identifies the type of this request.
-+
-+	* ``data`` identifies the payload of this request.
-+
-+	* ``len`` identifies the whole length of this request, including the
-+	  header and following type specific payload.
-+
-+
-+Turn on On-demand Mode
-+----------------------
-+
-+An optional parameter is added to "bind" command::
-+
-+	bind [ondemand]
-+
-+When "bind" command takes without argument, it defaults to the original mode.
-+When "bind" command takes with "ondemand" argument, i.e. "bind ondemand",
-+on-demand read mode will be enabled.
-+
-+
-+OPEN Request
-+------------
-+
-+When netfs opens a cache file for the first time, a request with
-+CACHEFILES_OP_OPEN opcode, a.k.a OPEN request will be sent to user daemon. The
-+payload format is like::
-+
-+	struct cachefiles_open {
-+		__u32 volume_key_len;
-+		__u32 cookie_key_len;
-+		__u32 fd;
-+		__u32 flags;
-+		__u8  data[];
-+	};
-+
-+	* ``data`` contains volume_key and cookie_key in sequence.
-+
-+	* ``volume_key_len`` identifies the length of the volume key of the
-+	  cache file, in bytes. volume_key is of string format, with a suffix
-+	  '\0'.
-+
-+	* ``cookie_key_len`` identifies the length of the cookie key of the
-+	  cache file, in bytes. The format of cookie_key is netfs specific. It
-+	  can be of binary format.
-+
-+	* ``fd`` identifies the anonymous fd of the cache file, with which user
-+	  daemon can perform write/llseek file operations on the cache file.
-+
-+
-+OPEN request contains (volume_key, cookie_key, anon_fd) triple for corresponding
-+cache file. With this triple, user daemon could fetch and write data into the
-+cache file in the background, even when kernel has not triggered the cache miss
-+yet. User daemon is able to distinguish the requested cache file with the given
-+(volume_key, cookie_key), and write the fetched data into cache file with the
-+given anon_fd.
-+
-+After recording the (volume_key, cookie_key, anon_fd) triple, user daemon shall
-+reply with "cinit" (complete init) command::
-+
-+	cinit <id>
-+
-+	* ``id`` is exactly the id field of the previous OPEN request.
-+
-+
-+Besides, CACHEFILES_OPEN_WANT_CACHE_SIZE flag may be set in flags field of
-+OPEN request. This flag is used in the scenario where one cache file can contain
-+multiple netfs files for the purpose of deduplication, e.g. In this case, netfs
-+itself has no idea the cache file size, whilst user daemon needs to offer the
-+hint on the cache file size.
-+
-+Thus when receiving an OPEN request with CACHEFILES_OPEN_WANT_CACHE_SIZE flag
-+set, user daemon must reply with the cache file size::
-+
-+	cinit <id>,<cache_size>
-+
-+	* ``id`` is exactly the id field of the previous OPEN request.
-+
-+	* ``cache_size`` identifies the size of the cache file.
-+
-+
-+CLOSE Request
-+-------------
-+When cookie withdrawed, a request with CACHEFILES_OP_CLOSE opcode, a.k.a CLOSE
-+request, will be sent to user daemon. It will notify user daemon to close the
-+attached anon_fd. The payload format is like::
-+
-+	struct cachefiles_close {
-+		__u32 fd;
-+	};
-+
-+	* ``fd`` identifies the anon_fd to be closed, which is exactly the same
-+	  with that in OPEN request.
-+
-+
-+READ Request
-+------------
-+
-+When on-demand read mode is turned on, and cache miss encountered, kernel will
-+send a request with CACHEFILES_OP_READ opcode, a.k.a READ request, to user
-+daemon. It will notify user daemon to fetch data in the requested file range.
-+The payload format is like::
-+
-+	struct cachefiles_read {
-+		__u64 off;
-+		__u64 len;
-+		__u32 fd;
-+	};
-+
-+	* ``off`` identifies the starting offset of the requested file range.
-+
-+	* ``len`` identifies the length of the requested file range.
-+
-+	* ``fd`` identifies the anonymous fd of the requested cache file. It is
-+	  guaranteed that it shall be the same with the fd field in the previous
-+	  OPEN request.
-+
-+When receiving one READ request, user daemon needs to fetch data of the
-+requested file range, and then write the fetched data into cache file with the
-+given anonymous fd.
-+
-+When finished processing the READ request, user daemon needs to reply with
-+"cread" (complete read) command::
-+
-+	cread <id>
-+
-+	* ``id`` is exactly the id field of the previous READ request.
 -- 
 2.27.0
 
