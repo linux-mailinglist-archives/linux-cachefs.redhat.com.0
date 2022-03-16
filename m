@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA894DB0F3
-	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:17:54 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 217D14DB102
+	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 14:18:06 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-16-Y9nX4aZ6O6-MdEMMZ0O5ww-1; Wed, 16 Mar 2022 09:17:50 -0400
-X-MC-Unique: Y9nX4aZ6O6-MdEMMZ0O5ww-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-643-X_ZsO20AOaOznV6eq7Wvag-1; Wed, 16 Mar 2022 09:18:03 -0400
+X-MC-Unique: X_ZsO20AOaOznV6eq7Wvag-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BF88811E76;
-	Wed, 16 Mar 2022 13:17:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 630A5106655B;
+	Wed, 16 Mar 2022 13:18:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8094D202A447;
-	Wed, 16 Mar 2022 13:17:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 575F1C44AE3;
+	Wed, 16 Mar 2022 13:18:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E3451940348;
-	Wed, 16 Mar 2022 13:17:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1518319451ED;
+	Wed, 16 Mar 2022 13:18:02 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8B69F19451ED for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
+ ESMTP id 7A5FB19451ED for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 16 Mar 2022 13:18:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6F192400E54B; Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
+ id 4D57E200D8F6; Wed, 16 Mar 2022 13:18:00 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A59340CFD10
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51ECA801585
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:48 +0000 (UTC)
-Received: from out199-11.us.a.mail.aliyun.com
- (out199-11.us.a.mail.aliyun.com [47.90.199.11]) by relay.mimecast.com with
- ESMTP with STARTTLS (version=TLSv1.2,
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 47C48200E1ED
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7122802809
+ for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 13:17:51 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-295-OWwOA-0-PtKFi8WhggGnIQ-1; Wed, 16 Mar 2022 09:17:45 -0400
-X-MC-Unique: OWwOA-0-PtKFi8WhggGnIQ-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R741e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7N1EYr_1647436660
+ us-mta-184-4gel7urKO7uszjq3UXIIYQ-1; Wed, 16 Mar 2022 09:17:47 -0400
+X-MC-Unique: 4gel7urKO7uszjq3UXIIYQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=16; SR=0; TI=SMTPD_---0V7MlTAu_1647436661
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V7N1EYr_1647436660) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 16 Mar 2022 21:17:41 +0800
+ fp:SMTPD_---0V7MlTAu_1647436661) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 16 Mar 2022 21:17:42 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed, 16 Mar 2022 21:17:12 +0800
-Message-Id: <20220316131723.111553-12-jefflexu@linux.alibaba.com>
+Date: Wed, 16 Mar 2022 21:17:13 +0800
+Message-Id: <20220316131723.111553-13-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 References: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [Linux-cachefs] [PATCH v5 11/22] erofs: register global fscache
- volume
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [Linux-cachefs] [PATCH v5 12/22] erofs: add cookie context helper
+ functions
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,7 +87,7 @@ Cc: gregkh@linuxfoundation.org, tao.peng@linux.alibaba.com, willy@infradead.org,
  gerry@linux.alibaba.com, torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,128 +95,134 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-All erofs instances will share one global fscache volume.
+Introduce 'struct erofs_cookie_ctx' for managing cookie for backing
+file, and the following introduced API for reading from backing file.
 
-In this using scenario, one erofs instance could be mounted from one (or
-multiple) blob files instead of blkdev. The number of blob files that
-each erofs instance could correspond to is limited, since these blob
-files are quite large in size. For example, when used for container
-image distribution, one erofs instance used for container image for
-node.js will correspond to ~20 blob files in total. Thus in densely
-employed environment, there could be as many as hundreds of containers
-and thus thousands of fscache cookies under one fscache volume.
+Besides, introduce two helper functions for initializing and cleaning
+up erofs_cookie_ctx.
 
-Then as for cachefiles backend, the hash table managing all cookies
-under one volume contains 32K slots. Thus the hashing functionality shall
-scale well in this case. Besides, cachefiles backend will scatter
-backing files under 256 fan sub-directoris, and thus the scalability of
-looking up backing files shall also not be an issue.
+struct erofs_cookie_ctx *
+erofs_fscache_get_ctx(struct super_block *sb, char *path);
+
+void erofs_fscache_put_ctx(struct erofs_cookie_ctx *ctx);
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/erofs/Makefile   |  3 ++-
- fs/erofs/fscache.c  | 21 +++++++++++++++++++++
- fs/erofs/internal.h |  5 +++++
- fs/erofs/super.c    |  7 +++++++
- 4 files changed, 35 insertions(+), 1 deletion(-)
- create mode 100644 fs/erofs/fscache.c
+ fs/erofs/fscache.c  | 74 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/erofs/internal.h |  8 +++++
+ 2 files changed, 82 insertions(+)
 
-diff --git a/fs/erofs/Makefile b/fs/erofs/Makefile
-index 8a3317e38e5a..21999e8a4728 100644
---- a/fs/erofs/Makefile
-+++ b/fs/erofs/Makefile
-@@ -1,7 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
- obj-$(CONFIG_EROFS_FS) += erofs.o
--erofs-objs := super.o inode.o data.o namei.o dir.o utils.o pcpubuf.o sysfs.o
-+erofs-objs := super.o inode.o data.o namei.o dir.o utils.o pcpubuf.o sysfs.o \
-+	      fscache.o
- erofs-$(CONFIG_EROFS_FS_XATTR) += xattr.o
- erofs-$(CONFIG_EROFS_FS_ZIP) += decompressor.o zmap.o zdata.o
- erofs-$(CONFIG_EROFS_FS_ZIP_LZMA) += decompressor_lzma.o
 diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-new file mode 100644
-index 000000000000..9c32f42e1056
---- /dev/null
+index 9c32f42e1056..28ec7c69744a 100644
+--- a/fs/erofs/fscache.c
 +++ b/fs/erofs/fscache.c
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021, Alibaba Cloud
-+ */
-+#include "internal.h"
-+
-+static struct fscache_volume *volume;
-+
-+int __init erofs_init_fscache(void)
+@@ -6,6 +6,80 @@
+ 
+ static struct fscache_volume *volume;
+ 
++static int erofs_fscache_init_cookie(struct erofs_fscache_context *ctx,
++				     char *path)
 +{
-+	volume = fscache_acquire_volume("erofs", NULL, NULL, 0);
-+	if (!volume)
++	struct fscache_cookie *cookie;
++
++	cookie = fscache_acquire_cookie(volume, FSCACHE_ADV_WANT_CACHE_SIZE,
++					path, strlen(path),
++					NULL, 0, 0);
++	if (!cookie)
 +		return -EINVAL;
++
++	fscache_use_cookie(cookie, false);
++	ctx->cookie = cookie;
++	return 0;
++}
++
++static inline
++void erofs_fscache_cleanup_cookie(struct erofs_fscache_context *ctx)
++{
++	struct fscache_cookie *cookie = ctx->cookie;
++
++	fscache_unuse_cookie(cookie, NULL, NULL);
++	fscache_relinquish_cookie(cookie, false);
++	ctx->cookie = NULL;
++}
++
++static int erofs_fscache_init_ctx(struct erofs_fscache_context *ctx,
++				  struct super_block *sb, char *path)
++{
++	int ret;
++
++	ret = erofs_fscache_init_cookie(ctx, path);
++	if (ret) {
++		erofs_err(sb, "failed to init cookie");
++		return ret;
++	}
 +
 +	return 0;
 +}
 +
-+void erofs_exit_fscache(void)
++static inline
++void erofs_fscache_cleanup_ctx(struct erofs_fscache_context *ctx)
 +{
-+	fscache_relinquish_volume(volume, NULL, false);
++	erofs_fscache_cleanup_cookie(ctx);
 +}
++
++struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
++						char *path)
++{
++	struct erofs_fscache_context *ctx;
++	int ret;
++
++	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return ERR_PTR(-ENOMEM);
++
++	ret = erofs_fscache_init_ctx(ctx, sb, path);
++	if (ret) {
++		kfree(ctx);
++		return ERR_PTR(ret);
++	}
++
++	return ctx;
++}
++
++void erofs_fscache_put_ctx(struct erofs_fscache_context *ctx)
++{
++	if (!ctx)
++		return;
++
++	erofs_fscache_cleanup_ctx(ctx);
++	kfree(ctx);
++}
++
+ int __init erofs_init_fscache(void)
+ {
+ 	volume = fscache_acquire_volume("erofs", NULL, NULL, 0);
 diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-index f66af9ebda43..51fe5c2a419d 100644
+index 51fe5c2a419d..123a8dfc179b 100644
 --- a/fs/erofs/internal.h
 +++ b/fs/erofs/internal.h
-@@ -17,6 +17,7 @@
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
- #include <linux/iomap.h>
-+#include <linux/fscache.h>
- #include "erofs_fs.h"
+@@ -97,6 +97,10 @@ struct erofs_sb_lz4_info {
+ 	u16 max_pclusterblks;
+ };
  
- /* redefine pr_fmt "erofs: " */
-@@ -616,6 +617,10 @@ static inline int z_erofs_load_lzma_config(struct super_block *sb,
- }
- #endif	/* !CONFIG_EROFS_FS_ZIP */
++struct erofs_fscache_context {
++	struct fscache_cookie *cookie;
++};
++
+ struct erofs_sb_info {
+ 	struct erofs_mount_opts opt;	/* options */
+ #ifdef CONFIG_EROFS_FS_ZIP
+@@ -621,6 +625,10 @@ static inline int z_erofs_load_lzma_config(struct super_block *sb,
+ int erofs_init_fscache(void);
+ void erofs_exit_fscache(void);
  
-+/* fscache.c */
-+int erofs_init_fscache(void);
-+void erofs_exit_fscache(void);
++struct erofs_fscache_context *erofs_fscache_get_ctx(struct super_block *sb,
++						char *path);
++void erofs_fscache_put_ctx(struct erofs_fscache_context *ctx);
 +
  #define EFSCORRUPTED    EUCLEAN         /* Filesystem is corrupted */
  
  #endif	/* __EROFS_INTERNAL_H */
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index 12755217631f..798f0c379e35 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -814,6 +814,10 @@ static int __init erofs_module_init(void)
- 	if (err)
- 		goto sysfs_err;
- 
-+	err = erofs_init_fscache();
-+	if (err)
-+		goto fscache_err;
-+
- 	err = register_filesystem(&erofs_fs_type);
- 	if (err)
- 		goto fs_err;
-@@ -821,6 +825,8 @@ static int __init erofs_module_init(void)
- 	return 0;
- 
- fs_err:
-+	erofs_exit_fscache();
-+fscache_err:
- 	erofs_exit_sysfs();
- sysfs_err:
- 	z_erofs_exit_zip_subsystem();
-@@ -841,6 +847,7 @@ static void __exit erofs_module_exit(void)
- 	/* Ensure all RCU free inodes / pclusters are safe to be destroyed. */
- 	rcu_barrier();
- 
-+	erofs_exit_fscache();
- 	erofs_exit_sysfs();
- 	z_erofs_exit_zip_subsystem();
- 	z_erofs_lzma_exit();
 -- 
 2.27.0
 
