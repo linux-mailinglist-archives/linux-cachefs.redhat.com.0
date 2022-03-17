@@ -2,67 +2,66 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23EC84DBA63
-	for <lists+linux-cachefs@lfdr.de>; Wed, 16 Mar 2022 22:52:54 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 1678E4DBCA9
+	for <lists+linux-cachefs@lfdr.de>; Thu, 17 Mar 2022 02:50:03 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-101-H8GdZfkTORmD8D2SM4Xf9g-1; Wed, 16 Mar 2022 17:52:50 -0400
-X-MC-Unique: H8GdZfkTORmD8D2SM4Xf9g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-99-p_dIkgemNWuHLV4iZdZtew-1; Wed, 16 Mar 2022 21:49:58 -0400
+X-MC-Unique: p_dIkgemNWuHLV4iZdZtew-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42A4E3C02B84;
-	Wed, 16 Mar 2022 21:52:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4FF848002BF;
+	Thu, 17 Mar 2022 01:49:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E393111CD4D;
-	Wed, 16 Mar 2022 21:52:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CA57B54F40D;
+	Thu, 17 Mar 2022 01:49:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 107E4194035E;
-	Wed, 16 Mar 2022 21:52:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 979D5194035E;
+	Thu, 17 Mar 2022 01:49:56 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 36DCB1949761 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 16 Mar 2022 21:52:47 +0000 (UTC)
+ ESMTP id 160BE1949761 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 17 Mar 2022 01:49:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 209FC215688A; Wed, 16 Mar 2022 21:52:47 +0000 (UTC)
+ id DD26BC26E8E; Thu, 17 Mar 2022 01:49:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BE382156A5A
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 21:52:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDF0985A5A8
- for <linux-cachefs@redhat.com>; Wed, 16 Mar 2022 21:52:42 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D8D8CC26E85
+ for <linux-cachefs@redhat.com>; Thu, 17 Mar 2022 01:49:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF4FC85A5A8
+ for <linux-cachefs@redhat.com>; Thu, 17 Mar 2022 01:49:55 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-259-ltIz1xGYOaKOoKs4oGGGOw-1; Wed, 16 Mar 2022 17:52:39 -0400
-X-MC-Unique: ltIz1xGYOaKOoKs4oGGGOw-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10288"; a="281507406"
-X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="281507406"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2022 14:52:37 -0700
+ us-mta-649-I4sOp8qcPMmf9CxQn4kv7w-1; Wed, 16 Mar 2022 21:49:46 -0400
+X-MC-Unique: I4sOp8qcPMmf9CxQn4kv7w-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10288"; a="255587515"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="255587515"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2022 18:49:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="646820651"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="581131644"
 Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
- by orsmga004.jf.intel.com with ESMTP; 16 Mar 2022 14:52:33 -0700
+ by orsmga001.jf.intel.com with ESMTP; 16 Mar 2022 18:49:39 -0700
 Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
  (envelope-from <lkp@intel.com>)
- id 1nUbZI-000Cyl-AM; Wed, 16 Mar 2022 21:52:32 +0000
-Date: Thu, 17 Mar 2022 05:52:08 +0800
+ id 1nUfGk-000DAz-Af; Thu, 17 Mar 2022 01:49:38 +0000
+Date: Thu, 17 Mar 2022 09:49:30 +0800
 From: kernel test robot <lkp@intel.com>
 To: Jeffle Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com,
  linux-cachefs@redhat.com, xiang@kernel.org, chao@kernel.org,
  linux-erofs@lists.ozlabs.org
-Message-ID: <202203170512.Se1LRa68-lkp@intel.com>
+Message-ID: <202203170912.gk2sqkaK-lkp@intel.com>
 References: <20220316131723.111553-12-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
 In-Reply-To: <20220316131723.111553-12-jefflexu@linux.alibaba.com>
@@ -74,7 +73,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Subject: Re: [Linux-cachefs] [PATCH v5 11/22] erofs: register global fscache
  volume
 X-BeenThere: linux-cachefs@redhat.com
@@ -88,7 +87,7 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: kbuild-all@lists.01.org, gregkh@linuxfoundation.org, llvm@lists.linux.dev,
+Cc: kbuild-all@lists.01.org, gregkh@linuxfoundation.org,
  tao.peng@linux.alibaba.com, willy@infradead.org, linux-kernel@vger.kernel.org,
  joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
  linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
@@ -96,7 +95,7 @@ Cc: kbuild-all@lists.01.org, gregkh@linuxfoundation.org, llvm@lists.linux.dev,
  torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,8 +117,8 @@ https://git-scm.com/docs/git-format-patch]
 
 url:    https://github.com/0day-ci/linux/commits/Jeffle-Xu/fscache-erofs-fscache-based-on-demand-read-semantics/20220316-214711
 base:   git://git.linux-nfs.org/projects/trondmy/linux-nfs.git linux-next
-config: hexagon-randconfig-r041-20220313 (https://download.01.org/0day-ci/archive/20220317/202203170512.Se1LRa68-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project a6ec1e3d798f8eab43fb3a91028c6ab04e115fcb)
+config: parisc-randconfig-m031-20220317 (https://download.01.org/0day-ci/archive/20220317/202203170912.gk2sqkaK-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 11.2.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -129,24 +128,17 @@ reproduce (this is a W=1 build):
         git checkout f52882624bb750e533d0ffa591c3903f08f6d8bb
         # save the config file to linux build tree
         mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=parisc SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
->> ld.lld: error: undefined symbol: __fscache_relinquish_volume
-   >>> referenced by fscache.c
-   >>> erofs/fscache.o:(erofs_exit_fscache) in archive fs/built-in.a
-   >>> referenced by fscache.c
-   >>> erofs/fscache.o:(erofs_exit_fscache) in archive fs/built-in.a
---
->> ld.lld: error: undefined symbol: __fscache_acquire_volume
-   >>> referenced by fscache.c
-   >>> erofs/fscache.o:(erofs_init_fscache) in archive fs/built-in.a
-   >>> referenced by fscache.c
-   >>> erofs/fscache.o:(erofs_init_fscache) in archive fs/built-in.a
+   hppa-linux-ld: fs/erofs/fscache.o: in function `erofs_exit_fscache':
+>> (.text+0x18): undefined reference to `__fscache_relinquish_volume'
+   hppa-linux-ld: fs/erofs/fscache.o: in function `erofs_init_fscache':
+>> (.init.text+0x18): undefined reference to `__fscache_acquire_volume'
 
 ---
 0-DAY CI Kernel Test Service
