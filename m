@@ -1,83 +1,63 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09EB94DE7F0
-	for <lists+linux-cachefs@lfdr.de>; Sat, 19 Mar 2022 13:46:07 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A55E14E190B
+	for <lists+linux-cachefs@lfdr.de>; Sun, 20 Mar 2022 00:47:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1647733677;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=v27XU7Jy10uiZsEDM2HmGDRxzLEuYjMGwiN1pffk7Z0=;
+	b=BFfc2aCAD/eTEKokHhoOhzvqVqVJJzaETiupW0zi5kWWQEZ2ffzTotPtR7F2x8f7NHlw54
+	v3HrodIX8EzkTs6UYNSr352DyCm8EfzHGvOnHi412wEvJdjiqMj62vhxnucISCQIEuGS3+
+	Ka8vFqvNdwKWg7SVUponw4hExLHs5lM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-211-fz7twbWjMB-1whRAkn5pnw-1; Sat, 19 Mar 2022 08:46:04 -0400
-X-MC-Unique: fz7twbWjMB-1whRAkn5pnw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-594-i9pCbx0GNqKqONwlK5duVg-1; Sat, 19 Mar 2022 19:47:54 -0400
+X-MC-Unique: i9pCbx0GNqKqONwlK5duVg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E4333C01DAA;
-	Sat, 19 Mar 2022 12:46:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B91298001EA;
+	Sat, 19 Mar 2022 23:47:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7DFB94292D7;
-	Sat, 19 Mar 2022 12:46:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C36921427B16;
+	Sat, 19 Mar 2022 23:47:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 11BE01940373;
-	Sat, 19 Mar 2022 12:46:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 54A6E1953557;
+	Sat, 19 Mar 2022 23:47:49 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E3A21940341 for <linux-cachefs@listman.corp.redhat.com>;
- Sat, 19 Mar 2022 12:45:59 +0000 (UTC)
+ ESMTP id 5E2A01953549 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 19 Mar 2022 23:47:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5A5EB2166B26; Sat, 19 Mar 2022 12:45:59 +0000 (UTC)
+ id 2A08640CF8F6; Sat, 19 Mar 2022 23:47:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 55F2F2166B25
- for <linux-cachefs@redhat.com>; Sat, 19 Mar 2022 12:45:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5311801585
- for <linux-cachefs@redhat.com>; Sat, 19 Mar 2022 12:45:55 +0000 (UTC)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-464-ajgSEvGcNXio0WN5v0cbzg-1; Sat, 19 Mar 2022 08:45:54 -0400
-X-MC-Unique: ajgSEvGcNXio0WN5v0cbzg-1
-Received: by mail-vk1-f170.google.com with SMTP id d7so5759815vkd.11;
- Sat, 19 Mar 2022 05:45:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TOMGYmaATQC2z13UyvSGmscWZ1Ke2cRO2FHb2Uve4+c=;
- b=JfJhyVx12zvomd/AulHx+VlyG5B2gbFFkrz1pe1FdXeGsLw+NRlskC5Q0qzVahku2c
- BMULLWBuIhMQryzuSTU3j7QEfFg3liJmSWwhGawpn3YkBQV1CNg7Vg3WlthKyjGkNOsV
- VhdhOXBmIZNIVqtwrRyurz4vm3645x8N27pBaZSQG3/uYztRm1+yK4Lz9KkIIXt3T9xc
- QDqIx39FYxnmwmZFj/4n23NQGKCICgnQGCXQWLoj9ABmGqcwUbfdXNCYgkyA2mpAJX46
- 5jf1EzIvLl9TPt88elZWusiDUQP/xBguo22+AlUQaVo/Ssb1stJGvgxNboWza3FVOedu
- 2Omg==
-X-Gm-Message-State: AOAM530uxs0EOFcNN1WJMeJTPSrvlt8AMi5Qi0GDyHrcQHuMy61PBV92
- rrtNN5z6ZamNizznb/YMjdHsIwvIyNpzR2WcC5bIa1FESXE=
-X-Google-Smtp-Source: ABdhPJxjG9+XKDL2nuKi2W+QM9BrUWAJzSd68nq9Al1JVaNMnKFacS0NNJmC0amrXWYex35MjoU0mITjbMjNi5r5L3E=
-X-Received: by 2002:a05:6122:8c8:b0:32a:7010:c581 with SMTP id
- 8-20020a05612208c800b0032a7010c581mr5241750vkg.32.1647693953310; Sat, 19 Mar
- 2022 05:45:53 -0700 (PDT)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7E10C40CF8F2;
+ Sat, 19 Mar 2022 23:47:45 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CAOi1vP_sEj7i8YbbwJibbSG=BCVp4E9BAo=JF0aC79xBNC8wcA@mail.gmail.com>
+References: <CAOi1vP_sEj7i8YbbwJibbSG=BCVp4E9BAo=JF0aC79xBNC8wcA@mail.gmail.com>
+ <751829.1647648125@warthog.procyon.org.uk>
+To: Ilya Dryomov <idryomov@gmail.com>
 MIME-Version: 1.0
-References: <751829.1647648125@warthog.procyon.org.uk>
-In-Reply-To: <751829.1647648125@warthog.procyon.org.uk>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Sat, 19 Mar 2022 13:46:25 +0100
-Message-ID: <CAOi1vP_sEj7i8YbbwJibbSG=BCVp4E9BAo=JF0aC79xBNC8wcA@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Date: Sat, 19 Mar 2022 23:47:44 +0000
+Message-ID: <824348.1647733664@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Subject: Re: [Linux-cachefs] Coordinating netfslib pull request with the
  ceph pull request
 X-BeenThere: linux-cachefs@redhat.com
@@ -99,37 +79,25 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-afs@lists.infradead.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <824347.1647733664.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Mar 19, 2022 at 1:02 AM David Howells <dhowells@redhat.com> wrote:
->
-> Hi Ilya,
->
-> Since my fscache-next branch[1] is dependent on patches in the ceph/master
-> branch, I think I need to coordinate my netfslib pull request with your ceph
-> pull request for the upcoming merge window.
->
-> David
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-next
->
+Ilya Dryomov <idryomov@gmail.com> wrote:
 
-Hi David,
+> Given how your branch is structured, it sounds like the easiest would
+> be for you to send the netfslib pull request after I send the ceph pull
+> request.  Or do you have some tighter coordination in mind?
 
-Given how your branch is structured, it sounds like the easiest would
-be for you to send the netfslib pull request after I send the ceph pull
-request.  Or do you have some tighter coordination in mind?
+I think that's sufficient - or if I sent mine first, I can put in a big note
+at the top saying it depends on yours, when you decide to post it.
 
-Thanks,
-
-                Ilya
-
+David
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
