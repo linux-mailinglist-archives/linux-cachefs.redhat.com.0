@@ -2,71 +2,67 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992A74E2C03
-	for <lists+linux-cachefs@lfdr.de>; Mon, 21 Mar 2022 16:21:22 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 594754E2C4B
+	for <lists+linux-cachefs@lfdr.de>; Mon, 21 Mar 2022 16:31:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1647876660;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=7iRM9RU3E5XqU/siG6EYnCVd1PTmN2/VS6hJv9M9BRk=;
+	b=OdHAP1z0wXvmoq4rN/gFRRjwhP6T8al07Rnw/KTpCDeX4K80Dr/PjrvJ0BeE9b7eRgd+bR
+	oGGFAYMFoeAiEh+Sf9+USaFAb8hCOWrkH9Xh17nFs7Wri8OqwWC0Bw0U4w8A0yw3W8KutW
+	1OEdPBiHDdvjsekPevMqAmpXPvkwB6c=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-387-7kNGiqx3O2yKh384WOVPoQ-1; Mon, 21 Mar 2022 11:21:18 -0400
-X-MC-Unique: 7kNGiqx3O2yKh384WOVPoQ-1
+ us-mta-465-_OBPD8TYODu5qAmwyNHp-Q-1; Mon, 21 Mar 2022 11:30:57 -0400
+X-MC-Unique: _OBPD8TYODu5qAmwyNHp-Q-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07A701C05AFC;
-	Mon, 21 Mar 2022 15:21:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7AE3E85A5BE;
+	Mon, 21 Mar 2022 15:30:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F13CD40CF8FA;
-	Mon, 21 Mar 2022 15:21:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2AD7540CF8FA;
+	Mon, 21 Mar 2022 15:30:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AB34F1947BBE;
-	Mon, 21 Mar 2022 15:21:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DAF641947BBF;
+	Mon, 21 Mar 2022 15:30:55 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0F62F19451ED for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 21 Mar 2022 15:21:17 +0000 (UTC)
+ ESMTP id 8DF8319451ED for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 21 Mar 2022 15:30:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F2268140265C; Mon, 21 Mar 2022 15:21:16 +0000 (UTC)
+ id 41842400E11D; Mon, 21 Mar 2022 15:30:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EE6D91402642
- for <linux-cachefs@redhat.com>; Mon, 21 Mar 2022 15:21:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D485D3C174C4
- for <linux-cachefs@redhat.com>; Mon, 21 Mar 2022 15:21:16 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-57-eYv0-4vqMEiEElqhFURRhg-1; Mon, 21 Mar 2022 11:21:15 -0400
-X-MC-Unique: eYv0-4vqMEiEElqhFURRhg-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nWJqI-00Ah2w-Dv; Mon, 21 Mar 2022 15:21:10 +0000
-Date: Mon, 21 Mar 2022 15:21:10 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <YjiX5oXYkmN6WrA3@casper.infradead.org>
-References: <20220316131723.111553-1-jefflexu@linux.alibaba.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 27A1A40C1241;
+ Mon, 21 Mar 2022 15:30:53 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <YjiX5oXYkmN6WrA3@casper.infradead.org>
+References: <YjiX5oXYkmN6WrA3@casper.infradead.org>
+ <20220316131723.111553-1-jefflexu@linux.alibaba.com>
  <20220316131723.111553-4-jefflexu@linux.alibaba.com>
  <YjiAVezd5B9auhcP@casper.infradead.org>
  <6bc551d2-15fc-5d17-c99b-8db588c6b671@linux.alibaba.com>
  <YjiLACenpRV4XTcs@casper.infradead.org>
  <adb957da-8909-06d8-1b2c-b8a293b37930@linux.alibaba.com>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <adb957da-8909-06d8-1b2c-b8a293b37930@linux.alibaba.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Date: Mon, 21 Mar 2022 15:30:52 +0000
+Message-ID: <1035025.1647876652@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Subject: Re: [Linux-cachefs] [PATCH v5 03/22] cachefiles: introduce
  on-demand read mode
 X-BeenThere: linux-cachefs@redhat.com
@@ -80,12 +76,12 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-erofs@lists.ozlabs.org, chao@kernel.org, tao.peng@linux.alibaba.com,
- linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
- linux-cachefs@redhat.com, bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
- linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
- xiang@kernel.org, gerry@linux.alibaba.com, torvalds@linux-foundation.org,
- eguan@linux.alibaba.com
+Cc: joseph.qi@linux.alibaba.com, torvalds@linux-foundation.org, chao@kernel.org,
+ tao.peng@linux.alibaba.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+ bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+ luodaowen.backend@bytedance.com, xiang@kernel.org, gerry@linux.alibaba.com,
+ linux-erofs@lists.ozlabs.org, eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
@@ -93,43 +89,19 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <1035024.1647876652.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 21, 2022 at 11:18:05PM +0800, JeffleXu wrote:
-> >> Besides, IMHO read-write lock shall be more performance friendly, since
-> >> most cases are the read side.
-> > 
-> > That's almost never true.  rwlocks are usually a bad idea because you
-> > still have to bounce the cacheline, so you replace lock contention
-> > (which you can see) with cacheline contention (which is harder to
-> > measure).  And then you have questions about reader/writer fairness
-> > (should new readers queue behind a writer if there's one waiting, or
-> > should a steady stream of readers be able to hold a writer off
-> > indefinitely?)
-> 
-> Interesting, I didn't notice it before. Thanks for explaining it.
+Matthew Wilcox <willy@infradead.org> wrote:
 
-No problem.  It's hard to notice.
+> Absolutely; just use xa_lock() to protect both setting & testing the
+> flag.
 
-> BTW what I want is just
-> 
-> ```
-> PROCESS 1		PROCESS 2
-> =========		=========
-> #lock			#lock
-> set DEAD state		if (not DEAD)
-> flush xarray		   enqueue into xarray
-> #unlock			#unlock
-> ```
-> 
-> I think it is a generic paradigm. So it seems that the spinlock inside
-> xarray is already adequate for this job?
+How should Jeffle deal with xarray dropping the lock internally in order to do
+an allocation and then taking it again (actually in patch 5)?
 
-Absolutely; just use xa_lock() to protect both setting & testing the
-flag.
-
+David
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
