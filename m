@@ -1,74 +1,72 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86DDE4E7484
-	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Mar 2022 14:52:02 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C89D44E7AB8
+	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Mar 2022 21:53:05 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-283-PuZUjcICMke1At2nFyZ9qQ-1; Fri, 25 Mar 2022 09:51:58 -0400
-X-MC-Unique: PuZUjcICMke1At2nFyZ9qQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-610-gIzTH_ZuPqK8dFvKlhOooA-1; Fri, 25 Mar 2022 16:53:01 -0400
+X-MC-Unique: gIzTH_ZuPqK8dFvKlhOooA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A953E899EC1;
-	Fri, 25 Mar 2022 13:51:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C680B9219A0;
+	Fri, 25 Mar 2022 20:52:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 65085403D17D;
-	Fri, 25 Mar 2022 13:51:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3CD0A5EE6B9;
+	Fri, 25 Mar 2022 20:52:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 91E551940352;
-	Fri, 25 Mar 2022 13:51:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 520B81940352;
+	Fri, 25 Mar 2022 20:52:51 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 872951940341 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 25 Mar 2022 13:51:50 +0000 (UTC)
+ ESMTP id E563F1940341 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 25 Mar 2022 20:52:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D40B340146E; Fri, 25 Mar 2022 13:51:50 +0000 (UTC)
+ id 21BEB5EE6B2; Fri, 25 Mar 2022 20:52:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D0242401E91
- for <linux-cachefs@redhat.com>; Fri, 25 Mar 2022 13:51:50 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D8405ED83F
+ for <linux-cachefs@redhat.com>; Fri, 25 Mar 2022 20:52:50 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7C7F18A6582
- for <linux-cachefs@redhat.com>; Fri, 25 Mar 2022 13:51:50 +0000 (UTC)
-Received: from out199-8.us.a.mail.aliyun.com (out199-8.us.a.mail.aliyun.com
- [47.90.199.8]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-576-Y749eZ-SNcGJG5FIgejOYg-1; Fri, 25 Mar 2022 09:51:48 -0400
-X-MC-Unique: Y749eZ-SNcGJG5FIgejOYg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R501e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=hsiangkao@linux.alibaba.com;
- NM=1; PH=DS; RN=19; SR=0; TI=SMTPD_---0V8A2H-n_1648215995
-Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
- fp:SMTPD_---0V8A2H-n_1648215995) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 25 Mar 2022 21:46:37 +0800
-Date: Fri, 25 Mar 2022 21:46:35 +0800
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>
-Message-ID: <Yj3HuzncvkkwWBvD@B-P7TQMD6M-0146.local>
-Mail-Followup-To: Jeffle Xu <jefflexu@linux.alibaba.com>,
- dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
- chao@kernel.org, linux-erofs@lists.ozlabs.org,
- gregkh@linuxfoundation.org, fannaihao@baidu.com,
- tao.peng@linux.alibaba.com, willy@infradead.org,
- linux-kernel@vger.kernel.org, tianzichen@kuaishou.com,
- joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
- linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
- eguan@linux.alibaba.com, gerry@linux.alibaba.com,
- torvalds@linux-foundation.org
-References: <20220325122223.102958-1-jefflexu@linux.alibaba.com>
- <20220325122223.102958-14-jefflexu@linux.alibaba.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC0551C05ADD
+ for <linux-cachefs@redhat.com>; Fri, 25 Mar 2022 20:52:39 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-624-bau5kfPsMqGEPbpzmYtZjg-1; Fri, 25 Mar 2022 16:52:30 -0400
+X-MC-Unique: bau5kfPsMqGEPbpzmYtZjg-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="238653261"
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="238653261"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2022 13:52:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="826145419"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by fmsmga005.fm.intel.com with ESMTP; 25 Mar 2022 13:52:24 -0700
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nXqv2-000Mad-9K; Fri, 25 Mar 2022 20:52:24 +0000
+Date: Sat, 26 Mar 2022 04:52:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com,
+ linux-cachefs@redhat.com, xiang@kernel.org, chao@kernel.org,
+ linux-erofs@lists.ozlabs.org
+Message-ID: <202203260406.Ay5o7T9U-lkp@intel.com>
+References: <20220325122223.102958-4-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <20220325122223.102958-14-jefflexu@linux.alibaba.com>
+In-Reply-To: <20220325122223.102958-4-jefflexu@linux.alibaba.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [Linux-cachefs] [PATCH v6 13/22] erofs: add anonymous inode
- managing page cache of blob file
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: Re: [Linux-cachefs] [PATCH v6 03/22] cachefiles: notify user daemon
+ with anon_fd when looking up cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,16 +88,15 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: tianzichen@kuaishou.com, gregkh@linuxfoundation.org, chao@kernel.org,
- fannaihao@baidu.com, tao.peng@linux.alibaba.com, willy@infradead.org,
- linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
- linux-cachefs@redhat.com, bo.liu@linux.alibaba.com,
- torvalds@linux-foundation.org, linux-fsdevel@vger.kernel.org,
- luodaowen.backend@bytedance.com, xiang@kernel.org, gerry@linux.alibaba.com,
- linux-erofs@lists.ozlabs.org, eguan@linux.alibaba.com
+Cc: kbuild-all@lists.01.org, gregkh@linuxfoundation.org, fannaihao@baidu.com,
+ tao.peng@linux.alibaba.com, willy@infradead.org, linux-kernel@vger.kernel.org,
+ tianzichen@kuaishou.com, joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
+ linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
+ eguan@linux.alibaba.com, gerry@linux.alibaba.com,
+ torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,90 +105,59 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 25, 2022 at 08:22:14PM +0800, Jeffle Xu wrote:
-> Introduce one anonymous inode for managing page cache of corresponding
-> blob file. Then erofs could read directly from the address space of the
-> anonymous inode when cache hit.
-> 
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-> ---
->  fs/erofs/fscache.c  | 41 ++++++++++++++++++++++++++++++++++++++++-
->  fs/erofs/internal.h |  7 +++++--
->  2 files changed, 45 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-> index 73235fd43bf6..30383d9adb62 100644
-> --- a/fs/erofs/fscache.c
-> +++ b/fs/erofs/fscache.c
-> @@ -7,6 +7,9 @@
->  
->  static struct fscache_volume *volume;
->  
-> +static const struct address_space_operations erofs_fscache_blob_aops = {
-> +};
-> +
->  static int erofs_fscache_init_cookie(struct erofs_fscache *ctx, char *path)
->  {
->  	struct fscache_cookie *cookie;
-> @@ -31,6 +34,29 @@ static inline void erofs_fscache_cleanup_cookie(struct erofs_fscache *ctx)
->  	ctx->cookie = NULL;
->  }
->  
-> +static int erofs_fscache_get_inode(struct erofs_fscache *ctx,
-> +				   struct super_block *sb)
+Hi Jeffle,
 
-I think it can be folded as well.
+Thank you for the patch! Yet something to improve:
 
-> +{
-> +	struct inode *const inode = new_inode(sb);
-> +
-> +	if (!inode)
-> +		return -ENOMEM;
-> +
-> +	set_nlink(inode, 1);
-> +	inode->i_size = OFFSET_MAX;
-> +	inode->i_mapping->a_ops = &erofs_fscache_blob_aops;
-> +	mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
-> +
-> +	ctx->inode = inode;
-> +	return 0;
-> +}
-> +
-> +static inline void erofs_fscache_put_inode(struct erofs_fscache *ctx)
+[auto build test ERROR on trondmy-nfs/linux-next]
+[also build test ERROR on rostedt-trace/for-next linus/master v5.17]
+[cannot apply to xiang-erofs/dev-test dhowells-fs/fscache-next next-20220325]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-Ditto.
+url:    https://github.com/0day-ci/linux/commits/Jeffle-Xu/fscache-erofs-fscache-based-on-demand-read-semantics/20220325-203555
+base:   git://git.linux-nfs.org/projects/trondmy/linux-nfs.git linux-next
+config: csky-defconfig (https://download.01.org/0day-ci/archive/20220326/202203260406.Ay5o7T9U-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/ec8aa2f84eb47244377e4b822dd77d82ee54714a
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Jeffle-Xu/fscache-erofs-fscache-based-on-demand-read-semantics/20220325-203555
+        git checkout ec8aa2f84eb47244377e4b822dd77d82ee54714a
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=csky SHELL=/bin/bash
 
-> +{
-> +	iput(ctx->inode);
-> +	ctx->inode = NULL;
-> +}
-> +
->  /*
->   * erofs_fscache_get - create an fscache context for blob file
->   * @sb:		superblock
-> @@ -38,7 +64,8 @@ static inline void erofs_fscache_cleanup_cookie(struct erofs_fscache *ctx)
->   *
->   * Return: fscache context on success, ERR_PTR() on failure.
->   */
-> -struct erofs_fscache *erofs_fscache_get(struct super_block *sb, char *path)
-> +struct erofs_fscache *erofs_fscache_get(struct super_block *sb, char *path,
-> +					bool need_inode)
->  {
->  	struct erofs_fscache *ctx;
->  	int ret;
-> @@ -53,7 +80,18 @@ struct erofs_fscache *erofs_fscache_get(struct super_block *sb, char *path)
->  		goto err;
->  	}
->  
-> +	if (need_inode) {
-> +		ret = erofs_fscache_get_inode(ctx, sb);
-> +		if (ret) {
-> +			erofs_err(sb, "failed to get anonymous inode");
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-				       failed to get fscache inode of [path].
+All errors (new ones prefixed by >>):
 
-Thanks,
-Gao Xiang
+   csky-linux-ld: fs/cachefiles/daemon.o: in function `cachefiles_ondemand_daemon_read':
+>> daemon.c:(.text+0x97c): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/interface.o: in function `cachefiles_ondemand_daemon_read':
+   interface.c:(.text+0x1ec): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/io.o: in function `cachefiles_ondemand_daemon_read':
+   io.c:(.text+0x720): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/key.o: in function `cachefiles_ondemand_daemon_read':
+   key.c:(.text+0x0): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/main.o: in function `cachefiles_ondemand_daemon_read':
+   main.c:(.text+0x0): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/namei.o: in function `cachefiles_ondemand_daemon_read':
+   namei.c:(.text+0xf8): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/security.o: in function `cachefiles_ondemand_daemon_read':
+   security.c:(.text+0x24): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/volume.o: in function `cachefiles_ondemand_daemon_read':
+   volume.c:(.text+0x0): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+   csky-linux-ld: fs/cachefiles/xattr.o: in function `cachefiles_ondemand_daemon_read':
+   xattr.c:(.text+0x0): multiple definition of `cachefiles_ondemand_daemon_read'; fs/cachefiles/cache.o:cache.c:(.text+0x18): first defined here
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
 
 --
 Linux-cachefs mailing list
