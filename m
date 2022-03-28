@@ -2,62 +2,74 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B04964E8677
-	for <lists+linux-cachefs@lfdr.de>; Sun, 27 Mar 2022 09:17:28 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C314E8C43
+	for <lists+linux-cachefs@lfdr.de>; Mon, 28 Mar 2022 04:43:21 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-487-kWZvZ-J-NAGyL52uC-SD2A-1; Sun, 27 Mar 2022 03:17:24 -0400
-X-MC-Unique: kWZvZ-J-NAGyL52uC-SD2A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-371-ikPq0Y19NZukwtXIc0jvzA-1; Sun, 27 Mar 2022 22:43:12 -0400
+X-MC-Unique: ikPq0Y19NZukwtXIc0jvzA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D07E4185A794;
-	Sun, 27 Mar 2022 07:17:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C5643803901;
+	Mon, 28 Mar 2022 02:43:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C86512166B25;
-	Sun, 27 Mar 2022 07:17:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C643240149B2;
+	Mon, 28 Mar 2022 02:42:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C365E19451F3;
-	Sun, 27 Mar 2022 07:17:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1600C1947BBD;
+	Mon, 28 Mar 2022 02:42:54 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 58FF619451EF for <linux-cachefs@listman.corp.redhat.com>;
- Sun, 27 Mar 2022 07:17:20 +0000 (UTC)
+ ESMTP id 1F6A019451F1 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 28 Mar 2022 02:42:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E13EF1121320; Sun, 27 Mar 2022 07:17:19 +0000 (UTC)
+ id E1BF61417201; Mon, 28 Mar 2022 02:42:52 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DB1F71121319
- for <linux-cachefs@redhat.com>; Sun, 27 Mar 2022 07:17:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D71AE101AA44
- for <linux-cachefs@redhat.com>; Sun, 27 Mar 2022 07:17:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-145-y0dqypWfOP2_ZOtA7MNr-g-1; Sun, 27 Mar 2022 03:17:09 -0400
-X-MC-Unique: y0dqypWfOP2_ZOtA7MNr-g-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DE24B1410F3B
+ for <linux-cachefs@redhat.com>; Mon, 28 Mar 2022 02:42:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DD66F60F57;
- Sun, 27 Mar 2022 07:11:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EFAC340EC;
- Sun, 27 Mar 2022 07:11:09 +0000 (UTC)
-Date: Sun, 27 Mar 2022 09:11:06 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: kushagra765@outlook.com
-Message-ID: <YkAOCrbbrMaYkiSb@kroah.com>
-References: <TYZPR01MB3935D1963BFD458E85412E4DF81B9@TYZPR01MB3935.apcprd01.prod.exchangelabs.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 015DB3C02B69
+ for <linux-cachefs@redhat.com>; Mon, 28 Mar 2022 02:42:52 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+ (out30-43.freemail.mail.aliyun.com [115.124.30.43]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-665-agx9A29POiCOXbt7m9DFew-1; Sun, 27 Mar 2022 22:42:49 -0400
+X-MC-Unique: agx9A29POiCOXbt7m9DFew-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R281e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=hsiangkao@linux.alibaba.com;
+ NM=1; PH=DS; RN=19; SR=0; TI=SMTPD_---0V8KfwCN_1648435362
+Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0V8KfwCN_1648435362) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 28 Mar 2022 10:42:44 +0800
+Date: Mon, 28 Mar 2022 10:42:42 +0800
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>
+Message-ID: <YkEgoqAKNTf45lJa@B-P7TQMD6M-0146.local>
+Mail-Followup-To: Jeffle Xu <jefflexu@linux.alibaba.com>,
+ dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
+ chao@kernel.org, linux-erofs@lists.ozlabs.org,
+ torvalds@linux-foundation.org, gregkh@linuxfoundation.org,
+ willy@infradead.org, linux-fsdevel@vger.kernel.org,
+ joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
+ tao.peng@linux.alibaba.com, gerry@linux.alibaba.com,
+ eguan@linux.alibaba.com, linux-kernel@vger.kernel.org,
+ luodaowen.backend@bytedance.com, tianzichen@kuaishou.com,
+ fannaihao@baidu.com
+References: <20220325122223.102958-1-jefflexu@linux.alibaba.com>
+ <20220325122223.102958-11-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <TYZPR01MB3935D1963BFD458E85412E4DF81B9@TYZPR01MB3935.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <20220325122223.102958-11-jefflexu@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -65,9 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: Re: [Linux-cachefs] [ PATCH ] Documentation: fixed doc-build
- warnings
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: Re: [Linux-cachefs] [PATCH v6 10/22] erofs: add mode checking helper
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,15 +90,16 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: balbi@kernel.org, linux-usb@vger.kernel.org, daniel@ffwll.ch, arnd@arndb.de,
- corbet@lwn.net, airlied@linux.ie, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- linux-kernel@vger.kernel.org, mripard@kernel.org, mcgrof@kernel.org,
- linux-cachefs@redhat.com, viro@zeniv.linux.org.uk, tzimmermann@suse.de,
- akpm@linux-foundation.org
+Cc: tianzichen@kuaishou.com, linux-erofs@lists.ozlabs.org, chao@kernel.org,
+ fannaihao@baidu.com, tao.peng@linux.alibaba.com, willy@infradead.org,
+ linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
+ linux-cachefs@redhat.com, bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+ linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
+ xiang@kernel.org, gerry@linux.alibaba.com, torvalds@linux-foundation.org,
+ eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,30 +108,52 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Mar 26, 2022 at 05:22:55PM +0530, kushagra765@outlook.com wrote:
-> >From 9a9918b051d5709b5e14ca8afa29f3ef644b8688 Mon Sep 17 00:00:00 2001
-> From: Kushagra Verma <kushagra765@outlook.com>
-> Date: Sat, 26 Mar 2022 16:43:15 +0530
-> Subject: [PATCH] Documentation: fixed doc-build warnings
-
-This should not be in the body of the email, please fix :(
-
+On Fri, Mar 25, 2022 at 08:22:11PM +0800, Jeffle Xu wrote:
+> Until then erofs is exactly blockdev based filesystem. In other using
+> scenarios (e.g. container image), erofs needs to run upon files.
 > 
->    This patch fixes the following (and 2 other) doc-build warnings:
->       1. ./include/linux/dcache.h:308: warning: expecting prototype for dget, dget_dlock(). Prototype was for dget_dlock() instead
+> This patch set is going to introduces a new nodev mode, in which erofs
+> could be mounted from a bootstrap blob file containing complete erofs
+> image.
 > 
->       2. ./include/linux/fscache.h:268: warning: Excess function parameter 'object' description in 'fscache_use_cookie'
+> Add a helper checking which mode erofs works in.
 > 
->       3 ./include/linux/fscache.h:285: warning: Excess function parameter 'object' description in 'fscache_unuse_cookie'
+> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+> ---
+>  fs/erofs/internal.h | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
->       4. ./drivers/gpu/drm/drm_format_helper.c:640: warning: Excess function parameter 'src' description in 'drm_fb_xrgb8888_to_mono_reversed'
+> diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+> index e424293f47a2..1486e2573667 100644
+> --- a/fs/erofs/internal.h
+> +++ b/fs/erofs/internal.h
+> @@ -161,6 +161,11 @@ struct erofs_sb_info {
+>  #define set_opt(opt, option)	((opt)->mount_opt |= EROFS_MOUNT_##option)
+>  #define test_opt(opt, option)	((opt)->mount_opt & EROFS_MOUNT_##option)
+>  
+> +static inline bool erofs_is_nodev_mode(struct super_block *sb)
 
-This needs to be split up into one-patch-per-subsystem and can not be
-taken as-is.
+I've seen a lot of such
 
-thanks,
++		if (IS_ENABLED(CONFIG_EROFS_FS_ONDEMAND) &&
++		    erofs_is_nodev_mode(sb)) {
 
-greg k-h
+usages in the followup patches, which makes me wonder if the configuration
+can be checked in the helper as well. Also maybe rename it as
+erofs_is_fscache_mode()?
+
+Thanks,
+Gao Xiang
+
+> +{
+> +	return !sb->s_bdev;
+> +}
+> +
+>  enum {
+>  	EROFS_ZIP_CACHE_DISABLED,
+>  	EROFS_ZIP_CACHE_READAHEAD,
+> -- 
+> 2.27.0
 
 --
 Linux-cachefs mailing list
