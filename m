@@ -1,86 +1,64 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 417BF4EC84E
-	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Mar 2022 17:32:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 193D84EC8E8
+	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Mar 2022 17:56:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1648655763;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=6rpxvUpovu0+7x3xq++HStBiN5vlpFnDOwRzEzGZIm4=;
+	b=XraNFeW8uTMOPEM9whtolgUv1TiGhaUNpesucOzEg8QnAV/XYRnRbfDbaLy5rLB3F7rWZC
+	T2a/yQfP9dsDYN+dh97+Hclxnb48cYwO0kGUznS6PrzXrWzp89kZJR77UgAynuzVkGVTZJ
+	nruEv6ebimW2hlUlV4SO9MHefG70ESI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-160-PyP3DTjEPMKSTBTdgM86tw-1; Wed, 30 Mar 2022 11:32:31 -0400
-X-MC-Unique: PyP3DTjEPMKSTBTdgM86tw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-373-AAuAWCjNOsO5nPT1-WaGIQ-1; Wed, 30 Mar 2022 11:55:59 -0400
+X-MC-Unique: AAuAWCjNOsO5nPT1-WaGIQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D89286B8A0;
-	Wed, 30 Mar 2022 15:32:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2742480378F;
+	Wed, 30 Mar 2022 15:55:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 56920C202CA;
-	Wed, 30 Mar 2022 15:32:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D73E0401E39;
+	Wed, 30 Mar 2022 15:55:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 167A91947BBD;
-	Wed, 30 Mar 2022 15:32:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9557A1947BBD;
+	Wed, 30 Mar 2022 15:55:58 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5817D19451F3 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 30 Mar 2022 15:32:27 +0000 (UTC)
+ ESMTP id DEBEC19451F3 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 30 Mar 2022 15:55:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4A2DC400E11D; Wed, 30 Mar 2022 15:32:27 +0000 (UTC)
+ id B1F21141DECD; Wed, 30 Mar 2022 15:55:57 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 46316400E10D
- for <linux-cachefs@redhat.com>; Wed, 30 Mar 2022 15:32:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D11A3C1EA44
- for <linux-cachefs@redhat.com>; Wed, 30 Mar 2022 15:32:27 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-517-gapPyFDbOv-NRMHgHtPMUA-1; Wed, 30 Mar 2022 11:32:15 -0400
-X-MC-Unique: gapPyFDbOv-NRMHgHtPMUA-1
-Received: by mail-lf1-f45.google.com with SMTP id m3so36455914lfj.11;
- Wed, 30 Mar 2022 08:32:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FiCY1+1uqLljeJe2aJ3pREcgiva9b8A+RgnrdrSgct4=;
- b=pKwwGWQ39rmNVEQs5sdlGhx0ELdUROj3QdC3binUn/nSqonxaZZtxaA8dDtRYcJqGl
- TKgxF9VpaMPnml/P2zr20Kji8pklwrt8yGFz4/jFDTYRqLEJ6sbO1amp9M6M+rl3BkXz
- hkocUP+nE8zJnQbZ8rn0ZrFWj3DerxbLg9W3PJYLWQQgLil7NixdnacgJSOBy+a0dvVW
- 2WaWIdFO7PLl2KNGFu1m40qQlEHZrz5EWmYZuo5r3FDJ2geXUnSjfWB/dVfzJpw3WnND
- SPVXp5nejbitGnRJT8bPr7/LtQ7WlhJ9MGJy9+5GubO95VVA/L7/CDoaBe74nPEtCn6/
- WvSg==
-X-Gm-Message-State: AOAM531C4YzFmo3KXXlEpHrYRZ0egEnyi/fM7B5KCfOOrrgbPPycwWyb
- tN3XiceYwB+0bMzaNx+eHoEQW/q8zg/8Rl7GljzK964+
-X-Google-Smtp-Source: ABdhPJzHfPvYw9uiaE7XRh3Jvtsou7rAdT2mTkYkE5o8yC8/P9q79ohTZwmaVadlxkBqWHVjzJnpWCcPjKadRFdbSnI=
-X-Received: by 2002:a05:6512:3b89:b0:44a:3ca5:8ae with SMTP id
- g9-20020a0565123b8900b0044a3ca508aemr7168069lfv.62.1648654331802; Wed, 30 Mar
- 2022 08:32:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAAmbk-egCMVm0s8P8y455HF7cWyReC0cjnQEkDuLFeoEqhTRVw@mail.gmail.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3C61E1400C2C;
+ Wed, 30 Mar 2022 15:55:57 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CAAmbk-f4_mft=bLWPuHEzzpCiL4ikgkNvtCAWq_rd3=BQPzMJw@mail.gmail.com>
+References: <CAAmbk-f4_mft=bLWPuHEzzpCiL4ikgkNvtCAWq_rd3=BQPzMJw@mail.gmail.com>
+ <CAAmbk-egCMVm0s8P8y455HF7cWyReC0cjnQEkDuLFeoEqhTRVw@mail.gmail.com>
  <2923709.1648636080@warthog.procyon.org.uk>
-In-Reply-To: <2923709.1648636080@warthog.procyon.org.uk>
-From: Chris Chilvers <chilversc@gmail.com>
-Date: Wed, 30 Mar 2022 16:32:00 +0100
-Message-ID: <CAAmbk-f4_mft=bLWPuHEzzpCiL4ikgkNvtCAWq_rd3=BQPzMJw@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+To: Chris Chilvers <chilversc@gmail.com>
+MIME-Version: 1.0
+Date: Wed, 30 Mar 2022 16:55:56 +0100
+Message-ID: <2997201.1648655756@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Subject: Re: [Linux-cachefs] [BUG] write but no read when using sync mount
  option
 X-BeenThere: linux-cachefs@redhat.com
@@ -97,31 +75,23 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 Cc: linux-cachefs@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <2997200.1648655756.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-File system was ext4 on a separate drive specificlly for fs-cache mounted
-on /var/cache/fscache.
+Chris Chilvers <chilversc@gmail.com> wrote:
 
-On Wed, 30 Mar 2022, 11:28 am David Howells, <dhowells@redhat.com> wrote:
+> File system was ext4 on a separate drive specificlly for fs-cache mounted on
+> /var/cache/fscache.
 
-> Chris Chilvers <chilversc@gmail.com> wrote:
->
-> > While trying the new FS-Cache implementation using the 5.17-rc5 kernel on
-> > Ubuntu 21.10 I ran into an issue where it appears that FS-Cache was not
-> being
-> > used when the sync mount option is enabled.
->
-> What filesystem?
->
-> David
->
->
+I meant which network filesystem.
+
+David
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
