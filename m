@@ -1,90 +1,57 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1964F1015
-	for <lists+linux-cachefs@lfdr.de>; Mon,  4 Apr 2022 09:40:46 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A12C84F350D
+	for <lists+linux-cachefs@lfdr.de>; Tue,  5 Apr 2022 15:46:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1649166414;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=4/MWXmG+1sF9YGn5aczjARSgf1Pv+/bjHanuPd/Ns2o=;
+	b=Z/M05pRnYwtSEluoPXt4JxsNZXOZfFVD/NNOI9XQlyx8t61jRKvjuhViSVdMUaXZla7XKB
+	7oZhpXV8VZa6U7r5h8C+zQPpykrN7Xt0iSwL4in362aJZLREB0a7d7On27paGbpAiHlwyQ
+	juHQboUPLRKSNc6Et1euXhhNWVbFNOw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-345-67WEX-u-MgCC6bR3v-4tlw-1; Mon, 04 Apr 2022 03:40:42 -0400
-X-MC-Unique: 67WEX-u-MgCC6bR3v-4tlw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-318-8aeRfKq-OlWly-sEnq4QRA-1; Tue, 05 Apr 2022 09:46:53 -0400
+X-MC-Unique: 8aeRfKq-OlWly-sEnq4QRA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0CF48117B0;
-	Mon,  4 Apr 2022 07:40:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E62A899EC2;
+	Tue,  5 Apr 2022 13:46:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 096AE40F1C37;
-	Mon,  4 Apr 2022 07:40:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ACEA610BDF;
+	Tue,  5 Apr 2022 13:46:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE5D2194036A;
-	Mon,  4 Apr 2022 07:40:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 52C3D194036B;
+	Tue,  5 Apr 2022 13:46:51 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 553C0194035D for <linux-cachefs@listman.corp.redhat.com>;
- Sat,  2 Apr 2022 09:33:10 +0000 (UTC)
+ ESMTP id 671E61947BBD for <linux-cachefs@listman.corp.redhat.com>;
+ Tue,  5 Apr 2022 13:46:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2E86F558EFF; Sat,  2 Apr 2022 09:33:10 +0000 (UTC)
+ id 5799240D296D; Tue,  5 Apr 2022 13:46:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2ABAC558EF2
- for <linux-cachefs@redhat.com>; Sat,  2 Apr 2022 09:33:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 123991C05AB1
- for <linux-cachefs@redhat.com>; Sat,  2 Apr 2022 09:33:10 +0000 (UTC)
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-JCavNY3wNdGsuKiDHwBGyw-1; Sat, 02 Apr 2022 05:33:08 -0400
-X-MC-Unique: JCavNY3wNdGsuKiDHwBGyw-1
-Received: by mail-pg1-f172.google.com with SMTP id c2so4186924pga.10;
- Sat, 02 Apr 2022 02:33:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=oIRSTzpeogZQegTxy3HsXL8f2cTTP9W4dlr8OKiUWvM=;
- b=3dGiGguj00cVlt4BLyrlGYR1gqp2AobcE4w1GAYCn5lGRR12bm45Yf4uiSNK31i6eT
- 8313Hqw+NyNOUILeMuhAcb26OhabsZfnhF0g5gnws3g6VPaWX2ComHTR5I5uU7OwtdaW
- b0aeH9tkdU8oYPvCHO0Uw8yWQpEqT1433kXn4JIZdJqmiLwvpxQ1xbacSVsXRhyHctrT
- GbIh44UxxH97/a+SxXHO8wE2Ua29GA5EuPAbi1RLeGy1ew7hMnViyXumUZ2mAFcMr93j
- mo/Ls6RjNUqG4D23XdjQx4enqQICj6HhsJ8ZkKhIDCCM8PBg7UQMJi5/c177WGpK1WdE
- vbuA==
-X-Gm-Message-State: AOAM531Q+ZJeJA4e3sdWrBNzeDPQVX+Kp2jQG81VKh0c5aC/8Wm9mCdr
- z9GxJ1ajmWHx5AkxZpfr/LY=
-X-Google-Smtp-Source: ABdhPJwTBN78sVwN2HktnnEhYPi7sExtecHxxHkCS/Jzrfc7VDfZ0PtiiKIkHMUvO3GW0yIF9EAOsg==
-X-Received: by 2002:aa7:8d47:0:b0:4f6:a7f9:1ead with SMTP id
- s7-20020aa78d47000000b004f6a7f91eadmr14749693pfe.42.1648891987038; 
- Sat, 02 Apr 2022 02:33:07 -0700 (PDT)
-Received: from localhost ([103.220.76.197]) by smtp.gmail.com with ESMTPSA id
- f66-20020a62db45000000b004fa8a7b8ad3sm5593956pfg.77.2022.04.02.02.33.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Sat, 02 Apr 2022 02:33:06 -0700 (PDT)
-Date: Sat, 2 Apr 2022 17:32:21 +0800
-From: Yue Hu <zbestahu@gmail.com>
-To: "Yue Hu" <huyue2@coolpad.com>
-Message-ID: <20220402173221.00002170.zbestahu@gmail.com>
-In-Reply-To: <20220402021841.22285-1-huyue2@coolpad.com>
-References: <20220402021841.22285-1-huyue2@coolpad.com>
+Received: from dwysocha.rdu.csb (unknown [10.22.11.34])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 25F154047781;
+ Tue,  5 Apr 2022 13:46:50 +0000 (UTC)
+From: Dave Wysochanski <dwysocha@redhat.com>
+To: dhowells@redhat.com
+Date: Tue,  5 Apr 2022 09:46:49 -0400
+Message-Id: <20220405134649.6579-1-dwysocha@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Mailman-Approved-At: Mon, 04 Apr 2022 07:40:39 +0000
-Subject: Re: [Linux-cachefs] [PATCH] fscache: Expose fscache_end_operation()
- helper
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Linux-cachefs] [PATCH] cachefiles: Fix KASAN slab-out-of-bounds in
+ cachefiles_set_volume_xattr
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,13 +63,11 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: sfrench@samba.org, linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
- zbestahu@163.com, linux-cachefs@redhat.com, anna@kernel.org,
- zhangwen@coolpad.com, trond.myklebust@hammerspace.com
+Cc: smfrench@gmail.com, linux-cachefs@redhat.com, jlayton@kernel.org,
+ linux-cifs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,109 +75,90 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, 02 Apr 2022 10:18:55 +0800
-"Yue Hu" <huyue2@coolpad.com> wrote:
+Use the actual length of volume coherency data when setting the
+xattr to avoid the following KASAN report.
 
-> Currently, nfs and cifs have same fscache_end_operaion() as fscache.
-> We may put the helper in linux/fscache.h so that fscache internal
-> and client filesystem can all use it.
+ BUG: KASAN: slab-out-of-bounds in cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
+ Write of size 4 at addr ffff888101e02af4 by task kworker/6:0/1347
 
-Sorry, please ignore the patch due to my earlier code base.
+ CPU: 6 PID: 1347 Comm: kworker/6:0 Kdump: loaded Not tainted 5.18.0-rc1-nfs-fscache-netfs+ #13
+ Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.14.0-4.fc34 04/01/2014
+ Workqueue: events fscache_create_volume_work [fscache]
+ Call Trace:
+  <TASK>
+  dump_stack_lvl+0x45/0x5a
+  print_report.cold+0x5e/0x5db
+  ? __lock_text_start+0x8/0x8
+  ? cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
+  kasan_report+0xab/0x120
+  ? cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
+  kasan_check_range+0xf5/0x1d0
+  memcpy+0x39/0x60
+  cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
+  cachefiles_acquire_volume+0x2be/0x500 [cachefiles]
+  ? __cachefiles_free_volume+0x90/0x90 [cachefiles]
+  fscache_create_volume_work+0x68/0x160 [fscache]
+  process_one_work+0x3b7/0x6a0
+  worker_thread+0x2c4/0x650
+  ? process_one_work+0x6a0/0x6a0
+  kthread+0x16c/0x1a0
+  ? kthread_complete_and_exit+0x20/0x20
+  ret_from_fork+0x22/0x30
+  </TASK>
 
-Thanks.
+ Allocated by task 1347:
+  kasan_save_stack+0x1e/0x40
+  __kasan_kmalloc+0x81/0xa0
+  cachefiles_set_volume_xattr+0x76/0x350 [cachefiles]
+  cachefiles_acquire_volume+0x2be/0x500 [cachefiles]
+  fscache_create_volume_work+0x68/0x160 [fscache]
+  process_one_work+0x3b7/0x6a0
+  worker_thread+0x2c4/0x650
+  kthread+0x16c/0x1a0
+  ret_from_fork+0x22/0x30
 
-> 
-> Signed-off-by: Yue Hu <huyue2@coolpad.com>
-> ---
->  fs/cifs/fscache.c       |  8 --------
->  fs/fscache/internal.h   | 11 -----------
->  fs/nfs/fscache.c        |  8 --------
->  include/linux/fscache.h | 12 ++++++++++++
->  4 files changed, 12 insertions(+), 27 deletions(-)
-> 
-> diff --git a/fs/cifs/fscache.c b/fs/cifs/fscache.c
-> index 33af72e0ac0c..b47c2011ce5b 100644
-> --- a/fs/cifs/fscache.c
-> +++ b/fs/cifs/fscache.c
-> @@ -134,14 +134,6 @@ void cifs_fscache_release_inode_cookie(struct inode *inode)
->  	}
->  }
->  
-> -static inline void fscache_end_operation(struct netfs_cache_resources *cres)
-> -{
-> -	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
-> -
-> -	if (ops)
-> -		ops->end_operation(cres);
-> -}
-> -
->  /*
->   * Fallback page reading interface.
->   */
-> diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
-> index f121c21590dc..ed1c9ed737f2 100644
-> --- a/fs/fscache/internal.h
-> +++ b/fs/fscache/internal.h
-> @@ -70,17 +70,6 @@ static inline void fscache_see_cookie(struct fscache_cookie *cookie,
->  			     where);
->  }
->  
-> -/*
-> - * io.c
-> - */
-> -static inline void fscache_end_operation(struct netfs_cache_resources *cres)
-> -{
-> -	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
-> -
-> -	if (ops)
-> -		ops->end_operation(cres);
-> -}
-> -
->  /*
->   * main.c
->   */
-> diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
-> index cfe901650ab0..39654ca72d3d 100644
-> --- a/fs/nfs/fscache.c
-> +++ b/fs/nfs/fscache.c
-> @@ -249,14 +249,6 @@ void nfs_fscache_release_file(struct inode *inode, struct file *filp)
->  	}
->  }
->  
-> -static inline void fscache_end_operation(struct netfs_cache_resources *cres)
-> -{
-> -	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
-> -
-> -	if (ops)
-> -		ops->end_operation(cres);
-> -}
-> -
->  /*
->   * Fallback page reading interface.
->   */
-> diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-> index 296c5f1d9f35..79bb40b92e0f 100644
-> --- a/include/linux/fscache.h
-> +++ b/include/linux/fscache.h
-> @@ -557,6 +557,18 @@ int fscache_write(struct netfs_cache_resources *cres,
->  	return ops->write(cres, start_pos, iter, term_func, term_func_priv);
->  }
->  
-> +/*
-> + * Clean up at the end of an operation
-> + */
-> +static inline
-> +void fscache_end_operation(struct netfs_cache_resources *cres)
-> +{
-> +	const struct netfs_cache_ops *ops = fscache_operation_valid(cres);
-> +
-> +	if (ops)
-> +		ops->end_operation(cres);
-> +}
-> +
->  /**
->   * fscache_clear_page_bits - Clear the PG_fscache bits from a set of pages
->   * @cookie: The cookie representing the cache object
+ The buggy address belongs to the object at ffff888101e02af0
+ which belongs to the cache kmalloc-8 of size 8
+ The buggy address is located 4 bytes inside of
+ 8-byte region [ffff888101e02af0, ffff888101e02af8)
+
+ The buggy address belongs to the physical page:
+ page:00000000a2292d70 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x101e02
+ flags: 0x17ffffc0000200(slab|node=0|zone=2|lastcpupid=0x1fffff)
+ raw: 0017ffffc0000200 0000000000000000 dead000000000001 ffff888100042280
+ raw: 0000000000000000 0000000080660066 00000001ffffffff 0000000000000000
+ page dumped because: kasan: bad access detected
+
+ Memory state around the buggy address:
+ ffff888101e02980: fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc
+ ffff888101e02a00: 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc 00
+ >ffff888101e02a80: fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc 04 fc
+                                                            ^
+ ffff888101e02b00: fc fc fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc
+ ffff888101e02b80: fc fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc
+ ==================================================================
+
+Fixes: 413a4a6b0b55 "cachefiles: Fix volume coherency attribute"
+Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
+---
+ fs/cachefiles/xattr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index 35465109d9c4..00b087c14995 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -203,7 +203,7 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
+ 	if (!buf)
+ 		return false;
+ 	buf->reserved = cpu_to_be32(0);
+-	memcpy(buf->data, p, len);
++	memcpy(buf->data, p, volume->vcookie->coherency_len);
+ 
+ 	ret = cachefiles_inject_write_error();
+ 	if (ret == 0)
+-- 
+2.27.1
 
 --
 Linux-cachefs mailing list
