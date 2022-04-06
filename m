@@ -1,57 +1,64 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56EF54F6E2D
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 01:03:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D234F6E2A
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 01:03:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649286189;
+	s=mimecast20190719; t=1649286183;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Mcnnhyjv6rBJNbbBGOLkd4DiMxhguRiB43OKlVRJp7w=;
-	b=hT4V3wMI9S1L49IFax6VucFGEdUAxE1eiyvNKg0meayXKPl7DV1j9lR1FDLGVyHvoYM7Db
-	HwscFlIE8PcQSVSk/RSxDIhNNZYqyNh34ndVT80yqVc6nRMkVO3NtCaiTViuJd71jPZqdZ
-	QFoMMrPWVTyFiwnlevu/BN2ZltCeFGk=
+	bh=xc9xCpzvUMT0/JJCkNdghre1i9vEKb5HKl5GAVTO4Ts=;
+	b=hNZ7ASdoYTXh19xjrwyj2R2U4NH63P2tZdYJCQRppkT4UJ1ZshV2Gsbo8mONim3hZ0vJca
+	vX3T7n5gpaP63Vp8TfQpe7mlHxcvbXMe8VD423ISo4P4nKLtpl8Nkx6kRlFBxDUMjRWc8B
+	RTtUvanhN8FYjus7DQRY0umMpOYHZss=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-642-iVNdW1jMMVS1UMmW2lySuA-1; Wed, 06 Apr 2022 19:03:06 -0400
-X-MC-Unique: iVNdW1jMMVS1UMmW2lySuA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-495-WNK6RrqDPNiZvGqn67Yv7Q-1; Wed, 06 Apr 2022 19:03:02 -0400
+X-MC-Unique: WNK6RrqDPNiZvGqn67Yv7Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62BED1C05B1A;
-	Wed,  6 Apr 2022 23:02:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D229229A9CC9;
+	Wed,  6 Apr 2022 23:03:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 61EB0C28109;
-	Wed,  6 Apr 2022 23:02:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B201340CFD01;
+	Wed,  6 Apr 2022 23:02:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8C3191940372;
-	Wed,  6 Apr 2022 23:02:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AB377194036B;
+	Wed,  6 Apr 2022 23:02:55 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CCE39194034B for <linux-cachefs@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 23:02:40 +0000 (UTC)
+ ESMTP id C124A1949763 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 23:02:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9594C2024CAE; Wed,  6 Apr 2022 23:02:40 +0000 (UTC)
+ id 8C238145BA43; Wed,  6 Apr 2022 23:02:53 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9EFCC2024CBB;
- Wed,  6 Apr 2022 23:02:31 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4E54E145BA41;
+ Wed,  6 Apr 2022 23:02:48 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Thu, 07 Apr 2022 00:02:30 +0100
-Message-ID: <164928615045.457102.10607899252434268982.stgit@warthog.procyon.org.uk>
+Date: Thu, 07 Apr 2022 00:02:45 +0100
+Message-ID: <164928616583.457102.15157033997163988344.stgit@warthog.procyon.org.uk>
+In-Reply-To: <164928615045.457102.10607899252434268982.stgit@warthog.procyon.org.uk>
+References: <164928615045.457102.10607899252434268982.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/1.4
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [PATCH 00/14] cifs: Iterators, netfslib and folios
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Linux-cachefs] [PATCH 01/14] cifs: Add some helper functions
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,11 +72,11 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
  Rohith Surabattula <rohiths.msft@gmail.com>, linux-kernel@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, Steve French <sfrench@samba.org>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
+ Steve French <sfrench@samba.org>, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -77,76 +84,137 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Add some helper functions to manipulate the folio marks by iterating
+through a list of folios held in an xarray rather than using a page list.
 
-Here's a set of patches to make the following changes to the cifs
-filesystem driver:
-
- (1) Convert cifs to use I/O iterators to pass data/buffers from the the VM
-     interface layer down to the socket rather than passing page lists
-     about.
-
- (2) Convert cifs to use netfslib for buffered and direct read operations.
-
- (3) A partial conversion to folios.
-
-This branch is built on top of my netfs-lib branch[1].
-
-The patches can be found here also:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=cifs-experimental
-
-
-David
-
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib [1]
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Shyam Prasad N <nspmangalore@gmail.com>
+cc: Rohith Surabattula <rohiths.msft@gmail.com>
+cc: linux-cifs@vger.kernel.org
 ---
-David Howells (14):
-      cifs: Add some helper functions
-      cifs: Add a function to read into an iter from a socket
-      cifs: Check the IOCB_DIRECT flag, not O_DIRECT
-      cifs: Change the I/O paths to use an iterator rather than a page list
-      cifs: Remove unused code
-      cifs: Use netfslib to handle reads
-      cifs: Share server EOF pos with netfslib
-      netfs: Allow the netfs to make the io (sub)request alloc larger
-      cifs: Put credits into cifs_io_subrequest, not on the stack
-      cifs: Hold the open file on netfs_io_request, not netfs_io_subrequest
-      cifs: Clamp length according to credits and rsize
-      cifs: Expose netfs subrequest debug ID and index in read tracepoints
-      cifs: Split the smb3_add_credits tracepoint
-      mm, netfs, fscache: Stop read optimisation when folio removed from pagecache
 
+ fs/cifs/cifsfs.h  |    3 ++
+ fs/cifs/cifssmb.c |   85 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 88 insertions(+)
 
- fs/afs/file.c           |    1 +
- fs/afs/inode.c          |    1 +
- fs/afs/internal.h       |    2 +
- fs/cifs/Kconfig         |    1 +
- fs/cifs/cifsencrypt.c   |   40 +-
- fs/cifs/cifsfs.c        |   11 +-
- fs/cifs/cifsfs.h        |    6 +-
- fs/cifs/cifsglob.h      |   53 +-
- fs/cifs/cifsproto.h     |   13 +-
- fs/cifs/cifssmb.c       |  252 +++--
- fs/cifs/connect.c       |   18 +-
- fs/cifs/file.c          | 2096 ++++++++++-----------------------------
- fs/cifs/fscache.c       |  120 +--
- fs/cifs/fscache.h       |   70 --
- fs/cifs/inode.c         |   22 +-
- fs/cifs/misc.c          |  109 --
- fs/cifs/smb2ops.c       |  387 ++++----
- fs/cifs/smb2pdu.c       |   85 +-
- fs/cifs/smb2proto.h     |    2 +-
- fs/cifs/trace.h         |  151 ++-
- fs/cifs/transport.c     |   41 +-
- fs/netfs/internal.h     |    1 +
- fs/netfs/io.c           |    7 +-
- fs/netfs/misc.c         |   13 +-
- fs/netfs/stats.c        |    9 +-
- include/linux/fs.h      |    2 +
- include/linux/netfs.h   |    1 +
- include/linux/pagemap.h |    1 +
- mm/filemap.c            |   15 +
- 29 files changed, 1203 insertions(+), 2327 deletions(-)
+diff --git a/fs/cifs/cifsfs.h b/fs/cifs/cifsfs.h
+index 15a5c5db038b..1c77bbc0815f 100644
+--- a/fs/cifs/cifsfs.h
++++ b/fs/cifs/cifsfs.h
+@@ -110,6 +110,9 @@ extern int cifs_file_strict_mmap(struct file * , struct vm_area_struct *);
+ extern const struct file_operations cifs_dir_ops;
+ extern int cifs_dir_open(struct inode *inode, struct file *file);
+ extern int cifs_readdir(struct file *file, struct dir_context *ctx);
++extern void cifs_pages_written_back(struct inode *inode, loff_t start, unsigned int len);
++extern void cifs_pages_write_failed(struct inode *inode, loff_t start, unsigned int len);
++extern void cifs_pages_write_redirty(struct inode *inode, loff_t start, unsigned int len);
+ 
+ /* Functions related to dir entries */
+ extern const struct dentry_operations cifs_dentry_ops;
+diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
+index 47e927c4ff8d..88e2de74f74f 100644
+--- a/fs/cifs/cifssmb.c
++++ b/fs/cifs/cifssmb.c
+@@ -27,6 +27,7 @@
+ #include "cifsglob.h"
+ #include "cifsacl.h"
+ #include "cifsproto.h"
++#include "cifsfs.h"
+ #include "cifs_unicode.h"
+ #include "cifs_debug.h"
+ #include "smb2proto.h"
+@@ -1928,6 +1929,90 @@ cifs_writedata_release(struct kref *refcount)
+ 	kfree(wdata);
+ }
+ 
++/*
++ * Completion of write to server.
++ */
++void cifs_pages_written_back(struct inode *inode, loff_t start, unsigned int len)
++{
++	struct address_space *mapping = inode->i_mapping;
++	struct folio *folio;
++	pgoff_t end;
++
++	XA_STATE(xas, &mapping->i_pages, start / PAGE_SIZE);
++
++	rcu_read_lock();
++
++	end = (start + len - 1) / PAGE_SIZE;
++	xas_for_each(&xas, folio, end) {
++		if (!folio_test_writeback(folio)) {
++			pr_err("bad %x @%llx page %lx %lx\n",
++			       len, start, folio_index(folio), end);
++			BUG();
++		}
++
++		folio_detach_private(folio);
++		folio_end_writeback(folio);
++	}
++
++	rcu_read_unlock();
++}
++
++/*
++ * Failure of write to server.
++ */
++void cifs_pages_write_failed(struct inode *inode, loff_t start, unsigned int len)
++{
++	struct address_space *mapping = inode->i_mapping;
++	struct folio *folio;
++	pgoff_t end;
++
++	XA_STATE(xas, &mapping->i_pages, start / PAGE_SIZE);
++
++	rcu_read_lock();
++
++	end = (start + len - 1) / PAGE_SIZE;
++	xas_for_each(&xas, folio, end) {
++		if (!folio_test_writeback(folio)) {
++			pr_err("bad %x @%llx page %lx %lx\n",
++			       len, start, folio_index(folio), end);
++			BUG();
++		}
++
++		folio_set_error(folio);
++		folio_end_writeback(folio);
++	}
++
++	rcu_read_unlock();
++}
++
++/*
++ * Redirty pages after a temporary failure.
++ */
++void cifs_pages_write_redirty(struct inode *inode, loff_t start, unsigned int len)
++{
++	struct address_space *mapping = inode->i_mapping;
++	struct folio *folio;
++	pgoff_t end;
++
++	XA_STATE(xas, &mapping->i_pages, start / PAGE_SIZE);
++
++	rcu_read_lock();
++
++	end = (start + len - 1) / PAGE_SIZE;
++	xas_for_each(&xas, folio, end) {
++		if (!folio_test_writeback(folio)) {
++			pr_err("bad %x @%llx page %lx %lx\n",
++			       len, start, folio_index(folio), end);
++			BUG();
++		}
++
++		filemap_dirty_folio(folio->mapping, folio);
++		folio_end_writeback(folio);
++	}
++
++	rcu_read_unlock();
++}
++
+ /*
+  * Write failed with a retryable error. Resend the write request. It's also
+  * possible that the page was redirtied so re-clean the page.
 
 
 --
