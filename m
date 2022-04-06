@@ -1,74 +1,57 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13124F5720
-	for <lists+linux-cachefs@lfdr.de>; Wed,  6 Apr 2022 09:57:10 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56EF54F6E2D
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 01:03:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1649286189;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Mcnnhyjv6rBJNbbBGOLkd4DiMxhguRiB43OKlVRJp7w=;
+	b=hT4V3wMI9S1L49IFax6VucFGEdUAxE1eiyvNKg0meayXKPl7DV1j9lR1FDLGVyHvoYM7Db
+	HwscFlIE8PcQSVSk/RSxDIhNNZYqyNh34ndVT80yqVc6nRMkVO3NtCaiTViuJd71jPZqdZ
+	QFoMMrPWVTyFiwnlevu/BN2ZltCeFGk=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611--Vd6bgKMMBelU9dcfYEfQQ-1; Wed, 06 Apr 2022 03:57:07 -0400
-X-MC-Unique: -Vd6bgKMMBelU9dcfYEfQQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-642-iVNdW1jMMVS1UMmW2lySuA-1; Wed, 06 Apr 2022 19:03:06 -0400
+X-MC-Unique: iVNdW1jMMVS1UMmW2lySuA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71C8E803D4E;
-	Wed,  6 Apr 2022 07:57:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62BED1C05B1A;
+	Wed,  6 Apr 2022 23:02:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 67DDB401E98;
-	Wed,  6 Apr 2022 07:57:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 61EB0C28109;
+	Wed,  6 Apr 2022 23:02:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 319DE1940376;
-	Wed,  6 Apr 2022 07:57:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8C3191940372;
+	Wed,  6 Apr 2022 23:02:41 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3393819451F3 for <linux-cachefs@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 07:57:05 +0000 (UTC)
+ ESMTP id CCE39194034B for <linux-cachefs@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 23:02:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 237B714582FE; Wed,  6 Apr 2022 07:57:05 +0000 (UTC)
+ id 9594C2024CAE; Wed,  6 Apr 2022 23:02:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F71314582F6
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:57:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E64851C01507
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:56:59 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
- (out30-54.freemail.mail.aliyun.com [115.124.30.54]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-524-bBa40uA3MhamxPRK_HNkYg-1; Wed, 06 Apr 2022 03:56:50 -0400
-X-MC-Unique: bBa40uA3MhamxPRK_HNkYg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9L1BOu_1649231803
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V9L1BOu_1649231803) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 06 Apr 2022 15:56:44 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
- chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed,  6 Apr 2022 15:56:12 +0800
-Message-Id: <20220406075612.60298-21-jefflexu@linux.alibaba.com>
-In-Reply-To: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
-References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9EFCC2024CBB;
+ Wed,  6 Apr 2022 23:02:31 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: linux-cachefs@redhat.com
+Date: Thu, 07 Apr 2022 00:02:30 +0100
+Message-ID: <164928615045.457102.10607899252434268982.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/1.4
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [Linux-cachefs] [PATCH v8 20/20] erofs: add 'fsid' mount option
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [Linux-cachefs] [PATCH 00/14] cifs: Iterators, netfslib and folios
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,15 +63,13 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, fannaihao@baidu.com, tao.peng@linux.alibaba.com,
- willy@infradead.org, linux-kernel@vger.kernel.org, tianzichen@kuaishou.com,
- joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
- linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
- eguan@linux.alibaba.com, gerry@linux.alibaba.com,
- torvalds@linux-foundation.org
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
+ Rohith Surabattula <rohiths.msft@gmail.com>, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Steve French <sfrench@samba.org>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,153 +77,77 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce 'fsid' mount option to enable on-demand read sementics, in
-which case, erofs will be mounted from data blobs. Users could specify
-the name of primary data blob by this mount option.
 
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Here's a set of patches to make the following changes to the cifs
+filesystem driver:
+
+ (1) Convert cifs to use I/O iterators to pass data/buffers from the the VM
+     interface layer down to the socket rather than passing page lists
+     about.
+
+ (2) Convert cifs to use netfslib for buffered and direct read operations.
+
+ (3) A partial conversion to folios.
+
+This branch is built on top of my netfs-lib branch[1].
+
+The patches can be found here also:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=cifs-experimental
+
+
+David
+
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-lib [1]
 ---
- fs/erofs/super.c | 48 ++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 42 insertions(+), 6 deletions(-)
+David Howells (14):
+      cifs: Add some helper functions
+      cifs: Add a function to read into an iter from a socket
+      cifs: Check the IOCB_DIRECT flag, not O_DIRECT
+      cifs: Change the I/O paths to use an iterator rather than a page list
+      cifs: Remove unused code
+      cifs: Use netfslib to handle reads
+      cifs: Share server EOF pos with netfslib
+      netfs: Allow the netfs to make the io (sub)request alloc larger
+      cifs: Put credits into cifs_io_subrequest, not on the stack
+      cifs: Hold the open file on netfs_io_request, not netfs_io_subrequest
+      cifs: Clamp length according to credits and rsize
+      cifs: Expose netfs subrequest debug ID and index in read tracepoints
+      cifs: Split the smb3_add_credits tracepoint
+      mm, netfs, fscache: Stop read optimisation when folio removed from pagecache
 
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index a5e4de60a0d8..292b4a70ce19 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -398,6 +398,7 @@ enum {
- 	Opt_dax,
- 	Opt_dax_enum,
- 	Opt_device,
-+	Opt_fsid,
- 	Opt_err
- };
- 
-@@ -422,6 +423,7 @@ static const struct fs_parameter_spec erofs_fs_parameters[] = {
- 	fsparam_flag("dax",             Opt_dax),
- 	fsparam_enum("dax",		Opt_dax_enum, erofs_dax_param_enums),
- 	fsparam_string("device",	Opt_device),
-+	fsparam_string("fsid",		Opt_fsid),
- 	{}
- };
- 
-@@ -517,6 +519,16 @@ static int erofs_fc_parse_param(struct fs_context *fc,
- 		}
- 		++ctx->devs->extra_devices;
- 		break;
-+	case Opt_fsid:
-+#ifdef CONFIG_EROFS_FS_ONDEMAND
-+		kfree(ctx->opt.fsid);
-+		ctx->opt.fsid = kstrdup(param->string, GFP_KERNEL);
-+		if (!ctx->opt.fsid)
-+			return -ENOMEM;
-+#else
-+		errorfc(fc, "fsid option not supported");
-+#endif
-+		break;
- 	default:
- 		return -ENOPARAM;
- 	}
-@@ -597,9 +609,14 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 	sb->s_maxbytes = MAX_LFS_FILESIZE;
- 	sb->s_op = &erofs_sops;
- 
--	if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
--		erofs_err(sb, "failed to set erofs blksize");
--		return -EINVAL;
-+	if (erofs_is_fscache_mode(sb)) {
-+		sb->s_blocksize = EROFS_BLKSIZ;
-+		sb->s_blocksize_bits = LOG_BLOCK_SIZE;
-+	} else {
-+		if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
-+			erofs_err(sb, "failed to set erofs blksize");
-+			return -EINVAL;
-+		}
- 	}
- 
- 	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
-@@ -608,7 +625,7 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	sb->s_fs_info = sbi;
- 	sbi->opt = ctx->opt;
--	sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
-+	ctx->opt.fsid = NULL;
- 	sbi->devs = ctx->devs;
- 	ctx->devs = NULL;
- 
-@@ -625,6 +642,8 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 		err = super_setup_bdi(sb);
- 		if (err)
- 			return err;
-+	} else {
-+		sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
- 	}
- 
- 	err = erofs_read_superblock(sb);
-@@ -684,6 +703,11 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- static int erofs_fc_get_tree(struct fs_context *fc)
- {
-+	struct erofs_fs_context *ctx = fc->fs_private;
-+
-+	if (IS_ENABLED(CONFIG_EROFS_FS_ONDEMAND) && ctx->opt.fsid)
-+		return get_tree_nodev(fc, erofs_fc_fill_super);
-+
- 	return get_tree_bdev(fc, erofs_fc_fill_super);
- }
- 
-@@ -733,6 +757,7 @@ static void erofs_fc_free(struct fs_context *fc)
- 	struct erofs_fs_context *ctx = fc->fs_private;
- 
- 	erofs_free_dev_context(ctx->devs);
-+	kfree(ctx->opt.fsid);
- 	kfree(ctx);
- }
- 
-@@ -773,7 +798,10 @@ static void erofs_kill_sb(struct super_block *sb)
- 
- 	WARN_ON(sb->s_magic != EROFS_SUPER_MAGIC);
- 
--	kill_block_super(sb);
-+	if (erofs_is_fscache_mode(sb))
-+		generic_shutdown_super(sb);
-+	else
-+		kill_block_super(sb);
- 
- 	sbi = EROFS_SB(sb);
- 	if (!sbi)
-@@ -783,6 +811,7 @@ static void erofs_kill_sb(struct super_block *sb)
- 	fs_put_dax(sbi->dax_dev);
- 	erofs_fscache_unregister_cookie(&sbi->s_fscache);
- 	erofs_fscache_unregister_fs(sb);
-+	kfree(sbi->opt.fsid);
- 	kfree(sbi);
- 	sb->s_fs_info = NULL;
- }
-@@ -884,7 +913,10 @@ static int erofs_statfs(struct dentry *dentry, struct kstatfs *buf)
- {
- 	struct super_block *sb = dentry->d_sb;
- 	struct erofs_sb_info *sbi = EROFS_SB(sb);
--	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
-+	u64 id = 0;
-+
-+	if (!erofs_is_fscache_mode(sb))
-+		id = huge_encode_dev(sb->s_bdev->bd_dev);
- 
- 	buf->f_type = sb->s_magic;
- 	buf->f_bsize = EROFS_BLKSIZ;
-@@ -929,6 +961,10 @@ static int erofs_show_options(struct seq_file *seq, struct dentry *root)
- 		seq_puts(seq, ",dax=always");
- 	if (test_opt(opt, DAX_NEVER))
- 		seq_puts(seq, ",dax=never");
-+#ifdef CONFIG_EROFS_FS_ONDEMAND
-+	if (opt->fsid)
-+		seq_printf(seq, ",fsid=%s", opt->fsid);
-+#endif
- 	return 0;
- }
- 
--- 
-2.27.0
+
+ fs/afs/file.c           |    1 +
+ fs/afs/inode.c          |    1 +
+ fs/afs/internal.h       |    2 +
+ fs/cifs/Kconfig         |    1 +
+ fs/cifs/cifsencrypt.c   |   40 +-
+ fs/cifs/cifsfs.c        |   11 +-
+ fs/cifs/cifsfs.h        |    6 +-
+ fs/cifs/cifsglob.h      |   53 +-
+ fs/cifs/cifsproto.h     |   13 +-
+ fs/cifs/cifssmb.c       |  252 +++--
+ fs/cifs/connect.c       |   18 +-
+ fs/cifs/file.c          | 2096 ++++++++++-----------------------------
+ fs/cifs/fscache.c       |  120 +--
+ fs/cifs/fscache.h       |   70 --
+ fs/cifs/inode.c         |   22 +-
+ fs/cifs/misc.c          |  109 --
+ fs/cifs/smb2ops.c       |  387 ++++----
+ fs/cifs/smb2pdu.c       |   85 +-
+ fs/cifs/smb2proto.h     |    2 +-
+ fs/cifs/trace.h         |  151 ++-
+ fs/cifs/transport.c     |   41 +-
+ fs/netfs/internal.h     |    1 +
+ fs/netfs/io.c           |    7 +-
+ fs/netfs/misc.c         |   13 +-
+ fs/netfs/stats.c        |    9 +-
+ include/linux/fs.h      |    2 +
+ include/linux/netfs.h   |    1 +
+ include/linux/pagemap.h |    1 +
+ mm/filemap.c            |   15 +
+ 29 files changed, 1203 insertions(+), 2327 deletions(-)
+
 
 --
 Linux-cachefs mailing list
