@@ -1,66 +1,67 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C44C94F5205
-	for <lists+linux-cachefs@lfdr.de>; Wed,  6 Apr 2022 04:47:49 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB98D4F526B
+	for <lists+linux-cachefs@lfdr.de>; Wed,  6 Apr 2022 04:51:30 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-672-4KZLiZpINwmIHSNgsJk9Lg-1; Tue, 05 Apr 2022 22:47:46 -0400
-X-MC-Unique: 4KZLiZpINwmIHSNgsJk9Lg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-613-0Zvbbsi1N3SmRTx3ddUdqQ-1; Tue, 05 Apr 2022 22:51:26 -0400
+X-MC-Unique: 0Zvbbsi1N3SmRTx3ddUdqQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B011C8041A0;
-	Wed,  6 Apr 2022 02:47:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D74D296A60C;
+	Wed,  6 Apr 2022 02:51:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EB8C840C1241;
-	Wed,  6 Apr 2022 02:47:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 331F92166B26;
+	Wed,  6 Apr 2022 02:51:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0D54C1940372;
-	Wed,  6 Apr 2022 02:47:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ECCF31940372;
+	Wed,  6 Apr 2022 02:51:25 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 423FC194036B for <linux-cachefs@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 02:47:29 +0000 (UTC)
+ ESMTP id ED6291940369 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 02:51:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0B82E2026D6A; Wed,  6 Apr 2022 02:47:29 +0000 (UTC)
+ id B8FB140C1241; Wed,  6 Apr 2022 02:51:23 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 06F372026D64
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 02:47:25 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B54E9403D17F
+ for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 02:51:23 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8B9680346E
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 02:47:25 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43]) by relay.mimecast.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E30221C07832
+ for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 02:51:19 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-338-3kDj6eqEOIKWBJYCFFODFA-1; Tue, 05 Apr 2022 22:47:21 -0400
-X-MC-Unique: 3kDj6eqEOIKWBJYCFFODFA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R521e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=7; SR=0; TI=SMTPD_---0V9JnNKo_1649213237
+ us-mta-651-rUZL5mfQPaa1jj5D9ojpOw-1; Tue, 05 Apr 2022 22:51:15 -0400
+X-MC-Unique: rUZL5mfQPaa1jj5D9ojpOw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=6; SR=0; TI=SMTPD_---0V9JW7Mc_1649213468
 Received: from 30.225.24.86(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V9JnNKo_1649213237) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 06 Apr 2022 10:47:18 +0800
-Message-ID: <74e81f65-171c-804a-a8ca-fa5452c5ad77@linux.alibaba.com>
-Date: Wed, 6 Apr 2022 10:47:17 +0800
+ fp:SMTPD_---0V9JW7Mc_1649213468) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 06 Apr 2022 10:51:09 +0800
+Message-ID: <d776f073-c01d-9cc7-4302-c36c77409d69@linux.alibaba.com>
+Date: Wed, 6 Apr 2022 10:51:08 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.6.1
-To: Yue Hu <huyue2@coolpad.com>, dhowells@redhat.com, linux-cachefs@redhat.com
-References: <20220401063643.7340-1-huyue2@coolpad.com>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-In-Reply-To: <20220401063643.7340-1-huyue2@coolpad.com>
+To: Yue Hu <huyue2@coolpad.com>, dhowells@redhat.com, linux-cachefs@redhat.com
+References: <20220402044728.9669-1-huyue2@coolpad.com>
+ <1c6b191b-4a2e-0333-b0a3-f76bcd6b6515@linux.alibaba.com>
+In-Reply-To: <1c6b191b-4a2e-0333-b0a3-f76bcd6b6515@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -68,9 +69,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [PATCH] fscache: Use wrapper
- fscache_set_cache_state() directly when relinquishing
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: Re: [Linux-cachefs] [PATCH] fscache: Move fscache_cookies_seq_ops
+ specific code under CONFIG_PROC_FS
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,11 +83,10 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: zbestahu@gmail.com, linux-kernel@vger.kernel.org, zbestahu@163.com,
- zhangwen@coolpad.com
+Cc: zbestahu@gmail.com, zbestahu@163.com, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,30 +97,58 @@ Content-Transfer-Encoding: 7bit
 
 
 
-On 4/1/22 2:37 PM, Yue Hu wrote:
-> We already have the wrapper function to set cache state.
+On 4/6/22 10:45 AM, JeffleXu wrote:
 > 
-> Signed-off-by: Yue Hu <huyue2@coolpad.com>
-> ---
->  fs/fscache/cache.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/fs/fscache/cache.c b/fs/fscache/cache.c
-> index 2749933852a9..d645f8b302a2 100644
-> --- a/fs/fscache/cache.c
-> +++ b/fs/fscache/cache.c
-> @@ -214,7 +214,7 @@ void fscache_relinquish_cache(struct fscache_cache *cache)
->  
->  	cache->ops = NULL;
->  	cache->cache_priv = NULL;
-> -	smp_store_release(&cache->state, FSCACHE_CACHE_IS_NOT_PRESENT);
-> +	fscache_set_cache_state(cache, FSCACHE_CACHE_IS_NOT_PRESENT);
->  	fscache_put_cache(cache, where);
->  }
->  EXPORT_SYMBOL(fscache_relinquish_cache);
+> On 4/2/22 12:47 PM, Yue Hu wrote:
+>> fscache_cookies_seq_ops is only used in proc.c that is compiled under
+>> enabled CONFIG_PROC_FS, so move related code under this config. The
+>> same case exsits in internal.h.
+>>
+>> Also, make fscache_lru_cookie_timeout static due to no user outside
+>> of cookie.c.
+>>
+>> Signed-off-by: Yue Hu <huyue2@coolpad.com>
+>> ---
+>>  fs/fscache/cookie.c   | 4 +++-
+>>  fs/fscache/internal.h | 4 ++++
+>>  2 files changed, 7 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
+>> index 9bb1ab5fe5ed..9d3cf0111709 100644
+>> --- a/fs/fscache/cookie.c
+>> +++ b/fs/fscache/cookie.c
+>> @@ -30,7 +30,7 @@ static DEFINE_SPINLOCK(fscache_cookie_lru_lock);
+>>  DEFINE_TIMER(fscache_cookie_lru_timer, fscache_cookie_lru_timed_out);
+>>  static DECLARE_WORK(fscache_cookie_lru_work, fscache_cookie_lru_worker);
+>>  static const char fscache_cookie_states[FSCACHE_COOKIE_STATE__NR] = "-LCAIFUWRD";
+>> -unsigned int fscache_lru_cookie_timeout = 10 * HZ;
+>> +static unsigned int fscache_lru_cookie_timeout = 10 * HZ;
+>>  
+>>  void fscache_print_cookie(struct fscache_cookie *cookie, char prefix)
+>>  {
+>> @@ -1069,6 +1069,7 @@ void __fscache_invalidate(struct fscache_cookie *cookie,
+>>  }
+>>  EXPORT_SYMBOL(__fscache_invalidate);
+>>  
+>> +#ifdef CONFIG_PROC_FS
+>>  /*
+>>   * Generate a list of extant cookies in /proc/fs/fscache/cookies
+>>   */
+>> @@ -1145,3 +1146,4 @@ const struct seq_operations fscache_cookies_seq_ops = {
+>>  	.stop   = fscache_cookies_seq_stop,
+>>  	.show   = fscache_cookies_seq_show,
+>>  };
+>> +#endif
+> 
+> Then I'm afraid fscache_cookies_seq_stop() and
+> fscache_cookies_seq_show() also need to be wrapped with "#ifdef
+> CONFIG_PROC_F" ...
+> 
 
-Looks good to me.
-Reviewed-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Sorry, fscache_cookies_seq_stop() and fscache_cookies_seq_show() have
+already been wrapped with "#ifdef CONFIG_PROC_F" in this patch. Please
+ignore the noise...
 
 -- 
 Thanks,
