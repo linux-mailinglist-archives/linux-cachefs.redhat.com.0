@@ -1,61 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27C2D4F571D
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E8834F571E
 	for <lists+linux-cachefs@lfdr.de>; Wed,  6 Apr 2022 09:57:08 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-126-tbNFHmbUM8e_sNcRXXAl3g-1; Wed, 06 Apr 2022 03:57:03 -0400
-X-MC-Unique: tbNFHmbUM8e_sNcRXXAl3g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-345-0i-aMqDiOt2G3bauwAuoGg-1; Wed, 06 Apr 2022 03:57:05 -0400
+X-MC-Unique: 0i-aMqDiOt2G3bauwAuoGg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC57D899ECB;
-	Wed,  6 Apr 2022 07:57:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57AD228EA6F9;
+	Wed,  6 Apr 2022 07:57:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8E5FC141512B;
-	Wed,  6 Apr 2022 07:56:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4D44E403D1D1;
+	Wed,  6 Apr 2022 07:57:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0A636193F6E8;
-	Wed,  6 Apr 2022 07:56:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 17B491940369;
+	Wed,  6 Apr 2022 07:57:04 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0D3FC1940376 for <linux-cachefs@listman.corp.redhat.com>;
- Wed,  6 Apr 2022 07:56:55 +0000 (UTC)
+ ESMTP id DB16C19451F3 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed,  6 Apr 2022 07:57:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E259A7AF5; Wed,  6 Apr 2022 07:56:53 +0000 (UTC)
+ id CEBEC4029A9; Wed,  6 Apr 2022 07:57:02 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DD8F37AF0
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:56:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E43A61C0150F
- for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:56:45 +0000 (UTC)
-Received: from out199-10.us.a.mail.aliyun.com
- (out199-10.us.a.mail.aliyun.com [47.90.199.10]) by relay.mimecast.com with
- ESMTP with STARTTLS (version=TLSv1.2,
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CA7EF4029A8
+ for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:57:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 802323C16196
+ for <linux-cachefs@redhat.com>; Wed,  6 Apr 2022 07:56:52 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-584-mm1eSvIZPLK2wOgb9I8YGg-1; Wed, 06 Apr 2022 03:56:43 -0400
-X-MC-Unique: mm1eSvIZPLK2wOgb9I8YGg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9LC88e_1649231796
+ us-mta-629-ka-Zu6ziNhGlHG9_C3HDWQ-1; Wed, 06 Apr 2022 03:56:43 -0400
+X-MC-Unique: ka-Zu6ziNhGlHG9_C3HDWQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9L3PE9_1649231797
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V9LC88e_1649231796) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 06 Apr 2022 15:56:37 +0800
+ fp:SMTPD_---0V9L3PE9_1649231797) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 06 Apr 2022 15:56:38 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Wed,  6 Apr 2022 15:56:07 +0800
-Message-Id: <20220406075612.60298-16-jefflexu@linux.alibaba.com>
+Date: Wed,  6 Apr 2022 15:56:08 +0800
+Message-Id: <20220406075612.60298-17-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
 References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [Linux-cachefs] [PATCH v8 15/20] erofs: register fscache context
- for extra data blobs
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [Linux-cachefs] [PATCH v8 16/20] erofs: implement fscache-based
+ metadata read
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,7 +88,7 @@ Cc: gregkh@linuxfoundation.org, fannaihao@baidu.com, tao.peng@linux.alibaba.com,
  torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,110 +96,147 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Similar to the multi device mode, erofs could be mounted from one
-primary data blob (mandatory) and multiple extra data blobs (optional).
-
-Register fscache context for each extra data blob.
+Implement the data plane of reading metadata from primary data blob
+over fscache.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/erofs/data.c     |  3 +++
- fs/erofs/internal.h |  2 ++
- fs/erofs/super.c    | 25 +++++++++++++++++--------
- 3 files changed, 22 insertions(+), 8 deletions(-)
+ fs/erofs/data.c     | 20 ++++++++++++++++++--
+ fs/erofs/fscache.c  | 38 ++++++++++++++++++++++++++++++++++++++
+ fs/erofs/internal.h |  9 +++++++++
+ 3 files changed, 65 insertions(+), 2 deletions(-)
 
 diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index bc22642358ec..14b64d960541 100644
+index 14b64d960541..cb8fe299ad67 100644
 --- a/fs/erofs/data.c
 +++ b/fs/erofs/data.c
-@@ -199,6 +199,7 @@ int erofs_map_dev(struct super_block *sb, struct erofs_map_dev *map)
- 	map->m_bdev = sb->s_bdev;
- 	map->m_daxdev = EROFS_SB(sb)->dax_dev;
- 	map->m_dax_part_off = EROFS_SB(sb)->dax_part_off;
-+	map->m_fscache = EROFS_SB(sb)->s_fscache;
+@@ -31,15 +31,26 @@ void erofs_put_metabuf(struct erofs_buf *buf)
+ void *erofs_bread(struct erofs_buf *buf, struct inode *inode,
+ 		  erofs_blk_t blkaddr, enum erofs_kmap_type type)
+ {
+-	struct address_space *const mapping = inode->i_mapping;
+ 	erofs_off_t offset = blknr_to_addr(blkaddr);
+ 	pgoff_t index = offset >> PAGE_SHIFT;
+ 	struct page *page = buf->page;
  
- 	if (map->m_deviceid) {
- 		down_read(&devs->rwsem);
-@@ -210,6 +211,7 @@ int erofs_map_dev(struct super_block *sb, struct erofs_map_dev *map)
- 		map->m_bdev = dif->bdev;
- 		map->m_daxdev = dif->dax_dev;
- 		map->m_dax_part_off = dif->dax_part_off;
-+		map->m_fscache = dif->fscache;
- 		up_read(&devs->rwsem);
- 	} else if (devs->extra_devices) {
- 		down_read(&devs->rwsem);
-@@ -227,6 +229,7 @@ int erofs_map_dev(struct super_block *sb, struct erofs_map_dev *map)
- 				map->m_bdev = dif->bdev;
- 				map->m_daxdev = dif->dax_dev;
- 				map->m_dax_part_off = dif->dax_part_off;
-+				map->m_fscache = dif->fscache;
- 				break;
- 			}
- 		}
+ 	if (!page || page->index != index) {
+ 		erofs_put_metabuf(buf);
+-		page = read_cache_page_gfp(mapping, index,
++		if (buf->sb) {
++			struct folio *folio;
++
++			folio = erofs_fscache_get_folio(buf->sb, index);
++			if (IS_ERR(folio))
++				page = ERR_CAST(folio);
++			else
++				page = folio_page(folio, 0);
++		} else {
++			struct address_space *const mapping = inode->i_mapping;
++
++			page = read_cache_page_gfp(mapping, index,
+ 				mapping_gfp_constraint(mapping, ~__GFP_FS));
++		}
+ 		if (IS_ERR(page))
+ 			return page;
+ 		/* should already be PageUptodate, no need to lock page */
+@@ -63,6 +74,11 @@ void *erofs_bread(struct erofs_buf *buf, struct inode *inode,
+ void *erofs_read_metabuf(struct erofs_buf *buf, struct super_block *sb,
+ 			 erofs_blk_t blkaddr, enum erofs_kmap_type type)
+ {
++	if (erofs_is_fscache_mode(sb)) {
++		buf->sb = sb;
++		return erofs_bread(buf, NULL, blkaddr, type);
++	}
++
+ 	return erofs_bread(buf, sb->s_bdev->bd_inode, blkaddr, type);
+ }
+ 
+diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
+index d38a6efc8e50..158cc273f8fb 100644
+--- a/fs/erofs/fscache.c
++++ b/fs/erofs/fscache.c
+@@ -34,9 +34,47 @@ static int erofs_fscache_read_folios(struct fscache_cookie *cookie,
+ 	return ret;
+ }
+ 
++static int erofs_fscache_meta_readpage(struct file *data, struct page *page)
++{
++	int ret;
++	struct super_block *sb = (struct super_block *)data;
++	struct folio *folio = page_folio(page);
++	struct erofs_map_dev mdev = {
++		.m_deviceid = 0,
++		.m_pa = folio_pos(folio),
++	};
++
++	ret = erofs_map_dev(sb, &mdev);
++	if (ret)
++		goto out;
++
++	ret = erofs_fscache_read_folios(mdev.m_fscache->cookie,
++			folio_file_mapping(folio), folio_pos(folio),
++			folio_size(folio), mdev.m_pa);
++	if (ret)
++		goto out;
++
++	folio_mark_uptodate(folio);
++out:
++	folio_unlock(folio);
++	return ret;
++}
++
+ static const struct address_space_operations erofs_fscache_meta_aops = {
++	.readpage = erofs_fscache_meta_readpage,
+ };
+ 
++/*
++ * Get the page cache of data blob at the index offset.
++ * Return: up to date page on success, ERR_PTR() on failure.
++ */
++struct folio *erofs_fscache_get_folio(struct super_block *sb, pgoff_t index)
++{
++	struct erofs_fscache *ctx = EROFS_SB(sb)->s_fscache;
++
++	return read_mapping_folio(ctx->inode->i_mapping, index, (void *)sb);
++}
++
+ /*
+  * Create an fscache context for data blob.
+  * Return: 0 on success and allocated fscache context is assigned to @fscache,
 diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-index eb37b33bce37..90f7d6286a4f 100644
+index 90f7d6286a4f..e186051f0640 100644
 --- a/fs/erofs/internal.h
 +++ b/fs/erofs/internal.h
-@@ -49,6 +49,7 @@ typedef u32 erofs_blk_t;
+@@ -276,6 +276,7 @@ enum erofs_kmap_type {
+ };
  
- struct erofs_device_info {
- 	char *path;
-+	struct erofs_fscache *fscache;
- 	struct block_device *bdev;
- 	struct dax_device *dax_dev;
- 	u64 dax_part_off;
-@@ -482,6 +483,7 @@ static inline int z_erofs_map_blocks_iter(struct inode *inode,
- #endif	/* !CONFIG_EROFS_FS_ZIP */
- 
- struct erofs_map_dev {
-+	struct erofs_fscache *m_fscache;
- 	struct block_device *m_bdev;
- 	struct dax_device *m_daxdev;
- 	u64 m_dax_part_off;
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index 9498b899b73b..8c7181cd37e6 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -259,15 +259,23 @@ static int erofs_init_devices(struct super_block *sb,
- 		}
- 		dis = ptr + erofs_blkoff(pos);
- 
--		bdev = blkdev_get_by_path(dif->path,
--					  FMODE_READ | FMODE_EXCL,
--					  sb->s_type);
--		if (IS_ERR(bdev)) {
--			err = PTR_ERR(bdev);
--			break;
-+		if (erofs_is_fscache_mode(sb)) {
-+			err = erofs_fscache_register_cookie(sb, &dif->fscache,
-+							    dif->path, false);
-+			if (err)
-+				break;
-+		} else {
-+			bdev = blkdev_get_by_path(dif->path,
-+						  FMODE_READ | FMODE_EXCL,
-+						  sb->s_type);
-+			if (IS_ERR(bdev)) {
-+				err = PTR_ERR(bdev);
-+				break;
-+			}
-+			dif->bdev = bdev;
-+			dif->dax_dev = fs_dax_get_by_bdev(bdev, &dif->dax_part_off);
- 		}
--		dif->bdev = bdev;
--		dif->dax_dev = fs_dax_get_by_bdev(bdev, &dif->dax_part_off);
+ struct erofs_buf {
++	struct super_block *sb;
+ 	struct page *page;
+ 	void *base;
+ 	enum erofs_kmap_type kmap_type;
+@@ -639,6 +640,8 @@ int erofs_fscache_register_cookie(struct super_block *sb,
+ 				  struct erofs_fscache **fscache,
+ 				  char *name, bool need_inode);
+ void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache);
 +
- 		dif->blocks = le32_to_cpu(dis->blocks);
- 		dif->mapped_blkaddr = le32_to_cpu(dis->mapped_blkaddr);
- 		sbi->total_blocks += dif->blocks;
-@@ -701,6 +709,7 @@ static int erofs_release_device_info(int id, void *ptr, void *data)
- 	fs_put_dax(dif->dax_dev);
- 	if (dif->bdev)
- 		blkdev_put(dif->bdev, FMODE_READ | FMODE_EXCL);
-+	erofs_fscache_unregister_cookie(&dif->fscache);
- 	kfree(dif->path);
- 	kfree(dif);
- 	return 0;
++struct folio *erofs_fscache_get_folio(struct super_block *sb, pgoff_t index);
+ #else
+ static inline int erofs_fscache_register_fs(struct super_block *sb) { return 0; }
+ static inline void erofs_fscache_unregister_fs(struct super_block *sb) {}
+@@ -653,6 +656,12 @@ static inline int erofs_fscache_register_cookie(struct super_block *sb,
+ static inline void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache)
+ {
+ }
++
++static inline struct folio *erofs_fscache_get_folio(struct super_block *sb,
++						    pgoff_t index)
++{
++	return ERR_PTR(-EOPNOTSUPP);
++}
+ #endif
+ 
+ #define EFSCORRUPTED    EUCLEAN         /* Filesystem is corrupted */
 -- 
 2.27.0
 
