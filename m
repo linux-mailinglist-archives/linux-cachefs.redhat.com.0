@@ -2,53 +2,53 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E16E4F7CAD
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 12:25:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 513EC4F7CC4
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 12:28:41 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-176-euCSmZMcNmmRQoMpynpNbw-1; Thu, 07 Apr 2022 06:25:22 -0400
-X-MC-Unique: euCSmZMcNmmRQoMpynpNbw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-470-xSlI_r60NVq8Aykx4Tchxw-1; Thu, 07 Apr 2022 06:28:38 -0400
+X-MC-Unique: xSlI_r60NVq8Aykx4Tchxw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4722811E78;
-	Thu,  7 Apr 2022 10:25:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA51E801585;
+	Thu,  7 Apr 2022 10:28:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0F1FEC15D75;
-	Thu,  7 Apr 2022 10:25:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B0D7E1400B18;
+	Thu,  7 Apr 2022 10:28:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BB32E1940340;
-	Thu,  7 Apr 2022 10:25:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 15E411940341;
+	Thu,  7 Apr 2022 10:28:37 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9A38C1947BBE for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  7 Apr 2022 10:25:18 +0000 (UTC)
+ ESMTP id BE1BA1947BBE for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  7 Apr 2022 10:28:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 88F03407E241; Thu,  7 Apr 2022 10:25:18 +0000 (UTC)
+ id AD22D416368; Thu,  7 Apr 2022 10:28:35 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 84F24407E1C3
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 10:25:18 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A954D401DAC
+ for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 10:28:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D8361801386
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 10:25:18 +0000 (UTC)
-Received: from u03.bc.larksuite.com (u03.bc.larksuite.com [130.44.212.36])
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91CD385A5BC
+ for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 10:28:35 +0000 (UTC)
+Received: from u05.bc.larksuite.com (u05.bc.larksuite.com [130.44.212.50])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-530-czrJSWmMOJOWzbrcsI202g-3; Thu, 07 Apr 2022 06:25:17 -0400
-X-MC-Unique: czrJSWmMOJOWzbrcsI202g-3
-Message-Id: <20220407102445.15081-1-huyue2@coolpad.com>
-Mime-Version: 1.0
+ us-mta-600-56ugVWz3MC6CCRBY6QGdLQ-3; Thu, 07 Apr 2022 06:28:33 -0400
+X-MC-Unique: 56ugVWz3MC6CCRBY6QGdLQ-3
 To: <dhowells@redhat.com>, <corbet@lwn.net>
 From: "Yue Hu" <huyue2@coolpad.com>
-Date: Thu, 07 Apr 2022 18:25:05 +0800
+Date: Thu, 07 Apr 2022 18:28:32 +0800
+Message-Id: <20220407102813.15340-1-huyue2@coolpad.com>
+Mime-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -56,10 +56,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [Linux-cachefs] [PATCH] docs: filesystems: caching/backend-api.txt:
- correct two relinquish APIs use
+Subject: [Linux-cachefs] [PATCH v2] docs: filesystems:
+ caching/backend-api.rst: correct two relinquish APIs use
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,7 +75,7 @@ Cc: zbestahu@gmail.com, Yue Hu <huyue2@coolpad.com>, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, zhangwen@coolpad.com, linux-cachefs@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,6 +91,8 @@ Content-Transfer-Encoding: 7bit
 
 Signed-off-by: Yue Hu <huyue2@coolpad.com>
 ---
+v2: txt->rst in title
+
  Documentation/filesystems/caching/backend-api.rst | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
