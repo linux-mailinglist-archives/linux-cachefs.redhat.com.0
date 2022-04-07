@@ -1,62 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD864F7EC0
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 14:10:51 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CAAC4F7E92
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 14:03:01 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-404-qjJb8gK8OiyJWjzXYFyiUg-1; Thu, 07 Apr 2022 08:10:48 -0400
-X-MC-Unique: qjJb8gK8OiyJWjzXYFyiUg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-283-rWqBqCjtPoepeIutxkLPPg-1; Thu, 07 Apr 2022 08:02:57 -0400
+X-MC-Unique: rWqBqCjtPoepeIutxkLPPg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53FE7811E78;
-	Thu,  7 Apr 2022 12:10:47 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADCB5296A623;
+	Thu,  7 Apr 2022 12:02:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4862440CFD09;
-	Thu,  7 Apr 2022 12:10:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 151D6416377;
+	Thu,  7 Apr 2022 12:02:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DC0881947BBE;
-	Thu,  7 Apr 2022 12:10:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 441961940347;
+	Thu,  7 Apr 2022 12:02:50 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0D6581947BBE for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  7 Apr 2022 12:10:44 +0000 (UTC)
+ ESMTP id 14FBC1947BBE for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  7 Apr 2022 12:02:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E259D2024CBC; Thu,  7 Apr 2022 12:10:43 +0000 (UTC)
+ id 5E8B441637E; Thu,  7 Apr 2022 12:02:48 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DBA6E200C0F2
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 12:10:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AA8041637D
+ for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 12:02:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E57C80005D
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 12:10:38 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D81341C01728
+ for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 12:02:47 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-332-AhEqvO7KOGmS-BMVkQA9sg-1; Thu, 07 Apr 2022 08:10:36 -0400
-X-MC-Unique: AhEqvO7KOGmS-BMVkQA9sg-1
+ us-mta-654-XU3lc4_4N1an8PmfwtMfkA-1; Thu, 07 Apr 2022 08:02:33 -0400
+X-MC-Unique: XU3lc4_4N1an8PmfwtMfkA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id A4A0FCE2768;
- Thu,  7 Apr 2022 12:02:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9311FC385A7;
- Thu,  7 Apr 2022 12:02:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 34BDBB8272C;
+ Thu,  7 Apr 2022 12:02:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEB8C385A4;
+ Thu,  7 Apr 2022 12:02:29 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: ceph-devel@vger.kernel.org,
 	dhowells@redhat.com
-Date: Thu,  7 Apr 2022 08:02:22 -0400
-Message-Id: <20220407120224.76156-4-jlayton@kernel.org>
+Date: Thu,  7 Apr 2022 08:02:23 -0400
+Message-Id: <20220407120224.76156-5-jlayton@kernel.org>
 In-Reply-To: <20220407120224.76156-1-jlayton@kernel.org>
 References: <20220407120224.76156-1-jlayton@kernel.org>
 MIME-Version: 1.0
@@ -67,9 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [RFC PATCH 3/5] ceph: Use the provided iterator in
- ceph_netfs_issue_op()
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [Linux-cachefs] [RFC PATCH 4/5] ceph: enhance dout messages in
+ issue_read codepaths
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,101 +83,48 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 Cc: linux-cachefs@redhat.com, idryomov@gmail.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============8138254885595917396=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
---===============8138254885595917396==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: application/octet-stream; x-default=true
-
-From: David Howells <dhowells@redhat.com>
-
-The netfs_read_subrequest struct now contains a persistent iterator
-representing the destination buffer for a read that the network filesystem
-should use.  Make ceph use this.
-
-Signed-off-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ceph/addr.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ fs/ceph/addr.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index f0af362f8756..e7a7b5d29c7d 100644
+index e7a7b5d29c7d..0726494a0981 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -233,7 +233,6 @@ static bool ceph_netfs_issue_op_inline(struct netfs_io_=
-subrequest *subreq)
- =09struct ceph_mds_request *req;
- =09struct ceph_mds_client *mdsc =3D ceph_sb_to_mdsc(inode->i_sb);
- =09struct ceph_inode_info *ci =3D ceph_inode(inode);
--=09struct iov_iter iter;
- =09ssize_t err =3D 0;
- =09size_t len;
-=20
-@@ -266,8 +265,7 @@ static bool ceph_netfs_issue_op_inline(struct netfs_io_=
-subrequest *subreq)
- =09}
-=20
- =09len =3D min_t(size_t, iinfo->inline_len - subreq->start, subreq->len);
--=09iov_iter_xarray(&iter, READ, &rreq->mapping->i_pages, subreq->start, le=
-n);
--=09err =3D copy_to_iter(iinfo->inline_data + subreq->start, len, &iter);
-+=09err =3D copy_to_iter(iinfo->inline_data + subreq->start, len, &subreq->=
-iter);
- =09if (err =3D=3D 0)
- =09=09err =3D -EFAULT;
-=20
-@@ -285,7 +283,6 @@ static void ceph_netfs_issue_read(struct netfs_io_subre=
-quest *subreq)
- =09struct ceph_fs_client *fsc =3D ceph_inode_to_client(inode);
- =09struct ceph_osd_request *req;
- =09struct ceph_vino vino =3D ceph_vino(inode);
--=09struct iov_iter iter;
- =09struct page **pages;
- =09size_t page_off;
- =09int err =3D 0;
-@@ -306,15 +303,14 @@ static void ceph_netfs_issue_read(struct netfs_io_sub=
-request *subreq)
- =09}
-=20
- =09dout("%s: pos=3D%llu orig_len=3D%zu len=3D%llu\n", __func__, subreq->st=
-art, subreq->len, len);
--=09iov_iter_xarray(&iter, READ, &rreq->mapping->i_pages, subreq->start, le=
-n);
--=09err =3D iov_iter_get_pages_alloc(&iter, &pages, len, &page_off);
-+
-+=09err =3D iov_iter_get_pages_alloc(&subreq->iter, &pages, len, &page_off)=
-;
- =09if (err < 0) {
- =09=09dout("%s: iov_ter_get_pages_alloc returned %d\n", __func__, err);
- =09=09goto out;
- =09}
-=20
--=09/* should always give us a page-aligned read */
--=09WARN_ON_ONCE(page_off);
-+=09/* FIXME: adjust the len in req downward if necessary */
- =09len =3D err;
-=20
- =09osd_req_op_extent_osd_data_pages(req, 0, pages, len, 0, false, false);
---=20
+@@ -190,6 +190,8 @@ static bool ceph_netfs_clamp_length(struct netfs_io_subrequest *subreq)
+ 	/* Truncate the extent at the end of the current block */
+ 	ceph_calc_file_object_mapping(&ci->i_layout, subreq->start, subreq->len,
+ 				      &objno, &objoff, &xlen);
++	dout("%s: subreq->len=0x%zx xlen=0x%x rsize=0x%x",
++		__func__, subreq->len, xlen, fsc->mount_options->rsize);
+ 	subreq->len = min(xlen, fsc->mount_options->rsize);
+ 	return true;
+ }
+@@ -302,7 +304,9 @@ static void ceph_netfs_issue_read(struct netfs_io_subrequest *subreq)
+ 		goto out;
+ 	}
+ 
+-	dout("%s: pos=%llu orig_len=%zu len=%llu\n", __func__, subreq->start, subreq->len, len);
++	dout("%s: pos=%llu orig_len=%zu len=%llu debug_id=%x debug_idx=%hx iter->count=%zx\n",
++		__func__, subreq->start, subreq->len, len, rreq->debug_id,
++		subreq->debug_index, iov_iter_count(&subreq->iter));
+ 
+ 	err = iov_iter_get_pages_alloc(&subreq->iter, &pages, len, &page_off);
+ 	if (err < 0) {
+-- 
 2.35.1
-
-
---===============8138254885595917396==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
 https://listman.redhat.com/mailman/listinfo/linux-cachefs
-
---===============8138254885595917396==--
 
