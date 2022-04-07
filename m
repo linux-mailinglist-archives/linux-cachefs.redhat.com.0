@@ -1,85 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07154F755A
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 07:31:27 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 418294F7679
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Apr 2022 08:42:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1649313745;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=sja+oAGyUelquXjyJy+LOKloCNgsqFpQJ4zP3R5Fe04=;
+	b=SPqmXGYI/qFnis2u1BuQ3J0rWBUAM16z/3sdmL8wUtH1g/4ZFRv/Us5aFJ5JyDZq1P5ODH
+	sv32NsbWd9u1/Cu6RTXxSvoqWbCMIwMaD4Ub7kfoUrhs8XaB3PtmT2eVfsz27yf3KBi3+n
+	7qDGMINKepx4BUc/+tei/EQ31DUJM1k=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-MOKgT75ONgiUNUhNseaJ0Q-1; Thu, 07 Apr 2022 01:31:24 -0400
-X-MC-Unique: MOKgT75ONgiUNUhNseaJ0Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-147-5Ke_k0g0OkuwhFTWuTYMvA-1; Thu, 07 Apr 2022 02:42:22 -0400
+X-MC-Unique: 5Ke_k0g0OkuwhFTWuTYMvA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89208803524;
-	Thu,  7 Apr 2022 05:31:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEEFF811E84;
+	Thu,  7 Apr 2022 06:42:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 29F8340470DF;
-	Thu,  7 Apr 2022 05:31:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0EEE042D3B1;
+	Thu,  7 Apr 2022 06:41:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC81A194034E;
-	Thu,  7 Apr 2022 05:31:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 384B1194034E;
+	Thu,  7 Apr 2022 06:41:56 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CCE871949763 for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  7 Apr 2022 05:31:19 +0000 (UTC)
+ ESMTP id 735121949763 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  7 Apr 2022 06:41:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A9A302024CBC; Thu,  7 Apr 2022 05:31:19 +0000 (UTC)
+ id 4046341636E; Thu,  7 Apr 2022 06:41:54 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A52C0200B69A
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 05:31:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B6941C0515F
- for <linux-cachefs@redhat.com>; Thu,  7 Apr 2022 05:31:10 +0000 (UTC)
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-322-80fJbC6yMmKG_AUddnj73w-1; Thu, 07 Apr 2022 01:31:08 -0400
-X-MC-Unique: 80fJbC6yMmKG_AUddnj73w-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=hsiangkao@linux.alibaba.com;
- NM=1; PH=DS; RN=19; SR=0; TI=SMTPD_---0V9PKx-H_1649309460
-Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
- fp:SMTPD_---0V9PKx-H_1649309460) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 07 Apr 2022 13:31:03 +0800
-Date: Thu, 7 Apr 2022 13:31:00 +0800
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>
-Message-ID: <Yk53FOjDLzN941b4@B-P7TQMD6M-0146.local>
-Mail-Followup-To: Jeffle Xu <jefflexu@linux.alibaba.com>,
- dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
- chao@kernel.org, linux-erofs@lists.ozlabs.org,
- torvalds@linux-foundation.org, gregkh@linuxfoundation.org,
- willy@infradead.org, linux-fsdevel@vger.kernel.org,
- joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
- tao.peng@linux.alibaba.com, gerry@linux.alibaba.com,
- eguan@linux.alibaba.com, linux-kernel@vger.kernel.org,
- luodaowen.backend@bytedance.com, tianzichen@kuaishou.com,
- fannaihao@baidu.com
-References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
- <20220406075612.60298-13-jefflexu@linux.alibaba.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E753D401E2B;
+ Thu,  7 Apr 2022 06:41:48 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <Yk5W6zvvftOB+80D@casper.infradead.org>
+References: <Yk5W6zvvftOB+80D@casper.infradead.org>
+ <164928615045.457102.10607899252434268982.stgit@warthog.procyon.org.uk>
+ <164928630577.457102.8519251179327601178.stgit@warthog.procyon.org.uk>
+To: Matthew Wilcox <willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20220406075612.60298-13-jefflexu@linux.alibaba.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [PATCH v8 12/20] erofs: add anonymous inode
- managing page cache for data blob
+Date: Thu, 07 Apr 2022 07:41:47 +0100
+Message-ID: <469869.1649313707@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Linux-cachefs] [PATCH 14/14] mm, netfs,
+ fscache: Stop read optimisation when folio removed from pagecache
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,163 +72,46 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: tianzichen@kuaishou.com, linux-erofs@lists.ozlabs.org, chao@kernel.org,
- fannaihao@baidu.com, tao.peng@linux.alibaba.com, willy@infradead.org,
- linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
- linux-cachefs@redhat.com, bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
- linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
- xiang@kernel.org, gerry@linux.alibaba.com, torvalds@linux-foundation.org,
- eguan@linux.alibaba.com
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, Steve French <sfrench@samba.org>,
+ linux-cifs@vger.kernel.org, Rohith Surabattula <rohiths.msft@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-ID: <469868.1649313707.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 06, 2022 at 03:56:04PM +0800, Jeffle Xu wrote:
-> Introduce one anonymous inode managing page cache for data blob. Then
-> erofs could read directly from the address space of the anonymous inode
-> when cache hit.
+Matthew Wilcox <willy@infradead.org> wrote:
 
-Introduce one anonymous inode for data blobs so that erofs
-can cache metadata directly within such anonymous inode.
-
+> On Thu, Apr 07, 2022 at 12:05:05AM +0100, David Howells wrote:
+> > Fix this by adding an extra address_space operation, ->removing folio(),
+> > and flag, AS_NOTIFY_REMOVING_FOLIO.  The operation is called if the flag is
+> > set when a folio is removed from the pagecache.  The flag should be set if
+> > a non-NULL cookie is obtained from fscache and cleared in ->evict_inode()
+> > before truncate_inode_pages_final() is called.
 > 
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+> What's wrong with ->freepage?
 
-Yeah, I think currently we can live with that:
+It's too late.  The optimisation must be cancelled before there's a chance
+that a new page can be allocated and attached to the pagecache - but
+->freepage() is called after the folio has been removed.  Doing it in
+->freepage() would allow ->readahead(), ->readpage() or ->write_begin() to
+jump in and start a new read (which gets skipped because the optimisation is
+still in play).
 
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+Another possibility could be that the FSCACHE_COOKIE_HAVE_DATA and
+FSCACHE_COOKIE_NO_DATA_TO_READ flags could be moved from cookie->flags to
+mapping->flags and the VM could do the twiddling itself (no aop required) -
+except that fscache can't currently then find them (maybe use an aop for
+that?).
 
-Thanks,
-Gao Xiang
-
-
-> ---
->  fs/erofs/fscache.c  | 39 ++++++++++++++++++++++++++++++++++++---
->  fs/erofs/internal.h |  6 ++++--
->  2 files changed, 40 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-> index 67a3c4935245..1c88614203d2 100644
-> --- a/fs/erofs/fscache.c
-> +++ b/fs/erofs/fscache.c
-> @@ -5,17 +5,22 @@
->  #include <linux/fscache.h>
->  #include "internal.h"
->  
-> +static const struct address_space_operations erofs_fscache_meta_aops = {
-> +};
-> +
->  /*
->   * Create an fscache context for data blob.
->   * Return: 0 on success and allocated fscache context is assigned to @fscache,
->   *	   negative error number on failure.
->   */
->  int erofs_fscache_register_cookie(struct super_block *sb,
-> -				  struct erofs_fscache **fscache, char *name)
-> +				  struct erofs_fscache **fscache,
-> +				  char *name, bool need_inode)
->  {
->  	struct fscache_volume *volume = EROFS_SB(sb)->volume;
->  	struct erofs_fscache *ctx;
->  	struct fscache_cookie *cookie;
-> +	int ret;
->  
->  	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
->  	if (!ctx)
-> @@ -25,15 +30,40 @@ int erofs_fscache_register_cookie(struct super_block *sb,
->  					name, strlen(name), NULL, 0, 0);
->  	if (!cookie) {
->  		erofs_err(sb, "failed to get cookie for %s", name);
-> -		kfree(name);
-> -		return -EINVAL;
-> +		ret = -EINVAL;
-> +		goto err;
->  	}
->  
->  	fscache_use_cookie(cookie, false);
->  	ctx->cookie = cookie;
->  
-> +	if (need_inode) {
-> +		struct inode *const inode = new_inode(sb);
-> +
-> +		if (!inode) {
-> +			erofs_err(sb, "failed to get anon inode for %s", name);
-> +			ret = -ENOMEM;
-> +			goto err_cookie;
-> +		}
-> +
-> +		set_nlink(inode, 1);
-> +		inode->i_size = OFFSET_MAX;
-> +		inode->i_mapping->a_ops = &erofs_fscache_meta_aops;
-> +		mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
-> +
-> +		ctx->inode = inode;
-> +	}
-> +
->  	*fscache = ctx;
->  	return 0;
-> +
-> +err_cookie:
-> +	fscache_unuse_cookie(ctx->cookie, NULL, NULL);
-> +	fscache_relinquish_cookie(ctx->cookie, false);
-> +	ctx->cookie = NULL;
-> +err:
-> +	kfree(ctx);
-> +	return ret;
->  }
->  
->  void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache)
-> @@ -47,6 +77,9 @@ void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache)
->  	fscache_relinquish_cookie(ctx->cookie, false);
->  	ctx->cookie = NULL;
->  
-> +	iput(ctx->inode);
-> +	ctx->inode = NULL;
-> +
->  	kfree(ctx);
->  	*fscache = NULL;
->  }
-> diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-> index c6a3351a4d7d..3a4a344cfed3 100644
-> --- a/fs/erofs/internal.h
-> +++ b/fs/erofs/internal.h
-> @@ -99,6 +99,7 @@ struct erofs_sb_lz4_info {
->  
->  struct erofs_fscache {
->  	struct fscache_cookie *cookie;
-> +	struct inode *inode;
->  };
->  
->  struct erofs_sb_info {
-> @@ -632,7 +633,8 @@ int erofs_fscache_register_fs(struct super_block *sb);
->  void erofs_fscache_unregister_fs(struct super_block *sb);
->  
->  int erofs_fscache_register_cookie(struct super_block *sb,
-> -				  struct erofs_fscache **fscache, char *name);
-> +				  struct erofs_fscache **fscache,
-> +				  char *name, bool need_inode);
->  void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache);
->  #else
->  static inline int erofs_fscache_register_fs(struct super_block *sb) { return 0; }
-> @@ -640,7 +642,7 @@ static inline void erofs_fscache_unregister_fs(struct super_block *sb) {}
->  
->  static inline int erofs_fscache_register_cookie(struct super_block *sb,
->  						struct erofs_fscache **fscache,
-> -						char *name)
-> +						char *name, bool need_inode)
->  {
->  	return -EOPNOTSUPP;
->  }
-> -- 
-> 2.27.0
-
+David
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
