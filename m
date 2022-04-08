@@ -2,56 +2,64 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A7C4F9FDB
-	for <lists+linux-cachefs@lfdr.de>; Sat,  9 Apr 2022 01:06:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D59D4F9FDC
+	for <lists+linux-cachefs@lfdr.de>; Sat,  9 Apr 2022 01:06:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649459168;
+	s=mimecast20190719; t=1649459177;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=//ZuaKpKZ0FIn9qp/yRK+cDrxXbLXsd781n6EToecdo=;
-	b=cbK8U9ppH71BEHaoBKBD1O5Mf3CKPkin3O45lrnTCIewuwqxH1v10r/RGdA2h7uOjkCyxL
-	FYmBvWTS7Be5pHAMU2oOW9PS9T0TGd6QnoJap9Ucvpw8c5Jy3T/htziJX4iHr8Mvhek6sD
-	KlZmew3IF2mF7BNZDANEJg+CWw1MTpU=
+	bh=bQcNIU2ZACOiK5aWGZLjlJLl9flryb6ZQqCJfn9s0cw=;
+	b=h5QKMqe9PTiOrgX3588ZwwrHE1kZeBPAOhkGIQFbcU+56cagUiIAV1PnZXJh7ixPUpLh8p
+	ik6SJEEr0p0+3Is/yw4CpPgazIM9+VjxbXeBmWaomPaqJkwXxLdYLw1ZuvhBviGr5WMiBm
+	YC++cB7OuiofupH7OPQhO0/8Q/u5prI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-378-wl6oCegEMXifOqd25C51pg-1; Fri, 08 Apr 2022 19:06:07 -0400
-X-MC-Unique: wl6oCegEMXifOqd25C51pg-1
+ us-mta-390-OPgG4hPjMgGSXYAL9bitWA-1; Fri, 08 Apr 2022 19:06:14 -0400
+X-MC-Unique: OPgG4hPjMgGSXYAL9bitWA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF38985A5BC;
-	Fri,  8 Apr 2022 23:06:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5E89800B28;
+	Fri,  8 Apr 2022 23:06:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CC2291410F3B;
-	Fri,  8 Apr 2022 23:06:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CCE401410F3B;
+	Fri,  8 Apr 2022 23:06:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 78E52194034A;
-	Fri,  8 Apr 2022 23:06:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 888CE194034B;
+	Fri,  8 Apr 2022 23:06:13 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D630D1940341 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  8 Apr 2022 23:06:04 +0000 (UTC)
+ ESMTP id E17881940341 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  8 Apr 2022 23:06:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C58DF2166BB1; Fri,  8 Apr 2022 23:06:04 +0000 (UTC)
+ id D56F31415131; Fri,  8 Apr 2022 23:06:12 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2BA3B2167D60;
- Fri,  8 Apr 2022 23:05:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C43EC1415130;
+ Fri,  8 Apr 2022 23:06:10 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
 To: linux-cachefs@redhat.com
-Date: Sat, 09 Apr 2022 00:05:56 +0100
-Message-ID: <164945915630.773423.14655306154231712324.stgit@warthog.procyon.org.uk>
+Date: Sat, 09 Apr 2022 00:06:10 +0100
+Message-ID: <164945917002.773423.16291667819231402497.stgit@warthog.procyon.org.uk>
+In-Reply-To: <164945915630.773423.14655306154231712324.stgit@warthog.procyon.org.uk>
+References: <164945915630.773423.14655306154231712324.stgit@warthog.procyon.org.uk>
 User-Agent: StGit/1.4
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [Linux-cachefs] [RFC][PATCH 0/8] fscache, cachefiles: Fixes
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Linux-cachefs] [PATCH 1/8] cachefiles: unmark inode in use in
+ error path
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,53 +84,113 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
 
-Here's a collection of fscache and cachefiles fixes and misc small
-cleanups.  The two main fixes are:
+Unmark inode in use if error encountered. If the in-use flag leakage
+occurs in cachefiles_open_file(), Cachefiles will complain "Inode
+already in use" when later another cookie with the same index key is
+looked up.
 
- (1) Add a missing unmark of the inode in-use mark in an error path.
+If the in-use flag leakage occurs in cachefiles_create_tmpfile(), though
+the "Inode already in use" warning won't be triggered, fix the leakage
+anyway.
 
- (2) Fix a KASAN slab-out-of-bounds error when setting the xattr on a
-     cachefiles volume due to the wrong length being given to memcpy().
-
-In addition, there's the removal of an unused parameter, removal of an
-unused Kconfig option, conditionalising a bit of procfs-related stuff and
-some doc fixes.
-
-The patches are on a branch here:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-fixes
-
-David
-
+Reported-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+Fixes: 1f08c925e7a3 ("cachefiles: Implement backing file wrangling")
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: linux-cachefs@redhat.com
+Link: https://listman.redhat.com/archives/linux-cachefs/2022-March/006615.html # v1
+Link: https://listman.redhat.com/archives/linux-cachefs/2022-March/006618.html # v2
 ---
-Dave Wysochanski (1):
-      cachefiles: Fix KASAN slab-out-of-bounds in cachefiles_set_volume_xattr
 
-Jeffle Xu (1):
-      cachefiles: unmark inode in use in error path
+ fs/cachefiles/namei.c |   33 ++++++++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 9 deletions(-)
 
-Yue Hu (6):
-      docs: filesystems: caching/backend-api.rst: correct two relinquish APIs use
-      docs: filesystems: caching/backend-api.rst: fix an object withdrawn API
-      fscache: Remove the cookie parameter from fscache_clear_page_bits()
-      fscache: Move fscache_cookies_seq_ops specific code under CONFIG_PROC_FS
-      fscache: Use wrapper fscache_set_cache_state() directly when relinquishing
-      fscache: remove FSCACHE_OLD_API Kconfig option
-
-
- .../filesystems/caching/backend-api.rst       |  8 ++---
- .../filesystems/caching/netfs-api.rst         | 25 +++++++-------
- fs/afs/write.c                                |  3 +-
- fs/cachefiles/namei.c                         | 33 ++++++++++++++-----
- fs/cachefiles/xattr.c                         |  2 +-
- fs/fscache/Kconfig                            |  3 --
- fs/fscache/cache.c                            |  2 +-
- fs/fscache/cookie.c                           |  4 ++-
- fs/fscache/internal.h                         |  4 +++
- fs/fscache/io.c                               |  5 ++-
- include/linux/fscache.h                       |  4 +--
- 11 files changed, 53 insertions(+), 40 deletions(-)
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index f256c8aff7bb..ca9f3e4ec4b3 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -57,6 +57,16 @@ static void __cachefiles_unmark_inode_in_use(struct cachefiles_object *object,
+ 	trace_cachefiles_mark_inactive(object, inode);
+ }
+ 
++static void cachefiles_do_unmark_inode_in_use(struct cachefiles_object *object,
++					      struct dentry *dentry)
++{
++	struct inode *inode = d_backing_inode(dentry);
++
++	inode_lock(inode);
++	__cachefiles_unmark_inode_in_use(object, dentry);
++	inode_unlock(inode);
++}
++
+ /*
+  * Unmark a backing inode and tell cachefilesd that there's something that can
+  * be culled.
+@@ -68,9 +78,7 @@ void cachefiles_unmark_inode_in_use(struct cachefiles_object *object,
+ 	struct inode *inode = file_inode(file);
+ 
+ 	if (inode) {
+-		inode_lock(inode);
+-		__cachefiles_unmark_inode_in_use(object, file->f_path.dentry);
+-		inode_unlock(inode);
++		cachefiles_do_unmark_inode_in_use(object, file->f_path.dentry);
+ 
+ 		if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
+ 			atomic_long_add(inode->i_blocks, &cache->b_released);
+@@ -484,7 +492,7 @@ struct file *cachefiles_create_tmpfile(struct cachefiles_object *object)
+ 				object, d_backing_inode(path.dentry), ret,
+ 				cachefiles_trace_trunc_error);
+ 			file = ERR_PTR(ret);
+-			goto out_dput;
++			goto out_unuse;
+ 		}
+ 	}
+ 
+@@ -494,15 +502,20 @@ struct file *cachefiles_create_tmpfile(struct cachefiles_object *object)
+ 		trace_cachefiles_vfs_error(object, d_backing_inode(path.dentry),
+ 					   PTR_ERR(file),
+ 					   cachefiles_trace_open_error);
+-		goto out_dput;
++		goto out_unuse;
+ 	}
+ 	if (unlikely(!file->f_op->read_iter) ||
+ 	    unlikely(!file->f_op->write_iter)) {
+ 		fput(file);
+ 		pr_notice("Cache does not support read_iter and write_iter\n");
+ 		file = ERR_PTR(-EINVAL);
++		goto out_unuse;
+ 	}
+ 
++	goto out_dput;
++
++out_unuse:
++	cachefiles_do_unmark_inode_in_use(object, path.dentry);
+ out_dput:
+ 	dput(path.dentry);
+ out:
+@@ -590,14 +603,16 @@ static bool cachefiles_open_file(struct cachefiles_object *object,
+ check_failed:
+ 	fscache_cookie_lookup_negative(object->cookie);
+ 	cachefiles_unmark_inode_in_use(object, file);
+-	if (ret == -ESTALE) {
+-		fput(file);
+-		dput(dentry);
++	fput(file);
++	dput(dentry);
++	if (ret == -ESTALE)
+ 		return cachefiles_create_file(object);
+-	}
++	return false;
++
+ error_fput:
+ 	fput(file);
+ error:
++	cachefiles_do_unmark_inode_in_use(object, dentry);
+ 	dput(dentry);
+ 	return false;
+ }
 
 
 --
