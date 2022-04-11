@@ -2,67 +2,66 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684CD4FBC68
-	for <lists+linux-cachefs@lfdr.de>; Mon, 11 Apr 2022 14:49:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C434FBC76
+	for <lists+linux-cachefs@lfdr.de>; Mon, 11 Apr 2022 14:51:06 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-550-Mqh9mdxVP8a2fie1y_Psdw-1; Mon, 11 Apr 2022 08:49:02 -0400
-X-MC-Unique: Mqh9mdxVP8a2fie1y_Psdw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-516-WbG9JA3ENJC4omaBQ-0FQw-1; Mon, 11 Apr 2022 08:51:03 -0400
+X-MC-Unique: WbG9JA3ENJC4omaBQ-0FQw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9451F8117B0;
-	Mon, 11 Apr 2022 12:49:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 92857101AA4D;
+	Mon, 11 Apr 2022 12:51:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 89B0240CF8FD;
-	Mon, 11 Apr 2022 12:49:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 88577C2E00E;
+	Mon, 11 Apr 2022 12:51:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5773D1947BBB;
-	Mon, 11 Apr 2022 12:49:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4206C1947BBB;
+	Mon, 11 Apr 2022 12:51:02 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5963519466DF for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 11 Apr 2022 12:49:00 +0000 (UTC)
+ ESMTP id E9BC419466DF for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 11 Apr 2022 12:51:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 494BDC44CCC; Mon, 11 Apr 2022 12:49:00 +0000 (UTC)
+ id D8476145B991; Mon, 11 Apr 2022 12:51:01 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 43397C44CC5
- for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:49:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25CB7866DFA
- for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:49:00 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131]) by relay.mimecast.com
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D4AE0145B989
+ for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:51:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF0BC3838C83
+ for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:51:01 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+ (out30-43.freemail.mail.aliyun.com [115.124.30.43]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-DwRALF0XM-6rx0VNbIVtVg-1; Mon, 11 Apr 2022 08:48:55 -0400
-X-MC-Unique: DwRALF0XM-6rx0VNbIVtVg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R991e4; CH=green; DM=||false|;
+ us-mta-197-vGauPkT1NXy-BtKlO5n-Lw-1; Mon, 11 Apr 2022 08:50:50 -0400
+X-MC-Unique: vGauPkT1NXy-BtKlO5n-Lw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9qAczp_1649681329
+ NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9pCfav_1649681444
 Received: from 30.225.24.83(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V9qAczp_1649681329) by smtp.aliyun-inc.com(127.0.0.1);
- Mon, 11 Apr 2022 20:48:50 +0800
-Message-ID: <542f749c-b0f1-1de6-cb41-26e296afb2df@linux.alibaba.com>
-Date: Mon, 11 Apr 2022 20:48:49 +0800
+ fp:SMTPD_---0V9pCfav_1649681444) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 11 Apr 2022 20:50:46 +0800
+Message-ID: <1225fb70-a785-9d4d-5532-28bfde8214f1@linux.alibaba.com>
+Date: Mon, 11 Apr 2022 20:50:44 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.6.1
 To: David Howells <dhowells@redhat.com>
-References: <20220406075612.60298-5-jefflexu@linux.alibaba.com>
+References: <20220406075612.60298-6-jefflexu@linux.alibaba.com>
  <20220406075612.60298-1-jefflexu@linux.alibaba.com>
- <1091405.1649680508@warthog.procyon.org.uk>
+ <1091905.1649681074@warthog.procyon.org.uk>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-In-Reply-To: <1091405.1649680508@warthog.procyon.org.uk>
+In-Reply-To: <1091905.1649681074@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -70,9 +69,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [Linux-cachefs] [PATCH v8 04/20] cachefiles: notify user daemon
- when withdrawing cookie
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: Re: [Linux-cachefs] [PATCH v8 05/20] cachefiles: implement
+ on-demand read
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +92,7 @@ Cc: linux-erofs@lists.ozlabs.org, chao@kernel.org, fannaihao@baidu.com,
  eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,41 +103,26 @@ Content-Transfer-Encoding: 7bit
 
 
 
-On 4/11/22 8:35 PM, David Howells wrote:
+On 4/11/22 8:44 PM, David Howells wrote:
 > Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
 > 
->> +static int init_close_req(struct cachefiles_req *req, void *private)
+>>  	/*
+>>  	 * Uninstall anon_fd to the cachefiles object, so that no further
+>>  	 * associated requests will get enqueued.
+>>  	 */
 > 
-> "cachefiles_" prefix please.
+> "Uninstall anon_fd from..."?
 
-Okay.
-
-> 
->> +	/*
->> +	 * It's possible if the cookie looking up phase failed before READ
->> +	 * request has ever been sent.
->> +	 */
-> 
-> What "it" is possible?  You might want to say "It's possible that the
-> cookie..."
-
-"It's possible that the following if (fd == 0) condition is triggered
-when cookie looking up phase failed before READ request has ever been sent."
-
-Anyway I will fix this comment then.
+Okay, will be fixed.
 
 > 
->> +	if (fd == 0)
->> +		return -ENOENT;
+>> +static int init_read_req(struct cachefiles_req *req, void *private)
 > 
-> 0 is a valid fd.
+> Prefix with "cachefiles_" please (or "cachefiles_ondemand_").
 
-Yeah, but IMHO fd 0 is always for stdin? I think the allocated anon_fd
-won't install at fd 0. Please correct me if I'm wrong.
+Alright.
 
-In fact I wanna use "fd == 0" as the initial state as struct
-cachefiles_object is allocated with kmem_cache_zalloc().
-
+Thanks for reviewing.
 
 -- 
 Thanks,
