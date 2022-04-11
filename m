@@ -1,65 +1,78 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9CC4FBC2B
-	for <lists+linux-cachefs@lfdr.de>; Mon, 11 Apr 2022 14:35:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649680516;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=QER3FEQ5hTA7nUvtEFTF+WhWpuRxWHwFRYRxn36QIpc=;
-	b=cSySqqeZ6Qw3IyWxtJ/gqnntN2N2cksp+0Ao2Dzo70WlqHZo0etQYup74Lqq8tKP6yde6x
-	0NJf3fIFTadfUWdJue3AyUnVZxUvZlic1w8plqrGL1jHWrfWxnv6QRPCnVbGwFcGBiUAAr
-	W4dUrE1a6bnjdlcWnbVo/6pNAt5jf90=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A694FBC31
+	for <lists+linux-cachefs@lfdr.de>; Mon, 11 Apr 2022 14:36:22 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-292-e-Kfkz4xOvW40z_rpBnY4A-1; Mon, 11 Apr 2022 08:35:13 -0400
-X-MC-Unique: e-Kfkz4xOvW40z_rpBnY4A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-221-fViik5huOOSG0zn2yPYdEQ-1; Mon, 11 Apr 2022 08:36:18 -0400
+X-MC-Unique: fViik5huOOSG0zn2yPYdEQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E4B752A2AD55;
-	Mon, 11 Apr 2022 12:35:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC622858F19;
+	Mon, 11 Apr 2022 12:36:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D868D111E410;
-	Mon, 11 Apr 2022 12:35:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A25BF407F77F;
+	Mon, 11 Apr 2022 12:36:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 996E81947BBB;
-	Mon, 11 Apr 2022 12:35:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1E48B1947BBD;
+	Mon, 11 Apr 2022 12:36:17 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AD69B19451F2 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 11 Apr 2022 12:35:11 +0000 (UTC)
+ ESMTP id 2BE4419451F2 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 11 Apr 2022 12:36:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7DF30C44B1D; Mon, 11 Apr 2022 12:35:11 +0000 (UTC)
+ id 0BE26145B992; Mon, 11 Apr 2022 12:36:16 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 166A2C2813D;
- Mon, 11 Apr 2022 12:35:08 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20220406075612.60298-5-jefflexu@linux.alibaba.com>
-References: <20220406075612.60298-5-jefflexu@linux.alibaba.com>
- <20220406075612.60298-1-jefflexu@linux.alibaba.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0873B145B991
+ for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:36:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E43821014A67
+ for <linux-cachefs@redhat.com>; Mon, 11 Apr 2022 12:36:15 +0000 (UTC)
+Received: from out30-57.freemail.mail.aliyun.com
+ (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-672-50-HLddZMh61WwGuJHKcmQ-1; Mon, 11 Apr 2022 08:36:12 -0400
+X-MC-Unique: 50-HLddZMh61WwGuJHKcmQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9pPvL2_1649680565
+Received: from 30.225.24.83(mailfrom:jefflexu@linux.alibaba.com
+ fp:SMTPD_---0V9pPvL2_1649680565) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 11 Apr 2022 20:36:07 +0800
+Message-ID: <46dc4929-b52b-474c-1bdb-b3e439f09585@linux.alibaba.com>
+Date: Mon, 11 Apr 2022 20:36:05 +0800
 MIME-Version: 1.0
-Date: Mon, 11 Apr 2022 13:35:08 +0100
-Message-ID: <1091405.1649680508@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [Linux-cachefs] [PATCH v8 04/20] cachefiles: notify user daemon
- when withdrawing cookie
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+To: David Howells <dhowells@redhat.com>
+References: <20220406075612.60298-4-jefflexu@linux.alibaba.com>
+ <20220406075612.60298-1-jefflexu@linux.alibaba.com>
+ <1091118.1649680137@warthog.procyon.org.uk>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+In-Reply-To: <1091118.1649680137@warthog.procyon.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: Re: [Linux-cachefs] [PATCH v8 03/20] cachefiles: notify user daemon
+ with anon_fd when looking up cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +84,62 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: tianzichen@kuaishou.com, linux-erofs@lists.ozlabs.org, chao@kernel.org,
- fannaihao@baidu.com, tao.peng@linux.alibaba.com, willy@infradead.org,
- linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
- linux-cachefs@redhat.com, bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+Cc: linux-erofs@lists.ozlabs.org, chao@kernel.org, fannaihao@baidu.com,
+ tao.peng@linux.alibaba.com, willy@infradead.org, linux-kernel@vger.kernel.org,
+ tianzichen@kuaishou.com, joseph.qi@linux.alibaba.com, linux-cachefs@redhat.com,
+ bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
  linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
  xiang@kernel.org, gerry@linux.alibaba.com, torvalds@linux-foundation.org,
  eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <1091404.1649680508.1@warthog.procyon.org.uk>
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
 
-> +static int init_close_req(struct cachefiles_req *req, void *private)
 
-"cachefiles_" prefix please.
+On 4/11/22 8:28 PM, David Howells wrote:
+> Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
+> 
+>> +	  This permits on-demand read mode of cachefiles. In this mode, when
+>> +	  cache miss, the cachefiles backend instead of netfs, is responsible
+>> +          for fetching data, e.g. through user daemon.
+> 
+> That third line should probably begin with a tab as the other two line do.
 
-> +	/*
-> +	 * It's possible if the cookie looking up phase failed before READ
-> +	 * request has ever been sent.
-> +	 */
+Oh yeah...
 
-What "it" is possible?  You might want to say "It's possible that the
-cookie..."
+> 
+>> +static inline void cachefiles_flush_reqs(struct cachefiles_cache *cache)
+> 
+> If it's in a .c file, there's no need to mark it "inline".  The compiler will
+> inline it anyway if it decides it should.
 
-> +	if (fd == 0)
-> +		return -ENOENT;
+Okay.
 
-0 is a valid fd.
+> 
+>> +#ifdef CONFIG_CACHEFILES_ONDEMAND
+>> +	cachefiles_flush_reqs(cache);
+>> +	xa_destroy(&cache->reqs);
+>> +#endif
+> 
+> If cachefiles_flush_reqs() is only used in this one place, the xa_destroy()
+> should possibly be moved into it.
+> 
 
-David
+Alright.
+
+
+-- 
+Thanks,
+Jeffle
+
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
