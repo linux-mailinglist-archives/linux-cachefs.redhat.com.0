@@ -2,65 +2,69 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A09F4FCCF3
-	for <lists+linux-cachefs@lfdr.de>; Tue, 12 Apr 2022 05:19:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4751A4FCD2B
+	for <lists+linux-cachefs@lfdr.de>; Tue, 12 Apr 2022 05:36:09 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-448-10E5C5tqO1KDdEsMifSsWw-1; Mon, 11 Apr 2022 23:18:57 -0400
-X-MC-Unique: 10E5C5tqO1KDdEsMifSsWw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-516-hISC5tfAO_mTyBMQdhEP4g-1; Mon, 11 Apr 2022 23:36:05 -0400
+X-MC-Unique: hISC5tfAO_mTyBMQdhEP4g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED8311C05B04;
-	Tue, 12 Apr 2022 03:18:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6BAA3C14846;
+	Tue, 12 Apr 2022 03:36:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E365B40E80E0;
-	Tue, 12 Apr 2022 03:18:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 937A84029A0;
+	Tue, 12 Apr 2022 03:36:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BF25F1940366;
-	Tue, 12 Apr 2022 03:18:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E3FF1940366;
+	Tue, 12 Apr 2022 03:36:04 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 758391947BBF for <linux-cachefs@listman.corp.redhat.com>;
- Tue, 12 Apr 2022 03:18:55 +0000 (UTC)
+ ESMTP id 641FF1947BBF for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 12 Apr 2022 03:36:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5E4E2432032; Tue, 12 Apr 2022 03:18:55 +0000 (UTC)
+ id 14A6041639E; Tue, 12 Apr 2022 03:36:03 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A603401E4E
- for <linux-cachefs@redhat.com>; Tue, 12 Apr 2022 03:18:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 448B380159B
- for <linux-cachefs@redhat.com>; Tue, 12 Apr 2022 03:18:55 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
- (out30-42.freemail.mail.aliyun.com [115.124.30.42]) by relay.mimecast.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 10DA040ED53
+ for <linux-cachefs@redhat.com>; Tue, 12 Apr 2022 03:36:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D91A21C06900
+ for <linux-cachefs@redhat.com>; Tue, 12 Apr 2022 03:36:02 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-461-huVq6HBhOBulAHKIpNDl0A-1; Mon, 11 Apr 2022 23:18:51 -0400
-X-MC-Unique: huVq6HBhOBulAHKIpNDl0A-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9sW5Oh_1649733524
+ us-mta-73-C0edl9VNOIinmnyL1oUOnA-1; Mon, 11 Apr 2022 23:36:01 -0400
+X-MC-Unique: C0edl9VNOIinmnyL1oUOnA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=18; SR=0; TI=SMTPD_---0V9sqOTP_1649734551
 Received: from 30.225.24.141(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0V9sW5Oh_1649733524) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 12 Apr 2022 11:18:46 +0800
-Message-ID: <6bc88656-0542-9e00-7630-537a3ba6980e@linux.alibaba.com>
-Date: Tue, 12 Apr 2022 11:18:44 +0800
+ fp:SMTPD_---0V9sqOTP_1649734551) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 12 Apr 2022 11:35:53 +0800
+Message-ID: <a20ca50f-1d1a-d09e-75da-f6ced65f6c93@linux.alibaba.com>
+Date: Tue, 12 Apr 2022 11:35:51 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.6.1
 To: David Howells <dhowells@redhat.com>
-References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
- <1094550.1649684620@warthog.procyon.org.uk>
+References: <542f749c-b0f1-1de6-cb41-26e296afb2df@linux.alibaba.com>
+ <20220406075612.60298-5-jefflexu@linux.alibaba.com>
+ <20220406075612.60298-1-jefflexu@linux.alibaba.com>
+ <1091405.1649680508@warthog.procyon.org.uk>
+ <1094493.1649684554@warthog.procyon.org.uk>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-In-Reply-To: <1094550.1649684620@warthog.procyon.org.uk>
+In-Reply-To: <1094493.1649684554@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -69,8 +73,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [Linux-cachefs] [PATCH v8 00/20] fscache,
- erofs: fscache-based on-demand read semantics
+Subject: Re: [Linux-cachefs] [PATCH v8 04/20] cachefiles: notify user daemon
+ when withdrawing cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,7 +95,7 @@ Cc: linux-erofs@lists.ozlabs.org, chao@kernel.org, fannaihao@baidu.com,
  eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,12 +106,46 @@ Content-Transfer-Encoding: 7bit
 
 
 
-On 4/11/22 9:43 PM, David Howells wrote:
-> Btw, do you want to add a tracepoint or two to cachefiles to log requests?
+On 4/11/22 9:42 PM, David Howells wrote:
+> JeffleXu <jefflexu@linux.alibaba.com> wrote:
 > 
+>>>
+>>>> +	if (fd == 0)
+>>>> +		return -ENOENT;
+>>>
+>>> 0 is a valid fd.
+>>
+>> Yeah, but IMHO fd 0 is always for stdin? I think the allocated anon_fd
+>> won't install at fd 0. Please correct me if I'm wrong.
+> 
+> If someone has closed 0, then you'll get 0 next, I'm pretty sure.  Try it and
+> see.
 
-Good idea. Tracepoints will help a lot when debugging.
+Good catch.
 
+> 
+>> In fact I wanna use "fd == 0" as the initial state as struct
+>> cachefiles_object is allocated with kmem_cache_zalloc().
+> 
+> I would suggest presetting it to something like -2 to avoid confusion.
+
+Okay, as described in the previous email, I'm going to replace @fd to
+@object_id. I will define some symbols to make it more readable,
+something like
+
+```
+struct cachefiles_object {
+	...
+#ifdef CONFIG_CACHEFILES_ONDEMAND
+#define CACHEFILES_OBJECT_ID_DEFAULT -2
+#define CACHEFILES_OBJECT_ID_DEAD    -1
+	int object_id;
+#endif
+	...
+}
+```
+
+Thanks for your time.
 
 -- 
 Thanks,
