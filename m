@@ -2,59 +2,84 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1AD4FFA5A
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Apr 2022 17:36:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649864164;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=0Ax4TAK8wSZfjfqFDXExEYEzzKwXQp9VK6mU9dew8ng=;
-	b=RFwaIIM/Dq7ZoAssHYjps6hvknWKL/dWrduFl4s00lwTyPZQNvagm6QdyR1Hl0tt4Fqc7t
-	Y1JCWVGuWE7MMYqGr9QmwRHJ5nubENsu/6r0zHskCb+uvL0y/D4klDdN7wxQFrj1qzih7y
-	yvxjywD7iTVYz/eiiz3lECWn8IHLBz0=
+	by mail.lfdr.de (Postfix) with ESMTPS id AD24D5009D8
+	for <lists+linux-cachefs@lfdr.de>; Thu, 14 Apr 2022 11:29:42 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-336-gZAfjFLCNXukVrM5VQMPag-1; Wed, 13 Apr 2022 11:36:01 -0400
-X-MC-Unique: gZAfjFLCNXukVrM5VQMPag-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-552-FIEOAyOANomyVIiQh1dIzw-1; Thu, 14 Apr 2022 05:29:38 -0400
+X-MC-Unique: FIEOAyOANomyVIiQh1dIzw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3961385A5BC;
-	Wed, 13 Apr 2022 15:36:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BD7D1014A63;
+	Thu, 14 Apr 2022 09:29:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E1489C27E9D;
-	Wed, 13 Apr 2022 15:35:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 30955111E3EA;
+	Thu, 14 Apr 2022 09:29:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A7151940373;
-	Wed, 13 Apr 2022 15:35:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8F9A71940347;
+	Thu, 14 Apr 2022 09:29:35 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 70C4D1940340 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 13 Apr 2022 15:35:00 +0000 (UTC)
+ ESMTP id EC8901940341 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 14 Apr 2022 09:29:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4FA94C27EA8; Wed, 13 Apr 2022 15:35:00 +0000 (UTC)
+ id B3621401E99; Thu, 14 Apr 2022 09:29:34 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.37.45])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8ED7AC27E9D;
- Wed, 13 Apr 2022 15:34:58 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: torvalds@linux-foundation.org
+Received: from mimecast-mx02.redhat.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AFA31401E75
+ for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 09:29:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96984185A7B2
+ for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 09:29:34 +0000 (UTC)
+Received: from out30-42.freemail.mail.aliyun.com
+ (out30-42.freemail.mail.aliyun.com [115.124.30.42]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-526-COn4ScKCNz2n9qVZyXtUkg-1; Thu, 14 Apr 2022 05:29:32 -0400
+X-MC-Unique: COn4ScKCNz2n9qVZyXtUkg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=hsiangkao@linux.alibaba.com;
+ NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VA1uGiX_1649928564
+Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0VA1uGiX_1649928564) by smtp.aliyun-inc.com(127.0.0.1);
+ Thu, 14 Apr 2022 17:29:27 +0800
+Date: Thu, 14 Apr 2022 17:29:24 +0800
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+To: Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+Message-ID: <YlfpdAjfRclK4aLQ@B-P7TQMD6M-0146.local>
+Mail-Followup-To: Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>,
+ Jeffle Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com,
+ linux-cachefs@redhat.com, xiang@kernel.org, chao@kernel.org,
+ linux-erofs@lists.ozlabs.org, torvalds@linux-foundation.org,
+ gregkh@linuxfoundation.org, willy@infradead.org,
+ linux-fsdevel@vger.kernel.org, joseph.qi@linux.alibaba.com,
+ bo.liu@linux.alibaba.com, tao.peng@linux.alibaba.com,
+ gerry@linux.alibaba.com, eguan@linux.alibaba.com,
+ linux-kernel@vger.kernel.org, luodaowen.backend@bytedance.com,
+ tianzichen@kuaishou.com, fannaihao@baidu.com
+References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
+ <YlLS47A9TpHyZJQi@B-P7TQMD6M-0146.local>
+ <CAFQAk7iUuaUL40NGzOkCOL=P9d6PgsDjRoKLs_5KDycaA9RQ4w@mail.gmail.com>
 MIME-Version: 1.0
-Date: Wed, 13 Apr 2022 16:34:57 +0100
-Message-ID: <2266868.1649864097@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Linux-cachefs] [GIT PULL] fscache: Miscellaneous fixes
+In-Reply-To: <CAFQAk7iUuaUL40NGzOkCOL=P9d6PgsDjRoKLs_5KDycaA9RQ4w@mail.gmail.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Linux-cachefs] [PATCH v8 00/20] fscache,
+ erofs: fscache-based on-demand read semantics
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +91,94 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cachefs@redhat.com, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Yue Hu <huyue2@coolpad.com>, linux-erofs@lists.ozlabs.org
+Cc: tianzichen@kuaishou.com, joseph.qi@linux.alibaba.com,
+ torvalds@linux-foundation.org, chao@kernel.org, fannaihao@baidu.com,
+ tao.peng@linux.alibaba.com, willy@infradead.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+ bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+ luodaowen.backend@bytedance.com, xiang@kernel.org, gerry@linux.alibaba.com,
+ linux-erofs@lists.ozlabs.org, eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <2266867.1649864097.1@warthog.procyon.org.uk>
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+Hi Jiachen,
 
-Here's a collection of fscache and cachefiles fixes and misc small
-cleanups.  The two main fixes are:
+On Thu, Apr 14, 2022 at 04:10:10PM +0800, Jiachen Zhang wrote:
+> On Sun, Apr 10, 2022 at 8:52 PM Gao Xiang <hsiangkao@linux.alibaba.com> wrote:
+> >
+> > On Wed, Apr 06, 2022 at 03:55:52PM +0800, Jeffle Xu wrote:
+> > > changes since v7:
+> > > - rebased to 5.18-rc1
+> > > - include "cachefiles: unmark inode in use in error path" patch into
+> > >   this patchset to avoid warning from test robot (patch 1)
+> > > - cachefiles: rename [cookie|volume]_key_len field of struct
+> > >   cachefiles_open to [cookie|volume]_key_size to avoid potential
+> > >   misunderstanding. Also add more documentation to
+> > >   include/uapi/linux/cachefiles.h. (patch 3)
+> > > - cachefiles: valid check for error code returned from user daemon
+> > >   (patch 3)
+> > > - cachefiles: change WARN_ON_ONCE() to pr_info_once() when user daemon
+> > >   closes anon_fd prematurely (patch 4/5)
+> > > - ready for complete review
+> > >
+> > >
+> > > Kernel Patchset
+> > > ---------------
+> > > Git tree:
+> > >
+> > >     https://github.com/lostjeffle/linux.git jingbo/dev-erofs-fscache-v8
+> > >
+> > > Gitweb:
+> > >
+> > >     https://github.com/lostjeffle/linux/commits/jingbo/dev-erofs-fscache-v8
+> > >
+> > >
+> > > User Daemon for Quick Test
+> > > --------------------------
+> > > Git tree:
+> > >
+> > >     https://github.com/lostjeffle/demand-read-cachefilesd.git main
+> > >
+> > > Gitweb:
+> > >
+> > >     https://github.com/lostjeffle/demand-read-cachefilesd
+> > >
+> >
+> > Btw, we've also finished a preliminary end-to-end on-demand download
+> > daemon in order to test the fscache on-demand kernel code as a real
+> > end-to-end workload for container use cases:
+> >
+> > User guide: https://github.com/dragonflyoss/image-service/blob/fscache/docs/nydus-fscache.md
+> > Video: https://youtu.be/F4IF2_DENXo
+> >
+> > Thanks,
+> > Gao Xiang
+> 
+> Hi Xiang,
+> 
+> I think this feature is interesting and promising. So I have performed
+> some tests according to the user guide. Hope it can be an upstream
+> feature.
 
- (1) Add a missing unmark of the inode in-use mark in an error path.
+Many thanks for the feedback. We're doing our best to form/stablize it
+now. Still struggle with some specific cases.
 
- (2) Fix a KASAN slab-out-of-bounds error when setting the xattr on a
-     cachefiles volume due to the wrong length being given to memcpy().
+Thanks,
+Gao Xiang
 
-In addition, there's the removal of an unused parameter, removal of an
-unused Kconfig option, conditionalising a bit of procfs-related stuff and
-some doc fixes.
 
-David
+> 
+> Thanks,
+> Jiachen
 
-Link: https://lore.kernel.org/r/164945915630.773423.14655306154231712324.stgit@warthog.procyon.org.uk/
-
----
-The following changes since commit 42e7a03d3badebd4e70aea5362d6914dfc7c220b:
-
-  Merge tag 'hyperv-fixes-signed-20220407' of git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux (2022-04-07 06:35:34 -1000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/fscache-fixes-20220413
-
-for you to fetch changes up to 61132ceeda723d2c48cbc2610ca3213a7fcb083b:
-
-  fscache: remove FSCACHE_OLD_API Kconfig option (2022-04-08 23:54:37 +0100)
-
-----------------------------------------------------------------
-fscache fixes
-
-----------------------------------------------------------------
-Dave Wysochanski (1):
-      cachefiles: Fix KASAN slab-out-of-bounds in cachefiles_set_volume_xattr
-
-Jeffle Xu (1):
-      cachefiles: unmark inode in use in error path
-
-Yue Hu (6):
-      docs: filesystems: caching/backend-api.rst: correct two relinquish APIs use
-      docs: filesystems: caching/backend-api.rst: fix an object withdrawn API
-      fscache: Remove the cookie parameter from fscache_clear_page_bits()
-      fscache: Move fscache_cookies_seq_ops specific code under CONFIG_PROC_FS
-      fscache: Use wrapper fscache_set_cache_state() directly when relinquishing
-      fscache: remove FSCACHE_OLD_API Kconfig option
-
- Documentation/filesystems/caching/backend-api.rst |  8 +++---
- Documentation/filesystems/caching/netfs-api.rst   | 25 +++++++++--------
- fs/afs/write.c                                    |  3 +--
- fs/cachefiles/namei.c                             | 33 ++++++++++++++++-------
- fs/cachefiles/xattr.c                             |  2 +-
- fs/fscache/Kconfig                                |  3 ---
- fs/fscache/cache.c                                |  2 +-
- fs/fscache/cookie.c                               |  4 ++-
- fs/fscache/internal.h                             |  4 +++
- fs/fscache/io.c                                   |  5 ++--
- include/linux/fscache.h                           |  4 +--
- 11 files changed, 53 insertions(+), 40 deletions(-)
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
