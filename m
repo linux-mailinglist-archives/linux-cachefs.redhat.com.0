@@ -1,64 +1,84 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF5150501D
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Apr 2022 14:19:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B02A1506CC0
+	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Apr 2022 14:48:23 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-39-amEgZHH_MgODzX-5MEDd4w-1; Mon, 18 Apr 2022 08:19:06 -0400
-X-MC-Unique: amEgZHH_MgODzX-5MEDd4w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-540-qC-6q5CbNoiWYNFIZi4HfA-1; Tue, 19 Apr 2022 08:48:21 -0400
+X-MC-Unique: qC-6q5CbNoiWYNFIZi4HfA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA0E4299E752;
-	Mon, 18 Apr 2022 12:19:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34AE42999B54;
+	Tue, 19 Apr 2022 12:48:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4EF0E141513E;
-	Mon, 18 Apr 2022 12:19:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D342403375;
+	Tue, 19 Apr 2022 12:48:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B35D71947BBB;
-	Mon, 18 Apr 2022 12:19:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA6E51940347;
+	Tue, 19 Apr 2022 12:48:19 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 53B1A19451F1 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 18 Apr 2022 12:19:00 +0000 (UTC)
+ ESMTP id 450001940344 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 36170145D493; Mon, 18 Apr 2022 12:19:00 +0000 (UTC)
+ id 2141A40E80F4; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 322C0141513E
- for <linux-cachefs@redhat.com>; Mon, 18 Apr 2022 12:19:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 178C329ABA33
- for <linux-cachefs@redhat.com>; Mon, 18 Apr 2022 12:19:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-675-VKHMD1HdMECxxPDJY9uZsg-1; Mon, 18 Apr 2022 08:18:58 -0400
-X-MC-Unique: VKHMD1HdMECxxPDJY9uZsg-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0C540E80E0
+ for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 548CC60F3E;
- Mon, 18 Apr 2022 12:18:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65372C385A1;
- Mon, 18 Apr 2022 12:18:56 +0000 (UTC)
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 18 Apr 2022 14:10:48 +0200
-Message-Id: <20220418121208.383594279@linuxfoundation.org>
-In-Reply-To: <20220418121203.462784814@linuxfoundation.org>
-References: <20220418121203.462784814@linuxfoundation.org>
-User-Agent: quilt/0.66
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0389C185A7A4
+ for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-311-P2XU45FqNIS9KG9DgnGLCQ-1; Thu, 14 Apr 2022 04:10:22 -0400
+X-MC-Unique: P2XU45FqNIS9KG9DgnGLCQ-1
+Received: by mail-io1-f46.google.com with SMTP id z6so4634933iot.0
+ for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 01:10:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=80GuG9Z2OB5edjjpunkIyc1yhfEaarhhzGyq+14i704=;
+ b=U5YRqQgERFwN5s2h25G4Bk/MNDi4mJ8Ev8rD4FKQwuqk5tNMO2tx9/8XPzIPUBiu+q
+ kC/AQZknDDiHWcZlbg1PQmX5UatFY6qV77X3CbtRHl19YSlmb5AU0QPmPd27RZXwUbCo
+ xmZrlW0GjASAbXxiQMBj48Pu3v27UvJSo+nqpJJctktZ4yaYCGG78BiyI76+ipu3NKmd
+ qrsV5TQJyC7qpAm53Z8FZ1Rae3+9ssIubmbb5HJRIaiEDDbM7hfl97olRUTJs7S5G1DZ
+ URYcXAemWSHiWyhZNCdRt/XOZdw1Kr2YK1bGBsJh2EhveaKMPR11dSLhWOKhpNo66JkE
+ 8cxg==
+X-Gm-Message-State: AOAM5336n5dZLSRWGdCI4nwRZPfyY6APFnIkPOoZ9FxGX1zRUdqPHZcq
+ ZjZQ/25XCfrpHA/M3wJ+5WzmqMZbEuyByuzojIcHSgQhILU+kw==
+X-Google-Smtp-Source: ABdhPJyQyyUIJu7HSaI/sHH6jgGH90kBT3f1SyDRMUnKe+RNtKh/8DVg+hrLhzrO3qrrF7NYPZxCyZP+Y63gqiTXviI=
+X-Received: by 2002:a05:6638:3e8f:b0:326:72cb:2b49 with SMTP id
+ ch15-20020a0566383e8f00b0032672cb2b49mr715190jab.247.1649923821659; Thu, 14
+ Apr 2022 01:10:21 -0700 (PDT)
 MIME-Version: 1.0
+References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
+ <YlLS47A9TpHyZJQi@B-P7TQMD6M-0146.local>
+In-Reply-To: <YlLS47A9TpHyZJQi@B-P7TQMD6M-0146.local>
+From: Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+Date: Thu, 14 Apr 2022 16:10:10 +0800
+Message-ID: <CAFQAk7iUuaUL40NGzOkCOL=P9d6PgsDjRoKLs_5KDycaA9RQ4w@mail.gmail.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com, 
+ linux-cachefs@redhat.com, xiang@kernel.org, chao@kernel.org, 
+ linux-erofs@lists.ozlabs.org, torvalds@linux-foundation.org, 
+ gregkh@linuxfoundation.org, willy@infradead.org, 
+ linux-fsdevel@vger.kernel.org, joseph.qi@linux.alibaba.com, 
+ bo.liu@linux.alibaba.com, tao.peng@linux.alibaba.com, gerry@linux.alibaba.com, 
+ eguan@linux.alibaba.com, linux-kernel@vger.kernel.org, 
+ luodaowen.backend@bytedance.com, tianzichen@kuaishou.com, fannaihao@baidu.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -66,9 +86,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [Linux-cachefs] [PATCH 5.17 079/219] cachefiles: Fix KASAN
- slab-out-of-bounds in cachefiles_set_volume_xattr
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Mailman-Approved-At: Tue, 19 Apr 2022 12:48:18 +0000
+Subject: Re: [Linux-cachefs] [PATCH v8 00/20] fscache,
+ erofs: fscache-based on-demand read semantics
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,12 +101,9 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- linux-cachefs@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,101 +111,64 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Dave Wysochanski <dwysocha@redhat.com>
+On Sun, Apr 10, 2022 at 8:52 PM Gao Xiang <hsiangkao@linux.alibaba.com> wrote:
+>
+> On Wed, Apr 06, 2022 at 03:55:52PM +0800, Jeffle Xu wrote:
+> > changes since v7:
+> > - rebased to 5.18-rc1
+> > - include "cachefiles: unmark inode in use in error path" patch into
+> >   this patchset to avoid warning from test robot (patch 1)
+> > - cachefiles: rename [cookie|volume]_key_len field of struct
+> >   cachefiles_open to [cookie|volume]_key_size to avoid potential
+> >   misunderstanding. Also add more documentation to
+> >   include/uapi/linux/cachefiles.h. (patch 3)
+> > - cachefiles: valid check for error code returned from user daemon
+> >   (patch 3)
+> > - cachefiles: change WARN_ON_ONCE() to pr_info_once() when user daemon
+> >   closes anon_fd prematurely (patch 4/5)
+> > - ready for complete review
+> >
+> >
+> > Kernel Patchset
+> > ---------------
+> > Git tree:
+> >
+> >     https://github.com/lostjeffle/linux.git jingbo/dev-erofs-fscache-v8
+> >
+> > Gitweb:
+> >
+> >     https://github.com/lostjeffle/linux/commits/jingbo/dev-erofs-fscache-v8
+> >
+> >
+> > User Daemon for Quick Test
+> > --------------------------
+> > Git tree:
+> >
+> >     https://github.com/lostjeffle/demand-read-cachefilesd.git main
+> >
+> > Gitweb:
+> >
+> >     https://github.com/lostjeffle/demand-read-cachefilesd
+> >
+>
+> Btw, we've also finished a preliminary end-to-end on-demand download
+> daemon in order to test the fscache on-demand kernel code as a real
+> end-to-end workload for container use cases:
+>
+> User guide: https://github.com/dragonflyoss/image-service/blob/fscache/docs/nydus-fscache.md
+> Video: https://youtu.be/F4IF2_DENXo
+>
+> Thanks,
+> Gao Xiang
 
-[ Upstream commit 7b2f6c306601240635c72caa61f682e74d4591b2 ]
+Hi Xiang,
 
-Use the actual length of volume coherency data when setting the
-xattr to avoid the following KASAN report.
+I think this feature is interesting and promising. So I have performed
+some tests according to the user guide. Hope it can be an upstream
+feature.
 
- BUG: KASAN: slab-out-of-bounds in cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
- Write of size 4 at addr ffff888101e02af4 by task kworker/6:0/1347
-
- CPU: 6 PID: 1347 Comm: kworker/6:0 Kdump: loaded Not tainted 5.18.0-rc1-nfs-fscache-netfs+ #13
- Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.14.0-4.fc34 04/01/2014
- Workqueue: events fscache_create_volume_work [fscache]
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x45/0x5a
-  print_report.cold+0x5e/0x5db
-  ? __lock_text_start+0x8/0x8
-  ? cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
-  kasan_report+0xab/0x120
-  ? cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
-  kasan_check_range+0xf5/0x1d0
-  memcpy+0x39/0x60
-  cachefiles_set_volume_xattr+0xa0/0x350 [cachefiles]
-  cachefiles_acquire_volume+0x2be/0x500 [cachefiles]
-  ? __cachefiles_free_volume+0x90/0x90 [cachefiles]
-  fscache_create_volume_work+0x68/0x160 [fscache]
-  process_one_work+0x3b7/0x6a0
-  worker_thread+0x2c4/0x650
-  ? process_one_work+0x6a0/0x6a0
-  kthread+0x16c/0x1a0
-  ? kthread_complete_and_exit+0x20/0x20
-  ret_from_fork+0x22/0x30
-  </TASK>
-
- Allocated by task 1347:
-  kasan_save_stack+0x1e/0x40
-  __kasan_kmalloc+0x81/0xa0
-  cachefiles_set_volume_xattr+0x76/0x350 [cachefiles]
-  cachefiles_acquire_volume+0x2be/0x500 [cachefiles]
-  fscache_create_volume_work+0x68/0x160 [fscache]
-  process_one_work+0x3b7/0x6a0
-  worker_thread+0x2c4/0x650
-  kthread+0x16c/0x1a0
-  ret_from_fork+0x22/0x30
-
- The buggy address belongs to the object at ffff888101e02af0
- which belongs to the cache kmalloc-8 of size 8
- The buggy address is located 4 bytes inside of
- 8-byte region [ffff888101e02af0, ffff888101e02af8)
-
- The buggy address belongs to the physical page:
- page:00000000a2292d70 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x101e02
- flags: 0x17ffffc0000200(slab|node=0|zone=2|lastcpupid=0x1fffff)
- raw: 0017ffffc0000200 0000000000000000 dead000000000001 ffff888100042280
- raw: 0000000000000000 0000000080660066 00000001ffffffff 0000000000000000
- page dumped because: kasan: bad access detected
-
- Memory state around the buggy address:
- ffff888101e02980: fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc
- ffff888101e02a00: 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc 00
- >ffff888101e02a80: fc fc fc fc 00 fc fc fc fc 00 fc fc fc fc 04 fc
-                                                            ^
- ffff888101e02b00: fc fc fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc
- ffff888101e02b80: fc fc 00 fc fc fc fc 00 fc fc fc fc 00 fc fc fc
- ==================================================================
-
-Fixes: 413a4a6b0b55 "cachefiles: Fix volume coherency attribute"
-Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/20220405134649.6579-1-dwysocha@redhat.com/ # v1
-Link: https://lore.kernel.org/r/20220405142810.8208-1-dwysocha@redhat.com/ # Incorrect v2
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cachefiles/xattr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
-index 35465109d9c4..00b087c14995 100644
---- a/fs/cachefiles/xattr.c
-+++ b/fs/cachefiles/xattr.c
-@@ -203,7 +203,7 @@ bool cachefiles_set_volume_xattr(struct cachefiles_volume *volume)
- 	if (!buf)
- 		return false;
- 	buf->reserved = cpu_to_be32(0);
--	memcpy(buf->data, p, len);
-+	memcpy(buf->data, p, volume->vcookie->coherency_len);
- 
- 	ret = cachefiles_inject_write_error();
- 	if (ret == 0)
--- 
-2.35.1
-
-
+Thanks,
+Jiachen
 
 --
 Linux-cachefs mailing list
