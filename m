@@ -2,60 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A76502A16
-	for <lists+linux-cachefs@lfdr.de>; Fri, 15 Apr 2022 14:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85A52502A11
+	for <lists+linux-cachefs@lfdr.de>; Fri, 15 Apr 2022 14:36:48 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-148-S8FddMY0MmmUs0WsJrxJkQ-1; Fri, 15 Apr 2022 08:36:50 -0400
-X-MC-Unique: S8FddMY0MmmUs0WsJrxJkQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-250-U8dGCxUaOIi5s_2jF2At1w-1; Fri, 15 Apr 2022 08:36:44 -0400
+X-MC-Unique: U8dGCxUaOIi5s_2jF2At1w-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00615811E76;
-	Fri, 15 Apr 2022 12:36:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10B5218812C5;
+	Fri, 15 Apr 2022 12:36:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EA457145B97B;
-	Fri, 15 Apr 2022 12:36:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0748EC44CD0;
+	Fri, 15 Apr 2022 12:36:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A8E10194035A;
-	Fri, 15 Apr 2022 12:36:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 71754194036E;
+	Fri, 15 Apr 2022 12:36:42 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5E2A619451F0 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 15 Apr 2022 12:36:48 +0000 (UTC)
+ ESMTP id EDBA619451EF for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 15 Apr 2022 12:36:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4EE772167D71; Fri, 15 Apr 2022 12:36:48 +0000 (UTC)
+ id CEE7F7AE3; Fri, 15 Apr 2022 12:36:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A90D2167D70
- for <linux-cachefs@redhat.com>; Fri, 15 Apr 2022 12:36:36 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CA90D7ADF
+ for <linux-cachefs@redhat.com>; Fri, 15 Apr 2022 12:36:40 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC1FD803533
- for <linux-cachefs@redhat.com>; Fri, 15 Apr 2022 12:36:36 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
- (out30-42.freemail.mail.aliyun.com [115.124.30.42]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-257-o_SRv-8CNnK5kcs0N_oL9g-1; Fri, 15 Apr 2022 08:36:32 -0400
-X-MC-Unique: o_SRv-8CNnK5kcs0N_oL9g-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R311e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=19; SR=0; TI=SMTPD_---0VA7Cc1m_1650026186
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E2E3802803
+ for <linux-cachefs@redhat.com>; Fri, 15 Apr 2022 12:36:40 +0000 (UTC)
+Received: from out199-3.us.a.mail.aliyun.com (out199-3.us.a.mail.aliyun.com
+ [47.90.199.3]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-623-D2Rgh3PLNMW7OSjgUXFSJQ-1; Fri, 15 Apr 2022 08:36:34 -0400
+X-MC-Unique: D2Rgh3PLNMW7OSjgUXFSJQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=19; SR=0; TI=SMTPD_---0VA7Y1b1_1650026187
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VA7Cc1m_1650026186) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 15 Apr 2022 20:36:27 +0800
+ fp:SMTPD_---0VA7Y1b1_1650026187) by smtp.aliyun-inc.com(127.0.0.1);
+ Fri, 15 Apr 2022 20:36:28 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Fri, 15 Apr 2022 20:36:00 +0800
-Message-Id: <20220415123614.54024-8-jefflexu@linux.alibaba.com>
+Date: Fri, 15 Apr 2022 20:36:01 +0800
+Message-Id: <20220415123614.54024-9-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220415123614.54024-1-jefflexu@linux.alibaba.com>
 References: <20220415123614.54024-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +65,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [Linux-cachefs] [PATCH v9 07/21] cachefiles: add tracepoints for
- on-demand read mode
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [Linux-cachefs] [PATCH v9 08/21] cachefiles: document on-demand
+ read mode
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,7 +87,7 @@ Cc: gregkh@linuxfoundation.org, fannaihao@baidu.com, tao.peng@linux.alibaba.com,
  gerry@linux.alibaba.com, torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,266 +95,198 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add tracepoints for on-demand read mode. Currently following tracepoints
-are added:
-
-	OPEN request / COPEN reply
-	CLOSE request
-	READ request / CREAD reply
-	write through anonymous fd
-	release of anonymous fd
+Document new user interface introduced by on-demand read mode.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/ondemand.c          |   7 ++
- include/trace/events/cachefiles.h | 174 ++++++++++++++++++++++++++++++
- 2 files changed, 181 insertions(+)
+ .../filesystems/caching/cachefiles.rst        | 170 ++++++++++++++++++
+ 1 file changed, 170 insertions(+)
 
-diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
-index 10bdac26ce23..3be65b825037 100644
---- a/fs/cachefiles/ondemand.c
-+++ b/fs/cachefiles/ondemand.c
-@@ -30,6 +30,7 @@ static int cachefiles_ondemand_fd_release(struct inode *inode,
- 	xa_unlock(&cache->reqs);
+diff --git a/Documentation/filesystems/caching/cachefiles.rst b/Documentation/filesystems/caching/cachefiles.rst
+index 8bf396b76359..c10a16957141 100644
+--- a/Documentation/filesystems/caching/cachefiles.rst
++++ b/Documentation/filesystems/caching/cachefiles.rst
+@@ -28,6 +28,7 @@ Cache on Already Mounted Filesystem
  
- 	xa_erase(&cache->ondemand_ids, object_id);
-+	trace_cachefiles_ondemand_fd_release(object, object_id);
- 	cachefiles_put_object(object, cachefiles_obj_put_ondemand_fd);
- 	cachefiles_put_unbind_pincount(cache);
- 	return 0;
-@@ -55,6 +56,7 @@ static ssize_t cachefiles_ondemand_fd_write_iter(struct kiocb *kiocb,
- 	if (ret < 0)
- 		return ret;
+  (*) Debugging.
  
-+	trace_cachefiles_ondemand_fd_write(object, file_inode(file), pos, len);
- 	ret = __cachefiles_write(object, file, pos, iter, NULL, NULL);
- 	if (!ret)
- 		ret = len;
-@@ -93,6 +95,7 @@ static long cachefiles_ondemand_fd_ioctl(struct file *filp, unsigned int ioctl,
- 	if (!req)
- 		return -EINVAL;
++ (*) On-demand Read.
  
-+	trace_cachefiles_ondemand_cread(object, id);
- 	complete(&req->done);
- 	return 0;
- }
-@@ -166,6 +169,7 @@ int cachefiles_ondemand_copen(struct cachefiles_cache *cache, char *args)
- 		clear_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
- 	else
- 		set_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
-+	trace_cachefiles_ondemand_copen(req->object, id, size);
  
- out:
- 	complete(&req->done);
-@@ -213,6 +217,7 @@ static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
- 	object->ondemand_id = object_id;
+ Overview
+@@ -482,3 +483,172 @@ the control file.  For example::
+ 	echo $((1|4|8)) >/sys/module/cachefiles/parameters/debug
  
- 	cachefiles_get_unbind_pincount(cache);
-+	trace_cachefiles_ondemand_open(object, &req->msg, load);
- 	return 0;
- 
- err_put_fd:
-@@ -419,6 +424,7 @@ static int cachefiles_ondemand_init_close_req(struct cachefiles_req *req,
- 		return -ENOENT;
- 
- 	req->msg.object_id = object_id;
-+	trace_cachefiles_ondemand_close(object, &req->msg);
- 	return 0;
- }
- 
-@@ -445,6 +451,7 @@ static int cachefiles_ondemand_init_read_req(struct cachefiles_req *req,
- 	req->msg.object_id = object_id;
- 	load->off = read_ctx->off;
- 	load->len = read_ctx->len;
-+	trace_cachefiles_ondemand_read(object, &req->msg, load);
- 	return 0;
- }
- 
-diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
-index 93df9391bd7f..d8d4d73fe7b6 100644
---- a/include/trace/events/cachefiles.h
-+++ b/include/trace/events/cachefiles.h
-@@ -673,6 +673,180 @@ TRACE_EVENT(cachefiles_io_error,
- 		      __entry->error)
- 	    );
- 
-+TRACE_EVENT(cachefiles_ondemand_open,
-+	    TP_PROTO(struct cachefiles_object *obj, struct cachefiles_msg *msg,
-+		     struct cachefiles_open *load),
+ will turn on all function entry debugging.
 +
-+	    TP_ARGS(obj, msg, load),
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj		)
-+		    __field(unsigned int,	msg_id		)
-+		    __field(unsigned int,	object_id	)
-+		    __field(unsigned int,	fd		)
-+		    __field(unsigned int,	flags		)
-+			     ),
++On-demand Read
++==============
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->msg_id	= msg->msg_id;
-+		    __entry->object_id	= msg->object_id;
-+		    __entry->fd		= load->fd;
-+		    __entry->flags	= load->flags;
-+			   ),
++When working in its original mode, cachefiles mainly serves as a local cache
++for a remote networking fs - while in on-demand read mode, cachefiles can boost
++the scenario where on-demand read semantics is needed, e.g. container image
++distribution.
 +
-+	    TP_printk("o=%08x mid=%x oid=%x fd=%d f=%x",
-+		      __entry->obj,
-+		      __entry->msg_id,
-+		      __entry->object_id,
-+		      __entry->fd,
-+		      __entry->flags)
-+	    );
++The essential difference between these two modes is that, in original mode,
++when a cache miss occurs, the netfs will fetch the data from the remote server
++and then write it to the cache file.  With on-demand read mode, however,
++fetching the data and writing it into the cache is delegated to a user daemon.
 +
-+TRACE_EVENT(cachefiles_ondemand_copen,
-+	    TP_PROTO(struct cachefiles_object *obj, unsigned int msg_id,
-+		     long len),
++``CONFIG_CACHEFILES_ONDEMAND`` should be enabled to support on-demand read mode.
 +
-+	    TP_ARGS(obj, msg_id, len),
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj	)
-+		    __field(unsigned int,	msg_id	)
-+		    __field(long,		len	)
-+			     ),
++Protocol Communication
++----------------------
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->msg_id	= msg_id;
-+		    __entry->len	= len;
-+			   ),
++The on-demand read mode relies on a simple protocol used for communication
++between kernel and user daemon. The protocol can be modeled as::
 +
-+	    TP_printk("o=%08x mid=%x l=%lx",
-+		      __entry->obj,
-+		      __entry->msg_id,
-+		      __entry->len)
-+	    );
++	kernel --[request]--> user daemon --[reply]--> kernel
 +
-+TRACE_EVENT(cachefiles_ondemand_close,
-+	    TP_PROTO(struct cachefiles_object *obj, struct cachefiles_msg *msg),
++The cachefiles kernel module will send requests to the user daemon when needed.
++The user daemon needs to poll on the devnode ('/dev/cachefiles') to check if
++there's a pending request to be processed.  A POLLIN event will be returned
++when there's a pending request.
 +
-+	    TP_ARGS(obj, msg),
++The user daemon then reads the devnode to fetch a request and process it
++accordingly.  It is worth noting that each read only gets one request. When
++finished processing the request, the user daemon needs to write the reply to
++the devnode.
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj		)
-+		    __field(unsigned int,	msg_id		)
-+		    __field(unsigned int,	object_id	)
-+			     ),
++Each request starts with a message header of the form::
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->msg_id	= msg->msg_id;
-+		    __entry->object_id	= msg->object_id;
-+			   ),
++	struct cachefiles_msg {
++		__u32 msg_id;
++		__u32 opcode;
++		__u32 len;
++		__u32 object_id;
++		__u8  data[];
++	};
 +
-+	    TP_printk("o=%08x mid=%x oid=%x",
-+		      __entry->obj,
-+		      __entry->msg_id,
-+		      __entry->object_id)
-+	    );
++	where:
 +
-+TRACE_EVENT(cachefiles_ondemand_read,
-+	    TP_PROTO(struct cachefiles_object *obj, struct cachefiles_msg *msg,
-+		     struct cachefiles_read *load),
++	* ``msg_id`` is a unique ID identifying this request among all pending
++	  requests.
 +
-+	    TP_ARGS(obj, msg, load),
++	* ``opcode`` indicates the type of this request.
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj		)
-+		    __field(unsigned int,	msg_id		)
-+		    __field(unsigned int,	object_id	)
-+		    __field(loff_t,		start		)
-+		    __field(size_t,		len		)
-+			     ),
++	* ``object_id`` is a unique ID identifying the cache file operated on.
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->msg_id	= msg->msg_id;
-+		    __entry->object_id	= msg->object_id;
-+		    __entry->start	= load->off;
-+		    __entry->len	= load->len;
-+			   ),
++	* ``data`` indicates the payload of this request.
 +
-+	    TP_printk("o=%08x mid=%x oid=%x s=%llx l=%zx",
-+		      __entry->obj,
-+		      __entry->msg_id,
-+		      __entry->object_id,
-+		      __entry->start,
-+		      __entry->len)
-+	    );
++	* ``len`` indicates the whole length of this request, including the
++	  header and following type-specific payload.
 +
-+TRACE_EVENT(cachefiles_ondemand_cread,
-+	    TP_PROTO(struct cachefiles_object *obj, unsigned int msg_id),
 +
-+	    TP_ARGS(obj, msg_id),
++Turn on On-demand Mode
++----------------------
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj	)
-+		    __field(unsigned int,	msg_id	)
-+			     ),
++An optional parameter is added to the "bind" command::
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->msg_id	= msg_id;
-+			   ),
++	bind [ondemand]
 +
-+	    TP_printk("o=%08x mid=%x",
-+		      __entry->obj,
-+		      __entry->msg_id)
-+	    );
++When the "bind" command takes without argument, it defaults to the original
++mode.  When the "bind" command is given the "ondemand" argument, i.e.
++"bind ondemand", on-demand read mode will be enabled.
 +
-+TRACE_EVENT(cachefiles_ondemand_fd_write,
-+	    TP_PROTO(struct cachefiles_object *obj, struct inode *backer,
-+		     loff_t start, size_t len),
 +
-+	    TP_ARGS(obj, backer, start, len),
++The OPEN Request
++----------------
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj	)
-+		    __field(unsigned int,	backer	)
-+		    __field(loff_t,		start	)
-+		    __field(size_t,		len	)
-+			     ),
++When the netfs opens a cache file for the first time, a request with the
++CACHEFILES_OP_OPEN opcode, a.k.a an OPEN request will be sent to the user
++daemon.  The payload format is of the form::
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->backer	= backer->i_ino;
-+		    __entry->start	= start;
-+		    __entry->len	= len;
-+			   ),
++	struct cachefiles_open {
++		__u32 volume_key_size;
++		__u32 cookie_key_size;
++		__u32 fd;
++		__u32 flags;
++		__u8  data[];
++	};
 +
-+	    TP_printk("o=%08x iB=%x s=%llx l=%zx",
-+		      __entry->obj,
-+		      __entry->backer,
-+		      __entry->start,
-+		      __entry->len)
-+	    );
++	where:
 +
-+TRACE_EVENT(cachefiles_ondemand_fd_release,
-+	    TP_PROTO(struct cachefiles_object *obj, int object_id),
++	* ``data`` contains the volume_key followed directly by the cookie_key.
++	  The volume key is a NUL-terminated string; the cookie key is binary
++	  data.
 +
-+	    TP_ARGS(obj, object_id),
++	* ``volume_key_size`` indicates the size of the volume key in bytes.
 +
-+	    TP_STRUCT__entry(
-+		    __field(unsigned int,	obj		)
-+		    __field(unsigned int,	object_id	)
-+			     ),
++	* ``cookie_key_size`` indicates the size of the cookie key in bytes.
 +
-+	    TP_fast_assign(
-+		    __entry->obj	= obj ? obj->debug_id : 0;
-+		    __entry->object_id	= object_id;
-+			   ),
++	* ``fd`` indicates an anonymous fd referring to the cache file, through
++	  which the user daemon can perform write/llseek file operations on the
++	  cache file.
 +
-+	    TP_printk("o=%08x oid=%x",
-+		      __entry->obj,
-+		      __entry->object_id)
-+	    );
 +
- #endif /* _TRACE_CACHEFILES_H */
- 
- /* This part must be outside protection */
++The user daemon is able to distinguish the requested cache file with the given
++(volume_key, cookie_key) pair. Each cache file has a unique object_id, while it
++may have multiple anonymous fds. The user daemon may duplicate anonymous fds
++from the initial anonymous fd indicated by the @fd field through dup(). Thus
++each object_id can be mapped to multiple anonymous fds, while the usr daemon
++itself needs to maintain the mapping.
++
++With the given anonymous fd, the user daemon can fetch data and write it to the
++cache file in the background, even when kernel has not triggered a cache miss
++yet.
++
++The user daemon should complete the READ request by issuing a "copen" (complete
++open) command on the devnode::
++
++	copen <msg_id>,<cache_size>
++
++	* ``msg_id`` must match the msg_id field of the previous OPEN request.
++
++	* When >= 0, ``cache_size`` indicates the size of the cache file;
++	  when < 0, ``cache_size`` indicates the error code ecountered by the
++	  user daemon.
++
++
++The CLOSE Request
++-----------------
++
++When a cookie withdrawn, a CLOSE request (opcode CACHEFILES_OP_CLOSE) will be
++sent to the user daemon. It will notify the user daemon to close all anonymous
++fds associated with the given object_id.  The CLOSE request has no extea
++payload.
++
++
++The READ Request
++----------------
++
++When on-demand read mode is turned on, and a cache miss encountered, the kernel
++will send a READ request (opcode CACHEFILES_OP_READ) to the user daemon. This
++will tell the user daemon to fetch data of the requested file range. The payload
++is of the form::
++
++	struct cachefiles_read {
++		__u64 off;
++		__u64 len;
++	};
++
++	where:
++
++	* ``off`` indicates the starting offset of the requested file range.
++
++	* ``len`` indicates the length of the requested file range.
++
++
++When receiving a READ request, the user daemon needs to fetch the data of the
++requested file range, and then write it to the cache file identified by
++object_id.
++
++To finish processing the READ request, the user daemon should reply with the
++CACHEFILES_IOC_CREAD ioctl on one of the anonymous fds associated with the given
++object_id in the READ request.  The ioctl is of the form::
++
++	ioctl(fd, CACHEFILES_IOC_CREAD, msg_id);
++
++	* ``fd`` is one of the anonymous fds associated with the given object_id
++	  in the READ request.
++
++	* ``msg_id`` must match the msg_id field of the previous READ request.
 -- 
 2.27.0
 
