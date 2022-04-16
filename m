@@ -1,84 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B02A1506CC0
-	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Apr 2022 14:48:23 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C53506CC1
+	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Apr 2022 14:48:24 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-540-qC-6q5CbNoiWYNFIZi4HfA-1; Tue, 19 Apr 2022 08:48:21 -0400
-X-MC-Unique: qC-6q5CbNoiWYNFIZi4HfA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-605-fOUkFQ2dOaKdiQZRZf3T0Q-1; Tue, 19 Apr 2022 08:48:21 -0400
+X-MC-Unique: fOUkFQ2dOaKdiQZRZf3T0Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34AE42999B54;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35120805F46;
 	Tue, 19 Apr 2022 12:48:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D342403375;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2BF202166B4F;
 	Tue, 19 Apr 2022 12:48:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA6E51940347;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E0CD1949763;
 	Tue, 19 Apr 2022 12:48:19 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 450001940344 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
+ ESMTP id 1D16E19451F0 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 16 Apr 2022 12:08:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2141A40E80F4; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
+ id EB936C44B0C; Sat, 16 Apr 2022 12:08:37 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0C540E80E0
- for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E7DFCC2810E
+ for <linux-cachefs@redhat.com>; Sat, 16 Apr 2022 12:08:37 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0389C185A7A4
- for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 08:10:24 +0000 (UTC)
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD81B811E78
+ for <linux-cachefs@redhat.com>; Sat, 16 Apr 2022 12:08:37 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-311-P2XU45FqNIS9KG9DgnGLCQ-1; Thu, 14 Apr 2022 04:10:22 -0400
-X-MC-Unique: P2XU45FqNIS9KG9DgnGLCQ-1
-Received: by mail-io1-f46.google.com with SMTP id z6so4634933iot.0
- for <linux-cachefs@redhat.com>; Thu, 14 Apr 2022 01:10:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=80GuG9Z2OB5edjjpunkIyc1yhfEaarhhzGyq+14i704=;
- b=U5YRqQgERFwN5s2h25G4Bk/MNDi4mJ8Ev8rD4FKQwuqk5tNMO2tx9/8XPzIPUBiu+q
- kC/AQZknDDiHWcZlbg1PQmX5UatFY6qV77X3CbtRHl19YSlmb5AU0QPmPd27RZXwUbCo
- xmZrlW0GjASAbXxiQMBj48Pu3v27UvJSo+nqpJJctktZ4yaYCGG78BiyI76+ipu3NKmd
- qrsV5TQJyC7qpAm53Z8FZ1Rae3+9ssIubmbb5HJRIaiEDDbM7hfl97olRUTJs7S5G1DZ
- URYcXAemWSHiWyhZNCdRt/XOZdw1Kr2YK1bGBsJh2EhveaKMPR11dSLhWOKhpNo66JkE
- 8cxg==
-X-Gm-Message-State: AOAM5336n5dZLSRWGdCI4nwRZPfyY6APFnIkPOoZ9FxGX1zRUdqPHZcq
- ZjZQ/25XCfrpHA/M3wJ+5WzmqMZbEuyByuzojIcHSgQhILU+kw==
-X-Google-Smtp-Source: ABdhPJyQyyUIJu7HSaI/sHH6jgGH90kBT3f1SyDRMUnKe+RNtKh/8DVg+hrLhzrO3qrrF7NYPZxCyZP+Y63gqiTXviI=
-X-Received: by 2002:a05:6638:3e8f:b0:326:72cb:2b49 with SMTP id
- ch15-20020a0566383e8f00b0032672cb2b49mr715190jab.247.1649923821659; Thu, 14
- Apr 2022 01:10:21 -0700 (PDT)
+ us-mta-617-AlqA22XSOkieK9Kh4ByHUw-1; Sat, 16 Apr 2022 08:08:34 -0400
+X-MC-Unique: AlqA22XSOkieK9Kh4ByHUw-1
+Received: from [2a02:8108:963f:de38:6624:6d8d:f790:d5c]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nfgl9-0000mk-RE; Sat, 16 Apr 2022 13:38:35 +0200
+Message-ID: <c6b80014-846d-cd90-7e67-d72959ffabe1@leemhuis.info>
+Date: Sat, 16 Apr 2022 13:38:35 +0200
 MIME-Version: 1.0
-References: <20220406075612.60298-1-jefflexu@linux.alibaba.com>
- <YlLS47A9TpHyZJQi@B-P7TQMD6M-0146.local>
-In-Reply-To: <YlLS47A9TpHyZJQi@B-P7TQMD6M-0146.local>
-From: Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
-Date: Thu, 14 Apr 2022 16:10:10 +0800
-Message-ID: <CAFQAk7iUuaUL40NGzOkCOL=P9d6PgsDjRoKLs_5KDycaA9RQ4w@mail.gmail.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com, 
- linux-cachefs@redhat.com, xiang@kernel.org, chao@kernel.org, 
- linux-erofs@lists.ozlabs.org, torvalds@linux-foundation.org, 
- gregkh@linuxfoundation.org, willy@infradead.org, 
- linux-fsdevel@vger.kernel.org, joseph.qi@linux.alibaba.com, 
- bo.liu@linux.alibaba.com, tao.peng@linux.alibaba.com, gerry@linux.alibaba.com, 
- eguan@linux.alibaba.com, linux-kernel@vger.kernel.org, 
- luodaowen.backend@bytedance.com, tianzichen@kuaishou.com, fannaihao@baidu.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+To: Max Kellermann <mk@cm4all.com>, dhowells@redhat.com
+References: <YlWWbpW5Foynjllo@rabbit.intern.cm-ag>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <YlWWbpW5Foynjllo@rabbit.intern.cm-ag>
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1650110914;
+ c3db739e
+X-HE-SMSGID: 1nfgl9-0000mk-RE
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,10 +68,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 19 Apr 2022 12:48:18 +0000
-Subject: Re: [Linux-cachefs] [PATCH v8 00/20] fscache,
- erofs: fscache-based on-demand read semantics
+Subject: Re: [Linux-cachefs] fscache corruption in Linux 5.17?
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,74 +82,152 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
+Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
+ linux-kernel@vger.kernel.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Apr 10, 2022 at 8:52 PM Gao Xiang <hsiangkao@linux.alibaba.com> wrote:
->
-> On Wed, Apr 06, 2022 at 03:55:52PM +0800, Jeffle Xu wrote:
-> > changes since v7:
-> > - rebased to 5.18-rc1
-> > - include "cachefiles: unmark inode in use in error path" patch into
-> >   this patchset to avoid warning from test robot (patch 1)
-> > - cachefiles: rename [cookie|volume]_key_len field of struct
-> >   cachefiles_open to [cookie|volume]_key_size to avoid potential
-> >   misunderstanding. Also add more documentation to
-> >   include/uapi/linux/cachefiles.h. (patch 3)
-> > - cachefiles: valid check for error code returned from user daemon
-> >   (patch 3)
-> > - cachefiles: change WARN_ON_ONCE() to pr_info_once() when user daemon
-> >   closes anon_fd prematurely (patch 4/5)
-> > - ready for complete review
-> >
-> >
-> > Kernel Patchset
-> > ---------------
-> > Git tree:
-> >
-> >     https://github.com/lostjeffle/linux.git jingbo/dev-erofs-fscache-v8
-> >
-> > Gitweb:
-> >
-> >     https://github.com/lostjeffle/linux/commits/jingbo/dev-erofs-fscache-v8
-> >
-> >
-> > User Daemon for Quick Test
-> > --------------------------
-> > Git tree:
-> >
-> >     https://github.com/lostjeffle/demand-read-cachefilesd.git main
-> >
-> > Gitweb:
-> >
-> >     https://github.com/lostjeffle/demand-read-cachefilesd
-> >
->
-> Btw, we've also finished a preliminary end-to-end on-demand download
-> daemon in order to test the fscache on-demand kernel code as a real
-> end-to-end workload for container use cases:
->
-> User guide: https://github.com/dragonflyoss/image-service/blob/fscache/docs/nydus-fscache.md
-> Video: https://youtu.be/F4IF2_DENXo
->
-> Thanks,
-> Gao Xiang
+[TLDR: I'm adding the regression report below to regzbot, the Linux
+kernel regression tracking bot; all text you find below is compiled from
+a few templates paragraphs you might have encountered already already
+from similar mails.]
 
-Hi Xiang,
+Hi, this is your Linux kernel regression tracker. CCing the regression
+mailing list, as it should be in the loop for all regressions, as
+explained here:
+https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
 
-I think this feature is interesting and promising. So I have performed
-some tests according to the user guide. Hope it can be an upstream
-feature.
+On 12.04.22 17:10, Max Kellermann wrote:
+> Hi David,
+> 
+> two weeks ago, I updated a cluster of web servers to Linux kernel
+> 5.17.1 (5.16.x previously) which includes your rewrite of the fscache
+> code.
+> 
+> In the last few days, there were numerous complaints about broken
+> WordPress installations after WordPress was updated.  There were
+> PHP syntax errors everywhere.
+> 
+> Indeed there were broken PHP files, but the interesting part is: those
+> corruptions were only on one of the web servers; the others were fine,
+> the file contents were only broken on one of the servers.
+> 
+> File size and time stamp and everyhing in "stat" is identical, just
+> the file contents are corrupted; it looks like a mix of old and new
+> contents.  The corruptions always started at multiples of 4096 bytes.
+> 
+> An example diff:
+> 
+>  --- ok/wp-includes/media.php    2022-04-06 05:51:50.000000000 +0200
+>  +++ broken/wp-includes/media.php    2022-04-06 05:51:50.000000000 +0200
+>  @@ -5348,7 +5348,7 @@
+>                  /**
+>                   * Filters the threshold for how many of the first content media elements to not lazy-load.
+>                   *
+>  -                * For these first content media elements, the `loading` attribute will be omitted. By default, this is the case
+>  +                * For these first content media elements, the `loading` efault, this is the case
+>                   * for only the very first content media element.
+>                   *
+>                   * @since 5.9.0
+>  @@ -5377,3 +5377,4 @@
+>   
+>          return $content_media_count;
+>   }
+>  +^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@
+> 
+> The corruption can be explained by WordPress commit
+> https://github.com/WordPress/WordPress/commit/07855db0ee8d5cff2 which
+> makes the file 31 bytes longer (185055 -> 185086).  The "broken" web
+> server sees the new contents until offset 184320 (= 45 * 4096), but
+> sees the old contents from there on; followed by 31 null bytes
+> (because the kernel reads past the end of the cache?).
+> 
+> All web servers mount a storage via NFSv3 with fscache.
+> 
+> My suspicion is that this is caused by a fscache regression in Linux
+> 5.17.  What do you think?
+> 
+> What can I do to debug this further, is there any information you
+> need?  I don't know much about how fscache works internally and how to
+> obtain information.
 
-Thanks,
-Jiachen
+Thx for the report. Maybe a bisection is what's needed here, but lets
+see what David says, maybe he has a idea already.
+
+To be sure below issue doesn't fall through the cracks unnoticed, I'm
+adding it to regzbot, my Linux kernel regression tracking bot:
+
+#regzbot ^introduced v5.16..v5.17
+#regzbot title fscache: file contents are corrupted
+#regzbot ignore-activity
+
+If it turns out this isn't a regression, free free to remove it from the
+tracking by sending a reply to this thread containing a paragraph like
+"#regzbot invalid: reason why this is invalid" (without the quotes).
+
+Reminder for developers: when fixing the issue, please add a 'Link:'
+tags pointing to the report (the mail quoted above) using
+lore.kernel.org/r/, as explained in
+'Documentation/process/submitting-patches.rst' and
+'Documentation/process/5.Posting.rst'. Regzbot needs them to
+automatically connect reports with fixes, but they are useful in
+general, too.
+
+I'm sending this to everyone that got the initial report, to make
+everyone aware of the tracking. I also hope that messages like this
+motivate people to directly get at least the regression mailing list and
+ideally even regzbot involved when dealing with regressions, as messages
+like this wouldn't be needed then. And don't worry, if I need to send
+other mails regarding this regression only relevant for regzbot I'll
+send them to the regressions lists only (with a tag in the subject so
+people can filter them away). With a bit of luck no such messages will
+be needed anyway.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+
+P.S.: As the Linux kernel's regression tracker I'm getting a lot of
+reports on my table. I can only look briefly into most of them and lack
+knowledge about most of the areas they concern. I thus unfortunately
+will sometimes get things wrong or miss something important. I hope
+that's not the case here; if you think it is, don't hesitate to tell me
+in a public reply, it's in everyone's interest to set the public record
+straight.
+
+-- 
+Additional information about regzbot:
+
+If you want to know more about regzbot, check out its web-interface, the
+getting start guide, and the references documentation:
+
+https://linux-regtracking.leemhuis.info/regzbot/
+https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
+https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
+
+The last two documents will explain how you can interact with regzbot
+yourself if your want to.
+
+Hint for reporters: when reporting a regression it's in your interest to
+CC the regression list and tell regzbot about the issue, as that ensures
+the regression makes it onto the radar of the Linux kernel's regression
+tracker -- that's in your interest, as it ensures your report won't fall
+through the cracks unnoticed.
+
+Hint for developers: you normally don't need to care about regzbot once
+it's involved. Fix the issue as you normally would, just remember to
+include 'Link:' tag in the patch descriptions pointing to all reports
+about the issue. This has been expected from developers even before
+regzbot showed up for reasons explained in
+'Documentation/process/submitting-patches.rst' and
+'Documentation/process/5.Posting.rst'.
 
 --
 Linux-cachefs mailing list
