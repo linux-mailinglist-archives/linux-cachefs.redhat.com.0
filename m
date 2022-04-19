@@ -2,79 +2,94 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5130506FF8
-	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Apr 2022 16:19:08 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id CD5EF50719D
+	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Apr 2022 17:24:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1650381869;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=cth3Xl9WB+JzJhqDnFYnpHArrnkSiNxqh8kAQu7DkD0=;
+	b=FD2gUKnwvMxGcBRAmkpqxaNIgg1EfhuvRv8aXT75jgtW+hw+NskfJ9LNCadJ1ae1guiK5y
+	Vkqlj0XjKajhCSQzb8W7DTgAKjkXXyoUXekdXIMtpmhxQ5rUAKsT1m+5zcS3eEubNaw9Yq
+	r8biT3pHAZd0wM2LyW68xJid9e67Wdw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-290-cfpTOj3ANh-Ydz9Sbj_x5Q-1; Tue, 19 Apr 2022 10:19:04 -0400
-X-MC-Unique: cfpTOj3ANh-Ydz9Sbj_x5Q-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-302-kQSCjaaBO7WegKmPJt6fUw-1; Tue, 19 Apr 2022 11:24:27 -0400
+X-MC-Unique: kQSCjaaBO7WegKmPJt6fUw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 69F603C172C4;
-	Tue, 19 Apr 2022 14:19:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49A7080005D;
+	Tue, 19 Apr 2022 15:24:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7B486401E6C;
-	Tue, 19 Apr 2022 14:19:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 08356440ABA;
+	Tue, 19 Apr 2022 15:24:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 446FF1940340;
-	Tue, 19 Apr 2022 14:19:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AAFEB1940340;
+	Tue, 19 Apr 2022 15:24:23 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CD38A1947BBF for <linux-cachefs@listman.corp.redhat.com>;
- Tue, 19 Apr 2022 14:18:59 +0000 (UTC)
+ ESMTP id 60D651947BBF for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 19 Apr 2022 15:24:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 89610145F94E; Tue, 19 Apr 2022 14:18:59 +0000 (UTC)
+ id 44765145D85F; Tue, 19 Apr 2022 15:24:22 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8577A145F94D
- for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 14:18:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F67780005D
- for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 14:18:59 +0000 (UTC)
-Received: from nibbler.cm4all.net (nibbler.cm4all.net [82.165.145.151]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-641-HAhkwpbGPdKCmFv-zyfBtw-1; Tue, 19 Apr 2022 10:18:57 -0400
-X-MC-Unique: HAhkwpbGPdKCmFv-zyfBtw-1
-Received: from localhost (localhost [127.0.0.1])
- by nibbler.cm4all.net (Postfix) with ESMTP id 8736BC00E1
- for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 16:18:55 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at nibbler.cm4all.net
-Received: from nibbler.cm4all.net ([127.0.0.1])
- by localhost (nibbler.cm4all.net [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id OIBizhKysG09 for <linux-cachefs@redhat.com>;
- Tue, 19 Apr 2022 16:18:48 +0200 (CEST)
-Received: from zero.intern.cm-ag (zero.intern.cm-ag [172.30.16.10])
- by nibbler.cm4all.net (Postfix) with SMTP id 692F5C0093
- for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 16:18:48 +0200 (CEST)
-Received: (qmail 20027 invoked from network); 19 Apr 2022 20:08:47 +0200
-Received: from unknown (HELO rabbit.intern.cm-ag) (172.30.3.1)
- by zero.intern.cm-ag with SMTP; 19 Apr 2022 20:08:47 +0200
-Received: by rabbit.intern.cm-ag (Postfix, from userid 1023)
- id 40ACB460E9C; Tue, 19 Apr 2022 16:18:48 +0200 (CEST)
-Date: Tue, 19 Apr 2022 16:18:48 +0200
-From: Max Kellermann <mk@cm4all.com>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <Yl7EyMLnqqDv63yW@rabbit.intern.cm-ag>
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 411831415125
+ for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 15:24:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E1DA1014A64
+ for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 15:24:22 +0000 (UTC)
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-614-3goy0_mKOZu_Y0ZUhiopow-1; Tue, 19 Apr 2022 11:24:20 -0400
+X-MC-Unique: 3goy0_mKOZu_Y0ZUhiopow-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ nc17-20020a1709071c1100b006e8aeb94fa7so6166626ejc.11
+ for <linux-cachefs@redhat.com>; Tue, 19 Apr 2022 08:24:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Cp3erbdHIxI8pbHHBBO/snHJsYK0Yd+hp7YCIMU9Eq0=;
+ b=t+uVVmpYIahsZsTHxs2lrxDv71y5S7Fv/7UbIgZS39npzE60PDCHaA51Mi/9AuAuWX
+ 5A0tVuYKFDyZXZtE3cT1syGt8I99SNeKay5vKxucNHU63+4KrE9zwq7uKbCMnLw94RFl
+ VkqnLOjGE3eY1uX3/jes/bl6f2p3sex227W5O9e/hx8OYMSRs/oC9US843RTF4IbfXR7
+ qz19YmOfwS76lp6u+KQ765qjKeSNgdTGJrUqa6jZBCQWAlS6dI1kilqw55w+6Vw+nXOt
+ 2WwAQBaZ6DDYh5xqkauj880kw08s8rkVXbDEU+T4Jni9gbQW+FzFoCcSAZkYAK5DaUoD
+ CEhw==
+X-Gm-Message-State: AOAM5335Oi8/zg0DfpZXHtU0iQx/Wsqwawkg+/HVrDro0gNcey3uro6r
+ OUwYrxE3f9EBZcNdjxCCl6KMVewdcQtjvg9e4b3ia9iHOSyAyB7T/IbNkLV6q1Kq6igeqdnvQyY
+ 9fyqywdy6gcLEe+YBeP0PGhIhzRPficaUDxDplw==
+X-Received: by 2002:a17:907:8a03:b0:6ec:8197:e8ac with SMTP id
+ sc3-20020a1709078a0300b006ec8197e8acmr13305417ejc.379.1650381859452; 
+ Tue, 19 Apr 2022 08:24:19 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyEV2IgUHFtehd7uHS7lnxS/tYG3PBuNMrvIeNlWN6+XHPGaya3+IKBxGf3ipbReX5cmQisNirCElxQhR5nhVo=
+X-Received: by 2002:a17:907:8a03:b0:6ec:8197:e8ac with SMTP id
+ sc3-20020a1709078a0300b006ec8197e8acmr13305391ejc.379.1650381859157; Tue, 19
+ Apr 2022 08:24:19 -0700 (PDT)
+MIME-Version: 1.0
 References: <YlWWbpW5Foynjllo@rabbit.intern.cm-ag>
  <454834.1650373340@warthog.procyon.org.uk>
-MIME-Version: 1.0
-In-Reply-To: <454834.1650373340@warthog.procyon.org.uk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+ <Yl7EyMLnqqDv63yW@rabbit.intern.cm-ag>
+In-Reply-To: <Yl7EyMLnqqDv63yW@rabbit.intern.cm-ag>
+From: David Wysochanski <dwysocha@redhat.com>
+Date: Tue, 19 Apr 2022 11:23:42 -0400
+Message-ID: <CALF+zOnxxvDPd6L=W6N0WnS_jbYLBDfENKTousT36jQ37h_Vnw@mail.gmail.com>
+To: Max Kellermann <mk@cm4all.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Subject: Re: [Linux-cachefs] fscache corruption in Linux 5.17?
 X-BeenThere: linux-cachefs@redhat.com
@@ -88,35 +103,43 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
- Max Kellermann <mk@cm4all.com>, linux-kernel@vger.kernel.org
+Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-cachefs <linux-cachefs@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2022/04/19 15:02, David Howells <dhowells@redhat.com> wrote:
-> I presume you are actually using a cache?
+On Tue, Apr 19, 2022 at 10:19 AM Max Kellermann <mk@cm4all.com> wrote:
+>
+> On 2022/04/19 15:02, David Howells <dhowells@redhat.com> wrote:
+> > I presume you are actually using a cache?
+>
+> Yes, see:
+>
+> On 2022/04/12 17:10, Max Kellermann <max@rabbit.intern.cm-ag> wrote:
+> > All web servers mount a storage via NFSv3 with fscache.
+>
+> At least one web server is still in this broken state right now.  So
+> if you need anything from that server, tell me, and I'll get it.
+>
+> I will need to downgrade to 5.16 tomorrow to get rid of the corruption
+> bug (I've delayed this for a week, waiting for your reply).  After
+> tomorrow, I can no longer help debugging this.
+>
+> Max
+>
 
-Yes, see:
-
-On 2022/04/12 17:10, Max Kellermann <max@rabbit.intern.cm-ag> wrote:
-> All web servers mount a storage via NFSv3 with fscache.
-
-At least one web server is still in this broken state right now.  So
-if you need anything from that server, tell me, and I'll get it.
-
-I will need to downgrade to 5.16 tomorrow to get rid of the corruption
-bug (I've delayed this for a week, waiting for your reply).  After
-tomorrow, I can no longer help debugging this.
-
-Max
+FWIW, I just noticed one of my unit tests is failing with data
+corruption with NFSv3 only (NFS4.x does not fail) on 5.18.0-rc3 - not
+sure how repeatable it is.
+I'll see what I can find out.
 
 --
 Linux-cachefs mailing list
