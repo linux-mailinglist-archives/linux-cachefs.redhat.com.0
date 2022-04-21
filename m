@@ -1,66 +1,84 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF1335089DA
-	for <lists+linux-cachefs@lfdr.de>; Wed, 20 Apr 2022 15:55:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1650462952;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=FSzIIrPxDZxyhTrVU09Hc6stmRicbC3F0Z7S/C7ue1o=;
-	b=aHsj5Qa6GNgdLgGtvavcufcbRoPG/Av9MQrfmgyFm558acZejPIRtKMfK/tDzgjm21/Da7
-	YwvcZCF0FA7Oeg9V1BOVIVpNs6E+R9OycAtaERp5AbMg6PHEikgTrfGLWTI0T1jBFr7SZC
-	kr1t7oOADb4esuYpYGPMQnClkEIsL+Y=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6635750997D
+	for <lists+linux-cachefs@lfdr.de>; Thu, 21 Apr 2022 09:53:24 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-7cN_KwDPPNG5q-VA3plQIQ-1; Wed, 20 Apr 2022 09:55:50 -0400
-X-MC-Unique: 7cN_KwDPPNG5q-VA3plQIQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-498-AJl1sfzuPJGEv_varFfsQA-1; Thu, 21 Apr 2022 03:53:20 -0400
+X-MC-Unique: AJl1sfzuPJGEv_varFfsQA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7A3C29AA3BA;
-	Wed, 20 Apr 2022 13:55:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D24883C0D194;
+	Thu, 21 Apr 2022 07:53:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D3A627774;
-	Wed, 20 Apr 2022 13:55:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5F53D403178;
+	Thu, 21 Apr 2022 07:53:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7131B1949763;
-	Wed, 20 Apr 2022 13:55:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 18BA8194034A;
+	Thu, 21 Apr 2022 07:53:17 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B50A319451EC for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 20 Apr 2022 13:55:43 +0000 (UTC)
+ ESMTP id 46D1B1949763 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 21 Apr 2022 07:53:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9652D2024CC2; Wed, 20 Apr 2022 13:55:43 +0000 (UTC)
+ id 0DED440316C; Thu, 21 Apr 2022 07:53:16 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.13])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4BE442026D2D;
- Wed, 20 Apr 2022 13:55:35 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <Yl75D02pXj71kQBx@rabbit.intern.cm-ag>
-References: <Yl75D02pXj71kQBx@rabbit.intern.cm-ag>
- <Yl7d++G25sNXIR+p@rabbit.intern.cm-ag> <YlWWbpW5Foynjllo@rabbit.intern.cm-ag>
- <507518.1650383808@warthog.procyon.org.uk>
- <509961.1650386569@warthog.procyon.org.uk>
-To: Max Kellermann <mk@cm4all.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 09C8E416360
+ for <linux-cachefs@redhat.com>; Thu, 21 Apr 2022 07:53:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E50853C0D199
+ for <linux-cachefs@redhat.com>; Thu, 21 Apr 2022 07:53:15 +0000 (UTC)
+Received: from out199-16.us.a.mail.aliyun.com
+ (out199-16.us.a.mail.aliyun.com [47.90.199.16]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-402-tIG9Mh-rM0m0wgtjhD-jEg-1; Thu, 21 Apr 2022 03:53:13 -0400
+X-MC-Unique: tIG9Mh-rM0m0wgtjhD-jEg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357; MF=hsiangkao@linux.alibaba.com;
+ NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VAdmSw9_1650527585
+Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0VAdmSw9_1650527585) by smtp.aliyun-inc.com(127.0.0.1);
+ Thu, 21 Apr 2022 15:53:08 +0800
+Date: Thu, 21 Apr 2022 15:53:05 +0800
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>
+Message-ID: <YmENYam/pVJ+Riyy@B-P7TQMD6M-0146.local>
+Mail-Followup-To: Jeffle Xu <jefflexu@linux.alibaba.com>,
+ dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
+ chao@kernel.org, linux-erofs@lists.ozlabs.org,
+ torvalds@linux-foundation.org, gregkh@linuxfoundation.org,
+ willy@infradead.org, linux-fsdevel@vger.kernel.org,
+ joseph.qi@linux.alibaba.com, bo.liu@linux.alibaba.com,
+ tao.peng@linux.alibaba.com, gerry@linux.alibaba.com,
+ eguan@linux.alibaba.com, linux-kernel@vger.kernel.org,
+ luodaowen.backend@bytedance.com, tianzichen@kuaishou.com,
+ fannaihao@baidu.com, zhangjiachen.jaycee@bytedance.com
+References: <20220415123614.54024-1-jefflexu@linux.alibaba.com>
+ <20220415123614.54024-11-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-Date: Wed, 20 Apr 2022 14:55:34 +0100
-Message-ID: <705278.1650462934@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Linux-cachefs] fscache corruption in Linux 5.17?
+In-Reply-To: <20220415123614.54024-11-jefflexu@linux.alibaba.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [Linux-cachefs] [PATCH v9 10/21] erofs: add fscache mode check
+ helper
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,116 +90,149 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-kernel@vger.kernel.org
+Cc: tianzichen@kuaishou.com, linux-erofs@lists.ozlabs.org, chao@kernel.org,
+ fannaihao@baidu.com, tao.peng@linux.alibaba.com, willy@infradead.org,
+ linux-kernel@vger.kernel.org, joseph.qi@linux.alibaba.com,
+ zhangjiachen.jaycee@bytedance.com, linux-cachefs@redhat.com,
+ bo.liu@linux.alibaba.com, gregkh@linuxfoundation.org,
+ linux-fsdevel@vger.kernel.org, luodaowen.backend@bytedance.com,
+ xiang@kernel.org, gerry@linux.alibaba.com, torvalds@linux-foundation.org,
+ eguan@linux.alibaba.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <705277.1650462934.1@warthog.procyon.org.uk>
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Max Kellermann <mk@cm4all.com> wrote:
-
-> > Do the NFS servers change the files that are being served - or is it
-> > just WordPress pushing the changes to the NFS servers for the web
-> > servers to then export?
+On Fri, Apr 15, 2022 at 08:36:03PM +0800, Jeffle Xu wrote:
+> Until then erofs is exactly blockdev based filesystem.
 > 
-> I'm not sure if I understand this question correctly.  The NFS server
-> (a NetApp, btw.) sees the new file contents correctly; all other web
-> servers also see non-corrupt new files.  Only the one web server which
-> performed the update saw broken files.
+> A new fscache-based mode is going to be introduced for erofs to support
+> scenarios where on-demand read semantics is needed, e.g. container
+> image distribution. In this case, erofs could be mounted from data blobs
+> through fscache.
+> 
+> Add a helper checking which mode erofs works in, and twist the code in
+> prep for the following fscache mode.
 
-I was wondering if there was missing invalidation if the web clients were
-modifying the same files in parallel, but it sounds like only one place is
-doing the modification, and the problem is the lack of invalidation when a
-file is opened for writing.
+in preparation for the upcoming fscache mode.
 
-I have a tentative patch for this - see attached.
+> 
+> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 
-David
----
-commit 9b00af0190dfee6073aab47ee88e15c31d3c357d
-Author: David Howells <dhowells@redhat.com>
-Date:   Wed Apr 20 14:27:17 2022 +0100
+Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
 
-    fscache: Fix invalidation/lookup race
-    
-    If an NFS file is opened for writing and closed, fscache_invalidate() will
-    be asked to invalidate the file - however, if the cookie is in the
-    LOOKING_UP state (or the CREATING state), then request to invalidate
-    doesn't get recorded for fscache_cookie_state_machine() to do something
-    with.
-    
-    Fix this by making __fscache_invalidate() set a flag if it sees the cookie
-    is in the LOOKING_UP state to indicate that we need to go to invalidation.
-    Note that this requires a count on the n_accesses counter for the state
-    machine, which that will release when it's done.
-    
-    fscache_cookie_state_machine() then shifts to the INVALIDATING state if it
-    sees the flag.
-    
-    Without this, an nfs file can get corrupted if it gets modified locally and
-    then read locally as the cache contents may not get updated.
-    
-    Fixes: d24af13e2e23 ("fscache: Implement cookie invalidation")
-    Reported-by: Max Kellermann <mk@cm4all.com>
-    Signed-off-by: David Howells <dhowells@redhat.com>
-    Link: https://lore.kernel.org/r/YlWWbpW5Foynjllo@rabbit.intern.cm-ag [1]
+Thanks,
+Gao Xiang
 
-diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
-index 9d3cf0111709..3bb6deeb4279 100644
---- a/fs/fscache/cookie.c
-+++ b/fs/fscache/cookie.c
-@@ -705,7 +705,11 @@ static void fscache_cookie_state_machine(struct fscache_cookie *cookie)
- 		spin_unlock(&cookie->lock);
- 		fscache_init_access_gate(cookie);
- 		fscache_perform_lookup(cookie);
--		goto again;
-+		spin_lock(&cookie->lock);
-+		if (test_and_clear_bit(FSCACHE_COOKIE_DO_INVALIDATE, &cookie->flags))
-+			__fscache_set_cookie_state(cookie,
-+						   FSCACHE_COOKIE_STATE_INVALIDATING);
-+		goto again_locked;
- 
- 	case FSCACHE_COOKIE_STATE_INVALIDATING:
- 		spin_unlock(&cookie->lock);
-@@ -752,6 +756,9 @@ static void fscache_cookie_state_machine(struct fscache_cookie *cookie)
- 			spin_lock(&cookie->lock);
- 		}
- 
-+		if (test_and_clear_bit(FSCACHE_COOKIE_DO_INVALIDATE, &cookie->flags))
-+			fscache_end_cookie_access(cookie, fscache_access_invalidate_cookie_end);
-+
- 		switch (state) {
- 		case FSCACHE_COOKIE_STATE_RELINQUISHING:
- 			fscache_see_cookie(cookie, fscache_cookie_see_relinquish);
-@@ -1048,6 +1055,9 @@ void __fscache_invalidate(struct fscache_cookie *cookie,
- 		return;
- 
- 	case FSCACHE_COOKIE_STATE_LOOKING_UP:
-+		__fscache_begin_cookie_access(cookie, fscache_access_invalidate_cookie);
-+		set_bit(FSCACHE_COOKIE_DO_INVALIDATE, &cookie->flags);
-+		fallthrough;
- 	case FSCACHE_COOKIE_STATE_CREATING:
- 		spin_unlock(&cookie->lock);
- 		_leave(" [look %x]", cookie->inval_counter);
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index e25539072463..a25804f141d3 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -129,6 +129,7 @@ struct fscache_cookie {
- #define FSCACHE_COOKIE_DO_PREP_TO_WRITE	12		/* T if cookie needs write preparation */
- #define FSCACHE_COOKIE_HAVE_DATA	13		/* T if this cookie has data stored */
- #define FSCACHE_COOKIE_IS_HASHED	14		/* T if this cookie is hashed */
-+#define FSCACHE_COOKIE_DO_INVALIDATE	15		/* T if cookie needs invalidation */
- 
- 	enum fscache_cookie_state	state;
- 	u8				advice;		/* FSCACHE_ADV_* */
+> ---
+>  fs/erofs/internal.h |  5 +++++
+>  fs/erofs/super.c    | 44 +++++++++++++++++++++++++++++---------------
+>  2 files changed, 34 insertions(+), 15 deletions(-)
+> 
+> diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+> index fe9564e5091e..05a97533b1e9 100644
+> --- a/fs/erofs/internal.h
+> +++ b/fs/erofs/internal.h
+> @@ -161,6 +161,11 @@ struct erofs_sb_info {
+>  #define set_opt(opt, option)	((opt)->mount_opt |= EROFS_MOUNT_##option)
+>  #define test_opt(opt, option)	((opt)->mount_opt & EROFS_MOUNT_##option)
+>  
+> +static inline bool erofs_is_fscache_mode(struct super_block *sb)
+> +{
+> +	return IS_ENABLED(CONFIG_EROFS_FS_ONDEMAND) && !sb->s_bdev;
+> +}
+> +
+>  enum {
+>  	EROFS_ZIP_CACHE_DISABLED,
+>  	EROFS_ZIP_CACHE_READAHEAD,
+> diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+> index 0c4b41130c2f..724d5ff0d78c 100644
+> --- a/fs/erofs/super.c
+> +++ b/fs/erofs/super.c
+> @@ -259,15 +259,19 @@ static int erofs_init_devices(struct super_block *sb,
+>  		}
+>  		dis = ptr + erofs_blkoff(pos);
+>  
+> -		bdev = blkdev_get_by_path(dif->path,
+> -					  FMODE_READ | FMODE_EXCL,
+> -					  sb->s_type);
+> -		if (IS_ERR(bdev)) {
+> -			err = PTR_ERR(bdev);
+> -			break;
+> +		if (!erofs_is_fscache_mode(sb)) {
+> +			bdev = blkdev_get_by_path(dif->path,
+> +						  FMODE_READ | FMODE_EXCL,
+> +						  sb->s_type);
+> +			if (IS_ERR(bdev)) {
+> +				err = PTR_ERR(bdev);
+> +				break;
+> +			}
+> +			dif->bdev = bdev;
+> +			dif->dax_dev = fs_dax_get_by_bdev(bdev,
+> +							  &dif->dax_part_off);
+>  		}
+> -		dif->bdev = bdev;
+> -		dif->dax_dev = fs_dax_get_by_bdev(bdev, &dif->dax_part_off);
+> +
+>  		dif->blocks = le32_to_cpu(dis->blocks);
+>  		dif->mapped_blkaddr = le32_to_cpu(dis->mapped_blkaddr);
+>  		sbi->total_blocks += dif->blocks;
+> @@ -586,21 +590,28 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+>  
+>  	sb->s_magic = EROFS_SUPER_MAGIC;
+>  
+> -	if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
+> -		erofs_err(sb, "failed to set erofs blksize");
+> -		return -EINVAL;
+> -	}
+> -
+>  	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
+>  	if (!sbi)
+>  		return -ENOMEM;
+>  
+>  	sb->s_fs_info = sbi;
+>  	sbi->opt = ctx->opt;
+> -	sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
+>  	sbi->devs = ctx->devs;
+>  	ctx->devs = NULL;
+>  
+> +	if (erofs_is_fscache_mode(sb)) {
+> +		sb->s_blocksize = EROFS_BLKSIZ;
+> +		sb->s_blocksize_bits = LOG_BLOCK_SIZE;
+> +	} else {
+> +		if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
+> +			erofs_err(sb, "failed to set erofs blksize");
+> +			return -EINVAL;
+> +		}
+> +
+> +		sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev,
+> +						  &sbi->dax_part_off);
+> +	}
+> +
+>  	err = erofs_read_superblock(sb);
+>  	if (err)
+>  		return err;
+> @@ -857,7 +868,10 @@ static int erofs_statfs(struct dentry *dentry, struct kstatfs *buf)
+>  {
+>  	struct super_block *sb = dentry->d_sb;
+>  	struct erofs_sb_info *sbi = EROFS_SB(sb);
+> -	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
+> +	u64 id = 0;
+> +
+> +	if (!erofs_is_fscache_mode(sb))
+> +		id = huge_encode_dev(sb->s_bdev->bd_dev);
+>  
+>  	buf->f_type = sb->s_magic;
+>  	buf->f_bsize = EROFS_BLKSIZ;
+> -- 
+> 2.27.0
+
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
