@@ -2,60 +2,61 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7FA750DFF9
-	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Apr 2022 14:22:28 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 405DD50DFFE
+	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Apr 2022 14:22:33 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-290-SQJNt1lLMZWNNTByfv0pVQ-1; Mon, 25 Apr 2022 08:22:24 -0400
-X-MC-Unique: SQJNt1lLMZWNNTByfv0pVQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-106-lQ0avt6VNZ6nvi8waaP_vw-1; Mon, 25 Apr 2022 08:22:29 -0400
+X-MC-Unique: lQ0avt6VNZ6nvi8waaP_vw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40E1D299E750;
-	Mon, 25 Apr 2022 12:22:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACB17811E78;
+	Mon, 25 Apr 2022 12:22:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 37425145BEEE;
-	Mon, 25 Apr 2022 12:22:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A1089C27EA6;
+	Mon, 25 Apr 2022 12:22:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CFA641940345;
-	Mon, 25 Apr 2022 12:22:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5D8521940346;
+	Mon, 25 Apr 2022 12:22:28 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0781C1947BBE for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 25 Apr 2022 12:22:23 +0000 (UTC)
+ ESMTP id 15A8B1947BBE for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 25 Apr 2022 12:22:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F09E6C27EAE; Mon, 25 Apr 2022 12:22:22 +0000 (UTC)
+ id E4FE22166BA3; Mon, 25 Apr 2022 12:22:26 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EC6AEC27EA6
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E01AC2167D65
  for <linux-cachefs@redhat.com>; Mon, 25 Apr 2022 12:22:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4C98185A7B2
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20E8A1014A62
  for <linux-cachefs@redhat.com>; Mon, 25 Apr 2022 12:22:22 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-300-wFVObt2JMi2XvOa-2dkp6A-1; Mon, 25 Apr 2022 08:22:19 -0400
-X-MC-Unique: wFVObt2JMi2XvOa-2dkp6A-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VBDrnYz_1650889331
+ us-mta-54--fS4IJerMUiEcs7NE45FhQ-1; Mon, 25 Apr 2022 08:22:19 -0400
+X-MC-Unique: -fS4IJerMUiEcs7NE45FhQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R921e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VBGH8HR_1650889333
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VBDrnYz_1650889331) by smtp.aliyun-inc.com(127.0.0.1);
- Mon, 25 Apr 2022 20:22:12 +0800
+ fp:SMTPD_---0VBGH8HR_1650889333) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 25 Apr 2022 20:22:14 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon, 25 Apr 2022 20:21:39 +0800
-Message-Id: <20220425122143.56815-18-jefflexu@linux.alibaba.com>
+Date: Mon, 25 Apr 2022 20:21:40 +0800
+Message-Id: <20220425122143.56815-19-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220425122143.56815-1-jefflexu@linux.alibaba.com>
 References: <20220425122143.56815-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +67,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Linux-cachefs] [PATCH v10 17/21] erofs: implement fscache-based
- metadata read
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [Linux-cachefs] [PATCH v10 18/21] erofs: implement fscache-based
+ data read for non-inline layout
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,7 +90,7 @@ Cc: zhujia.zj@bytedance.com, gregkh@linuxfoundation.org, fannaihao@baidu.com,
  torvalds@linux-foundation.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,100 +98,111 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Implement the data plane of reading metadata from primary data blob
-over fscache.
+Implement the data plane of reading data from data blobs over fscache
+for non-inline layout.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
 ---
- fs/erofs/data.c    | 19 +++++++++++++++----
- fs/erofs/fscache.c | 25 +++++++++++++++++++++++++
- 2 files changed, 40 insertions(+), 4 deletions(-)
+ fs/erofs/fscache.c  | 51 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/erofs/inode.c    |  4 ++++
+ fs/erofs/internal.h |  2 ++
+ 3 files changed, 57 insertions(+)
 
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index 14b64d960541..bb9c1fd48c19 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -6,6 +6,7 @@
-  */
- #include "internal.h"
- #include <linux/prefetch.h>
-+#include <linux/sched/mm.h>
- #include <linux/dax.h>
- #include <trace/events/erofs.h>
- 
-@@ -35,14 +36,20 @@ void *erofs_bread(struct erofs_buf *buf, struct inode *inode,
- 	erofs_off_t offset = blknr_to_addr(blkaddr);
- 	pgoff_t index = offset >> PAGE_SHIFT;
- 	struct page *page = buf->page;
-+	struct folio *folio;
-+	unsigned int nofs_flag;
- 
- 	if (!page || page->index != index) {
- 		erofs_put_metabuf(buf);
--		page = read_cache_page_gfp(mapping, index,
--				mapping_gfp_constraint(mapping, ~__GFP_FS));
--		if (IS_ERR(page))
--			return page;
-+
-+		nofs_flag = memalloc_nofs_save();
-+		folio = read_cache_folio(mapping, index, NULL, NULL);
-+		memalloc_nofs_restore(nofs_flag);
-+		if (IS_ERR(folio))
-+			return folio;
-+
- 		/* should already be PageUptodate, no need to lock page */
-+		page = folio_file_page(folio, index);
- 		buf->page = page;
- 	}
- 	if (buf->kmap_type == EROFS_NO_KMAP) {
-@@ -63,6 +70,10 @@ void *erofs_bread(struct erofs_buf *buf, struct inode *inode,
- void *erofs_read_metabuf(struct erofs_buf *buf, struct super_block *sb,
- 			 erofs_blk_t blkaddr, enum erofs_kmap_type type)
- {
-+	if (erofs_is_fscache_mode(sb))
-+		return erofs_bread(buf, EROFS_SB(sb)->s_fscache->inode,
-+				   blkaddr, type);
-+
- 	return erofs_bread(buf, sb->s_bdev->bd_inode, blkaddr, type);
- }
- 
 diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-index ac02af8cce3e..23d7e862eed8 100644
+index 23d7e862eed8..b3af72af7c88 100644
 --- a/fs/erofs/fscache.c
 +++ b/fs/erofs/fscache.c
-@@ -59,7 +59,32 @@ static int erofs_fscache_read_folios(struct fscache_cookie *cookie,
+@@ -83,10 +83,61 @@ static int erofs_fscache_meta_readpage(struct file *data, struct page *page)
  	return ret;
  }
  
-+static int erofs_fscache_meta_readpage(struct file *data, struct page *page)
++static int erofs_fscache_readpage(struct file *file, struct page *page)
 +{
-+	int ret;
 +	struct folio *folio = page_folio(page);
-+	struct super_block *sb = folio_mapping(folio)->host->i_sb;
-+	struct erofs_map_dev mdev = {
-+		.m_deviceid = 0,
-+		.m_pa = folio_pos(folio),
++	struct inode *inode = folio_mapping(folio)->host;
++	struct super_block *sb = inode->i_sb;
++	struct erofs_map_blocks map;
++	struct erofs_map_dev mdev;
++	erofs_off_t pos;
++	loff_t pstart;
++	int ret;
++
++	DBG_BUGON(folio_size(folio) != EROFS_BLKSIZ);
++
++	pos = folio_pos(folio);
++	map.m_la = pos;
++
++	ret = erofs_map_blocks(inode, &map, EROFS_GET_BLOCKS_RAW);
++	if (ret)
++		goto out_unlock;
++
++	if (!(map.m_flags & EROFS_MAP_MAPPED)) {
++		folio_zero_range(folio, 0, folio_size(folio));
++		goto out_uptodate;
++	}
++
++	mdev = (struct erofs_map_dev) {
++		.m_deviceid = map.m_deviceid,
++		.m_pa = map.m_pa,
 +	};
 +
 +	ret = erofs_map_dev(sb, &mdev);
 +	if (ret)
-+		goto out;
++		goto out_unlock;
 +
++	pstart = mdev.m_pa + (pos - map.m_la);
 +	ret = erofs_fscache_read_folios(mdev.m_fscache->cookie,
 +			folio_mapping(folio), folio_pos(folio),
-+			folio_size(folio), mdev.m_pa);
++			folio_size(folio), pstart);
++
++out_uptodate:
 +	if (!ret)
 +		folio_mark_uptodate(folio);
-+out:
++out_unlock:
 +	folio_unlock(folio);
 +	return ret;
 +}
 +
  static const struct address_space_operations erofs_fscache_meta_aops = {
-+	.readpage = erofs_fscache_meta_readpage,
+ 	.readpage = erofs_fscache_meta_readpage,
  };
  
++const struct address_space_operations erofs_fscache_access_aops = {
++	.readpage = erofs_fscache_readpage,
++};
++
  int erofs_fscache_register_cookie(struct super_block *sb,
+ 				  struct erofs_fscache **fscache,
+ 				  char *name, bool need_inode)
+diff --git a/fs/erofs/inode.c b/fs/erofs/inode.c
+index e8b37ba5e9ad..8d3f56c6469b 100644
+--- a/fs/erofs/inode.c
++++ b/fs/erofs/inode.c
+@@ -297,6 +297,10 @@ static int erofs_fill_inode(struct inode *inode, int isdir)
+ 		goto out_unlock;
+ 	}
+ 	inode->i_mapping->a_ops = &erofs_raw_access_aops;
++#ifdef CONFIG_EROFS_FS_ONDEMAND
++	if (erofs_is_fscache_mode(inode->i_sb))
++		inode->i_mapping->a_ops = &erofs_fscache_access_aops;
++#endif
+ 
+ out_unlock:
+ 	erofs_put_metabuf(&buf);
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index fa488af8dfcf..c8f6ac910976 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -639,6 +639,8 @@ int erofs_fscache_register_cookie(struct super_block *sb,
+ 				  struct erofs_fscache **fscache,
+ 				  char *name, bool need_inode);
+ void erofs_fscache_unregister_cookie(struct erofs_fscache **fscache);
++
++extern const struct address_space_operations erofs_fscache_access_aops;
+ #else
+ static inline int erofs_fscache_register_fs(struct super_block *sb)
+ {
 -- 
 2.27.0
 
