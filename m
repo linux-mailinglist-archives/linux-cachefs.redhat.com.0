@@ -2,60 +2,61 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1133251F568
-	for <lists+linux-cachefs@lfdr.de>; Mon,  9 May 2022 09:40:56 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 061ED51F56E
+	for <lists+linux-cachefs@lfdr.de>; Mon,  9 May 2022 09:41:01 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-15-5tWZBAzWNsmNnsRfoNFpsw-1; Mon, 09 May 2022 03:40:53 -0400
-X-MC-Unique: 5tWZBAzWNsmNnsRfoNFpsw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-543-EmWfmJjeMjGMbmf8SFIhYQ-1; Mon, 09 May 2022 03:40:58 -0400
+X-MC-Unique: EmWfmJjeMjGMbmf8SFIhYQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 920BD80B712;
-	Mon,  9 May 2022 07:40:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACDFB29AB3E5;
+	Mon,  9 May 2022 07:40:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 885A5416386;
-	Mon,  9 May 2022 07:40:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A355540CF8EC;
+	Mon,  9 May 2022 07:40:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 395FE1947054;
-	Mon,  9 May 2022 07:40:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6FFA71947055;
+	Mon,  9 May 2022 07:40:57 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7C97A1947042 for <linux-cachefs@listman.corp.redhat.com>;
- Mon,  9 May 2022 07:40:51 +0000 (UTC)
+ ESMTP id 5E5471947055 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon,  9 May 2022 07:40:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5FF1B1460E22; Mon,  9 May 2022 07:40:51 +0000 (UTC)
+ id 2D78340CF8EC; Mon,  9 May 2022 07:40:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C8591460E24
- for <linux-cachefs@redhat.com>; Mon,  9 May 2022 07:40:51 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 28DCA400E547
+ for <linux-cachefs@redhat.com>; Mon,  9 May 2022 07:40:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4521629AB3E5
- for <linux-cachefs@redhat.com>; Mon,  9 May 2022 07:40:51 +0000 (UTC)
-Received: from out199-3.us.a.mail.aliyun.com (out199-3.us.a.mail.aliyun.com
- [47.90.199.3]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-34-xXDXRs63Num4GQ6FxS_ASA-1; Mon, 09 May 2022 03:40:48 -0400
-X-MC-Unique: xXDXRs63Num4GQ6FxS_ASA-1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F0C0811E80
+ for <linux-cachefs@redhat.com>; Mon,  9 May 2022 07:40:55 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-399-y7rIAweQPmq6rYimELFUOw-1; Mon, 09 May 2022 03:40:50 -0400
+X-MC-Unique: y7rIAweQPmq6rYimELFUOw-1
 X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=jefflexu@linux.alibaba.com;
- NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VCgX6ia_1652082043
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394; MF=jefflexu@linux.alibaba.com;
+ NM=1; PH=DS; RN=20; SR=0; TI=SMTPD_---0VCfaImD_1652082044
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VCgX6ia_1652082043) by smtp.aliyun-inc.com(127.0.0.1);
- Mon, 09 May 2022 15:40:44 +0800
+ fp:SMTPD_---0VCfaImD_1652082044) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 09 May 2022 15:40:45 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com, linux-cachefs@redhat.com, xiang@kernel.org,
  chao@kernel.org, linux-erofs@lists.ozlabs.org
-Date: Mon,  9 May 2022 15:40:15 +0800
-Message-Id: <20220509074028.74954-10-jefflexu@linux.alibaba.com>
+Date: Mon,  9 May 2022 15:40:16 +0800
+Message-Id: <20220509074028.74954-11-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220509074028.74954-1-jefflexu@linux.alibaba.com>
 References: <20220509074028.74954-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -66,9 +67,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [Linux-cachefs] [PATCH v11 09/22] erofs: make erofs_map_blocks()
- generally available
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [Linux-cachefs] [PATCH v11 10/22] erofs: add fscache mode check
+ helper
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,7 +90,7 @@ Cc: zhujia.zj@bytedance.com, gregkh@linuxfoundation.org,
  torvalds@linux-foundation.org, yinxin.x@bytedance.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,43 +98,118 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-... so that it can be used in the following introduced fscache mode.
+Until then erofs is exactly blockdev based filesystem.
+
+A new fscache-based mode is going to be introduced for erofs to support
+scenarios where on-demand read semantics is needed, e.g. container
+image distribution. In this case, erofs could be mounted from data blobs
+through fscache.
+
+Add a helper checking which mode erofs works in, and twist the code in
+preparation for the upcoming fscache mode.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
 ---
- fs/erofs/data.c     | 4 ++--
- fs/erofs/internal.h | 2 ++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ fs/erofs/internal.h |  5 +++++
+ fs/erofs/super.c    | 44 +++++++++++++++++++++++++++++---------------
+ 2 files changed, 34 insertions(+), 15 deletions(-)
 
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index 780db1e5f4b7..bc22642358ec 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -110,8 +110,8 @@ static int erofs_map_blocks_flatmode(struct inode *inode,
- 	return 0;
- }
- 
--static int erofs_map_blocks(struct inode *inode,
--			    struct erofs_map_blocks *map, int flags)
-+int erofs_map_blocks(struct inode *inode,
-+		     struct erofs_map_blocks *map, int flags)
- {
- 	struct super_block *sb = inode->i_sb;
- 	struct erofs_inode *vi = EROFS_I(inode);
 diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-index 5298c4ee277d..fe9564e5091e 100644
+index fe9564e5091e..05a97533b1e9 100644
 --- a/fs/erofs/internal.h
 +++ b/fs/erofs/internal.h
-@@ -486,6 +486,8 @@ void *erofs_read_metabuf(struct erofs_buf *buf, struct super_block *sb,
- int erofs_map_dev(struct super_block *sb, struct erofs_map_dev *dev);
- int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
- 		 u64 start, u64 len);
-+int erofs_map_blocks(struct inode *inode,
-+		     struct erofs_map_blocks *map, int flags);
+@@ -161,6 +161,11 @@ struct erofs_sb_info {
+ #define set_opt(opt, option)	((opt)->mount_opt |= EROFS_MOUNT_##option)
+ #define test_opt(opt, option)	((opt)->mount_opt & EROFS_MOUNT_##option)
  
- /* inode.c */
- static inline unsigned long erofs_inode_hash(erofs_nid_t nid)
++static inline bool erofs_is_fscache_mode(struct super_block *sb)
++{
++	return IS_ENABLED(CONFIG_EROFS_FS_ONDEMAND) && !sb->s_bdev;
++}
++
+ enum {
+ 	EROFS_ZIP_CACHE_DISABLED,
+ 	EROFS_ZIP_CACHE_READAHEAD,
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index 0c4b41130c2f..724d5ff0d78c 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -259,15 +259,19 @@ static int erofs_init_devices(struct super_block *sb,
+ 		}
+ 		dis = ptr + erofs_blkoff(pos);
+ 
+-		bdev = blkdev_get_by_path(dif->path,
+-					  FMODE_READ | FMODE_EXCL,
+-					  sb->s_type);
+-		if (IS_ERR(bdev)) {
+-			err = PTR_ERR(bdev);
+-			break;
++		if (!erofs_is_fscache_mode(sb)) {
++			bdev = blkdev_get_by_path(dif->path,
++						  FMODE_READ | FMODE_EXCL,
++						  sb->s_type);
++			if (IS_ERR(bdev)) {
++				err = PTR_ERR(bdev);
++				break;
++			}
++			dif->bdev = bdev;
++			dif->dax_dev = fs_dax_get_by_bdev(bdev,
++							  &dif->dax_part_off);
+ 		}
+-		dif->bdev = bdev;
+-		dif->dax_dev = fs_dax_get_by_bdev(bdev, &dif->dax_part_off);
++
+ 		dif->blocks = le32_to_cpu(dis->blocks);
+ 		dif->mapped_blkaddr = le32_to_cpu(dis->mapped_blkaddr);
+ 		sbi->total_blocks += dif->blocks;
+@@ -586,21 +590,28 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+ 
+ 	sb->s_magic = EROFS_SUPER_MAGIC;
+ 
+-	if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
+-		erofs_err(sb, "failed to set erofs blksize");
+-		return -EINVAL;
+-	}
+-
+ 	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
+ 	if (!sbi)
+ 		return -ENOMEM;
+ 
+ 	sb->s_fs_info = sbi;
+ 	sbi->opt = ctx->opt;
+-	sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev, &sbi->dax_part_off);
+ 	sbi->devs = ctx->devs;
+ 	ctx->devs = NULL;
+ 
++	if (erofs_is_fscache_mode(sb)) {
++		sb->s_blocksize = EROFS_BLKSIZ;
++		sb->s_blocksize_bits = LOG_BLOCK_SIZE;
++	} else {
++		if (!sb_set_blocksize(sb, EROFS_BLKSIZ)) {
++			erofs_err(sb, "failed to set erofs blksize");
++			return -EINVAL;
++		}
++
++		sbi->dax_dev = fs_dax_get_by_bdev(sb->s_bdev,
++						  &sbi->dax_part_off);
++	}
++
+ 	err = erofs_read_superblock(sb);
+ 	if (err)
+ 		return err;
+@@ -857,7 +868,10 @@ static int erofs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ {
+ 	struct super_block *sb = dentry->d_sb;
+ 	struct erofs_sb_info *sbi = EROFS_SB(sb);
+-	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
++	u64 id = 0;
++
++	if (!erofs_is_fscache_mode(sb))
++		id = huge_encode_dev(sb->s_bdev->bd_dev);
+ 
+ 	buf->f_type = sb->s_magic;
+ 	buf->f_bsize = EROFS_BLKSIZ;
 -- 
 2.27.0
 
