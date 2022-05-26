@@ -2,66 +2,65 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A4F535407
-	for <lists+linux-cachefs@lfdr.de>; Thu, 26 May 2022 21:39:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9CE3536031
+	for <lists+linux-cachefs@lfdr.de>; Fri, 27 May 2022 13:47:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1653652051;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=FUMddUu9Hd6qIaMgSQB1X84CIKRNFngac24l3zuMuSA=;
+	b=apcF+fZqwnMFGILUehIB+jnKOcA/PoCkk+4XnIc6AtLh2tfkR6L65L2FON4Z21kTKSscD2
+	RLPEfmh5jPQ9EJJoO1GvRydWK+/qJ2rFMPm91Z9o5VicGhp1hnJQbjKpY5wV3umbxopeKJ
+	oTC7IJqd/+sUB+2F4ohMp3Rd3vg4ogg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-196-494gzBJdOE65SlBZNURPqg-1; Thu, 26 May 2022 15:39:36 -0400
-X-MC-Unique: 494gzBJdOE65SlBZNURPqg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-616-sRsTny9OOxuByhT8GvY3sQ-1; Fri, 27 May 2022 07:47:29 -0400
+X-MC-Unique: sRsTny9OOxuByhT8GvY3sQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACDA3811E75;
-	Thu, 26 May 2022 19:39:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B8C3801E6B;
+	Fri, 27 May 2022 11:47:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 47ED2492CA2;
-	Thu, 26 May 2022 19:39:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5A5321678F;
+	Fri, 27 May 2022 11:47:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0B958193212A;
-	Thu, 26 May 2022 19:39:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 226C61947042;
+	Fri, 27 May 2022 11:47:26 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B0B7B1947051 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 26 May 2022 19:39:32 +0000 (UTC)
+ ESMTP id B3AA31947051 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 26 May 2022 20:40:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7DA582026D07; Thu, 26 May 2022 19:39:32 +0000 (UTC)
+ id A2034112131B; Thu, 26 May 2022 20:40:39 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 79E602026D64
- for <linux-cachefs@redhat.com>; Thu, 26 May 2022 19:39:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FBC41C01B36
- for <linux-cachefs@redhat.com>; Thu, 26 May 2022 19:39:32 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-146-lP_votZGPliYQBPOVtdNCA-1; Thu, 26 May 2022 15:39:25 -0400
-X-MC-Unique: lP_votZGPliYQBPOVtdNCA-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nuJKN-001VJP-SW; Thu, 26 May 2022 19:39:23 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>,
-	linux-cachefs@redhat.com
-Date: Thu, 26 May 2022 20:39:21 +0100
-Message-Id: <20220526193921.358577-1-willy@infradead.org>
+Received: from segfault.boston.devel.redhat.com
+ (segfault.boston.devel.redhat.com [10.19.60.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 31DDF1121315;
+ Thu, 26 May 2022 20:40:39 +0000 (UTC)
+From: Jeff Moyer <jmoyer@redhat.com>
+To: Frederick Lawler <fred@cloudflare.com>
+References: <20220525183703.466936-1-fred@cloudflare.com>
+X-PGP-KeyID: 1F78E1B4
+X-PGP-CertKey: F6FE 280D 8293 F72C 65FD  5A58 1FF8 A7CA 1F78 E1B4
+Date: Thu, 26 May 2022 16:43:44 -0400
+In-Reply-To: <20220525183703.466936-1-fred@cloudflare.com> (Frederick Lawler's
+ message of "Wed, 25 May 2022 13:37:03 -0500")
+Message-ID: <x49o7zkvxbz.fsf@segfault.boston.devel.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [PATCH] netfs: Remove extern from function
- prototypes
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mailman-Approved-At: Fri, 27 May 2022 11:47:25 +0000
+Subject: Re: [Linux-cachefs] [PATCH v2] cred: Propagate
+ security_prepare_creds() error code
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,10 +72,16 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: "Matthew Wilcox \(Oracle\)" <willy@infradead.org>
+Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, amir73il@gmail.com,
+ linux-cifs@vger.kernel.org, selinux@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-unionfs@vger.kernel.org,
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org,
+ linux-cachefs@redhat.com, keyrings@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, kernel-team@cloudflare.com, serge@hallyn.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -84,50 +89,35 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The 'extern' keyword is not necessary and removing it lets us shorten
-some lines.
+Frederick Lawler <fred@cloudflare.com> writes:
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
----
- include/linux/netfs.h | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+> While experimenting with the security_prepare_creds() LSM hook, we
+> noticed that our EPERM error code was not propagated up the callstack.
+> Instead ENOMEM is always returned.  As a result, some tools may send a
+> confusing error message to the user:
+>
+> $ unshare -rU
+> unshare: unshare failed: Cannot allocate memory
+>
+> A user would think that the system didn't have enough memory, when
+> instead the action was denied.
+>
+> This problem occurs because prepare_creds() and prepare_kernel_cred()
+> return NULL when security_prepare_creds() returns an error code. Later,
+> functions calling prepare_creds() and prepare_kernel_cred() return
+> ENOMEM because they assume that a NULL meant there was no memory
+> allocated.
+>
+> Fix this by propagating an error code from security_prepare_creds() up
+> the callstack.
+>
+> Signed-off-by: Frederick Lawler <fred@cloudflare.com>
 
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 77fa6a61706a..8c1c575c6fae 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -274,18 +274,17 @@ struct netfs_cache_ops {
- };
- 
- struct readahead_control;
--extern void netfs_readahead(struct readahead_control *);
-+void netfs_readahead(struct readahead_control *);
- int netfs_read_folio(struct file *, struct folio *);
--extern int netfs_write_begin(struct file *, struct address_space *,
--			     loff_t, unsigned int, struct folio **,
--			     void **);
--
--extern void netfs_subreq_terminated(struct netfs_io_subrequest *, ssize_t, bool);
--extern void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
--				 enum netfs_sreq_ref_trace what);
--extern void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
--				 bool was_async, enum netfs_sreq_ref_trace what);
--extern void netfs_stats_show(struct seq_file *);
-+int netfs_write_begin(struct file *, struct address_space *, loff_t pos,
-+		      unsigned int len, struct folio **, void **fsdata);
-+
-+void netfs_subreq_terminated(struct netfs_io_subrequest *, ssize_t, bool);
-+void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
-+			  enum netfs_sreq_ref_trace what);
-+void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
-+			  bool was_async, enum netfs_sreq_ref_trace what);
-+void netfs_stats_show(struct seq_file *);
- 
- /**
-  * netfs_i_context - Get the netfs inode context from the inode
--- 
-2.34.1
+The fs/aio.c part looks ok to me.  We should probably also update the
+man page for io_submit, though, to document the conditions under which
+EPERM can be returned.
 
+Acked-by: Jeff Moyer <jmoyer@redhat.com>
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
