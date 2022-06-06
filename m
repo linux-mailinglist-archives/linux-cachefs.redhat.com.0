@@ -1,81 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E136F54215B
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5FC054215C
 	for <lists+linux-cachefs@lfdr.de>; Wed,  8 Jun 2022 07:51:55 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-345-jf4qjMQ9P9GiD9pjwk_e9Q-1; Wed, 08 Jun 2022 01:51:52 -0400
-X-MC-Unique: jf4qjMQ9P9GiD9pjwk_e9Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-198-0sIf3CrAOnm5Dr42Or3ZhQ-1; Wed, 08 Jun 2022 01:51:52 -0400
+X-MC-Unique: 0sIf3CrAOnm5Dr42Or3ZhQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 634FD811E7A;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 627451C04B47;
 	Wed,  8 Jun 2022 05:51:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E942140EC000;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F0849401E5C;
 	Wed,  8 Jun 2022 05:51:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7CAA61947042;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 94430194704C;
 	Wed,  8 Jun 2022 05:51:49 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 96D20194706E for <linux-cachefs@listman.corp.redhat.com>;
- Wed,  1 Jun 2022 09:16:26 +0000 (UTC)
+ ESMTP id 14451194706E for <linux-cachefs@listman.corp.redhat.com>;
+ Mon,  6 Jun 2022 15:33:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 887C840E80E1; Wed,  1 Jun 2022 09:16:26 +0000 (UTC)
+ id F1339492CA4; Mon,  6 Jun 2022 15:33:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8483140E80E0
- for <linux-cachefs@redhat.com>; Wed,  1 Jun 2022 09:16:26 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ECF4A492CA3
+ for <linux-cachefs@redhat.com>; Mon,  6 Jun 2022 15:33:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CC50185A7BA
- for <linux-cachefs@redhat.com>; Wed,  1 Jun 2022 09:16:26 +0000 (UTC)
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 306FB8339A9
+ for <linux-cachefs@redhat.com>; Mon,  6 Jun 2022 15:33:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-655-RXjY0SMVPFOm8af_YDHqXQ-1; Wed, 01 Jun 2022 05:16:24 -0400
-X-MC-Unique: RXjY0SMVPFOm8af_YDHqXQ-1
-Received: by mail-io1-f72.google.com with SMTP id
- x13-20020a0566022c4d00b0065491fa5614so575497iov.9
- for <linux-cachefs@redhat.com>; Wed, 01 Jun 2022 02:16:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
- :from:to;
- bh=beK/RyAk6JMkokDhacR9sWsAak3KfcE5cJn8YM9YfXo=;
- b=gOhwhGWUlurJzDQoFYVyXEe0wPqoO08jKakDb4JL+LUeI/GsxUCbaXFUQ/xgoRmN4o
- RlOB8ypP/qaGStC9/Pr3shIM2BWdWCY4+gNaFCMCJxkY+1myYlKFPTCJVQAPMjPHFYPl
- jPmtBWTFobxjNlOY/vglpW1IPTn0IEb2HY/V1h5/BnhIgSmI3YRZwdvEdSsOFpIVDdMx
- zYFJs2plQPl9llNQvnel6YJQl3TM0uvvZEq40a8C4M9nY4//UqYCQrsNI1Iwg/zqRGUK
- yPJtWs49bFD7RadPv6UpMuIGnnmUOrCAPMdlDkrXICiyPr9N7Kv9fh/StNHflcyxQ9Ff
- hKAQ==
-X-Gm-Message-State: AOAM533l9ofitCgFBSqBYjES0rND5KXZj6osH2x8hIPoHFtMstosu3do
- F8IbI7XHAhbTBb1BgzayBGjvwLpLrkY1ekAKXmmoO+uffuYj
-X-Google-Smtp-Source: ABdhPJx1LL8AZ73Jqh9VOj9UlGKgQV+jKWbLhyOzcUBGZ0Dtl7G1jyvg+xSnTxpPRL3nAHlkmb8e7vAr7Vj2Yew8Js/X4rb1woHc
+ us-mta-277-r6oFb1w5N-K0lf_n12_gRQ-1; Mon, 06 Jun 2022 11:33:39 -0400
+X-MC-Unique: r6oFb1w5N-K0lf_n12_gRQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 84DF061559;
+ Mon,  6 Jun 2022 15:25:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9A7C341DE;
+ Mon,  6 Jun 2022 15:25:49 +0000 (UTC)
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1nyEby-0012On-0x;
+ Mon, 06 Jun 2022 16:25:46 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Date: Mon,  6 Jun 2022 16:25:22 +0100
+Message-Id: <cover.1654529011.git.mchehab@kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a02:2124:0:b0:32d:beca:e5ab with SMTP id
- e36-20020a022124000000b0032dbecae5abmr33364107jaa.119.1654074982798; Wed, 01
- Jun 2022 02:16:22 -0700 (PDT)
-Date: Wed, 01 Jun 2022 02:16:22 -0700
-In-Reply-To: <000000000000f2b07b05d5dc87cc@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000c81ea805e05f571c@google.com>
-From: syzbot <syzbot+5b129e8586277719bab3@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, linux-cachefs-bounces@redhat.com, 
- linux-cachefs-owner@redhat.com, linux-cachefs@redhat.com, 
- linux-kernel@vger.kernel.org, mudongliangabcd@gmail.com, 
- syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,10 +68,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-Mailman-Approved-At: Wed, 08 Jun 2022 05:51:48 +0000
-Subject: Re: [Linux-cachefs] [syzbot] general protection fault in
- fscache_free_cookie
+Subject: [Linux-cachefs] [PATCH 00/23] Update Documentation/ cross-references
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,9 +82,31 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ kvm@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, alsa-devel@alsa-project.org,
+ keyrings@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-phy@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Federico Vaga <federico.vaga@vaga.pv.it>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Rob Herring <robh+dt@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Markus Mayer <mmayer@broadcom.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ linux-cachefs@redhat.com, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,13 +114,75 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This bug is marked as fixed by commit:
-fscache: fix GPF in fscache_free_cookie
-But I can't find it in any tested tree for more than 90 days.
-Is it a correct commit? Please update it by replying:
-#syz fix: exact-commit-title
-Until then the bug is still considered open and
-new crashes with the same signature are ignored.
+Hi John,
+
+There were a number of DT binding conversions and other docs change that
+were not updated. Address them, in order to keep the cross-references on
+a sane state.
+
+Patch series is against v5.19-rc1 (and applies cleanly on the top of
+today's -next).
+
+Mauro Carvalho Chehab (23):
+  dt-bindings: mfd: bd9571mwv: update rohm,bd9571mwv.yaml reference
+  dt-bindings: interrupt-controller: update brcm,l2-intc.yaml reference
+  dt-bindings: arm: update vexpress-config.yaml references
+  dt-bindings: reset: update st,stih407-powerdown.yaml references
+  dt-bindings: mfd: rk808: update rockchip,rk808.yaml reference
+  dt-bindings: mmc: exynos-dw-mshc: update samsung,pinctrl.yaml
+    reference
+  docs: netdev: update maintainer-netdev.rst reference
+  docs: filesystems: update netfs-api.rst reference
+  Documentation: update watch_queue.rst references
+  Documentation: KVM: update s390-pv.rst reference
+  Documentation: KVM: update amd-memory-encryption.rst references
+  Documentation: KVM: update msr.rst reference
+  Documentation: KVM: update s390-diag.rst reference
+  MAINTAINERS: update arm,hdlcd.yaml reference
+  MAINTAINERS: update arm,komeda.yaml reference
+  MAINTAINERS: update arm,malidp.yaml reference
+  MAINTAINERS: update cortina,gemini-ethernet.yaml reference
+  MAINTAINERS: update dongwoon,dw9807-vcm.yaml reference
+  MAINTAINERS: update maxim,max77693.yaml reference
+  MAINTAINERS: update snps,axs10x-reset.yaml reference
+  objtool: update objtool.txt references
+  ASoC: wm8731: update wlf,wm8731.yaml reference
+  arch: m68k: q40: README: drop references to IDE driver
+
+ .../ABI/testing/sysfs-driver-bd9571mwv-regulator   |  2 +-
+ Documentation/admin-guide/kernel-parameters.txt    |  2 +-
+ .../bindings/cpufreq/brcm,stb-avs-cpu-freq.txt     |  2 +-
+ .../devicetree/bindings/hwmon/vexpress.txt         |  2 +-
+ .../devicetree/bindings/mmc/exynos-dw-mshc.txt     |  2 +-
+ .../devicetree/bindings/phy/phy-stih407-usb.txt    |  2 +-
+ .../devicetree/bindings/pinctrl/pinctrl-rk805.txt  |  2 +-
+ .../devicetree/bindings/regulator/vexpress.txt     |  2 +-
+ .../bindings/sound/atmel-sam9x5-wm8731-audio.txt   |  2 +-
+ Documentation/devicetree/bindings/usb/dwc3-st.txt  |  2 +-
+ Documentation/devicetree/bindings/usb/ehci-st.txt  |  2 +-
+ Documentation/devicetree/bindings/usb/ohci-st.txt  |  2 +-
+ Documentation/security/keys/core.rst               |  2 +-
+ Documentation/security/secrets/coco.rst            |  2 +-
+ .../translations/it_IT/networking/netdev-FAQ.rst   |  2 +-
+ Documentation/virt/kvm/api.rst                     |  4 ++--
+ Documentation/virt/kvm/s390/s390-pv-boot.rst       |  2 +-
+ Documentation/virt/kvm/x86/hypercalls.rst          |  2 +-
+ Documentation/x86/orc-unwinder.rst                 |  2 +-
+ MAINTAINERS                                        | 14 +++++++-------
+ arch/m68k/q40/README                               |  4 +---
+ include/linux/fscache.h                            |  2 +-
+ include/linux/objtool.h                            |  2 +-
+ include/linux/watch_queue.h                        |  2 +-
+ init/Kconfig                                       |  2 +-
+ kernel/watch_queue.c                               |  2 +-
+ lib/Kconfig.debug                                  |  2 +-
+ tools/include/linux/objtool.h                      |  2 +-
+ tools/objtool/check.c                              |  2 +-
+ 29 files changed, 36 insertions(+), 38 deletions(-)
+
+-- 
+2.36.1
+
 
 --
 Linux-cachefs mailing list
