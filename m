@@ -1,76 +1,56 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4381F5460BF
-	for <lists+linux-cachefs@lfdr.de>; Fri, 10 Jun 2022 11:03:24 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB66546DB6
+	for <lists+linux-cachefs@lfdr.de>; Fri, 10 Jun 2022 21:56:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1654891015;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=ok1/9fz6CFMjZyrbAJyZQ/ossTimsJoY/qnF59nfdZg=;
+	b=eOv6ocOoH2DBudiHpAz/vjAklTa/LzKOoSebbWukGx/KqUUwK4tRUKoNk4tMxxrYxszBUM
+	Gc/4w5GrIgQX9JBuBbjqtxwNUoX5EsSIQzqzcQdSPvZoGqDT+UO5mOT1ZEKdZ0DbWcr9lw
+	N1/kjya74868FwCcbF2+Z+66j2Y3UoA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-ro7TjG0fOCiK5q8TECYCgw-1; Fri, 10 Jun 2022 05:03:20 -0400
-X-MC-Unique: ro7TjG0fOCiK5q8TECYCgw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-588-9_53oQhnMO6x3-6pboOJeg-1; Fri, 10 Jun 2022 15:56:52 -0400
+X-MC-Unique: 9_53oQhnMO6x3-6pboOJeg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBE783C1618D;
-	Fri, 10 Jun 2022 09:03:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14FD585A582;
+	Fri, 10 Jun 2022 19:56:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 491144216002;
-	Fri, 10 Jun 2022 09:03:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D6F62026D64;
+	Fri, 10 Jun 2022 19:56:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 078891947042;
-	Fri, 10 Jun 2022 09:03:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6BCBD1947057;
+	Fri, 10 Jun 2022 19:56:49 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6EDDF19466DF for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 10 Jun 2022 09:03:16 +0000 (UTC)
+ ESMTP id 7F4D41947054 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 10 Jun 2022 19:56:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 46BEC111F3D9; Fri, 10 Jun 2022 09:03:16 +0000 (UTC)
+ id 6A8DC40CFD0A; Fri, 10 Jun 2022 19:56:48 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A72D1121319
- for <linux-cachefs@redhat.com>; Fri, 10 Jun 2022 09:03:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B891A1C16B5D
- for <linux-cachefs@redhat.com>; Fri, 10 Jun 2022 09:03:15 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-439-pB5H9YveO5WbhJzo8WmNqw-1; Fri, 10 Jun 2022 05:03:12 -0400
-X-MC-Unique: pB5H9YveO5WbhJzo8WmNqw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R301e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
- MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0VFyY9Pu_1654851787
-Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
- fp:SMTPD_---0VFyY9Pu_1654851787) by smtp.aliyun-inc.com;
- Fri, 10 Jun 2022 17:03:08 +0800
-Date: Fri, 10 Jun 2022 17:03:06 +0800
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-To: Jia Zhu <zhujia.zj@bytedance.com>, David Howells <dhowells@redhat.com>
-Message-ID: <YqMIyn7TgV1mVkiR@B-P7TQMD6M-0146.local>
-References: <1a03d5de-e0cf-b23d-b12a-f46795125968@bytedance.com>
- <b62a09fc-a42c-72b5-eb42-37b52b3d529f@bytedance.com>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.62])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B1B6F40CF8EF;
+ Fri, 10 Jun 2022 19:56:46 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+Date: Fri, 10 Jun 2022 20:56:45 +0100
+Message-ID: <165489100590.703883.11054313979289027590.stgit@warthog.procyon.org.uk>
+User-Agent: StGit/1.4
 MIME-Version: 1.0
-In-Reply-To: <b62a09fc-a42c-72b5-eb42-37b52b3d529f@bytedance.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: Re: [Linux-cachefs] [PATCH] cachefiles: narrow the scope of flushed
- requests when releasing fd
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [Linux-cachefs] [RFC][PATCH 0/3] netfs, afs: Cleanups
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +62,73 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cachefs@redhat.com, linux-erofs@lists.ozlabs.org, chao@kernel.org,
- yinxin.x@bytedance.com
+Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, Jeff Layton <jlayton@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ ceph-devel@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-afs@lists.infradead.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 09, 2022 at 04:54:10PM +0800, Jia Zhu wrote:
-> 
-> When an anonymous fd is released, only flush the requests
-> associated with it, rather than all of requests in xarray.
-> 
-> Fixes: 9032b6e8589f ("cachefiles: implement on-demand read")
-> Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
 
-Looks good to me, thanks for catching this!
+Hi Linus,
 
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+Here are some cleanups, one for afs and a couple for netfs:
 
-Hi David,
+ (1) The afs patch cleans up a checker complaint.
 
-Could you apply this patch to your tree? I think it'd be much better
-to have cachefiles patches via your tree as long as no code coupling..
+ (2) The first netfs patch is your netfs_inode changes plus the requisite
+     documentation changes.
 
-Thanks a lot!
+ (3) The second netfs patch replaces the ->cleanup op with a ->free_request
+     op.  This is possible as the I/O request is now always available at
+     the cleanup point as the stuff to be cleaned up is no longer passed
+     into the API functions, but rather obtained by ->init_request.
 
-Thanks,
-Gao Xiang
+I've run the patches through xfstests with -g quick on afs.
+
+The patches are on a branch here:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=fscache-fixes
+
+David
+
+---
+David Howells (2):
+      afs: Fix some checker issues
+      netfs: Rename the netfs_io_request cleanup op and give it an op pointer
+
+Linus Torvalds (1):
+      netfs: Further cleanups after struct netfs_inode wrapper introduced
 
 
-> ---
->  fs/cachefiles/ondemand.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
-> index a41ae6efc545..1fee702d5529 100644
-> --- a/fs/cachefiles/ondemand.c
-> +++ b/fs/cachefiles/ondemand.c
-> @@ -21,7 +21,8 @@ static int cachefiles_ondemand_fd_release(struct inode
-> *inode,
->  	 * anon_fd.
->  	 */
->  	xas_for_each(&xas, req, ULONG_MAX) {
-> -		if (req->msg.opcode == CACHEFILES_OP_READ) {
-> +		if (req->msg.object_id == object_id &&
-> +		    req->msg.opcode == CACHEFILES_OP_READ) {
->  			req->error = -EIO;
->  			complete(&req->done);
->  			xas_store(&xas, NULL);
-> -- 
-> 2.20.1
-> 
+ Documentation/filesystems/netfs_library.rst | 33 +++++++++++----------
+ fs/9p/v9fs.h                                |  2 +-
+ fs/9p/vfs_addr.c                            | 13 ++++----
+ fs/9p/vfs_inode.c                           |  3 +-
+ fs/afs/dynroot.c                            |  2 +-
+ fs/afs/file.c                               |  6 ++--
+ fs/afs/inode.c                              |  2 +-
+ fs/afs/internal.h                           |  2 +-
+ fs/afs/volume.c                             |  3 +-
+ fs/afs/write.c                              |  2 +-
+ fs/ceph/addr.c                              | 12 ++++----
+ fs/ceph/cache.h                             |  2 +-
+ fs/ceph/inode.c                             |  2 +-
+ fs/cifs/fscache.h                           |  2 +-
+ fs/netfs/buffered_read.c                    |  5 ++--
+ fs/netfs/objects.c                          |  6 ++--
+ include/linux/netfs.h                       | 25 +++++++---------
+ 17 files changed, 60 insertions(+), 62 deletions(-)
+
 
 --
 Linux-cachefs mailing list
