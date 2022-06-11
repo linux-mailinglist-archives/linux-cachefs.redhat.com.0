@@ -1,80 +1,76 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D194E5473E8
-	for <lists+linux-cachefs@lfdr.de>; Sat, 11 Jun 2022 12:45:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0951D547401
+	for <lists+linux-cachefs@lfdr.de>; Sat, 11 Jun 2022 12:56:20 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-163-mzGjD1ZdPf2SoKyTdgbuMg-1; Sat, 11 Jun 2022 06:45:13 -0400
-X-MC-Unique: mzGjD1ZdPf2SoKyTdgbuMg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-464-BgxflUaANSK2qCZD4MQvDw-1; Sat, 11 Jun 2022 06:56:16 -0400
+X-MC-Unique: BgxflUaANSK2qCZD4MQvDw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 462F729AB403;
-	Sat, 11 Jun 2022 10:45:12 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 18A4D18EA7;
-	Sat, 11 Jun 2022 10:45:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFEBC1C05151;
+	Sat, 11 Jun 2022 10:56:15 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D3C2D2166B26;
+	Sat, 11 Jun 2022 10:56:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CFF04194705A;
-	Sat, 11 Jun 2022 10:45:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9E715194705A;
+	Sat, 11 Jun 2022 10:56:15 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CC1E51947054 for <linux-cachefs@listman.corp.redhat.com>;
- Sat, 11 Jun 2022 10:45:09 +0000 (UTC)
+ ESMTP id 055781947054 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 11 Jun 2022 10:56:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BE4BF492CA4; Sat, 11 Jun 2022 10:45:09 +0000 (UTC)
+ id E9BEF492CA3; Sat, 11 Jun 2022 10:56:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BA0F7492C3B
- for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 10:45:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E55E9492C3B
+ for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 10:56:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A22CC800124
- for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 10:45:09 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDBA380159B
+ for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 10:56:13 +0000 (UTC)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-278-hYPq7b8LOPO5i3x50I4GrQ-1; Sat, 11 Jun 2022 06:45:07 -0400
-X-MC-Unique: hYPq7b8LOPO5i3x50I4GrQ-1
-Received: by mail-wm1-f47.google.com with SMTP id
- r187-20020a1c44c4000000b0039c76434147so2254123wma.1; 
- Sat, 11 Jun 2022 03:45:06 -0700 (PDT)
+ us-mta-624-oVpZoM0oMQCjV_SBoAggiw-1; Sat, 11 Jun 2022 06:56:12 -0400
+X-MC-Unique: oVpZoM0oMQCjV_SBoAggiw-1
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-30c143c41e5so12921127b3.3; 
+ Sat, 11 Jun 2022 03:56:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=a9ATP95JSYITDvtcZYgILfU969WEQUwCi9QMxQISlfw=;
- b=hXqKw8CCTw3vkF/uykzhXDfES3nJEbG5WqesszcNx4pdEMFB3UgPB4qwcYdRyEGIs2
- cF68zFcoDMN6IdVKG9L0pOrvyuBRD+Qf2zrSbEf6hWADSRXrHfRgY6mffl8XQVxvd9R/
- LCeU9999D0oONXv+wCtE/m7OflASzCmZAtcTTM3UWhkjuwsT+w5sN4NxUnUsUCx/NH+J
- 9KACh/cEF8CGoY3Wo0IfOVYv7oIsTY2i7O6R/eBFStvFwOkPMlcQxk/c2y0Y7H9gJuFc
- Q9R6iIY8thB+70Y6xND9TrD1/7BD891rA7Moj4m89PbyzLvbbTnsV+Jp7JN3NIgQPW2T
- PvUA==
-X-Gm-Message-State: AOAM533W1jqqTEIdpPfF0RacigIC54RZikaHZTIi7xIZmkiE03+gHqwy
- eSr4uW+b+9Kjkl+6Krg4y6aRCareOos=
-X-Google-Smtp-Source: ABdhPJxjfvo6XrtQ+Hcu7hnFyGXxQzXmb+60Sxx8moqSaXPRMMOx26YUKe+ROCWhkMhCSBz3y1N/cg==
-X-Received: by 2002:a05:600c:4e8e:b0:39c:80ed:68ad with SMTP id
- f14-20020a05600c4e8e00b0039c80ed68admr4069701wmq.63.1654944305505; 
- Sat, 11 Jun 2022 03:45:05 -0700 (PDT)
-Received: from debian (host-78-150-47-22.as13285.net. [78.150.47.22])
- by smtp.gmail.com with ESMTPSA id
- 6-20020a05600c22c600b00397122e63b6sm2006978wmg.29.2022.06.11.03.45.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jun 2022 03:45:05 -0700 (PDT)
-Date: Sat, 11 Jun 2022 11:45:03 +0100
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: David Howells <dhowells@redhat.com>, Al Viro <viro@zeniv.linux.org.uk>
-Message-ID: <YqRyL2sIqQNDfky2@debian>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=eqA6H/Kd3v8qLCIvaYprcutQG+OhOEiZYNUR3mtKR8g=;
+ b=aBNrDc31RldN3IK4gdKoMSIT7nBdWJtNsRrgMt7hR6cIOzNDd2oBQpmjg+JsJTzbVi
+ t/XDhJkXBVUsqJ8lTJZYGz71m41tFOL+3rOKp8mQccayIBi+NfEWig/FWu8c2eQmTWLG
+ W58M399n5gJGlxaHsVMdGk8zMUNkDuYlcGtbRHTLyKK/+3MMqXTmnlnZMQ19HvX0VVA1
+ +TSE9/jfxI8i9iAhGJlfN756IZgzkO0wMU+wBP3qvMd+NAW2qAI+4pfCOfrYjUxP47oB
+ qsDil3Qlkrhfypfa0+NN6T/jALt1eGMREMNQAKYH7q8jwtlhiLTrBY6nYzNyb6Pe0Bmg
+ T2DQ==
+X-Gm-Message-State: AOAM532wFikVbZiY9QTKal4KQa1Qz55wpcg8bKJyTPCT1i0j0XENNIEL
+ M+1UpvLndpSdAAg2LJxfuLU10B19x3UfNHbbQIKD3+Go
+X-Google-Smtp-Source: ABdhPJzMPaMP2VjmabTBvuNSAp2tyI0KZoHPUC4tMzTy1Au1VZoxjK59G/T3tyeKHoUGM5JYj+tYJXEMmKiGGgUt7c8=
+X-Received: by 2002:a81:25cc:0:b0:30f:ea57:af01 with SMTP id
+ l195-20020a8125cc000000b0030fea57af01mr51233219ywl.488.1654944971327; Sat, 11
+ Jun 2022 03:56:11 -0700 (PDT)
 MIME-Version: 1.0
+References: <YqRyL2sIqQNDfky2@debian>
+In-Reply-To: <YqRyL2sIqQNDfky2@debian>
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Date: Sat, 11 Jun 2022 11:55:35 +0100
+Message-ID: <CADVatmOKtwSbdGcis4+44-G=UEdHWfOE3M4SBu=25vvp0TWxEA@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>, Al Viro <viro@zeniv.linux.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,7 +79,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Linux-cachefs] mainline build failure due to 6c77676645ad
+Subject: Re: [Linux-cachefs] mainline build failure due to 6c77676645ad
  ("iov_iter: Fix iter_xarray_get_pages{, _alloc}()")
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
@@ -97,69 +93,35 @@ List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
- linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
- v9fs-developer@lists.sourceforge.net, Gao Xiang <xiang@kernel.org>,
- linux-erofs@lists.ozlabs.org, linux-afs@lists.infradead.org,
- devel@lists.orangefs.org, Mike Marshall <hubcap@omnibond.com>
+ Dominique Martinet <asmadeus@codewreck.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ Gao Xiang <xiang@kernel.org>, linux-erofs@lists.ozlabs.org,
+ linux-afs@lists.infradead.org, devel@lists.orangefs.org,
+ Mike Marshall <hubcap@omnibond.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi All,
+On Sat, Jun 11, 2022 at 11:45 AM Sudip Mukherjee
+<sudipm.mukherjee@gmail.com> wrote:
+>
+> Hi All,
+>
+> The latest mainline kernel branch fails to build for "arm allmodconfig",
+> "xtensa allmodconfig" and "csky allmodconfig" with the error:
 
-The latest mainline kernel branch fails to build for "arm allmodconfig",
-"xtensa allmodconfig" and "csky allmodconfig" with the error:
-
-In file included from ./include/linux/kernel.h:26,
-                 from ./include/linux/crypto.h:16,
-                 from ./include/crypto/hash.h:11,
-                 from lib/iov_iter.c:2:
-lib/iov_iter.c: In function 'iter_xarray_get_pages':
-./include/linux/minmax.h:20:35: error: comparison of distinct pointer types lacks a cast [-Werror]
-   20 |         (!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
-      |                                   ^~
-./include/linux/minmax.h:26:18: note: in expansion of macro '__typecheck'
-   26 |                 (__typecheck(x, y) && __no_side_effects(x, y))
-      |                  ^~~~~~~~~~~
-./include/linux/minmax.h:36:31: note: in expansion of macro '__safe_cmp'
-   36 |         __builtin_choose_expr(__safe_cmp(x, y), \
-      |                               ^~~~~~~~~~
-./include/linux/minmax.h:45:25: note: in expansion of macro '__careful_cmp'
-   45 | #define min(x, y)       __careful_cmp(x, y, <)
-      |                         ^~~~~~~~~~~~~
-lib/iov_iter.c:1464:16: note: in expansion of macro 'min'
- 1464 |         return min(nr * PAGE_SIZE - offset, maxsize);
-      |                ^~~
-lib/iov_iter.c: In function 'iter_xarray_get_pages_alloc':
-./include/linux/minmax.h:20:35: error: comparison of distinct pointer types lacks a cast [-Werror]
-   20 |         (!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
-      |                                   ^~
-./include/linux/minmax.h:26:18: note: in expansion of macro '__typecheck'
-   26 |                 (__typecheck(x, y) && __no_side_effects(x, y))
-      |                  ^~~~~~~~~~~
-./include/linux/minmax.h:36:31: note: in expansion of macro '__safe_cmp'
-   36 |         __builtin_choose_expr(__safe_cmp(x, y), \
-      |                               ^~~~~~~~~~
-./include/linux/minmax.h:45:25: note: in expansion of macro '__careful_cmp'
-   45 | #define min(x, y)       __careful_cmp(x, y, <)
-      |                         ^~~~~~~~~~~~~
-lib/iov_iter.c:1628:16: note: in expansion of macro 'min'
- 1628 |         return min(nr * PAGE_SIZE - offset, maxsize);
+missed adding "mips allmodconfig".
 
 
-git bisect pointed to 6c77676645ad ("iov_iter: Fix iter_xarray_get_pages{,_alloc}()")
 
-And, reverting it on top of mainline branch has fixed the build failure.
-
---
+-- 
 Regards
 Sudip
 
