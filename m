@@ -2,80 +2,81 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8436154777F
+	by mail.lfdr.de (Postfix) with ESMTPS id A245D547780
 	for <lists+linux-cachefs@lfdr.de>; Sat, 11 Jun 2022 22:27:34 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-509-FSEwbZXCPy6QQR1AGP8UJw-1; Sat, 11 Jun 2022 16:27:29 -0400
-X-MC-Unique: FSEwbZXCPy6QQR1AGP8UJw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-509-McmEV7vGOGCfRmTzgO9rDg-1; Sat, 11 Jun 2022 16:27:29 -0400
+X-MC-Unique: McmEV7vGOGCfRmTzgO9rDg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47617101A54E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 46A0E1C05AE6;
 	Sat, 11 Jun 2022 20:27:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7212A1121319;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 78F772166B26;
 	Sat, 11 Jun 2022 20:27:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C93CC194705D;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA5391947061;
 	Sat, 11 Jun 2022 20:27:26 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C3A2E1947061 for <linux-cachefs@listman.corp.redhat.com>;
- Sat, 11 Jun 2022 13:44:05 +0000 (UTC)
+ ESMTP id 0790E1947059 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 11 Jun 2022 14:01:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8A744C2811A; Sat, 11 Jun 2022 13:44:05 +0000 (UTC)
+ id EAAFA402494D; Sat, 11 Jun 2022 14:00:59 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 86831C28118
- for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 13:44:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E652840466A4
+ for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 14:00:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F9B785A581
- for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 13:44:05 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDED9801E67
+ for <linux-cachefs@redhat.com>; Sat, 11 Jun 2022 14:00:59 +0000 (UTC)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-267-uaWyd9vzO_ubxdHsLt8-KA-1; Sat, 11 Jun 2022 09:44:01 -0400
-X-MC-Unique: uaWyd9vzO_ubxdHsLt8-KA-1
-Received: by mail-pl1-f175.google.com with SMTP id q18so1451862pln.12;
- Sat, 11 Jun 2022 06:44:00 -0700 (PDT)
+ us-mta-510-NIphYPefOGmSSNwvzuXBwQ-1; Sat, 11 Jun 2022 10:00:55 -0400
+X-MC-Unique: NIphYPefOGmSSNwvzuXBwQ-1
+Received: by mail-pf1-f181.google.com with SMTP id x138so1827671pfc.12;
+ Sat, 11 Jun 2022 07:00:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
  :references:mime-version:content-disposition:in-reply-to;
- bh=Ixh/tGjYEGtd9B0U4un+L2Dg2/GvxVifxx8JOO5/xxs=;
- b=77aOQKGKFXmqHY+OBcuyj0qMjLPTlEkHPe12EU2jFdmgiBvtCyXBf9HwfXYOgOb6yI
- a3wBBT4NFncyEz/XNUWCyZ+BTMoUJzrVBYExxUIOkexg9rsLUGjJlOm76xJGwdxcOJXL
- xTAG+LkgI3pdL8/bcaItSu6ndxXpCL0JKrVICGTKe7iW7MOrcguF8/VW43y0G7bN9wzY
- LU2o+ibZBFLioPrsDj4tdOE+gMhmhIwycgP3Dy3rwAuZgtv3Ig+7+VfcePnd8k8r6+q+
- oLs6HWkoQa0BCNRN6NdPmrlWF8IC22vrpWBkCi3iWVBLE+v90W+hMmJfnovTiuQvmZAR
- jyzg==
-X-Gm-Message-State: AOAM531IU7k7SFTTn3ajzmMGjb58VRNnMQmtagYCFiUtVC2ewymWljkC
- 4plmZ8J+83GgQJ1BGgruy4Gu/Fex78Q=
-X-Google-Smtp-Source: ABdhPJyVm1Qx3rpbnexbaPz3LjRNh5xdY5jWDRPJD5O1BPtSHpLAWd+II5ejGzWE9luF6mWKd4zRSA==
-X-Received: by 2002:a17:902:9f96:b0:163:dc33:6b72 with SMTP id
- g22-20020a1709029f9600b00163dc336b72mr50033692plq.34.1654955039652; 
- Sat, 11 Jun 2022 06:43:59 -0700 (PDT)
+ bh=c9HBwLp0Uv5MjgxnDuQRISysx2V5J/58czPWYFl7Y+c=;
+ b=olLusMv2ZkbWH8jmOupC8hFxHPyLmLDCz6+GTXDooJhxPrVBoHzF4hGudu+8ZJYhYM
+ GuqP3PP2zazfRIp0h8WjdJxHOTfuyuoVjPaNZg4ThKZjuXnQ9FwIFV9/Dpt/ue/4mf5C
+ lXogHjtt7yP99k7rgpSY4RsslkXf38WhT6qFxND3usE04DqPRGG+ZHAbuFXcSENMbO2m
+ cgPa2cmZ9+vgkqJR5fqp311hDnJmvs0zTa+ch9bjoYeMxrePhpu6IY5dQrfajJs9T7tf
+ bi+wD8O2Tu5wsEaQndzPK7/hdgvenB8YpjYM2RMaBELrA4UtppZpeyOEsKfifq5M5ZOR
+ yF9A==
+X-Gm-Message-State: AOAM533fNXhu/04sqFs8YjTkXs4hxduSedhovx9A9w5X3hYU0DRMAcsP
+ qRNBpc69lUHrYRNOXxXCl9A=
+X-Google-Smtp-Source: ABdhPJx8aXzG7lARTjf0DGMNWJ7cU2i9+ckERmOuVpIwDU+ICn1bZ2jiI0zO6THloqk9kmx74bkHfg==
+X-Received: by 2002:a63:2a0c:0:b0:3fc:9b04:541d with SMTP id
+ q12-20020a632a0c000000b003fc9b04541dmr44653939pgq.546.1654956054512; 
+ Sat, 11 Jun 2022 07:00:54 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
  by smtp.gmail.com with ESMTPSA id
- a12-20020a1709027e4c00b00164097a779fsm1523377pln.147.2022.06.11.06.43.58
+ g10-20020a170902d5ca00b00163d4dc6e95sm1528126plh.307.2022.06.11.07.00.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jun 2022 06:43:58 -0700 (PDT)
-Date: Sat, 11 Jun 2022 06:43:57 -0700
+ Sat, 11 Jun 2022 07:00:54 -0700 (PDT)
+Date: Sat, 11 Jun 2022 07:00:52 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20220611134357.GA278954@roeck-us.net>
-References: <165476202136.3999992.433442175457370240.stgit@warthog.procyon.org.uk>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Message-ID: <20220611140052.GA288528@roeck-us.net>
+References: <YqRyL2sIqQNDfky2@debian> <YqSGv6uaZzLxKfmG@zeniv-ca.linux.org.uk>
+ <YqSMmC/UuQpXdxtR@zeniv-ca.linux.org.uk>
+ <YqSQ++8UnEW0AJ2y@zeniv-ca.linux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <165476202136.3999992.433442175457370240.stgit@warthog.procyon.org.uk>
+In-Reply-To: <YqSQ++8UnEW0AJ2y@zeniv-ca.linux.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,10 +84,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mailman-Approved-At: Sat, 11 Jun 2022 20:27:25 +0000
-Subject: Re: [Linux-cachefs] [PATCH] iov_iter: Fix iter_xarray_get_pages{,
- _alloc}()
+Subject: Re: [Linux-cachefs] mainline build failure due to 6c77676645ad
+ ("iov_iter: Fix iter_xarray_get_pages{, _alloc}()")
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,15 +99,16 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Dominique Martinet <asmadeus@codewreck.org>, jlayton@kernel.org,
- linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
- Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
- v9fs-developer@lists.sourceforge.net, Gao Xiang <xiang@kernel.org>,
- linux-erofs@lists.ozlabs.org, linux-afs@lists.infradead.org,
- devel@lists.orangefs.org, Mike Marshall <hubcap@omnibond.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ Gao Xiang <xiang@kernel.org>, linux-erofs@lists.ozlabs.org,
+ linux-afs@lists.infradead.org, devel@lists.orangefs.org,
+ Mike Marshall <hubcap@omnibond.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -115,81 +117,95 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 09, 2022 at 09:07:01AM +0100, David Howells wrote:
-> The maths at the end of iter_xarray_get_pages() to calculate the actual
-> size doesn't work under some circumstances, such as when it's been asked to
-> extract a partial single page.  Various terms of the equation cancel out
-> and you end up with actual == offset.  The same issue exists in
-> iter_xarray_get_pages_alloc().
+On Sat, Jun 11, 2022 at 12:56:27PM +0000, Al Viro wrote:
+> On Sat, Jun 11, 2022 at 12:37:44PM +0000, Al Viro wrote:
+> > On Sat, Jun 11, 2022 at 12:12:47PM +0000, Al Viro wrote:
+> > 
+> > 
+> > > At a guess, should be
+> > > 	return min((size_t)nr * PAGE_SIZE - offset, maxsize);
+> > > 
+> > > in both places.  I'm more than half-asleep right now; could you verify that it
+> > > (as the last lines of both iter_xarray_get_pages() and iter_xarray_get_pages_alloc())
+> > > builds correctly?
+> > 
+> > No, I'm misreading it - it's unsigned * unsigned long - unsigned vs. size_t.
+> > On arm it ends up with unsigned long vs. unsigned int; functionally it *is*
+> > OK (both have the same range there), but it triggers the tests.  Try 
+> > 
+> > 	return min_t(size_t, nr * PAGE_SIZE - offset, maxsize);
+> > 
+> > there (both places).
 > 
-> Fix these to just use min() to select the lesser amount from between the
-> amount of page content transcribed into the buffer, minus the offset, and
-> the size limit specified.
+> The reason we can't overflow on multiplication there, BTW, is that we have
+> nr <= count, and count has come from weirdly open-coded
+> 	DIV_ROUND_UP(size + offset, PAGE_SIZE)
+
+That is often done to avoid possible overflows. Is size + offset
+guaranteed to be smaller than ULONG_MAX ?
+
+Guenter
+
+> IMO we'd better make it explicit, so how about the following:
 > 
-> This doesn't appear to have caused a problem yet upstream because network
-> filesystems aren't getting the pages from an xarray iterator, but rather
-> passing it directly to the socket, which just iterates over it.  Cachefiles
-> *does* do DIO from one to/from ext4/xfs/btrfs/etc. but it always asks for
-> whole pages to be written or read.
-> 
-> Fixes: 7ff5062079ef ("iov_iter: Add ITER_XARRAY")
-> Reported-by: Jeff Layton <jlayton@kernel.org>
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> cc: Dominique Martinet <asmadeus@codewreck.org>
-> cc: Mike Marshall <hubcap@omnibond.com>
-> cc: Gao Xiang <xiang@kernel.org>
-> cc: linux-afs@lists.infradead.org
-> cc: v9fs-developer@lists.sourceforge.net
-> cc: devel@lists.orangefs.org
-> cc: linux-erofs@lists.ozlabs.org
-> cc: linux-cachefs@redhat.com
-> cc: linux-fsdevel@vger.kernel.org
+> Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
 > ---
-> 
->  lib/iov_iter.c |   20 ++++----------------
->  1 file changed, 4 insertions(+), 16 deletions(-)
-> 
 > diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-> index 834e1e268eb6..814f65fd0c42 100644
+> index dda6d5f481c1..150dbd314d25 100644
 > --- a/lib/iov_iter.c
 > +++ b/lib/iov_iter.c
-> @@ -1434,7 +1434,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
->  {
->  	unsigned nr, offset;
->  	pgoff_t index, count;
-> -	size_t size = maxsize, actual;
-> +	size_t size = maxsize;
->  	loff_t pos;
+> @@ -1445,15 +1445,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
+>  	offset = pos & ~PAGE_MASK;
+>  	*_start_offset = offset;
 >  
->  	if (!size || !maxpages)
-> @@ -1461,13 +1461,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
+> -	count = 1;
+> -	if (size > PAGE_SIZE - offset) {
+> -		size -= PAGE_SIZE - offset;
+> -		count += size >> PAGE_SHIFT;
+> -		size &= ~PAGE_MASK;
+> -		if (size)
+> -			count++;
+> -	}
+> -
+> +	count = DIV_ROUND_UP(size + offset, PAGE_SIZE);
+>  	if (count > maxpages)
+>  		count = maxpages;
+>  
+> @@ -1461,7 +1453,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
 >  	if (nr == 0)
 >  		return 0;
 >  
-> -	actual = PAGE_SIZE * nr;
-> -	actual -= offset;
-> -	if (nr == count && size > 0) {
-> -		unsigned last_offset = (nr > 1) ? 0 : offset;
-> -		actual -= PAGE_SIZE - (last_offset + size);
+> -	return min(nr * PAGE_SIZE - offset, maxsize);
+> +	return min_t(size_t, nr * PAGE_SIZE - offset, maxsize);
+>  }
+>  
+>  /* must be done on non-empty ITER_IOVEC one */
+> @@ -1607,15 +1599,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
+>  	offset = pos & ~PAGE_MASK;
+>  	*_start_offset = offset;
+>  
+> -	count = 1;
+> -	if (size > PAGE_SIZE - offset) {
+> -		size -= PAGE_SIZE - offset;
+> -		count += size >> PAGE_SHIFT;
+> -		size &= ~PAGE_MASK;
+> -		if (size)
+> -			count++;
 > -	}
-> -	return actual;
-> +	return min(nr * PAGE_SIZE - offset, maxsize);
-
-This needs min_t to avoid a build error on 32-bit builds.
-
-In file included from include/linux/kernel.h:26,
-                 from include/linux/crypto.h:16,
-                 from include/crypto/hash.h:11,
-                 from lib/iov_iter.c:2:
-lib/iov_iter.c: In function 'iter_xarray_get_pages':
-include/linux/minmax.h:20:35: error: comparison of distinct pointer types lacks a cast [-Werror]
-...
-lib/iov_iter.c:1628:16: note: in expansion of macro 'min'
- 1628 |         return min(nr * PAGE_SIZE - offset, maxsize);
-      |                ^~~
-
-Guenter
+> -
+> +	count = DIV_ROUND_UP(size + offset, PAGE_SIZE);
+>  	p = get_pages_array(count);
+>  	if (!p)
+>  		return -ENOMEM;
+> @@ -1625,7 +1609,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
+>  	if (nr == 0)
+>  		return 0;
+>  
+> -	return min(nr * PAGE_SIZE - offset, maxsize);
+> +	return min_t(size_t, nr * PAGE_SIZE - offset, maxsize);
+>  }
+>  
+>  ssize_t iov_iter_get_pages_alloc(struct iov_iter *i,
 
 --
 Linux-cachefs mailing list
