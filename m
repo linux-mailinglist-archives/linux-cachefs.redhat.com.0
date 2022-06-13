@@ -2,62 +2,62 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC435484F1
-	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Jun 2022 13:41:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AAF85484CC
+	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Jun 2022 13:28:56 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-323-yLOyigQwO2O1zn2veWuduw-1; Mon, 13 Jun 2022 07:41:44 -0400
-X-MC-Unique: yLOyigQwO2O1zn2veWuduw-1
+ us-mta-91-qgzmVsQpO4mkOCugwM2_pQ-1; Mon, 13 Jun 2022 07:28:52 -0400
+X-MC-Unique: qgzmVsQpO4mkOCugwM2_pQ-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3D0685A58A;
-	Mon, 13 Jun 2022 11:41:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 106F9802804;
+	Mon, 13 Jun 2022 11:28:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B63DC2166B26;
-	Mon, 13 Jun 2022 11:41:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 627C72166B26;
+	Mon, 13 Jun 2022 11:28:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5DDC91947062;
-	Mon, 13 Jun 2022 11:41:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 299961947062;
+	Mon, 13 Jun 2022 11:28:51 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 459631947060 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 13 Jun 2022 11:41:42 +0000 (UTC)
+ ESMTP id 0D7B2194705B for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 13 Jun 2022 11:28:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 31197492CA4; Mon, 13 Jun 2022 11:41:42 +0000 (UTC)
+ id CECE72166B2B; Mon, 13 Jun 2022 11:28:49 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D6C7492CA2
- for <linux-cachefs@redhat.com>; Mon, 13 Jun 2022 11:41:42 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CAB572166B29
+ for <linux-cachefs@redhat.com>; Mon, 13 Jun 2022 11:28:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 152DA18A6585
- for <linux-cachefs@redhat.com>; Mon, 13 Jun 2022 11:41:42 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-450-XjEKitNwOquH3IbCsxj60g-1; Mon, 13 Jun 2022 07:41:38 -0400
-X-MC-Unique: XjEKitNwOquH3IbCsxj60g-1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF7A6380670C
+ for <linux-cachefs@redhat.com>; Mon, 13 Jun 2022 11:28:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-461-FV-wUlx0OPWHERB6-vubtg-1; Mon, 13 Jun 2022 07:28:48 -0400
+X-MC-Unique: FV-wUlx0OPWHERB6-vubtg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2B89AB80D3A;
- Mon, 13 Jun 2022 11:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE7FC34114;
- Mon, 13 Jun 2022 11:34:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 37EE560EAE;
+ Mon, 13 Jun 2022 11:19:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2422FC34114;
+ Mon, 13 Jun 2022 11:19:46 +0000 (UTC)
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 13 Jun 2022 12:10:47 +0200
-Message-Id: <20220613094933.390057932@linuxfoundation.org>
-In-Reply-To: <20220613094926.497929857@linuxfoundation.org>
-References: <20220613094926.497929857@linuxfoundation.org>
+Date: Mon, 13 Jun 2022 12:11:06 +0200
+Message-Id: <20220613094927.932137292@linuxfoundation.org>
+In-Reply-To: <20220613094922.843438024@linuxfoundation.org>
+References: <20220613094922.843438024@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -67,8 +67,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Linux-cachefs] [PATCH 5.18 222/339] iov_iter: Fix
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [Linux-cachefs] [PATCH 5.15 164/247] iov_iter: Fix
  iter_xarray_get_pages{, _alloc}()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
@@ -139,10 +139,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+), 16 deletions(-)
 
 diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 6dd5330f7a99..dda6d5f481c1 100644
+index 6d146f77601d..be07eb24ab2f 100644
 --- a/lib/iov_iter.c
 +++ b/lib/iov_iter.c
-@@ -1434,7 +1434,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
+@@ -1436,7 +1436,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
  {
  	unsigned nr, offset;
  	pgoff_t index, count;
@@ -151,7 +151,7 @@ index 6dd5330f7a99..dda6d5f481c1 100644
  	loff_t pos;
  
  	if (!size || !maxpages)
-@@ -1461,13 +1461,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
+@@ -1463,13 +1463,7 @@ static ssize_t iter_xarray_get_pages(struct iov_iter *i,
  	if (nr == 0)
  		return 0;
  
@@ -166,7 +166,7 @@ index 6dd5330f7a99..dda6d5f481c1 100644
  }
  
  /* must be done on non-empty ITER_IOVEC one */
-@@ -1602,7 +1596,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
+@@ -1604,7 +1598,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
  	struct page **p;
  	unsigned nr, offset;
  	pgoff_t index, count;
@@ -175,7 +175,7 @@ index 6dd5330f7a99..dda6d5f481c1 100644
  	loff_t pos;
  
  	if (!size)
-@@ -1631,13 +1625,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
+@@ -1633,13 +1627,7 @@ static ssize_t iter_xarray_get_pages_alloc(struct iov_iter *i,
  	if (nr == 0)
  		return 0;
  
