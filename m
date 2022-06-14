@@ -1,85 +1,105 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A2F954A984
-	for <lists+linux-cachefs@lfdr.de>; Tue, 14 Jun 2022 08:34:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90B0854B36A
+	for <lists+linux-cachefs@lfdr.de>; Tue, 14 Jun 2022 16:39:39 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-85-D262-1FQNbm-dNc2oDnsuQ-1; Tue, 14 Jun 2022 02:34:53 -0400
-X-MC-Unique: D262-1FQNbm-dNc2oDnsuQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-86-j5BdoIl5OxSQaeAI1e6hQw-1; Tue, 14 Jun 2022 10:39:35 -0400
+X-MC-Unique: j5BdoIl5OxSQaeAI1e6hQw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE02029ABA3A;
-	Tue, 14 Jun 2022 06:34:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E30E238173C5;
+	Tue, 14 Jun 2022 14:39:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A373D492C3B;
-	Tue, 14 Jun 2022 06:34:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7ECDF1415103;
+	Tue, 14 Jun 2022 14:39:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 664281947070;
-	Tue, 14 Jun 2022 06:34:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3972D1947076;
+	Tue, 14 Jun 2022 14:39:33 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A26421947067 for <linux-cachefs@listman.corp.redhat.com>;
- Tue, 14 Jun 2022 06:34:50 +0000 (UTC)
+ ESMTP id 279421947067 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 14 Jun 2022 14:39:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 858FD1121319; Tue, 14 Jun 2022 06:34:50 +0000 (UTC)
+ id 020FCC27E97; Tue, 14 Jun 2022 14:39:32 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 812181121314
- for <linux-cachefs@redhat.com>; Tue, 14 Jun 2022 06:34:50 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F1FB6C28118
+ for <linux-cachefs@redhat.com>; Tue, 14 Jun 2022 14:39:31 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66AFE85A582
- for <linux-cachefs@redhat.com>; Tue, 14 Jun 2022 06:34:50 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-145-bT7Sp3R4NxynC0UqNAPh0w-1; Tue, 14 Jun 2022 02:34:48 -0400
-X-MC-Unique: bT7Sp3R4NxynC0UqNAPh0w-1
-Received: by mail-pj1-f49.google.com with SMTP id
- g10-20020a17090a708a00b001ea8aadd42bso8219078pjk.0
- for <linux-cachefs@redhat.com>; Mon, 13 Jun 2022 23:34:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:from
- :subject:references:to:cc:in-reply-to:content-transfer-encoding;
- bh=skhpWdz/fVr5Z4eL8Xj0/NttsCVeBDmRP9w0g3/Whag=;
- b=trCRlP0y/HBFQV/7phl5Q9mn+UsSUEAZMSXQCaRiRxYEsvRBDDV9tzwAy/Bc1ygiRr
- GA2kBfKtBgO/KxcNUVhA5ASiutdIpPlhpumTYgRaGvXbf6e37UCVMUpewCs4rkWBDBZS
- BiV73UcPOCBrcYQ9e9rDRRoww8R6vva5fELyhisR0fPF6Bfy6dGScRRmKtmf1v3mnxSG
- pMvjgrzRTZoT8XmEOAFX8UNZYNAt0oEgwC/idMUCpmas0j6d63kcsbW/1mZUQZgsh7yi
- t83rCVKdRXlxdItU984ECRlO8NeKhT/iSVdLDiKI00+MsbACoxIhwjSwKFdqLTsFwB1T
- TucQ==
-X-Gm-Message-State: AJIora/C9JFZq/+BhKzMFocrj3Q4YSS9f+INrxSgU/t/4zzyu3avrWd9
- c5m7kSkwJAQqisSbrrQkWZszyA==
-X-Google-Smtp-Source: AGRyM1uEWpuqApQ0YFIqPF26m4yeyOyFetT/gzggOr8wuWGCa0nbZWfha1AghEBVfB+9NYDL7BJdRQ==
-X-Received: by 2002:a17:902:b784:b0:168:b8ee:a27f with SMTP id
- e4-20020a170902b78400b00168b8eea27fmr2722444pls.107.1655188487024; 
- Mon, 13 Jun 2022 23:34:47 -0700 (PDT)
-Received: from [10.4.226.233] ([139.177.225.232])
- by smtp.gmail.com with ESMTPSA id
- t4-20020a1709027fc400b00163fa4b7c12sm6317799plb.34.2022.06.13.23.34.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jun 2022 23:34:46 -0700 (PDT)
-Message-ID: <275d80bb-2f14-58c3-e829-119c88bf18f9@bytedance.com>
-Date: Tue, 14 Jun 2022 14:34:42 +0800
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C797829AA2E7
+ for <linux-cachefs@redhat.com>; Tue, 14 Jun 2022 14:39:31 +0000 (UTC)
+Received: from sonic316-26.consmr.mail.ne1.yahoo.com
+ (sonic316-26.consmr.mail.ne1.yahoo.com [66.163.187.152]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-464-NqVEpIZHNFaH2JkowAvMHw-1; Tue, 14 Jun 2022 10:39:29 -0400
+X-MC-Unique: NqVEpIZHNFaH2JkowAvMHw-1
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1655217569; bh=lRUBSB76OG5uRwjsyAtEUmfLb2iPR7sDD1HFxFWV66b=;
+ h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
+ b=Qf8RR/99yPxdxlUs+k9WbY66HCWw5zL3eg/AG/d8PaF2ZW7sRQsWq6gmO9A/l7NZTWI7UdRqKM5bDHbs6wupQkeVNnPnRU2E5aJ02Zk+dMR4zD7/s5cNknCyMX/GityW/LiHFvSd/XM7aartsEujYu09UY1GhHeq1D712AxFIJsY8aK/OlILZVF6egzn6sq8A7407LfIYkuACSJL8g1M/mmbhUgbiOsQ+CYK1mUY0RpwWvYX8gqa2sPB3WEOxqty1MukDjP2FW6rxr1jRuQBeQgVCqktKQ2g163zpXEobbQtJYRhHhj9nK4BnkDO+kDP4JBwDWeJ+g1U93EjktSC1Q==
+X-YMail-OSG: l34EP_4VM1mCZNS.V_eCLpRm9dh5I1CsXixH4kuccuVcaljnubvC2j4A6MMQ129
+ Y2Pi1pBZKWkGXaXj27i38I8ExPjiKP1Xgpcl4tm9xqnMiwV4KKbA3RIP0pHjrVRzdj7MRxTx9iBG
+ YkdEQiInROMc3joMrXGCf9wmezHz6P8mJ.fFwD3SDeBlElgidwY8jLECc4hnW5TJm2DZ.k.jf483
+ xuskZUVuBZ_.7nYZM3Q6oMDqD16BRAXdGDrt0RJ_foeLdgA5bonrmkWFCR3gASY_oflWZvXQixlq
+ UF1m.qP9YXbSsWZFj812VhzLVpyQ.9F32n9h1HmEh69jx_hRtAaRIdgwaAfngbVWVJSKavMjVMfQ
+ XSXz0eYuXsWCwdfhD196BTPVVtMbrJkHzY6Xk9iE5UHCsUBamqZuh8ubo3QILsuwtLsCNFKyzrlY
+ vF4UN_H53gUTXszFFk2yLOyY55uNmgcqWwzFBPIfnM150R3f0Jfb8fh5Mzo_Cg0qaQvSchBKjCXj
+ nTjHJJOq.fI2fCTCBN3A870QDzGDAkOKrM.MsNpsLweC7IaQy.BbmtdwUXg3AQDgxaX8sTWqySH_
+ YK5rjqHBdeevCU9nZl2LemqBf.vLuvTdVi3q0_6s36rQkUJeC8EDY4s_ity57vDuikZT8YgGAV2k
+ GQo4ZHWmnm4lDk7xTd50gp0t_DJ.Hafgjqy64gvtibxS1SHL0D9MqZg76zZNAcQl5zu0Exhv4OcW
+ mDH5_kPytoYBvgcpDzUXj5OtiUT.rs03EresI6Qrd1muzCGUw99JUhwVKK40RSvSZXMM815o3TH6
+ fIwQnXzwajujE9szKg5ZCG.oh8QawNsxRxn.qck.uP4fzRlaBP9DE545T2hkZSFslMoNmyD9YjDu
+ DPyG49HGFuxQy6RMUV5D6tgRq2Jopfx_d.mJpEqNoUiuIWnKil4PEXFovbbhpvuyUhOL3VE2GmDX
+ VDBVqCAZbiZhRu7UKrQLPpAf4FtH9tiEdWyHvyrkqbXg__AQJ_N3sxY4nnv6lAtDCk3xv8g4zA7q
+ br.dMb13NA4a2TtcCtBHvVIzzWlvGv4U9JfN73FVEuv77CejNVNcPQ8XO0e3i2_eBbyDtuzTowpF
+ r7tocTWs53b.gwK4kDv_pTqO0hkqXLBV9X.I0Z6r8V3u504t5eb2cOQisOd4Mhos8dnXyaAN9cvu
+ 7acgLpOpZcWqyW9UMNNm1ShkpPPdBQprBadtvMrLPJFHbWwRyzdUL1sXWTpogylt3tdIon.0FUKm
+ rYQHTIZKXN0FbJz4FKuZgtnj76nzxXdow3yqiqKvKnjZ5MSJnwK0MtpYhCeyLNxltgJfN4K5iM2N
+ 7_UXaTuwcmiKL82RDIrVJ_m4tLhQSD0TMdB.C2.RuC3DLR6EZjR8icmJ5Pcyp1FBSAS.nzoMlvyG
+ wQetEXAUX6UnRnxz4Y.joRItG62ICV6zPRT7DkNFqhLrhD49oEyY7OTpUAHfUzW96T3TjU.z.xtX
+ BRJ59.VxAXDse4eqIhZpOo67ruAxITzCz2bwWgj9_3BVGoKrKa2hdF1EbK_wrXYCphFhgdP591BM
+ 8Dx4nw.OvDUtcFSmwaX38z91xvkNg2gGzURgEg.1aIahIoxGy.8HwC2Lo.9sDMjQ0LoYEOVKAezC
+ pGYewkGVTBsGHmpazBNDJ2yGdk1YnZ2RsxVQ6cVhAQ9oSC.UcB_QDBHfOgxJ0tQNNGx1hsc2BMQ7
+ fEPpEXJ8GKjioBsLIWpvl67R9boFpyk8B0YFa.DQk0VZ10896guGPPSX8tQw0bHPw998u2wOlfFK
+ r4iYVN6y2wwWwSC6Fp.DmjY5e6rtZVgjns0R9CrneHrhI2xoZjTxHqHrwpBEtqFrzK3GFPPTQtAK
+ 8hT6WRqTR8iJ_lz5fcEMBfDgXpLb2mzq7IppLiwFTDPN0ML7c0cKS8RDnYr0QMe9gdGZvRZcaZ81
+ oYqSjE5Ttah8mMWG6l3Obhj.YZXwg55XNndIG65ct.wK5BmQd6aYUN9KcjQYh._prdA3e2KLlb8V
+ tqRYdouhudJUpS29Eru77mKyHJcKeNct9WUI81o1XVVm1AGD8KRjrhBrE7_R.Nf_EiTNWlcVA8hx
+ BP.uDsYOJpVvf8mbQloJ5acD1I.TpGP2NfRbjr1FwYfk8z6l8gQUDe39HzYrWKeDUt_IRlNJ7_gD
+ KwvB64DCfDs5Yr2pbiRmfb0WwIP2scfxv4AA1X3gcjY0nFjSemkRJmqKpJEA2xu5VIOqoZ9kt3Fy
+ lGpmYgJNyn592qSxpIAHi28oenfQQFZhXz4JO5sR.3hWwhS2Z
+X-Sonic-MF: <casey@schaufler-ca.com>
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.ne1.yahoo.com with HTTP; Tue, 14 Jun 2022 14:39:29 +0000
+Received: by hermes--canary-production-bf1-856dbf94db-nwd6f (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID 047d13c43786ba81a547ff9186866ac4; 
+ Tue, 14 Jun 2022 14:39:27 +0000 (UTC)
+Message-ID: <b9d27b14-3b45-470d-9c7b-c6f7fb0ca8a5@schaufler-ca.com>
+Date: Tue, 14 Jun 2022 07:39:24 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.9.0
-From: Jia Zhu <zhujia.zj@bytedance.com>
-References: <0a015f53-00f1-57d0-bca3-74cd7db8ed2e@bytedance.com>
-To: dhowells@redhat.com, Jeffle Xu <jefflexu@linux.alibaba.com>,
- xiang@kernel.org
-In-Reply-To: <0a015f53-00f1-57d0-bca3-74cd7db8ed2e@bytedance.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+To: "Eric W. Biederman" <ebiederm@xmission.com>,
+ Frederick Lawler <fred@cloudflare.com>
+References: <20220608150942.776446-1-fred@cloudflare.com>
+ <87tu8oze94.fsf@email.froward.int.ebiederm.org>
+ <e1b62234-9b8a-e7c2-2946-5ef9f6f23a08@cloudflare.com>
+ <87y1xzyhub.fsf@email.froward.int.ebiederm.org>
+From: Casey Schaufler <casey@schaufler-ca.com>
+In-Reply-To: <87y1xzyhub.fsf@email.froward.int.ebiederm.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -87,9 +107,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [Linux-cachefs] [PATCH 1/1] cachefiles: Add a command to restore
- on-demand requests
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: Re: [Linux-cachefs] [PATCH v3] cred: Propagate
+ security_prepare_creds() error code
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,99 +121,114 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, zhujia.zj@bytedance.com,
- linux-cachefs@redhat.com, linux-erofs@lists.ozlabs.org, chao@kernel.org
+Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, amir73il@gmail.com,
+ Paul Moore <paul@paul-moore.com>, linux-cifs@vger.kernel.org,
+ selinux@vger.kernel.org, netdev@vger.kernel.org,
+ Jeff Moyer <jmoyer@redhat.com>, linux-doc@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ linux-unionfs@vger.kernel.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, linux-cachefs@redhat.com,
+ keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Casey Schaufler <casey@schaufler-ca.com>, kernel-team@cloudflare.com,
+ serge@hallyn.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
+On 6/13/2022 9:44 PM, Eric W. Biederman wrote:
+> Frederick Lawler <fred@cloudflare.com> writes:
+>
+>> Hi Eric,
+>>
+>> On 6/13/22 12:04 PM, Eric W. Biederman wrote:
+>>> Frederick Lawler <fred@cloudflare.com> writes:
+>>>
+>>>> While experimenting with the security_prepare_creds() LSM hook, we
+>>>> noticed that our EPERM error code was not propagated up the callstack.
+>>>> Instead ENOMEM is always returned.  As a result, some tools may send a
+>>>> confusing error message to the user:
+>>>>
+>>>> $ unshare -rU
+>>>> unshare: unshare failed: Cannot allocate memory
+>>>>
+>>>> A user would think that the system didn't have enough memory, when
+>>>> instead the action was denied.
+>>>>
+>>>> This problem occurs because prepare_creds() and prepare_kernel_cred()
+>>>> return NULL when security_prepare_creds() returns an error code. Later,
+>>>> functions calling prepare_creds() and prepare_kernel_cred() return
+>>>> ENOMEM because they assume that a NULL meant there was no memory
+>>>> allocated.
+>>>>
+>>>> Fix this by propagating an error code from security_prepare_creds() up
+>>>> the callstack.
+>>> Why would it make sense for security_prepare_creds to return an error
+>>> code other than ENOMEM?
+>>>   > That seems a bit of a violation of what that function is supposed to do
+>>>
+>> The API allows LSM authors to decide what error code is returned from the
+>> cred_prepare hook. security_task_alloc() is a similar hook, and has its return
+>> code propagated.
+> It is not an api.  It is an implementation detail of the linux kernel.
+> It is a set of convenient functions that do a job.
 
-In on-demand read scenario, as long as the device connection
-is not released, user daemon can restore the inflight request
-by setting the request flag to CACHEFILES_REQ_NEW.
+Yeah, sort of. We still don't want to change it willy-nilly as it
+has multiple users from both ends.
 
-Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
----
-  fs/cachefiles/daemon.c   |  1 +
-  fs/cachefiles/internal.h |  3 +++
-  fs/cachefiles/ondemand.c | 25 +++++++++++++++++++++++++
-  3 files changed, 29 insertions(+)
+>
+> The general rule is we don't support cases without an in-tree user.  I
+> don't see an in-tree user.
 
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 5956bf10cb4b..280104171996 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -77,6 +77,7 @@ static const struct cachefiles_daemon_cmd 
-cachefiles_daemon_cmds[] = {
-  	{ "tag",	cachefiles_daemon_tag		},
-  #ifdef CONFIG_CACHEFILES_ONDEMAND
-  	{ "copen",	cachefiles_ondemand_copen	},
-+	{ "restore",	cachefiles_ondemand_restore	},
-  #endif
-  	{ "",		NULL				}
-  };
-diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 6cba2c6de2f9..402f552a9756 100644
---- a/fs/cachefiles/internal.h
-+++ b/fs/cachefiles/internal.h
-@@ -289,6 +289,9 @@ extern ssize_t 
-cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
-  extern int cachefiles_ondemand_copen(struct cachefiles_cache *cache,
-  				     char *args);
+Unfortunately, the BPF security module allows arbitrary out-of-tree programs
+in any hook. While returns other than -ENOMEM may be nonsensical, they are
+possible. This is driving the LSM infrastructure in the direction of being
+an API, in that users of BPF need to know what they are allowed to do in
+their hook programs.
 
-+extern int cachefiles_ondemand_restore(struct cachefiles_cache *cache,
-+				     char *args);
-+
-  extern int cachefiles_ondemand_init_object(struct cachefiles_object 
-*object);
-  extern void cachefiles_ondemand_clean_object(struct cachefiles_object 
-*object);
+> I'm proposing we follow security_task_allocs() pattern, and add visibility for
+> failure cases in prepare_creds().
+> I am asking why we would want to.  Especially as it is not an API, and I
+> don't see any good reason for anything but an -ENOMEM failure to be
+> supported.
+>
+> Without an in-tree user that cares it is probably better to go the
+> opposite direction and remove the possibility of return anything but
+> memory allocation failure.  That will make it clearer to implementors
+> that a general error code is not supported and this is not a location
+> to implement policy, this is only a hook to allocate state for the LSM.
 
-diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
-index 2506e6d56965..0d0ed82f4814 100644
---- a/fs/cachefiles/ondemand.c
-+++ b/fs/cachefiles/ondemand.c
-@@ -174,6 +174,31 @@ int cachefiles_ondemand_copen(struct 
-cachefiles_cache *cache, char *args)
-  	return ret;
-  }
+The more clearly we define how a function is to be used the more it looks
+like an API. The LSM security_ interfaces are not well designed. They have
+appeared, changed and disappeared organically. This was fine when there was
+one user and tolerable when there were a few, but is getting to be painful
+as the number of security modules increases and their assumptions and
+behavior diverges from subject/object mandatory access control.
 
-+int cachefiles_ondemand_restore(struct cachefiles_cache *cache, char *args)
-+{
-+	struct cachefiles_req *req;
-+	XA_STATE(xas, &cache->reqs, 0);
-+
-+	if (!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags))
-+		return -EOPNOTSUPP;
-+
-+	if (test_bit(CACHEFILES_DEAD, &cache->flags))
-+		return -EIO;
-+
-+	xas_lock(&xas);
-+	/*
-+	 * Search the requests that being proceessed before
-+	 * the user daemon crashed.
-+	 * Set the CACHEFILES_REQ_NEW flag and user daemon will reprocess it.
-+	 */
-+	xas_for_each(&xas, req, ULONG_MAX) {
-+		if (!xas_get_mark(&xas, CACHEFILES_REQ_NEW))
-+			xas_set_mark(&xas, CACHEFILES_REQ_NEW);
-+	}
-+	xas_unlock(&xas);
-+	return 0;
-+}
-+
-  static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
-  {
-  	struct cachefiles_object *object;
--- 
-2.20.1
+
+>>> I have probably missed a very interesting discussion where that was
+>>> mentioned but I don't see link to the discussion or anything explaining
+>>> why we want to do that in this change.
+>>>
+>> AFAIK, this is the start of the discussion.
+> You were on v3 and had an out of tree piece of code so I assumed someone
+> had at least thought about why you want to implement policy in a piece
+> of code whose only purpose is to allocate memory to store state.
+
+I agree with both sides to some extent. The caller shouldn't assume that
+the only possible error is -ENOMEM, but the LSM hook should never do anything
+else, either. If there is a legitimate case where an different error may
+be returned and a reasonable, different action the caller(s) would take in
+that case, the change makes sense. Otherwise, no.
+
+> Eric
+>
 
 --
 Linux-cachefs mailing list
