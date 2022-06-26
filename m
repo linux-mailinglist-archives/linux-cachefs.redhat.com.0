@@ -2,83 +2,63 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55928552CB0
-	for <lists+linux-cachefs@lfdr.de>; Tue, 21 Jun 2022 10:18:01 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FA855B089
+	for <lists+linux-cachefs@lfdr.de>; Sun, 26 Jun 2022 11:11:25 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-45-0SOKF_4lOqaMX9C8ztDx2g-1; Tue, 21 Jun 2022 04:17:57 -0400
-X-MC-Unique: 0SOKF_4lOqaMX9C8ztDx2g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-513-_w31dhrNP4WnUc82TG9_gQ-1; Sun, 26 Jun 2022 05:11:21 -0400
+X-MC-Unique: _w31dhrNP4WnUc82TG9_gQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80212811E80;
-	Tue, 21 Jun 2022 08:17:56 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 67F132166B26;
-	Tue, 21 Jun 2022 08:17:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B27A72806AAF;
+	Sun, 26 Jun 2022 09:11:20 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 18A5F40CF8E5;
+	Sun, 26 Jun 2022 09:11:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B33DE1947051;
-	Tue, 21 Jun 2022 08:17:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 65FED1947B92;
+	Sun, 26 Jun 2022 09:11:17 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4FB2819466DF for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 15 Jun 2022 15:06:21 +0000 (UTC)
+ ESMTP id DCE581947040 for <linux-cachefs@listman.corp.redhat.com>;
+ Sun, 26 Jun 2022 09:11:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F0B51121315; Wed, 15 Jun 2022 15:06:21 +0000 (UTC)
+ id CDADE141510C; Sun, 26 Jun 2022 09:11:15 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B29B1121314
- for <linux-cachefs@redhat.com>; Wed, 15 Jun 2022 15:06:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C99DA1415108
+ for <linux-cachefs@redhat.com>; Sun, 26 Jun 2022 09:11:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6E8B3C11734
- for <linux-cachefs@redhat.com>; Wed, 15 Jun 2022 15:06:20 +0000 (UTC)
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
- [209.85.166.174]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B213F101A56C
+ for <linux-cachefs@redhat.com>; Sun, 26 Jun 2022 09:11:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-355-jKpE_5aDNKS8oMQBD6oLrw-1; Wed, 15 Jun 2022 11:06:18 -0400
-X-MC-Unique: jKpE_5aDNKS8oMQBD6oLrw-1
-Received: by mail-il1-f174.google.com with SMTP id l14so4999775ilq.1
- for <linux-cachefs@redhat.com>; Wed, 15 Jun 2022 08:06:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=j6yW8cSNxyHcKGLBH/RzzZpKDGH+HEQvUp5OHLJ1vSg=;
- b=RunwkEAEcnuQ2VCyV0h6UTXLZ8ahlHXfUgoazJam+DeqA0XFEh3MKFlBsvlZmtwBvW
- 8fk3UEcn5/VAh533SnKG6pkGoBcQcYJeWliPcxk57pjgeCQorpViMkYCby52BIXOhEHI
- 7GqIga9wGSofo3YIIgZ0YaWszNlaqE3aUXWlj/buV8W95xtkY0gJ+fd+bhK1ia2Xu97a
- JLQmuq6LFuYww4oQrlU58Rybt/bqEi9+YOwVPenvIRSMqTT7T0YCHobCbtFyPO0o5R8d
- gbMlMP7ZsQdKvXW2jK1HgAlvrWMhPa5U7PIk36zqPSKlZFnPk/3Ys7X2gSVPTVIOGYzF
- qq/g==
-X-Gm-Message-State: AJIora9q3LpXGT94jPwXARu2Vaf4aV7Ej+8ha+Q4UY58+5BmW4v/d+iv
- wbaqwoSh4zVrl8QncYd1T1DdhQ21qd8fGDuATmfytg==
-X-Google-Smtp-Source: AGRyM1vl6hb3B14OhbZ5pyrW5E0uvZJEWyTkyieVnvYbDV9l4KSiSfWp3W3NzE6bbMlKOpxyW1c3ccvo1VZk+jYZkps=
-X-Received: by 2002:a05:6e02:1747:b0:2d3:e571:5058 with SMTP id
- y7-20020a056e02174700b002d3e5715058mr142461ill.309.1655305577283; Wed, 15 Jun
- 2022 08:06:17 -0700 (PDT)
+ us-mta-443-I5VZ4ofENPyhGdK_oT91Kg-1; Sun, 26 Jun 2022 05:11:13 -0400
+X-MC-Unique: I5VZ4ofENPyhGdK_oT91Kg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 904076119B;
+ Sun, 26 Jun 2022 09:11:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65F3C341D0;
+ Sun, 26 Jun 2022 09:11:10 +0000 (UTC)
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1o5OIN-001coA-Qi;
+ Sun, 26 Jun 2022 10:11:07 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Sun, 26 Jun 2022 10:10:46 +0100
+Message-Id: <cover.1656234456.git.mchehab@kernel.org>
 MIME-Version: 1.0
-References: <20220608150942.776446-1-fred@cloudflare.com>
- <87tu8oze94.fsf@email.froward.int.ebiederm.org>
- <e1b62234-9b8a-e7c2-2946-5ef9f6f23a08@cloudflare.com>
- <87y1xzyhub.fsf@email.froward.int.ebiederm.org>
- <859cb593-9e96-5846-2191-6613677b07c5@cloudflare.com>
- <87o7yvxl4x.fsf@email.froward.int.ebiederm.org>
- <9ed91f15-420c-3db6-8b3b-85438b02bf97@cloudflare.com>
- <20220615103031.qkzae4xr34wysj4b@wittgenstein>
- <CAHC9VhR8yPHZb2sCu4JGgXOSs7rudm=9opB+-LsG6_Lta9466A@mail.gmail.com>
-In-Reply-To: <CAHC9VhR8yPHZb2sCu4JGgXOSs7rudm=9opB+-LsG6_Lta9466A@mail.gmail.com>
-From: Ignat Korchagin <ignat@cloudflare.com>
-Date: Wed, 15 Jun 2022 16:06:06 +0100
-Message-ID: <CALrw=nGZtrNYn+CV+Q_w-2=Va_9m3C8PDvvPtd01d0tS=2NMWQ@mail.gmail.com>
-To: Paul Moore <paul@paul-moore.com>, Christian Brauner <brauner@kernel.org>, 
- "Eric W. Biederman" <ebiederm@xmission.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,10 +66,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Tue, 21 Jun 2022 08:17:53 +0000
-Subject: Re: [Linux-cachefs] [PATCH v3] cred: Propagate
- security_prepare_creds() error code
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [Linux-cachefs] [PATCH v2 00/20] Update Documentation/
+ cross-references
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,18 +80,25 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-nfs@vger.kernel.org, linux-doc@vger.kernel.org,
- selinux@vger.kernel.org, linux-cifs@vger.kernel.org,
- Jeff Moyer <jmoyer@redhat.com>, amir73il@gmail.com,
- samba-technical@lists.samba.org, linux-kernel <linux-kernel@vger.kernel.org>,
- linux-unionfs@vger.kernel.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, linux-cachefs@redhat.com,
- keyrings@vger.kernel.org, netdev <netdev@vger.kernel.org>,
- linux-fsdevel@vger.kernel.org, kernel-team <kernel-team@cloudflare.com>,
- Frederick Lawler <fred@cloudflare.com>, serge@hallyn.com
+Cc: kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ keyrings@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-riscv@lists.infradead.org,
+ Alex Shi <alexs@kernel.org>, Yanteng Si <siyanteng@loongson.cn>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ linux-cachefs@redhat.com, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Federico Vaga <federico.vaga@vaga.pv.it>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, Rob Herring <robh+dt@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dipen Patel <dipenp@nvidia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-kernel@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -120,126 +106,79 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 15, 2022 at 3:14 PM Paul Moore <paul@paul-moore.com> wrote:
->
-> On Wed, Jun 15, 2022 at 6:30 AM Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > On Tue, Jun 14, 2022 at 01:59:08PM -0500, Frederick Lawler wrote:
-> > > On 6/14/22 11:30 AM, Eric W. Biederman wrote:
-> > > > Frederick Lawler <fred@cloudflare.com> writes:
-> > > >
-> > > > > On 6/13/22 11:44 PM, Eric W. Biederman wrote:
-> > > > > > Frederick Lawler <fred@cloudflare.com> writes:
-> > > > > >
-> > > > > > > Hi Eric,
-> > > > > > >
-> > > > > > > On 6/13/22 12:04 PM, Eric W. Biederman wrote:
-> > > > > > > > Frederick Lawler <fred@cloudflare.com> writes:
-> > > > > > > >
-> > > > > > > > > While experimenting with the security_prepare_creds() LSM hook, we
-> > > > > > > > > noticed that our EPERM error code was not propagated up the callstack.
-> > > > > > > > > Instead ENOMEM is always returned.  As a result, some tools may send a
-> > > > > > > > > confusing error message to the user:
-> > > > > > > > >
-> > > > > > > > > $ unshare -rU
-> > > > > > > > > unshare: unshare failed: Cannot allocate memory
-> > > > > > > > >
-> > > > > > > > > A user would think that the system didn't have enough memory, when
-> > > > > > > > > instead the action was denied.
-> > > > > > > > >
-> > > > > > > > > This problem occurs because prepare_creds() and prepare_kernel_cred()
-> > > > > > > > > return NULL when security_prepare_creds() returns an error code. Later,
-> > > > > > > > > functions calling prepare_creds() and prepare_kernel_cred() return
-> > > > > > > > > ENOMEM because they assume that a NULL meant there was no memory
-> > > > > > > > > allocated.
-> > > > > > > > >
-> > > > > > > > > Fix this by propagating an error code from security_prepare_creds() up
-> > > > > > > > > the callstack.
-> > > > > > > > Why would it make sense for security_prepare_creds to return an error
-> > > > > > > > code other than ENOMEM?
-> > > > > > > >    > That seems a bit of a violation of what that function is supposed to do
-> > > > > > > >
-> > > > > > >
-> > > > > > > The API allows LSM authors to decide what error code is returned from the
-> > > > > > > cred_prepare hook. security_task_alloc() is a similar hook, and has its return
-> > > > > > > code propagated.
-> > > > > > It is not an api.  It is an implementation detail of the linux kernel.
-> > > > > > It is a set of convenient functions that do a job.
-> > > > > > The general rule is we don't support cases without an in-tree user.  I
-> > > > > > don't see an in-tree user.
-> > > > > >
-> > > > > > > I'm proposing we follow security_task_allocs() pattern, and add visibility for
-> > > > > > > failure cases in prepare_creds().
-> > > > > > I am asking why we would want to.  Especially as it is not an API, and I
-> > > > > > don't see any good reason for anything but an -ENOMEM failure to be
-> > > > > > supported.
-> > > > > >
-> > > > > We're writing a LSM BPF policy, and not a new LSM. Our policy aims to solve
-> > > > > unprivileged unshare, similar to Debian's patch [1]. We're in a position such
-> > > > > that we can't use that patch because we can't block _all_ of our applications
-> > > > > from performing an unshare. We prefer a granular approach. LSM BPF seems like a
-> > > > > good choice.
-> > > >
-> > > > I am quite puzzled why doesn't /proc/sys/user/max_user_namespaces work
-> > > > for you?
-> > > >
-> > >
-> > > We have the following requirements:
-> > >
-> > > 1. Allow list criteria
-> > > 2. root user must be able to create namespaces whenever
-> > > 3. Everything else not in 1 & 2 must be denied
-> > >
-> > > We use per task attributes to determine whether or not we allow/deny the
-> > > current call to unshare().
-> > >
-> > > /proc/sys/user/max_user_namespaces limits are a bit broad for this level of
-> > > detail.
-> > >
-> > > > > Because LSM BPF exposes these hooks, we should probably treat them as an
-> > > > > API. From that perspective, userspace expects unshare to return a EPERM
-> > > > > when the call is denied permissions.
-> > > >
-> > > > The BPF code gets to be treated as a out of tree kernel module.
-> > > >
-> > > > > > Without an in-tree user that cares it is probably better to go the
-> > > > > > opposite direction and remove the possibility of return anything but
-> > > > > > memory allocation failure.  That will make it clearer to implementors
-> > > > > > that a general error code is not supported and this is not a location
-> > > > > > to implement policy, this is only a hook to allocate state for the LSM.
-> > > > > >
-> > > > >
-> > > > > That's a good point, and it's possible we're using the wrong hook for the
-> > > > > policy. Do you know of other hooks we can look into?
-> >
-> > Fwiw, from this commit it wasn't very clear what you wanted to achieve
-> > with this. It might be worth considering adding a new security hook for
-> > this. Within msft it recently came up SELinux might have an interest in
-> > something like this as well.
->
-> Just to clarify things a bit, I believe SELinux would have an interest
-> in a LSM hook capable of implementing an access control point for user
-> namespaces regardless of Microsoft's current needs.  I suspect due to
-> the security relevant nature of user namespaces most other LSMs would
-> be interested as well; it seems like a well crafted hook would be
-> welcome by most folks I think.
->
-> --
-> paul-moore.com
+Fix most broken documentation file cross references on next-20220624.
 
-Just to get the full picture: is there actually a good reason not to
-make this hook support this scenario? I understand it was not
-originally intended for this, but it is well positioned in the code,
-covers multiple subsystems (not only user namespaces), doesn't require
-changing the LSM interface and it already does the job - just the
-kernel internals need to respect the error code better. What bad
-things can happen if we extend its use case to not only allocate
-resources in LSMs?
+After this series, only 3 references will be broken:
 
-After all, the original Linus email introducing Linux stated that
-Linux was not intended to be a great OS, but here we are :)
+Warning: Documentation/dev-tools/kunit/run_wrapper.rst references a file that doesn't exist: Documentation/dev-tools/kunit/non_uml.rst
+Warning: Documentation/devicetree/bindings/regulator/siliconmitus,sm5703-regulator.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/siliconmitus,sm5703.yaml
+Warning: drivers/acpi/device_pm.c references a file that doesn't exist: Documentation/firmware-guide/acpi/low-power-probe.rst
 
-Ignat
+All of them seem to be due to the lack of a patch actually adding the
+documentation. Maybe the document file is still under review?
+
+Regards,
+Mauro
+
+Mauro Carvalho Chehab (20):
+  docs: netdev: update maintainer-netdev.rst reference
+  docs: filesystems: update netfs-api.rst reference
+  docs: zh_CN: page_frags.rst: fix a broken reference
+  docs: zh_CN/riscv/pmu.rst: remove old docuementation
+  docs: zh_CN/devicetree: fix typos
+  docs: zh_CN: fix a broken reference
+  docs: zh_CN/vm: fix a typo for page reporting ReST file
+  docs: zh_CN/vm/zsmalloc.rst: fix a typo
+  docs: zh_CN/vm/index.rst: fix a broken reference
+  Documentation: update watch_queue.rst references
+  Documentation: KVM: update s390-pv.rst reference
+  Documentation: KVM: update amd-memory-encryption.rst references
+  Documentation: KVM: update msr.rst reference
+  Documentation: KVM: update s390-diag.rst reference
+  objtool: update objtool.txt references
+  arch: m68k: q40: README: drop references to IDE driver
+  tegra194-hte.rst: fix reference to its binding
+  dt-bindings: mfd: update dlg,da9063.yaml reference
+  MAINTAINERS: update nvidia,tegra20-host1x.yaml reference
+  MAINTAINERS: fix cross references to mfd/dlg,da9063.yaml
+
+ .../admin-guide/kernel-parameters.txt         |   2 +-
+ .../bindings/input/da9062-onkey.txt           |   2 +-
+ Documentation/driver-api/hte/tegra194-hte.rst |   2 +-
+ Documentation/security/keys/core.rst          |   2 +-
+ Documentation/security/secrets/coco.rst       |   2 +-
+ .../it_IT/networking/netdev-FAQ.rst           |   2 +-
+ .../translations/zh_CN/devicetree/index.rst   |   2 +-
+ .../zh_CN/devicetree/of_unittest.rst          |   2 +-
+ .../zh_CN/devicetree/usage-model.rst          |   2 +-
+ .../zh_CN/doc-guide/kernel-doc.rst            |   2 +-
+ .../translations/zh_CN/riscv/index.rst        |   1 -
+ .../translations/zh_CN/riscv/pmu.rst          | 235 ------------------
+ .../zh_CN/vm/free_page_reporting.rst          |   2 +-
+ .../translations/zh_CN/vm/frontswap.rst       |   2 +-
+ Documentation/translations/zh_CN/vm/index.rst |   2 +-
+ .../translations/zh_CN/vm/page_frags.rst      |   2 +-
+ .../translations/zh_CN/vm/zsmalloc.rst        |   2 +-
+ Documentation/virt/kvm/api.rst                |   4 +-
+ Documentation/virt/kvm/s390/s390-pv-boot.rst  |   2 +-
+ Documentation/virt/kvm/x86/hypercalls.rst     |   2 +-
+ Documentation/x86/orc-unwinder.rst            |   2 +-
+ MAINTAINERS                                   |   6 +-
+ arch/m68k/q40/README                          |   5 +-
+ include/linux/fscache.h                       |   2 +-
+ include/linux/objtool.h                       |   2 +-
+ include/linux/watch_queue.h                   |   2 +-
+ init/Kconfig                                  |   2 +-
+ kernel/watch_queue.c                          |   2 +-
+ lib/Kconfig.debug                             |   2 +-
+ tools/include/linux/objtool.h                 |   2 +-
+ tools/objtool/check.c                         |   2 +-
+ 31 files changed, 33 insertions(+), 270 deletions(-)
+ delete mode 100644 Documentation/translations/zh_CN/riscv/pmu.rst
+
+-- 
+2.36.1
+
 
 --
 Linux-cachefs mailing list
