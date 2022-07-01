@@ -1,102 +1,59 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5066B566F44
-	for <lists+linux-cachefs@lfdr.de>; Tue,  5 Jul 2022 15:33:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3E65628ED
+	for <lists+linux-cachefs@lfdr.de>; Fri,  1 Jul 2022 04:30:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657028027;
+	s=mimecast20190719; t=1656642602;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=I2oTyYwsMv94bCORMi9spBwr/mnigzuMZqvUHECG9Qc=;
-	b=e2dlxu4VuOKHc6mOWs0bbTyeB23ZRTVVI6oaV65f+haMscXZBnE88N98hOQWqepFh3J67Y
-	vppbXl0F0xFb5mQbEuWg2o4ZQQpOcbw4c69WwdgiZ9nlILgeOGDmFoUkMCuf/jkQ1MzIp8
-	ez2npNMsPsvF1rSyL0rxVTtum2XzkGs=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=WjH6JxvEM339fr2OCACO17GdA7yPFCLNQYB/lY91y7A=;
+	b=fZ2va9M8VfgB1/nlmKN9HS5GOkd2Oqf9GwH5HM4L988fCtFnBIbCbp5MxQ7RmS4WZVkjs8
+	XcVJfR/IP3TOWR7K/GsKTXNlrt/5/hruFP5+opNlatgZtJCI3ZWXMz871lYBaNHTulDNrG
+	Yc+B979o4F+wk5rVEUUv9TEd6DpOMxI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-07sx9tdaPnOwFYTPAC8MGg-1; Tue, 05 Jul 2022 09:33:46 -0400
-X-MC-Unique: 07sx9tdaPnOwFYTPAC8MGg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-310-T3edSBkyP5KefAKcZqLJRw-1; Thu, 30 Jun 2022 22:29:59 -0400
+X-MC-Unique: T3edSBkyP5KefAKcZqLJRw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E661294EDC8;
-	Tue,  5 Jul 2022 13:33:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EAAA811E7A;
+	Fri,  1 Jul 2022 02:29:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 92EFD492CA3;
-	Tue,  5 Jul 2022 13:33:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B6A4840334D;
+	Fri,  1 Jul 2022 02:29:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36413194705B;
-	Tue,  5 Jul 2022 13:33:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3BA791947064;
+	Fri,  1 Jul 2022 02:29:57 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4E83B1947056 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 29 Jun 2022 09:18:19 +0000 (UTC)
+ ESMTP id 61D35194704E for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  1 Jul 2022 02:29:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1CB07415F5E; Wed, 29 Jun 2022 09:18:19 +0000 (UTC)
+ id 03A0E2026D07; Fri,  1 Jul 2022 02:29:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 186E740F06D
- for <linux-cachefs@redhat.com>; Wed, 29 Jun 2022 09:18:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 009EB185A79C
- for <linux-cachefs@redhat.com>; Wed, 29 Jun 2022 09:18:19 +0000 (UTC)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-191-ogepDrFXNuyzgXjHSy52DA-1; Wed, 29 Jun 2022 05:18:17 -0400
-X-MC-Unique: ogepDrFXNuyzgXjHSy52DA-1
-Received: by mail-il1-f200.google.com with SMTP id
- f18-20020a056e020c7200b002d949d97ed9so8648207ilj.7
- for <linux-cachefs@redhat.com>; Wed, 29 Jun 2022 02:18:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
- :from:to;
- bh=beK/RyAk6JMkokDhacR9sWsAak3KfcE5cJn8YM9YfXo=;
- b=IlDv6vBt+gIESrqay3H8zkwIopufdLUiAGQw8Clp/kybafta6FLm1GD3nqk0bOoXvX
- 9ngZ/xw+tAjs5DOcJasrSa+RDYMRvtBZWwCSrOi9zuh0bRsxOrU3Oe+WzwKqJf4yjnVY
- IUqWL0AaK0TW6PW9m/bOHxn97NznGbdcFgdYXF718stkQgVE4T7knyYCcWk9HbPAq/5z
- WgC9OjoRGJevqCuF8dY55HLdvylGC2e4cKa/t2IlR5PFjV2SKq3tbdcOo7JZIaKh6JqI
- ALItleJvO0aWV7wBvKeaKa0dZnLp03TXyLBnhOJNLXP7w1sH67RwmOdjpQh72kY+lcip
- Wg1A==
-X-Gm-Message-State: AJIora81ezp1+mUr5nYOV9RkhF6m/NeC4NGwMn31VSM7fJE61ui3zX11
- Mr1Pmd2ucBUWpiSaedi0Sgh7fwAq/9PC/xRheZu90bANT0rf
-X-Google-Smtp-Source: AGRyM1s6t+4IF+v7hbqi2PlMOZGH0tixMsiyQiUO7bNWMmDuM04SIpLSXFwFyeW9YoDZuVAqPmhDBkViVN49Qz++gBK/VKkn0WTb
+Received: from lxbceph1.gsslab.pek2.redhat.com (unknown [10.72.47.117])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DD79F2026D64;
+ Fri,  1 Jul 2022 02:29:50 +0000 (UTC)
+From: xiubli@redhat.com
+To: jlayton@kernel.org,
+	idryomov@gmail.com,
+	dhowells@redhat.com
+Date: Fri,  1 Jul 2022 10:29:45 +0800
+Message-Id: <20220701022947.10716-1-xiubli@redhat.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6e02:2183:b0:2d9:5c41:52dd with SMTP id
- j3-20020a056e02218300b002d95c4152ddmr1410606ila.140.1656494296687; Wed, 29
- Jun 2022 02:18:16 -0700 (PDT)
-Date: Wed, 29 Jun 2022 02:18:16 -0700
-In-Reply-To: <000000000000f2b07b05d5dc87cc@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000206fbb05e292a244@google.com>
-From: syzbot <syzbot+5b129e8586277719bab3@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, linux-cachefs-bounces@redhat.com, 
- linux-cachefs-owner@redhat.com, linux-cachefs@redhat.com, 
- linux-kernel@vger.kernel.org, mudongliangabcd@gmail.com, 
- syzkaller-bugs@googlegroups.com
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Mailman-Approved-At: Tue, 05 Jul 2022 13:33:42 +0000
-Subject: Re: [Linux-cachefs] [syzbot] general protection fault in
- fscache_free_cookie
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [Linux-cachefs] [PATCH 0/2] netfs,
+ ceph: fix the crash when unlocking the folio
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,9 +65,12 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
+Cc: keescook@chromium.org, linux-kernel@vger.kernel.org, willy@infradead.org,
+ linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org,
+ ceph-devel@vger.kernel.org, vshankar@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,13 +78,66 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This bug is marked as fixed by commit:
-fscache: fix GPF in fscache_free_cookie
-But I can't find it in any tested tree for more than 90 days.
-Is it a correct commit? Please update it by replying:
-#syz fix: exact-commit-title
-Until then the bug is still considered open and
-new crashes with the same signature are ignored.
+From: Xiubo Li <xiubli@redhat.com>
+
+kernel: page:00000000c9746ff1 refcount:2 mapcount:0 mapping:00000000dc2785bb index:0x1 pfn:0x141afc
+kernel: memcg:ffff88810f766000
+kernel: aops:ceph_aops [ceph] ino:100000005e7 dentry name:"postgresql-Fri.log" 
+kernel: flags: 0x5ffc000000201c(uptodate|dirty|lru|private|node=0|zone=2|lastcpupid=0x7ff)
+kernel: raw: 005ffc000000201c ffffea000a9eeb48 ffffea00060ade48 ffff888193ed8228
+kernel: raw: 0000000000000001 ffff88810cc96500 00000002ffffffff ffff88810f766000
+kernel: page dumped because: VM_BUG_ON_FOLIO(!folio_test_locked(folio))
+kernel: ------------[ cut here ]------------
+kernel: kernel BUG at mm/filemap.c:1559!
+kernel: invalid opcode: 0000 [#1] PREEMPT SMP PTI
+kernel: CPU: 4 PID: 131697 Comm: postmaster Tainted: G S                5.19.0-rc2-ceph-g822a4c74e05d #1
+kernel: Hardware name: Supermicro SYS-5018R-WR/X10SRW-F, BIOS 2.0 12/17/2015
+kernel: RIP: 0010:folio_unlock+0x26/0x30
+kernel: Code: 00 0f 1f 00 0f 1f 44 00 00 48 8b 07 a8 01 74 0e f0 80 27 fe 78 01 c3 31 f6 e9 d6 fe ff ff 48 c7 c6 c0 81 37 82 e8 aa 64 04 00 <0f> 0b 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 8b 87 b8 01 00 00
+kernel: RSP: 0018:ffffc90004377bc8 EFLAGS: 00010246
+kernel: RAX: 000000000000003f RBX: ffff888193ed8228 RCX: 0000000000000001
+kernel: RDX: 0000000000000000 RSI: ffffffff823a3569 RDI: 00000000ffffffff
+kernel: RBP: ffffffff828a0058 R08: 0000000000000001 R09: 0000000000000001
+kernel: R10: 000000007c6b0fd2 R11: 0000000000000034 R12: 0000000000000001
+kernel: R13: 00000000fffffe00 R14: ffffea000506bf00 R15: ffff888193ed8000
+kernel: FS:  00007f4993626340(0000) GS:ffff88885fd00000(0000) knlGS:0000000000000000
+kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+kernel: CR2: 0000555789ee8000 CR3: 000000017a52a006 CR4: 00000000001706e0
+kernel: Call Trace:
+kernel: <TASK>
+kernel: netfs_write_begin+0x130/0x950 [netfs]
+kernel: ceph_write_begin+0x46/0xd0 [ceph]
+kernel: generic_perform_write+0xef/0x200
+kernel: ? file_update_time+0xd4/0x110
+kernel: ceph_write_iter+0xb01/0xcd0 [ceph]
+kernel: ? lock_is_held_type+0xe3/0x140
+kernel: ? new_sync_write+0x106/0x180
+kernel: new_sync_write+0x106/0x180
+kernel: vfs_write+0x29a/0x3a0
+kernel: ksys_write+0x5c/0xd0
+kernel: do_syscall_64+0x34/0x80
+kernel: entry_SYSCALL_64_after_hwframe+0x46/0xb0
+kernel: RIP: 0033:0x7f49903205c8
+kernel: Code: 89 02 48 c7 c0 ff ff ff ff eb b3 0f 1f 80 00 00 00 00 f3 0f 1e fa 48 8d 05 d5 3f 2a 00 8b 00 85 c0 75 17 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 41 54 49 89 d4 55
+kernel: RSP: 002b:00007fff104bd178 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+kernel: RAX: ffffffffffffffda RBX: 0000000000000048 RCX: 00007f49903205c8
+kernel: RDX: 0000000000000048 RSI: 000055944d3c1ea0 RDI: 000000000000000b
+kernel: RBP: 000055944d3c1ea0 R08: 000055944d3963d0 R09: 00007fff1055b080
+kernel: R10: 0000000000000000 R11: 0000000000000246 R12: 000055944d3962f0
+kernel: R13: 0000000000000048 R14: 00007f49905bb880 R15: 0000000000000048
+kernel: </TASK>
+
+
+Xiubo Li (2):
+  netfs: release the folio lock and put the folio before retrying
+  ceph: do not release the folio lock in kceph
+
+ fs/ceph/addr.c           | 6 +++---
+ fs/netfs/buffered_read.c | 5 ++++-
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+-- 
+2.36.0.rc1
 
 --
 Linux-cachefs mailing list
