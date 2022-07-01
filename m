@@ -2,61 +2,61 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0635628EE
-	for <lists+linux-cachefs@lfdr.de>; Fri,  1 Jul 2022 04:30:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 816475628F6
+	for <lists+linux-cachefs@lfdr.de>; Fri,  1 Jul 2022 04:30:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656642604;
+	s=mimecast20190719; t=1656642609;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mSV3JBu6AA1zPYB9gw+hqN/AXYv3DrHLeAfmkGdOJvQ=;
-	b=U5GwoRfmIawH7pS+XoQS3fwU3ww18/vTo4kjtRf2jRrahQa3p+HQsVP3uYG6INbh8bC9kB
-	RrKctsocC7pmbG0g4bnCm3t4fKax25ic/4SRSGzlbLKWNkQ/ECZiL6o2ucxfn+PAi2CEgH
-	64eMGzeyjdSknwzSPIhJMfFqK7koRX8=
+	bh=bmW6GOD+8j4FVV8uJifXL0YNzjt3GRUPy/NCRJsGZ5Y=;
+	b=Rmn9MWKmAF5BZjKwA4NO5y+K0jSQ2pGCpO6GUeJHm1ASR3tHRMVHUR4Na6DIArF/QSnTdG
+	Pr9Kt55LJqJmMor5JAQgoOkwHFxcwfkeH+WAjFfa2ibOtIi63MJLHl9Vw08TvPThmHxQ4o
+	Czm3woukIfLYI/UXaJAo/mXK+iAsyzQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-414-_Fm2r8pYPjCZHcBRAu8v_w-1; Thu, 30 Jun 2022 22:30:01 -0400
-X-MC-Unique: _Fm2r8pYPjCZHcBRAu8v_w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-516-qcMFR8-HOnmWZVnxHYTXVA-1; Thu, 30 Jun 2022 22:30:06 -0400
+X-MC-Unique: qcMFR8-HOnmWZVnxHYTXVA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93C7C101A588;
-	Fri,  1 Jul 2022 02:30:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88F91801233;
+	Fri,  1 Jul 2022 02:30:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8A3A1400E57D;
-	Fri,  1 Jul 2022 02:30:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7CE79492C3B;
+	Fri,  1 Jul 2022 02:30:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4ADB71947064;
-	Fri,  1 Jul 2022 02:30:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5995D1947064;
+	Fri,  1 Jul 2022 02:30:05 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CF03E194704E for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  1 Jul 2022 02:29:59 +0000 (UTC)
+ ESMTP id 7D095194704E for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  1 Jul 2022 02:30:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B476F2026987; Fri,  1 Jul 2022 02:29:59 +0000 (UTC)
+ id 6FAFD2026987; Fri,  1 Jul 2022 02:30:04 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from lxbceph1.gsslab.pek2.redhat.com (unknown [10.72.47.117])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A1DE82026D64;
- Fri,  1 Jul 2022 02:29:55 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5CBBC2026D64;
+ Fri,  1 Jul 2022 02:30:00 +0000 (UTC)
 From: xiubli@redhat.com
 To: jlayton@kernel.org,
 	idryomov@gmail.com,
 	dhowells@redhat.com
-Date: Fri,  1 Jul 2022 10:29:46 +0800
-Message-Id: <20220701022947.10716-2-xiubli@redhat.com>
+Date: Fri,  1 Jul 2022 10:29:47 +0800
+Message-Id: <20220701022947.10716-3-xiubli@redhat.com>
 In-Reply-To: <20220701022947.10716-1-xiubli@redhat.com>
 References: <20220701022947.10716-1-xiubli@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [PATCH 1/2] netfs: release the folio lock and put
- the folio before retrying
+Subject: [Linux-cachefs] [PATCH 2/2] ceph: do not release the folio lock in
+ kceph
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,7 +73,7 @@ Cc: keescook@chromium.org, linux-kernel@vger.kernel.org, willy@infradead.org,
  ceph-devel@vger.kernel.org, vshankar@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,32 +83,39 @@ Content-Transfer-Encoding: 7bit
 
 From: Xiubo Li <xiubli@redhat.com>
 
-The lower layer filesystem should always make sure the folio is
-locked and do the unlock and put the folio in netfs layer.
+The netfs layer should be responsible to unlock and put the folio,
+and we will always return 0 when succeeds.
 
 URL: https://tracker.ceph.com/issues/56423
 Signed-off-by: Xiubo Li <xiubli@redhat.com>
 ---
- fs/netfs/buffered_read.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/ceph/addr.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 42f892c5712e..257fd37c2461 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -351,8 +351,11 @@ int netfs_write_begin(struct netfs_inode *ctx,
- 		ret = ctx->ops->check_write_begin(file, pos, len, folio, _fsdata);
- 		if (ret < 0) {
- 			trace_netfs_failure(NULL, NULL, ret, netfs_fail_check_write_begin);
--			if (ret == -EAGAIN)
-+			if (ret == -EAGAIN) {
-+				folio_unlock(folio);
-+				folio_put(folio);
- 				goto retry;
-+			}
- 			goto error;
- 		}
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index fe6147f20dee..3ef5200e2005 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -1310,16 +1310,16 @@ static int ceph_netfs_check_write_begin(struct file *file, loff_t pos, unsigned
+ 	if (snapc) {
+ 		int r;
+ 
+-		folio_unlock(folio);
+-		folio_put(folio);
+ 		if (IS_ERR(snapc))
+ 			return PTR_ERR(snapc);
+ 
++		folio_unlock(folio);
+ 		ceph_queue_writeback(inode);
+ 		r = wait_event_killable(ci->i_cap_wq,
+ 					context_is_writeable_or_written(inode, snapc));
+ 		ceph_put_snap_context(snapc);
+-		return r == 0 ? -EAGAIN : r;
++		folio_lock(folio);
++		return r == 0 ? -EAGAIN : 0;
  	}
+ 	return 0;
+ }
 -- 
 2.36.0.rc1
 
