@@ -2,101 +2,74 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D244357DED4
-	for <lists+linux-cachefs@lfdr.de>; Fri, 22 Jul 2022 11:50:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9449B57FD14
+	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 12:09:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658483433;
+	s=mimecast20190719; t=1658743791;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GMVQGCcJZ6UfcQlJajwzfebL6qvQOKYDp4D/Zrzo7Yc=;
-	b=L81kaNc/VrQsSRCH9IJkdDFc8JnaFXDFOsDTrcY+sG/STX8VdBuSMGfLAyLioGhZpZlXF0
-	4ozWfFtkThG2FEseWYCH2cSzHtnDXBq6Q9Sf7B7Bd5MU+3KJ6cIUdhBscQ+jpaBDHLJmS3
-	xw4tgkXww678r4qwElfqeu0iGA5BbEs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=YDdw2/4SJKX0XXZ9N0d05vKElttrx2DMN6EonNyENUs=;
+	b=USJ09qMWIh7R3TG3TIOgE7kleR2EhAfIx521nBQmfI5o8XGHM91dPAb3nPHX4lDrfJO+Gh
+	VGf1tEFV2tO2q3Sv7Fz1Jn45QGkfchiqmXyo8CUyQOiDVMCAWN5z4UhH1GDzLWBWbDnG3f
+	QZsc7uqPm91rG77hlr9azwV8yJBqlQc=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-160-3MHbYW4OMOCqSo5EnwtY7g-1; Fri, 22 Jul 2022 05:50:25 -0400
-X-MC-Unique: 3MHbYW4OMOCqSo5EnwtY7g-1
+ us-mta-36-BuB7iltuONmYhmpIcF0mFA-1; Mon, 25 Jul 2022 06:09:48 -0400
+X-MC-Unique: BuB7iltuONmYhmpIcF0mFA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FB3F101A589;
-	Fri, 22 Jul 2022 09:50:24 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7610EC28100;
-	Fri, 22 Jul 2022 09:50:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BCE13C0E206;
+	Mon, 25 Jul 2022 10:09:48 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3702DC27DB3;
+	Mon, 25 Jul 2022 10:09:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 256CF1947050;
-	Fri, 22 Jul 2022 09:50:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 489D31945DAA;
+	Mon, 25 Jul 2022 10:09:46 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3FC5F1947049 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 22 Jul 2022 09:50:21 +0000 (UTC)
+ ESMTP id BC1601947040 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat,  9 Jul 2022 10:07:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2C633400DFD7; Fri, 22 Jul 2022 09:50:21 +0000 (UTC)
+ id 9FA9918EBB; Sat,  9 Jul 2022 10:07:46 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 28B2F40CFD0A
- for <linux-cachefs@redhat.com>; Fri, 22 Jul 2022 09:50:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AA5F18EB9
+ for <linux-cachefs@redhat.com>; Sat,  9 Jul 2022 10:07:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7DD58803520
+ for <linux-cachefs@redhat.com>; Sat,  9 Jul 2022 10:07:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-77-bK2bNAH9Pq6MLEKlLNJ9PQ-1; Sat, 09 Jul 2022 06:07:42 -0400
+X-MC-Unique: bK2bNAH9Pq6MLEKlLNJ9PQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 111E18037AC
- for <linux-cachefs@redhat.com>; Fri, 22 Jul 2022 09:50:21 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-GbIhRAIaOKmlPL3vSp4fKg-1; Fri, 22 Jul 2022 05:50:17 -0400
-X-MC-Unique: GbIhRAIaOKmlPL3vSp4fKg-1
-Received: by mail-qk1-f170.google.com with SMTP id e16so3212806qka.5;
- Fri, 22 Jul 2022 02:50:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=njvi007IPZLoUToBw/3oPRzvfKBBxiE1LtWmOJ0CDkM=;
- b=dj4AZPBcHw3E6+RKya5bZL7ubY1UOEVQZ3742PtTHnbG1AVvJseXYztCFJu+Wxkdv3
- cEls+S4yhF0vUyaT+v4ZS+zzaoi4xe/clYFIW8lhO+YixU8YLwvNdBG4v6v+TpcqJgwr
- PIv/011gmV5107KnTzzIcn3LZ+gvVa6Bj7amJqSXRW2wabybXy9a79dIfMB5c3P+uRgF
- B1C7poibAD0WB7vJ7MJOrz1PbbhwKkZMto5kRvXaqQdbW422jb6C8/J7uf3qFduDl3rQ
- /MMeralhTukT99UxnKuQeEkwEDnuzAR0MVHPfGSxYSrO4aMK10xZg8c5dB6SfBKhUzTG
- 2L9w==
-X-Gm-Message-State: AJIora/C1T+psLm26erkxqc2jy+2COcQ25hK1zq2Wo897zdJwQnuALu0
- e3uqvXe3Hlo9jjXQbzmBPEBVbmfm71kc2g==
-X-Google-Smtp-Source: AGRyM1vOcbkTd8adb1uHccIjEm6jiKLBC36dRD3e9x7SaLITJsRrphAnhC+9lgh47vGnSSdm/O0F1A==
-X-Received: by 2002:a05:620a:2710:b0:6b5:bf24:10e9 with SMTP id
- b16-20020a05620a271000b006b5bf2410e9mr1882537qkp.28.1658483404441; 
- Fri, 22 Jul 2022 02:50:04 -0700 (PDT)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
- [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
- j8-20020ac84408000000b0031ee2080c73sm2631344qtn.54.2022.07.22.02.50.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Jul 2022 02:50:04 -0700 (PDT)
-Received: by mail-yb1-f179.google.com with SMTP id r3so7165049ybr.6;
- Fri, 22 Jul 2022 02:50:04 -0700 (PDT)
-X-Received: by 2002:a05:6902:38c:b0:670:b6bc:6ed5 with SMTP id
- f12-20020a056902038c00b00670b6bc6ed5mr2008042ybs.604.1658483065858; Fri, 22
- Jul 2022 02:44:25 -0700 (PDT)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 16FDC60EFD;
+ Sat,  9 Jul 2022 10:07:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAE2C341C7;
+ Sat,  9 Jul 2022 10:07:39 +0000 (UTC)
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1oA7N9-004EGQ-BD;
+ Sat, 09 Jul 2022 11:07:35 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Sat,  9 Jul 2022 11:07:13 +0100
+Message-Id: <cover.1657360984.git.mchehab@kernel.org>
 MIME-Version: 1.0
-References: <20220721015605.20651-1-slark_xiao@163.com>
- <20220721154110.fqp7n6f7ij22vayp@kafai-mbp.dhcp.thefacebook.com>
- <21cac0ea.18f.182218041f7.Coremail.slark_xiao@163.com>
- <874jzamhxe.fsf@meer.lwn.net>
- <6ca59494-cc64-d85c-98e8-e9bef2a04c15@infradead.org>
-In-Reply-To: <6ca59494-cc64-d85c-98e8-e9bef2a04c15@infradead.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 22 Jul 2022 11:44:14 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWSCHW4WzXPr95SyAQ3OnMdyO9_PNLAMA_38osV2LMt=Q@mail.gmail.com>
-Message-ID: <CAMuHMdWSCHW4WzXPr95SyAQ3OnMdyO9_PNLAMA_38osV2LMt=Q@mail.gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,8 +77,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [Linux-cachefs] [PATCH v2] docs: Fix typo in comment
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Mailman-Approved-At: Mon, 25 Jul 2022 10:09:45 +0000
+Subject: [Linux-cachefs] [PATCH v3 00/21] Update Documentation/ cross
+ references and fix issues
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,20 +92,35 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cachefs <linux-cachefs@redhat.com>,
- linux-doc <linux-doc@vger.kernel.org>, peterz <peterz@infradead.org>,
- bigeasy <bigeasy@linutronix.de>, ast <ast@kernel.org>, song <song@kernel.org>,
- sdf <sdf@google.com>, will <will@kernel.org>, daniel <daniel@iogearbox.net>,
- Jonathan Corbet <corbet@lwn.net>, "william.gray" <william.gray@linaro.org>,
- "john.fastabend" <john.fastabend@gmail.com>, andrii <andrii@kernel.org>,
- mingo <mingo@redhat.com>, yhs <yhs@fb.com>, dyoung <dyoung@redhat.com>,
- vgoyal <vgoyal@redhat.com>, "boqun.feng" <boqun.feng@gmail.com>,
- kpsingh <kpsingh@kernel.org>, Slark Xiao <slark_xiao@163.com>,
- longman <longman@redhat.com>, tglx <tglx@linutronix.de>,
- haoluo <haoluo@google.com>, Baoquan He <bhe@redhat.com>,
- kexec <kexec@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>,
- jolsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
- "martin.lau" <martin.lau@linux.dev>, kafai <kafai@fb.com>
+Cc: =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ linux-cachefs@redhat.com, kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-pci@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, Alexander Potapenko <glider@google.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <siyanteng@loongson.cn>, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ kasan-dev@googlegroups.com, Ingo Molnar <mingo@redhat.com>,
+ linux-arm-kernel@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
+ Mike Leach <mike.leach@linaro.org>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Marco Elver <elver@google.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ linux-can@vger.kernel.org, Max Staudt <max@enpas.org>,
+ Borislav Petkov <bp@alien8.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Muchun Song <songmuchun@bytedance.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+ linux-sgx@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Leo Yan <leo.yan@linaro.org>,
+ linux-fsdevel@vger.kernel.org, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-media@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Mike Kravetz <mike.kravetz@oracle.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
@@ -141,52 +131,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 21, 2022 at 8:52 PM Randy Dunlap <rdunlap@infradead.org> wrote:
-> On 7/21/22 11:36, Jonathan Corbet wrote:
-> > "Slark Xiao" <slark_xiao@163.com> writes:
-> >
-> >> May I know the maintainer of one subsystem could merge the changes
-> >> contains lots of subsystem?  I also know this could be filtered by
-> >> grep and sed command, but that patch would have dozens of maintainers
-> >> and reviewers.
-> >
-> > Certainly I don't think I can merge a patch touching 166 files across
-> > the tree.  This will need to be broken down by subsystem, and you may
-> > well find that there are some maintainers who don't want to deal with
-> > this type of minor fix.
->
-> We have also seen cases where "the the" should be replaced by "then the"
-> or some other pair of words, so some of these changes could fall into
-> that category.
+This series fix almost all fixable issues when building the html docs at
+linux-next (next-20220608):
 
-Yes we have:
+- Address some broken cross-references;
+- Fix kernel-doc warnings;
+- Fix bad tags on ReST files.
 
-    --- a/arch/m68k/coldfire/intc-2.c
-    +++ b/arch/m68k/coldfire/intc-2.c
-    @@ -7,7 +7,7 @@
-      * family, the 5270, 5271, 5274, 5275, and the 528x family which
-have two such
-      * controllers, and the 547x and 548x families which have only one of them.
-      *
-    - * The external 7 fixed interrupts are part the the Edge Port unit of these
-    + * The external 7 fixed interrupts are part the Edge Port unit of these
-      * ColdFire parts. They can be configured as level or edge triggered.
-      *
-      * (C) Copyright 2009-2011, Greg Ungerer <gerg@snapgear.com>
+With this series applied, plus other pending patches that should hopefully
+be merged in time for the next merge window, htmldocs build will produce
+just 4 warnings with Sphinx 2.4.4.
 
-And that's already been fixed
-https://lore.kernel.org/lkml/6fe2468a-9664-30f7-7f17-9093289eb4b6@linux-m68k.org
+Sphinx >=3 will produce some extra false-positive warnings due to conflicts
+between structs and functions sharing the same name. Hopefully this will
+be fixed either on a new Sphinx 5.x version or Sphinx 6.0.
 
-Gr{oetje,eeting}s,
+Mauro Carvalho Chehab (21):
+  docs: networking: update netdevices.rst reference
+  docs: update vmalloced-kernel-stacks.rst reference
+  docs: update vmemmap_dedup.rst reference
+  docs: zh_CN: page_migration: fix reference to mm index.rst
+  dt-bindings: arm: update arm,coresight-cpu-debug.yaml reference
+  x86/sgx: fix kernel-doc markups
+  fscache: fix kernel-doc documentation
+  fs: namei: address some kernel-doc issues
+  drm/scheduler: fix a kernel-doc warning
+  drm/scheduler: add a missing kernel-doc parameter
+  kfence: fix a kernel-doc parameter
+  genalloc: add a description for start_addr parameter
+  textsearch: document list inside struct ts_ops
+  dcache: fix a kernel-doc warning
+  docs: ext4: blockmap.rst: fix a broken table
+  docs: PCI: pci-vntb-function.rst: Properly include ascii artwork
+  docs: PCI: pci-vntb-howto.rst: fix a title markup
+  docs: virt: kvm: fix a title markup at api.rst
+  docs: ABI: sysfs-bus-nvdimm
+  docs: leds: index.rst: add leds-qcom-lpg to it
+  Documentation: coresight: fix binding wildcards
 
-                        Geert
+ Documentation/ABI/testing/sysfs-bus-nvdimm             |  2 ++
+ Documentation/PCI/endpoint/pci-vntb-function.rst       |  2 +-
+ Documentation/PCI/endpoint/pci-vntb-howto.rst          |  2 +-
+ Documentation/filesystems/ext4/blockmap.rst            |  2 +-
+ Documentation/leds/index.rst                           |  1 +
+ Documentation/trace/coresight/coresight-cpu-debug.rst  |  2 +-
+ Documentation/trace/coresight/coresight.rst            |  2 +-
+ Documentation/translations/zh_CN/mm/page_migration.rst |  2 +-
+ .../translations/zh_CN/mm/vmalloced-kernel-stacks.rst  |  2 +-
+ Documentation/virt/kvm/api.rst                         |  6 +++---
+ arch/x86/include/uapi/asm/sgx.h                        | 10 ++++++++--
+ drivers/gpu/drm/scheduler/sched_main.c                 |  1 +
+ drivers/net/can/can327.c                               |  2 +-
+ fs/namei.c                                             |  3 +++
+ include/drm/gpu_scheduler.h                            |  1 +
+ include/linux/dcache.h                                 |  2 +-
+ include/linux/fscache.h                                |  4 ++--
+ include/linux/genalloc.h                               |  1 +
+ include/linux/kfence.h                                 |  1 +
+ include/linux/textsearch.h                             |  1 +
+ mm/hugetlb_vmemmap.h                                   |  2 +-
+ 21 files changed, 34 insertions(+), 17 deletions(-)
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+-- 
+2.36.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
 
 --
 Linux-cachefs mailing list
