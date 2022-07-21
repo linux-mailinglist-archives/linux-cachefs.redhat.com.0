@@ -2,84 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C04E57FD13
+	by mail.lfdr.de (Postfix) with ESMTPS id AE34557FD17
 	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 12:09:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1658743791;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ypgAUxraIbikaSw0q1NFUpsMKXekakHQvLxr3Emvt+o=;
-	b=CxnI8s7ZgS/edy8m36iEfPaqV87MsDrZHdI+VK7fS1fsiMFfZb2WcblHgqnjmMsflKeJ/B
-	m8d8P6gI7cgr1+T16l4R0M4+JwqveRUK47GwQxM/TWWJzoUF+SK7VEe48iVqv9Nvjwtti4
-	bEHl81FRjH18sV2s3Bk0RTOlNbKH0Uw=
+	bh=DJUKXtJJKOBr24BIFczJfjYzQNGpEDrbtBM1KqB2EQI=;
+	b=NeyuDIcvCFqsy5zULZL4QO0spa7E+cM/P2iU1XwVV3zVwHXHXZv3zQA1Ze7lgPBMv0Djv9
+	chHTKtO7ZQA4waSrCTK2w9vq5uA2cp2e9EC0/bMSoB/LBCSUeD41z//FOHHwXrEmOGAcaJ
+	7YqWSNWiNKE0vIXZzAoiQEPWs22OE6c=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-246--mbY15XjO5SNMPZff_RNQA-1; Mon, 25 Jul 2022 06:09:48 -0400
-X-MC-Unique: -mbY15XjO5SNMPZff_RNQA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-36-1xjrsWroO7agZLxxuN0LGw-1; Mon, 25 Jul 2022 06:09:48 -0400
+X-MC-Unique: 1xjrsWroO7agZLxxuN0LGw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B94B811E81;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5ACAE1824600;
 	Mon, 25 Jul 2022 10:09:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 36771401E5C;
-	Mon, 25 Jul 2022 10:09:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B58911415118;
+	Mon, 25 Jul 2022 10:09:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4AC2B1945DAB;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 115D71945D8F;
 	Mon, 25 Jul 2022 10:09:46 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4E1211947052 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 21 Jul 2022 02:16:54 +0000 (UTC)
+ ESMTP id 3B0E31947051 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 21 Jul 2022 02:49:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 39B8E1121315; Thu, 21 Jul 2022 02:16:54 +0000 (UTC)
+ id 20B4F2166B29; Thu, 21 Jul 2022 02:49:45 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 34D291121314
- for <linux-cachefs@redhat.com>; Thu, 21 Jul 2022 02:16:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1502D185A7BA
- for <linux-cachefs@redhat.com>; Thu, 21 Jul 2022 02:16:54 +0000 (UTC)
-Received: from m12-15.163.com (m12-15.163.com [220.181.12.15]) by
- relay.mimecast.com with ESMTP id us-mta-301-a8qzMu2hNtuRpg1ViN5LSA-1; Wed,
- 20 Jul 2022 22:16:50 -0400
-X-MC-Unique: a8qzMu2hNtuRpg1ViN5LSA-1
-Received: from localhost.localdomain (unknown [223.104.68.243])
- by smtp11 (Coremail) with SMTP id D8CowAB3fyNJsthi_fmVAA--.64S2;
- Thu, 21 Jul 2022 09:56:32 +0800 (CST)
-From: Slark Xiao <slark_xiao@163.com>
-To: corbet@lwn.net
-Date: Thu, 21 Jul 2022 09:56:05 +0800
-Message-Id: <20220721015605.20651-1-slark_xiao@163.com>
+Received: from localhost (ovpn-12-68.pek2.redhat.com [10.72.12.68])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EE2FD2166B26;
+ Thu, 21 Jul 2022 02:49:43 +0000 (UTC)
+Date: Thu, 21 Jul 2022 10:49:40 +0800
+From: Baoquan He <bhe@redhat.com>
+To: Slark Xiao <slark_xiao@163.com>
+Message-ID: <Yti+xEJIWeTSqD8n@MiWiFi-R3L-srv>
+References: <20220721015605.20651-1-slark_xiao@163.com>
 MIME-Version: 1.0
-X-CM-TRANSID: D8CowAB3fyNJsthi_fmVAA--.64S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Xry8uw1rur4DXr47XF43ZFb_yoW7urW3pa
- saqryIg3WkZas7ur1xJ342qFyxZaykWa1UGF4kKr10van8JwnYvF17K3Z8A3W5GryxAFW7
- XrWSvryUZw4jya7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEApnhUUUUU=
-X-Originating-IP: [223.104.68.243]
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbBAxtFZGB0LnLBDAAAs8
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <20220721015605.20651-1-slark_xiao@163.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-Mailman-Approved-At: Mon, 25 Jul 2022 10:09:45 +0000
-Subject: [Linux-cachefs] [PATCH v2] docs: Fix typo in comment
+Subject: Re: [Linux-cachefs] [PATCH v2] docs: Fix typo in comment
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,141 +68,157 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Cc: linux-cachefs@redhat.com, linux-doc@vger.kernel.org, peterz@infradead.org,
  bigeasy@linutronix.de, ast@kernel.org, song@kernel.org, sdf@google.com,
- will@kernel.org, bhe@redhat.com, william.gray@linaro.org,
+ will@kernel.org, daniel@iogearbox.net, corbet@lwn.net, william.gray@linaro.org,
  john.fastabend@gmail.com, andrii@kernel.org, mingo@redhat.com,
  longman@redhat.com, dyoung@redhat.com, vgoyal@redhat.com, boqun.feng@gmail.com,
- kpsingh@kernel.org, Slark Xiao <slark_xiao@163.com>, yhs@fb.com,
- tglx@linutronix.de, haoluo@google.com, daniel@iogearbox.net,
+ kpsingh@kernel.org, yhs@fb.com, tglx@linutronix.de, haoluo@google.com,
  kexec@lists.infradead.org, linux-kernel@vger.kernel.org, jolsa@kernel.org,
  bpf@vger.kernel.org, martin.lau@linux.dev
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fix typo in the comment
+On 07/21/22 at 09:56am, Slark Xiao wrote:
+> Fix typo in the comment
 
-Signed-off-by: Slark Xiao <slark_xiao@163.com>
----
-v2: Add all .rst changes in Documents into 1 single patch
----
- Documentation/admin-guide/kdump/vmcoreinfo.rst    | 2 +-
- Documentation/bpf/map_cgroup_storage.rst          | 4 ++--
- Documentation/core-api/cpu_hotplug.rst            | 2 +-
- Documentation/driver-api/isa.rst                  | 2 +-
- Documentation/filesystems/caching/backend-api.rst | 2 +-
- Documentation/locking/seqlock.rst                 | 2 +-
- Documentation/sphinx/cdomain.py                   | 2 +-
- 7 files changed, 8 insertions(+), 8 deletions(-)
+Better tell what's fixed to save reviewers' time:
 
-diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-index 8419019b6a88..6726f439958c 100644
---- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-+++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-@@ -200,7 +200,7 @@ prb
- 
- A pointer to the printk ringbuffer (struct printk_ringbuffer). This
- may be pointing to the static boot ringbuffer or the dynamically
--allocated ringbuffer, depending on when the the core dump occurred.
-+allocated ringbuffer, depending on when the core dump occurred.
- Used by user-space tools to read the active kernel log buffer.
- 
- printk_rb_static
-diff --git a/Documentation/bpf/map_cgroup_storage.rst b/Documentation/bpf/map_cgroup_storage.rst
-index cab9543017bf..8e5fe532c07e 100644
---- a/Documentation/bpf/map_cgroup_storage.rst
-+++ b/Documentation/bpf/map_cgroup_storage.rst
-@@ -31,7 +31,7 @@ The map uses key of type of either ``__u64 cgroup_inode_id`` or
-     };
- 
- ``cgroup_inode_id`` is the inode id of the cgroup directory.
--``attach_type`` is the the program's attach type.
-+``attach_type`` is the program's attach type.
- 
- Linux 5.9 added support for type ``__u64 cgroup_inode_id`` as the key type.
- When this key type is used, then all attach types of the particular cgroup and
-@@ -155,7 +155,7 @@ However, the BPF program can still only associate with one map of each type
- ``BPF_MAP_TYPE_CGROUP_STORAGE`` or more than one
- ``BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE``.
- 
--In all versions, userspace may use the the attach parameters of cgroup and
-+In all versions, userspace may use the attach parameters of cgroup and
- attach type pair in ``struct bpf_cgroup_storage_key`` as the key to the BPF map
- APIs to read or update the storage for a given attachment. For Linux 5.9
- attach type shared storages, only the first value in the struct, cgroup inode
-diff --git a/Documentation/core-api/cpu_hotplug.rst b/Documentation/core-api/cpu_hotplug.rst
-index c6f4ba2fb32d..f75778d37488 100644
---- a/Documentation/core-api/cpu_hotplug.rst
-+++ b/Documentation/core-api/cpu_hotplug.rst
-@@ -560,7 +560,7 @@ available:
-   * cpuhp_state_remove_instance(state, node)
-   * cpuhp_state_remove_instance_nocalls(state, node)
- 
--The arguments are the same as for the the cpuhp_state_add_instance*()
-+The arguments are the same as for the cpuhp_state_add_instance*()
- variants above.
- 
- The functions differ in the way how the installed callbacks are treated:
-diff --git a/Documentation/driver-api/isa.rst b/Documentation/driver-api/isa.rst
-index def4a7b690b5..3df1b1696524 100644
---- a/Documentation/driver-api/isa.rst
-+++ b/Documentation/driver-api/isa.rst
-@@ -100,7 +100,7 @@ I believe platform_data is available for this, but if rather not, moving
- the isa_driver pointer to the private struct isa_dev is ofcourse fine as
- well.
- 
--Then, if the the driver did not provide a .match, it matches. If it did,
-+Then, if the driver did not provide a .match, it matches. If it did,
- the driver match() method is called to determine a match.
- 
- If it did **not** match, dev->platform_data is reset to indicate this to
-diff --git a/Documentation/filesystems/caching/backend-api.rst b/Documentation/filesystems/caching/backend-api.rst
-index d7507becf674..3a199fc50828 100644
---- a/Documentation/filesystems/caching/backend-api.rst
-+++ b/Documentation/filesystems/caching/backend-api.rst
-@@ -122,7 +122,7 @@ volumes, calling::
- to tell fscache that a volume has been withdrawn.  This waits for all
- outstanding accesses on the volume to complete before returning.
- 
--When the the cache is completely withdrawn, fscache should be notified by
-+When the cache is completely withdrawn, fscache should be notified by
- calling::
- 
- 	void fscache_relinquish_cache(struct fscache_cache *cache);
-diff --git a/Documentation/locking/seqlock.rst b/Documentation/locking/seqlock.rst
-index 64405e5da63e..bfda1a5fecad 100644
---- a/Documentation/locking/seqlock.rst
-+++ b/Documentation/locking/seqlock.rst
-@@ -39,7 +39,7 @@ as the writer can invalidate a pointer that the reader is following.
- Sequence counters (``seqcount_t``)
- ==================================
- 
--This is the the raw counting mechanism, which does not protect against
-+This is the raw counting mechanism, which does not protect against
- multiple writers.  Write side critical sections must thus be serialized
- by an external lock.
- 
-diff --git a/Documentation/sphinx/cdomain.py b/Documentation/sphinx/cdomain.py
-index ca8ac9e59ded..a7d1866e72ff 100644
---- a/Documentation/sphinx/cdomain.py
-+++ b/Documentation/sphinx/cdomain.py
-@@ -151,7 +151,7 @@ class CObject(Base_CObject):
-     def handle_func_like_macro(self, sig, signode):
-         u"""Handles signatures of function-like macros.
- 
--        If the objtype is 'function' and the the signature ``sig`` is a
-+        If the objtype is 'function' and the signature ``sig`` is a
-         function-like macro, the name of the macro is returned. Otherwise
-         ``False`` is returned.  """
- 
--- 
-2.25.1
+Fix typo 'the the' in several places of document.
 
+Other then this nitpick, looks good to me.
+
+Reviewed-by: Baoquan He <bhe@redhat.com>
+
+> 
+> Signed-off-by: Slark Xiao <slark_xiao@163.com>
+> ---
+> v2: Add all .rst changes in Documents into 1 single patch
+> ---
+>  Documentation/admin-guide/kdump/vmcoreinfo.rst    | 2 +-
+>  Documentation/bpf/map_cgroup_storage.rst          | 4 ++--
+>  Documentation/core-api/cpu_hotplug.rst            | 2 +-
+>  Documentation/driver-api/isa.rst                  | 2 +-
+>  Documentation/filesystems/caching/backend-api.rst | 2 +-
+>  Documentation/locking/seqlock.rst                 | 2 +-
+>  Documentation/sphinx/cdomain.py                   | 2 +-
+>  7 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> index 8419019b6a88..6726f439958c 100644
+> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> @@ -200,7 +200,7 @@ prb
+>  
+>  A pointer to the printk ringbuffer (struct printk_ringbuffer). This
+>  may be pointing to the static boot ringbuffer or the dynamically
+> -allocated ringbuffer, depending on when the the core dump occurred.
+> +allocated ringbuffer, depending on when the core dump occurred.
+>  Used by user-space tools to read the active kernel log buffer.
+>  
+>  printk_rb_static
+> diff --git a/Documentation/bpf/map_cgroup_storage.rst b/Documentation/bpf/map_cgroup_storage.rst
+> index cab9543017bf..8e5fe532c07e 100644
+> --- a/Documentation/bpf/map_cgroup_storage.rst
+> +++ b/Documentation/bpf/map_cgroup_storage.rst
+> @@ -31,7 +31,7 @@ The map uses key of type of either ``__u64 cgroup_inode_id`` or
+>      };
+>  
+>  ``cgroup_inode_id`` is the inode id of the cgroup directory.
+> -``attach_type`` is the the program's attach type.
+> +``attach_type`` is the program's attach type.
+>  
+>  Linux 5.9 added support for type ``__u64 cgroup_inode_id`` as the key type.
+>  When this key type is used, then all attach types of the particular cgroup and
+> @@ -155,7 +155,7 @@ However, the BPF program can still only associate with one map of each type
+>  ``BPF_MAP_TYPE_CGROUP_STORAGE`` or more than one
+>  ``BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE``.
+>  
+> -In all versions, userspace may use the the attach parameters of cgroup and
+> +In all versions, userspace may use the attach parameters of cgroup and
+>  attach type pair in ``struct bpf_cgroup_storage_key`` as the key to the BPF map
+>  APIs to read or update the storage for a given attachment. For Linux 5.9
+>  attach type shared storages, only the first value in the struct, cgroup inode
+> diff --git a/Documentation/core-api/cpu_hotplug.rst b/Documentation/core-api/cpu_hotplug.rst
+> index c6f4ba2fb32d..f75778d37488 100644
+> --- a/Documentation/core-api/cpu_hotplug.rst
+> +++ b/Documentation/core-api/cpu_hotplug.rst
+> @@ -560,7 +560,7 @@ available:
+>    * cpuhp_state_remove_instance(state, node)
+>    * cpuhp_state_remove_instance_nocalls(state, node)
+>  
+> -The arguments are the same as for the the cpuhp_state_add_instance*()
+> +The arguments are the same as for the cpuhp_state_add_instance*()
+>  variants above.
+>  
+>  The functions differ in the way how the installed callbacks are treated:
+> diff --git a/Documentation/driver-api/isa.rst b/Documentation/driver-api/isa.rst
+> index def4a7b690b5..3df1b1696524 100644
+> --- a/Documentation/driver-api/isa.rst
+> +++ b/Documentation/driver-api/isa.rst
+> @@ -100,7 +100,7 @@ I believe platform_data is available for this, but if rather not, moving
+>  the isa_driver pointer to the private struct isa_dev is ofcourse fine as
+>  well.
+>  
+> -Then, if the the driver did not provide a .match, it matches. If it did,
+> +Then, if the driver did not provide a .match, it matches. If it did,
+>  the driver match() method is called to determine a match.
+>  
+>  If it did **not** match, dev->platform_data is reset to indicate this to
+> diff --git a/Documentation/filesystems/caching/backend-api.rst b/Documentation/filesystems/caching/backend-api.rst
+> index d7507becf674..3a199fc50828 100644
+> --- a/Documentation/filesystems/caching/backend-api.rst
+> +++ b/Documentation/filesystems/caching/backend-api.rst
+> @@ -122,7 +122,7 @@ volumes, calling::
+>  to tell fscache that a volume has been withdrawn.  This waits for all
+>  outstanding accesses on the volume to complete before returning.
+>  
+> -When the the cache is completely withdrawn, fscache should be notified by
+> +When the cache is completely withdrawn, fscache should be notified by
+>  calling::
+>  
+>  	void fscache_relinquish_cache(struct fscache_cache *cache);
+> diff --git a/Documentation/locking/seqlock.rst b/Documentation/locking/seqlock.rst
+> index 64405e5da63e..bfda1a5fecad 100644
+> --- a/Documentation/locking/seqlock.rst
+> +++ b/Documentation/locking/seqlock.rst
+> @@ -39,7 +39,7 @@ as the writer can invalidate a pointer that the reader is following.
+>  Sequence counters (``seqcount_t``)
+>  ==================================
+>  
+> -This is the the raw counting mechanism, which does not protect against
+> +This is the raw counting mechanism, which does not protect against
+>  multiple writers.  Write side critical sections must thus be serialized
+>  by an external lock.
+>  
+> diff --git a/Documentation/sphinx/cdomain.py b/Documentation/sphinx/cdomain.py
+> index ca8ac9e59ded..a7d1866e72ff 100644
+> --- a/Documentation/sphinx/cdomain.py
+> +++ b/Documentation/sphinx/cdomain.py
+> @@ -151,7 +151,7 @@ class CObject(Base_CObject):
+>      def handle_func_like_macro(self, sig, signode):
+>          u"""Handles signatures of function-like macros.
+>  
+> -        If the objtype is 'function' and the the signature ``sig`` is a
+> +        If the objtype is 'function' and the signature ``sig`` is a
+>          function-like macro, the name of the macro is returned. Otherwise
+>          ``False`` is returned.  """
+>  
+> -- 
+> 2.25.1
+> 
+> 
+> _______________________________________________
+> kexec mailing list
+> kexec@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/kexec
+> 
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
