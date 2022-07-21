@@ -1,87 +1,64 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F9257FD11
-	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 12:09:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41B6157FD1F
+	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 12:09:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658743789;
+	s=mimecast20190719; t=1658743793;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bGONmtSuIqqszwwIf/2l35lnjROBGUFTgzUOhEmE5Wk=;
-	b=dhHAFYpHld/IQkI5fKATLCqkuhoipcI+olcNgP0bYRq8ZwCv/qmQ3rhmws7qmwkjcMy51G
-	jryzJzMyf2rtLNOFASoQiPKOJdHdGq/KRxpkaXpjrElUNDwN/1jwJMY6hcZIb9l6/7xnOP
-	3QVKdjo/X6c8QYvPPUc8RKC+0qleCS4=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VsByQH5dcKDKrmqyVXqfQ6nfU78yFPNGI6RNijvNe88=;
+	b=TYMs10TXXhOW4BxqF7lV7v4KtktuINkXBHm9X+j5Bk4AcmWlRrE4Za/hVMprdQ6oS3VsGO
+	StPVz17nagFWTDUr7TZvuUAoqGJIqieu+miINxriCdWgNjAB3779sH6M6Kr8TxsiTNisBs
+	/gvYmB8BbF2vCmb9tL8RRq5LiZHpLzM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-246-W4CTIpW1OPmHl-FX5mDaXQ-1; Mon, 25 Jul 2022 06:09:48 -0400
-X-MC-Unique: W4CTIpW1OPmHl-FX5mDaXQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-93-Fd1QoijROP6NVsVY92YKWA-1; Mon, 25 Jul 2022 06:09:50 -0400
+X-MC-Unique: Fd1QoijROP6NVsVY92YKWA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BF5E800124;
-	Mon, 25 Jul 2022 10:09:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD8403C0E21A;
+	Mon, 25 Jul 2022 10:09:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D5C0FC28130;
-	Mon, 25 Jul 2022 10:09:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C1101492C3B;
+	Mon, 25 Jul 2022 10:09:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 216D51945D97;
-	Mon, 25 Jul 2022 10:09:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9401F1945D87;
+	Mon, 25 Jul 2022 10:09:49 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0D0291947040 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 21 Jul 2022 16:06:09 +0000 (UTC)
+ ESMTP id 8437D1947053 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 21 Jul 2022 23:45:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DE0241121314; Thu, 21 Jul 2022 16:06:09 +0000 (UTC)
+ id 615352166B2B; Thu, 21 Jul 2022 23:45:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AAE871121315
- for <linux-cachefs@redhat.com>; Thu, 21 Jul 2022 16:06:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32EE43C0D1AB
- for <linux-cachefs@redhat.com>; Thu, 21 Jul 2022 16:06:09 +0000 (UTC)
-Received: from m13203.mail.163.com (m13203.mail.163.com [220.181.13.203]) by
- relay.mimecast.com with ESMTP id us-mta-647-HqJgPGGaNHmv0voHaHVtzQ-1; Thu,
- 21 Jul 2022 12:06:04 -0400
-X-MC-Unique: HqJgPGGaNHmv0voHaHVtzQ-1
-Received: from slark_xiao$163.com ( [222.125.150.84] ) by
- ajax-webmail-wmsvr198 (Coremail) ; Fri, 22 Jul 2022 00:03:49 +0800
- (GMT+08:00)
-X-Originating-IP: [222.125.150.84]
-Date: Fri, 22 Jul 2022 00:03:49 +0800 (GMT+08:00)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: kafai <kafai@fb.com>
-X-Priority: 3
-In-Reply-To: <20220721154110.fqp7n6f7ij22vayp@kafai-mbp.dhcp.thefacebook.com>
+Received: from localhost (ovpn-12-60.pek2.redhat.com [10.72.12.60])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D91D2166B26;
+ Thu, 21 Jul 2022 23:45:09 +0000 (UTC)
+Date: Fri, 22 Jul 2022 07:45:06 +0800
+From: Baoquan He <bhe@redhat.com>
+To: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Slark Xiao <slark_xiao@163.com>
+Message-ID: <YtnlAg6Qhf7fwXXW@MiWiFi-R3L-srv>
 References: <20220721015605.20651-1-slark_xiao@163.com>
  <20220721154110.fqp7n6f7ij22vayp@kafai-mbp.dhcp.thefacebook.com>
+ <21cac0ea.18f.182218041f7.Coremail.slark_xiao@163.com>
+ <874jzamhxe.fsf@meer.lwn.net>
+ <6ca59494-cc64-d85c-98e8-e9bef2a04c15@infradead.org>
 MIME-Version: 1.0
-Message-ID: <21cac0ea.18f.182218041f7.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: hceowAD3OkTmeNlibFpKAA--.42312W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/1tbiJR5FZGAJpJ2X6AABs0
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <6ca59494-cc64-d85c-98e8-e9bef2a04c15@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-Mailman-Approved-At: Mon, 25 Jul 2022 10:09:45 +0000
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 Subject: Re: [Linux-cachefs] [PATCH v2] docs: Fix typo in comment
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
@@ -97,79 +74,485 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 Cc: linux-cachefs <linux-cachefs@redhat.com>,
  linux-doc <linux-doc@vger.kernel.org>, peterz <peterz@infradead.org>,
  bigeasy <bigeasy@linutronix.de>, ast <ast@kernel.org>, song <song@kernel.org>,
- sdf <sdf@google.com>, will <will@kernel.org>, Baoquan He <bhe@redhat.com>,
- corbet <corbet@lwn.net>, "william.gray" <william.gray@linaro.org>,
+ sdf <sdf@google.com>, will <will@kernel.org>, daniel <daniel@iogearbox.net>,
+ "william.gray" <william.gray@linaro.org>,
  "john.fastabend" <john.fastabend@gmail.com>, andrii <andrii@kernel.org>,
  mingo <mingo@redhat.com>, longman <longman@redhat.com>,
  dyoung <dyoung@redhat.com>, vgoyal <vgoyal@redhat.com>,
  "boqun.feng" <boqun.feng@gmail.com>, kpsingh <kpsingh@kernel.org>,
  yhs <yhs@fb.com>, tglx <tglx@linutronix.de>, haoluo <haoluo@google.com>,
- daniel <daniel@iogearbox.net>, kexec <kexec@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, jolsa <jolsa@kernel.org>,
- bpf <bpf@vger.kernel.org>, "martin.lau" <martin.lau@linux.dev>
+ kexec <kexec@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+ jolsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
+ "martin.lau" <martin.lau@linux.dev>, kafai <kafai@fb.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="gbk"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-TWF5IEkga25vdyB0aGUgbWFpbnRhaW5lciBvZiBvbmUgc3Vic3lzdGVtIGNvdWxkIG1lcmdlIHRo
-ZSBjaGFuZ2VzIGNvbnRhaW5zIGxvdHMgb2Ygc3Vic3lzdGVtPwogSSBhbHNvIGtub3cgdGhpcyBj
-b3VsZCBiZSBmaWx0ZXJlZCBieSBncmVwIGFuZCBzZWQgY29tbWFuZCwgYnV0IHRoYXQgcGF0Y2gg
-d291bGQgaGF2ZSBkb3plbnMgb2YgbWFpbnRhaW5lcnMgYW5kIHJldmlld2Vycy4KCgoKLS0tLSBS
-ZXBsaWVkIE1lc3NhZ2UgLS0tLQp8IEZyb20gfCBNYXJ0aW4gS2FGYWkgTGF1PGthZmFpQGZiLmNv
-bT4gfAp8IERhdGUgfCAwNy8yMS8yMDIyIDIzOjQxIHwKfCBUbyB8IFNsYXJrIFhpYW88c2xhcmtf
-eGlhb0AxNjMuY29tPiB8CnwgQ2MgfCBjb3JiZXRAbHduLm5ldDxjb3JiZXRAbHduLm5ldD6homJo
-ZUByZWRoYXQuY29tPGJoZUByZWRoYXQuY29tPqGidmdveWFsQHJlZGhhdC5jb208dmdveWFsQHJl
-ZGhhdC5jb20+oaJkeW91bmdAcmVkaGF0LmNvbTxkeW91bmdAcmVkaGF0LmNvbT6homFzdEBrZXJu
-ZWwub3JnPGFzdEBrZXJuZWwub3JnPqGiZGFuaWVsQGlvZ2VhcmJveC5uZXQ8ZGFuaWVsQGlvZ2Vh
-cmJveC5uZXQ+oaJhbmRyaWlAa2VybmVsLm9yZzxhbmRyaWlAa2VybmVsLm9yZz6hom1hcnRpbi5s
-YXVAbGludXguZGV2PG1hcnRpbi5sYXVAbGludXguZGV2PqGic29uZ0BrZXJuZWwub3JnPHNvbmdA
-a2VybmVsLm9yZz6honloc0BmYi5jb208eWhzQGZiLmNvbT6hompvaG4uZmFzdGFiZW5kQGdtYWls
-LmNvbTxqb2huLmZhc3RhYmVuZEBnbWFpbC5jb20+oaJrcHNpbmdoQGtlcm5lbC5vcmc8a3BzaW5n
-aEBrZXJuZWwub3JnPqGic2RmQGdvb2dsZS5jb208c2RmQGdvb2dsZS5jb20+oaJoYW9sdW9AZ29v
-Z2xlLmNvbTxoYW9sdW9AZ29vZ2xlLmNvbT6hompvbHNhQGtlcm5lbC5vcmc8am9sc2FAa2VybmVs
-Lm9yZz6hondpbGxpYW0uZ3JheUBsaW5hcm8ub3JnPHdpbGxpYW0uZ3JheUBsaW5hcm8ub3JnPqGi
-ZGhvd2VsbHNAcmVkaGF0LmNvbTxkaG93ZWxsc0ByZWRoYXQuY29tPqGicGV0ZXJ6QGluZnJhZGVh
-ZC5vcmc8cGV0ZXJ6QGluZnJhZGVhZC5vcmc+oaJtaW5nb0ByZWRoYXQuY29tPG1pbmdvQHJlZGhh
-dC5jb20+oaJ3aWxsQGtlcm5lbC5vcmc8d2lsbEBrZXJuZWwub3JnPqGibG9uZ21hbkByZWRoYXQu
-Y29tPGxvbmdtYW5AcmVkaGF0LmNvbT6homJvcXVuLmZlbmdAZ21haWwuY29tPGJvcXVuLmZlbmdA
-Z21haWwuY29tPqGidGdseEBsaW51dHJvbml4LmRlPHRnbHhAbGludXRyb25peC5kZT6homJpZ2Vh
-c3lAbGludXRyb25peC5kZTxiaWdlYXN5QGxpbnV0cm9uaXguZGU+oaJrZXhlY0BsaXN0cy5pbmZy
-YWRlYWQub3JnPGtleGVjQGxpc3RzLmluZnJhZGVhZC5vcmc+oaJsaW51eC1kb2NAdmdlci5rZXJu
-ZWwub3JnPGxpbnV4LWRvY0B2Z2VyLmtlcm5lbC5vcmc+oaJsaW51eC1rZXJuZWxAdmdlci5rZXJu
-ZWwub3JnPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+oaJicGZAdmdlci5rZXJuZWwub3Jn
-PGJwZkB2Z2VyLmtlcm5lbC5vcmc+oaJsaW51eC1jYWNoZWZzQHJlZGhhdC5jb208bGludXgtY2Fj
-aGVmc0ByZWRoYXQuY29tPiB8CnwgU3ViamVjdCB8IFJlOiBbUEFUQ0ggdjJdIGRvY3M6IEZpeCB0
-eXBvIGluIGNvbW1lbnQgfApPbiBUaHUsIEp1bCAyMSwgMjAyMiBhdCAwOTo1NjowNUFNICswODAw
-LCBTbGFyayBYaWFvIHdyb3RlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2JwZi9tYXBf
-Y2dyb3VwX3N0b3JhZ2UucnN0IGIvRG9jdW1lbnRhdGlvbi9icGYvbWFwX2Nncm91cF9zdG9yYWdl
-LnJzdAo+IGluZGV4IGNhYjk1NDMwMTdiZi4uOGU1ZmU1MzJjMDdlIDEwMDY0NAo+IC0tLSBhL0Rv
-Y3VtZW50YXRpb24vYnBmL21hcF9jZ3JvdXBfc3RvcmFnZS5yc3QKPiArKysgYi9Eb2N1bWVudGF0
-aW9uL2JwZi9tYXBfY2dyb3VwX3N0b3JhZ2UucnN0Cj4gQEAgLTMxLDcgKzMxLDcgQEAgVGhlIG1h
-cCB1c2VzIGtleSBvZiB0eXBlIG9mIGVpdGhlciBgYF9fdTY0IGNncm91cF9pbm9kZV9pZGBgIG9y
-Cj4gICAgICB9Owo+ICAKPiAgYGBjZ3JvdXBfaW5vZGVfaWRgYCBpcyB0aGUgaW5vZGUgaWQgb2Yg
-dGhlIGNncm91cCBkaXJlY3RvcnkuCj4gLWBgYXR0YWNoX3R5cGVgYCBpcyB0aGUgdGhlIHByb2dy
-YW0ncyBhdHRhY2ggdHlwZS4KPiArYGBhdHRhY2hfdHlwZWBgIGlzIHRoZSBwcm9ncmFtJ3MgYXR0
-YWNoIHR5cGUuCj4gIAo+ICBMaW51eCA1LjkgYWRkZWQgc3VwcG9ydCBmb3IgdHlwZSBgYF9fdTY0
-IGNncm91cF9pbm9kZV9pZGBgIGFzIHRoZSBrZXkgdHlwZS4KPiAgV2hlbiB0aGlzIGtleSB0eXBl
-IGlzIHVzZWQsIHRoZW4gYWxsIGF0dGFjaCB0eXBlcyBvZiB0aGUgcGFydGljdWxhciBjZ3JvdXAg
-YW5kCj4gQEAgLTE1NSw3ICsxNTUsNyBAQCBIb3dldmVyLCB0aGUgQlBGIHByb2dyYW0gY2FuIHN0
-aWxsIG9ubHkgYXNzb2NpYXRlIHdpdGggb25lIG1hcCBvZiBlYWNoIHR5cGUKPiAgYGBCUEZfTUFQ
-X1RZUEVfQ0dST1VQX1NUT1JBR0VgYCBvciBtb3JlIHRoYW4gb25lCj4gIGBgQlBGX01BUF9UWVBF
-X1BFUkNQVV9DR1JPVVBfU1RPUkFHRWBgLgo+ICAKPiAtSW4gYWxsIHZlcnNpb25zLCB1c2Vyc3Bh
-Y2UgbWF5IHVzZSB0aGUgdGhlIGF0dGFjaCBwYXJhbWV0ZXJzIG9mIGNncm91cCBhbmQKPiArSW4g
-YWxsIHZlcnNpb25zLCB1c2Vyc3BhY2UgbWF5IHVzZSB0aGUgYXR0YWNoIHBhcmFtZXRlcnMgb2Yg
-Y2dyb3VwIGFuZAo+ICBhdHRhY2ggdHlwZSBwYWlyIGluIGBgc3RydWN0IGJwZl9jZ3JvdXBfc3Rv
-cmFnZV9rZXlgYCBhcyB0aGUga2V5IHRvIHRoZSBCUEYgbWFwCj4gIEFQSXMgdG8gcmVhZCBvciB1
-cGRhdGUgdGhlIHN0b3JhZ2UgZm9yIGEgZ2l2ZW4gYXR0YWNobWVudC4gRm9yIExpbnV4IDUuOQo+
-ICBhdHRhY2ggdHlwZSBzaGFyZWQgc3RvcmFnZXMsIG9ubHkgdGhlIGZpcnN0IHZhbHVlIGluIHRo
-ZSBzdHJ1Y3QsIGNncm91cCBpbm9kZQpGb3IgdGhlIGJwZiBjaGFuZ2VzLAoKQWNrZWQtYnk6IE1h
-cnRpbiBLYUZhaSBMYXUgPGthZmFpQGZiLmNvbT4KLS0KTGludXgtY2FjaGVmcyBtYWlsaW5nIGxp
-c3QKTGludXgtY2FjaGVmc0ByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtY2FjaGVmcwo=
+On 07/21/22 at 11:40am, Randy Dunlap wrote:
+> 
+> 
+> On 7/21/22 11:36, Jonathan Corbet wrote:
+> > "Slark Xiao" <slark_xiao@163.com> writes:
+> > 
+> >> May I know the maintainer of one subsystem could merge the changes
+> >> contains lots of subsystem?  I also know this could be filtered by
+> >> grep and sed command, but that patch would have dozens of maintainers
+> >> and reviewers.
+> > 
+> > Certainly I don't think I can merge a patch touching 166 files across
+> > the tree.  This will need to be broken down by subsystem, and you may
+> > well find that there are some maintainers who don't want to deal with
+> > this type of minor fix.
+> 
+> We have also seen cases where "the the" should be replaced by "then the"
+> or some other pair of words, so some of these changes could fall into
+> that category.
+
+It's possible. I searched in Documentation and went through each place,
+seems no typo of "then the". Below patch should clean up all the 'the the'
+typo under Documentation.
+
+From 60cacd213ab24981d16c292667283cf7e74f86b1 Mon Sep 17 00:00:00 2001
+From: Baoquan He <bhe@redhat.com>
+Date: Fri, 22 Jul 2022 07:26:48 +0800
+Subject: [PATCH] Documentation: Fix all occurences of the 'the the' typo
+Content-type: text/plain
+
+The fix is done with below command:
+sed -i "s/the the /the /g" `git grep -l "the the " Documentation`
+
+Signed-off-by: Baoquan He <bhe@redhat.com>
+---
+ Documentation/ABI/stable/sysfs-module                         | 2 +-
+ Documentation/ABI/testing/sysfs-class-rtrs-client             | 2 +-
+ Documentation/ABI/testing/sysfs-class-rtrs-server             | 2 +-
+ Documentation/ABI/testing/sysfs-devices-platform-ACPI-TAD     | 2 +-
+ Documentation/ABI/testing/sysfs-devices-power                 | 2 +-
+ Documentation/admin-guide/kdump/vmcoreinfo.rst                | 2 +-
+ Documentation/bpf/map_cgroup_storage.rst                      | 4 ++--
+ Documentation/core-api/cpu_hotplug.rst                        | 2 +-
+ Documentation/devicetree/bindings/arm/msm/qcom,saw2.txt       | 2 +-
+ Documentation/devicetree/bindings/clock/ti/davinci/pll.txt    | 2 +-
+ Documentation/devicetree/bindings/fpga/fpga-region.txt        | 2 +-
+ Documentation/devicetree/bindings/gpio/gpio-pisosr.txt        | 2 +-
+ Documentation/devicetree/bindings/net/qcom-emac.txt           | 2 +-
+ .../bindings/phy/amlogic,meson-axg-mipi-pcie-analog.yaml      | 2 +-
+ .../devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml   | 2 +-
+ .../devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml   | 2 +-
+ .../devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml   | 2 +-
+ .../devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml      | 2 +-
+ Documentation/devicetree/bindings/powerpc/fsl/cpus.txt        | 2 +-
+ Documentation/devicetree/bindings/powerpc/opal/power-mgt.txt  | 2 +-
+ Documentation/devicetree/bindings/remoteproc/qcom,q6v5.txt    | 2 +-
+ Documentation/devicetree/bindings/sound/tlv320adcx140.yaml    | 4 ++--
+ .../devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml      | 2 +-
+ .../devicetree/bindings/thermal/nvidia,tegra124-soctherm.txt  | 2 +-
+ Documentation/devicetree/bindings/thermal/rcar-thermal.yaml   | 2 +-
+ Documentation/driver-api/isa.rst                              | 2 +-
+ Documentation/filesystems/caching/backend-api.rst             | 2 +-
+ Documentation/locking/seqlock.rst                             | 2 +-
+ Documentation/sphinx/cdomain.py                               | 2 +-
+ 29 files changed, 31 insertions(+), 31 deletions(-)
+
+diff --git a/Documentation/ABI/stable/sysfs-module b/Documentation/ABI/stable/sysfs-module
+index 560b4a3278df..41b1f16e8795 100644
+--- a/Documentation/ABI/stable/sysfs-module
++++ b/Documentation/ABI/stable/sysfs-module
+@@ -38,7 +38,7 @@ What:		/sys/module/<MODULENAME>/srcversion
+ Date:		Jun 2005
+ Description:
+ 		If the module source has MODULE_VERSION, this file will contain
+-		the checksum of the the source code.
++		the checksum of the source code.
+ 
+ What:		/sys/module/<MODULENAME>/version
+ Date:		Jun 2005
+diff --git a/Documentation/ABI/testing/sysfs-class-rtrs-client b/Documentation/ABI/testing/sysfs-class-rtrs-client
+index 49a4157c7bf1..fecc59d1b96f 100644
+--- a/Documentation/ABI/testing/sysfs-class-rtrs-client
++++ b/Documentation/ABI/testing/sysfs-class-rtrs-client
+@@ -78,7 +78,7 @@ What:		/sys/class/rtrs-client/<session-name>/paths/<src@dst>/hca_name
+ Date:		Feb 2020
+ KernelVersion:	5.7
+ Contact:	Jack Wang <jinpu.wang@cloud.ionos.com> Danil Kipnis <danil.kipnis@cloud.ionos.com>
+-Description:	RO, Contains the the name of HCA the connection established on.
++Description:	RO, Contains the name of HCA the connection established on.
+ 
+ What:		/sys/class/rtrs-client/<session-name>/paths/<src@dst>/hca_port
+ Date:		Feb 2020
+diff --git a/Documentation/ABI/testing/sysfs-class-rtrs-server b/Documentation/ABI/testing/sysfs-class-rtrs-server
+index 3b6d5b067df0..b08601d80409 100644
+--- a/Documentation/ABI/testing/sysfs-class-rtrs-server
++++ b/Documentation/ABI/testing/sysfs-class-rtrs-server
+@@ -24,7 +24,7 @@ What:		/sys/class/rtrs-server/<session-name>/paths/<src@dst>/hca_name
+ Date:		Feb 2020
+ KernelVersion:	5.7
+ Contact:	Jack Wang <jinpu.wang@cloud.ionos.com> Danil Kipnis <danil.kipnis@cloud.ionos.com>
+-Description:	RO, Contains the the name of HCA the connection established on.
++Description:	RO, Contains the name of HCA the connection established on.
+ 
+ What:		/sys/class/rtrs-server/<session-name>/paths/<src@dst>/hca_port
+ Date:		Feb 2020
+diff --git a/Documentation/ABI/testing/sysfs-devices-platform-ACPI-TAD b/Documentation/ABI/testing/sysfs-devices-platform-ACPI-TAD
+index f7b360a61b21..bc44bc903bc8 100644
+--- a/Documentation/ABI/testing/sysfs-devices-platform-ACPI-TAD
++++ b/Documentation/ABI/testing/sysfs-devices-platform-ACPI-TAD
+@@ -74,7 +74,7 @@ Description:
+ 
+ 		Reads also cause the AC alarm timer status to be reset.
+ 
+-		Another way to reset the the status of the AC alarm timer is to
++		Another way to reset the status of the AC alarm timer is to
+ 		write (the number) 0 to this file.
+ 
+ 		If the status return value indicates that the timer has expired,
+diff --git a/Documentation/ABI/testing/sysfs-devices-power b/Documentation/ABI/testing/sysfs-devices-power
+index 1b2a2d41ff80..54195530e97a 100644
+--- a/Documentation/ABI/testing/sysfs-devices-power
++++ b/Documentation/ABI/testing/sysfs-devices-power
+@@ -303,5 +303,5 @@ Date:		Apr 2010
+ Contact:	Dominik Brodowski <linux@dominikbrodowski.net>
+ Description:
+ 		Reports the runtime PM children usage count of a device, or
+-		0 if the the children will be ignored.
++		0 if the children will be ignored.
+ 
+diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+index 8419019b6a88..6726f439958c 100644
+--- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
++++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+@@ -200,7 +200,7 @@ prb
+ 
+ A pointer to the printk ringbuffer (struct printk_ringbuffer). This
+ may be pointing to the static boot ringbuffer or the dynamically
+-allocated ringbuffer, depending on when the the core dump occurred.
++allocated ringbuffer, depending on when the core dump occurred.
+ Used by user-space tools to read the active kernel log buffer.
+ 
+ printk_rb_static
+diff --git a/Documentation/bpf/map_cgroup_storage.rst b/Documentation/bpf/map_cgroup_storage.rst
+index cab9543017bf..8e5fe532c07e 100644
+--- a/Documentation/bpf/map_cgroup_storage.rst
++++ b/Documentation/bpf/map_cgroup_storage.rst
+@@ -31,7 +31,7 @@ The map uses key of type of either ``__u64 cgroup_inode_id`` or
+     };
+ 
+ ``cgroup_inode_id`` is the inode id of the cgroup directory.
+-``attach_type`` is the the program's attach type.
++``attach_type`` is the program's attach type.
+ 
+ Linux 5.9 added support for type ``__u64 cgroup_inode_id`` as the key type.
+ When this key type is used, then all attach types of the particular cgroup and
+@@ -155,7 +155,7 @@ However, the BPF program can still only associate with one map of each type
+ ``BPF_MAP_TYPE_CGROUP_STORAGE`` or more than one
+ ``BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE``.
+ 
+-In all versions, userspace may use the the attach parameters of cgroup and
++In all versions, userspace may use the attach parameters of cgroup and
+ attach type pair in ``struct bpf_cgroup_storage_key`` as the key to the BPF map
+ APIs to read or update the storage for a given attachment. For Linux 5.9
+ attach type shared storages, only the first value in the struct, cgroup inode
+diff --git a/Documentation/core-api/cpu_hotplug.rst b/Documentation/core-api/cpu_hotplug.rst
+index c6f4ba2fb32d..f75778d37488 100644
+--- a/Documentation/core-api/cpu_hotplug.rst
++++ b/Documentation/core-api/cpu_hotplug.rst
+@@ -560,7 +560,7 @@ available:
+   * cpuhp_state_remove_instance(state, node)
+   * cpuhp_state_remove_instance_nocalls(state, node)
+ 
+-The arguments are the same as for the the cpuhp_state_add_instance*()
++The arguments are the same as for the cpuhp_state_add_instance*()
+ variants above.
+ 
+ The functions differ in the way how the installed callbacks are treated:
+diff --git a/Documentation/devicetree/bindings/arm/msm/qcom,saw2.txt b/Documentation/devicetree/bindings/arm/msm/qcom,saw2.txt
+index 94d50a949be1..c0e3c3a42bea 100644
+--- a/Documentation/devicetree/bindings/arm/msm/qcom,saw2.txt
++++ b/Documentation/devicetree/bindings/arm/msm/qcom,saw2.txt
+@@ -10,7 +10,7 @@ system, notifying them when a low power state is entered or exited.
+ Multiple revisions of the SAW hardware are supported using these Device Nodes.
+ SAW2 revisions differ in the register offset and configuration data. Also, the
+ same revision of the SAW in different SoCs may have different configuration
+-data due the the differences in hardware capabilities. Hence the SoC name, the
++data due the differences in hardware capabilities. Hence the SoC name, the
+ version of the SAW hardware in that SoC and the distinction between cpu (big
+ or Little) or cache, may be needed to uniquely identify the SAW register
+ configuration and initialization data. The compatible string is used to
+diff --git a/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt b/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt
+index 36998e184821..c9894538315b 100644
+--- a/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt
++++ b/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt
+@@ -15,7 +15,7 @@ Required properties:
+ 	- for "ti,da850-pll1", shall be "clksrc"
+ 
+ Optional properties:
+-- ti,clkmode-square-wave: Indicates that the the board is supplying a square
++- ti,clkmode-square-wave: Indicates that the board is supplying a square
+ 	wave input on the OSCIN pin instead of using a crystal oscillator.
+ 	This property is only valid when compatible = "ti,da850-pll0".
+ 
+diff --git a/Documentation/devicetree/bindings/fpga/fpga-region.txt b/Documentation/devicetree/bindings/fpga/fpga-region.txt
+index 7d3515264838..6694ef29a267 100644
+--- a/Documentation/devicetree/bindings/fpga/fpga-region.txt
++++ b/Documentation/devicetree/bindings/fpga/fpga-region.txt
+@@ -330,7 +330,7 @@ succeeded.
+ 
+ The Device Tree Overlay will contain:
+  * "target-path" or "target"
+-   The insertion point where the the contents of the overlay will go into the
++   The insertion point where the contents of the overlay will go into the
+    live tree.  target-path is a full path, while target is a phandle.
+  * "ranges"
+     The address space mapping from processor to FPGA bus(ses).
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-pisosr.txt b/Documentation/devicetree/bindings/gpio/gpio-pisosr.txt
+index 414a01cdf715..fba3c61f6a5b 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-pisosr.txt
++++ b/Documentation/devicetree/bindings/gpio/gpio-pisosr.txt
+@@ -14,7 +14,7 @@ Optional properties:
+  - ngpios		: Number of used GPIO lines (0..n-1), default is 8.
+  - load-gpios		: GPIO pin specifier attached to load enable, this
+ 			  pin is pulsed before reading from the device to
+-			  load input pin values into the the device.
++			  load input pin values into the device.
+ 
+ For other required and optional properties of SPI slave
+ nodes please refer to ../spi/spi-bus.txt.
+diff --git a/Documentation/devicetree/bindings/net/qcom-emac.txt b/Documentation/devicetree/bindings/net/qcom-emac.txt
+index 346e6c7f47b7..e6cb2291471c 100644
+--- a/Documentation/devicetree/bindings/net/qcom-emac.txt
++++ b/Documentation/devicetree/bindings/net/qcom-emac.txt
+@@ -14,7 +14,7 @@ MAC node:
+ - mac-address : The 6-byte MAC address. If present, it is the default
+ 	MAC address.
+ - internal-phy : phandle to the internal PHY node
+-- phy-handle : phandle the the external PHY node
++- phy-handle : phandle the external PHY node
+ 
+ Internal PHY node:
+ - compatible : Should be "qcom,fsm9900-emac-sgmii" or "qcom,qdf2432-emac-sgmii".
+diff --git a/Documentation/devicetree/bindings/phy/amlogic,meson-axg-mipi-pcie-analog.yaml b/Documentation/devicetree/bindings/phy/amlogic,meson-axg-mipi-pcie-analog.yaml
+index 4d01f3124e1c..a90fa1baadab 100644
+--- a/Documentation/devicetree/bindings/phy/amlogic,meson-axg-mipi-pcie-analog.yaml
++++ b/Documentation/devicetree/bindings/phy/amlogic,meson-axg-mipi-pcie-analog.yaml
+@@ -16,7 +16,7 @@ description: |+
+   - compatible: Should be the following:
+                 "amlogic,meson-gx-hhi-sysctrl", "simple-mfd", "syscon"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
+index c689bea7ce6e..d3a8911728d0 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
+@@ -16,7 +16,7 @@ description: |+
+   - compatible:     Should be one of the following:
+                     "aspeed,ast2400-scu", "syscon", "simple-mfd"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
+index 9db904a528ee..5d2c1b1fb7fd 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
+@@ -17,7 +17,7 @@ description: |+
+   			"aspeed,ast2500-scu", "syscon", "simple-mfd"
+   			"aspeed,g5-scu", "syscon", "simple-mfd"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+index 3666ac5b6518..e92686d2f062 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+@@ -16,7 +16,7 @@ description: |+
+   - compatible: Should be one of the following:
+                 "aspeed,ast2600-scu", "syscon", "simple-mfd"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml b/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
+index f005abac7079..4e52ef33a986 100644
+--- a/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
++++ b/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
+@@ -17,7 +17,7 @@ description: |+
+   - compatible: Should be the following:
+                 "amlogic,meson-gx-hhi-sysctrl", "simple-mfd", "syscon"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/powerpc/fsl/cpus.txt b/Documentation/devicetree/bindings/powerpc/fsl/cpus.txt
+index d63ab1dec16d..801c66069121 100644
+--- a/Documentation/devicetree/bindings/powerpc/fsl/cpus.txt
++++ b/Documentation/devicetree/bindings/powerpc/fsl/cpus.txt
+@@ -5,7 +5,7 @@ Copyright 2013 Freescale Semiconductor Inc.
+ Power Architecture CPUs in Freescale SOCs are represented in device trees as
+ per the definition in the Devicetree Specification.
+ 
+-In addition to the the Devicetree Specification definitions, the properties
++In addition to the Devicetree Specification definitions, the properties
+ defined below may be present on CPU nodes.
+ 
+ PROPERTIES
+diff --git a/Documentation/devicetree/bindings/powerpc/opal/power-mgt.txt b/Documentation/devicetree/bindings/powerpc/opal/power-mgt.txt
+index 9d619e955576..d6658d3dd15e 100644
+--- a/Documentation/devicetree/bindings/powerpc/opal/power-mgt.txt
++++ b/Documentation/devicetree/bindings/powerpc/opal/power-mgt.txt
+@@ -39,7 +39,7 @@ otherwise. The length of all the property arrays must be the same.
+ 
+ - ibm,cpu-idle-state-flags:
+ 	Array of unsigned 32-bit values containing the values of the
+-	flags associated with the the aforementioned idle-states. The
++	flags associated with the aforementioned idle-states. The
+ 	flag bits are as follows:
+ 		0x00000001 /* Decrementer would stop */
+ 		0x00000002 /* Needs timebase restore */
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,q6v5.txt b/Documentation/devicetree/bindings/remoteproc/qcom,q6v5.txt
+index b677900b3aae..658f96fbc4fe 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,q6v5.txt
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,q6v5.txt
+@@ -37,7 +37,7 @@ on the Qualcomm Hexagon core.
+ - interrupt-names:
+ 	Usage: required
+ 	Value type: <stringlist>
+-	Definition: The interrupts needed depends on the the compatible
++	Definition: The interrupts needed depends on the compatible
+ 		    string:
+ 	qcom,q6v5-pil:
+ 	qcom,ipq8074-wcss-pil:
+diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+index 2ad17b361db0..bc2fb1a80ed7 100644
+--- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
++++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+@@ -68,9 +68,9 @@ properties:
+        array is defined as <PDMIN1 PDMIN2 PDMIN3 PDMIN4>.
+ 
+        0 - (default) Odd channel is latched on the negative edge and even
+-       channel is latched on the the positive edge.
++       channel is latched on the positive edge.
+        1 - Odd channel is latched on the positive edge and even channel is
+-       latched on the the negative edge.
++       latched on the negative edge.
+ 
+        PDMIN1 - PDMCLK latching edge used for channel 1 and 2 data
+        PDMIN2 - PDMCLK latching edge used for channel 3 and 4 data
+diff --git a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
+index 1ab5070c751d..89a2c32c0ab2 100644
+--- a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
+@@ -16,7 +16,7 @@ description: |+
+   - compatible: Should be one of the following:
+                 "brcm,bcm2711-avs-monitor", "syscon", "simple-mfd"
+ 
+-  Refer to the the bindings described in
++  Refer to the bindings described in
+   Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.txt b/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.txt
+index db880e7ed713..aea4a2a178b9 100644
+--- a/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.txt
++++ b/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.txt
+@@ -96,7 +96,7 @@ critical trip point is reported back to the thermal framework to implement
+ software shutdown.
+ 
+ - the "hot" type trip points will be set to SOC_THERM hardware as the throttle
+-temperature. Once the the temperature of this thermal zone is higher
++temperature. Once the temperature of this thermal zone is higher
+ than it, it will trigger the HW throttle event.
+ 
+ Example :
+diff --git a/Documentation/devicetree/bindings/thermal/rcar-thermal.yaml b/Documentation/devicetree/bindings/thermal/rcar-thermal.yaml
+index 927de79ab4b5..00dcbdd36144 100644
+--- a/Documentation/devicetree/bindings/thermal/rcar-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/rcar-thermal.yaml
+@@ -42,7 +42,7 @@ properties:
+     description:
+       Address ranges of the thermal registers. If more then one range is given
+       the first one must be the common registers followed by each sensor
+-      according the the datasheet.
++      according the datasheet.
+     minItems: 1
+     maxItems: 4
+ 
+diff --git a/Documentation/driver-api/isa.rst b/Documentation/driver-api/isa.rst
+index def4a7b690b5..3df1b1696524 100644
+--- a/Documentation/driver-api/isa.rst
++++ b/Documentation/driver-api/isa.rst
+@@ -100,7 +100,7 @@ I believe platform_data is available for this, but if rather not, moving
+ the isa_driver pointer to the private struct isa_dev is ofcourse fine as
+ well.
+ 
+-Then, if the the driver did not provide a .match, it matches. If it did,
++Then, if the driver did not provide a .match, it matches. If it did,
+ the driver match() method is called to determine a match.
+ 
+ If it did **not** match, dev->platform_data is reset to indicate this to
+diff --git a/Documentation/filesystems/caching/backend-api.rst b/Documentation/filesystems/caching/backend-api.rst
+index d7507becf674..3a199fc50828 100644
+--- a/Documentation/filesystems/caching/backend-api.rst
++++ b/Documentation/filesystems/caching/backend-api.rst
+@@ -122,7 +122,7 @@ volumes, calling::
+ to tell fscache that a volume has been withdrawn.  This waits for all
+ outstanding accesses on the volume to complete before returning.
+ 
+-When the the cache is completely withdrawn, fscache should be notified by
++When the cache is completely withdrawn, fscache should be notified by
+ calling::
+ 
+ 	void fscache_relinquish_cache(struct fscache_cache *cache);
+diff --git a/Documentation/locking/seqlock.rst b/Documentation/locking/seqlock.rst
+index 64405e5da63e..bfda1a5fecad 100644
+--- a/Documentation/locking/seqlock.rst
++++ b/Documentation/locking/seqlock.rst
+@@ -39,7 +39,7 @@ as the writer can invalidate a pointer that the reader is following.
+ Sequence counters (``seqcount_t``)
+ ==================================
+ 
+-This is the the raw counting mechanism, which does not protect against
++This is the raw counting mechanism, which does not protect against
+ multiple writers.  Write side critical sections must thus be serialized
+ by an external lock.
+ 
+diff --git a/Documentation/sphinx/cdomain.py b/Documentation/sphinx/cdomain.py
+index ca8ac9e59ded..a7d1866e72ff 100644
+--- a/Documentation/sphinx/cdomain.py
++++ b/Documentation/sphinx/cdomain.py
+@@ -151,7 +151,7 @@ class CObject(Base_CObject):
+     def handle_func_like_macro(self, sig, signode):
+         u"""Handles signatures of function-like macros.
+ 
+-        If the objtype is 'function' and the the signature ``sig`` is a
++        If the objtype is 'function' and the signature ``sig`` is a
+         function-like macro, the name of the macro is returned. Otherwise
+         ``False`` is returned.  """
+ 
+-- 
+2.34.1
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
