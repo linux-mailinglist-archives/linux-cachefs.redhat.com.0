@@ -2,59 +2,96 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8545F57FFD2
-	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 15:32:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0E6580051
+	for <lists+linux-cachefs@lfdr.de>; Mon, 25 Jul 2022 16:02:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658755931;
+	s=mimecast20190719; t=1658757758;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LRrrmLvlGBKOiuLuATPWSTJ3PTVX0YDIpKrAyJY5n1g=;
-	b=cAyfCvvX3eSbtYF7n7x5SRkC4X9cZmmtm4PTU/Gh13Ep0Zx/+dzh+VL6R4EFo7BOdYrFM3
-	kbyPaJfMELSjB6LpWgu/qag34P2Nkdr/BrD/ZbAoq1V8xlibuasWrz+USv1DXFbNOUb39Z
-	KYzJdTc/s57xxH427vE8ssP7ibr8cMs=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=jrgPINgXdXYhVHqRut7uctr20MzPbXuL9rb9SjTr2sQ=;
+	b=gnrvtX4cvy/LX/3qW7YX8Xh38pEG1C3Nn6HsWwENqZUPA8TPigWy/4Q0eXnSg8091YARb7
+	9YLktakGVDMQcnOk+daLMkIBeqm278PAGgD0l7dCW2VkbTd8Wj16Q1Q9jplK0rs73/lIbV
+	atGublBIiUMyTtefmm12/ZZ2SbRiNBg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-358-5YOn_bgRPZmkC2VKwwQy4w-1; Mon, 25 Jul 2022 09:32:10 -0400
-X-MC-Unique: 5YOn_bgRPZmkC2VKwwQy4w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-240-Lrk7ElKgP16zk9HWaeY9tw-1; Mon, 25 Jul 2022 10:02:37 -0400
+X-MC-Unique: Lrk7ElKgP16zk9HWaeY9tw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 231283C0F365;
-	Mon, 25 Jul 2022 13:32:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7C69811E75;
+	Mon, 25 Jul 2022 14:02:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2DBD8909FE;
-	Mon, 25 Jul 2022 13:32:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8771840C1288;
+	Mon, 25 Jul 2022 14:02:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 019EF1945D87;
-	Mon, 25 Jul 2022 13:32:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 47BBB1945D87;
+	Mon, 25 Jul 2022 14:02:36 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BA4F11945D81 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 25 Jul 2022 13:32:08 +0000 (UTC)
+ ESMTP id 67BF41945D81 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 25 Jul 2022 14:02:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8734340C1288; Mon, 25 Jul 2022 13:32:08 +0000 (UTC)
+ id 54CA81121319; Mon, 25 Jul 2022 14:02:34 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from localhost (ovpn-12-90.pek2.redhat.com [10.72.12.90])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 841DB40E80E0;
- Mon, 25 Jul 2022 13:32:07 +0000 (UTC)
-Date: Mon, 25 Jul 2022 21:32:04 +0800
-From: Baoquan He <bhe@redhat.com>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <Yt6bVIoRa0nIvxei@MiWiFi-R3L-srv>
-References: <YtlyDZEsOZHt6tRs@MiWiFi-R3L-srv>
- <20220721015605.20651-1-slark_xiao@163.com>
- <2778505.1658746506@warthog.procyon.org.uk>
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 513AE1121314
+ for <linux-cachefs@redhat.com>; Mon, 25 Jul 2022 14:02:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 342453C10684
+ for <linux-cachefs@redhat.com>; Mon, 25 Jul 2022 14:02:34 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0010.hostedemail.com
+ [216.40.44.10]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-615-p8-LvOTBMZ2Uo-IXn2Ld6A-1; Mon, 25 Jul 2022 10:02:29 -0400
+X-MC-Unique: p8-LvOTBMZ2Uo-IXn2Ld6A-1
+Received: from omf13.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay05.hostedemail.com (Postfix) with ESMTP id 9BD664105A;
+ Mon, 25 Jul 2022 13:52:24 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf13.hostedemail.com (Postfix) with ESMTPA id 2CBFA2000E; 
+ Mon, 25 Jul 2022 13:52:16 +0000 (UTC)
+Message-ID: <5bd85a7241e6ccac7fe5647cb9cf7ef22b228943.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Baoquan He <bhe@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Slark Xiao <slark_xiao@163.com>
+Date: Mon, 25 Jul 2022 06:52:15 -0700
+In-Reply-To: <YtnlAg6Qhf7fwXXW@MiWiFi-R3L-srv>
+References: <20220721015605.20651-1-slark_xiao@163.com>
+ <20220721154110.fqp7n6f7ij22vayp@kafai-mbp.dhcp.thefacebook.com>
+ <21cac0ea.18f.182218041f7.Coremail.slark_xiao@163.com>
+ <874jzamhxe.fsf@meer.lwn.net>
+ <6ca59494-cc64-d85c-98e8-e9bef2a04c15@infradead.org>
+ <YtnlAg6Qhf7fwXXW@MiWiFi-R3L-srv>
+User-Agent: Evolution 3.44.1-0ubuntu1
 MIME-Version: 1.0
-In-Reply-To: <2778505.1658746506@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Stat-Signature: 7gktrdtqywj6jsoc4553wwy1ksexyrp9
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 2CBFA2000E
+X-Spam-Status: No, score=1.40
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+L2rRg9wujM2WCCGt5WkY3LxQACR7fn/A=
+X-HE-Tag: 1658757136-644642
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Subject: Re: [Linux-cachefs] [PATCH v2] docs: Fix typo in comment
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
@@ -67,42 +104,60 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cachefs@redhat.com, linux-doc@vger.kernel.org, peterz@infradead.org,
- bigeasy@linutronix.de, ast@kernel.org, Slark Xiao <slark_xiao@163.com>,
- song@kernel.org, sdf@google.com, will@kernel.org, daniel@iogearbox.net,
- corbet@lwn.net, william.gray@linaro.org, john.fastabend@gmail.com,
- andrii@kernel.org, mingo@redhat.com, longman@redhat.com, dyoung@redhat.com,
- vgoyal@redhat.com, boqun.feng@gmail.com, kpsingh@kernel.org, yhs@fb.com,
- tglx@linutronix.de, haoluo@google.com, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, jolsa@kernel.org, bpf@vger.kernel.org,
- martin.lau@linux.dev
+Cc: linux-cachefs <linux-cachefs@redhat.com>,
+ linux-doc <linux-doc@vger.kernel.org>, peterz <peterz@infradead.org>,
+ bigeasy <bigeasy@linutronix.de>, ast <ast@kernel.org>, song <song@kernel.org>,
+ sdf <sdf@google.com>, will <will@kernel.org>, daniel <daniel@iogearbox.net>,
+ "william.gray" <william.gray@linaro.org>,
+ "john.fastabend" <john.fastabend@gmail.com>, andrii <andrii@kernel.org>,
+ mingo <mingo@redhat.com>, longman <longman@redhat.com>,
+ dyoung <dyoung@redhat.com>, vgoyal <vgoyal@redhat.com>,
+ "boqun.feng" <boqun.feng@gmail.com>, kpsingh <kpsingh@kernel.org>,
+ yhs <yhs@fb.com>, tglx <tglx@linutronix.de>, haoluo <haoluo@google.com>,
+ kexec <kexec@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+ jolsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
+ "martin.lau" <martin.lau@linux.dev>, kafai <kafai@fb.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=linux-cachefs-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 07/25/22 at 11:55am, David Howells wrote:
-> Baoquan He <bhe@redhat.com> wrote:
+On Fri, 2022-07-22 at 07:45 +0800, Baoquan He wrote:
+> On 07/21/22 at 11:40am, Randy Dunlap wrote:
+> > On 7/21/22 11:36, Jonathan Corbet wrote:
+> > > "Slark Xiao" <slark_xiao@163.com> writes:
+> > > > May I know the maintainer of one subsystem could merge the changes
+> > > > contains lots of subsystem?  I also know this could be filtered by
+> > > > grep and sed command, but that patch would have dozens of maintainers
+> > > > and reviewers.
+> > > 
+> > > Certainly I don't think I can merge a patch touching 166 files across
+> > > the tree.  This will need to be broken down by subsystem, and you may
+> > > well find that there are some maintainers who don't want to deal with
+> > > this type of minor fix.
+> > 
+> > We have also seen cases where "the the" should be replaced by "then the"
+> > or some other pair of words, so some of these changes could fall into
+> > that category.
 > 
-> > sed -i "s/the the /the /g" `git grep -l "the the "`
-> 
-> You might want to clarify the first "the" with a preceding boundary marker.
-> There are some English words ending in "the" that can be used as verbs, though
-> I'm not sure you'd find any of them here - clothe for example.
+> It's possible. I searched in Documentation and went through each place,
+> seems no typo of "then the". Below patch should clean up all the 'the the'
+> typo under Documentation.
+[]
+> The fix is done with below command:
+> sed -i "s/the the /the /g" `git grep -l "the the " Documentation`
 
-Right. I plan to split this big one into patches corresponding to
-different component as Jonathan suggested, and will consider how to mark
-the first 'the' as you suggested, and wrap Slark's pathces which
-includes typo fix of "then the".
+This command misses entries at EOL:
 
-Thanks
-Baoquan
+Documentation/trace/histogram.rst:  Here's an example where we use a compound key composed of the the
+
+Perhaps a better conversion would be 's/\bthe the\b/the/g'
+
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
