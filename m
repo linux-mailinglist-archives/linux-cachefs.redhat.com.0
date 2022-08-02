@@ -1,74 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16D45875BD
-	for <lists+linux-cachefs@lfdr.de>; Tue,  2 Aug 2022 05:03:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC885875C3
+	for <lists+linux-cachefs@lfdr.de>; Tue,  2 Aug 2022 05:04:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659409438;
+	s=mimecast20190719; t=1659409447;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=K2b2ynGR4G6FavInaWEBspCR0ZuXCWcm2iggcLluGZg=;
-	b=PdF6I9/bUmD9rjCiVnt6O3Wye4PcdSwfwNuibht6/U8SvuFgdZMmiXlk0X8vycYL2IK/TT
-	XjIZvKbn8psOivTjcQj0fU27Aoshe0mHxx0D+Iq46mOE4sh5elOCOgyurt4BirfPSpjU9k
-	T2+oxlVBA2or/XKo86Dn3sHU4I7xojA=
+	bh=lbMk9zcX6khCCoPCWB3Q8UXxSVDADOe3E7v6JxLpnWk=;
+	b=LY6kPq+f7/DDffOPb0QsXzd95uWpNyVGQVJpOr4OwaWkAEZfp37WG4/SBzE2p2dIWG9gRW
+	Mp7bc54ugSZJ1rPS1GDZkj2b679ns9BaYg3sNaHmtJM9zgECXnA6EscT45mmiwYKH+B+nc
+	xExHDDqGduoOams3BT8Ow86/ZaPntwA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-63-oBXxYZ6rPFq_d6koBBUraA-1; Mon, 01 Aug 2022 23:03:57 -0400
-X-MC-Unique: oBXxYZ6rPFq_d6koBBUraA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-286-GE7McK0jOmi-001nx6LTJw-1; Mon, 01 Aug 2022 23:04:04 -0400
+X-MC-Unique: GE7McK0jOmi-001nx6LTJw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02CEB1C05145;
-	Tue,  2 Aug 2022 03:03:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9713F3C01DF4;
+	Tue,  2 Aug 2022 03:04:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EDD40404E4D6;
-	Tue,  2 Aug 2022 03:03:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D05DC27DB3;
+	Tue,  2 Aug 2022 03:04:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C65B21946A4A;
-	Tue,  2 Aug 2022 03:03:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5731A1946A4D;
+	Tue,  2 Aug 2022 03:04:00 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7691C1946A41 for <linux-cachefs@listman.corp.redhat.com>;
- Tue,  2 Aug 2022 03:03:55 +0000 (UTC)
+ ESMTP id 8C7331946A41 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue,  2 Aug 2022 03:03:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 69A602026985; Tue,  2 Aug 2022 03:03:55 +0000 (UTC)
+ id 706994010E37; Tue,  2 Aug 2022 03:03:57 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 666F72026D07
- for <linux-cachefs@redhat.com>; Tue,  2 Aug 2022 03:03:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C614101A588
- for <linux-cachefs@redhat.com>; Tue,  2 Aug 2022 03:03:55 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
- (out30-44.freemail.mail.aliyun.com [115.124.30.44]) by relay.mimecast.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C46840C1288
+ for <linux-cachefs@redhat.com>; Tue,  2 Aug 2022 03:03:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5421C3C01DF5
+ for <linux-cachefs@redhat.com>; Tue,  2 Aug 2022 03:03:57 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-372-vtbqjA_ONUWexVpIB2QiYw-1; Mon, 01 Aug 2022 23:03:53 -0400
-X-MC-Unique: vtbqjA_ONUWexVpIB2QiYw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R791e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ us-mta-641-wdfAMfJMNky2jp4Hz83J7g-1; Mon, 01 Aug 2022 23:03:53 -0400
+X-MC-Unique: wdfAMfJMNky2jp4Hz83J7g-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
  MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
- TI=SMTPD_---0VL9XpO._1659409428
+ TI=SMTPD_---0VL9W-Pi_1659409429
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VL9XpO._1659409428) by smtp.aliyun-inc.com;
- Tue, 02 Aug 2022 11:03:48 +0800
+ fp:SMTPD_---0VL9W-Pi_1659409429) by smtp.aliyun-inc.com;
+ Tue, 02 Aug 2022 11:03:49 +0800
 From: Jingbo Xu <jefflexu@linux.alibaba.com>
 To: dhowells@redhat.com,
 	linux-cachefs@redhat.com
-Date: Tue,  2 Aug 2022 11:03:40 +0800
-Message-Id: <20220802030342.46302-8-jefflexu@linux.alibaba.com>
+Date: Tue,  2 Aug 2022 11:03:41 +0800
+Message-Id: <20220802030342.46302-9-jefflexu@linux.alibaba.com>
 In-Reply-To: <20220802030342.46302-1-jefflexu@linux.alibaba.com>
 References: <20220802030342.46302-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -79,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [Linux-cachefs] [PATCH RFC 7/9] cachefiles: free content map on
- invalidate
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [Linux-cachefs] [PATCH RFC 8/9] cachefiles: resize content map on
+ resize
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,72 +96,81 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 Cc: xiang@kernel.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Free the content map when the cached file is invalidated. Also hole
-punch the backing content map file if any.
+Adjust the content map when we shorten a backing object. In this case,
+only the unused tail of the content map after shortening gets zeroed,
+while the size of the content map itself is not changed. Also the
+corresponding range in the backing content map file is not changed.
+
+Besides, the content map and the corresponding range in the backing
+content map file are not touched when we expand a backing object. They
+will be lazily expanded at runtime later.
 
 Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/content-map.c | 21 +++++++++++++++++++++
+ fs/cachefiles/content-map.c | 23 +++++++++++++++++++++++
  fs/cachefiles/interface.c   |  1 +
- fs/cachefiles/internal.h    |  1 +
- 3 files changed, 23 insertions(+)
+ fs/cachefiles/internal.h    |  2 ++
+ 3 files changed, 26 insertions(+)
 
 diff --git a/fs/cachefiles/content-map.c b/fs/cachefiles/content-map.c
-index 949ec5d9e4c9..b73a109844ca 100644
+index b73a109844ca..360c59b06670 100644
 --- a/fs/cachefiles/content-map.c
 +++ b/fs/cachefiles/content-map.c
-@@ -250,3 +250,24 @@ loff_t cachefiles_find_next_hole(struct cachefiles_object *object,
- 	return min_t(loff_t, result * CACHEFILES_GRAN_SIZE,
- 			     object->cookie->object_size);
+@@ -271,3 +271,26 @@ void cachefiles_invalidate_content_map(struct cachefiles_object *object)
+ 	}
+ 	write_unlock_bh(&object->content_map_lock);
  }
 +
-+void cachefiles_invalidate_content_map(struct cachefiles_object *object)
++/*
++ * Adjust the content map when we shorten a backing object.
++ */
++void cachefiles_shorten_content_map(struct cachefiles_object *object,
++				    loff_t new_size)
 +{
-+	struct file *file = object->volume->content_map[(u8)object->cookie->key_hash];
-+
 +	if (object->content_info != CACHEFILES_CONTENT_MAP)
 +		return;
 +
-+	write_lock_bh(&object->content_map_lock);
-+	free_pages((unsigned long)object->content_map,
-+		   get_order(object->content_map_size));
-+	object->content_map = NULL;
-+	object->content_map_size = 0;
++	read_lock_bh(&object->content_map_lock);
++	/*
++	 * Nothing needs to be done when content map has not been allocated yet.
++	 */
++	if (!object->content_map_size)
++		goto out;
 +
-+	if (object->content_map_off != CACHEFILES_CONTENT_MAP_OFF_INVAL) {
-+		vfs_fallocate(file, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
-+				object->content_map_off, object->content_map_size);
-+		object->content_map_off = CACHEFILES_CONTENT_MAP_OFF_INVAL;
-+	}
-+	write_unlock_bh(&object->content_map_lock);
++	if (cachefiles_map_size(new_size) <= object->content_map_size)
++		cachefiles_zero_content_map(object->content_map,
++				object->content_map_size, new_size);
++out:
++	read_unlock_bh(&object->content_map_lock);
 +}
 diff --git a/fs/cachefiles/interface.c b/fs/cachefiles/interface.c
-index 4cfbdc87b635..f87b9a665d85 100644
+index f87b9a665d85..76f70a9ebe50 100644
 --- a/fs/cachefiles/interface.c
 +++ b/fs/cachefiles/interface.c
-@@ -409,6 +409,7 @@ static bool cachefiles_invalidate_cookie(struct fscache_cookie *cookie)
- 
- 	old_file = object->file;
- 	object->file = new_file;
-+	cachefiles_invalidate_content_map(object);
- 	object->content_info = CACHEFILES_CONTENT_NO_DATA;
- 	set_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags);
- 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags);
+@@ -290,6 +290,7 @@ static void cachefiles_resize_cookie(struct netfs_cache_resources *cres,
+ 		cachefiles_begin_secure(cache, &saved_cred);
+ 		cachefiles_shorten_object(object, file, new_size);
+ 		cachefiles_end_secure(cache, saved_cred);
++		cachefiles_shorten_content_map(object, new_size);
+ 		object->cookie->object_size = new_size;
+ 		return;
+ 	}
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 506700809a6d..c674c4e42529 100644
+index c674c4e42529..7747f99f00c1 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -187,6 +187,7 @@ extern loff_t cachefiles_find_next_granule(struct cachefiles_object *object,
- 					   loff_t start);
+@@ -188,6 +188,8 @@ extern loff_t cachefiles_find_next_granule(struct cachefiles_object *object,
  extern loff_t cachefiles_find_next_hole(struct cachefiles_object *object,
  					loff_t start);
-+extern void cachefiles_invalidate_content_map(struct cachefiles_object *object);
+ extern void cachefiles_invalidate_content_map(struct cachefiles_object *object);
++extern void cachefiles_shorten_content_map(struct cachefiles_object *object,
++					   loff_t new_size);
  
  /*
   * daemon.c
