@@ -2,81 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF21458A99B
-	for <lists+linux-cachefs@lfdr.de>; Fri,  5 Aug 2022 12:44:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2270C58D95B
+	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Aug 2022 15:27:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659696239;
+	s=mimecast20190719; t=1660051652;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bQNWLKRD9N2iyWbtc1QrEcHmrhbtkViytmE+t2GH17g=;
-	b=QX7U5S45RgM257PsIqmDLJTMPfXFfP84VNkb6HgN1b+hsvVJi2XKUkPTmhNWOQM6s/DQe0
-	So4/Xob0rbknamCEB2UqdqMdVg4zEf5pGEZw+j8jtW7kaMj6pjtusCnP8f/tH065m26bQO
-	8O2geG/hnhGlGfFC1T29SqZ/F2rdkZU=
+	bh=2TLQ0s5NV8w+yisy87b1St5hNXbIOUry2YMYnfMP0qk=;
+	b=RVoyby9Q0IjEqEAdCYnDXxmzZIDab454/eDWYmYK3vCbV603RWgXJrjbmNIJqwBfovLHG+
+	X5aPEfVC311es5D2VufC9VjYSy3bjRFMPTrDXZFUEbogMd5senckwsnYwZL1qihSs1cpJT
+	A4zLFsvMl+ieNiouJcl/kBcLJNeUffc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-571-DvsRwZiOM3q75F8mgf3pyA-1; Fri, 05 Aug 2022 06:43:57 -0400
-X-MC-Unique: DvsRwZiOM3q75F8mgf3pyA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-673-8tL5SyjyNHScVVXLlIX-9w-1; Tue, 09 Aug 2022 09:27:30 -0400
+X-MC-Unique: 8tL5SyjyNHScVVXLlIX-9w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2FFCB8001EA;
-	Fri,  5 Aug 2022 10:43:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4EADD80A0B9;
+	Tue,  9 Aug 2022 13:27:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 260DB94571;
-	Fri,  5 Aug 2022 10:43:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C0DF1121315;
+	Tue,  9 Aug 2022 13:27:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DEA6F1946A63;
-	Fri,  5 Aug 2022 10:43:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 34FA21946A4E;
+	Tue,  9 Aug 2022 13:27:28 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 35D121946A5F for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  5 Aug 2022 10:43:54 +0000 (UTC)
+ ESMTP id CF36B1946A41 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue,  9 Aug 2022 13:27:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 07551C28125; Fri,  5 Aug 2022 10:43:54 +0000 (UTC)
+ id B973A40CFD0E; Tue,  9 Aug 2022 13:27:26 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 03B5DC28100
- for <linux-cachefs@redhat.com>; Fri,  5 Aug 2022 10:43:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E110085A581
- for <linux-cachefs@redhat.com>; Fri,  5 Aug 2022 10:43:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-cUAL1MUrOPG71xbLVWFzUQ-1; Fri, 05 Aug 2022 06:43:52 -0400
-X-MC-Unique: cUAL1MUrOPG71xbLVWFzUQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 492F661921;
- Fri,  5 Aug 2022 10:43:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59539C433D6;
- Fri,  5 Aug 2022 10:43:50 +0000 (UTC)
-From: Jeff Layton <jlayton@kernel.org>
-To: dhowells@redhat.com
-Date: Fri,  5 Aug 2022 06:43:48 -0400
-Message-Id: <20220805104348.15006-1-jlayton@kernel.org>
+Received: from warthog.procyon.org.uk (unknown [10.33.36.14])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id F20D740CFD0B;
+ Tue,  9 Aug 2022 13:27:25 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: torvalds@linux-foundation.org
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Linux-cachefs] [PATCH] fscache: add tracepoint when failing cookie
+Date: Tue, 09 Aug 2022 14:27:25 +0100
+Message-ID: <431242.1660051645@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [Linux-cachefs] [GIT PULL]
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,57 +66,53 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cachefs@redhat.com
+Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com, jlayton@kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-ID: <431241.1660051645.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Hi Linus,
+
+Can you pull these two patches please?  The first fixes a cookie access ref
+leak if a cookie is invalidated a second time before the first invalidation
+is actually processed.  The second adds a tracepoint to log cookie look up
+failure.
+
+Thanks,
+David
+
+Link: https://listman.redhat.com/archives/linux-cachefs/2022-August/007061.html
+Link: https://listman.redhat.com/archives/linux-cachefs/2022-August/007062.html
 ---
- fs/fscache/cookie.c            | 2 ++
+The following changes since commit 3d7cb6b04c3f3115719235cc6866b10326de34cd:
+
+  Linux 5.19 (2022-07-31 14:03:01 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/fscache-fixes-20220809
+
+for you to fetch changes up to 1a1e3aca9d4957e282945cdc2b58e7c560b8e0d2:
+
+  fscache: add tracepoint when failing cookie (2022-08-09 14:13:59 +0100)
+
+----------------------------------------------------------------
+fscache fixes
+
+----------------------------------------------------------------
+Jeff Layton (2):
+      fscache: don't leak cookie access refs if invalidation is in progress or failed
+      fscache: add tracepoint when failing cookie
+
+ fs/fscache/cookie.c            | 9 +++++++--
  include/trace/events/fscache.h | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
-index 26a6d395737a..451d8a077e12 100644
---- a/fs/fscache/cookie.c
-+++ b/fs/fscache/cookie.c
-@@ -263,6 +263,8 @@ void fscache_caching_failed(struct fscache_cookie *cookie)
- {
- 	clear_bit(FSCACHE_COOKIE_IS_CACHING, &cookie->flags);
- 	fscache_set_cookie_state(cookie, FSCACHE_COOKIE_STATE_FAILED);
-+	trace_fscache_cookie(cookie->debug_id, refcount_read(&cookie->ref),
-+				fscache_cookie_failed);
- }
- EXPORT_SYMBOL(fscache_caching_failed);
- 
-diff --git a/include/trace/events/fscache.h b/include/trace/events/fscache.h
-index cb3fb337e880..c078c48a8e6d 100644
---- a/include/trace/events/fscache.h
-+++ b/include/trace/events/fscache.h
-@@ -49,6 +49,7 @@ enum fscache_volume_trace {
- enum fscache_cookie_trace {
- 	fscache_cookie_collision,
- 	fscache_cookie_discard,
-+	fscache_cookie_failed,
- 	fscache_cookie_get_attach_object,
- 	fscache_cookie_get_end_access,
- 	fscache_cookie_get_hash_collision,
-@@ -131,6 +132,7 @@ enum fscache_access_trace {
- #define fscache_cookie_traces						\
- 	EM(fscache_cookie_collision,		"*COLLIDE*")		\
- 	EM(fscache_cookie_discard,		"DISCARD  ")		\
-+	EM(fscache_cookie_failed,		"FAILED   ")		\
- 	EM(fscache_cookie_get_attach_object,	"GET attch")		\
- 	EM(fscache_cookie_get_hash_collision,	"GET hcoll")		\
- 	EM(fscache_cookie_get_end_access,	"GQ  endac")		\
--- 
-2.37.1
-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
