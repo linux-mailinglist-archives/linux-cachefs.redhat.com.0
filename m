@@ -1,87 +1,73 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53DE858DD2E
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Aug 2022 19:29:53 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B309590DE6
+	for <lists+linux-cachefs@lfdr.de>; Fri, 12 Aug 2022 11:10:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1660066192;
+	s=mimecast20190719; t=1660295424;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vAjtWewPmu45x6MBNy+fHtqUAgyOV1E/OyC0hlPjJqs=;
-	b=KN05UhcQzVMqVYXYoEGVBsWi8kBj8/qu4g5VPEHUKJ5u83X1nT5zHxVnO8Qzx6ERMc9lqW
-	2dN/vuMit1qO5SIREBL3dlIyNAXo1+FPnN1OA+YMjxO3YNyElgfr7s3soDDtc+u5EPKjVC
-	A0KEpQaog3D8Tu3cvyVbMa79UL/L9NI=
+	bh=SGD2/N2ckuvGHuV5Mq77oLH5knhexDbYaP9hgz5X5W8=;
+	b=MU0tT0rTZ7XY/JQ4/0HsKkkdSxXtYoQtcYu5SeM3P93vD3dKT8ezWrELd+lYs8qiz1w9qw
+	Bbwk/eDTmsonkNWOo+h7bqKdJK0Z8NEJOX7hWxUNrLcggpZF0VNNga7x1CC54Lcv/Q9BOp
+	WH2xMKmJcIAk6ctxMXVjSPO9SPohHec=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-433-8ShkjqpqOUWrYAtqoCB1OQ-1; Tue, 09 Aug 2022 13:29:51 -0400
-X-MC-Unique: 8ShkjqpqOUWrYAtqoCB1OQ-1
+ us-mta-342-wxCG81dMM9GGJ7d_X3A5_w-1; Fri, 12 Aug 2022 05:10:21 -0400
+X-MC-Unique: wxCG81dMM9GGJ7d_X3A5_w-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F8D085A5B9;
-	Tue,  9 Aug 2022 17:29:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82B2E185A794;
+	Fri, 12 Aug 2022 09:10:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A88A4C15BA4;
-	Tue,  9 Aug 2022 17:29:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DC345C15BA8;
+	Fri, 12 Aug 2022 09:10:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 914C41946A52;
-	Tue,  9 Aug 2022 17:29:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0C9081946A46;
+	Fri, 12 Aug 2022 09:10:17 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A9FDC1946A41 for <linux-cachefs@listman.corp.redhat.com>;
- Tue,  9 Aug 2022 17:29:48 +0000 (UTC)
+ ESMTP id A1BAC1946A41 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 12 Aug 2022 09:10:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 90CD72026D64; Tue,  9 Aug 2022 17:29:48 +0000 (UTC)
+ id 81DAA492CA4; Fri, 12 Aug 2022 09:10:15 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D3E02026D4C
- for <linux-cachefs@redhat.com>; Tue,  9 Aug 2022 17:29:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F3AE29A9D28
- for <linux-cachefs@redhat.com>; Tue,  9 Aug 2022 17:29:48 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-668-sFSYAmyIM0GRz3YGkBN7rQ-1; Tue, 09 Aug 2022 13:29:45 -0400
-X-MC-Unique: sFSYAmyIM0GRz3YGkBN7rQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B6E3AB8168C;
- Tue,  9 Aug 2022 17:29:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 85C5CC433D6;
- Tue,  9 Aug 2022 17:29:42 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 6F550C43140; Tue,  9 Aug 2022 17:29:42 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <431242.1660051645@warthog.procyon.org.uk>
-References: <431242.1660051645@warthog.procyon.org.uk>
-X-PR-Tracked-List-Id: <linux-fsdevel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <431242.1660051645@warthog.procyon.org.uk>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git
- tags/fscache-fixes-20220809
-X-PR-Tracked-Commit-Id: 1a1e3aca9d4957e282945cdc2b58e7c560b8e0d2
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 15205c2829ca2cbb5ece5ceaafe1171a8470e62b
-Message-Id: <166006618244.16033.9864491589347925426.pr-tracker-bot@kernel.org>
-Date: Tue, 09 Aug 2022 17:29:42 +0000
-To: David Howells <dhowells@redhat.com>
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E0F2492C3B
+ for <linux-cachefs@redhat.com>; Fri, 12 Aug 2022 09:10:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5314729DD9BC
+ for <linux-cachefs@redhat.com>; Fri, 12 Aug 2022 09:10:15 +0000 (UTC)
+Received: from out30-57.freemail.mail.aliyun.com
+ (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
+ id us-mta-145-X-ULz8ujMKe83rwQsvw4Fw-1; Fri, 12 Aug 2022 05:10:10 -0400
+X-MC-Unique: X-ULz8ujMKe83rwQsvw4Fw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R881e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
+ MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=5; SR=0;
+ TI=SMTPD_---0VM17qn1_1660295406
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+ fp:SMTPD_---0VM17qn1_1660295406) by smtp.aliyun-inc.com;
+ Fri, 12 Aug 2022 17:10:07 +0800
+From: Jingbo Xu <jefflexu@linux.alibaba.com>
+To: dhowells@redhat.com,
+	linux-cachefs@redhat.com
+Date: Fri, 12 Aug 2022 17:10:05 +0800
+Message-Id: <20220812091005.65540-1-jefflexu@linux.alibaba.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,8 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [GIT PULL]
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [Linux-cachefs] [PATCH] cachefiles: support multiple daemons
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,9 +88,7 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: jlayton@kernel.org, linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org, torvalds@linux-foundation.org
-MIME-Version: 1.0
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
@@ -113,18 +97,73 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Tue, 09 Aug 2022 14:27:25 +0100:
+Currently CacheFiles can work in either the original mode caching for
+network filesystems, or on-demand mode for container scenarios. Due to
+the limit of singleton daemon, these two modes can not co-exist.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git tags/fscache-fixes-20220809
+The current implementation can already work well in multiple daemon
+mode. This patch only removes the explicit limitation, and thus enabling
+the multiple daemon mdoe.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/15205c2829ca2cbb5ece5ceaafe1171a8470e62b
+Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+---
+PS:
+Currently all filessytems using fscache (including network filesystems
+and erofs) call fscache_acquire_volume() with @cache_name is NULL, and
+thus they will be bound to the first registered cache. In this case, if
+the first registered cache is in the original mode, mounting erofs will
+fail since the boudn cache is not in on-demand mode.
 
-Thank you!
+This can be fixed by specifying the name of the cache to be bound when
+calling fscache_acquire_volume(). Or adds a flag field to
+fscache_acquire_volume(), specifying if the caller wants to bind a cache
+in on-demand mode or not.
 
+---
+ fs/cachefiles/daemon.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
+
+diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
+index aa4efcabb5e3..a4f70516d250 100644
+--- a/fs/cachefiles/daemon.c
++++ b/fs/cachefiles/daemon.c
+@@ -44,8 +44,6 @@ static int cachefiles_daemon_tag(struct cachefiles_cache *, char *);
+ static int cachefiles_daemon_bind(struct cachefiles_cache *, char *);
+ static void cachefiles_daemon_unbind(struct cachefiles_cache *);
+ 
+-static unsigned long cachefiles_open;
+-
+ const struct file_operations cachefiles_daemon_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.open		= cachefiles_daemon_open,
+@@ -95,16 +93,10 @@ static int cachefiles_daemon_open(struct inode *inode, struct file *file)
+ 	if (!capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
+-	/* the cachefiles device may only be open once at a time */
+-	if (xchg(&cachefiles_open, 1) == 1)
+-		return -EBUSY;
+-
+ 	/* allocate a cache record */
+ 	cache = kzalloc(sizeof(struct cachefiles_cache), GFP_KERNEL);
+-	if (!cache) {
+-		cachefiles_open = 0;
++	if (!cache)
+ 		return -ENOMEM;
+-	}
+ 
+ 	mutex_init(&cache->daemon_mutex);
+ 	init_waitqueue_head(&cache->daemon_pollwq);
+@@ -169,7 +161,6 @@ void cachefiles_put_unbind_pincount(struct cachefiles_cache *cache)
+ {
+ 	if (refcount_dec_and_test(&cache->unbind_pincount)) {
+ 		cachefiles_daemon_unbind(cache);
+-		cachefiles_open = 0;
+ 		kfree(cache);
+ 	}
+ }
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.24.4
 
 --
 Linux-cachefs mailing list
