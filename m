@@ -2,94 +2,86 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF205A9A88
-	for <lists+linux-cachefs@lfdr.de>; Thu,  1 Sep 2022 16:39:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25AFA5A9C76
+	for <lists+linux-cachefs@lfdr.de>; Thu,  1 Sep 2022 18:04:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662043142;
+	s=mimecast20190719; t=1662048294;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+HB0RrLjt7tFGcEyW7jIjOX3NfXYgZgFSH/gRc2UlfY=;
-	b=IEvK4/J5oXk9Kz9+5owWtodfhnAfYTP7brxVgVclyrp7Jn9ULgGVrX9zGNquuBI5jQZYJJ
-	qZSoppoB6vpFfHd5bO/HNVgB235HqDS4L65+FtCzWYrQyGYX1nzJ1BuU1Koj4PAuwgH1bi
-	vd0GFSGUetKpNCG1Pd17ijLbR5lrbgg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ZeK3vabssAG9urkhp+owNmC/k4vA9BX6jr6seyuutLM=;
+	b=D1XFy0VhedWJjRSPNE7orGCbx8BRMCzYM0ZIAYi/CS3nUkDLAAkuobnogGJfo8qI5H81Sr
+	qLEMU5tlDr+pEuoVTXoOPfiNwXmJ9HKW5qh3MNsISSINTSKClaJDOWKc9tgyFkFPqIddwZ
+	cNrTHoOeYqz3Z6igLlDSYISUrRZZiTo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-189--qhRhERWOluBw0Bhs-dHNQ-1; Thu, 01 Sep 2022 10:38:59 -0400
-X-MC-Unique: -qhRhERWOluBw0Bhs-dHNQ-1
+ us-mta-613-UusZsxykObOd8y3mVmwEaQ-1; Thu, 01 Sep 2022 12:04:51 -0400
+X-MC-Unique: UusZsxykObOd8y3mVmwEaQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A6883C0ED50;
-	Thu,  1 Sep 2022 14:38:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33A8A8032F1;
+	Thu,  1 Sep 2022 16:04:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D4224C819;
-	Thu,  1 Sep 2022 14:38:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D1AF8945D2;
+	Thu,  1 Sep 2022 16:04:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6A2641942685;
-	Thu,  1 Sep 2022 14:38:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2E52F1942685;
+	Thu,  1 Sep 2022 16:04:48 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0A3621946A5E for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  1 Sep 2022 14:37:57 +0000 (UTC)
+ ESMTP id 96D3C1946A5E for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  1 Sep 2022 16:04:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BA9E640B40C7; Thu,  1 Sep 2022 14:37:57 +0000 (UTC)
+ id 423C0400EA8F; Thu,  1 Sep 2022 16:04:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B67FA40CF8F2
- for <linux-cachefs@redhat.com>; Thu,  1 Sep 2022 14:37:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DFDF401014C
+ for <linux-cachefs@redhat.com>; Thu,  1 Sep 2022 16:04:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96D232999B50
- for <linux-cachefs@redhat.com>; Thu,  1 Sep 2022 14:37:57 +0000 (UTC)
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-142-gz4qiK3XNn6D5spQ-RxNRg-1; Thu, 01 Sep 2022 10:37:56 -0400
-X-MC-Unique: gz4qiK3XNn6D5spQ-RxNRg-1
-Received: by mail-il1-f199.google.com with SMTP id
- a14-20020a921a0e000000b002eb0baeeb1dso9198165ila.16
- for <linux-cachefs@redhat.com>; Thu, 01 Sep 2022 07:37:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=YJU/vQR1EJ3C3IcnNVoCPoODFux2m5Q7JvD1Ec/PfHo=;
- b=HYgTTQDDzCap9wQNbEw/2JiK91Jwuj58ZY8AwdWsIrduMje/xcRDINRVHz2G//Cg7i
- XFYujPXImjY1S5dJDYOx53wRVdmcsa0W1QRDWFktHfWFkUwAdDDZJz0k1r70cXUctErb
- YoF6yqCnOIN9de3eUOr0Zf+KzI+gZZ7ZZrNkv2k+vWtfyher23oEzwKo5mGm0XrUtvZF
- /vPqksER9LBrVGDvshaGkjvy8YosgRi5a7qwpfGziuLYxZLIU/OE5iPM2evxmUHd/tRs
- igQ2jk5hghz1FIGddtutsZtc9GleNGYaa/5HpEz12/T2WgnmxF2t3Z+sr1rE0DG8j4fA
- 5zvA==
-X-Gm-Message-State: ACgBeo2re97/5FvbnVlmDS6QMK7MOPqkt7uCvDU9oh9/l9BjhWt2m11c
- nvjiPuRs8tsCpPVggYkzXMjxSI97KorlokkjdmQV3tMvSdzcuHQDV6e+EraURq8i9SkiVzalHw2
- eBqnRXWVgK6OxunB1GjBrlVvKpfGbkOOAAdRGaQ==
-X-Received: by 2002:a05:6638:13d1:b0:346:dedb:d189 with SMTP id
- i17-20020a05663813d100b00346dedbd189mr17653889jaj.233.1662043075390; 
- Thu, 01 Sep 2022 07:37:55 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR513llk9iuqWXJITTtxjdQHFhSZVFOtByihlYs8vLz5q3G7MLJH9Jj2A+C/SwFdgTCoSCIS19p1w+OIpw+ZIYw=
-X-Received: by 2002:a05:6638:13d1:b0:346:dedb:d189 with SMTP id
- i17-20020a05663813d100b00346dedbd189mr17653873jaj.233.1662043074932; Thu, 01
- Sep 2022 07:37:54 -0700 (PDT)
-MIME-Version: 1.0
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C40B811E80
+ for <linux-cachefs@redhat.com>; Thu,  1 Sep 2022 16:04:47 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-493-ap82X5MfPH2uM5oq9kGP3Q-1; Thu, 01 Sep 2022 12:04:43 -0400
+X-MC-Unique: ap82X5MfPH2uM5oq9kGP3Q-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 90F77B8229E;
+ Thu,  1 Sep 2022 16:04:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78160C433C1;
+ Thu,  1 Sep 2022 16:04:38 +0000 (UTC)
+Message-ID: <e0aa66ebb22de9c0c59eeb6caa26fb2825a7e4f3.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: David Wysochanski <dwysocha@redhat.com>
+Date: Thu, 01 Sep 2022 12:04:37 -0400
+In-Reply-To: <CALF+zO=BktYxwrw9aqt=8vBxS1-9sQ4GzZL5gnyP+r+jUR_8Yg@mail.gmail.com>
 References: <20220901004850.1431412-1-dwysocha@redhat.com>
  <20220901004850.1431412-4-dwysocha@redhat.com>
  <9b11abb44b580f4cb99b0758125d0c29360c1a6b.camel@kernel.org>
  <CALF+zO=BktYxwrw9aqt=8vBxS1-9sQ4GzZL5gnyP+r+jUR_8Yg@mail.gmail.com>
-In-Reply-To: <CALF+zO=BktYxwrw9aqt=8vBxS1-9sQ4GzZL5gnyP+r+jUR_8Yg@mail.gmail.com>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Thu, 1 Sep 2022 10:37:18 -0400
-Message-ID: <CALF+zO=iLenkCwdn6XHFQzYTKE2DcM5uakKjH8sVkrFo910Z6Q@mail.gmail.com>
-To: Jeff Layton <jlayton@kernel.org>
+User-Agent: Evolution 3.44.4 (3.44.4-1.fc36)
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Subject: Re: [Linux-cachefs] [PATCH v4 3/3] NFS: Convert buffered read paths
  to use netfs when fscache is enabled
@@ -117,14 +109,13 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
->
+On Thu, 2022-09-01 at 09:38 -0400, David Wysochanski wrote:
 > On Thu, Sep 1, 2022 at 8:45 AM Jeff Layton <jlayton@kernel.org> wrote:
-> >
+> > 
 > > On Wed, 2022-08-31 at 20:48 -0400, Dave Wysochanski wrote:
 > > > Convert the NFS buffered read code paths to corresponding netfs APIs,
 > > > but only when fscache is configured and enabled.
-> > >
+> > > 
 > > > The netfs API defines struct netfs_request_ops which must be filled
 > > > in by the network filesystem.  For NFS, we only need to define 5 of
 > > > the functions, the main one being the issue_read() function.
@@ -138,7 +129,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > contains a start and a length (both in bytes), and assumes the underlying
 > > > netfs will return a either an error on the whole region, or the number
 > > > of bytes successfully read.
-> > >
+> > > 
 > > > The NFS IO path is page based and the main APIs are the pgio APIs defined
 > > > in pagelist.c.  For the pgio APIs, there is no way for the caller to
 > > > know how many RPCs will be sent and how the pages will be broken up
@@ -157,9 +148,9 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > final RPC completion.  If this is the last RPC, then call into
 > > > netfs_subreq_terminated() with the final error value or the number
 > > > of bytes transferred.
-> > >
+> > > 
 > > > Link: https://lore.kernel.org/linux-nfs/9cfd5bc3cfc6abc2d3316b0387222e708d67f595.camel@hammerspace.com/
-> > >
+> > > 
 > > > Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
 > > > ---
 > > >  fs/nfs/fscache.c         | 219 +++++++++++++++++++++++----------------
@@ -171,7 +162,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > >  include/linux/nfs_page.h |   3 +
 > > >  include/linux/nfs_xdr.h  |   3 +
 > > >  8 files changed, 245 insertions(+), 145 deletions(-)
-> > >
+> > > 
 > > > diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
 > > > index a6fc1c8b6644..85f8251a608a 100644
 > > > --- a/fs/nfs/fscache.c
@@ -183,13 +174,13 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +#include <linux/xarray.h>
 > > > +#include <linux/fscache.h>
 > > > +#include <linux/netfs.h>
-> > >
+> > > 
 > > >  #include "internal.h"
 > > >  #include "iostat.h"
 > > > @@ -235,112 +238,148 @@ void nfs_fscache_release_file(struct inode *inode, struct file *filp)
 > > >       fscache_unuse_cookie(cookie, &auxdata, &i_size);
 > > >  }
-> > >
+> > > 
 > > > -/*
 > > > - * Fallback page reading interface.
 > > > - */
@@ -225,7 +216,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +
 > > > +     return 0;
 > > >  }
-> > >
+> > > 
 > > > -/*
 > > > - * Fallback page writing interface.
 > > > - */
@@ -259,7 +250,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > -     return ret;
 > > > +     put_nfs_open_context(rreq->netfs_priv);
 > > >  }
-> > >
+> > > 
 > > > -/*
 > > > - * Retrieve a page from fscache
 > > > - */
@@ -270,7 +261,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +     return fscache_begin_read_operation(&rreq->cache_resources,
 > > > +                                         netfs_i_cookie(&NFS_I(rreq->inode)->netfs));
 > > > +}
-> > >
+> > > 
 > > > -     trace_nfs_fscache_read_page(inode, page);
 > > > -     if (PageChecked(page)) {
 > > > -             ClearPageChecked(page);
@@ -289,7 +280,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +     spin_lock_init(&netfs->lock);
 > > > +     return netfs;
 > > > +}
-> > >
+> > > 
 > > > -     ret = fscache_fallback_read_page(inode, page);
 > > > -     if (ret < 0) {
 > > > -             nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_FAIL);
@@ -336,7 +327,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +     nfs_pageio_complete_read(&pgio);
 > > > +     nfs_netfs_put(pgio.pg_netfs);
 > > > +}
-> > >
+> > > 
 > > > -     /* Read completed synchronously */
 > > > -     nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_READ_OK);
 > > > -     SetPageUptodate(page);
@@ -356,7 +347,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +     netfs->rpc_byte_count += hdr->args.count;
 > > > +     spin_unlock(&netfs->lock);
 > > >  }
-> > >
+> > > 
 > > > -/*
 > > > - * Store a newly fetched page in fscache.  We can be certain there's no page
 > > > - * stored in the cache as yet otherwise we would've read it from there.
@@ -366,7 +357,7 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > >  {
 > > > -     int ret;
 > > > +     struct nfs_netfs_io_data        *netfs = hdr->netfs;
-> > >
+> > > 
 > > > -     trace_nfs_fscache_write_page(inode, page);
 > > > +     if (!netfs)
 > > > +             return;
@@ -390,12 +381,12 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +
 > > > +     if (!netfs)
 > > > +             return;
-> > >
+> > > 
 > > > -     ret = fscache_fallback_write_page(inode, page, true);
 > > > +     sreq = netfs->sreq;
 > > > +     if (test_bit(NFS_IOHDR_EOF, &hdr->flags))
 > > > +             __set_bit(NETFS_SREQ_CLEAR_TAIL, &sreq->flags);
-> > >
+> > > 
 > > > -     if (ret != 0) {
 > > > -             nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_WRITTEN_FAIL);
 > > > -             nfs_inc_fscache_stats(inode, NFSIOS_FSCACHE_PAGES_UNCACHED);
@@ -411,19 +402,19 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > > > +     /* Only the last RPC completion should call netfs_subreq_terminated() */
 > > > +     if (atomic_dec_and_test(&netfs->rpcs) &&
 > > > +         (netfs->rpc_byte_count >= sreq->len)) {
-> >
+> > 
 > > I don't quite understand the point of the rpc_byte_count. I guess this
 > > starts out being a total of the requested bytes in the read, and we
 > > decrement the number of bytes in the replies.
-> >
+> > 
 > > This should always be a value that is equal to or larger than the
 > > sreq->len. Why is it necessary to track that, instead of just the number
 > > of RPCs?
-> >
->
+> > 
+> 
 > As far as I know there's nothing stopping the count of RPCs from going to 0
 > before you end up sending all the RPCs.
->
+> 
 > Example:  Suppose for a single netfs subreq you can get two NFS
 > RPCs that both need to complete before the netfs subreq completes.
 > As far as I know you could get the scenario of:
@@ -431,21 +422,23 @@ On Thu, Sep 1, 2022 at 9:38 AM David Wysochanski <dwysocha@redhat.com> wrote:
 > receive RPC1 (rpcs == 0)
 > send RPC2
 > receive RPC2
->
->
+> 
 
-I thought of an alternative to the rpc_byte_count but did not implement it.
+Ok, I get it now, thanks.
 
-I'm pretty sure I could have a flag that indicated all RPCs had been sent,
-and set this at the bottom of nfs_netfs_issue_read().  Then the logic gating
-the call to netfs_subreq_terminated() would become:
+Why does rpcs need to be atomic_t but rpc_byte_count doesn't? I'd move
+all of that handling inside the netfs->lock instead of bothering with
+atomic_t there. Still, that scheme seems a bit complex.
 
-if ((netfs->all_rpcs_sent && atomic_dec_and_test(&netfs->rpcs))
+Would it be possible to have the netfs refcount drive this? Make it so
+that when the last reference to the netfs object is put, that you call
+netfs_subreq_terminated and then free it. That could eliminate a couple
+of fields in nfs_netfs_io_data too. Fewer moving parts is better.
 
-Would that be clearer/cleaner?
+You already hold an extra reference to "netfs" all the way through to
+the end of issue_read. I *think* by then, all of the initial sends
+should be done, no? If so, then you needn't worry about the race above.
 
-
->
 > > > +             netfs_subreq_terminated(sreq, netfs->error ?: netfs->transferred, false);
 > > > +             nfs_netfs_put(netfs);
 > > > +             hdr->netfs = NULL;
@@ -467,7 +460,7 @@ Would that be clearer/cleaner?
 > > > @@ -34,6 +34,44 @@ struct nfs_fscache_inode_auxdata {
 > > >       u64     change_attr;
 > > >  };
-> > >
+> > > 
 > > > +struct nfs_netfs_io_data {
 > > > +     refcount_t                      refcount;
 > > > +     struct netfs_io_subrequest      *sreq;
@@ -512,7 +505,7 @@ Would that be clearer/cleaner?
 > > > @@ -45,43 +83,17 @@ extern void nfs_fscache_clear_inode(struct inode *);
 > > >  extern void nfs_fscache_open_file(struct inode *, struct file *);
 > > >  extern void nfs_fscache_release_file(struct inode *, struct file *);
-> > >
+> > > 
 > > > -extern int __nfs_fscache_read_page(struct inode *, struct page *);
 > > > -extern void __nfs_fscache_write_page(struct inode *, struct page *);
 > > > -
@@ -529,7 +522,7 @@ Would that be clearer/cleaner?
 > > > +     fscache_note_page_release(netfs_i_cookie(&NFS_I(folio->mapping->host)->netfs));
 > > >       return true;
 > > >  }
-> > >
+> > > 
 > > > -/*
 > > > - * Retrieve a page from an inode data storage object.
 > > > - */
@@ -564,7 +557,7 @@ Would that be clearer/cleaner?
 > > > -}
 > > > -static inline void nfs_fscache_write_page(struct inode *inode, struct page *page) {}
 > > >  static inline void nfs_fscache_invalidate(struct inode *inode, int flags) {}
-> > >
+> > > 
 > > >  static inline const char *nfs_server_fscache_state(struct nfs_server *server)
 > > > diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
 > > > index aa2aec785ab5..a0af3518d8db 100644
@@ -578,6 +571,11 @@ Would that be clearer/cleaner?
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     netfs_inode_init(&nfsi->netfs, &nfs_netfs_ops);
 > > >  #endif
+
+Maybe make a nfs_netfs_init_init that compiles out when
+CONFIG_NFS_FSCACHE isn't defined. Some ifdef'ery is OK, but it's nice to
+avoid littering the code with it if you can.
+
 > > >       return VFS_I(nfsi);
 > > >  }
 > > > diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
@@ -596,7 +594,7 @@ Would that be clearer/cleaner?
 > > >  extern void nfs_start_io_read(struct inode *inode);
 > > >  extern void nfs_end_io_read(struct inode *inode);
 > > > @@ -482,9 +486,14 @@ extern int nfs4_get_rootfh(struct nfs_server *server, struct nfs_fh *mntfh, bool
-> > >
+> > > 
 > > >  struct nfs_pgio_completion_ops;
 > > >  /* read.c */
 > > > +extern const struct nfs_pgio_completion_ops nfs_async_read_completion_ops;
@@ -609,7 +607,7 @@ Would that be clearer/cleaner?
 > > > +extern void nfs_pageio_complete_read(struct nfs_pageio_descriptor *pgio);
 > > >  extern void nfs_read_prepare(struct rpc_task *task, void *calldata);
 > > >  extern void nfs_pageio_reset_read_mds(struct nfs_pageio_descriptor *pgio);
-> > >
+> > > 
 > > > diff --git a/fs/nfs/pagelist.c b/fs/nfs/pagelist.c
 > > > index 317cedfa52bf..600989332a6f 100644
 > > > --- a/fs/nfs/pagelist.c
@@ -619,9 +617,9 @@ Would that be clearer/cleaner?
 > > >  #include "pnfs.h"
 > > >  #include "nfstrace.h"
 > > > +#include "fscache.h"
-> > >
+> > > 
 > > >  #define NFSDBG_FACILITY              NFSDBG_PAGECACHE
-> > >
+> > > 
 > > > @@ -68,6 +69,12 @@ void nfs_pgheader_init(struct nfs_pageio_descriptor *desc,
 > > >       hdr->good_bytes = mirror->pg_count;
 > > >       hdr->io_completion = desc->pg_io_completion;
@@ -643,7 +641,7 @@ Would that be clearer/cleaner?
 > > > +     desc->pg_netfs = NULL;
 > > > +#endif
 > > >       desc->pg_bsize = bsize;
-> > >
+> > > 
 > > >       desc->pg_mirror_count = 1;
 > > > @@ -940,6 +950,7 @@ int nfs_generic_pgio(struct nfs_pageio_descriptor *desc,
 > > >       /* Set up the argument struct */
@@ -654,7 +652,7 @@ Would that be clearer/cleaner?
 > > >  }
 > > >  EXPORT_SYMBOL_GPL(nfs_generic_pgio);
 > > > @@ -1360,6 +1371,9 @@ int nfs_pageio_resend(struct nfs_pageio_descriptor *desc,
-> > >
+> > > 
 > > >       desc->pg_io_completion = hdr->io_completion;
 > > >       desc->pg_dreq = hdr->dreq;
 > > > +#ifdef CONFIG_NFS_FSCACHE
@@ -668,30 +666,30 @@ Would that be clearer/cleaner?
 > > > --- a/fs/nfs/read.c
 > > > +++ b/fs/nfs/read.c
 > > > @@ -30,7 +30,7 @@
-> > >
+> > > 
 > > >  #define NFSDBG_FACILITY              NFSDBG_PAGECACHE
-> > >
+> > > 
 > > > -static const struct nfs_pgio_completion_ops nfs_async_read_completion_ops;
 > > > +const struct nfs_pgio_completion_ops nfs_async_read_completion_ops;
 > > >  static const struct nfs_rw_ops nfs_rw_read_ops;
-> > >
+> > > 
 > > >  static struct kmem_cache *nfs_rdata_cachep;
 > > > @@ -74,7 +74,7 @@ void nfs_pageio_init_read(struct nfs_pageio_descriptor *pgio,
 > > >  }
 > > >  EXPORT_SYMBOL_GPL(nfs_pageio_init_read);
-> > >
+> > > 
 > > > -static void nfs_pageio_complete_read(struct nfs_pageio_descriptor *pgio)
 > > > +void nfs_pageio_complete_read(struct nfs_pageio_descriptor *pgio)
 > > >  {
 > > >       struct nfs_pgio_mirror *pgm;
 > > >       unsigned long npages;
 > > > @@ -110,20 +110,25 @@ EXPORT_SYMBOL_GPL(nfs_pageio_reset_read_mds);
-> > >
+> > > 
 > > >  static void nfs_readpage_release(struct nfs_page *req, int error)
 > > >  {
 > > > -     struct inode *inode = d_inode(nfs_req_openctx(req)->dentry);
 > > >       struct page *page = req->wb_page;
-> > >
+> > > 
 > > > -     dprintk("NFS: read done (%s/%llu %d@%lld)\n", inode->i_sb->s_id,
 > > > -             (unsigned long long)NFS_FILEID(inode), req->wb_bytes,
 > > > -             (long long)req_offset(req));
@@ -713,11 +711,15 @@ Would that be clearer/cleaner?
 > > > +#else
 > > >               unlock_page(page);
 > > > +#endif
+
+This would look nicer in a little helper that compiles away to a no-op
+when fscache isn't compiled in.
+
 > > >       }
 > > > +
 > > >       nfs_release_request(req);
 > > >  }
-> > >
+> > > 
 > > > @@ -177,6 +182,10 @@ static void nfs_read_completion(struct nfs_pgio_header *hdr)
 > > >               nfs_list_remove_request(req);
 > > >               nfs_readpage_release(req, error);
@@ -725,6 +727,10 @@ Would that be clearer/cleaner?
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     nfs_netfs_read_completion(hdr);
 > > > +#endif
+
+Instead of doing this, fix it so that this is a no-op when
+CONFIG_NFS_FSCACHE isn't defined. 
+
 > > > +
 > > >  out:
 > > >       hdr->release(hdr);
@@ -736,13 +742,16 @@ Would that be clearer/cleaner?
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     nfs_netfs_read_initiate(hdr);
 > > > +#endif
+
+...and here.
+
 > > >       trace_nfs_initiate_read(hdr);
 > > >  }
-> > >
+> > > 
 > > > @@ -202,7 +214,7 @@ nfs_async_read_error(struct list_head *head, int error)
 > > >       }
 > > >  }
-> > >
+> > > 
 > > > -static const struct nfs_pgio_completion_ops nfs_async_read_completion_ops = {
 > > > +const struct nfs_pgio_completion_ops nfs_async_read_completion_ops = {
 > > >       .error_cleanup = nfs_async_read_error,
@@ -751,17 +760,20 @@ Would that be clearer/cleaner?
 > > > @@ -219,6 +231,9 @@ static int nfs_readpage_done(struct rpc_task *task,
 > > >       if (status != 0)
 > > >               return status;
-> > >
+> > > 
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     nfs_netfs_read_done(hdr);
 > > > +#endif
+
+...and here.
+
 > > >       nfs_add_stats(inode, NFSIOS_SERVERREADBYTES, hdr->res.count);
 > > >       trace_nfs_readpage_done(task, hdr);
-> > >
+> > > 
 > > > @@ -294,12 +309,6 @@ nfs_pageio_add_page(struct nfs_pageio_descriptor *pgio,
-> > >
+> > > 
 > > >       aligned_len = min_t(unsigned int, ALIGN(len, rsize), PAGE_SIZE);
-> > >
+> > > 
 > > > -     if (!IS_SYNC(page->mapping->host)) {
 > > > -             error = nfs_fscache_read_page(page->mapping->host, page);
 > > > -             if (error == 0)
@@ -783,7 +795,7 @@ Would that be clearer/cleaner?
 > > > @@ -355,6 +362,12 @@ int nfs_read_folio(struct file *file, struct folio *folio)
 > > >       if (NFS_STALE(inode))
 > > >               goto out_unlock;
-> > >
+> > > 
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     if (netfs_inode(inode)->cache) {
 > > > +             ret = netfs_read_folio(file, folio);
@@ -795,7 +807,7 @@ Would that be clearer/cleaner?
 > > >               ctx = nfs_find_open_context(inode, NULL, FMODE_READ);
 > > > @@ -368,8 +381,10 @@ int nfs_read_folio(struct file *file, struct folio *folio)
 > > >                            &nfs_async_read_completion_ops);
-> > >
+> > > 
 > > >       ret = nfs_pageio_add_page(&pgio, ctx, page);
 > > > -     if (ret)
 > > > -             goto out;
@@ -803,7 +815,7 @@ Would that be clearer/cleaner?
 > > > +             put_nfs_open_context(ctx);
 > > > +             goto out_unlock;
 > > > +     }
-> > >
+> > > 
 > > >       nfs_pageio_complete_read(&pgio);
 > > >       ret = pgio.pg_error < 0 ? pgio.pg_error : 0;
 > > > @@ -378,12 +393,12 @@ int nfs_read_folio(struct file *file, struct folio *folio)
@@ -825,7 +837,7 @@ Would that be clearer/cleaner?
 > > > @@ -405,6 +420,13 @@ void nfs_readahead(struct readahead_control *ractl)
 > > >       if (NFS_STALE(inode))
 > > >               goto out;
-> > >
+> > > 
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     if (netfs_inode(inode)->cache) {
 > > > +             netfs_readahead(ractl);
@@ -848,7 +860,7 @@ Would that be clearer/cleaner?
 > > > +     void                    *pg_netfs;
 > > > +#endif
 > > >       unsigned int            pg_bsize;       /* default bsize for mirrors */
-> > >
+> > > 
 > > >       u32                     pg_mirror_count;
 > > > diff --git a/include/linux/nfs_xdr.h b/include/linux/nfs_xdr.h
 > > > index e86cf6642d21..e196ef595908 100644
@@ -861,13 +873,17 @@ Would that be clearer/cleaner?
 > > > +#ifdef CONFIG_NFS_FSCACHE
 > > > +     void                    *netfs;
 > > > +#endif
-> > >
+> > > 
 > > >       int                     pnfs_error;
 > > >       int                     error;          /* merge with pnfs_error */
-> >
+> > 
 > > --
 > > Jeff Layton <jlayton@kernel.org>
-> >
+> > 
+> 
+
+-- 
+Jeff Layton <jlayton@kernel.org>
 
 --
 Linux-cachefs mailing list
