@@ -1,82 +1,59 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D854F5A86DC
-	for <lists+linux-cachefs@lfdr.de>; Wed, 31 Aug 2022 21:39:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4873E5A8AD8
+	for <lists+linux-cachefs@lfdr.de>; Thu,  1 Sep 2022 03:36:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661974780;
+	s=mimecast20190719; t=1661996194;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=z0JyHy/LcLn2veEC5qKoF6M5jOr1uAvbOLv2rjCzPoI=;
-	b=g8WoOBSvPfvwWcwuFOZBmiKxP/T34hu6FsakkNUr+uwFKVwXL30H9V/NenM07QIhTSd7+i
-	bxUq9HqQIG4nlqML8bvTfQh1M4Lz5Qx26yR5PcBx7EzY9UJMrtPTy+hHPqfkFA/ish7Cxa
-	3V4dkFxW5KJvdy4yDbVGyjxK+ebBT2s=
+	bh=zflRhY05s4edYnMtKVzQpQZjU2bonHaM5+KaBVZi3zw=;
+	b=ICk5FqJ0Rjxn4Snygd9fOdty7us8U0KiIt3gD3gL19M4zer+eLe43wx/EqK7KmI0tOlZpb
+	24h1Ia3s/9DBvAYEoiD2mLNYQ1L2XevR1rF/totz0nlJqHH2XqqZOm2vo0tRU7zeWjWwTE
+	o2QhgFe3NoFk1jTUH/5DWNxHzg5fSbM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-208-Yigysb0ZOLe1jqQosw6vyg-1; Wed, 31 Aug 2022 15:39:40 -0400
-X-MC-Unique: Yigysb0ZOLe1jqQosw6vyg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-19-o8tkr0vNPPmoloJiOrkMwA-1; Wed, 31 Aug 2022 21:36:31 -0400
+X-MC-Unique: o8tkr0vNPPmoloJiOrkMwA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D56F18188A2;
-	Wed, 31 Aug 2022 19:39:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02C04185A7B2;
+	Thu,  1 Sep 2022 01:36:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C317B40E7F2B;
-	Wed, 31 Aug 2022 19:39:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E65DB492C3B;
+	Thu,  1 Sep 2022 01:36:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 108CB1946A6F;
-	Wed, 31 Aug 2022 19:39:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C116D1946A4B;
+	Thu,  1 Sep 2022 01:36:30 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4CFD31946A40 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 31 Aug 2022 18:58:26 +0000 (UTC)
+ ESMTP id E17851946A40 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  1 Sep 2022 00:48:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3985A2166B2A; Wed, 31 Aug 2022 18:58:26 +0000 (UTC)
+ id D30A0403349; Thu,  1 Sep 2022 00:48:52 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 350802166B26
- for <linux-cachefs@redhat.com>; Wed, 31 Aug 2022 18:58:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18EE2101A54E
- for <linux-cachefs@redhat.com>; Wed, 31 Aug 2022 18:58:26 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-607-dd-4RX4_O5GysrJqQWYgkg-1; Wed,
- 31 Aug 2022 14:58:23 -0400
-X-MC-Unique: dd-4RX4_O5GysrJqQWYgkg-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1oTSuq-005MIW-SL; Wed, 31 Aug 2022 18:58:20 +0000
-Date: Wed, 31 Aug 2022 19:58:20 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <Yw+vTFdk4gAoNR27@casper.infradead.org>
-References: <20220831005053.1287363-1-dwysocha@redhat.com>
- <20220831005053.1287363-4-dwysocha@redhat.com>
- <2c4f4fae20c702e805162f7fa780fc09f7f05aaa.camel@kernel.org>
+Received: from dwysocha.rdu.csb (unknown [10.22.8.98])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C0D8492C3B;
+ Thu,  1 Sep 2022 00:48:52 +0000 (UTC)
+From: Dave Wysochanski <dwysocha@redhat.com>
+To: Anna Schumaker <anna.schumaker@netapp.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ David Howells <dhowells@redhat.com>
+Date: Wed, 31 Aug 2022 20:48:47 -0400
+Message-Id: <20220901004850.1431412-1-dwysocha@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <2c4f4fae20c702e805162f7fa780fc09f7f05aaa.camel@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [PATCH v3 3/3] NFS: Convert buffered read paths
- to use netfs when fscache is enabled
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [Linux-cachefs] [PATCH v4 0/3] Convert NFS with fscache to the
+ netfs API
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,93 +65,111 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org,
- Trond Myklebust <trond.myklebust@hammerspace.com>, linux-cachefs@redhat.com,
- Benjamin Maynard <benmaynard@google.com>,
- Anna Schumaker <anna.schumaker@netapp.com>
+Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
+ Benjamin Maynard <benmaynard@google.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 31, 2022 at 02:21:23PM -0400, Jeff Layton wrote:
-> > +static int nfs_netfs_init_request(struct netfs_io_request *rreq, struct file *file)
-> >  {
-> > -	struct netfs_cache_resources cres;
-> > -	struct fscache_cookie *cookie = netfs_i_cookie(&NFS_I(inode)->netfs);
-> > -	struct iov_iter iter;
-> > -	struct bio_vec bvec[1];
-> > -	int ret;
-> > -
-> > -	memset(&cres, 0, sizeof(cres));
-> > -	bvec[0].bv_page		= page;
-> > -	bvec[0].bv_offset	= 0;
-> > -	bvec[0].bv_len		= PAGE_SIZE;
-> > -	iov_iter_bvec(&iter, READ, bvec, ARRAY_SIZE(bvec), PAGE_SIZE);
-> > -
-> > -	ret = fscache_begin_read_operation(&cres, cookie);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	ret = fscache_read(&cres, page_offset(page), &iter, NETFS_READ_HOLE_FAIL,
-> > -			   NULL, NULL);
-> > -	fscache_end_operation(&cres);
-> > -	return ret;
-> > +	struct nfs_open_context *ctx;
-> > +
-> > +	if (file == NULL) {
-> > +		ctx = nfs_find_open_context(rreq->inode, NULL, FMODE_READ);
-> > +		if (!ctx)
-> > +			return -ENOMEM;
-> 
-> That error return seems like an odd choice. A NULL return here just
-> means that we don't have a suitable open file, not that we're out of
-> memory.
-> 
-> I think a NULL file pointer from netfs can only happen in readahead, and
-> the comments over readahead_control say:
-> 
->  * @file: The file, used primarily by network filesystems for authentication.
->  *        May be NULL if invoked internally by the filesystem.
-> 
-> AFAICT though, only f2fs and ext4 invoke it internally.
-> 
-> Maybe instead of doing this, it ought to just throw a WARN if we get a
-> NULL file pointer and return -EINVAL or something?
-> 
-> Willy, am I correct on when ractl->file can be NULL?
+This patchset converts NFS with fscache non-direct READ IO paths to
+use the netfs API with a non-invasive approach.  The existing NFS pgio
+layer does not need extensive changes, and is the best way so far I've
+found to address Trond's concerns about modifying the IO path [1] as
+well as only enabling netfs when fscache is configured and enabled [2].
+I have not attempted performance comparisions to address Chuck
+Lever's concern [3] because we are not converting the non-fscache
+enabled NFS IO paths to netfs.
 
-Yes.  Just to quickly verify it:
+The main patch to be reviewed is patch #3 which converts nfs_read_folio
+and nfs_readahead.
 
-$ git grep -w DEFINE_READAHEAD
-fs/ext4/verity.c:       DEFINE_READAHEAD(ractl, NULL, NULL, inode->i_mapping, index);
-fs/f2fs/file.c: DEFINE_READAHEAD(ractl, NULL, NULL, inode->i_mapping, page_idx);
-fs/f2fs/verity.c:       DEFINE_READAHEAD(ractl, NULL, NULL, inode->i_mapping, index);
-fs/netfs/buffered_read.c:       DEFINE_READAHEAD(ractl, file, NULL, mapping, index);
-fs/verity/enable.c:     DEFINE_READAHEAD(ractl, file, ra, file->f_mapping, index);
-include/linux/pagemap.h:#define DEFINE_READAHEAD(ractl, f, r, m, i)                             \
-include/linux/pagemap.h:        DEFINE_READAHEAD(ractl, file, ra, mapping, index);
-include/linux/pagemap.h:        DEFINE_READAHEAD(ractl, file, ra, mapping, index);
-mm/filemap.c:   DEFINE_READAHEAD(ractl, file, &file->f_ra, mapping, folio->index);
-mm/filemap.c:   DEFINE_READAHEAD(ractl, file, ra, mapping, vmf->pgoff);
-mm/filemap.c:   DEFINE_READAHEAD(ractl, file, ra, file->f_mapping, vmf->pgoff);
-mm/internal.h:  DEFINE_READAHEAD(ractl, file, &file->f_ra, mapping, index);
+Changes since v3
+- PATCH2: Improve #ifdef readability; use VFS_I #define (Jeff Layton)
+- PATCH3: Fix Aug 30 kernel test robot <lkp@intel.com> compile warning due
+  to unusued 'sreq' variables in fscache.c (test build with W=1)
+- PATCH3: Simplify nfs_netfs_init_request (Jeff Layton, Matt Wilcox)
 
-Those two uses in pagemap.h are wrappers, so we need to check their
-callers too:
+The patches are fairly stable as evidenced with xfstests generic with
+various servers: hammerspace w/NFS4.2+fscache,
+NetApp(ontap9) NFSv4.1+fscache (other tests in progress)
+The known issues are as follows:
 
-$ git grep 'page_cache_\(a\)*sync_readahead'
-mm/filemap.c:           page_cache_sync_readahead(mapping, ra, filp, index,
-mm/khugepaged.c:                                page_cache_sync_readahead(mapping, &file->f_ra,
-(ignoring the ones inside filesystems)
+No major issues outstanding - the data corruption is unrelated to this
+patchset.  The known issues are as follows:
 
-So yes, they all pass in a real struct file.  I wouldn't even check
-whether the file pointer is NULL; just assume that it's not and the
-crash will be obvious to debug.
+1. Unit test setting rsize < readahead does not properly read from
+fscache but re-reads data from the NFS server
+* This will be fixed with another linux-cachefs [4] patch to resolve
+"Stop read optimisation when folio removed from pagecache"
+
+2. "Cache volume key already in use" after xfstest runs
+* xfstests (hammerspace with vers=4.2,fsc) shows the following on the
+console after some tests:
+"NFS: Cache volume key already in use (nfs,4.1,2,c50,cfe0100a,3,,,8000,100000,100000,bb8,ea60,7530,ea60,1)"
+* This may be fixed with another patch [4] that is in progress
+
+3. (RESOLVED) Hang
+
+4. (DEFERRED/UNRELATED) Data corruption seen with unit test where rsize < readahead
+* Confirmed unrelated to this patchset
+* Seen with vanilla 6.0-rc2 (did not occur on 5.19)
+* Not 100% reproducible (maybe 75% of the time)
+* NFS protocol version doesn't matter
+* First page is always fine, next 3 pages are not
+* Garbage data is coming over the wire from the NFS server
+because the NFS server file is garbage (the dd of the file from
+/tmp to NFS /mnt corrupts it).
+ mount -o vers=4.2,fsc,rsize=8192 127.0.0.1:/export /mnt
+ dd if=/dev/urandom of=/tmp/integrity-rsize-file1.bin bs=16k count=1
+ ./nfs-readahead.sh set /mnt 16384
+ dd if=/tmp/integrity-rsize-file1.bin of=/mnt/integrity-rsize-file1.bin bs=16k count=1
+ echo 3 > /proc/sys/vm/drop_caches
+ md5sum /mnt/integrity-rsize-file1.bin /tmp/integrity-rsize-file1.bin
+ md5sums don't match, MD5_NFS = 00eaf1a5bc1b3dfd54711db551619afa != MD5_LOCAL = e8d835c83ba1f1264869dc40673fa20c
+
+5. generic/127 triggers "Subreq overread" warning
+* just hit one time; did not stop test
+[ 4196.864176] run fstests generic/127 at 2022-08-31 17:29:38
+[ 5608.997945] ------------[ cut here ]------------
+[ 5609.000476] Subreq overread: R1c85d[0] 73728 > 70073 - 0
+
+
+The patchset is based on 6.0-rc3 and has been pushed to github at:
+https://github.com/DaveWysochanskiRH/kernel/commits/nfs-fscache-netfs
+
+[1] https://lore.kernel.org/linux-nfs/9cfd5bc3cfc6abc2d3316b0387222e708d67f595.camel@hammerspace.com/
+[2] https://lore.kernel.org/linux-nfs/da9200f1bded9b8b078a7aef227fd6b92eb028fb.camel@hammerspace.com/
+[3] https://marc.info/?l=linux-nfs&m=160597917525083&w=4
+[4] https://www.mail-archive.com/linux-cachefs@redhat.com/msg03043.html
+[5] https://marc.info/?l=linux-nfs&m=165962662200679&w=4
+
+Dave Wysochanski (3):
+  NFS: Rename readpage_async_filler to nfs_pageio_add_page
+  NFS: Add support for netfs in struct nfs_inode and Kconfig
+  NFS: Convert nfs_read_folio and nfs_readahead to netfs APIs
+
+ fs/nfs/Kconfig           |   1 +
+ fs/nfs/delegation.c      |   2 +-
+ fs/nfs/dir.c             |   2 +-
+ fs/nfs/fscache.c         | 191 ++++++++++++++++++---------------------
+ fs/nfs/fscache.h         |  77 ++++++++--------
+ fs/nfs/inode.c           |   8 +-
+ fs/nfs/internal.h        |  10 +-
+ fs/nfs/pagelist.c        |  14 +++
+ fs/nfs/pnfs.c            |  12 +--
+ fs/nfs/read.c            | 117 ++++++++----------------
+ fs/nfs/write.c           |   2 +-
+ include/linux/nfs_fs.h   |  19 +---
+ include/linux/nfs_page.h |   1 +
+ include/linux/nfs_xdr.h  |   1 +
+ 14 files changed, 210 insertions(+), 247 deletions(-)
+
+-- 
+2.31.1
 
 --
 Linux-cachefs mailing list
