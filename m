@@ -2,91 +2,74 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7075EF077
-	for <lists+linux-cachefs@lfdr.de>; Thu, 29 Sep 2022 10:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC025EF075
+	for <lists+linux-cachefs@lfdr.de>; Thu, 29 Sep 2022 10:29:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664440181;
+	s=mimecast20190719; t=1664440179;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=I2oTyYwsMv94bCORMi9spBwr/mnigzuMZqvUHECG9Qc=;
-	b=cH5YQqfG6HxaEi+CRpddwqjHGs4M2HNVC6V52R8pUYw5b0+aMjXAwAQQC2lIIuG2E4B/ZM
-	Kd7wdNT1+KwOfe2Xvi02ZAqBKCGg68u4mSEOoB/OVRYQ+fdpw4oV9BSWCUp7XZmAhusr2z
-	DuHK2oG3sMMa8yTzdcxq6gE35vtRzE8=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=RCkIGy7BeqIArME+VccA9I9IYyKQFpR3Qr78b2XZcNo=;
+	b=YeD9SojYlaY7Qky7DX5B9YXNPH3fiv3DEi5J6OgHkPKCl3rj1VbtP9nUrs4oC3zF/H07sP
+	3KPoyzrAwpGhvDwq6YjnrItU74jchRG+1PqRP0GPdr3Cfs/5ToFUFK0eqKSV3Q0JKuz2HO
+	TgY+vhvIpXOorTGFvcGn9nwKChnBUL0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-220-J-HnJQB3PK2VP5RQkRhF5w-1; Thu, 29 Sep 2022 04:29:37 -0400
-X-MC-Unique: J-HnJQB3PK2VP5RQkRhF5w-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-534-mui-eSviN16YyncJi6VMbw-1; Thu, 29 Sep 2022 04:29:37 -0400
+X-MC-Unique: mui-eSviN16YyncJi6VMbw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39D083817A6F;
-	Thu, 29 Sep 2022 08:29:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D172C86EB30;
+	Thu, 29 Sep 2022 08:29:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 30789492B04;
-	Thu, 29 Sep 2022 08:29:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 55771145BEE0;
+	Thu, 29 Sep 2022 08:29:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E6E8D1946A48;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2106B1946A48;
 	Thu, 29 Sep 2022 08:29:36 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ED1211946A4A for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 14 Sep 2022 09:14:32 +0000 (UTC)
+ ESMTP id 63E531946586 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 17 Sep 2022 09:59:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CEA0FC15BA5; Wed, 14 Sep 2022 09:14:32 +0000 (UTC)
+ id 4EE1C1121315; Sat, 17 Sep 2022 09:59:46 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CB2DEC15BA4
- for <linux-cachefs@redhat.com>; Wed, 14 Sep 2022 09:14:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 476841121314
+ for <linux-cachefs@redhat.com>; Sat, 17 Sep 2022 09:59:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2CD68027FD
- for <linux-cachefs@redhat.com>; Wed, 14 Sep 2022 09:14:32 +0000 (UTC)
-Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
- [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-591-3ccISQuIMFqjowuQzJ6lzQ-1; Wed, 14 Sep 2022 05:14:30 -0400
-X-MC-Unique: 3ccISQuIMFqjowuQzJ6lzQ-1
-Received: by mail-il1-f197.google.com with SMTP id
- c7-20020a056e020bc700b002e59be6ce85so9921047ilu.12
- for <linux-cachefs@redhat.com>; Wed, 14 Sep 2022 02:14:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date;
- bh=beK/RyAk6JMkokDhacR9sWsAak3KfcE5cJn8YM9YfXo=;
- b=m0UEIps12QPLqspbFD79nr7jIggnFccpN0/ZbUi/0EsbT0GSW46+toANMD2EmL+XLg
- RGTXVFIM/uC6GGoCAwySBqYQWEVUeA9EAIOLJmNvSWiQvfKpALoP1x0hOu5ZCF3c4jJ7
- nYJt4dO/wMLogu61xudLcakqscZ/DiCjhMU9n6nptfMHXl6HpW9wjZ+fV7Ca0ATHEon4
- jrPqPA6wbrmqFuYiDM8PW/5JZoKFo10HGqkDjbxuwoFU0OwJFDo2SHAzrOFRLpeT0cRP
- Itjkclht3/+6sNc92RD/GVOeEPILEl+azhqRjCbTuW7yeL6Vzmic2vawWITxAOK9zIBg
- JA6g==
-X-Gm-Message-State: ACgBeo1TRfiVlmHyHHzu1mFYctXleMy4jqYj9EsGR3VwSCmiUBdLmRZN
- bWY1e43VuSLMVovOYpA9gY7No6b4oGUewaCWEkPWfUNthScN
-X-Google-Smtp-Source: AA6agR4BRQZ9v+xAqQp9fF6gEOPwNPIxhbDfhFuSJ+t1B0A4HFpARmOh7n2fRvoiVl6/uF1rCG2iIIjphcYUjUZenyskQCJdBIZq
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D70A811E81
+ for <linux-cachefs@redhat.com>; Sat, 17 Sep 2022 09:59:46 +0000 (UTC)
+Received: from mail-m974.mail.163.com (mail-m974.mail.163.com
+ [123.126.97.4]) by relay.mimecast.com with ESMTP id
+ us-mta-582-wsZZ2Z7GO8CVAaO0HjoiOw-1; Sat, 17 Sep 2022 05:59:42 -0400
+X-MC-Unique: wsZZ2Z7GO8CVAaO0HjoiOw-1
+Received: from DESKTOP-CE2KKHI.localdomain (unknown [124.160.210.227])
+ by smtp4 (Coremail) with SMTP id HNxpCgDHeN_9liVjqKMmdw--.4980S2;
+ Sat, 17 Sep 2022 17:44:29 +0800 (CST)
+From: williamsukatube@163.com
+To: linux-cachefs@redhat.com,
+	linux-kernel@vger.kernel.org
+Date: Sat, 17 Sep 2022 17:44:27 +0800
+Message-Id: <20220917094427.4665-1-williamsukatube@163.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6638:4710:b0:35a:6372:3df0 with SMTP id
- cs16-20020a056638471000b0035a63723df0mr2213610jab.277.1663146870026; Wed, 14
- Sep 2022 02:14:30 -0700 (PDT)
-Date: Wed, 14 Sep 2022 02:14:30 -0700
-In-Reply-To: <000000000000f2b07b05d5dc87cc@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000065b65e05e89f8e72@google.com>
-From: syzbot <syzbot+5b129e8586277719bab3@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, linux-cachefs-bounces@redhat.com, 
- linux-cachefs-owner@redhat.com, linux-cachefs@redhat.com, 
- linux-kernel@vger.kernel.org, mudongliangabcd@gmail.com, nogikh@google.com, 
- syzkaller-bugs@googlegroups.com
+X-CM-TRANSID: HNxpCgDHeN_9liVjqKMmdw--.4980S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrAr18XrWrtry3uw4UJF4kCrg_yoWxGrXE9w
+ n7Cr4kurW5JFyxua4ftFs2q3Wjgw18Zr90vFs5tw1akFnxJa1xKanxJ345CF4ag3s7CFy8
+ XFyrtFyj9wnxGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRAxhd3UUUUU==
+X-Originating-IP: [124.160.210.227]
+X-CM-SenderInfo: xzlozx5dpv3yxdwxuvi6rwjhhfrp/xtbBSR1-g1aEEv4ynQAAs5
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -94,10 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Thu, 29 Sep 2022 08:29:35 +0000
-Subject: Re: [Linux-cachefs] [syzbot] general protection fault in
- fscache_free_cookie
+Subject: [Linux-cachefs] [PATCH -next] fscache: Remove duplicate include
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,21 +91,40 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
+Cc: William Dean <williamsukatube@163.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This bug is marked as fixed by commit:
-fscache: fix GPF in fscache_free_cookie
-But I can't find it in any tested tree for more than 90 days.
-Is it a correct commit? Please update it by replying:
-#syz fix: exact-commit-title
-Until then the bug is still considered open and
-new crashes with the same signature are ignored.
+From: William Dean <williamsukatube@163.com>
+
+In file: fs/fscache/io.c,
+'#include <linux/uio.h>' has included at line: 9,
+now it is duplicated include at line: 12, so delete duplicated include.
+
+Signed-off-by: William Dean <williamsukatube@163.com>
+---
+ fs/fscache/io.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/fs/fscache/io.c b/fs/fscache/io.c
+index 3af3b08a9bb3..a67c50efc133 100644
+--- a/fs/fscache/io.c
++++ b/fs/fscache/io.c
+@@ -9,7 +9,6 @@
+ #include <linux/uio.h>
+ #include <linux/bvec.h>
+ #include <linux/slab.h>
+-#include <linux/uio.h>
+ #include "internal.h"
+
+ /**
+--
+2.25.1
 
 --
 Linux-cachefs mailing list
