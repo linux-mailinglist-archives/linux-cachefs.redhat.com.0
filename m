@@ -2,97 +2,91 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B345F8B56
-	for <lists+linux-cachefs@lfdr.de>; Sun,  9 Oct 2022 14:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BB575FB318
+	for <lists+linux-cachefs@lfdr.de>; Tue, 11 Oct 2022 15:16:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665319808;
+	s=mimecast20190719; t=1665494184;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=b7NUJaTOJZ1ofyQK1+mUqV/0FG5sHde6V49EraHmoys=;
-	b=aemnOZ7VLW2g1NIs3SQ6V1eSmdmkkKwp0VzCbDMreQxCggyikaYqgSkbq7dr7kpwvvn9fO
-	c3iODTN/I8JRg5FZCZ6WogVD4im3vv5peDcwKJIKRQRAF8I11j9BdB/PR95DqHGGToKK+7
-	bQ+iaE5lKuH6lYAQyvnz3F7b6Frrhg8=
+	bh=Z0cM36Da5vNV1WiFwcJGndcE2hKsZTFS1vhKmpWd16w=;
+	b=E9IaR/j76EmJFoGdOgekOhdi9DwSqmoRZmm/UJ9CcwrpY1pjb9OyHG3DbqEU5wSZqbAl2b
+	ZMuo/pIGVoeuG0vLfdepFMXEhT22wrVA3lnG96gAg0TkHJtx8Yde6+isbzmK9Wbj093jk/
+	H4uEKv7XXruVz2Sp4SU9NAhK2Xi3F/4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-rzLEXy4LOCmHH82-akF9gg-1; Sun, 09 Oct 2022 08:50:05 -0400
-X-MC-Unique: rzLEXy4LOCmHH82-akF9gg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-325-fCl1Aa1VNfas7usGvIjIRA-1; Tue, 11 Oct 2022 09:16:21 -0400
+X-MC-Unique: fCl1Aa1VNfas7usGvIjIRA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 085A5800186;
-	Sun,  9 Oct 2022 12:50:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2504187B2AD;
+	Tue, 11 Oct 2022 13:16:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A16112166B4D;
-	Sun,  9 Oct 2022 12:50:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1AB7B477F6A;
+	Tue, 11 Oct 2022 13:16:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 550BF1946595;
-	Sun,  9 Oct 2022 12:50:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 01EE21946A45;
+	Tue, 11 Oct 2022 13:16:21 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E4D1C1946586 for <linux-cachefs@listman.corp.redhat.com>;
- Sun,  9 Oct 2022 12:50:01 +0000 (UTC)
+ ESMTP id 057E219465A0 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 11 Oct 2022 13:16:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 94AD7215CDB7; Sun,  9 Oct 2022 12:50:01 +0000 (UTC)
+ id DBFEE492B06; Tue, 11 Oct 2022 13:16:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CC952166B4D
- for <linux-cachefs@redhat.com>; Sun,  9 Oct 2022 12:50:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6802C800186
- for <linux-cachefs@redhat.com>; Sun,  9 Oct 2022 12:50:01 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D4635492B05
+ for <linux-cachefs@redhat.com>; Tue, 11 Oct 2022 13:16:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BAF6E1C0896B
+ for <linux-cachefs@redhat.com>; Tue, 11 Oct 2022 13:16:19 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-467-SVFyAO86NjqCcQzDg4rvjA-1; Sun, 09 Oct 2022 08:49:57 -0400
-X-MC-Unique: SVFyAO86NjqCcQzDg4rvjA-1
-Received: by mail-pg1-f176.google.com with SMTP id s206so8340101pgs.3
- for <linux-cachefs@redhat.com>; Sun, 09 Oct 2022 05:49:57 -0700 (PDT)
+ us-mta-392-VHO-DxvoOOOZbgbogA-2nA-1; Tue, 11 Oct 2022 09:16:18 -0400
+X-MC-Unique: VHO-DxvoOOOZbgbogA-2nA-1
+Received: by mail-oi1-f173.google.com with SMTP id m130so15804519oif.6
+ for <linux-cachefs@redhat.com>; Tue, 11 Oct 2022 06:16:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=P6urVoNrsZ3xK9TTBedmkBiGA8HxDh2mm40ljL3bOKM=;
- b=c471g1s1WRLLdaUd5O/nKdd2p9fgTfyyXcoPh0lTQo+CuPGeNC3Xbr5KmbYpFvQUX3
- 1ytpo7OjYVmwEd8e9CaLziPAcvcL8mqRN/D5RGGUIdtkNtWx4W0yjxv4GVJNZ1eQSYHx
- a0NxFknOLk5aIedvhos+QyUNtggUS2Gl71LkeMpR2Z2J39X/zX/zLFyDE/umN4cpS2m0
- zsaGqUjDCZRnHNvKwkXKXomQhUmz6pXsI2H/MvWlk1DoECktP0QGo8URSHhPFiXmDmKo
- GHScPu1IDUhS181/9w1BdwfANFrASq1NWG5STvji5rI9LlFHtUCxua4ceBzRyEPkDwHD
- +oQw==
-X-Gm-Message-State: ACrzQf2NjMtIm7iGyVhNUrehO26NSioFI9RQxHbLFqNJEry2KsswIA1s
- efOy0ZUaoSSbW1Is0TlijUP1qw==
-X-Google-Smtp-Source: AMsMyM6TMEJOGeopAX1WHu2EFpazDEUo6VXOzDLqfIE+spUe2oERt7fQpueMN3Vy3k3bUkjIoAqyLA==
-X-Received: by 2002:a05:6a00:18a6:b0:563:4655:2966 with SMTP id
- x38-20020a056a0018a600b0056346552966mr1883772pfh.1.1665319796431; 
- Sun, 09 Oct 2022 05:49:56 -0700 (PDT)
-Received: from [10.3.156.122] ([63.216.146.184])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=P0QJPhughD80u7ewLF/tLA+xOCDrl/cfryqlkNyAxbY=;
+ b=p4eWBBVsk20023Z52AxXHuYlVf46RoyPtMSMEVyijNwbnf3kAD0YqAr4V675R1OnP7
+ Wdpfnm6H34/bv7sD2waKU9pXdDAykbGDRRDGjAzUENXvHiyZ/jXiNU9OLPzdcsnlD/Y/
+ 8VPZLSWQdhf+yVohUtTnL46KHxbD8uHkmQ4W9Ac30PnyNNIXwdiemZN2P3ddhVnHGpR2
+ FDbgZUHVWo/BhmQO8bsD2vhheswMi2rpCPk7VqcHaYOgSaFowmOepEe0zcsAnU8tqbjK
+ 6NJZxc84WykMqW0eESfJAoBJoNOuZXlnRDYXgKVtTwx9VRNQUdraWVNk18nr5wXTGCG/
+ Je+A==
+X-Gm-Message-State: ACrzQf2/97+Hwp68hgSwpky5V+tjKf5laAdDHZoKcs8J4X01NXYAF77B
+ BMVH7Bg6FOtait59RjYBprpaGNx18Z26RIHO
+X-Google-Smtp-Source: AMsMyM6VuhiNMjdIO3SyvCAmXoE9oQdlr+6UO2h2kSoiH3hgKQ+xUOuHexT0ia7yWQdNOXMDI90tHA==
+X-Received: by 2002:a17:90a:d983:b0:20a:ec04:e028 with SMTP id
+ d3-20020a17090ad98300b0020aec04e028mr35546281pjv.122.1665494165504; 
+ Tue, 11 Oct 2022 06:16:05 -0700 (PDT)
+Received: from C02G705SMD6V.bytedance.net ([63.216.146.190])
  by smtp.gmail.com with ESMTPSA id
- n32-20020a634d60000000b0044e8d66ae05sm4537244pgl.22.2022.10.09.05.49.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Oct 2022 05:49:55 -0700 (PDT)
-Message-ID: <672939d2-e556-f9a5-d0f6-3f0b73edf0c9@bytedance.com>
-Date: Sun, 9 Oct 2022 20:49:49 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.0
-To: JeffleXu <jefflexu@linux.alibaba.com>, dhowells@redhat.com,
- xiang@kernel.org
-References: <20220818135204.49878-1-zhujia.zj@bytedance.com>
- <20220818135204.49878-4-zhujia.zj@bytedance.com>
- <206e172c-5ba0-1233-f46d-edb828df53ad@linux.alibaba.com>
+ d14-20020a170902654e00b00181f8523f60sm4773415pln.225.2022.10.11.06.16.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Oct 2022 06:16:05 -0700 (PDT)
 From: Jia Zhu <zhujia.zj@bytedance.com>
-In-Reply-To: <206e172c-5ba0-1233-f46d-edb828df53ad@linux.alibaba.com>
+To: dhowells@redhat.com,
+	xiang@kernel.org,
+	jefflexu@linux.alibaba.com
+Date: Tue, 11 Oct 2022 21:15:47 +0800
+Message-Id: <20221011131552.23833-1-zhujia.zj@bytedance.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -100,9 +94,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [External] Re: [RFC PATCH 3/5] cachefiles:
- resend an open request if the read request's object is closed
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [Linux-cachefs] [PATCH 0/5] Introduce daemon failover mechanism to
+ recover from crashing
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,185 +108,98 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgrlnKggMjAyMi8xMC84IDE3OjA1LCBKZWZmbGVYdSDlhpnpgZM6Cj4gCj4gCj4gT24gOC8xOC8y
-MiA5OjUyIFBNLCBKaWEgWmh1IHdyb3RlOgo+PiBXaGVuIGFuIGFub255bW91cyBmZCBpcyBjbG9z
-ZWQgYnkgdXNlciBkYWVtb24sIGlmIHRoZXJlIGlzIGEgbmV3IHJlYWQKPj4gcmVxdWVzdCBmb3Ig
-dGhpcyBmaWxlIGNvbWVzIHVwLCB0aGUgYW5vbnltb3VzIGZkIHNob3VsZCBiZSByZS1vcGVuZWQK
-Pj4gdG8gaGFuZGxlIHRoYXQgcmVhZCByZXF1ZXN0IHJhdGhlciB0aGFuIGZhaWwgaXQgZGlyZWN0
-bHkuCj4+Cj4+IDEuIEludHJvZHVjZSByZW9wZW5pbmcgc3RhdGUgZm9yIG9iamVjdHMgdGhhdCBh
-cmUgY2xvc2VkIGJ1dCBoYXZlCj4+ICAgICBpbmZsaWdodC9zdWJzZXF1ZW50IHJlYWQgcmVxdWVz
-dHMuCj4+IDIuIE5vIGxvbmdlciBmbHVzaCBSRUFEIHJlcXVlc3RzIGJ1dCBvbmx5IENMT1NFIHJl
-cXVlc3RzIHdoZW4gYW5vbnltb3VzCj4+ICAgICBmZCBpcyBjbG9zZWQuCj4+IDMuIEVucXVldWUg
-dGhlIHJlb3BlbiB3b3JrIHRvIHdvcmtxdWV1ZSwgdGh1cyB1c2VyIGRhZW1vbiBjb3VsZCBnZXQg
-cmlkCj4+ICAgICBvZiBkYWVtb25fcmVhZCBjb250ZXh0IGFuZCBoYW5kbGUgdGhhdCByZXF1ZXN0
-IHNtb290aGx5LiBPdGhlcndpc2UsCj4+ICAgICB0aGUgdXNlciBkYWVtb24gd2lsbCBzZW5kIGEg
-cmVvcGVuIHJlcXVlc3QgYW5kIHdhaXQgZm9yIGl0c2VsZiB0bwo+PiAgICAgcHJvY2VzcyB0aGUg
-cmVxdWVzdC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogSmlhIFpodSA8emh1amlhLnpqQGJ5dGVkYW5j
-ZS5jb20+Cj4+IFJldmlld2VkLWJ5OiBYaW4gWWluIDx5aW54aW4ueEBieXRlZGFuY2UuY29tPgo+
-PiAtLS0KPj4gICBmcy9jYWNoZWZpbGVzL2ludGVybmFsLmggfCAgMyArKwo+PiAgIGZzL2NhY2hl
-ZmlsZXMvb25kZW1hbmQuYyB8IDc5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0t
-LS0tLS0KPj4gICAyIGZpbGVzIGNoYW5nZWQsIDU2IGluc2VydGlvbnMoKyksIDI2IGRlbGV0aW9u
-cygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZnMvY2FjaGVmaWxlcy9pbnRlcm5hbC5oIGIvZnMvY2Fj
-aGVmaWxlcy9pbnRlcm5hbC5oCj4+IGluZGV4IGNkZjRlYzc4MTkzMy4uNjZiYmQ0ZjFkMjJhIDEw
-MDY0NAo+PiAtLS0gYS9mcy9jYWNoZWZpbGVzL2ludGVybmFsLmgKPj4gKysrIGIvZnMvY2FjaGVm
-aWxlcy9pbnRlcm5hbC5oCj4+IEBAIC00OCw5ICs0OCwxMSBAQCBzdHJ1Y3QgY2FjaGVmaWxlc192
-b2x1bWUgewo+PiAgIGVudW0gY2FjaGVmaWxlc19vYmplY3Rfc3RhdGUgewo+PiAgIAlDQUNIRUZJ
-TEVTX09OREVNQU5EX09CSlNUQVRFX2Nsb3NlLCAvKiBBbm9ueW1vdXMgZmQgY2xvc2VkIGJ5IGRh
-ZW1vbiBvciBpbml0aWFsIHN0YXRlICovCj4+ICAgCUNBQ0hFRklMRVNfT05ERU1BTkRfT0JKU1RB
-VEVfb3BlbiwgLyogQW5vbnltb3VzIGZkIGFzc29jaWF0ZWQgd2l0aCBvYmplY3QgaXMgYXZhaWxh
-YmxlICovCj4+ICsJQ0FDSEVGSUxFU19PTkRFTUFORF9PQkpTVEFURV9yZW9wZW5pbmcsIC8qIE9i
-amVjdCB0aGF0IHdhcyBjbG9zZWQgYW5kIGlzIGJlaW5nIHJlb3BlbmVkLiAqLwo+PiAgIH07Cj4+
-ICAgCj4+ICAgc3RydWN0IGNhY2hlZmlsZXNfb25kZW1hbmRfaW5mbyB7Cj4+ICsJc3RydWN0IHdv
-cmtfc3RydWN0CQl3b3JrOwo+PiAgIAlpbnQJCQkJb25kZW1hbmRfaWQ7Cj4+ICAgCWVudW0gY2Fj
-aGVmaWxlc19vYmplY3Rfc3RhdGUJc3RhdGU7Cj4+ICAgCXN0cnVjdCBjYWNoZWZpbGVzX29iamVj
-dAkqb2JqZWN0Owo+PiBAQCAtMzQxLDYgKzM0Myw3IEBAIGNhY2hlZmlsZXNfb25kZW1hbmRfc2V0
-X29iamVjdF8jI19zdGF0ZShzdHJ1Y3QgY2FjaGVmaWxlc19vYmplY3QgKm9iamVjdCkgXAo+PiAg
-IAo+PiAgIENBQ0hFRklMRVNfT0JKRUNUX1NUQVRFX0ZVTkNTKG9wZW4pOwo+PiAgIENBQ0hFRklM
-RVNfT0JKRUNUX1NUQVRFX0ZVTkNTKGNsb3NlKTsKPj4gK0NBQ0hFRklMRVNfT0JKRUNUX1NUQVRF
-X0ZVTkNTKHJlb3BlbmluZyk7Cj4+ICAgI2Vsc2UKPj4gICAjZGVmaW5lIENBQ0hFRklMRVNfT05E
-RU1BTkRfT0JKSU5GTyhvYmplY3QpCU5VTEwKPj4gICAKPj4gZGlmZiAtLWdpdCBhL2ZzL2NhY2hl
-ZmlsZXMvb25kZW1hbmQuYyBiL2ZzL2NhY2hlZmlsZXMvb25kZW1hbmQuYwo+PiBpbmRleCBmNTEy
-NjY1NTRlNGQuLjc5ZmZiMTkzODBjZCAxMDA2NDQKPj4gLS0tIGEvZnMvY2FjaGVmaWxlcy9vbmRl
-bWFuZC5jCj4+ICsrKyBiL2ZzL2NhY2hlZmlsZXMvb25kZW1hbmQuYwo+PiBAQCAtMTgsMTQgKzE4
-LDEwIEBAIHN0YXRpYyBpbnQgY2FjaGVmaWxlc19vbmRlbWFuZF9mZF9yZWxlYXNlKHN0cnVjdCBp
-bm9kZSAqaW5vZGUsCj4+ICAgCWluZm8tPm9uZGVtYW5kX2lkID0gQ0FDSEVGSUxFU19PTkRFTUFO
-RF9JRF9DTE9TRUQ7Cj4+ICAgCWNhY2hlZmlsZXNfb25kZW1hbmRfc2V0X29iamVjdF9jbG9zZShv
-YmplY3QpOwo+PiAgIAo+PiAtCS8qCj4+IC0JICogRmx1c2ggYWxsIHBlbmRpbmcgUkVBRCByZXF1
-ZXN0cyBzaW5jZSB0aGVpciBjb21wbGV0aW9uIGRlcGVuZHMgb24KPj4gLQkgKiBhbm9uX2ZkLgo+
-PiAtCSAqLwo+PiAtCXhhc19mb3JfZWFjaCgmeGFzLCByZXEsIFVMT05HX01BWCkgewo+PiArCS8q
-IE9ubHkgZmx1c2ggQ0FDSEVGSUxFU19SRVFfTkVXIG1hcmtlZCByZXEgdG8gYXZvaWQgcmFjZSB3
-aXRoIGRhZW1vbl9yZWFkICovCj4+ICsJeGFzX2Zvcl9lYWNoX21hcmtlZCgmeGFzLCByZXEsIFVM
-T05HX01BWCwgQ0FDSEVGSUxFU19SRVFfTkVXKSB7Cj4gCj4gQ291bGQgeW91IHBsZWFzZSBhZGQg
-YSBtb3JlIGRldGFpbGVkIGNvbW1lbnQgaGVyZSwgZXhwbGFpbmcgd2h5IGZsdXNoaW5nCj4gQ0xP
-U0UgcmVxdWVzdHMgd2hlbiBhbm9ueSBmZCBnZXRzIGNsb3NlZCBpcyBuZWVkZWQsIGFuZCB3aHkg
-dGhlIG9yaWdpbmFsCj4geGFzX2Zvcl9lYWNoKCkgd291bGQgcmFjZSB3aXRoIGRhZW1vbl9yZWFk
-KCk/IFRoZXJlIGFyZSBzb21lIHJlZnMgYXQgWzFdCj4gYW5kIFsyXS4KPiAKPiBbMV0KPiBodHRw
-czovL2hhY2ttZC5pby9ZTnNUUXFMY1FZT1o0Z0FsRldyTmNBI2ZsdXNoLUNMT1NFLXJlcXVlc3Rz
-LXdoZW4tYW5vbi1mZC1pcy1jbG9zZWQKPiBbMl0KPiBodHRwczovL2hhY2ttZC5pby9ZTnNUUXFM
-Y1FZT1o0Z0FsRldyTmNBI3JhY2UtYmV0d2Vlbi1yZWFkaW5nZmx1c2gtcmVxdWVzdHMKPiAKPiBU
-aGUgc2VxdWVuY2UgY2hhcnQgaXMgd2VsY29tZSB0byBiZSBhZGRlZCBpbnRvIHRoZSBjb21tZW50
-IHRvIGV4cGxhaW4KPiB0aGUgcmFjZSwgb3IgdGhlIGNvZGUgd2lsbCBiZSBkaWZmaWN1bHQgdG8g
-dW5kZXJzdGFuZCBzaW5jZSB0aGUgc3VidGxldHkKPiBvZiB0aGUgcmFjZS4KT0ssIEknZCBsaWtl
-IHRvIGRvIHRoYXQuCj4gCj4gCj4+ICAgCQlpZiAocmVxLT5tc2cub2JqZWN0X2lkID09IG9iamVj
-dF9pZCAmJgo+PiAtCQkgICAgcmVxLT5tc2cub3Bjb2RlID09IENBQ0hFRklMRVNfT1BfUkVBRCkg
-ewo+PiAtCQkJcmVxLT5lcnJvciA9IC1FSU87Cj4+ICsJCSAgICByZXEtPm1zZy5vcGNvZGUgPT0g
-Q0FDSEVGSUxFU19PUF9DTE9TRSkgewo+PiAgIAkJCWNvbXBsZXRlKCZyZXEtPmRvbmUpOwo+PiAg
-IAkJCXhhc19zdG9yZSgmeGFzLCBOVUxMKTsKPj4gICAJCX0KPj4gQEAgLTE3NSw2ICsxNzEsNyBA
-QCBpbnQgY2FjaGVmaWxlc19vbmRlbWFuZF9jb3BlbihzdHJ1Y3QgY2FjaGVmaWxlc19jYWNoZSAq
-Y2FjaGUsIGNoYXIgKmFyZ3MpCj4+ICAgCXRyYWNlX2NhY2hlZmlsZXNfb25kZW1hbmRfY29wZW4o
-cmVxLT5vYmplY3QsIGlkLCBzaXplKTsKPj4gICAKPj4gICAJY2FjaGVmaWxlc19vbmRlbWFuZF9z
-ZXRfb2JqZWN0X29wZW4ocmVxLT5vYmplY3QpOwo+PiArCXdha2VfdXBfYWxsKCZjYWNoZS0+ZGFl
-bW9uX3BvbGx3cSk7Cj4+ICAgCj4+ICAgb3V0Ogo+PiAgIAljb21wbGV0ZSgmcmVxLT5kb25lKTsK
-Pj4gQEAgLTIzNCw2ICsyMzEsMTQgQEAgc3RhdGljIGludCBjYWNoZWZpbGVzX29uZGVtYW5kX2dl
-dF9mZChzdHJ1Y3QgY2FjaGVmaWxlc19yZXEgKnJlcSkKPj4gICAJcmV0dXJuIHJldDsKPj4gICB9
-Cj4+ICAgCj4+ICtzdGF0aWMgdm9pZCBvbmRlbWFuZF9vYmplY3Rfd29ya2VyKHN0cnVjdCB3b3Jr
-X3N0cnVjdCAqd29yaykKPj4gK3sKPj4gKwlzdHJ1Y3QgY2FjaGVmaWxlc19vYmplY3QgKm9iamVj
-dCA9Cj4+ICsJCSgoc3RydWN0IGNhY2hlZmlsZXNfb25kZW1hbmRfaW5mbyAqKXdvcmspLT5vYmpl
-Y3Q7Cj4+ICsKPj4gKwljYWNoZWZpbGVzX29uZGVtYW5kX2luaXRfb2JqZWN0KG9iamVjdCk7Cj4+
-ICt9Cj4+ICsKPj4gICBzc2l6ZV90IGNhY2hlZmlsZXNfb25kZW1hbmRfZGFlbW9uX3JlYWQoc3Ry
-dWN0IGNhY2hlZmlsZXNfY2FjaGUgKmNhY2hlLAo+PiAgIAkJCQkJY2hhciBfX3VzZXIgKl9idWZm
-ZXIsIHNpemVfdCBidWZsZW4pCj4+ICAgewo+PiBAQCAtMjQ5LDcgKzI1NCwyNyBAQCBzc2l6ZV90
-IGNhY2hlZmlsZXNfb25kZW1hbmRfZGFlbW9uX3JlYWQoc3RydWN0IGNhY2hlZmlsZXNfY2FjaGUg
-KmNhY2hlLAo+PiAgIAkgKiByZXF1ZXN0cyBmcm9tIGJlaW5nIHByb2Nlc3NlZCByZXBlYXRlZGx5
-Lgo+PiAgIAkgKi8KPj4gICAJeGFfbG9jaygmY2FjaGUtPnJlcXMpOwo+PiAtCXJlcSA9IHhhc19m
-aW5kX21hcmtlZCgmeGFzLCBVSU5UX01BWCwgQ0FDSEVGSUxFU19SRVFfTkVXKTsKPj4gKwl4YXNf
-Zm9yX2VhY2hfbWFya2VkKCZ4YXMsIHJlcSwgVUlOVF9NQVgsIENBQ0hFRklMRVNfUkVRX05FVykg
-ewo+PiArCQkvKgo+PiArCQkgKiBSZW9wZW4gdGhlIGNsb3NlZCBvYmplY3Qgd2l0aCBhc3NvY2lh
-dGVkIHJlYWQgcmVxdWVzdC4KPj4gKwkJICogU2tpcCByZWFkIHJlcXVlc3RzIHdob3NlIHJlbGF0
-ZWQgb2JqZWN0IGFyZSByZW9wZW5pbmcuCj4+ICsJCSAqLwo+PiArCQlpZiAocmVxLT5tc2cub3Bj
-b2RlID09IENBQ0hFRklMRVNfT1BfUkVBRCkgewo+PiArCQkJcmV0ID0gY21weGNoZygmQ0FDSEVG
-SUxFU19PTkRFTUFORF9PQkpJTkZPKHJlcS0+b2JqZWN0KS0+c3RhdGUsCj4+ICsJCQkJCQkgIENB
-Q0hFRklMRVNfT05ERU1BTkRfT0JKU1RBVEVfY2xvc2UsCj4+ICsJCQkJCQkgIENBQ0hFRklMRVNf
-T05ERU1BTkRfT0JKU1RBVEVfcmVvcGVuaW5nKTsKPj4gKwkJCWlmIChyZXQgPT0gQ0FDSEVGSUxF
-U19PTkRFTUFORF9PQkpTVEFURV9jbG9zZSkgewo+PiArCQkJCUlOSVRfV09SSygmQ0FDSEVGSUxF
-U19PTkRFTUFORF9PQkpJTkZPKHJlcS0+b2JqZWN0KS0+d29yaywKPj4gKwkJCQkJCW9uZGVtYW5k
-X29iamVjdF93b3JrZXIpOwo+IAo+IEhvdyBhYm91dCBpbml0aWFsaXppbmcgQHdvcmsgaW4gY2Fj
-aGVmaWxlc19vbmRlbWFuZF9pbml0X29ial9pbmZvKCksIHNvCj4gdGhhdCB0aGUgd29ya19zdHJ1
-Y3Qgb2YgZWFjaCBvYmplY3Qgb25seSBuZWVkcyB0byBiZSBpbml0aWFsaXplZCBvbmNlPwo+IApT
-R1RNLgo+IAo+PiArCQkJCXF1ZXVlX3dvcmsoZnNjYWNoZV93cSwKPj4gKwkJCQkJJkNBQ0hFRklM
-RVNfT05ERU1BTkRfT0JKSU5GTyhyZXEtPm9iamVjdCktPndvcmspOwo+PiArCQkJCWNvbnRpbnVl
-Owo+PiArCQkJfSBlbHNlIGlmIChyZXQgPT0gQ0FDSEVGSUxFU19PTkRFTUFORF9PQkpTVEFURV9y
-ZW9wZW5pbmcpIHsKPj4gKwkJCQljb250aW51ZTsKPj4gKwkJCX0KPj4gKwkJfQo+PiArCQlicmVh
-azsKPj4gKwl9Cj4+ICAgCWlmICghcmVxKSB7Cj4+ICAgCQl4YV91bmxvY2soJmNhY2hlLT5yZXFz
-KTsKPj4gICAJCXJldHVybiAwOwo+PiBAQCAtMjY3LDE0ICsyOTIsMTggQEAgc3NpemVfdCBjYWNo
-ZWZpbGVzX29uZGVtYW5kX2RhZW1vbl9yZWFkKHN0cnVjdCBjYWNoZWZpbGVzX2NhY2hlICpjYWNo
-ZSwKPj4gICAJeGFfdW5sb2NrKCZjYWNoZS0+cmVxcyk7Cj4+ICAgCj4+ICAgCWlkID0geGFzLnhh
-X2luZGV4Owo+PiAtCW1zZy0+bXNnX2lkID0gaWQ7Cj4+ICAgCj4+ICAgCWlmIChtc2ctPm9wY29k
-ZSA9PSBDQUNIRUZJTEVTX09QX09QRU4pIHsKPj4gICAJCXJldCA9IGNhY2hlZmlsZXNfb25kZW1h
-bmRfZ2V0X2ZkKHJlcSk7Cj4+IC0JCWlmIChyZXQpCj4+ICsJCWlmIChyZXQpIHsKPj4gKwkJCWNh
-Y2hlZmlsZXNfb25kZW1hbmRfc2V0X29iamVjdF9jbG9zZShyZXEtPm9iamVjdCk7Cj4+ICAgCQkJ
-Z290byBlcnJvcjsKPj4gKwkJfQo+PiAgIAl9Cj4+ICAgCj4+ICsJbXNnLT5tc2dfaWQgPSBpZDsK
-Pj4gKwltc2ctPm9iamVjdF9pZCA9IENBQ0hFRklMRVNfT05ERU1BTkRfT0JKSU5GTyhyZXEtPm9i
-amVjdCktPm9uZGVtYW5kX2lkOwo+PiArCj4+ICAgCWlmIChjb3B5X3RvX3VzZXIoX2J1ZmZlciwg
-bXNnLCBuKSAhPSAwKSB7Cj4+ICAgCQlyZXQgPSAtRUZBVUxUOwo+PiAgIAkJZ290byBlcnJfcHV0
-X2ZkOwo+PiBAQCAtMzA3LDE5ICszMzYsMjMgQEAgc3RhdGljIGludCBjYWNoZWZpbGVzX29uZGVt
-YW5kX3NlbmRfcmVxKHN0cnVjdCBjYWNoZWZpbGVzX29iamVjdCAqb2JqZWN0LAo+PiAgIAkJCQkJ
-dm9pZCAqcHJpdmF0ZSkKPj4gICB7Cj4+ICAgCXN0cnVjdCBjYWNoZWZpbGVzX2NhY2hlICpjYWNo
-ZSA9IG9iamVjdC0+dm9sdW1lLT5jYWNoZTsKPj4gLQlzdHJ1Y3QgY2FjaGVmaWxlc19yZXEgKnJl
-cTsKPj4gKwlzdHJ1Y3QgY2FjaGVmaWxlc19yZXEgKnJlcSA9IE5VTEw7Cj4+ICAgCVhBX1NUQVRF
-KHhhcywgJmNhY2hlLT5yZXFzLCAwKTsKPj4gICAJaW50IHJldDsKPj4gICAKPj4gICAJaWYgKCF0
-ZXN0X2JpdChDQUNIRUZJTEVTX09OREVNQU5EX01PREUsICZjYWNoZS0+ZmxhZ3MpKQo+PiAgIAkJ
-cmV0dXJuIDA7Cj4+ICAgCj4+IC0JaWYgKHRlc3RfYml0KENBQ0hFRklMRVNfREVBRCwgJmNhY2hl
-LT5mbGFncykpCj4+IC0JCXJldHVybiAtRUlPOwo+PiArCWlmICh0ZXN0X2JpdChDQUNIRUZJTEVT
-X0RFQUQsICZjYWNoZS0+ZmxhZ3MpKSB7Cj4+ICsJCXJldCA9IC1FSU87Cj4+ICsJCWdvdG8gb3V0
-Owo+PiArCX0KPj4gICAKPj4gICAJcmVxID0ga3phbGxvYyhzaXplb2YoKnJlcSkgKyBkYXRhX2xl
-biwgR0ZQX0tFUk5FTCk7Cj4+IC0JaWYgKCFyZXEpCj4+IC0JCXJldHVybiAtRU5PTUVNOwo+PiAr
-CWlmICghcmVxKSB7Cj4+ICsJCXJldCA9IC1FTk9NRU07Cj4+ICsJCWdvdG8gb3V0Owo+PiArCX0K
-Pj4gICAKPj4gICAJcmVxLT5vYmplY3QgPSBvYmplY3Q7Cj4+ICAgCWluaXRfY29tcGxldGlvbigm
-cmVxLT5kb25lKTsKPj4gQEAgLTM1Nyw3ICszOTAsNyBAQCBzdGF0aWMgaW50IGNhY2hlZmlsZXNf
-b25kZW1hbmRfc2VuZF9yZXEoc3RydWN0IGNhY2hlZmlsZXNfb2JqZWN0ICpvYmplY3QsCj4+ICAg
-CQkvKiBjb3VwbGVkIHdpdGggdGhlIGJhcnJpZXIgaW4gY2FjaGVmaWxlc19mbHVzaF9yZXFzKCkg
-Ki8KPj4gICAJCXNtcF9tYigpOwo+PiAgIAo+PiAtCQlpZiAob3Bjb2RlICE9IENBQ0hFRklMRVNf
-T1BfT1BFTiAmJgo+PiArCQlpZiAob3Bjb2RlID09IENBQ0hFRklMRVNfT1BfQ0xPU0UgJiYKPj4g
-ICAJCQkhY2FjaGVmaWxlc19vbmRlbWFuZF9vYmplY3RfaXNfb3BlbihvYmplY3QpKSB7Cj4+ICAg
-CQkJV0FSTl9PTl9PTkNFKENBQ0hFRklMRVNfT05ERU1BTkRfT0JKSU5GTyhvYmplY3QpLT5vbmRl
-bWFuZF9pZCA9PSAwKTsKPj4gICAJCQl4YXNfdW5sb2NrKCZ4YXMpOwo+PiBAQCAtMzgyLDggKzQx
-NSwxMiBAQCBzdGF0aWMgaW50IGNhY2hlZmlsZXNfb25kZW1hbmRfc2VuZF9yZXEoc3RydWN0IGNh
-Y2hlZmlsZXNfb2JqZWN0ICpvYmplY3QsCj4+ICAgCXdha2VfdXBfYWxsKCZjYWNoZS0+ZGFlbW9u
-X3BvbGx3cSk7Cj4+ICAgCXdhaXRfZm9yX2NvbXBsZXRpb24oJnJlcS0+ZG9uZSk7Cj4+ICAgCXJl
-dCA9IHJlcS0+ZXJyb3I7Cj4+ICsJa2ZyZWUocmVxKTsKPj4gKwlyZXR1cm4gcmV0Owo+PiAgIG91
-dDoKPj4gICAJa2ZyZWUocmVxKTsKPj4gKwlpZiAob3Bjb2RlID09IENBQ0hFRklMRVNfT1BfT1BF
-TikKPj4gKwkJY2FjaGVmaWxlc19vbmRlbWFuZF9zZXRfb2JqZWN0X2Nsb3NlKHJlcS0+b2JqZWN0
-KTsKPiAKPiBDb3VsZCB5b3UgcGxlYXNlIGFkZCBhIGNvbW1lbnQgaGVyZSBleHBsYWluaW5nIHdo
-eSB3ZSBuZWVkIHRvIHNldCB0aGUKPiBvYmplY3Qgc3RhdGUgYmFjayB0byBDTE9TRSBzdGF0ZSBm
-b3IgT1BFTiAoZXNwZWN0aWFsbHkgcmVvcGVuaW5nKQo+IHJlcXVlc3RzIHdoZW4gZXJyb3Igb2Nj
-dXJlZCwgYW5kIHdoeSB3ZSBvbmx5IHNldCBpdCBiYWNrIHRvIENMT1NFIHN0YXRlCj4gd2hlbiBl
-cnJvciBvY2N1cmVkIGJlZm9yZSB0aGUgYW5vbnkgZmQgZ2V0cyBpbml0aWFsaXplZD8gKFRoYXQn
-cyBiZWNhdXNlCj4gd2hlbiB0aGUgZXJyb3Igb2NjdXJlcyBhZnRlciB0aGUgYW5vbnkgZmQgaGFz
-IGJlZW4gaW5pdGlhbGl6ZWQsIHRoZQo+IG9iamVjdCB3aWxsIGJlIHJlc2V0IHRvIENMT1NFIHN0
-YXRlIHRocm91Z2gKPiBjYWNoZWZpbGVzX29uZGVtYW5kX2ZkX3JlbGVhc2UoKSB0cmlnZ2VyZWQg
-YnkgY2xvc2VfZmQoKS4pIE9yIHRoZSBjb2RlCj4gaXMgcXVpdGUgZGlmZmljdWx0IHRvIGNvbXBy
-ZWhlbmQuCj4gClRoYW5rcyBmb3IgdGhlIHN1Z2dlc3Rpb24uIEknbGwgZG8gaXQuCj4gCj4+ICAg
-CXJldHVybiByZXQ7Cj4+ICAgfQo+PiAgIAo+PiBAQCAtNDM1LDcgKzQ3Miw2IEBAIHN0YXRpYyBp
-bnQgY2FjaGVmaWxlc19vbmRlbWFuZF9pbml0X2Nsb3NlX3JlcShzdHJ1Y3QgY2FjaGVmaWxlc19y
-ZXEgKnJlcSwKPj4gICAJaWYgKCFjYWNoZWZpbGVzX29uZGVtYW5kX29iamVjdF9pc19vcGVuKG9i
-amVjdCkpCj4+ICAgCQlyZXR1cm4gLUVOT0VOVDsKPj4gICAKPj4gLQlyZXEtPm1zZy5vYmplY3Rf
-aWQgPSBDQUNIRUZJTEVTX09OREVNQU5EX09CSklORk8ob2JqZWN0KS0+b25kZW1hbmRfaWQ7Cj4+
-ICAgCXRyYWNlX2NhY2hlZmlsZXNfb25kZW1hbmRfY2xvc2Uob2JqZWN0LCAmcmVxLT5tc2cpOwo+
-PiAgIAlyZXR1cm4gMDsKPj4gICB9Cj4+IEBAIC00NTEsMTYgKzQ4Nyw3IEBAIHN0YXRpYyBpbnQg
-Y2FjaGVmaWxlc19vbmRlbWFuZF9pbml0X3JlYWRfcmVxKHN0cnVjdCBjYWNoZWZpbGVzX3JlcSAq
-cmVxLAo+PiAgIAlzdHJ1Y3QgY2FjaGVmaWxlc19vYmplY3QgKm9iamVjdCA9IHJlcS0+b2JqZWN0
-Owo+PiAgIAlzdHJ1Y3QgY2FjaGVmaWxlc19yZWFkICpsb2FkID0gKHZvaWQgKilyZXEtPm1zZy5k
-YXRhOwo+PiAgIAlzdHJ1Y3QgY2FjaGVmaWxlc19yZWFkX2N0eCAqcmVhZF9jdHggPSBwcml2YXRl
-Owo+PiAtCWludCBvYmplY3RfaWQgPSBDQUNIRUZJTEVTX09OREVNQU5EX09CSklORk8ob2JqZWN0
-KS0+b25kZW1hbmRfaWQ7Cj4+ICAgCj4+IC0JLyogU3RvcCBlbnF1ZXVpbmcgcmVxdWVzdHMgd2hl
-biBkYWVtb24gaGFzIGNsb3NlZCBhbm9uX2ZkLiAqLwo+PiAtCWlmICghY2FjaGVmaWxlc19vbmRl
-bWFuZF9vYmplY3RfaXNfb3BlbihvYmplY3QpKSB7Cj4+IC0JCVdBUk5fT05fT05DRShvYmplY3Rf
-aWQgPT0gMCk7Cj4+IC0JCXByX2luZm9fb25jZSgiUkVBRDogYW5vbnltb3VzIGZkIGNsb3NlZCBw
-cmVtYXR1cmVseS5cbiIpOwo+PiAtCQlyZXR1cm4gLUVJTzsKPj4gLQl9Cj4+IC0KPj4gLQlyZXEt
-Pm1zZy5vYmplY3RfaWQgPSBvYmplY3RfaWQ7Cj4+ICAgCWxvYWQtPm9mZiA9IHJlYWRfY3R4LT5v
-ZmY7Cj4+ICAgCWxvYWQtPmxlbiA9IHJlYWRfY3R4LT5sZW47Cj4+ICAgCXRyYWNlX2NhY2hlZmls
-ZXNfb25kZW1hbmRfcmVhZChvYmplY3QsICZyZXEtPm1zZywgbG9hZCk7Cj4gCgotLQpMaW51eC1j
-YWNoZWZzIG1haWxpbmcgbGlzdApMaW51eC1jYWNoZWZzQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0
-bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZzCg==
+Changes since RFC:
+1. Solve the conflict with patch "cachefiles: make on-demand request distribution fairer" 
+2. Add some code comments.
+3. Optimize some structures to make the code more readable.
+4. Extract cachefiles_ondemand_skip_req() from cachefiles_ondemand_daemon_read()
+   to make codes more intuitional.
+
+[Background]
+============
+In ondemand read mode, if user daemon closes anonymous fd(e.g. daemon
+crashes), subsequent read and inflight requests based on these fd will
+return -EIO.
+Even if above mentioned case is tolerable for some individual users, but
+when it happenens in real cloud service production environment, such IO
+errors will be passed to cloud service users and impact its working jobs.
+It's terrible for cloud service stability.
+
+[Design]
+========
+This patchset introduce three states for ondemand object:
+CLOSE: Object which just be allocated or closed by user daemon.
+OPEN: Object which related OPEN request has been processed correctly.
+REOPENING: Object which has been closed, and is drived to open by a read
+request.
+
+[Flow Path]
+===========
+[Daemon Crash] 
+0. Daemon use UDS send/receive fd to keep and pass the fd reference of
+   "/dev/cachefiles".
+1. User daemon crashes -> restart and recover dev fd's reference.
+2. User daemon write "restore" to device.
+   2.1 Reset the object's state from CLOSE to OPENING.
+   2.2 Init a work which reinit the object and add it to wq. (daemon can
+       get rid of kernel space and handle that open request).
+3. The user of upper filesystem won't notice that the daemon ever crashed
+   since the inflight IO is restored and handled correctly.
+
+[Daemon Close fd]
+1. User daemon closes an anonymous fd.
+2. User daemon reads a READ request which the associated anonymous fd was
+   closed and init a work which re-open the object.
+3. User daemon handles above open request normally.
+4. The user of upper filesystem won't notice that the daemon ever closed
+   any fd since the closed object is re-opened and related request was
+   handled correctly.
+
+[Test]
+======
+There is a testcase for above mentioned scenario.
+A user process read the file by fscache ondemand reading.
+At the same time, we kill the daemon constantly.
+The expected result is that the file read by user is consistent with
+original, and the user doesn't notice that daemon has ever been killed.
+
+https://github.com/userzj/demand-read-cachefilesd/commits/failover-test
+
+[GitWeb]
+========
+https://github.com/userzj/linux/tree/fscache-failover-v2
+
+Jia Zhu (5):
+  cachefiles: introduce object ondemand state
+  cachefiles: extract ondemand info field from cachefiles_object
+  cachefiles: resend an open request if the read request's object is
+    closed
+  cachefiles: narrow the scope of triggering EPOLLIN events in ondemand
+    mode
+  cachefiles: add restore command to recover inflight ondemand read
+    requests
+
+ fs/cachefiles/daemon.c    |  14 +++-
+ fs/cachefiles/interface.c |   6 ++
+ fs/cachefiles/internal.h  |  71 ++++++++++++++++-
+ fs/cachefiles/ondemand.c  | 155 +++++++++++++++++++++++++++++---------
+ 4 files changed, 205 insertions(+), 41 deletions(-)
+
+-- 
+2.20.1
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
