@@ -2,90 +2,93 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154775FE73E
-	for <lists+linux-cachefs@lfdr.de>; Fri, 14 Oct 2022 05:08:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 758F85FE73F
+	for <lists+linux-cachefs@lfdr.de>; Fri, 14 Oct 2022 05:08:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1665716901;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3QHG+czcNNzQKTf+Q/isjqYBR8l9w+9l9wfTqFKakQY=;
-	b=Z1SLQOkd2ZjsF7nxDBh2Bgto9RwEx/O6ur0bxSHWRAGCTqN9d0+ae1nJ9kHkgwRyOQ1SZz
-	VSaTj/LxNdR6TUL8UW/kgDUOlSxo3B9yuBlQ/39jqTwLEASu05Wm8cOEdTbcWSMfzZsShA
-	xaJQTMsAzAH33x12Bm8PgK/O/5qKJc0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Ite03IE3XVT4QSPljOAjIw4AlXFvMvrHdT58IjlQ4aI=;
+	b=BjVZz8LiK/QDPd0dJ8O1nDbKrmQ3o1LxVHXCyJThxUnzlcI8p4VliDX8HSsW4zSJ8EQNrm
+	D1qzA0M/8B3zbvZcFaniVEonhlKLZna5gx1Su155HdZnhpBFH5Jf6G/jyUlECisM2PITbd
+	Tn5xkMtRwk0wYFPlDUBEGSwFW3v0iis=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-nQvXybAqO5KbQknpGoQ5yw-1; Thu, 13 Oct 2022 23:08:17 -0400
-X-MC-Unique: nQvXybAqO5KbQknpGoQ5yw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-57-WcXOGzerMIOmZEnnPoHOnw-1; Thu, 13 Oct 2022 23:08:17 -0400
+X-MC-Unique: WcXOGzerMIOmZEnnPoHOnw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3ED9C3C01D8B;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FCCD101A56D;
 	Fri, 14 Oct 2022 03:08:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 22B0054F415;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 27859C42390;
 	Fri, 14 Oct 2022 03:08:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B09D919465A3;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD51719465B2;
 	Fri, 14 Oct 2022 03:08:13 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1BF2E1946588 for <linux-cachefs@listman.corp.redhat.com>;
+ ESMTP id 1BF011946587 for <linux-cachefs@listman.corp.redhat.com>;
  Fri, 14 Oct 2022 03:08:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DB54A112C072; Fri, 14 Oct 2022 03:08:12 +0000 (UTC)
+ id DC90B408A547; Fri, 14 Oct 2022 03:08:12 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D3613112C071
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D48A0405EC45
  for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 03:08:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF6D1185A78B
- for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 03:08:02 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5F5F101A528
+ for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 03:08:07 +0000 (UTC)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-100-f9ZO2yq4NbimTnUkKQt84w-1; Thu, 13 Oct 2022 23:08:00 -0400
-X-MC-Unique: f9ZO2yq4NbimTnUkKQt84w-1
-Received: by mail-pl1-f171.google.com with SMTP id l1so3521844pld.13
- for <linux-cachefs@redhat.com>; Thu, 13 Oct 2022 20:08:00 -0700 (PDT)
+ us-mta-553-NloTa5OLNsmj03tK8X853A-1; Thu, 13 Oct 2022 23:08:05 -0400
+X-MC-Unique: NloTa5OLNsmj03tK8X853A-1
+Received: by mail-pj1-f50.google.com with SMTP id cl1so3629566pjb.1
+ for <linux-cachefs@redhat.com>; Thu, 13 Oct 2022 20:08:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tR+LEXzrwnagFeN1X0qgpjAc8sXMoTZWp+ylsCx2Q8o=;
- b=tgGrxiYzYl9rHT8j8YTw3AeR8ExajrbHWqI+wz8Us70VcplTPuWholP0tReihQ0ezI
- nYpD4CXSPF0n0lGA1Moi9glBQ/kac9btasz2SKi+GFVgkItUCZgkIRxxEkMe+AdeZYea
- 5DjKM6GxCulFOqGpD51vhqDcB2cIcyzNk/eRg89S1gPvCORdDYXXzsDCQEugQmpzsBD5
- vFQi3w0nHVHFuZNMQtRM9I96LQoLdvBmjaCDa5oEpaTeyFO3sCjFEfR2BnqNSIU3zvKi
- p157g+M7/IDqG6WgbblDt2Qf2mAPpoATKhOV8eDtPI1j+RkmVvGw6LaPcQKg32/I3cLh
- jJUQ==
-X-Gm-Message-State: ACrzQf1GQrKzMFhIp6ANQBOmTkTip8LqY2o4Cvfq4NhCTI3wuiMAfBLy
- f2HcYMtz8x2kmpVPiAc9RaEBhg==
-X-Google-Smtp-Source: AMsMyM6fZ2yYhCzfqcA1T5TPO16rRcN9qdwd1V7oXdpGUkUt1ol+W9QIVGnrnP7azUmdi3NbdWxY1Q==
-X-Received: by 2002:a17:903:2307:b0:17f:78a5:5484 with SMTP id
- d7-20020a170903230700b0017f78a55484mr2957038plh.15.1665716879180; 
- Thu, 13 Oct 2022 20:07:59 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jexCPXMD1tiAWyMpE7kFB+4P8+aQ3ICPFBRets/3erM=;
+ b=fvEPY3b8t09gHkmvAwIQvp83ba/Bt1T6GynQChYpAwH3hz91VdrY8iFacaMrlKwd0D
+ uSrPOCIgpFzWmzOgqX8XCKifREfguUXNbDK5VX6+lVGGswyhRaAexV1xLkAT84FL3FwX
+ ONcKnR/uRbp8/jTUBaG1eqIXbTDtGD5iCelNkvmv00oJ5HFeYymBQRErRTiJlXLANZoW
+ EL8kkb895NlJVCEKCL1ePeZfyD4Lbi/08wT+qCJswR+ycQFqH+xS4SSeHkfMNTKQVuCp
+ bal5NshZPlnYIMcEsMYmSSk1giwICjVcMyP/Zn0VstzbuTBSXPkvG5vz78QqSW0xNGO5
+ JANg==
+X-Gm-Message-State: ACrzQf1zHwSgYAvHH4xnH8gj4wFNGeNypER7i83HxZgR+MlTgJLRtpVk
+ 1Us1NnNknAQDyQBW4StjPHXRmA==
+X-Google-Smtp-Source: AMsMyM78YB9M+cBZTuxUTkzImdqjUWbmVvlLD2pLT3cNXhbrD5aRB2I5bpXJNjdgmo4SqL3aKsN6BQ==
+X-Received: by 2002:a17:90b:17c4:b0:20d:4d79:55b1 with SMTP id
+ me4-20020a17090b17c400b0020d4d7955b1mr3240422pjb.125.1665716884249; 
+ Thu, 13 Oct 2022 20:08:04 -0700 (PDT)
 Received: from C02G705SMD6V.bytedance.net ([63.216.146.183])
  by smtp.gmail.com with ESMTPSA id
- h4-20020a17090a710400b0020ae09e9724sm425524pjk.53.2022.10.13.20.07.53
+ h4-20020a17090a710400b0020ae09e9724sm425524pjk.53.2022.10.13.20.07.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Oct 2022 20:07:58 -0700 (PDT)
+ Thu, 13 Oct 2022 20:08:03 -0700 (PDT)
 From: Jia Zhu <zhujia.zj@bytedance.com>
 To: dhowells@redhat.com,
 	xiang@kernel.org,
 	jefflexu@linux.alibaba.com
-Date: Fri, 14 Oct 2022 11:07:40 +0800
-Message-Id: <20221014030745.25748-1-zhujia.zj@bytedance.com>
+Date: Fri, 14 Oct 2022 11:07:41 +0800
+Message-Id: <20221014030745.25748-2-zhujia.zj@bytedance.com>
+In-Reply-To: <20221014030745.25748-1-zhujia.zj@bytedance.com>
+References: <20221014030745.25748-1-zhujia.zj@bytedance.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -94,9 +97,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [Linux-cachefs] [PATCH V2 0/5] Introduce daemon failover mechanism
- to recover from crashing
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Linux-cachefs] [PATCH V2 1/5] cachefiles: introduce object
+ ondemand state
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,88 +115,148 @@ Cc: linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
  linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Changes since V1:
-1. Extract cachefiles_ondemand_select_req() from cachefiles_ondemand_daemon_read()
-   to make the code more readable.
-2. Fix a UAF bug reported by JeffleXu.
-3. Modify some code comments.
+Previously, @ondemand_id field was used not only to identify ondemand
+state of the object, but also to represent the index of the xarray.
+This commit introduces @state field to decouple the role of @ondemand_id
+and adds helpers to access it.
 
-[Background]
-============
-In ondemand read mode, if user daemon closes anonymous fd(e.g. daemon
-crashes), subsequent read and inflight requests based on these fd will
-return -EIO.
-Even if above mentioned case is tolerable for some individual users, but
-when it happenens in real cloud service production environment, such IO
-errors will be passed to cloud service users and impact its working jobs.
-It's terrible for cloud service stability.
+Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
+Reviewed-by: Xin Yin <yinxin.x@bytedance.com>
+---
+ fs/cachefiles/internal.h | 22 ++++++++++++++++++++++
+ fs/cachefiles/ondemand.c | 21 +++++++++------------
+ 2 files changed, 31 insertions(+), 12 deletions(-)
 
-[Design]
-========
-This patchset introduce three states for ondemand object:
-CLOSE: Object which just be allocated or closed by user daemon.
-OPEN: Object which related OPEN request has been processed correctly.
-REOPENING: Object which has been closed, and is drived to open by a read
-request.
-
-[Flow Path]
-===========
-[Daemon Crash] 
-0. Daemon use UDS send/receive fd to keep and pass the fd reference of
-   "/dev/cachefiles".
-1. User daemon crashes -> restart and recover dev fd's reference.
-2. User daemon write "restore" to device.
-   2.1 Reset the object's state from CLOSE to OPENING.
-   2.2 Init a work which reinit the object and add it to wq. (daemon can
-       get rid of kernel space and handle that open request).
-3. The user of upper filesystem won't notice that the daemon ever crashed
-   since the inflight IO is restored and handled correctly.
-
-[Daemon Close fd]
-1. User daemon closes an anonymous fd.
-2. User daemon reads a READ request which the associated anonymous fd was
-   closed and init a work which re-open the object.
-3. User daemon handles above open request normally.
-4. The user of upper filesystem won't notice that the daemon ever closed
-   any fd since the closed object is re-opened and related request was
-   handled correctly.
-
-[Test]
-======
-There is a testcase for above mentioned scenario.
-A user process read the file by fscache ondemand reading.
-At the same time, we kill the daemon constantly.
-The expected result is that the file read by user is consistent with
-original, and the user doesn't notice that daemon has ever been killed.
-
-https://github.com/userzj/demand-read-cachefilesd/commits/failover-test
-
-[GitWeb]
-========
-https://github.com/userzj/linux/tree/fscache-failover-v3
-
-Jia Zhu (5):
-  cachefiles: introduce object ondemand state
-  cachefiles: extract ondemand info field from cachefiles_object
-  cachefiles: resend an open request if the read request's object is
-    closed
-  cachefiles: narrow the scope of triggering EPOLLIN events in ondemand
-    mode
-  cachefiles: add restore command to recover inflight ondemand read
-    requests
-
- fs/cachefiles/daemon.c    |  14 +++-
- fs/cachefiles/interface.c |   6 ++
- fs/cachefiles/internal.h  |  58 +++++++++++++-
- fs/cachefiles/ondemand.c  | 156 ++++++++++++++++++++++++++++----------
- 4 files changed, 188 insertions(+), 46 deletions(-)
-
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index 2ad58c465208..39895bbd149a 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -17,6 +17,7 @@
+ #include <linux/security.h>
+ #include <linux/xarray.h>
+ #include <linux/cachefiles.h>
++#include <linux/atomic.h>
+ 
+ #define CACHEFILES_DIO_BLOCK_SIZE 4096
+ 
+@@ -44,6 +45,11 @@ struct cachefiles_volume {
+ 	struct dentry			*fanout[256];	/* Fanout subdirs */
+ };
+ 
++enum cachefiles_object_state {
++	CACHEFILES_ONDEMAND_OBJSTATE_close, /* Anonymous fd closed by daemon or initial state */
++	CACHEFILES_ONDEMAND_OBJSTATE_open, /* Anonymous fd associated with object is available */
++};
++
+ /*
+  * Backing file state.
+  */
+@@ -62,6 +68,7 @@ struct cachefiles_object {
+ #define CACHEFILES_OBJECT_USING_TMPFILE	0		/* Have an unlinked tmpfile */
+ #ifdef CONFIG_CACHEFILES_ONDEMAND
+ 	int				ondemand_id;
++	enum cachefiles_object_state	state;
+ #endif
+ };
+ 
+@@ -296,6 +303,21 @@ extern void cachefiles_ondemand_clean_object(struct cachefiles_object *object);
+ extern int cachefiles_ondemand_read(struct cachefiles_object *object,
+ 				    loff_t pos, size_t len);
+ 
++#define CACHEFILES_OBJECT_STATE_FUNCS(_state)	\
++static inline bool								\
++cachefiles_ondemand_object_is_##_state(const struct cachefiles_object *object) \
++{												\
++	return object->state == CACHEFILES_ONDEMAND_OBJSTATE_##_state; \
++}												\
++												\
++static inline void								\
++cachefiles_ondemand_set_object_##_state(struct cachefiles_object *object) \
++{												\
++	object->state = CACHEFILES_ONDEMAND_OBJSTATE_##_state; \
++}
++
++CACHEFILES_OBJECT_STATE_FUNCS(open);
++CACHEFILES_OBJECT_STATE_FUNCS(close);
+ #else
+ static inline ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
+ 					char __user *_buffer, size_t buflen)
+diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
+index 0254ed39f68c..90456b8a4b3e 100644
+--- a/fs/cachefiles/ondemand.c
++++ b/fs/cachefiles/ondemand.c
+@@ -15,6 +15,7 @@ static int cachefiles_ondemand_fd_release(struct inode *inode,
+ 
+ 	xa_lock(&cache->reqs);
+ 	object->ondemand_id = CACHEFILES_ONDEMAND_ID_CLOSED;
++	cachefiles_ondemand_set_object_close(object);
+ 
+ 	/*
+ 	 * Flush all pending READ requests since their completion depends on
+@@ -176,6 +177,8 @@ int cachefiles_ondemand_copen(struct cachefiles_cache *cache, char *args)
+ 		set_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags);
+ 	trace_cachefiles_ondemand_copen(req->object, id, size);
+ 
++	cachefiles_ondemand_set_object_open(req->object);
++
+ out:
+ 	complete(&req->done);
+ 	return ret;
+@@ -363,7 +366,8 @@ static int cachefiles_ondemand_send_req(struct cachefiles_object *object,
+ 		/* coupled with the barrier in cachefiles_flush_reqs() */
+ 		smp_mb();
+ 
+-		if (opcode != CACHEFILES_OP_OPEN && object->ondemand_id <= 0) {
++		if (opcode != CACHEFILES_OP_OPEN &&
++			!cachefiles_ondemand_object_is_open(object)) {
+ 			WARN_ON_ONCE(object->ondemand_id == 0);
+ 			xas_unlock(&xas);
+ 			ret = -EIO;
+@@ -430,18 +434,11 @@ static int cachefiles_ondemand_init_close_req(struct cachefiles_req *req,
+ 					      void *private)
+ {
+ 	struct cachefiles_object *object = req->object;
+-	int object_id = object->ondemand_id;
+ 
+-	/*
+-	 * It's possible that object id is still 0 if the cookie looking up
+-	 * phase failed before OPEN request has ever been sent. Also avoid
+-	 * sending CLOSE request for CACHEFILES_ONDEMAND_ID_CLOSED, which means
+-	 * anon_fd has already been closed.
+-	 */
+-	if (object_id <= 0)
++	if (!cachefiles_ondemand_object_is_open(object))
+ 		return -ENOENT;
+ 
+-	req->msg.object_id = object_id;
++	req->msg.object_id = object->ondemand_id;
+ 	trace_cachefiles_ondemand_close(object, &req->msg);
+ 	return 0;
+ }
+@@ -460,7 +457,7 @@ static int cachefiles_ondemand_init_read_req(struct cachefiles_req *req,
+ 	int object_id = object->ondemand_id;
+ 
+ 	/* Stop enqueuing requests when daemon has closed anon_fd. */
+-	if (object_id <= 0) {
++	if (!cachefiles_ondemand_object_is_open(object)) {
+ 		WARN_ON_ONCE(object_id == 0);
+ 		pr_info_once("READ: anonymous fd closed prematurely.\n");
+ 		return -EIO;
+@@ -485,7 +482,7 @@ int cachefiles_ondemand_init_object(struct cachefiles_object *object)
+ 	 * creating a new tmpfile as the cache file. Reuse the previously
+ 	 * allocated object ID if any.
+ 	 */
+-	if (object->ondemand_id > 0)
++	if (cachefiles_ondemand_object_is_open(object))
+ 		return 0;
+ 
+ 	volume_key_size = volume->key[0] + 1;
 -- 
 2.20.1
 
