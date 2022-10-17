@@ -1,106 +1,59 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4453A5FEA19
-	for <lists+linux-cachefs@lfdr.de>; Fri, 14 Oct 2022 10:07:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D9464600CE6
+	for <lists+linux-cachefs@lfdr.de>; Mon, 17 Oct 2022 12:52:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665734820;
+	s=mimecast20190719; t=1666003952;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=41nGshfxzv7z+xaNZdr7hYDS19ivxDvetPE52IaMhG8=;
-	b=Eh6pf9yefxspIEHu9yiC5BnlsDPTdC5cUhtzhrN3hIOpf9z+nE9qvEcnWnStJ612K9SWVb
-	dTv5ntgzmCu9JU1vgYCRpub9gBhQdIMKvbSJ32d7KTwvHbZ+HLpPAQpVolBB2IbHYiJhtv
-	dgqtITMtJIVVS4Ka8P9fN/XttVIrcXI=
+	bh=OUGGdv3VgaPvTEp/8JfNlv3iJmsu0TBoj3kuD7RwNtI=;
+	b=ZBggEcXgp/pqcZM5tOCuHK1G9lJFk0y+azgUJ7DtHFSylAxQ9Ke7h5zpftyXTO8X33EgOE
+	9keOFE/WdRXPIp8sYl4cri+N1qWHPqdBiBqOL9GUckJMQFQrCberTrjumjBeIhPbvmfUwW
+	GtTqpx+RxoYE/QRRu1TvaypGNyJBcic=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-111-6qEpA7BTMbKgZP-N90YUWA-1; Fri, 14 Oct 2022 04:06:57 -0400
-X-MC-Unique: 6qEpA7BTMbKgZP-N90YUWA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-64-AgcfHHWePce4BPGEjaqaow-1; Mon, 17 Oct 2022 06:52:29 -0400
+X-MC-Unique: AgcfHHWePce4BPGEjaqaow-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A39D4858F13;
-	Fri, 14 Oct 2022 08:06:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E6BF882822;
+	Mon, 17 Oct 2022 10:52:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9ABDE40398B9;
-	Fri, 14 Oct 2022 08:06:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 971872166B29;
+	Mon, 17 Oct 2022 10:52:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8DDB6194658F;
-	Fri, 14 Oct 2022 08:06:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1FA631946597;
+	Mon, 17 Oct 2022 10:52:26 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E8B9B1946587 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 14 Oct 2022 08:06:54 +0000 (UTC)
+ ESMTP id A9731194658F for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 17 Oct 2022 10:52:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CE50056D29F; Fri, 14 Oct 2022 08:06:54 +0000 (UTC)
+ id 7F70811422C1; Mon, 17 Oct 2022 10:52:25 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C6B2D56D2A8
- for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 08:06:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC566857AB9
- for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 08:06:54 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-620-LiFNTtVNMLm0XCuyAG36TQ-1; Fri, 14 Oct 2022 04:06:52 -0400
-X-MC-Unique: LiFNTtVNMLm0XCuyAG36TQ-1
-Received: by mail-pf1-f173.google.com with SMTP id h13so4226932pfr.7
- for <linux-cachefs@redhat.com>; Fri, 14 Oct 2022 01:06:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mJhr9GEso5XW6jomGaYhGKFuz4nHt5uQZJthz4evrwY=;
- b=8Ksf/eyYMEHPbNPHhTmgaZViB77je7uYdxpdpEhqlgeeRGyJNqDeN7qtHx3iwt4mNU
- vYoGqyfPzmUNvnVUf7CNhxTkdtiP8BdGWby4uf2JSZIx4/vdsiq0NFX39iMVxiLaVD0B
- ho8ll9EvXY61ZlMpkf4lAmuh92p4OSC0WjGoZwppB5uyG6gcVg6mR6bX+ozC26tswYn0
- vjp0wKjzLogFB0J8ioDvaxDofoxgATx74Do/IzMVXRBpuvhb1+NrK3oo1wMbgOGsyk/q
- h/OCKqrmzhq4OvEDwr5chbfN9ftOBwgxOj2a9FRYElvq3JB7NdrqkRc4QyfyygfwMUzf
- vLEg==
-X-Gm-Message-State: ACrzQf2CJzKlX384FTnoEIjjndVCeNl46s44u0Xi9+BI7ZM0iNW4pfJ+
- eCiN/jrccaxlLd9re4KaVbKFDQ==
-X-Google-Smtp-Source: AMsMyM5JxpG9s5zxrgZFOJc1qRRC6V0WPzYraBHHSO028+hk4ZTnTxwCa5/lFVyTrnav5G/YHeoJVg==
-X-Received: by 2002:a05:6a00:1a0e:b0:547:1cf9:40e8 with SMTP id
- g14-20020a056a001a0e00b005471cf940e8mr3894976pfv.82.1665734811751; 
- Fri, 14 Oct 2022 01:06:51 -0700 (PDT)
-Received: from C02G705SMD6V.bytedance.net ([63.216.146.188])
- by smtp.gmail.com with ESMTPSA id
- ik20-20020a170902ab1400b001730a1af0fbsm1119196plb.23.2022.10.14.01.06.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Oct 2022 01:06:51 -0700 (PDT)
-From: Jia Zhu <zhujia.zj@bytedance.com>
-To: dhowells@redhat.com,
-	xiang@kernel.org,
-	jefflexu@linux.alibaba.com
-Date: Fri, 14 Oct 2022 16:05:59 +0800
-Message-Id: <20221014080559.42108-6-zhujia.zj@bytedance.com>
-In-Reply-To: <20221014080559.42108-1-zhujia.zj@bytedance.com>
-References: <20221014080559.42108-1-zhujia.zj@bytedance.com>
+Received: from dwysocha.rdu.csb (unknown [10.22.8.42])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 16C381121319;
+ Mon, 17 Oct 2022 10:52:25 +0000 (UTC)
+From: Dave Wysochanski <dwysocha@redhat.com>
+To: Anna Schumaker <anna.schumaker@netapp.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ David Howells <dhowells@redhat.com>
+Date: Mon, 17 Oct 2022 06:52:07 -0400
+Message-Id: <20221017105212.77588-1-dwysocha@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [Linux-cachefs] [PATCH V3 5/5] cachefiles: add restore command to
- recover inflight ondemand read requests
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [Linux-cachefs] [PATCH v9 0/5] Convert NFS with fscache to the
+ netfs API
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,94 +65,122 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org
+Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
+ Benjamin Maynard <benmaynard@google.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Previously, in ondemand read scenario, if the anonymous fd was closed by
-user daemon, inflight and subsequent read requests would return EIO.
-As long as the device connection is not released, user daemon can hold
-and restore inflight requests by setting the request flag to
-CACHEFILES_REQ_NEW.
+This patchset converts NFS with fscache non-direct READ IO paths to
+use the netfs API with a non-invasive approach.  The existing NFS pgio
+layer does not need extensive changes, and is the best way so far I've
+found to address Trond's concerns about modifying the IO path [1] as
+well as only enabling netfs when fscache is configured and enabled [2].
+I have not attempted performance comparisions to address Chuck
+Lever's concern [3] because we are not converting the non-fscache
+enabled NFS IO paths to netfs.
 
-Suggested-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
-Signed-off-by: Xin Yin <yinxin.x@bytedance.com>
-Reviewed-by: Jingbo Xu <jefflexu@linux.alibaba.com>
----
- fs/cachefiles/daemon.c   |  1 +
- fs/cachefiles/internal.h |  3 +++
- fs/cachefiles/ondemand.c | 23 +++++++++++++++++++++++
- 3 files changed, 27 insertions(+)
+No new issues found at BakeAthon testing NFSv4.2 with Hammerspace
+(pNFS flexfiles) and NetApp (pNFS filelayout).
 
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index c74bd1f4ecf5..014369266cb2 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -77,6 +77,7 @@ static const struct cachefiles_daemon_cmd cachefiles_daemon_cmds[] = {
- 	{ "tag",	cachefiles_daemon_tag		},
- #ifdef CONFIG_CACHEFILES_ONDEMAND
- 	{ "copen",	cachefiles_ondemand_copen	},
-+	{ "restore",	cachefiles_ondemand_restore	},
- #endif
- 	{ "",		NULL				}
- };
-diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index 3d94990a8b38..e1f8bd47a315 100644
---- a/fs/cachefiles/internal.h
-+++ b/fs/cachefiles/internal.h
-@@ -301,6 +301,9 @@ extern ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
- extern int cachefiles_ondemand_copen(struct cachefiles_cache *cache,
- 				     char *args);
- 
-+extern int cachefiles_ondemand_restore(struct cachefiles_cache *cache,
-+					char *args);
-+
- extern int cachefiles_ondemand_init_object(struct cachefiles_object *object);
- extern void cachefiles_ondemand_clean_object(struct cachefiles_object *object);
- 
-diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
-index d8dce55d907c..c773ea940cc1 100644
---- a/fs/cachefiles/ondemand.c
-+++ b/fs/cachefiles/ondemand.c
-@@ -182,6 +182,29 @@ int cachefiles_ondemand_copen(struct cachefiles_cache *cache, char *args)
- 	return ret;
- }
- 
-+int cachefiles_ondemand_restore(struct cachefiles_cache *cache, char *args)
-+{
-+	struct cachefiles_req *req;
-+
-+	XA_STATE(xas, &cache->reqs, 0);
-+
-+	if (!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags))
-+		return -EOPNOTSUPP;
-+
-+	/*
-+	 * Reset the requests to CACHEFILES_REQ_NEW state, so that the
-+	 * requests have been processed halfway before the crash of the
-+	 * user daemon could be reprocessed after the recovery.
-+	 */
-+	xas_lock(&xas);
-+	xas_for_each(&xas, req, ULONG_MAX)
-+		xas_set_mark(&xas, CACHEFILES_REQ_NEW);
-+	xas_unlock(&xas);
-+
-+	wake_up_all(&cache->daemon_pollwq);
-+	return 0;
-+}
-+
- static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
- {
- 	struct cachefiles_object *object;
+The patchset is based on 6.0 and has been pushed to github at:
+https://github.com/DaveWysochanskiRH/kernel/commits/nfs-fscache-netfs
+https://github.com/DaveWysochanskiRH/kernel/commit/c222ed8cd042d003ca22d890af98d9c76ec8650e
+
+Changes since v8 [7]
+====================
+PATCH3-PATCH5: Add Jeff Layton Revewied-by
+
+Testing
+=======
+The patches are fairly stable as evidenced with xfstests generic with
+various servers, both with and without fscache enabled, with no hangs
+or crashes seen: 
+- hammerspace(pNFS flexfiles): NFS4.1, NFS4.2
+- NetApp(pNFS filelayout): NFS3, NFS4.0, NFS4.1, NFS4.2
+- RHEL8: NFS3,NFS4.0,NFS4.2
+
+Known issues
+============
+1. Unit test setting rsize < readahead does not properly read from
+fscache but re-reads data from the NFS server
+* This will be fixed with another linux-cachefs [4] patch to resolve
+"Stop read optimisation when folio removed from pagecache"
+* Daire Byrne also verified the patch fixes his issue as well
+
+2. "Cache volume key already in use" after xfstest runs
+* xfstests (hammerspace with vers=4.2,fsc) shows the following on the
+console after some tests:
+"NFS: Cache volume key already in use (nfs,4.1,2,c50,cfe0100a,3,,,8000,100000,100000,bb8,ea60,7530,ea60,1)"
+* This may be fixed with another patch [5] that is in progress
+
+3. Daire Byrne reported a NULL pointer oops at cachefiles_prepare_write+0x28/0x90
+* harder to reproduce/debug but under investigation [6]
+* only reproduced on RHEL7.9 based NFS re-export server using fscache with upstream kernel plus
+the previous patches
+* thought to be a bug in netfs or cachefiles exposed by NFS patches
+
+[58710.346376] BUG: kernel NULL pointer dereference, address: 0000000000000008
+[58710.371212] CPU: 12 PID: 9134 Comm: kworker/u129:0 Tainted: G E      6.0.0-2.dneg.x86_64 #1
+...
+[58710.389995] Workqueue: events_unbound netfs_rreq_write_to_cache_work [netfs]
+[58710.397188] RIP: 0010:cachefiles_prepare_write+0x28/0x90 [cachefiles]
+...
+[58710.500316] Call Trace:
+[58710.502894]  <TASK>
+[58710.505126]  netfs_rreq_write_to_cache_work+0x11c/0x320 [netfs]
+[58710.511201]  process_one_work+0x217/0x3e0
+[58710.515358]  worker_thread+0x4a/0x3b0
+[58710.519152]  ? process_one_work+0x3e0/0x3e0
+[58710.523467]  kthread+0xd6/0x100
+[58710.526740]  ? kthread_complete_and_exit+0x20/0x20
+[58710.531659]  ret_from_fork+0x1f/0x30
+
+
+
+References
+==========
+[1] https://lore.kernel.org/linux-nfs/9cfd5bc3cfc6abc2d3316b0387222e708d67f595.camel@hammerspace.com/
+[2] https://lore.kernel.org/linux-nfs/da9200f1bded9b8b078a7aef227fd6b92eb028fb.camel@hammerspace.com/
+[3] https://marc.info/?l=linux-nfs&m=160597917525083&w=4
+[4] https://www.mail-archive.com/linux-cachefs@redhat.com/msg03043.html
+[5] https://marc.info/?l=linux-nfs&m=165962662200679&w=4
+[6] https://listman.redhat.com/archives/linux-cachefs/2022-September/007183.html
+[7] https://marc.info/?l=linux-nfs&m=166385481714542&w=4
+
+Dave Wysochanski (5):
+  NFS: Rename readpage_async_filler to nfs_pageio_add_page
+  NFS: Configure support for netfs when NFS fscache is configured
+  NFS: Convert buffered read paths to use netfs when fscache is enabled
+  NFS: Remove all NFSIOS_FSCACHE counters due to conversion to netfs API
+  NFS: Remove fscache specific trace points and NFS_INO_FSCACHE bit
+
+ fs/nfs/Kconfig             |   1 +
+ fs/nfs/delegation.c        |   2 +-
+ fs/nfs/dir.c               |   2 +-
+ fs/nfs/fscache.c           | 242 ++++++++++++++++++++++---------------
+ fs/nfs/fscache.h           | 111 +++++++++++------
+ fs/nfs/inode.c             |   8 +-
+ fs/nfs/internal.h          |  11 +-
+ fs/nfs/iostat.h            |  17 ---
+ fs/nfs/nfstrace.h          |  91 --------------
+ fs/nfs/pagelist.c          |  12 ++
+ fs/nfs/pnfs.c              |  12 +-
+ fs/nfs/read.c              | 110 +++++++++--------
+ fs/nfs/super.c             |  11 --
+ fs/nfs/write.c             |   2 +-
+ include/linux/nfs_fs.h     |  35 ++++--
+ include/linux/nfs_iostat.h |  12 --
+ include/linux/nfs_page.h   |   3 +
+ include/linux/nfs_xdr.h    |   3 +
+ 18 files changed, 335 insertions(+), 350 deletions(-)
+
 -- 
-2.20.1
+2.31.1
 
 --
 Linux-cachefs mailing list
