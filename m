@@ -1,70 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2FC618F5F
-	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Nov 2022 05:05:25 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C91B6191D7
+	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Nov 2022 08:26:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667534724;
+	s=mimecast20190719; t=1667546816;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1kOo1yL5oCZ7e27IiBYVoB1pLxsJaAzLksW/uokbZ7w=;
-	b=R4TU3x9sb+06kP3hOv2YcLHnT8yHUOF5shQjGTgU5hQiv8IqIaBJYUyDGYLlsk3BZMipHm
-	tRskj50vVxKGFN5BVM4H6muYrsDUhyWrH6eV0VcOlgSDmHQqC3L5IEXyig+1lvTFHy38Vz
-	VCsNxIC5iITUbpUSlN+JqjyPJ1JqEQs=
+	bh=0lmI6mJo83Ao6GZN0gaUd0471/JnrHoldvKSIZMSIPY=;
+	b=MilaeBeIVzCchOZ8H7I+Ps9WvdwhwgGYtrUagQnkhAcwpZeDZn2N7aZELJygJSzSdIbukP
+	+FPx2DNZ8qnpbaOoL+LAHAsBVTI0TTRE9LvShbni9eNG9mjip4ZIpL2rd0wsj+HK1CpGYY
+	xEYJRoQd/zi+lMeT3/bOBSPnoyMapAA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-436-z1HorvTbPNiJoioMb19zSA-1; Fri, 04 Nov 2022 00:05:21 -0400
-X-MC-Unique: z1HorvTbPNiJoioMb19zSA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-91-srqBVrStMSmCktdE5_N6-w-1; Fri, 04 Nov 2022 03:26:52 -0400
+X-MC-Unique: srqBVrStMSmCktdE5_N6-w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0E45101A54E;
-	Fri,  4 Nov 2022 04:05:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33E54811E7A;
+	Fri,  4 Nov 2022 07:26:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EF232140EBF5;
-	Fri,  4 Nov 2022 04:05:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4EC321121320;
+	Fri,  4 Nov 2022 07:26:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3D7719465B2;
-	Fri,  4 Nov 2022 04:05:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C24C71946A46;
+	Fri,  4 Nov 2022 07:26:48 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9B6321946594 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  4 Nov 2022 04:05:18 +0000 (UTC)
+ ESMTP id 018D11946597 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  4 Nov 2022 07:26:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 522561402BFF; Fri,  4 Nov 2022 04:05:18 +0000 (UTC)
+ id B10AD40C6DC7; Fri,  4 Nov 2022 07:26:46 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A98F140EBF5
- for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 04:05:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AA00940C6F73
+ for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 07:26:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3482B862FEC
- for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 04:05:18 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-180-eBzXPkOyO-CAczi9xzI87A-1; Fri,
- 04 Nov 2022 00:05:16 -0400
-X-MC-Unique: eBzXPkOyO-CAczi9xzI87A-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1oqnZb-0072RF-Cu; Fri, 04 Nov 2022 03:40:51 +0000
-Date: Fri, 4 Nov 2022 03:40:51 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <Y2SJw7w1IsIik3nb@casper.infradead.org>
-References: <166751120808.117671.15797010154703575921.stgit@warthog.procyon.org.uk>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82076299E76B
+ for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 07:26:46 +0000 (UTC)
+Received: from out30-44.freemail.mail.aliyun.com
+ (out30-44.freemail.mail.aliyun.com [115.124.30.44]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
+ id us-mta-589-VhfWJcxmPFWiQlxJWwYDbQ-1; Fri, 04 Nov 2022 03:26:42 -0400
+X-MC-Unique: VhfWJcxmPFWiQlxJWwYDbQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
+ MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
+ TI=SMTPD_---0VTwBRBs_1667546797
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+ fp:SMTPD_---0VTwBRBs_1667546797) by smtp.aliyun-inc.com;
+ Fri, 04 Nov 2022 15:26:38 +0800
+From: Jingbo Xu <jefflexu@linux.alibaba.com>
+To: dhowells@redhat.com, jlayton@kernel.org, xiang@kernel.org, chao@kernel.org,
+ linux-cachefs@redhat.com, linux-erofs@lists.ozlabs.org
+Date: Fri,  4 Nov 2022 15:26:35 +0800
+Message-Id: <20221104072637.72375-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <166751120808.117671.15797010154703575921.stgit@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -72,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Linux-cachefs] [PATCH] netfs: Fix missing xas_retry() calls in
- xarray iteration
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [Linux-cachefs] [PATCH 0/2] fscache,
+ cachefiles: add prepare_ondemand_read() interface
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,41 +90,80 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, George Law <glaw@redhat.com>,
- linux-cachefs@redhat.com, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 03, 2022 at 09:33:28PM +0000, David Howells wrote:
-> +++ b/fs/netfs/buffered_read.c
-> @@ -46,10 +46,15 @@ void netfs_rreq_unlock_folios(struct netfs_io_request *rreq)
->  
->  	rcu_read_lock();
->  	xas_for_each(&xas, folio, last_page) {
-> -		unsigned int pgpos = (folio_index(folio) - start_page) * PAGE_SIZE;
-> -		unsigned int pgend = pgpos + folio_size(folio);
-> +		unsigned int pgpos, pgend;
+[Rationale]
+===========
+Fscache has been landed as a generic caching management framework in
+the Linux kernel for decades.  It aims to manage cache data availability
+or fetch data if needed.  Currently it's mainly used for network fses,
+but in principle the main caching subsystem can be used more widely.
 
-"unsigned int" assumes that the number of bytes isn't going to exceed 32
-bits.  I tend to err on the side of safety here and use size_t.
+We do really like fscache framework and we believe it'd be better to
+reuse such framework if possible instead of duplicating other
+alternatives for better maintenance and testing.  Therefore for our
+container image use cases, we applied the existing fscache to implement
+on-demand read for erofs in the past months.  For more details, also see
+[1].
 
->  		bool pg_failed = false;
->  
-> +		if (xas_retry(&xas, folio))
-> +			continue;
-> +
-> +		pgpos = (folio_index(folio) - start_page) * PAGE_SIZE;
-> +		pgend = pgpos + folio_size(folio);
+In short, here each erofs filesystem is composed of multiple blobs (or
+devices).  Each blob corresponds to one fscache cookie to strictly
+follow on-disk format and implement the image downloading in a
+deterministic manner, which means it has a unique checksum and is signed
+by vendors.
 
-What happens if start_page is somewhere inside folio?  Seems to me
-that pgend ends up overhanging into the next folio?
+Data of each erofs inode can be scattered among multiple blobs (cookie)
+since erofs supports chunk-level deduplication.  In this case, each
+erofs inode can correspond to multiple cookies, and there's a logical to
+physical offset mapping between the logical offset in erofs inode and
+the physical offset in the backing file.
+
+As described above, per-cookie netfs model can not be used here
+directly.  Instead, we'd like to propose/decouple a simple set of raw
+fscache APIs, to access cache for all fses to use.  We believe it's
+useful since it's like the relationship between raw bio and iomap, both
+of which are useful for local fses.  fscache_read() seems a reasonable
+candidate and is enough for such use case.
+
+In addition, the on-demand read feature relies on .prepare_read() to
+reuse the hole detecting logic as much as possible. However, after
+fscache/netfs rework, libnetfs is preferred to access fscache, making
+.prepare_read() closely coupled with libnetfs, or more precisely,
+netfs_io_subrequest.
+
+
+[What We Do]
+============
+As we discussed previously, we propose a new interface, i,e,
+.prepare_ondemand_read() dedicated for the on-demand read scenarios,
+which is independent on netfs_io_subrequest. The netfs will still use
+the original .prepare_read() as usual.
+
+And as we discussed, in the near future, prepare_read() will get enhanced
+and more information will be needed and then returned to callers.  Thus
+netfs_io_subrequest is retained as the aggregation for all parameters
+needed as the internal implementation inside Cachefiles.
+
+
+Jingbo Xu (2):
+  fscache,cachefiles: add prepare_ondemand_read() callback
+  erofs: switch to prepare_ondemand_read() in fscache mode
+
+ fs/cachefiles/io.c                |  42 ++++-
+ fs/erofs/fscache.c                | 257 +++++++++++-------------------
+ include/linux/netfs.h             |   7 +
+ include/trace/events/cachefiles.h |   4 +-
+ 4 files changed, 135 insertions(+), 175 deletions(-)
+
+-- 
+2.19.1.6.gb485710b
 
 --
 Linux-cachefs mailing list
