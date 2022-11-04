@@ -1,76 +1,78 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13956191D8
-	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Nov 2022 08:26:57 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E3B619556
+	for <lists+linux-cachefs@lfdr.de>; Fri,  4 Nov 2022 12:28:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667546816;
+	s=mimecast20190719; t=1667561292;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QOc5pS+RlBr3bYSSyUeYLD1Q7wIoX+gFaNLpDRu2LvI=;
-	b=U/Z+P3O/6sCN8nW0Sofa1xmdiF5zm458gGvTW/w0eXywQpK4zdS4QTcahRIYv2/qtDLYHg
-	17Xu73ffyHmfUIrj1+CPsLQHpiqDoCfzm/i6CgUW7wP6D37W0HZkpCy2tq8Qm6SwqysJBu
-	I6CrUi4cLGwRqdU1lJuYCLpl4CnKiQc=
+	bh=HWBD6aZxjG70SfKsP6XITij6+7yzlIimn2n/MMJCE/0=;
+	b=hl+7Bn05+7ZJ1sbhU6k9WmtAZeSARVZ1n0oHbhTN/bpoALc+HsQs+/t/7JVzgLJKHe7HSM
+	XbPViKhrTCu1nLZ+krisyUb5hiseT7BYK7zm1coagUu83LTFqqkThfMtD3BuEEfcC0l1F7
+	nbjHFbD9H91JQSr77kWtcVKksIiPOB0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-209-epV7DZ8pNLK1hCQ76A_SPA-1; Fri, 04 Nov 2022 03:26:52 -0400
-X-MC-Unique: epV7DZ8pNLK1hCQ76A_SPA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-628-juJ4jEfCMp-psQh8rBygJg-1; Fri, 04 Nov 2022 07:28:09 -0400
+X-MC-Unique: juJ4jEfCMp-psQh8rBygJg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3697286E922;
-	Fri,  4 Nov 2022 07:26:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E1B2185A78F;
+	Fri,  4 Nov 2022 11:28:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 26C5420182B2;
-	Fri,  4 Nov 2022 07:26:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 991DC112132C;
+	Fri,  4 Nov 2022 11:28:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CCDC619465B3;
-	Fri,  4 Nov 2022 07:26:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6019A1946594;
+	Fri,  4 Nov 2022 11:28:06 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 345601946594 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  4 Nov 2022 07:26:48 +0000 (UTC)
+ ESMTP id 446CD1946586 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  4 Nov 2022 11:28:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2795D492B25; Fri,  4 Nov 2022 07:26:48 +0000 (UTC)
+ id 33005112132C; Fri,  4 Nov 2022 11:28:04 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2050E49BB9A
- for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 07:26:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C2831121325
+ for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 11:28:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B67D1C08981
+ for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 11:28:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-265-XmBrpgl3MIS81cj0ykBFZw-1; Fri, 04 Nov 2022 07:28:02 -0400
+X-MC-Unique: XmBrpgl3MIS81cj0ykBFZw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED9271C0512B
- for <linux-cachefs@redhat.com>; Fri,  4 Nov 2022 07:26:47 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
- id us-mta-375-AN2rbPwfPomWgJc9QehCrg-1; Fri, 04 Nov 2022 03:26:45 -0400
-X-MC-Unique: AN2rbPwfPomWgJc9QehCrg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R901e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
- MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
- TI=SMTPD_---0VTvrbHT_1667546800
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VTvrbHT_1667546800) by smtp.aliyun-inc.com;
- Fri, 04 Nov 2022 15:26:41 +0800
-From: Jingbo Xu <jefflexu@linux.alibaba.com>
-To: dhowells@redhat.com, jlayton@kernel.org, xiang@kernel.org, chao@kernel.org,
- linux-cachefs@redhat.com, linux-erofs@lists.ozlabs.org
-Date: Fri,  4 Nov 2022 15:26:37 +0800
-Message-Id: <20221104072637.72375-3-jefflexu@linux.alibaba.com>
-In-Reply-To: <20221104072637.72375-1-jefflexu@linux.alibaba.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3EBCC62162;
+ Fri,  4 Nov 2022 11:18:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73B9C433C1;
+ Fri,  4 Nov 2022 11:18:08 +0000 (UTC)
+Message-ID: <c0d893bf6f52702a0bd2056a8cb005861b8324ea.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>, dhowells@redhat.com, 
+ xiang@kernel.org, chao@kernel.org, linux-cachefs@redhat.com, 
+ linux-erofs@lists.ozlabs.org
+Date: Fri, 04 Nov 2022 07:18:07 -0400
+In-Reply-To: <20221104072637.72375-2-jefflexu@linux.alibaba.com>
 References: <20221104072637.72375-1-jefflexu@linux.alibaba.com>
+ <20221104072637.72375-2-jefflexu@linux.alibaba.com>
+User-Agent: Evolution 3.44.4 (3.44.4-2.fc36)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -79,9 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Linux-cachefs] [PATCH 2/2] erofs: switch to
- prepare_ondemand_read() in fscache mode
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [Linux-cachefs] [PATCH 1/2] fscache,
+ cachefiles: add prepare_ondemand_read() callback
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,395 +98,153 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Switch to prepare_ondemand_read() interface and a self-contained request
-completion to get rid of netfs_io_[request|subrequest].
+On Fri, 2022-11-04 at 15:26 +0800, Jingbo Xu wrote:
+> Add prepare_ondemand_read() callback dedicated for the on-demand read
+> scenario, so that callers from this scenario can be decoupled from
+> netfs_io_subrequest.
+> 
+> To reuse the hole detecting logic as mush as possible, both the
+> implementation of prepare_read() and prepare_ondemand_read() inside
+> Cachefiles call a common routine.
+> 
+> In the near future, prepare_read() will get enhanced and more
+> information will be needed and then returned to callers. Thus
+> netfs_io_subrequest is a reasonable candidate for holding places for all
+> these information needed in the internal implementation.
+> 
+> Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> ---
+>  fs/cachefiles/io.c                | 42 +++++++++++++++++++++++++------
+>  include/linux/netfs.h             |  7 ++++++
+>  include/trace/events/cachefiles.h |  4 +--
+>  3 files changed, 43 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+> index 000a28f46e59..6427259fcba9 100644
+> --- a/fs/cachefiles/io.c
+> +++ b/fs/cachefiles/io.c
+> @@ -385,16 +385,11 @@ static int cachefiles_write(struct netfs_cache_resources *cres,
+>  				  term_func, term_func_priv);
+>  }
+>  
+> -/*
+> - * Prepare a read operation, shortening it to a cached/uncached
+> - * boundary as appropriate.
+> - */
+> -static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *subreq,
+> -						      loff_t i_size)
+> +static enum netfs_io_source cachefiles_do_prepare_read(struct netfs_io_subrequest *subreq,
+> +						       struct netfs_cache_resources *cres,
+> +						       loff_t i_size)
+>  {
+>  	enum cachefiles_prepare_read_trace why;
+> -	struct netfs_io_request *rreq = subreq->rreq;
+> -	struct netfs_cache_resources *cres = &rreq->cache_resources;
+>  	struct cachefiles_object *object;
+>  	struct cachefiles_cache *cache;
+>  	struct fscache_cookie *cookie = fscache_cres_cookie(cres);
+> @@ -501,6 +496,36 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Prepare a read operation, shortening it to a cached/uncached
+> + * boundary as appropriate.
+> + */
+> +static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *subreq,
+> +						      loff_t i_size)
+> +{
+> +	return cachefiles_do_prepare_read(subreq,
+> +			&subreq->rreq->cache_resources, i_size);
+> +}
+> +
+> +/*
+> + * Prepare an on-demand read operation, shortening it to a cached/uncached
+> + * boundary as appropriate.
+> + */
+> +static enum netfs_io_source cachefiles_prepare_ondemand_read(struct netfs_cache_resources *cres,
+> +		loff_t start, size_t *_len, loff_t i_size)
+> +{
+> +	enum netfs_io_source source;
+> +	struct netfs_io_subrequest subreq = {
+> +		.start	= start,
+> +		.len	= *_len,
+> +		.flags	= 1 << NETFS_SREQ_ONDEMAND,
+> +	};
+> +
 
-The whole request will still be split into slices (subrequest) according
-to the cache state of the backing file.  As long as one of the
-subrequests fails, the whole request will be marked as failed. Besides
-it will not retry for short read.  Similarly the whole request will fail
-if that really happens.  Thus the subrequest structure is not a
-necessity here.  What we need is just to hold one refcount to the
-request for each subrequest during the slicing, and put the refcount
-back during the completion.
+Faking up a struct like this is sort of fragile. What if we change
+cachefiles_do_prepare_read to consult other fields in this structure
+later?
 
-Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
----
- fs/erofs/fscache.c | 257 ++++++++++++++++-----------------------------
- 1 file changed, 92 insertions(+), 165 deletions(-)
+It might be best to have cachefiles_do_prepare_read take individual
+start, len, and flags values instead of doing this.
 
-diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-index 260fa4737fc0..7fc9cd35ab76 100644
---- a/fs/erofs/fscache.c
-+++ b/fs/erofs/fscache.c
-@@ -11,253 +11,176 @@ static DEFINE_MUTEX(erofs_domain_cookies_lock);
- static LIST_HEAD(erofs_domain_list);
- static struct vfsmount *erofs_pseudo_mnt;
- 
--static struct netfs_io_request *erofs_fscache_alloc_request(struct address_space *mapping,
-+struct erofs_fscache_request {
-+	struct netfs_cache_resources cache_resources;
-+	struct address_space	*mapping;	/* The mapping being accessed */
-+	loff_t			start;		/* Start position */
-+	size_t			len;		/* Length of the request */
-+	size_t			submitted;	/* Length of submitted */
-+	short			error;		/* 0 or error that occurred */
-+	refcount_t		ref;
-+};
-+
-+static struct erofs_fscache_request *erofs_fscache_req_alloc(struct address_space *mapping,
- 					     loff_t start, size_t len)
- {
--	struct netfs_io_request *rreq;
-+	struct erofs_fscache_request *req;
- 
--	rreq = kzalloc(sizeof(struct netfs_io_request), GFP_KERNEL);
--	if (!rreq)
-+	req = kzalloc(sizeof(struct erofs_fscache_request), GFP_KERNEL);
-+	if (!req)
- 		return ERR_PTR(-ENOMEM);
- 
--	rreq->start	= start;
--	rreq->len	= len;
--	rreq->mapping	= mapping;
--	rreq->inode	= mapping->host;
--	INIT_LIST_HEAD(&rreq->subrequests);
--	refcount_set(&rreq->ref, 1);
--	return rreq;
--}
--
--static void erofs_fscache_put_request(struct netfs_io_request *rreq)
--{
--	if (!refcount_dec_and_test(&rreq->ref))
--		return;
--	if (rreq->cache_resources.ops)
--		rreq->cache_resources.ops->end_operation(&rreq->cache_resources);
--	kfree(rreq);
--}
--
--static void erofs_fscache_put_subrequest(struct netfs_io_subrequest *subreq)
--{
--	if (!refcount_dec_and_test(&subreq->ref))
--		return;
--	erofs_fscache_put_request(subreq->rreq);
--	kfree(subreq);
--}
--
--static void erofs_fscache_clear_subrequests(struct netfs_io_request *rreq)
--{
--	struct netfs_io_subrequest *subreq;
-+	req->mapping = mapping;
-+	req->start   = start;
-+	req->len     = len;
-+	refcount_set(&req->ref, 1);
- 
--	while (!list_empty(&rreq->subrequests)) {
--		subreq = list_first_entry(&rreq->subrequests,
--				struct netfs_io_subrequest, rreq_link);
--		list_del(&subreq->rreq_link);
--		erofs_fscache_put_subrequest(subreq);
--	}
-+	return req;
- }
- 
--static void erofs_fscache_rreq_unlock_folios(struct netfs_io_request *rreq)
-+static void erofs_fscache_req_complete(struct erofs_fscache_request *req)
- {
--	struct netfs_io_subrequest *subreq;
- 	struct folio *folio;
--	unsigned int iopos = 0;
--	pgoff_t start_page = rreq->start / PAGE_SIZE;
--	pgoff_t last_page = ((rreq->start + rreq->len) / PAGE_SIZE) - 1;
--	bool subreq_failed = false;
--
--	XA_STATE(xas, &rreq->mapping->i_pages, start_page);
-+	pgoff_t start_page = req->start / PAGE_SIZE;
-+	pgoff_t last_page = ((req->start + req->len) / PAGE_SIZE) - 1;
-+	bool failed = req->error;
- 
--	subreq = list_first_entry(&rreq->subrequests,
--				  struct netfs_io_subrequest, rreq_link);
--	subreq_failed = (subreq->error < 0);
-+	XA_STATE(xas, &req->mapping->i_pages, start_page);
- 
- 	rcu_read_lock();
- 	xas_for_each(&xas, folio, last_page) {
--		unsigned int pgpos =
--			(folio_index(folio) - start_page) * PAGE_SIZE;
--		unsigned int pgend = pgpos + folio_size(folio);
--		bool pg_failed = false;
--
--		for (;;) {
--			if (!subreq) {
--				pg_failed = true;
--				break;
--			}
--
--			pg_failed |= subreq_failed;
--			if (pgend < iopos + subreq->len)
--				break;
--
--			iopos += subreq->len;
--			if (!list_is_last(&subreq->rreq_link,
--					  &rreq->subrequests)) {
--				subreq = list_next_entry(subreq, rreq_link);
--				subreq_failed = (subreq->error < 0);
--			} else {
--				subreq = NULL;
--				subreq_failed = false;
--			}
--			if (pgend == iopos)
--				break;
--		}
--
--		if (!pg_failed)
-+		if (!failed)
- 			folio_mark_uptodate(folio);
--
- 		folio_unlock(folio);
- 	}
- 	rcu_read_unlock();
-+
-+	if (req->cache_resources.ops)
-+		req->cache_resources.ops->end_operation(&req->cache_resources);
-+
-+	kfree(req);
- }
- 
--static void erofs_fscache_rreq_complete(struct netfs_io_request *rreq)
-+static void erofs_fscache_req_put(struct erofs_fscache_request *req)
- {
--	erofs_fscache_rreq_unlock_folios(rreq);
--	erofs_fscache_clear_subrequests(rreq);
--	erofs_fscache_put_request(rreq);
-+	if (refcount_dec_and_test(&req->ref))
-+		erofs_fscache_req_complete(req);
- }
- 
--static void erofc_fscache_subreq_complete(void *priv,
-+static void erofs_fscache_subreq_complete(void *priv,
- 		ssize_t transferred_or_error, bool was_async)
- {
--	struct netfs_io_subrequest *subreq = priv;
--	struct netfs_io_request *rreq = subreq->rreq;
-+	struct erofs_fscache_request *req = priv;
- 
- 	if (IS_ERR_VALUE(transferred_or_error))
--		subreq->error = transferred_or_error;
--
--	if (atomic_dec_and_test(&rreq->nr_outstanding))
--		erofs_fscache_rreq_complete(rreq);
--
--	erofs_fscache_put_subrequest(subreq);
-+		req->error = transferred_or_error;
-+	erofs_fscache_req_put(req);
- }
- 
- /*
-- * Read data from fscache and fill the read data into page cache described by
-- * @rreq, which shall be both aligned with PAGE_SIZE. @pstart describes
-- * the start physical address in the cache file.
-+ * Read data from fscache (cookie, pstart, len), and fill the read data into
-+ * page cache described by (req->mapping, lstart, len). @pstart describeis the
-+ * start physical address in the cache file.
-  */
- static int erofs_fscache_read_folios_async(struct fscache_cookie *cookie,
--				struct netfs_io_request *rreq, loff_t pstart)
-+		struct erofs_fscache_request *req, loff_t pstart, size_t len)
- {
- 	enum netfs_io_source source;
--	struct super_block *sb = rreq->mapping->host->i_sb;
--	struct netfs_io_subrequest *subreq;
--	struct netfs_cache_resources *cres = &rreq->cache_resources;
-+	struct super_block *sb = req->mapping->host->i_sb;
-+	struct netfs_cache_resources *cres = &req->cache_resources;
- 	struct iov_iter iter;
--	loff_t start = rreq->start;
--	size_t len = rreq->len;
-+	loff_t lstart = req->start + req->submitted;
- 	size_t done = 0;
- 	int ret;
- 
--	atomic_set(&rreq->nr_outstanding, 1);
-+	DBG_BUGON(len > req->len - req->submitted);
- 
- 	ret = fscache_begin_read_operation(cres, cookie);
- 	if (ret)
--		goto out;
-+		return ret;
- 
- 	while (done < len) {
--		subreq = kzalloc(sizeof(struct netfs_io_subrequest),
--				 GFP_KERNEL);
--		if (subreq) {
--			INIT_LIST_HEAD(&subreq->rreq_link);
--			refcount_set(&subreq->ref, 2);
--			subreq->rreq = rreq;
--			refcount_inc(&rreq->ref);
--		} else {
--			ret = -ENOMEM;
--			goto out;
--		}
-+		loff_t sstart = pstart + done;
-+		size_t slen = len - done;
- 
--		subreq->start = pstart + done;
--		subreq->len	=  len - done;
--		subreq->flags = 1 << NETFS_SREQ_ONDEMAND;
--
--		list_add_tail(&subreq->rreq_link, &rreq->subrequests);
--
--		source = cres->ops->prepare_read(subreq, LLONG_MAX);
--		if (WARN_ON(subreq->len == 0))
-+		source = cres->ops->prepare_ondemand_read(cres, sstart, &slen, LLONG_MAX);
-+		if (WARN_ON(slen == 0))
- 			source = NETFS_INVALID_READ;
- 		if (source != NETFS_READ_FROM_CACHE) {
--			erofs_err(sb, "failed to fscache prepare_read (source %d)",
--				  source);
--			ret = -EIO;
--			subreq->error = ret;
--			erofs_fscache_put_subrequest(subreq);
--			goto out;
-+			erofs_err(sb, "failed to fscache prepare_read (source %d)", source);
-+			return -EIO;
- 		}
- 
--		atomic_inc(&rreq->nr_outstanding);
-+		refcount_inc(&req->ref);
-+		iov_iter_xarray(&iter, READ, &req->mapping->i_pages,
-+				lstart + done, slen);
- 
--		iov_iter_xarray(&iter, READ, &rreq->mapping->i_pages,
--				start + done, subreq->len);
--
--		ret = fscache_read(cres, subreq->start, &iter,
--				   NETFS_READ_HOLE_FAIL,
--				   erofc_fscache_subreq_complete, subreq);
-+		ret = fscache_read(cres, sstart, &iter, NETFS_READ_HOLE_FAIL,
-+				   erofs_fscache_subreq_complete, req);
- 		if (ret == -EIOCBQUEUED)
- 			ret = 0;
- 		if (ret) {
- 			erofs_err(sb, "failed to fscache_read (ret %d)", ret);
--			goto out;
-+			return ret;
- 		}
- 
--		done += subreq->len;
-+		done += slen;
- 	}
--out:
--	if (atomic_dec_and_test(&rreq->nr_outstanding))
--		erofs_fscache_rreq_complete(rreq);
--
--	return ret;
-+	DBG_BUGON(done != len);
-+	req->submitted += len;
-+	return 0;
- }
- 
- static int erofs_fscache_meta_read_folio(struct file *data, struct folio *folio)
- {
- 	int ret;
- 	struct super_block *sb = folio_mapping(folio)->host->i_sb;
--	struct netfs_io_request *rreq;
-+	struct erofs_fscache_request *req;
- 	struct erofs_map_dev mdev = {
- 		.m_deviceid = 0,
- 		.m_pa = folio_pos(folio),
- 	};
- 
- 	ret = erofs_map_dev(sb, &mdev);
--	if (ret)
--		goto out;
-+	if (ret) {
-+		folio_unlock(folio);
-+		return ret;
-+	}
- 
--	rreq = erofs_fscache_alloc_request(folio_mapping(folio),
-+	req = erofs_fscache_req_alloc(folio_mapping(folio),
- 				folio_pos(folio), folio_size(folio));
--	if (IS_ERR(rreq)) {
--		ret = PTR_ERR(rreq);
--		goto out;
-+	if (IS_ERR(req)) {
-+		folio_unlock(folio);
-+		return PTR_ERR(req);
- 	}
- 
--	return erofs_fscache_read_folios_async(mdev.m_fscache->cookie,
--				rreq, mdev.m_pa);
--out:
--	folio_unlock(folio);
-+	ret = erofs_fscache_read_folios_async(mdev.m_fscache->cookie,
-+				req, mdev.m_pa, folio_size(folio));
-+	if (ret)
-+		req->error = ret;
-+
-+	erofs_fscache_req_put(req);
- 	return ret;
- }
- 
- /*
-  * Read into page cache in the range described by (@pos, @len).
-  *
-- * On return, the caller is responsible for page unlocking if the output @unlock
-- * is true, or the callee will take this responsibility through netfs_io_request
-- * interface.
-+ * On return, if the output @unlock is true, the caller is responsible for page
-+ * unlocking; otherwise the callee will take this responsibility through request
-+ * completion.
-  *
-  * The return value is the number of bytes successfully handled, or negative
-  * error code on failure. The only exception is that, the length of the range
-- * instead of the error code is returned on failure after netfs_io_request is
-- * allocated, so that .readahead() could advance rac accordingly.
-+ * instead of the error code is returned on failure after request is allocated,
-+ * so that .readahead() could advance rac accordingly.
-  */
- static int erofs_fscache_data_read(struct address_space *mapping,
- 				   loff_t pos, size_t len, bool *unlock)
- {
- 	struct inode *inode = mapping->host;
- 	struct super_block *sb = inode->i_sb;
--	struct netfs_io_request *rreq;
-+	struct erofs_fscache_request *req;
- 	struct erofs_map_blocks map;
- 	struct erofs_map_dev mdev;
- 	struct iov_iter iter;
-@@ -314,13 +237,17 @@ static int erofs_fscache_data_read(struct address_space *mapping,
- 	if (ret)
- 		return ret;
- 
--	rreq = erofs_fscache_alloc_request(mapping, pos, count);
--	if (IS_ERR(rreq))
--		return PTR_ERR(rreq);
-+	req = erofs_fscache_req_alloc(mapping, pos, count);
-+	if (IS_ERR(req))
-+		return PTR_ERR(req);
- 
- 	*unlock = false;
--	erofs_fscache_read_folios_async(mdev.m_fscache->cookie,
--			rreq, mdev.m_pa + (pos - map.m_la));
-+	ret = erofs_fscache_read_folios_async(mdev.m_fscache->cookie,
-+			req, mdev.m_pa + (pos - map.m_la), count);
-+	if (ret)
-+		req->error = ret;
-+
-+	erofs_fscache_req_put(req);
- 	return count;
- }
- 
+
+> +	source = cachefiles_do_prepare_read(&subreq, cres, i_size);
+> +	*_len = subreq.len;
+> +	return source;
+> +}
+> +
+>  /*
+>   * Prepare for a write to occur.
+>   */
+> @@ -621,6 +646,7 @@ static const struct netfs_cache_ops cachefiles_netfs_cache_ops = {
+>  	.write			= cachefiles_write,
+>  	.prepare_read		= cachefiles_prepare_read,
+>  	.prepare_write		= cachefiles_prepare_write,
+> +	.prepare_ondemand_read	= cachefiles_prepare_ondemand_read,
+>  	.query_occupancy	= cachefiles_query_occupancy,
+>  };
+>  
+> diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+> index f2402ddeafbf..d82071c37133 100644
+> --- a/include/linux/netfs.h
+> +++ b/include/linux/netfs.h
+> @@ -267,6 +267,13 @@ struct netfs_cache_ops {
+>  			     loff_t *_start, size_t *_len, loff_t i_size,
+>  			     bool no_space_allocated_yet);
+>  
+> +	/* Prepare an on-demand read operation, shortening it to a cached/uncached
+> +	 * boundary as appropriate.
+> +	 */
+> +	enum netfs_io_source (*prepare_ondemand_read)(struct netfs_cache_resources *cres,
+> +						      loff_t start, size_t *_len,
+> +						      loff_t i_size);
+> +
+>  	/* Query the occupancy of the cache in a region, returning where the
+>  	 * next chunk of data starts and how long it is.
+>  	 */
+> diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
+> index d8d4d73fe7b6..655d5900b8ef 100644
+> --- a/include/trace/events/cachefiles.h
+> +++ b/include/trace/events/cachefiles.h
+> @@ -448,14 +448,14 @@ TRACE_EVENT(cachefiles_prep_read,
+>  			     ),
+>  
+>  	    TP_fast_assign(
+> -		    __entry->rreq	= sreq->rreq->debug_id;
+> +		    __entry->rreq	= sreq->rreq ? sreq->rreq->debug_id : 0;
+>  		    __entry->index	= sreq->debug_index;
+>  		    __entry->flags	= sreq->flags;
+>  		    __entry->source	= source;
+>  		    __entry->why	= why;
+>  		    __entry->len	= sreq->len;
+>  		    __entry->start	= sreq->start;
+> -		    __entry->netfs_inode = sreq->rreq->inode->i_ino;
+> +		    __entry->netfs_inode = sreq->rreq ? sreq->rreq->inode->i_ino : 0;
+>  		    __entry->cache_inode = cache_inode;
+>  			   ),
+>  
+
 -- 
-2.19.1.6.gb485710b
+Jeff Layton <jlayton@kernel.org>
 
 --
 Linux-cachefs mailing list
