@@ -2,88 +2,57 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D512362D8CC
-	for <lists+linux-cachefs@lfdr.de>; Thu, 17 Nov 2022 12:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFAC162D9DD
+	for <lists+linux-cachefs@lfdr.de>; Thu, 17 Nov 2022 12:50:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668683143;
+	s=mimecast20190719; t=1668685857;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jZ8w+rlOadfHYK/2jieKmqualBynO9arOiQUcpZ5/qE=;
-	b=BAb3OLHKQzCEwtQyUuKqGQIx1Y1UG2grPA6arOLo8+CQTF0QAyQuG8NrFUzqJvKKsOQ2hD
-	jtgJsFy6eGCK35KMRo29jywUgysCTAou7BGOvmxdyhWFRjeZFdOHdpu3mbyyOueBrzZmj3
-	Zsz99YJOM4FDc9P26ky/xNV6ynonYnM=
+	bh=4jhK3/JJkk9JkW2fRVTOR8Jv+hQIbXj6oaA3JyXAX4c=;
+	b=Xq1OxNGHNbf2h0S1p5P7aqi4OuYm++DlyOSU0yS9oMLcv6kQmvftZD/fPUSQPRwn9t5FpI
+	YrRKD+YY2Pb2l5eBCwgfDKIWb6wtWLtKUB0b5ZMmfce2LSl2KMl9MBcd8m/P8BP8k8A1Qq
+	OgBh+S4ea0BTZOQ7j61YXh0YFR2TTT8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-3X4GxB3_MGunxEQyhS3k-Q-1; Thu, 17 Nov 2022 06:05:40 -0500
-X-MC-Unique: 3X4GxB3_MGunxEQyhS3k-Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-39-Nl36Kq0BN8it00ErCNFTkA-1; Thu, 17 Nov 2022 06:50:39 -0500
+X-MC-Unique: Nl36Kq0BN8it00ErCNFTkA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C627C8027FE;
-	Thu, 17 Nov 2022 11:05:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EC0A185A792;
+	Thu, 17 Nov 2022 11:50:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BB3E540C6EC3;
-	Thu, 17 Nov 2022 11:05:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1FE944B3FCD;
+	Thu, 17 Nov 2022 11:50:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 846EA19465A8;
-	Thu, 17 Nov 2022 11:05:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7B21219465B9;
+	Thu, 17 Nov 2022 11:50:28 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CA4CC19465A2 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 17 Nov 2022 11:05:38 +0000 (UTC)
+ ESMTP id 1F88319465A2 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 17 Nov 2022 11:50:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BD3A2111E41D; Thu, 17 Nov 2022 11:05:38 +0000 (UTC)
+ id F1BB5C202C5; Thu, 17 Nov 2022 11:50:26 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B5966111E41C
- for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 11:05:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 908413C0F7EE
- for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 11:05:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-79-I1lSI1C7P-6yw61CTspd2A-1; Thu, 17 Nov 2022 06:05:34 -0500
-X-MC-Unique: I1lSI1C7P-6yw61CTspd2A-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E50AF60A78;
- Thu, 17 Nov 2022 11:05:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8673FC433C1;
- Thu, 17 Nov 2022 11:05:32 +0000 (UTC)
-Message-ID: <a8831e31df79ac00943ccc21ac5d207e5faea96a.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
- chao@kernel.org,  linux-erofs@lists.ozlabs.org, linux-cachefs@redhat.com,
- dhowells@redhat.com
-Date: Thu, 17 Nov 2022 06:05:31 -0500
-In-Reply-To: <20221117053017.21074-2-jefflexu@linux.alibaba.com>
-References: <20221117053017.21074-1-jefflexu@linux.alibaba.com>
- <20221117053017.21074-2-jefflexu@linux.alibaba.com>
-User-Agent: Evolution 3.44.4 (3.44.4-2.fc36)
+Received: from dwysocha.rdu.csb (unknown [10.22.32.16])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 92D48C1E88E;
+ Thu, 17 Nov 2022 11:50:26 +0000 (UTC)
+From: Dave Wysochanski <dwysocha@redhat.com>
+To: David Howells <dhowells@redhat.com>, Daire Byrne <daire.byrne@gmail.com>,
+ Benjamin Maynard <benmaynard@google.com>
+Date: Thu, 17 Nov 2022 06:50:22 -0500
+Message-Id: <20221117115023.1350181-1-dwysocha@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Linux-cachefs] [PATCH v4 1/2] fscache,
- cachefiles: add prepare_ondemand_read() callback
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [Linux-cachefs] [PATCH 0/1] Fix oops in cachefiles_prepare_write
+ due to cookie_lru and use_cookie race
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,283 +64,594 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2022-11-17 at 13:30 +0800, Jingbo Xu wrote:
-> Add prepare_ondemand_read() callback dedicated for the on-demand read
-> scenario, so that callers from this scenario can be decoupled from
-> netfs_io_subrequest.
-> 
-> The original cachefiles_prepare_read() is now refactored to a generic
-> routine accepting a parameter list instead of netfs_io_subrequest.
-> There's no logic change, except that some debug info retrieved from
-> netfs_io_subrequest is removed from trace_cachefiles_prep_read().
-> 
-> Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-> ---
->  fs/cachefiles/io.c                | 77 ++++++++++++++++++++-----------
->  include/linux/netfs.h             |  8 ++++
->  include/trace/events/cachefiles.h | 27 ++++++-----
->  3 files changed, 71 insertions(+), 41 deletions(-)
-> 
-> diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
-> index 000a28f46e59..13648348d9f9 100644
-> --- a/fs/cachefiles/io.c
-> +++ b/fs/cachefiles/io.c
-> @@ -385,38 +385,35 @@ static int cachefiles_write(struct netfs_cache_resources *cres,
->  				  term_func, term_func_priv);
->  }
->  
-> -/*
-> - * Prepare a read operation, shortening it to a cached/uncached
-> - * boundary as appropriate.
-> - */
-> -static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *subreq,
-> -						      loff_t i_size)
-> +static inline enum netfs_io_source
-> +cachefiles_do_prepare_read(struct netfs_cache_resources *cres,
-> +			   loff_t start, size_t *_len, loff_t i_size,
-> +			   unsigned long *_flags)
->  {
->  	enum cachefiles_prepare_read_trace why;
-> -	struct netfs_io_request *rreq = subreq->rreq;
-> -	struct netfs_cache_resources *cres = &rreq->cache_resources;
-> -	struct cachefiles_object *object;
-> +	struct cachefiles_object *object = NULL;
->  	struct cachefiles_cache *cache;
->  	struct fscache_cookie *cookie = fscache_cres_cookie(cres);
->  	const struct cred *saved_cred;
->  	struct file *file = cachefiles_cres_file(cres);
->  	enum netfs_io_source ret = NETFS_DOWNLOAD_FROM_SERVER;
-> +	size_t len = *_len;
->  	loff_t off, to;
->  	ino_t ino = file ? file_inode(file)->i_ino : 0;
->  	int rc;
->  
-> -	_enter("%zx @%llx/%llx", subreq->len, subreq->start, i_size);
-> +	_enter("%zx @%llx/%llx", len, start, i_size);
->  
-> -	if (subreq->start >= i_size) {
-> +	if (start >= i_size) {
->  		ret = NETFS_FILL_WITH_ZEROES;
->  		why = cachefiles_trace_read_after_eof;
->  		goto out_no_object;
->  	}
->  
->  	if (test_bit(FSCACHE_COOKIE_NO_DATA_TO_READ, &cookie->flags)) {
-> -		__set_bit(NETFS_SREQ_COPY_TO_CACHE, &subreq->flags);
-> +		__set_bit(NETFS_SREQ_COPY_TO_CACHE, _flags);
->  		why = cachefiles_trace_read_no_data;
-> -		if (!test_bit(NETFS_SREQ_ONDEMAND, &subreq->flags))
-> +		if (!test_bit(NETFS_SREQ_ONDEMAND, _flags))
->  			goto out_no_object;
->  	}
->  
-> @@ -437,7 +434,7 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
->  retry:
->  	off = cachefiles_inject_read_error();
->  	if (off == 0)
-> -		off = vfs_llseek(file, subreq->start, SEEK_DATA);
-> +		off = vfs_llseek(file, start, SEEK_DATA);
->  	if (off < 0 && off >= (loff_t)-MAX_ERRNO) {
->  		if (off == (loff_t)-ENXIO) {
->  			why = cachefiles_trace_read_seek_nxio;
-> @@ -449,21 +446,22 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
->  		goto out;
->  	}
->  
-> -	if (off >= subreq->start + subreq->len) {
-> +	if (off >= start + len) {
->  		why = cachefiles_trace_read_found_hole;
->  		goto download_and_store;
->  	}
->  
-> -	if (off > subreq->start) {
-> +	if (off > start) {
->  		off = round_up(off, cache->bsize);
-> -		subreq->len = off - subreq->start;
-> +		len = off - start;
-> +		*_len = len;
->  		why = cachefiles_trace_read_found_part;
->  		goto download_and_store;
->  	}
->  
->  	to = cachefiles_inject_read_error();
->  	if (to == 0)
-> -		to = vfs_llseek(file, subreq->start, SEEK_HOLE);
-> +		to = vfs_llseek(file, start, SEEK_HOLE);
->  	if (to < 0 && to >= (loff_t)-MAX_ERRNO) {
->  		trace_cachefiles_io_error(object, file_inode(file), to,
->  					  cachefiles_trace_seek_error);
-> @@ -471,12 +469,13 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
->  		goto out;
->  	}
->  
-> -	if (to < subreq->start + subreq->len) {
-> -		if (subreq->start + subreq->len >= i_size)
-> +	if (to < start + len) {
-> +		if (start + len >= i_size)
->  			to = round_up(to, cache->bsize);
->  		else
->  			to = round_down(to, cache->bsize);
-> -		subreq->len = to - subreq->start;
-> +		len = to - start;
-> +		*_len = len;
->  	}
->  
->  	why = cachefiles_trace_read_have_data;
-> @@ -484,12 +483,11 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
->  	goto out;
->  
->  download_and_store:
-> -	__set_bit(NETFS_SREQ_COPY_TO_CACHE, &subreq->flags);
-> -	if (test_bit(NETFS_SREQ_ONDEMAND, &subreq->flags)) {
-> -		rc = cachefiles_ondemand_read(object, subreq->start,
-> -					      subreq->len);
-> +	__set_bit(NETFS_SREQ_COPY_TO_CACHE, _flags);
-> +	if (test_bit(NETFS_SREQ_ONDEMAND, _flags)) {
-> +		rc = cachefiles_ondemand_read(object, start, len);
->  		if (!rc) {
-> -			__clear_bit(NETFS_SREQ_ONDEMAND, &subreq->flags);
-> +			__clear_bit(NETFS_SREQ_ONDEMAND, _flags);
->  			goto retry;
->  		}
->  		ret = NETFS_INVALID_READ;
-> @@ -497,10 +495,34 @@ static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *
->  out:
->  	cachefiles_end_secure(cache, saved_cred);
->  out_no_object:
-> -	trace_cachefiles_prep_read(subreq, ret, why, ino);
-> +	trace_cachefiles_prep_read(object, start, len, *_flags, ret, why, ino);
->  	return ret;
->  }
->  
-> +/*
-> + * Prepare a read operation, shortening it to a cached/uncached
-> + * boundary as appropriate.
-> + */
-> +static enum netfs_io_source cachefiles_prepare_read(struct netfs_io_subrequest *subreq,
-> +						    loff_t i_size)
-> +{
-> +	return cachefiles_do_prepare_read(&subreq->rreq->cache_resources,
-> +					  subreq->start, &subreq->len, i_size,
-> +					  &subreq->flags);
-> +}
-> +
-> +/*
-> + * Prepare an on-demand read operation, shortening it to a cached/uncached
-> + * boundary as appropriate.
-> + */
-> +static enum netfs_io_source
-> +cachefiles_prepare_ondemand_read(struct netfs_cache_resources *cres,
-> +				 loff_t start, size_t *_len, loff_t i_size,
-> +				 unsigned long *_flags)
-> +{
-> +	return cachefiles_do_prepare_read(cres, start, _len, i_size, _flags);
-> +}
-> +
->  /*
->   * Prepare for a write to occur.
->   */
-> @@ -621,6 +643,7 @@ static const struct netfs_cache_ops cachefiles_netfs_cache_ops = {
->  	.write			= cachefiles_write,
->  	.prepare_read		= cachefiles_prepare_read,
->  	.prepare_write		= cachefiles_prepare_write,
-> +	.prepare_ondemand_read	= cachefiles_prepare_ondemand_read,
->  	.query_occupancy	= cachefiles_query_occupancy,
->  };
->  
-> diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-> index f2402ddeafbf..95cc0397f0ee 100644
-> --- a/include/linux/netfs.h
-> +++ b/include/linux/netfs.h
-> @@ -267,6 +267,14 @@ struct netfs_cache_ops {
->  			     loff_t *_start, size_t *_len, loff_t i_size,
->  			     bool no_space_allocated_yet);
->  
-> +	/* Prepare an on-demand read operation, shortening it to a cached/uncached
-> +	 * boundary as appropriate.
-> +	 */
-> +	enum netfs_io_source (*prepare_ondemand_read)(struct netfs_cache_resources *cres,
-> +						      loff_t start, size_t *_len,
-> +						      loff_t i_size,
-> +						      unsigned long *_flags);
-> +
->  	/* Query the occupancy of the cache in a region, returning where the
->  	 * next chunk of data starts and how long it is.
->  	 */
-> diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
-> index d8d4d73fe7b6..171c0d7f0bb7 100644
-> --- a/include/trace/events/cachefiles.h
-> +++ b/include/trace/events/cachefiles.h
-> @@ -428,44 +428,43 @@ TRACE_EVENT(cachefiles_vol_coherency,
->  	    );
->  
->  TRACE_EVENT(cachefiles_prep_read,
-> -	    TP_PROTO(struct netfs_io_subrequest *sreq,
-> +	    TP_PROTO(struct cachefiles_object *obj,
-> +		     loff_t start,
-> +		     size_t len,
-> +		     unsigned short flags,
->  		     enum netfs_io_source source,
->  		     enum cachefiles_prepare_read_trace why,
->  		     ino_t cache_inode),
->  
-> -	    TP_ARGS(sreq, source, why, cache_inode),
-> +	    TP_ARGS(obj, start, len, flags, source, why, cache_inode),
->  
->  	    TP_STRUCT__entry(
-> -		    __field(unsigned int,		rreq		)
-> -		    __field(unsigned short,		index		)
-> +		    __field(unsigned int,		obj		)
->  		    __field(unsigned short,		flags		)
->  		    __field(enum netfs_io_source,	source		)
->  		    __field(enum cachefiles_prepare_read_trace,	why	)
->  		    __field(size_t,			len		)
->  		    __field(loff_t,			start		)
-> -		    __field(unsigned int,		netfs_inode	)
->  		    __field(unsigned int,		cache_inode	)
->  			     ),
->  
->  	    TP_fast_assign(
-> -		    __entry->rreq	= sreq->rreq->debug_id;
-> -		    __entry->index	= sreq->debug_index;
-> -		    __entry->flags	= sreq->flags;
-> +		    __entry->obj	= obj ? obj->debug_id : 0;
-> +		    __entry->flags	= flags;
->  		    __entry->source	= source;
->  		    __entry->why	= why;
-> -		    __entry->len	= sreq->len;
-> -		    __entry->start	= sreq->start;
-> -		    __entry->netfs_inode = sreq->rreq->inode->i_ino;
-> +		    __entry->len	= len;
-> +		    __entry->start	= start;
->  		    __entry->cache_inode = cache_inode;
->  			   ),
->  
-> -	    TP_printk("R=%08x[%u] %s %s f=%02x s=%llx %zx ni=%x B=%x",
-> -		      __entry->rreq, __entry->index,
-> +	    TP_printk("o=%08x %s %s f=%02x s=%llx %zx B=%x",
-> +		      __entry->obj,
->  		      __print_symbolic(__entry->source, netfs_sreq_sources),
->  		      __print_symbolic(__entry->why, cachefiles_prepare_read_traces),
->  		      __entry->flags,
->  		      __entry->start, __entry->len,
-> -		      __entry->netfs_inode, __entry->cache_inode)
-> +		      __entry->cache_inode)
->  	    );
->  
->  TRACE_EVENT(cachefiles_read,
+This patch should fix the oops seen by Daire while testing the latest
+NFS netfs fscache conversion patches [1][2].  What follows is a detailed
+explanation of the analysis, mostly for reference and in case any of
+the patch header is unclear.
+
+I am not sure if David Howells will see something else here or another
+approach, but if not Daire please give this patch a try and let me know
+if this fixes the problem and if you see any side-effects.
+
+The patch has been lightly tested with my unit tests and also some
+test which attempted (unsuccessfully so far) to reproduce this oops.
+
+Note: My full set of NFS netfs conversion patches I'm testing (which now
+includes the patch in this series) is pushed to github:
+https://github.com/DaveWysochanskiRH/kernel/commits/nfs-fscache-netfs
+https://github.com/DaveWysochanskiRH/kernel/commit/3a7100256a78a7617941c7b142e079bafb71c459
+
+[1] https://listman.redhat.com/archives/linux-cachefs/2022-October/007259.html
+[2] https://marc.info/?l=linux-nfs&m=166600357429305&w=4
 
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Analysis
+========
+
+From Daire's latest ftrace log while running the debug patch, we see the
+following:
+
+$ grep -B 4000 "object == NULL:" loncloudnfscache5-serial.log | egrep '(c=00000b95|R=00278174)'
+[29690.046137] kworker/-19194     1..... 9424710955us : fscache_cookie: c=00000b95 -   lrudo r=3
+[29690.082232] kworker/-19194     1..... 9424710955us : fscache_access: c=00000b95 UNPIN cache   r=3 a=0
+[29690.091621] kworker/-19194     1..... 9424710955us : fscache_cookie: c=00000b95 GQ  endac r=4
+[29690.261035] kworker/-19194     1..... 9424710957us : fscache_cookie: c=00000b95 PUT lru   r=3
+[29690.607434]     nfsd-2004      5...1. 9424710960us : fscache_active: c=00000b95 USE           r=3 a=0 c=1
+[29692.215455]     nfsd-2004      5..... 9424710975us : fscache_access: c=00000b95 BEGIN io_read r=3 a=1
+[29692.405546] kworker/-25371     0..... 9424710975us : fscache_cookie: c=00000b95 -   work  r=3
+[29692.421426]     nfsd-2004      5..... 9424710976us : netfs_read: R=00278174 READAHEAD c=00000b95 ni=8bb0005 s=0 10000
+[29692.488038] kworker/-25371     0..... 9424710976us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE withdraw_cookie
+[29692.520323] kworker/-25371     0...1. 9424710976us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE withdrawal
+[29692.656826] kworker/-25371     0..... 9424710977us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE clean_commit
+[29692.683613]     nfsd-2004      5..... 9424710977us : netfs_rreq_ref: R=00278174 GET SUBREQ  r=2
+[29692.750300]     nfsd-2004      5..... 9424710977us : cachefiles_prep_read: R=00278174[0] DOWN no-data    f=01 s=0 10000 ni=8bb0005 B=5a601b9
+[29692.837249]     nfsd-2004      5..... 9424710977us : netfs_sreq: R=00278174[0] DOWN PREP  f=01 s=0 0/10000 e=0
+[29692.916087]     nfsd-2004      5..... 9424710978us : netfs_sreq: R=00278174[0] DOWN SUBMT f=01 s=0 0/10000 e=0
+[29693.315546] kworker/-25371     0..... 9424710983us : cachefiles_ref: c=00000b95 o=0009b320 u=1 PUT detach
+[29693.381768] kworker/-25371     0..... 9424710983us : fscache_cookie: c=00000b95 PUT obj   r=2
+[29693.427768] kworker/-25371     0...1. 9424710983us : fscache_cookie: c=00000b95 -   x-lru r=2
+[29693.446174] kworker/-25371     0..... 9424710984us : fscache_cookie: c=00000b95 PQ  work  r=1
+[29720.026557] kworker/-23613     3..... 9424722078us : netfs_sreq: R=00278174[0] DOWN TERM  f=01 s=0 10000/10000 e=0
+[29720.037562] kworker/-23613     3..... 9424722078us : netfs_rreq: R=00278174 RA ASSESS  f=22
+[29720.061359] kworker/-23613     3..... 9424722079us : netfs_rreq: R=00278174 RA UNLOCK  f=22
+[29720.132747] kworker/-23613     3..... 9424722087us : netfs_sreq_ref: R=00278174[0] PUT TERM    r=1
+[29720.145155] kworker/-23613     3..... 9424722088us : netfs_rreq: R=00278174 RA COPY    f=02
+[29720.158119] kworker/-23613     3..... 9424722090us : cachefiles_prepare_write: object == NULL: c=00000b95
+
+
+Decode the above trace envents one by one and figure out what happened.
+
+kworker/-19194: Runs because the LRU timer expired
+
+fscache_cookie_lru_timed_out()
+  fscache_cookie_lru_worker()
+    fscache_cookie_lru_do_one()
+
+
+[29690.046137] kworker/-19194     1..... 9424710955us : fscache_cookie: c=00000b95 -   lrudo r=3
+	EM(fscache_cookie_see_lru_do_one,	"-   lrudo")		\
+
+    848 static void fscache_cookie_lru_do_one(struct fscache_cookie *cookie)
+    849 {
+    850         fscache_see_cookie(cookie, fscache_cookie_see_lru_do_one);
+    851 
+    852         spin_lock(&cookie->lock);
+    853         if (cookie->state != FSCACHE_COOKIE_STATE_ACTIVE ||
+    854             time_before(jiffies, cookie->unused_at + fscache_lru_cookie_timeout) ||
+    855             atomic_read(&cookie->n_active) > 0) {
+...
+    860         } else {
+    859                 set_bit(FSCACHE_COOKIE_DO_LRU_DISCARD, &cookie->flags);
+    860                 spin_unlock(&cookie->lock);
+    861                 fscache_stat(&fscache_n_cookies_lru_expired);
+    862                 _debug("lru c=%x", cookie->debug_id);
+    863                 __fscache_withdraw_cookie(cookie);
+...
+	    827 /*
+	    828  * Wait for the object to become inactive.  The cookie's work item will be
+	    829  * scheduled when someone transitions n_accesses to 0 - but if someone's
+	    830  * already done that, schedule it anyway.
+	    831  */
+	    832 static void __fscache_withdraw_cookie(struct fscache_cookie *cookie)
+	    833 {
+	    834         int n_accesses;
+	    835         bool unpinned;
+	    836 
+	    837         unpinned = test_and_clear_bit(FSCACHE_COOKIE_NO_ACCESS_WAKE, &cookie->flags);
+	    838 
+	    839         /* Need to read the access count after unpinning */
+	    840         n_accesses = atomic_read(&cookie->n_accesses);
+	    841         if (unpinned)
+
+[29690.082232] kworker/-19194     1..... 9424710955us : fscache_access: c=00000b95 UNPIN cache   r=3 a=0
+		EM(fscache_access_cache_unpin,		"UNPIN cache  ")	\
+
+	    842                 trace_fscache_access(cookie->debug_id, refcount_read(&cookie->ref),
+	    843                                      n_accesses, fscache_access_cache_unpin);
+	    844         if (n_accesses == 0)
+
+[29690.091621] kworker/-19194     1..... 9424710955us : fscache_cookie: c=00000b95 GQ  endac r=4
+	EM(fscache_cookie_get_end_access,	"GQ  endac")		\
+
+	    845                 fscache_queue_cookie(cookie, fscache_cookie_get_end_access);
+	    846 }
+...
+    864         }
+    865 
+
+[29690.261035] kworker/-19194     1..... 9424710957us : fscache_cookie: c=00000b95 PUT lru   r=3
+	EM(fscache_cookie_put_lru,		"PUT lru  ")		\
+
+    866         fscache_put_cookie(cookie, fscache_cookie_put_lru);
+    867 }
+
+
+At this point, the kworker is done and we have queued the cookie to run the state machine,
+but it has not yet run.  And we know the cookie has the following values in various fields:
+1. cookie->state == FSCACHE_COOKIE_STATE_ACTIVE
+* Otherwise, we would have the 'then' clause would have executed in fscache_cookie_lru_do_one() lines 853-855
+2. cookie->flags has set FSCACHE_COOKIE_DO_LRU_DISCARD
+3. cookie->n_accesses == 0 (the "a=0" in the "UNPIN cache" trace event
+
+
+
+nfsd-2004: Runs because nfs_fscache_open_file() is called upon opening a file for read (will_modify == false)
+
+[29690.607434]     nfsd-2004      5...1. 9424710960us : fscache_active: c=00000b95 USE           r=3 a=0 c=1
+	EM(fscache_active_use,			"USE          ")	\
+
+    565 /*
+    566  * Start using the cookie for I/O.  This prevents the backing object from being
+    567  * reaped by VM pressure.
+    568  */
+    569 void __fscache_use_cookie(struct fscache_cookie *cookie, bool will_modify)
+    570 {
+    571         enum fscache_cookie_state state;
+    572         bool queue = false;
+    573         int n_active;
+    574 
+    575         _enter("c=%08x", cookie->debug_id);
+    576 
+    577         if (WARN(test_bit(FSCACHE_COOKIE_RELINQUISHED, &cookie->flags),
+    578                  "Trying to use relinquished cookie\n"))
+    579                 return;
+    580 
+    581         spin_lock(&cookie->lock);
+    582 
+    583         n_active = atomic_inc_return(&cookie->n_active);
+    584         trace_fscache_active(cookie->debug_id, refcount_read(&cookie->ref),
+    585                              n_active, atomic_read(&cookie->n_accesses),
+    586                              will_modify ?
+    587                              fscache_active_use_modify : fscache_active_use);
+    588 
+    589 again:
+    590         state = fscache_cookie_state(cookie);
+    591         switch (state) {
+
+
+Called from NFS here:
+fs/nfs/fscache.c
+    216 void nfs_fscache_open_file(struct inode *inode, struct file *filp)
+    217 {
+    218         struct nfs_fscache_inode_auxdata auxdata;
+    219         struct fscache_cookie *cookie = netfs_i_cookie(netfs_inode(inode));
+    220         bool open_for_write = inode_is_open_for_write(inode);
+    221 
+    222         if (!fscache_cookie_valid(cookie))
+    223                 return;
+    224 
+    225         fscache_use_cookie(cookie, open_for_write);
+    226         if (open_for_write) {
+    227                 nfs_fscache_update_auxdata(&auxdata, inode);
+    228                 fscache_invalidate(cookie, &auxdata, i_size_read(inode),
+    229                                    FSCACHE_INVAL_DIO_WRITE);
+    230         }
+    231 }
+    232 EXPORT_SYMBOL_GPL(nfs_fscache_open_file);
+
+
+[29692.215455]     nfsd-2004      5..... 9424710975us : fscache_access: c=00000b95 BEGIN io_read r=3 a=1
+	EM(fscache_access_io_read,		"BEGIN io_read")	\
+
+fs/fscache/io.c
+int __fscache_begin_read_operation(struct netfs_cache_resources *cres,
+                                   struct fscache_cookie *cookie)
+{
+        return fscache_begin_operation(cres, cookie, FSCACHE_WANT_PARAMS,
+                                       fscache_access_io_read);
+}
+EXPORT_SYMBOL(__fscache_begin_read_operation);
+include/linux/fscache.h
+    431 /**
+    432  * fscache_begin_read_operation - Begin a read operation for the netfs lib
+    433  * @cres: The cache resources for the read being performed
+    434  * @cookie: The cookie representing the cache object
+    435  *
+    436  * Begin a read operation on behalf of the netfs helper library.  @cres
+    437  * indicates the cache resources to which the operation state should be
+    438  * attached; @cookie indicates the cache object that will be accessed.
+    439  *
+    440  * This is intended to be called from the ->begin_cache_operation() netfs lib
+    441  * operation as implemented by the network filesystem.
+    442  *
+    443  * @cres->inval_counter is set from @cookie->inval_counter for comparison at
+    444  * the end of the operation.  This allows invalidation during the operation to
+    445  * be detected by the caller.
+    446  *
+    447  * Returns:
+    448  * * 0          - Success
+    449  * * -ENOBUFS   - No caching available
+    450  * * Other error code from the cache, such as -ENOMEM.
+    451  */
+    452 static inline
+    453 int fscache_begin_read_operation(struct netfs_cache_resources *cres,
+    454                                  struct fscache_cookie *cookie)
+    455 {
+    456         if (fscache_cookie_enabled(cookie))
+    457                 return __fscache_begin_read_operation(cres, cookie);
+    458         return -ENOBUFS;
+    459 }
+
+    277 static inline int nfs_netfs_begin_cache_operation(struct netfs_io_request *rreq)
+    278 {
+    279         return fscache_begin_read_operation(&rreq->cache_resources,
+    280                                             netfs_i_cookie(netfs_inode(rreq->inode)));
+    281 }
+
+[The rest of the call chain is from netfs lib and is not shown]
+
+This looks like the bug because nfsd-2004 shouldn't be able to begin an IO read for a
+cookie that has been scheduled for LRU_DISCARD due to expiring timer.  Better yet, since
+the cookie state machine has not run yet for LRU_DISCARD bit, we can probably just ensure
+that part of the state machine does not run if we get another thread racing in between
+with a use_cookie - basically we took the cookie off the LRU and were about to go through
+the logic in the state machine that would withdraw the cookie, but we didn't get to that
+yet, and the 'use' should indicate we don't want to do that anymore.
+
+At this point I'm thinking some small patch inside __fscache_use_cookie() may work.
+Since the cookie_lru timer has popped and as stated earlier, we have the following
+set on various fields of the cookie:
+1. cookie->state == FSCACHE_COOKIE_STATE_ACTIVE
+* Otherwise, we would have the 'then' clause would have executed in fscache_cookie_lru_do_one() lines 853-855
+2. cookie->flags has set FSCACHE_COOKIE_DO_LRU_DISCARD
+3. cookie->n_accesses == 0 (the "a=0" in the "UNPIN cache" trace event
+
+Something that clears the FSCACHE_COOKIE_DO_LRU_DISCARD bit should fix the problem since
+the next time the state machine runs it won't transition from 
+cookie->state == FSCACHE_COOKIE_STATE_ACTIVE
+to
+cookie->state = FSCACHE_COOKIE_STATE_LRU_DISCARDING
+
+$  git diff fs/fscache/cookie.c
+diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
+index 451d8a077e12..a90c743fec79 100644
+--- a/fs/fscache/cookie.c
++++ b/fs/fscache/cookie.c
+@@ -605,6 +605,13 @@ void __fscache_use_cookie(struct fscache_cookie *cookie, bool will_modify)
+                        set_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
+                        queue = true;
+                }
++               /*
++                * We could race with cookie_lru which may set LRU_DISCARD bit
++                * but has yet to run the cookie state machine.  If this happens
++                * and another thread tries to use the cookie, clear LRU_DISCARD
++                * so we don't end up withdrawing the cookie while in use.
++                */
++               clear_bit(FSCACHE_COOKIE_DO_LRU_DISCARD, &cookie->flags);
+                break;
+ 
+        case FSCACHE_COOKIE_STATE_FAILED:
+
+
+
+kworker/-25371: Runs because kworker/-19194 (LRU timer) end calls fscache_queue_cookie(cookie, fscache_cookie_get_end_access);
+fscache_cookie_worker()
+  fscache_cookie_state_machine()
+
+[29692.405546] kworker/-25371     0..... 9424710975us : fscache_cookie: c=00000b95 -   work  r=3
+	E_(fscache_cookie_see_work,		"-   work ")
+    818 static void fscache_cookie_worker(struct work_struct *work)
+    819 {
+    820         struct fscache_cookie *cookie = container_of(work, struct fscache_cookie, work);
+    821 
+    822         fscache_see_cookie(cookie, fscache_cookie_see_work);
+    823         fscache_cookie_state_machine(cookie);
+    824         fscache_put_cookie(cookie, fscache_cookie_put_work);
+    825 }
+
+fs/fscache/internal.h
+     68 static inline void fscache_see_cookie(struct fscache_cookie *cookie,
+     69                                       enum fscache_cookie_trace where)
+     70 {
+     71         trace_fscache_cookie(cookie->debug_id, refcount_read(&cookie->ref),
+     72                              where);
+     73 }
+
+
+nfsd-2004: Runs to read the file after the process has has opened it (per the above)
+
+[29692.421426]     nfsd-2004      5..... 9424710976us : netfs_read: R=00278174 READAHEAD c=00000b95 ni=8bb0005 s=0 10000
+	EM(netfs_read_trace_readahead,		"READAHEAD")	\
+    140 /**
+    141  * netfs_readahead - Helper to manage a read request
+    142  * @ractl: The description of the readahead request
+    143  *
+    144  * Fulfil a readahead request by drawing data from the cache if possible, or
+    145  * the netfs if not.  Space beyond the EOF is zero-filled.  Multiple I/O
+    146  * requests from different sources will get munged together.  If necessary, the
+    147  * readahead window can be expanded in either direction to a more convenient
+    148  * alighment for RPC efficiency or to make storage in the cache feasible.
+    149  *
+    150  * The calling netfs must initialise a netfs context contiguous to the vfs
+    151  * inode before calling this.
+    152  *
+    153  * This is usable whether or not caching is enabled.
+    154  */
+    155 void netfs_readahead(struct readahead_control *ractl)
+    156 {
+    157         struct netfs_io_request *rreq;
+    158         struct netfs_inode *ctx = netfs_inode(ractl->mapping->host);
+    159         int ret;
+    160 
+    161         _enter("%lx,%x", readahead_index(ractl), readahead_count(ractl));
+    162 
+    163         if (readahead_count(ractl) == 0)
+    164                 return;
+    165 
+    166         rreq = netfs_alloc_request(ractl->mapping, ractl->file,
+    167                                    readahead_pos(ractl),
+    168                                    readahead_length(ractl),
+    169                                    NETFS_READAHEAD);
+    170         if (IS_ERR(rreq))
+    171                 return;
+    172 
+    173         if (ctx->ops->begin_cache_operation) {
+    174                 ret = ctx->ops->begin_cache_operation(rreq);
+    175                 if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
+    176                         goto cleanup_free;
+    177         }
+    178 
+    179         netfs_stat(&netfs_n_rh_readahead);
+    180         trace_netfs_read(rreq, readahead_pos(ractl), readahead_length(ractl),
+    181                          netfs_read_trace_readahead);
+    182 
+    183         netfs_rreq_expand(rreq, ractl);
+    184 
+    185         /* Drop the refs on the folios here rather than in the cache or
+    186          * filesystem.  The locks will be dropped in netfs_rreq_unlock().
+    187          */
+    188         while (readahead_folio(ractl))
+    189                 ;
+    190 
+    191         netfs_begin_read(rreq, false);
+    192         return;
+    193 
+    194 cleanup_free:
+    195         netfs_put_request(rreq, false, netfs_rreq_trace_put_failed);
+    196         return;
+    197 }
+    198 EXPORT_SYMBOL(netfs_readahead);
+
+
+kworker/-25371 - This is where the kworker picks back up to run the cookie_lru work item and
+we are running through the state machine.  The running through the state machine is the problem
+if the LRU_DISCARD bit is set, since we'll transition the state to LRU_DISCARDING and then
+eventually call withdraw_cookie.
+
+[29692.488038] kworker/-25371     0..... 9424710976us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE withdraw_cookie
+	EM(cachefiles_obj_see_withdraw_cookie,	"SEE withdraw_cookie")	\
+
+fs/cachefiles/interface.c
+    346 /*
+    347  * Withdraw caching for a cookie.
+    348  */
+    349 static void cachefiles_withdraw_cookie(struct fscache_cookie *cookie)
+    350 {
+    351         struct cachefiles_object *object = cookie->cache_priv;
+    352         struct cachefiles_cache *cache = object->volume->cache;
+    353         const struct cred *saved_cred;
+    354 
+    355         _enter("o=%x", object->debug_id);
+    356         cachefiles_see_object(object, cachefiles_obj_see_withdraw_cookie);
+    357 
+    358         if (!list_empty(&object->cache_link)) {
+    359                 spin_lock(&cache->object_list_lock);
+    360                 cachefiles_see_object(object, cachefiles_obj_see_withdrawal);
+    361                 list_del_init(&object->cache_link);
+    362                 spin_unlock(&cache->object_list_lock);
+    363         }
+    364 
+    365         cachefiles_ondemand_clean_object(object);
+    366 
+    367         if (object->file) {
+    368                 cachefiles_begin_secure(cache, &saved_cred);
+    369                 cachefiles_clean_up_object(object, cache);
+    370                 cachefiles_end_secure(cache, saved_cred);
+    371         }
+    372 
+    373         cookie->cache_priv = NULL;
+    374         cachefiles_put_object(object, cachefiles_obj_put_detach);
+    375 }
+
+...
+    442         .withdraw_cookie        = cachefiles_withdraw_cookie,
+
+
+Called from
+fs/fscache/cookie.c
+    699 static void fscache_cookie_state_machine(struct fscache_cookie *cookie)
+    700 {
+    701         enum fscache_cookie_state state;
+    702         bool wake = false;
+    703 
+    704         _enter("c=%x", cookie->debug_id);
+    705 
+    706 again:
+    707         spin_lock(&cookie->lock);
+    708 again_locked:
+    709         state = cookie->state;
+    710         switch (state) {
+...
+    770         case FSCACHE_COOKIE_STATE_LRU_DISCARDING:
+    771         case FSCACHE_COOKIE_STATE_RELINQUISHING:
+    772         case FSCACHE_COOKIE_STATE_WITHDRAWING:
+    773                 if (cookie->cache_priv) {
+    774                         spin_unlock(&cookie->lock);
+    775                         cookie->volume->cache->ops->withdraw_cookie(cookie);
+    776                         spin_lock(&cookie->lock);
+    777                 }
+
+
+kworker/-25371 - The rest of this is just withdrawal of the cookie, and at this
+point I think we're down the wrong path because an IO is in progress.
+
+[29692.520323] kworker/-25371     0...1. 9424710976us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE withdrawal
+	E_(cachefiles_obj_see_withdrawal,	"SEE withdrawal")
+
+[29692.656826] kworker/-25371     0..... 9424710977us : cachefiles_ref: c=00000b95 o=0009b320 u=1 SEE clean_commit
+	EM(cachefiles_obj_see_clean_commit,	"SEE clean_commit")	\
+
+nfsd-2004 - The rest of the IO submit path.  We'll eventually see 'no-data' in the cache,
+and submit this to the netfs for data retrieval
+
+[29692.683613]     nfsd-2004      5..... 9424710977us : netfs_rreq_ref: R=00278174 GET SUBREQ  r=2
+[29692.750300]     nfsd-2004      5..... 9424710977us : cachefiles_prep_read: R=00278174[0] DOWN no-data    f=01 s=0 10000 ni=8bb0005 B=5a601b9
+[29692.837249]     nfsd-2004      5..... 9424710977us : netfs_sreq: R=00278174[0] DOWN PREP  f=01 s=0 0/10000 e=0
+[29692.916087]     nfsd-2004      5..... 9424710978us : netfs_sreq: R=00278174[0] DOWN SUBMT f=01 s=0 0/10000 e=0
+
+kworker/-25371 - This is the end of the cookie_lru path
+
+[29693.315546] kworker/-25371     0..... 9424710983us : cachefiles_ref: c=00000b95 o=0009b320 u=1 PUT detach
+[29693.381768] kworker/-25371     0..... 9424710983us : fscache_cookie: c=00000b95 PUT obj   r=2
+[29693.427768] kworker/-25371     0...1. 9424710983us : fscache_cookie: c=00000b95 -   x-lru r=2
+[29693.446174] kworker/-25371     0..... 9424710984us : fscache_cookie: c=00000b95 PQ  work  r=1
+
+
+kworker/-23613 - This is the end of the IO and we are going to try to write the data to the
+cache.  When we eventually get inside cachefiles we blow up in cachefiles_prepare_write because
+the object == NULL (we've withdrawn it above)
+
+[29720.026557] kworker/-23613     3..... 9424722078us : netfs_sreq: R=00278174[0] DOWN TERM  f=01 s=0 10000/10000 e=0
+[29720.037562] kworker/-23613     3..... 9424722078us : netfs_rreq: R=00278174 RA ASSESS  f=22
+[29720.061359] kworker/-23613     3..... 9424722079us : netfs_rreq: R=00278174 RA UNLOCK  f=22
+[29720.132747] kworker/-23613     3..... 9424722087us : netfs_sreq_ref: R=00278174[0] PUT TERM    r=1
+[29720.145155] kworker/-23613     3..... 9424722088us : netfs_rreq: R=00278174 RA COPY    f=02
+
+NOTE: This last trace event was added in a debug patch for this problem, and is not present
+in mainline
+
+[29720.158119] kworker/-23613     3..... 9424722090us : cachefiles_prepare_write: object == NULL: c=00000b95
+
+
+
+
+Notes on cookie_lru
+===================
+
+The LRU is controlled by a timer, fscache_cookie_lru_timer.
+
+DEFINE_TIMER(fscache_cookie_lru_timer, fscache_cookie_lru_timed_out);
+
+static unsigned int fscache_lru_cookie_timeout = 10 * HZ;
+
+static void fscache_cookie_lru_timed_out(struct timer_list *timer)
+{
+	queue_work(fscache_wq, &fscache_cookie_lru_work);
+}
+
+The lru_timer calls lru_worker
+
+static DECLARE_WORK(fscache_cookie_lru_work, fscache_cookie_lru_worker);
+
+static void fscache_cookie_lru_do_one(struct fscache_cookie *cookie)
+{
+	fscache_see_cookie(cookie, fscache_cookie_see_lru_do_one);
+
+	spin_lock(&cookie->lock);
+	if (cookie->state != FSCACHE_COOKIE_STATE_ACTIVE ||
+	    time_before(jiffies, cookie->unused_at + fscache_lru_cookie_timeout) ||
+	    atomic_read(&cookie->n_active) > 0) {
+		spin_unlock(&cookie->lock);
+		fscache_stat(&fscache_n_cookies_lru_removed);
+	} else {
+		set_bit(FSCACHE_COOKIE_DO_LRU_DISCARD, &cookie->flags);
+		spin_unlock(&cookie->lock);
+		fscache_stat(&fscache_n_cookies_lru_expired);
+		_debug("lru c=%x", cookie->debug_id);
+		__fscache_withdraw_cookie(cookie);
+	}
+
+	fscache_put_cookie(cookie, fscache_cookie_put_lru);
+}
+
+static void fscache_cookie_lru_worker(struct work_struct *work)
+{
+	struct fscache_cookie *cookie;
+	unsigned long unused_at;
+
+	spin_lock(&fscache_cookie_lru_lock);
+
+	while (!list_empty(&fscache_cookie_lru)) {
+		cookie = list_first_entry(&fscache_cookie_lru,
+					  struct fscache_cookie, commit_link);
+		unused_at = cookie->unused_at + fscache_lru_cookie_timeout;
+		if (time_before(jiffies, unused_at)) {
+			timer_reduce(&fscache_cookie_lru_timer, unused_at);
+			break;
+		}
+
+		list_del_init(&cookie->commit_link);
+		fscache_stat_d(&fscache_n_cookies_lru);
+		spin_unlock(&fscache_cookie_lru_lock);
+		fscache_cookie_lru_do_one(cookie);
+		spin_lock(&fscache_cookie_lru_lock);
+	}
+
+	spin_unlock(&fscache_cookie_lru_lock);
+}
+
+
+
+Also note unuse_cookie involvement
+
+static void fscache_unuse_cookie_locked(struct fscache_cookie *cookie)
+{
+	clear_bit(FSCACHE_COOKIE_DISABLED, &cookie->flags);
+	if (!test_bit(FSCACHE_COOKIE_IS_CACHING, &cookie->flags))
+		return;
+
+	cookie->unused_at = jiffies;
+	spin_lock(&fscache_cookie_lru_lock);
+	if (list_empty(&cookie->commit_link)) {
+		fscache_get_cookie(cookie, fscache_cookie_get_lru);
+		fscache_stat(&fscache_n_cookies_lru);
+	}
+	list_move_tail(&cookie->commit_link, &fscache_cookie_lru);
+
+	spin_unlock(&fscache_cookie_lru_lock);
+	timer_reduce(&fscache_cookie_lru_timer,
+		     jiffies + fscache_lru_cookie_timeout);
+}
+
+
+
+Dave Wysochanski (1):
+  fscache: Fix oops due to race with cookie_lru and use_cookie
+
+ fs/fscache/cookie.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+-- 
+2.31.1
 
 --
 Linux-cachefs mailing list
