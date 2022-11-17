@@ -1,81 +1,74 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F73662D24A
-	for <lists+linux-cachefs@lfdr.de>; Thu, 17 Nov 2022 05:25:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB5762D2AD
+	for <lists+linux-cachefs@lfdr.de>; Thu, 17 Nov 2022 06:30:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668659105;
+	s=mimecast20190719; t=1668663031;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kZQOl5Am9YxeeANVeV7cE3GKDid1Ww5YEJXKjKkLfu8=;
-	b=WOxKzOalZGRjQLJ+9T80Pz5f8GBcrvXmS5Qw3yiFtytxbR4g2B9nTp1+n45i9GmIwnL5I0
-	p1vDpJmVFT5JZ8odvoG68VfUDpYivhRhWkT0neQRN1YjsS7EBvuBBAN1HxMcS/zN1WL1gT
-	B1Uh31QizAHvv8TyqJSfskyGhBxLXqs=
+	bh=1x1D64voXYwf8SL5ViOZcFidTjyLJ8Sw01f+G/wE/O0=;
+	b=jBbTpFb5O47W9n5TS0kPsEsszrnyUmRQVR2DDX4XZKrCLoROJ756X+o3ZvyQTaoDZzjBR4
+	AuO3QUc91mVW+KDF/3AkStwOSaI3cDBfc83jKItRB+07Bw77fsI451Tq9rh/98Gq/0E3aR
+	3I+r4n09KZFgLPR201mEwYSFzOp6UFw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-424-RI9qgt7LNi24j76CWL4XuA-1; Wed, 16 Nov 2022 23:25:04 -0500
-X-MC-Unique: RI9qgt7LNi24j76CWL4XuA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-613-5rVOasHiOHmXjS3xtv4jXA-1; Thu, 17 Nov 2022 00:30:27 -0500
+X-MC-Unique: 5rVOasHiOHmXjS3xtv4jXA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AAFA85A588;
-	Thu, 17 Nov 2022 04:25:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3EFF858F17;
+	Thu, 17 Nov 2022 05:30:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 24EEA145BA4B;
-	Thu, 17 Nov 2022 04:25:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 16846429834;
+	Thu, 17 Nov 2022 05:30:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7663B19465A8;
-	Thu, 17 Nov 2022 04:25:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DF95E19465A8;
+	Thu, 17 Nov 2022 05:30:24 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD20F19465A2 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 17 Nov 2022 04:25:00 +0000 (UTC)
+ ESMTP id 3F53519465A2 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 17 Nov 2022 05:30:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 646702157F39; Thu, 17 Nov 2022 04:25:00 +0000 (UTC)
+ id 147BF468A51; Thu, 17 Nov 2022 05:30:24 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C29F2157F37
- for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 04:25:00 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D40E429834
+ for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 05:30:24 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CA8C29AA383
- for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 04:25:00 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57]) by relay.mimecast.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E43AF3C0D183
+ for <linux-cachefs@redhat.com>; Thu, 17 Nov 2022 05:30:23 +0000 (UTC)
+Received: from out30-56.freemail.mail.aliyun.com
+ (out30-56.freemail.mail.aliyun.com [115.124.30.56]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
- id us-mta-46-QQSY3uaBOXCeum1-JUDnOw-1; Wed, 16 Nov 2022 23:24:45 -0500
-X-MC-Unique: QQSY3uaBOXCeum1-JUDnOw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
+ id us-mta-201-0zDJsUCFN42lPvUgSBTJqQ-1; Thu, 17 Nov 2022 00:30:21 -0500
+X-MC-Unique: 0zDJsUCFN42lPvUgSBTJqQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
  MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
- TI=SMTPD_---0VV-VtWS_1668659080
-Received: from 30.221.128.178(mailfrom:jefflexu@linux.alibaba.com
- fp:SMTPD_---0VV-VtWS_1668659080) by smtp.aliyun-inc.com;
- Thu, 17 Nov 2022 12:24:42 +0800
-Message-ID: <c529ee21-699d-dfc8-5f7d-2597fa00796d@linux.alibaba.com>
-Date: Thu, 17 Nov 2022 12:24:40 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.0
-To: David Howells <dhowells@redhat.com>, Jeff Layton <jlayton@kernel.org>
-References: <2b595b62f6ecd28298a860fcdc5b4941dcafd9eb.camel@kernel.org>
- <20221116104502.107431-1-jefflexu@linux.alibaba.com>
- <20221116104502.107431-2-jefflexu@linux.alibaba.com>
- <2968419.1668606101@warthog.procyon.org.uk>
+ TI=SMTPD_---0VV-W7uG_1668663017
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+ fp:SMTPD_---0VV-W7uG_1668663017) by smtp.aliyun-inc.com;
+ Thu, 17 Nov 2022 13:30:18 +0800
 From: Jingbo Xu <jefflexu@linux.alibaba.com>
-In-Reply-To: <2968419.1668606101@warthog.procyon.org.uk>
+To: xiang@kernel.org, chao@kernel.org, jlayton@kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-cachefs@redhat.com, dhowells@redhat.com
+Date: Thu, 17 Nov 2022 13:30:15 +0800
+Message-Id: <20221117053017.21074-1-jefflexu@linux.alibaba.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [PATCH v3 1/2] fscache,
- cachefiles: add prepare_ondemand_read() callback
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [Linux-cachefs] [PATCH v4 0/2] fscache,
+ cachefiles: add prepare_ondemand_read() interface
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,56 +90,105 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: chao@kernel.org, linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org, xiang@kernel.org, linux-erofs@lists.ozlabs.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+v4:
+- patch 1
+  - make cachefiles_do_prepare_read() pass start by value (Jeff Layton)
+  - adjust the indentation of the parameter/argument list, so that
+    they are all lined up (David)
+  - pass flags in for cachefiles_prepare_ondemand_read(), so that it can
+    tail call cachefiles_do_prepare_read() directly without shuffling
+    arguments around (David)
+  - declare cachefiles_do_prepare_read() as inline, to eliminate one
+    extra function calling and arguments copying when calling
+    cachefiles_do_prepare_read() (David)
 
 
-On 11/16/22 9:41 PM, David Howells wrote:
-> Jeff Layton <jlayton@kernel.org> wrote:
-> 
->>> +static enum netfs_io_source cachefiles_do_prepare_read(struct netfs_cache_resources *cres,
->>> +					loff_t *_start, size_t *_len,
->>> +					unsigned long *_flags, loff_t i_size)
->>
->> _start is never changed, so it should be passed by value instead of by
->> pointer.
-> 
-> Hmmm.  The intention was that the start pointer should be able to be moved
-> backwards by the cache - but that's not necessary in ->prepare_read() and
-> ->expand_readahead() is provided for that now.  So yes, the start pointer
-> shouldn't get changed at this point.
+v3:
+- rebase to v6.1-rc5, while the xas_retry() checking in patch 2 has
+  been extracted out as a separate fix [1]
 
-Okay.
+[1] commit 37020bbb71d9 ("erofs: fix missing xas_retry() in fscache mode")
+(https://github.com/torvalds/linux/commit/37020bbb71d9)
 
 
-> 
->> I'd also reverse the position of the arguments for _flags and i_size.
->> Otherwise, the CPU/compiler have to shuffle things around more in
->> cachefiles_prepare_ondemand_read before they call this.
-> 
-> Better to pass the flags in and then ignore them.  That way it can tail call,
-> or just call cachefiles_do_prepare_read() directly from erofs.  If you're
-> going to have a wrapper, then you might be just as well create a
-> netfs_io_subrequest struct on the stack.
+v2:
+- patch 1: the generic routine, i.e. cachefiles_do_prepare_read() now
+  accepts a parameter list instead of netfs_io_subrequest, and thus some
+  debug info retrieved from netfs_io_subrequest is removed from
+  trace_cachefiles_prep_read().
+- patch 2: add xas_retry() checking in erofs_fscache_req_complete()
 
-I would prefer letting cachefiles_prepare_ondemand_read() pass flags in
-and then tail call cachefiles_do_prepare_read() directly.
 
-Many thanks for the suggestion.
+[Rationale]
+===========
+Fscache has been landed as a generic caching management framework in
+the Linux kernel for decades.  It aims to manage cache data availability
+or fetch data if needed.  Currently it's mainly used for network fses,
+but in principle the main caching subsystem can be used more widely.
 
+We do really like fscache framework and we believe it'd be better to
+reuse such framework if possible instead of duplicating other
+alternatives for better maintenance and testing.  Therefore for our
+container image use cases, we applied the existing fscache to implement
+on-demand read for erofs in the past months.  For more details, also see
+[1].
+
+In short, here each erofs filesystem is composed of multiple blobs (or
+devices).  Each blob corresponds to one fscache cookie to strictly
+follow on-disk format and implement the image downloading in a
+deterministic manner, which means it has a unique checksum and is signed
+by vendors.
+
+Data of each erofs inode can be scattered among multiple blobs (cookie)
+since erofs supports chunk-level deduplication.  In this case, each
+erofs inode can correspond to multiple cookies, and there's a logical to
+physical offset mapping between the logical offset in erofs inode and
+the physical offset in the backing file.
+
+As described above, per-cookie netfs model can not be used here
+directly.  Instead, we'd like to propose/decouple a simple set of raw
+fscache APIs, to access cache for all fses to use.  We believe it's
+useful since it's like the relationship between raw bio and iomap, both
+of which are useful for local fses.  fscache_read() seems a reasonable
+candidate and is enough for such use case.
+
+In addition, the on-demand read feature relies on .prepare_read() to
+reuse the hole detecting logic as much as possible. However, after
+fscache/netfs rework, libnetfs is preferred to access fscache, making
+.prepare_read() closely coupled with libnetfs, or more precisely,
+netfs_io_subrequest.
+
+
+[What We Do]
+============
+As we discussed previously, we propose a new interface, i,e,
+.prepare_ondemand_read() dedicated for the on-demand read scenarios,
+which is independent on netfs_io_subrequest. The netfs will still use
+the original .prepare_read() as usual.
+
+
+
+Jingbo Xu (2):
+  fscache,cachefiles: add prepare_ondemand_read() callback
+  erofs: switch to prepare_ondemand_read() in fscache mode
+
+ fs/cachefiles/io.c                |  77 +++++----
+ fs/erofs/fscache.c                | 260 +++++++++++-------------------
+ include/linux/netfs.h             |   8 +
+ include/trace/events/cachefiles.h |  27 ++--
+ 4 files changed, 164 insertions(+), 208 deletions(-)
 
 -- 
-Thanks,
-Jingbo
+2.19.1.6.gb485710b
 
 --
 Linux-cachefs mailing list
