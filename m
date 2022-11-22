@@ -1,61 +1,100 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48A0A63297A
-	for <lists+linux-cachefs@lfdr.de>; Mon, 21 Nov 2022 17:31:49 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0BFE633682
+	for <lists+linux-cachefs@lfdr.de>; Tue, 22 Nov 2022 09:00:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669048308;
+	s=mimecast20190719; t=1669104052;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=InmAcTOlBAdM+8wO8BZaJAIGvgBE0MJ7QSijuibDpio=;
-	b=LjrWLNaoQKMjJ3sfEWUmCu7h3KPVYmjUTt5oMlLoIqfcRfZgAqsZnqNUonaYXTnWzXeuqD
-	4OXB2dS5kFFwyQBntndziP4SnE7Bi2Ef6TIi3vn9ACI9m4973/DCxSQ6rGt498W86MFNYw
-	0VhvWkseq4vuxzRPeJ2FXZ4OscDrqmE=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=0OKMTn7CdsDE2dzqfwmnRKH0XgiW+yNcnpeZtmqzToA=;
+	b=V0yGHh4gWfkgq7j6i4F7tXHy5tqZ91bqaYvS3tfDSbXpyBnGLGL8o06HRcJ23pFbq8s/hT
+	o3kj+U1EcIaai1svmAyBPVo3AP/FEd9O9biNzDYHM/SReNyphzrv6uk1dY1HyJklOBy5kz
+	m1v4USqImm9bHTy/RwGTKdF+OMPK6rQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-576-gsE9JshjPjmMtQi47PGPWw-1; Mon, 21 Nov 2022 11:31:45 -0500
-X-MC-Unique: gsE9JshjPjmMtQi47PGPWw-1
+ us-mta-607-6IW3OjpWNcSGIk0aYAuKNQ-1; Tue, 22 Nov 2022 03:00:46 -0500
+X-MC-Unique: 6IW3OjpWNcSGIk0aYAuKNQ-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F46A3801F54;
-	Mon, 21 Nov 2022 16:31:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 114D3802D32;
+	Tue, 22 Nov 2022 08:00:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 57AA1492B06;
-	Mon, 21 Nov 2022 16:31:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4346B492B17;
+	Tue, 22 Nov 2022 08:00:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9263E194658C;
-	Mon, 21 Nov 2022 16:31:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A5C1B194658C;
+	Tue, 22 Nov 2022 08:00:42 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5359B1946587 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 21 Nov 2022 16:31:39 +0000 (UTC)
+ ESMTP id 8A9BC1946587 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 22 Nov 2022 08:00:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E6C774EA4B; Mon, 21 Nov 2022 16:31:38 +0000 (UTC)
+ id 6D3691402BDA; Tue, 22 Nov 2022 08:00:41 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.14])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 456FE17582;
- Mon, 21 Nov 2022 16:31:37 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-To: torvalds@linux-foundation.org
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6546A1402BD9
+ for <linux-cachefs@redhat.com>; Tue, 22 Nov 2022 08:00:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3DC663C0E452
+ for <linux-cachefs@redhat.com>; Tue, 22 Nov 2022 08:00:41 +0000 (UTC)
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-250-wYnHu5UQM5iT4DGAG_S5LA-1; Tue, 22 Nov 2022 03:00:39 -0500
+X-MC-Unique: wYnHu5UQM5iT4DGAG_S5LA-1
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-39ce6773248so66665807b3.12
+ for <linux-cachefs@redhat.com>; Tue, 22 Nov 2022 00:00:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h59ryiMCs2FQd65ugpgIMTexsvSUB1uVySh9oB0AU10=;
+ b=PgjAj0L7OJmzDxQU8BslxAADNRfTvubbC8LEDILIPb5AYx0HhyROj+aEPTWumlnZMC
+ Tnax2NbZPvQIqBzra6BuGRzvUIEpLKEqLzMjlCJnCaDV4VSjJ1ty2RUerb2bzTbYNEC4
+ H38eZAK1sKu7TAQcv8hMtIGGBGpl8X6oVxbchAso7HI++/xMl4pirzHexbipgsYklbpN
+ uA5O2aM5tTzuXeJOw3qFcw6Nvvke4nxtT1J136r6u7mOK8hO5FSG2DdBwRpSjWM67hfp
+ TIrhmQtkkQlq/xn4ldik0PiisXXyIR6LXAQF1uh569zYah7cVTfgrfl77brxo0MPAmvN
+ nsmA==
+X-Gm-Message-State: ANoB5pnwFYuVI/MhPKo/jKKsfPHQrWbo+JP7f9I0qHy8QtT5PEcEu3Fd
+ 8Ka7E6U7Lp9mQMcJEgL5jd3jcpXXsUXa70ENNeXPWg==
+X-Google-Smtp-Source: AA0mqf6QSzMEX47WR/XlJoVErLNYz3JHOGM1wbuw70Vp/FxDr1jJqCMLJUizS1H/I9EdwKfsgcQWqQIZxatNfxddF58=
+X-Received: by 2002:a81:af27:0:b0:36b:efc9:fb13 with SMTP id
+ n39-20020a81af27000000b0036befc9fb13mr4636144ywh.324.1669104038897; Tue, 22
+ Nov 2022 00:00:38 -0800 (PST)
 MIME-Version: 1.0
-From: David Howells <dhowells@redhat.com>
-Date: Mon, 21 Nov 2022 16:31:34 +0000
-Message-ID: <479316.1669048294@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Linux-cachefs] [PATCH] fscache: fix OOB Read in
- __fscache_acquire_volume
+References: <20221117115023.1350181-1-dwysocha@redhat.com>
+In-Reply-To: <20221117115023.1350181-1-dwysocha@redhat.com>
+From: Daire Byrne <daire@dneg.com>
+Date: Tue, 22 Nov 2022 08:00:02 +0000
+Message-ID: <CAPt2mGOaLQh2v-Bk8rLni3jXx+rwy9uNOudg+kc-P2pWEJ6QbA@mail.gmail.com>
+To: Dave Wysochanski <dwysocha@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [Linux-cachefs] [PATCH 0/1] Fix oops in
+ cachefiles_prepare_write due to cookie_lru and use_cookie race
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,142 +106,37 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: lucho@ionkov.net, asmadeus@codewreck.org, linux_oss@crudebyte.com,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,
- syzbot+a76f6a6e524cf2080aa3@syzkaller.appspotmail.com,
- linux-cachefs@redhat.com, zhangpeng362@huawei.com,
- v9fs-developer@lists.sourceforge.net
+Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
+ Benjamin Maynard <benmaynard@google.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-ID: <479289.1669048275.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+On Thu, 17 Nov 2022 at 11:52, Dave Wysochanski <dwysocha@redhat.com> wrote:
+>
+> This patch should fix the oops seen by Daire while testing the latest
+> NFS netfs fscache conversion patches [1][2].  What follows is a detailed
+> explanation of the analysis, mostly for reference and in case any of
+> the patch header is unclear.
 
-Could you apply this please?
+I can now confirm that this does indeed fix the issue I was hitting -
+it has been over 4 days and I have not seen the crash that I was
+reliably reproducing at least once a day.
 
-David
----
-The type of a->key[0] is char in fscache_volume_same().  If the length of
-cache volume key is greater than 127, the value of a->key[0] is less than
-0.  In this case, klen becomes much larger than 255 after type conversion,
-because the type of klen is size_t.  As a result, memcmp() is read out of
-bounds.
+Many thanks for tracking this down Dave.
 
-This causes a slab-out-of-bounds Read in __fscache_acquire_volume(), as
-reported by Syzbot.
+I will try to switch over to the v2 patch sometime this week but I
+don't expect a change in functionality. The important thing is you
+found the place where it was going wrong and why.
 
-Fix this by changing the type of the stored key to "u8 *" rather than "char
-*" (it isn't a simple string anyway).  Also put in a check that the volume
-name doesn't exceed NAME_MAX.
+Tested-by: Daire Byrne <daire@dneg.com>
 
-==================================================================
-BUG: KASAN: slab-out-of-bounds in memcmp+0x16f/0x1c0 lib/string.c:757
-Read of size 8 at addr ffff888016f3aa90 by task syz-executor344/3613
+Daire
 
-CPU: 0 PID: 3613 Comm: syz-executor344 Not tainted
-6.0.0-rc2-syzkaller-00327-g8379c0b31fbc #0
-Hardware name: Google Compute Engine/Google Compute Engine, BIOS
-Google 07/22/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
- print_address_description mm/kasan/report.c:317 [inline]
- print_report.cold+0x2ba/0x719 mm/kasan/report.c:433
- kasan_report+0xb1/0x1e0 mm/kasan/report.c:495
- memcmp+0x16f/0x1c0 lib/string.c:757
- memcmp include/linux/fortify-string.h:420 [inline]
- fscache_volume_same fs/fscache/volume.c:133 [inline]
- fscache_hash_volume fs/fscache/volume.c:171 [inline]
- __fscache_acquire_volume+0x76c/0x1080 fs/fscache/volume.c:328
- fscache_acquire_volume include/linux/fscache.h:204 [inline]
- v9fs_cache_session_get_cookie+0x143/0x240 fs/9p/cache.c:34
- v9fs_session_init+0x1166/0x1810 fs/9p/v9fs.c:473
- v9fs_mount+0xba/0xc90 fs/9p/vfs_super.c:126
- legacy_get_tree+0x105/0x220 fs/fs_context.c:610
- vfs_get_tree+0x89/0x2f0 fs/super.c:1530
- do_new_mount fs/namespace.c:3040 [inline]
- path_mount+0x1326/0x1e20 fs/namespace.c:3370
- do_mount fs/namespace.c:3383 [inline]
- __do_sys_mount fs/namespace.c:3591 [inline]
- __se_sys_mount fs/namespace.c:3568 [inline]
- __x64_sys_mount+0x27f/0x300 fs/namespace.c:3568
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f7d5064b1d9
-Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 14 00 00 90 48 89 f8 48 89
-f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01
-f0 ff ff 73 01 c3 48 c7 c1 c0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffd1700c028 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007ffd1700c060 RCX: 00007f7d5064b1d9
-RDX: 0000000020000040 RSI: 0000000020000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000020000200 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00000000000f4240
-R13: 0000000000000000 R14: 00007ffd1700c04c R15: 00007ffd1700c050
-==================================================================
-
-Fixes: 62ab63352350 ("fscache: Implement volume registration")
-Reported-by: syzbot+a76f6a6e524cf2080aa3@syzkaller.appspotmail.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Zhang Peng <zhangpeng362@huawei.com>
-Reviewed-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-cc: Dominique Martinet <asmadeus@codewreck.org>
-cc: Jeff Layton <jlayton@kernel.org>
-cc: v9fs-developer@lists.sourceforge.net
-cc: linux-cachefs@redhat.com
-Link: https://lore.kernel.org/r/Y3OH+Dmi0QIOK18n@codewreck.org/ # Zhang Peng's v1 fix
-Link: https://lore.kernel.org/r/20221115140447.2971680-1-zhangpeng362@huawei.com/ # Zhang Peng's v2 fix
-Link: https://lore.kernel.org/r/166869954095.3793579.8500020902371015443.stgit@warthog.procyon.org.uk/ # v1
----
- fs/fscache/volume.c     |    7 +++++--
- include/linux/fscache.h |    2 +-
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/fs/fscache/volume.c b/fs/fscache/volume.c
-index a058e0136bfe..ab8ceddf9efa 100644
---- a/fs/fscache/volume.c
-+++ b/fs/fscache/volume.c
-@@ -203,7 +203,11 @@ static struct fscache_volume *fscache_alloc_volume(const char *volume_key,
- 	struct fscache_volume *volume;
- 	struct fscache_cache *cache;
- 	size_t klen, hlen;
--	char *key;
-+	u8 *key;
-+
-+	klen = strlen(volume_key);
-+	if (klen > NAME_MAX)
-+		return NULL;
- 
- 	if (!coherency_data)
- 		coherency_len = 0;
-@@ -229,7 +233,6 @@ static struct fscache_volume *fscache_alloc_volume(const char *volume_key,
- 	/* Stick the length on the front of the key and pad it out to make
- 	 * hashing easier.
- 	 */
--	klen = strlen(volume_key);
- 	hlen = round_up(1 + klen + 1, sizeof(__le32));
- 	key = kzalloc(hlen, GFP_KERNEL);
- 	if (!key)
-diff --git a/include/linux/fscache.h b/include/linux/fscache.h
-index 36e5dd84cf59..8e312c8323a8 100644
---- a/include/linux/fscache.h
-+++ b/include/linux/fscache.h
-@@ -75,7 +75,7 @@ struct fscache_volume {
- 	atomic_t			n_accesses;	/* Number of cache accesses in progress */
- 	unsigned int			debug_id;
- 	unsigned int			key_hash;	/* Hash of key string */
--	char				*key;		/* Volume ID, eg. "afs@example.com@1234" */
-+	u8				*key;		/* Volume ID, eg. "afs@example.com@1234" */
- 	struct list_head		proc_link;	/* Link in /proc/fs/fscache/volumes */
- 	struct hlist_bl_node		hash_link;	/* Link in hash table */
- 	struct work_struct		work;
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
