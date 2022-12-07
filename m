@@ -2,64 +2,99 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75821640397
-	for <lists+linux-cachefs@lfdr.de>; Fri,  2 Dec 2022 10:44:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 172F56456F2
+	for <lists+linux-cachefs@lfdr.de>; Wed,  7 Dec 2022 10:58:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669974249;
+	s=mimecast20190719; t=1670407136;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VePYzv+T1oxEx7DHWSrM8w7/oOiseJ2BfhTLcldMqHs=;
-	b=Km7PEqATZzI81nQnPctEpdU54Ohugvs8MBA2TyJo2L9hx7Mp5c1NPaw5vwrmLnL8HEvUfL
-	UvPUtlqtBDM/iRwf6LQy2lU9+zQ+VfNDYy6fYKeiMwC4++7k14pkJuQndmcht7bWgJpQY7
-	r2sSFoYWNwpuuAfu3jBxz/uCDTGVjmI=
+	bh=Ewegw8gz22Wa8MOAdNHBKhJAsiFey9tf8Gmv/h4gez0=;
+	b=iaPTyhRj74ZJ1VNonpdwK19YOMTYBONJiG+vPua3kTNTYutGUlyRm4LuX4mNiH+2pmAJga
+	YKOBaHgggfY0Wm1cYdDm3YQLQxY1FUvtrUdfDOMbwlWIcp7/5LUpe16h4GWt8blonC6Y/t
+	EBTdjZ5X22/l5okKMG/8Y81GPln+Ask=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-206-Td-GrFIfPBOK9StLFH--UA-1; Fri, 02 Dec 2022 04:44:06 -0500
-X-MC-Unique: Td-GrFIfPBOK9StLFH--UA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-640-NOuNJHOiP7SJaGvY8iI9LQ-1; Wed, 07 Dec 2022 04:58:53 -0500
+X-MC-Unique: NOuNJHOiP7SJaGvY8iI9LQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B86878630CE;
-	Fri,  2 Dec 2022 09:44:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BAE38027FE;
+	Wed,  7 Dec 2022 09:58:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AEFD540E9785;
-	Fri,  2 Dec 2022 09:44:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2D5082166B26;
+	Wed,  7 Dec 2022 09:58:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A74C19465A8;
-	Fri,  2 Dec 2022 09:44:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8CE9619465B5;
+	Wed,  7 Dec 2022 09:58:51 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5F4F81946587 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  2 Dec 2022 09:43:59 +0000 (UTC)
+ ESMTP id DC46919465B1 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed,  7 Dec 2022 09:58:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7785C63A78; Fri,  2 Dec 2022 09:43:59 +0000 (UTC)
+ id 9C1A0C15BA5; Wed,  7 Dec 2022 09:58:49 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.116])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CFA201731B;
- Fri,  2 Dec 2022 09:43:57 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Date: Fri, 02 Dec 2022 09:43:55 +0000
-Message-ID: <166997423514.9475.11145024341505464337.stgit@warthog.procyon.org.uk>
-In-Reply-To: <166997419665.9475.15014699817597102032.stgit@warthog.procyon.org.uk>
-References: <166997419665.9475.15014699817597102032.stgit@warthog.procyon.org.uk>
-User-Agent: StGit/1.5
+Received: from mimecast-mx02.redhat.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9540CC15BA4
+ for <linux-cachefs@redhat.com>; Wed,  7 Dec 2022 09:58:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79CCC185A7A8
+ for <linux-cachefs@redhat.com>; Wed,  7 Dec 2022 09:58:49 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-116-9bBjLbNOONWdbIojp_Bj8w-1; Wed, 07 Dec 2022 04:58:47 -0500
+X-MC-Unique: 9bBjLbNOONWdbIojp_Bj8w-1
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-3c090251d59so180752397b3.4
+ for <linux-cachefs@redhat.com>; Wed, 07 Dec 2022 01:58:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3IU7j/fGQw488nTr3UdYtHsBo8tWefZ/LoILwoUa3Eg=;
+ b=566tr9c6wR8odDIOnNFNw+2rOxAYZ2zSuDEEVkY/wZghbGU2ZZjITcP1nTOIEOet1w
+ X8HfrwZ8hShVioy09BAvvFV1OFxKEuinugjDiF6t9y0srQKjmHWY/TyVTTmmc6y1Ghcm
+ cdgcUoyHkoANFgqSLbFvRpzmuRHSiR4hfgrRL7s2NbwtON8hsDLGA6kKcjGBGARFRNLc
+ gmOxFDd5SzmViOMV91hYJMV8JadZia/AJEAFXBNEP9Op0QiJ/bwzmncFGI1w3wtysfZF
+ VWm/POmAA+cWn/jYq63RUez7ZQqb6lK21OY0pQS4rmNiKFWDJgKD8WMQAqknB4Z1hNgw
+ KV3g==
+X-Gm-Message-State: ANoB5pk5Ay71+nGcN6/aOqPU9/crSnw5XDwAOd2k3eCb071P/cpTHS/v
+ Q/gk4ZuZQ/dDvkpSTXH8uROlacxHxRcgIZar501izA==
+X-Google-Smtp-Source: AA0mqf7qMpRk93JQT2/H1E8tobsiY/6Z8KxYAXhkxymLEUSVqHyGr/QSco7kNP9PSxRtb46LShntC5AWTQAO7sSF/hQ=
+X-Received: by 2002:a81:f14:0:b0:3f1:f4b1:e197 with SMTP id
+ 20-20020a810f14000000b003f1f4b1e197mr9161371ywp.324.1670407126795; Wed, 07
+ Dec 2022 01:58:46 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [Linux-cachefs] [PATCH v3 4/4] netfs: Add a function to extract an
- iterator into a scatterlist
+References: <20221117142915.1366990-1-dwysocha@redhat.com>
+In-Reply-To: <20221117142915.1366990-1-dwysocha@redhat.com>
+From: Daire Byrne <daire@dneg.com>
+Date: Wed, 7 Dec 2022 09:58:10 +0000
+Message-ID: <CAPt2mGOYeJNbqzb8RD94BG0Y8HpHja_UCG6kifQR1kNuWyiMcg@mail.gmail.com>
+To: Dave Wysochanski <dwysocha@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Linux-cachefs] [PATCH v2] fscache: Fix oops due to race with
+ cookie_lru and use_cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,368 +106,104 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
- Christoph Hellwig <hch@infradead.org>,
- Rohith Surabattula <rohiths.msft@gmail.com>, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- Steve French <sfrench@samba.org>, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org, Logan Gunthorpe <logang@deltatee.com>
+Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
+ Benjamin Maynard <benmaynard@google.com>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Provide a function for filling in a scatterlist from the list of pages
-contained in an iterator.
+I have also now tested this v2 patch and can confirm that it also
+fixes the race in fscache that we were reliably able to reproduce with
+our (re-export) workloads..
 
-If the iterator is UBUF- or IOBUF-type, the pages have a ref (WRITE) or a
-pin (READ) taken on them.
+Tested-by: Daire Byrne <daire@dneg.com>
 
-If the iterator is BVEC-, KVEC- or XARRAY-type, no ref is taken on the
-pages and it is left to the caller to manage their lifetime.  It cannot be
-assumed that a ref can be validly taken, particularly in the case of a KVEC
-iterator.
+Daire
 
-Changes:
-========
-ver #3)
- - Switch to using EXPORT_SYMBOL_GPL to prevent indirect 3rd-party access
-   to get/pin_user_pages_fast()[1].
-
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Jeff Layton <jlayton@kernel.org>
-cc: Steve French <sfrench@samba.org>
-cc: Shyam Prasad N <nspmangalore@gmail.com>
-cc: Rohith Surabattula <rohiths.msft@gmail.com>
-cc: linux-cachefs@redhat.com
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/r/Y3zFzdWnWlEJ8X8/@infradead.org/ [1]
-Link: https://lore.kernel.org/r/166697255985.61150.16489950598033809487.stgit@warthog.procyon.org.uk/ # rfc
-Link: https://lore.kernel.org/r/166732027275.3186319.5186488812166611598.stgit@warthog.procyon.org.uk/ # rfc
-Link: https://lore.kernel.org/r/166869691313.3723671.10714823767342163891.stgit@warthog.procyon.org.uk/ # rfc
----
-
- fs/netfs/iterator.c   |  268 +++++++++++++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h |    4 +
- mm/vmalloc.c          |    1 
- 3 files changed, 273 insertions(+)
-
-diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
-index 82a691b233ef..327694c3ad3b 100644
---- a/fs/netfs/iterator.c
-+++ b/fs/netfs/iterator.c
-@@ -7,7 +7,9 @@
- 
- #include <linux/export.h>
- #include <linux/slab.h>
-+#include <linux/mm.h>
- #include <linux/uio.h>
-+#include <linux/scatterlist.h>
- #include <linux/netfs.h>
- #include "internal.h"
- 
-@@ -97,3 +99,269 @@ ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
- 	return npages;
- }
- EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
-+
-+/*
-+ * Extract as list of up to sg_max pages from UBUF- or IOVEC-class iterators,
-+ * pin or get refs on them appropriate and add them to the scatterlist.
-+ */
-+static ssize_t netfs_extract_user_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int *cleanup_mode)
-+{
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	struct page **pages;
-+	unsigned int npages;
-+	ssize_t ret = 0, res;
-+	size_t len, off;
-+
-+	*cleanup_mode = 0;
-+
-+	/* We decant the page list into the tail of the scatterlist */
-+	pages = (void *)sgtable->sgl + array_size(sg_max, sizeof(struct scatterlist));
-+	pages -= sg_max;
-+
-+	do {
-+		res = iov_iter_extract_pages(iter, &pages, maxsize, sg_max, &off,
-+					     cleanup_mode);
-+		if (res < 0)
-+			goto failed;
-+
-+		len = res;
-+		maxsize -= len;
-+		ret += len;
-+		npages = DIV_ROUND_UP(off + len, PAGE_SIZE);
-+		sg_max -= npages;
-+
-+		for (; npages < 0; npages--) {
-+			struct page *page = *pages;
-+			size_t seg = min_t(size_t, PAGE_SIZE - off, len);
-+
-+			*pages++ = NULL;
-+			sg_set_page(sg, page, len, off);
-+			sgtable->nents++;
-+			sg++;
-+			len -= seg;
-+			off = 0;
-+		}
-+	} while (maxsize > 0 && sg_max > 0);
-+
-+	return ret;
-+
-+failed:
-+	while (sgtable->nents > sgtable->orig_nents)
-+		put_page(sg_page(&sgtable->sgl[--sgtable->nents]));
-+	return res;
-+}
-+
-+/*
-+ * Extract up to sg_max pages from a BVEC-type iterator and add them to the
-+ * scatterlist.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_bvec_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int *cleanup_mode)
-+{
-+	const struct bio_vec *bv = iter->bvec;
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	unsigned long start = iter->iov_offset;
-+	unsigned int i;
-+	ssize_t ret = 0;
-+
-+	for (i = 0; i < iter->nr_segs; i++) {
-+		size_t off, len;
-+
-+		len = bv[i].bv_len;
-+		if (start >= len) {
-+			start -= len;
-+			continue;
-+		}
-+
-+		len = min_t(size_t, maxsize, len - start);
-+		off = bv[i].bv_offset + start;
-+
-+		sg_set_page(sg, bv[i].bv_page, len, off);
-+		sgtable->nents++;
-+		sg++;
-+		sg_max--;
-+
-+		ret += len;
-+		maxsize -= len;
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+		start = 0;
-+	}
-+
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	*cleanup_mode = 0;
-+	return ret;
-+}
-+
-+/*
-+ * Extract up to sg_max pages from a KVEC-type iterator and add them to the
-+ * scatterlist.  This can deal with vmalloc'd buffers as well as kmalloc'd or
-+ * static buffers.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_kvec_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int *cleanup_mode)
-+{
-+	const struct kvec *kv = iter->kvec;
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	unsigned long start = iter->iov_offset;
-+	unsigned int i;
-+	ssize_t ret = 0;
-+
-+	for (i = 0; i < iter->nr_segs; i++) {
-+		struct page *page;
-+		unsigned long kaddr;
-+		size_t off, len, seg;
-+
-+		len = kv[i].iov_len;
-+		if (start >= len) {
-+			start -= len;
-+			continue;
-+		}
-+
-+		kaddr = (unsigned long)kv[i].iov_base + start;
-+		off = kaddr & ~PAGE_MASK;
-+		len = min_t(size_t, maxsize, len - start);
-+		kaddr &= PAGE_MASK;
-+
-+		maxsize -= len;
-+		ret += len;
-+		do {
-+			seg = min_t(size_t, len, PAGE_SIZE - off);
-+			if (is_vmalloc_or_module_addr((void *)kaddr))
-+				page = vmalloc_to_page((void *)kaddr);
-+			else
-+				page = virt_to_page(kaddr);
-+
-+			sg_set_page(sg, page, len, off);
-+			sgtable->nents++;
-+			sg++;
-+			sg_max--;
-+
-+			len -= seg;
-+			kaddr += PAGE_SIZE;
-+			off = 0;
-+		} while (len > 0 && sg_max > 0);
-+
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+		start = 0;
-+	}
-+
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	*cleanup_mode = 0;
-+	return ret;
-+}
-+
-+/*
-+ * Extract up to sg_max folios from an XARRAY-type iterator and add them to
-+ * the scatterlist.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_xarray_to_sg(struct iov_iter *iter,
-+					  ssize_t maxsize,
-+					  struct sg_table *sgtable,
-+					  unsigned int sg_max,
-+					  unsigned int *cleanup_mode)
-+{
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	struct xarray *xa = iter->xarray;
-+	struct folio *folio;
-+	loff_t start = iter->xarray_start + iter->iov_offset;
-+	pgoff_t index = start / PAGE_SIZE;
-+	ssize_t ret = 0;
-+	size_t offset, len;
-+	XA_STATE(xas, xa, index);
-+
-+	rcu_read_lock();
-+
-+	xas_for_each(&xas, folio, ULONG_MAX) {
-+		if (xas_retry(&xas, folio))
-+			continue;
-+		if (WARN_ON(xa_is_value(folio)))
-+			break;
-+		if (WARN_ON(folio_test_hugetlb(folio)))
-+			break;
-+
-+		offset = offset_in_folio(folio, start);
-+		len = min_t(size_t, maxsize, folio_size(folio) - offset);
-+
-+		sg_set_page(sg, folio_page(folio, 0), len, offset);
-+		sgtable->nents++;
-+		sg++;
-+		sg_max--;
-+
-+		maxsize -= len;
-+		ret += len;
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+	}
-+
-+	rcu_read_unlock();
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	*cleanup_mode = 0;
-+	return ret;
-+}
-+
-+/**
-+ * netfs_extract_iter_to_sg - Extract pages from an iterator and add ot an sglist
-+ * @iter: The iterator to extract from
-+ * @maxsize: The amount of iterator to copy
-+ * @sgtable: The scatterlist table to fill in
-+ * @sg_max: Maximum number of elements in @sgtable that may be filled
-+ * @cleanup_mode: Where to return the cleanup mode
-+ *
-+ * Extract the page fragments from the given amount of the source iterator and
-+ * add them to a scatterlist that refers to all of those bits, to a maximum
-+ * addition of @sg_max elements.
-+ *
-+ * The pages referred to by UBUF- and IOVEC-type iterators are extracted and
-+ * pinned; BVEC-, KVEC- and XARRAY-type are extracted but aren't pinned; PIPE-
-+ * and DISCARD-type are not supported.
-+ *
-+ * No end mark is placed on the scatterlist; that's left to the caller.
-+ *
-+ * If successul, @sgtable->nents is updated to include the number of elements
-+ * added and the number of bytes added is returned.  @sgtable->orig_nents is
-+ * left unaltered.
-+ */
-+ssize_t netfs_extract_iter_to_sg(struct iov_iter *iter, size_t maxsize,
-+				 struct sg_table *sgtable, unsigned int sg_max,
-+				 unsigned int *cleanup_mode)
-+{
-+	if (maxsize == 0)
-+		return 0;
-+
-+	switch (iov_iter_type(iter)) {
-+	case ITER_UBUF:
-+	case ITER_IOVEC:
-+		return netfs_extract_user_to_sg(iter, maxsize, sgtable, sg_max,
-+						cleanup_mode);
-+	case ITER_BVEC:
-+		return netfs_extract_bvec_to_sg(iter, maxsize, sgtable, sg_max,
-+						cleanup_mode);
-+	case ITER_KVEC:
-+		return netfs_extract_kvec_to_sg(iter, maxsize, sgtable, sg_max,
-+						cleanup_mode);
-+	case ITER_XARRAY:
-+		return netfs_extract_xarray_to_sg(iter, maxsize, sgtable, sg_max,
-+						  cleanup_mode);
-+	default:
-+		pr_err("netfs_extract_iter_to_sg(%u) unsupported\n",
-+		       iov_iter_type(iter));
-+		WARN_ON_ONCE(1);
-+		return -EIO;
-+	}
-+}
-+EXPORT_SYMBOL_GPL(netfs_extract_iter_to_sg);
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index eed84474e4cf..e1b225a17388 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -291,6 +291,10 @@ void netfs_stats_show(struct seq_file *);
- ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
- 				struct iov_iter *new,
- 				unsigned int *cleanup_mode);
-+struct sg_table;
-+ssize_t netfs_extract_iter_to_sg(struct iov_iter *iter, size_t len,
-+				 struct sg_table *sgtable, unsigned int sg_max,
-+				 unsigned int *cleanup_mode);
- 
- /**
-  * netfs_inode - Get the netfs inode context from the inode
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index ccaa461998f3..b13ac142685b 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -653,6 +653,7 @@ int is_vmalloc_or_module_addr(const void *x)
- #endif
- 	return is_vmalloc_addr(x);
- }
-+EXPORT_SYMBOL_GPL(is_vmalloc_or_module_addr);
- 
- /*
-  * Walk a vmap address to the struct page it maps. Huge vmap mappings will
-
+On Thu, 17 Nov 2022 at 14:30, Dave Wysochanski <dwysocha@redhat.com> wrote:
+>
+> If a cookie expires from the LRU and the LRU_DISCARD flag is set,
+> but the state machine has not run yet, it's possible another thread
+> can call fscache_use_cookie and begin to use it.  When the
+> cookie_worker finally runs, it will see the LRU_DISCARD flag set,
+> transition the cookie->state to LRU_DISCARDING, which will then
+> withdraw the cookie.  Once the cookie is withdrawn the object is
+> removed the below oops will occur because the object associated
+> with the cookie is now NULL.
+>
+> Fix the oops by clearing the LRU_DISCARD bit if another thread
+> uses the cookie before the cookie_worker runs.
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000008
+>   ...
+>   CPU: 31 PID: 44773 Comm: kworker/u130:1 Tainted: G     E    6.0.0-5.dneg.x86_64 #1
+>   Hardware name: Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2022
+>   Workqueue: events_unbound netfs_rreq_write_to_cache_work [netfs]
+>   RIP: 0010:cachefiles_prepare_write+0x28/0x90 [cachefiles]
+>   ...
+>   Call Trace:
+>    netfs_rreq_write_to_cache_work+0x11c/0x320 [netfs]
+>    process_one_work+0x217/0x3e0
+>    worker_thread+0x4a/0x3b0
+>    ? process_one_work+0x3e0/0x3e0
+>    kthread+0xd6/0x100
+>    ? kthread_complete_and_exit+0x20/0x20
+>    ret_from_fork+0x1f/0x30
+>
+> Fixes: 12bb21a29c19 ("fscache: Implement cookie user counting and resource pinning")
+> Reported-by: Daire Byrne <daire.byrne@gmail.com>
+> Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
+> ---
+>  fs/fscache/cookie.c            | 8 ++++++++
+>  include/trace/events/fscache.h | 2 ++
+>  2 files changed, 10 insertions(+)
+>
+> diff --git a/fs/fscache/cookie.c b/fs/fscache/cookie.c
+> index 451d8a077e12..bce2492186d0 100644
+> --- a/fs/fscache/cookie.c
+> +++ b/fs/fscache/cookie.c
+> @@ -605,6 +605,14 @@ void __fscache_use_cookie(struct fscache_cookie *cookie, bool will_modify)
+>                         set_bit(FSCACHE_COOKIE_DO_PREP_TO_WRITE, &cookie->flags);
+>                         queue = true;
+>                 }
+> +               /*
+> +                * We could race with cookie_lru which may set LRU_DISCARD bit
+> +                * but has yet to run the cookie state machine.  If this happens
+> +                * and another thread tries to use the cookie, clear LRU_DISCARD
+> +                * so we don't end up withdrawing the cookie while in use.
+> +                */
+> +               if (test_and_clear_bit(FSCACHE_COOKIE_DO_LRU_DISCARD, &cookie->flags))
+> +                       fscache_see_cookie(cookie, fscache_cookie_see_lru_discard_clear);
+>                 break;
+>
+>         case FSCACHE_COOKIE_STATE_FAILED:
+> diff --git a/include/trace/events/fscache.h b/include/trace/events/fscache.h
+> index c078c48a8e6d..a6190aa1b406 100644
+> --- a/include/trace/events/fscache.h
+> +++ b/include/trace/events/fscache.h
+> @@ -66,6 +66,7 @@ enum fscache_cookie_trace {
+>         fscache_cookie_put_work,
+>         fscache_cookie_see_active,
+>         fscache_cookie_see_lru_discard,
+> +       fscache_cookie_see_lru_discard_clear,
+>         fscache_cookie_see_lru_do_one,
+>         fscache_cookie_see_relinquish,
+>         fscache_cookie_see_withdraw,
+> @@ -149,6 +150,7 @@ enum fscache_access_trace {
+>         EM(fscache_cookie_put_work,             "PQ  work ")            \
+>         EM(fscache_cookie_see_active,           "-   activ")            \
+>         EM(fscache_cookie_see_lru_discard,      "-   x-lru")            \
+> +       EM(fscache_cookie_see_lru_discard_clear,"-   lrudc")            \
+>         EM(fscache_cookie_see_lru_do_one,       "-   lrudo")            \
+>         EM(fscache_cookie_see_relinquish,       "-   x-rlq")            \
+>         EM(fscache_cookie_see_withdraw,         "-   x-wth")            \
+> --
+> 2.31.1
+>
 
 --
 Linux-cachefs mailing list
