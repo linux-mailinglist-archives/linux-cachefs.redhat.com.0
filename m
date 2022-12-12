@@ -1,100 +1,84 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6296C6495C3
-	for <lists+linux-cachefs@lfdr.de>; Sun, 11 Dec 2022 19:34:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58BE3649919
+	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Dec 2022 08:01:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670783683;
+	s=mimecast20190719; t=1670828492;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=hEwmPHYF2sKLZ1fsv1v23N13wIv7MlYIupLNdvLsfOY=;
-	b=WaYhAU548nerzMp8ll2U2Ey+9nCFEdVbXCnESdpv8Dow+8mSoU8kQHBCzB5KalE7AO7yCi
-	opws9YPAsjWBFou6xPsmMiuRskrnGeMsLtk0Aa1rth2J1R9jwTn5ZeHbtSQL1bcDFnbyIp
-	XFcS3Ti7bOIohnnbBCofREydvke/QIk=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=9AmvFAZAUU3Pvo/dmYUq1UbMgQKFW9/XWiCBSIYBvvo=;
+	b=TWZ8OznBevthpGRDilS+U3ISj4GSqekfBJdQ5WByteDS7692y2N2bJQrf5UZ1m1znkCUCp
+	CYfCnDsXhycUU/RlPEAXYCkysO0vchARweq0sUmNkjHTpmZBOCIF0c5Ebh/ypSb0RmFbl0
+	C62y4P4BcYrRtbBtPwMESmasPAGyPbo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-543-w2hE50fLMVSM38YValoBMw-1; Sun, 11 Dec 2022 13:34:39 -0500
-X-MC-Unique: w2hE50fLMVSM38YValoBMw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-576-rP2jsjkANtiOYpa-AZAMyQ-1; Mon, 12 Dec 2022 02:01:28 -0500
+X-MC-Unique: rP2jsjkANtiOYpa-AZAMyQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E64F1C0515B;
-	Sun, 11 Dec 2022 18:34:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB38A804184;
+	Mon, 12 Dec 2022 07:01:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 69328492CA2;
-	Sun, 11 Dec 2022 18:34:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 95AD1492B00;
+	Mon, 12 Dec 2022 07:01:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 19F44194658D;
-	Sun, 11 Dec 2022 18:34:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A616D194658C;
+	Mon, 12 Dec 2022 07:01:25 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DC7871946588 for <linux-cachefs@listman.corp.redhat.com>;
- Sun, 11 Dec 2022 18:34:36 +0000 (UTC)
+ ESMTP id ABD2D1946586 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 12 Dec 2022 07:01:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A88ED4EA48; Sun, 11 Dec 2022 18:34:36 +0000 (UTC)
+ id 7167953A7; Mon, 12 Dec 2022 07:01:24 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A0D894EA53
- for <linux-cachefs@redhat.com>; Sun, 11 Dec 2022 18:34:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7FAA73C025C5
- for <linux-cachefs@redhat.com>; Sun, 11 Dec 2022 18:34:36 +0000 (UTC)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-215-aHG1r1ZzOMSybXd09KrhZA-1; Sun, 11 Dec 2022 13:34:35 -0500
-X-MC-Unique: aHG1r1ZzOMSybXd09KrhZA-1
-Received: by mail-qt1-f174.google.com with SMTP id fu10so7433796qtb.0
- for <linux-cachefs@redhat.com>; Sun, 11 Dec 2022 10:34:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VcIjNZvmXhwLlIH4qzTb3os7YT1CTCX89zz+g7s11S8=;
- b=5zpmmCwA5thNNVjYP1HI0EL6S7Jj2tVMTdJ7rUxrIMhbD0PYIZCqxuAwrJImkRLHun
- Uxrcts2mzbC0NKHbCWnvk6wbyDG0bvNZPxY2sHZklskd3S51xqInSGS4MFgAFzXPtA10
- rZ9y6o2WCuUQHtkjluR4NcKLOt7dAJ7fRUqB0uJVLVIQGqCthopkHqNKo6tCEruZ9n7R
- QYhIdwjnboqSPTs7oa5D0kUdi5pOxEDuoapR7XneFONflb2YjoEpGIZWKlnhFBFZ9Jg1
- CtGo6UHsRfTvcj49sjXAl9Xjia4Qbakot49i+9ZZH06z7B/IwBYKQlC81kF5/CrHh4Dr
- 4uCg==
-X-Gm-Message-State: ANoB5pnO1hkZkh9+BgQZJj9hZpjMQFhy+UYW3RddE3cnI9ym0OeRZg5I
- FG5l07fs2+r0W1p0vtRnwGtPX1GMi0uvSpma
-X-Google-Smtp-Source: AA0mqf5g9zF8OJ6ItdHQsp5CUiRxbGnY39M3IplAB12yS/5X40oOxtBwCxc/xw++eYx+iFkI+7Sj2w==
-X-Received: by 2002:ac8:4d8f:0:b0:3a6:8922:b71b with SMTP id
- a15-20020ac84d8f000000b003a68922b71bmr15773235qtw.55.1670783674106; 
- Sun, 11 Dec 2022 10:34:34 -0800 (PST)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com.
- [209.85.219.54]) by smtp.gmail.com with ESMTPSA id
- y5-20020a05620a44c500b006f956766f76sm4481985qkp.1.2022.12.11.10.34.33
- for <linux-cachefs@redhat.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 11 Dec 2022 10:34:33 -0800 (PST)
-Received: by mail-qv1-f54.google.com with SMTP id d2so6839951qvp.12
- for <linux-cachefs@redhat.com>; Sun, 11 Dec 2022 10:34:33 -0800 (PST)
-X-Received: by 2002:ad4:4101:0:b0:4b1:856b:4277 with SMTP id
- i1-20020ad44101000000b004b1856b4277mr70224982qvp.129.1670783284766; Sun, 11
- Dec 2022 10:28:04 -0800 (PST)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6922E53A4
+ for <linux-cachefs@redhat.com>; Mon, 12 Dec 2022 07:01:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4867829DD98B
+ for <linux-cachefs@redhat.com>; Mon, 12 Dec 2022 07:01:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-580-KM3H_S8pMbCPNIZrjy_GxQ-1; Mon, 12 Dec 2022 02:01:20 -0500
+X-MC-Unique: KM3H_S8pMbCPNIZrjy_GxQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EBD5960EA9;
+ Mon, 12 Dec 2022 07:01:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FE2C433EF;
+ Mon, 12 Dec 2022 07:01:16 +0000 (UTC)
+Date: Mon, 12 Dec 2022 15:01:12 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <Y5bRuDiEwUAK1si1@debian>
+Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-erofs@lists.ozlabs.org, linux-cachefs@redhat.com,
+ LKML <linux-kernel@vger.kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Jeff Layton <jlayton@kernel.org>, Chao Yu <chao@kernel.org>,
+ Yue Hu <huyue2@coolpad.com>, Jingbo Xu <jefflexu@linux.alibaba.com>,
+ Hou Tao <houtao1@huawei.com>,
+ Chen Zhongjin <chenzhongjin@huawei.com>,
+ Jia Zhu <zhujia.zj@bytedance.com>
+References: <Y5TB6E77vbpRMhIk@debian>
 MIME-Version: 1.0
-References: <202212112131.994277de-oliver.sang@intel.com>
-In-Reply-To: <202212112131.994277de-oliver.sang@intel.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 11 Dec 2022 10:27:48 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wipgS=05hJdztC8sJj01wpxMKQ67tV53UyFa2WtZ93o5A@mail.gmail.com>
-Message-ID: <CAHk-=wipgS=05hJdztC8sJj01wpxMKQ67tV53UyFa2WtZ93o5A@mail.gmail.com>
-To: kernel test robot <oliver.sang@intel.com>
+In-Reply-To: <Y5TB6E77vbpRMhIk@debian>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -103,9 +87,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [Linux-cachefs]
- [ammarfaizi2-block:dhowells/linux-fs/fscache-fixes] [mm, netfs,
- fscache] 6919cda8e0: canonical_address#:#[##]
+Subject: Re: [Linux-cachefs] [GIT PULL] erofs updates for 6.2-rc1 (fscache
+ part inclusive)
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,118 +100,130 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Shyam Prasad N <nspmangalore@gmail.com>, Steve French <sfrench@samba.org>,
- samba-technical@lists.samba.org, lkp@intel.com,
- Ammar Faizi <ammarfaizi2@gnuweeb.org>,
- Rohith Surabattula <rohiths.msft@gmail.com>, linux-cifs@vger.kernel.org,
- ceph-devel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- linux-afs@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-cachefs@redhat.com, GNU/Weeb Mailing List <gwml@vger.gnuweeb.org>,
- oe-lkp@lists.linux.dev, v9fs-developer@lists.sourceforge.net,
- Ilya Dryomov <idryomov@gmail.com>, Dominique Martinet <asmadeus@codewreck.org>,
- linux-mm@kvack.org
+Cc: Yue Hu <huyue2@coolpad.com>, Chen Zhongjin <chenzhongjin@huawei.com>,
+ Chao Yu <chao@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-cachefs@redhat.com,
+ Hou Tao <houtao1@huawei.com>, linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The disassembly isn't great, because the test robot doesn't try to
-find where the instructions start, but before that
+Hi Linus,
 
->    4:   48 8b 57 18             mov    0x18(%rdi),%rdx
+On Sun, Dec 11, 2022 at 01:29:21AM +0800, Gao Xiang wrote:
+> Hi Linus,
+> 
+> Once the merge window opens, could you consider this pull request for
+> 6.2-rc1?
+> 
+> In this cycle, large folios are now enabled in the iomap/fscache mode
+> for uncompressed files first.  In order to do that, we've also cleaned
+> up better interfaces between erofs and fscache, which are acked by
+> fscache/netfs folks and included in this pull request.
+> 
+> Other than that, there are random fixes around erofs over fscache and
+> crafted images by syzbot, minor cleanups and documentation updates.
+> 
+> Note that there could be a trivial conflict between erofs and vfs
+> tree according to linux-next report [1].
+> 
+> Happy Holidays!
+> Gao Xiang
+> 
+> [1] https://lore.kernel.org/r/20221205092415.56cc6e19@canb.auug.org.au/
+> 
+> The following changes since commit eb7081409f94a9a8608593d0fb63a1aa3d6f95d8:
+> 
+>   Linux 6.1-rc6 (2022-11-20 16:02:16 -0800)
+> 
+> are available in the Git repository at:
+> 
+>   git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-6.2-rc1
+> 
+> for you to fetch changes up to c505feba4c0d76084e56ec498ce819f02a7043ae:
+> 
 
-instruction we also had a
+Sorry for bothering again.
 
-      mov    (%rdi),%rax
+Just having seen v6.2 pull request requirements together with
+Linux 6.1 announcement.
 
-and it looks like this is the very top of 'filemap_release_folio()',
-so '%rdi' contains the folio pointer coming into this.
+Comparing with the latest -next on the last Thursday, there was one-liner
+addition on
+commit 927e5010ff5b ("erofs: use kmap_local_page() only for erofs_bread()")
+as below:
 
-End result:
+diff --git a/fs/erofs/inode.c b/fs/erofs/inode.c
+index 85932086d23f..5b3a793103af 100644
+--- a/fs/erofs/inode.c
++++ b/fs/erofs/inode.c
+@@ -268,6 +268,7 @@ static int erofs_fill_inode(struct inode *inode)
+ 	case S_IFDIR:
+ 		inode->i_op = &erofs_dir_iops;
+ 		inode->i_fop = &erofs_dir_fops;
++		inode_nohighmem(inode);
+ 		break;
+ 	case S_IFLNK:
+ 		err = erofs_fill_symlink(inode, kaddr, ofs)
 
-On Sun, Dec 11, 2022 at 6:27 AM kernel test robot <oliver.sang@intel.com> wrote:
->
->    4:   48 8b 57 18             mov    0x18(%rdi),%rdx
->    8:   83 e0 01                and    $0x1,%eax
->    b:   74 59                   je     0x66
+since I found erofs_lookup() could break on x86 platform with HIGHMEM
+enabled this weekend and I made all dirs inode_nohighmem() and folded
+into the original patch since it's no needed to keep dirs in HIGHMEM.
+I don't find other strange other than this.
 
-The
+Because there is no -next version on Monday, if you would like to
+take all commits in -next you could take
+  git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-6.2-rc1-alt
 
-    and    $0x1,%eax
-    je     0x66
+instead (the top commit is e5293c693d68f705787480159c4cd332c09c5e67.)
 
-above is the test for
+In that way I will send another patch to fix the issue above later,
+but if it's possible, it'd be better to apply "tags/erofs-for-6.2-rc1"
+directly...
 
-    BUG_ON(!folio_test_locked(folio));
+The diffstat of tags/erofs-for-6.2-rc1-alt is:
 
-where it's jumping out to the 'ud2' in case the lock bit (bit #0) isn't set.
+Chen Zhongjin (1):
+      erofs: Fix pcluster memleak when its block address is zero
 
-Then we have this:
+Gao Xiang (5):
+      erofs: update documentation
+      erofs: clean up cached I/O strategies
+      erofs: use kmap_local_page() only for erofs_bread()
+      erofs: fix missing unmap if z_erofs_get_extent_compressedlen() fails
+      erofs: validate the extent length for uncompressed pclusters
 
->    d:   48 f7 07 00 60 00 00    testq  $0x6000,(%rdi)
->   14:   74 22                   je     0x38
+Hou Tao (1):
+      erofs: check the uniqueness of fsid in shared domain in advance
 
-Which is testing PG_private | PG_private2, and jumping out (which we
-also don't do) if neither is set.
+Jingbo Xu (5):
+      erofs: enable large folios for iomap mode
+      fscache,cachefiles: add prepare_ondemand_read() callback
+      erofs: switch to prepare_ondemand_read() in fscache mode
+      erofs: support large folios for fscache mode
+      erofs: enable large folios for fscache mode
 
-And then we have:
+ Documentation/filesystems/erofs.rst |  38 ++--
+ fs/cachefiles/io.c                  |  77 ++++---
+ fs/erofs/data.c                     |  10 +-
+ fs/erofs/fscache.c                  | 408 ++++++++++++++++--------------------
+ fs/erofs/inode.c                    |   1 +
+ fs/erofs/internal.h                 |  13 +-
+ fs/erofs/super.c                    |   2 +-
+ fs/erofs/xattr.c                    |   8 +-
+ fs/erofs/zdata.c                    |  80 +++----
+ fs/erofs/zmap.c                     |  15 +-
+ include/linux/netfs.h               |   8 +
+ include/trace/events/cachefiles.h   |  27 +--
+ 12 files changed, 343 insertions(+), 344 deletions(-)
 
->   16:   48 8b 07                mov    (%rdi),%rax
->   19:   f6 c4 80                test   $0x80,%ah
->   1c:   75 32                   jne    0x50
-
-Which is checking for PG_writeback.
-
-So then we get to
-
-    if (mapping && mapping->a_ops->release_folio)
-            return mapping->a_ops->release_folio(folio, gfp);
-
-which is this:
-
->   1e:   48 85 d2                test   %rdx,%rdx
->   21:   74 34                   je     0x57
-
-This %rdx value is the early load from the top of the function, it's
-checking 'mapping' for NULL.
-
-It's not NULL, but it's some odd value according to the oops report:
-
-  RDX: ffff889f03987f71
-
-which doesn't look like it's valid (well, it's a valid kernel pointer,
-but it's not aligned like a 'mapping' pointer should be.
-
-So now when we're going to load 'a_ops' from there, we load another
-garbage value:
-
->   23:   48 8b 82 90 00 00 00    mov    0x90(%rdx),%rax
-
-and we now have RAX: b000000000000000
-
-and then the 'a_ops->release_folio' access will trap:
-
->   2a:*  48 8b 40 48             mov    0x48(%rax),%rax          <-- trapping instruction
->   2e:   48 85 c0                test   %rax,%rax
->   31:   74 24                   je     0x57
-
-The above is the "load a_ops->release_folio and test it for NULL", but
-the load took a page fault because RAX was garbage.
-
-But RAX was garbage because we already had a bogus "mapping" pointer earlier.
-
-Now, why 'mapping' was bogus, I don't know. Maybe that page wasn't a
-page cache page at all? The mapping field is in a union and can
-contain other things.
-
-So I have no explanation for the oops, but I thought I'd just post the
-decoding of the instruction stream in case that helps somebody else to
-figure it out.
-
-                 Linus
+Thanks,
+Gao Xiang
 
 --
 Linux-cachefs mailing list
