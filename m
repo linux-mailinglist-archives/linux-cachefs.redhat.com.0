@@ -2,77 +2,90 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E9A4669C85
-	for <lists+linux-cachefs@lfdr.de>; Fri, 13 Jan 2023 16:35:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797BA66D2E1
+	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Jan 2023 00:15:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673624152;
+	s=mimecast20190719; t=1673910942;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=XHnDJGI+90HTZG+gdHXWjMe9k4dmBuOFki4UIMm1hR4=;
-	b=SL3Xw62CZ4U9/3eguekeVaTRjn2tcXDrVZRv4oVIhBFg6S+pnetCScRnR6YrMvZN0BAEEg
-	nRtzh0sx33NGQBwNzQJrRoObWYkZ5mj/Z6hyrC1qENpD9SIDblIPGJUUVXV7c9k9sD8DYS
-	KKI3uHzyXNSq+/5t/n6S/Vo2xu6DkCc=
+	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=fbaXIeGLwd4xdAeYuR4t8HbhS035csL97vKS5lUFlIg=;
+	b=DN0bB+D0vf7ehWKmEjzVB5TNpEiE7L51hNRl1XhfL0s1CFLLFzCk2vuIwkfobz5nflZ59H
+	R2LfurB/9t6Rh8V/eTRR/30QCZi56hD/KU1R0+uVnW2p4VLWDtowcK2HSfKYsrqyXMyfFT
+	pqq8Um1EvmcEFFckjdLhK0vbJCLFv5I=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-145-fB9tN31kNRuOhBp-UyFwwQ-1; Fri, 13 Jan 2023 10:35:48 -0500
-X-MC-Unique: fB9tN31kNRuOhBp-UyFwwQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-357-cSTLgFgwMqiVEw43ECWtSw-1; Mon, 16 Jan 2023 18:15:38 -0500
+X-MC-Unique: cSTLgFgwMqiVEw43ECWtSw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 994B12A5956B;
-	Fri, 13 Jan 2023 15:35:47 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1BD691121314;
-	Fri, 13 Jan 2023 15:35:47 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4CA8B1C0432A;
+	Mon, 16 Jan 2023 23:15:38 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 42D5439D92;
+	Mon, 16 Jan 2023 23:15:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA2DA1947060;
-	Fri, 13 Jan 2023 15:35:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9DC1C1946595;
+	Mon, 16 Jan 2023 23:15:37 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 97AB61946A78 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 13 Jan 2023 15:35:45 +0000 (UTC)
+ ESMTP id AAAD81946A78 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 12 Jan 2023 07:42:29 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 89B622166B29; Fri, 13 Jan 2023 15:35:45 +0000 (UTC)
+ id 994CB492C1B; Thu, 12 Jan 2023 07:42:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 831862166B26
- for <linux-cachefs@redhat.com>; Fri, 13 Jan 2023 15:35:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 91CCE492C18
+ for <linux-cachefs@redhat.com>; Thu, 12 Jan 2023 07:42:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F57D3814958
- for <linux-cachefs@redhat.com>; Fri, 13 Jan 2023 15:35:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-42-LF4ycvGNP1mKQ7F1D-4DEw-1; Fri, 13 Jan 2023 10:35:43 -0500
-X-MC-Unique: LF4ycvGNP1mKQ7F1D-4DEw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C9425620D6;
- Fri, 13 Jan 2023 15:28:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F489C433D2;
- Fri, 13 Jan 2023 15:28:02 +0000 (UTC)
-Message-ID: <bc07b4d69f6c709988d2faca50717a402c1ed81e.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Hou Tao <houtao@huaweicloud.com>, linux-cachefs@redhat.com
-Date: Fri, 13 Jan 2023 10:28:01 -0500
-In-Reply-To: <20230113115211.2895845-3-houtao@huaweicloud.com>
-References: <20230113115211.2895845-1-houtao@huaweicloud.com>
- <20230113115211.2895845-3-houtao@huaweicloud.com>
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 76B9338041EB
+ for <linux-cachefs@redhat.com>; Thu, 12 Jan 2023 07:42:29 +0000 (UTC)
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-326-oUlPBS77MFW087zR9S5rmg-1; Thu, 12 Jan 2023 02:42:27 -0500
+X-MC-Unique: oUlPBS77MFW087zR9S5rmg-1
+Received: by mail-il1-f199.google.com with SMTP id
+ i14-20020a056e020d8e00b003034b93bd07so12795912ilj.14
+ for <linux-cachefs@redhat.com>; Wed, 11 Jan 2023 23:42:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:in-reply-to:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7TQjimL8KUZMscO4m3fC34iqwHwmpZuK4STzqhRFKQI=;
+ b=Xgm7wfGlP19fluEb4AMbdQ+LRqz8QrCjysr73JRgHQmeZCo+w0KfWALOr0DJTjHk3F
+ rZqTwufd4nBHfhk7WUYCfnRON0mKzUnx2TJeAz2mI57HjpnnkYXy8DOBV4fxkb8J+cLh
+ 5HTeFJztj4sFP+oqn9ixZ4VoGNPxS+OLI9ZE3ForWLE0guENUgayH5R1JxsrMJfbg71r
+ UTZ34cBNnwLzjGyZQdwUzuPOz3DkBfvlCYYpBMeg8VDxGVkMUbuSrGhvIEutNw7U5yz8
+ oslbgDziosGmOgfhdn0cJxrEVtpWfU3mVHpyFemk1ixvvkTYiy84pzZ8PfMDrvBXXLjC
+ 8XFg==
+X-Gm-Message-State: AFqh2koACsWPRMfTp2VWWsiquSUPJOCmDSBNHoE3J6WOfqN1UmTizjJg
+ o+ozd42yEVlq+ZNvIVFeBr/DiSIoBJfV+0bIJQZ1CDyZx1Fm
+X-Google-Smtp-Source: AMrXdXsKCZePNVlRHn4wtr1s76eeempx4mtvAQfxz/sKaVwwejEpSYE+q3rdDiIZupgUnQIkmsWPf8BVsPx8vxngPT+fX5VHKlvE
 MIME-Version: 1.0
+X-Received: by 2002:a92:4402:0:b0:30d:90de:eb8e with SMTP id
+ r2-20020a924402000000b0030d90deeb8emr2414568ila.204.1673509345955; Wed, 11
+ Jan 2023 23:42:25 -0800 (PST)
+Date: Wed, 11 Jan 2023 23:42:25 -0800
+In-Reply-To: <000000000000f2b07b05d5dc87cc@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000018186f05f20c420c@google.com>
+From: syzbot <syzbot+5b129e8586277719bab3@syzkaller.appspotmail.com>
+To: dhowells@redhat.com, dvyukov@google.com, linux-cachefs-bounces@redhat.com, 
+ linux-cachefs-owner@redhat.com, linux-cachefs@redhat.com, 
+ linux-kernel@vger.kernel.org, mudongliangabcd@gmail.com, nogikh@google.com, 
+ syzkaller-bugs@googlegroups.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -80,9 +93,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [PATCH v3 2/2] fscache: Use
- clear_and_wake_up_bit() in fscache_create_volume_work()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mailman-Approved-At: Mon, 16 Jan 2023 23:15:36 +0000
+Subject: Re: [Linux-cachefs] [syzbot] general protection fault in
+ fscache_free_cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,50 +108,45 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, houtao1@huawei.com,
- linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2023-01-13 at 19:52 +0800, Hou Tao wrote:
-> From: Hou Tao <houtao1@huawei.com>
-> 
-> fscache_create_volume_work() uses wake_up_bit() to wake up the processes
-> which are waiting for the completion of volume creation. According to
-> comments in wake_up_bit() and waitqueue_active(), an extra smp_mb() is
-> needed to guarantee the memory order between FSCACHE_VOLUME_CREATING
-> flag and waitqueue_active() before invoking wake_up_bit().
-> 
-> Fixing it by using clear_and_wake_up_bit() to add the missing memory
-> barrier.
-> 
-> Reviewed-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-> Signed-off-by: Hou Tao <houtao1@huawei.com>
-> ---
->  fs/fscache/volume.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/fs/fscache/volume.c b/fs/fscache/volume.c
-> index 903af9d85f8b..cdf991bdd9de 100644
-> --- a/fs/fscache/volume.c
-> +++ b/fs/fscache/volume.c
-> @@ -280,8 +280,7 @@ static void fscache_create_volume_work(struct work_struct *work)
->  	fscache_end_cache_access(volume->cache,
->  				 fscache_access_acquire_volume_end);
->  
-> -	clear_bit_unlock(FSCACHE_VOLUME_CREATING, &volume->flags);
-> -	wake_up_bit(&volume->flags, FSCACHE_VOLUME_CREATING);
-> +	clear_and_wake_up_bit(FSCACHE_VOLUME_CREATING, &volume->flags);
->  	fscache_put_volume(volume, fscache_volume_put_create_work);
->  }
->  
+This bug is marked as fixed by commit:
+fscache: fix GPF in fscache_free_cookie
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
+
+#syz fix: exact-commit-title
+
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
+
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=5b129e8586277719bab3
+
+---
+[1] I expect the commit to be present in:
+
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+4. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+
+The full list of 10 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
 
 --
 Linux-cachefs mailing list
