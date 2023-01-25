@@ -2,82 +2,59 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CB966D773
-	for <lists+linux-cachefs@lfdr.de>; Tue, 17 Jan 2023 09:03:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE0767BEE7
+	for <lists+linux-cachefs@lfdr.de>; Wed, 25 Jan 2023 22:45:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673942636;
+	s=mimecast20190719; t=1674683156;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=O2QQt0BFsUrBs6uLyEPviZD0kf+CYWSU4AmV6GhQD0M=;
-	b=jBomJzPrnV+Zk+T+mWuNDPIDlhOmRX5rOSwZby5x7Brho0MIp3FG53h5K7I1aiLgpx5qUP
-	q8Oy8V3IZyUptVICb04pFm+40KplU3zTeLSVrG+YsNlAv373Q6djOqufZPF7UvHdOcBvRk
-	mWIUl7jd5gBl+lz254GIiMkGc3noc/M=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=oHj6Z2BzZKMvf/P+uHe7s7t81k7cVPWN668JamZab50=;
+	b=LPAtKgyxX7DPpL57Ovq+W0ap/Tz76N6wSkxdx6K6J7C4t3NdgxWcVXDI9iNmUUgWTSyr0n
+	ugJWS45xWOm7dauzSDtbjHPjjqDCtqtMH8ERYwzzJrnbDDiza6BxUMN3da7lvOuB6vgctt
+	xAh47OigxPEFeQSkei/U5qS4ty/vyTQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-294-z_caZWNJOruINsGgCu7W_Q-1; Tue, 17 Jan 2023 03:03:53 -0500
-X-MC-Unique: z_caZWNJOruINsGgCu7W_Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-56-Ofq3X6GNMjmj-CO-CTpkcw-1; Wed, 25 Jan 2023 16:45:53 -0500
+X-MC-Unique: Ofq3X6GNMjmj-CO-CTpkcw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E50EA3811F37;
-	Tue, 17 Jan 2023 08:03:52 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 747D740C2004;
-	Tue, 17 Jan 2023 08:03:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6DCE85CBE7;
+	Wed, 25 Jan 2023 21:45:52 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 45F01492C14;
+	Wed, 25 Jan 2023 21:45:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3166519465B5;
-	Tue, 17 Jan 2023 08:03:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DDF2C1946595;
+	Wed, 25 Jan 2023 21:45:50 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4776C19465A3 for <linux-cachefs@listman.corp.redhat.com>;
- Tue, 17 Jan 2023 08:03:48 +0000 (UTC)
+ ESMTP id 72C73194658C for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 25 Jan 2023 21:45:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D97B22026D68; Tue, 17 Jan 2023 08:03:47 +0000 (UTC)
+ id 42820492B02; Wed, 25 Jan 2023 21:45:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D10182026D4B
- for <linux-cachefs@redhat.com>; Tue, 17 Jan 2023 08:03:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B127A85C6E0
- for <linux-cachefs@redhat.com>; Tue, 17 Jan 2023 08:03:47 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-137-Cyo8mItPNNaVc9lRE70qDQ-1; Tue, 17 Jan 2023 03:03:38 -0500
-X-MC-Unique: Cyo8mItPNNaVc9lRE70qDQ-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pHgfw-00DEsx-QJ; Tue, 17 Jan 2023 07:46:32 +0000
-Date: Mon, 16 Jan 2023 23:46:32 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <Y8ZSWM2bxlRmMMTz@infradead.org>
-References: <167391047703.2311931.8115712773222260073.stgit@warthog.procyon.org.uk>
+Received: from warthog.procyon.org.uk.com (unknown [10.33.36.97])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 59469492B01;
+ Wed, 25 Jan 2023 21:45:48 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Steve French <smfrench@gmail.com>
+Date: Wed, 25 Jan 2023 21:45:31 +0000
+Message-Id: <20230125214543.2337639-2-dhowells@redhat.com>
+In-Reply-To: <20230125214543.2337639-1-dhowells@redhat.com>
+References: <20230125214543.2337639-1-dhowells@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <167391047703.2311931.8115712773222260073.stgit@warthog.procyon.org.uk>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [PATCH v6 00/34] iov_iter: Improve page
- extraction (ref, pin or just list)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [Linux-cachefs] [RFC 01/13] netfs: Add a function to extract a UBUF
+ or IOVEC into a BVEC iterator
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +66,193 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>, Jan Kara <jack@suse.cz>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- Stefan Metzmacher <metze@samba.org>, linux-mm@kvack.org,
- Eric Dumazet <edumazet@google.com>, Christoph Hellwig <hch@lst.de>,
- Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
- Miklos Szeredi <miklos@szeredi.hu>, linux-rdma@vger.kernel.org,
- Long Li <longli@microsoft.com>, Matthew Wilcox <willy@infradead.org>,
- Christoph Hellwig <hch@infradead.org>, Steve French <smfrench@gmail.com>,
- linux-cachefs@redhat.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Namjae Jeon <linkinjeon@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Tom Talpey <tom@talpey.com>,
- Al Viro <viro@zeniv.linux.org.uk>, v9fs-developer@lists.sourceforge.net,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-nfs@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Rohith Surabattula <rohiths.msft@gmail.com>, netdev@vger.kernel.org,
- Paulo Alcantara <pc@cjr.nz>, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org, Steve French <sfrench@samba.org>,
- linux-crypto@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
- linux-fsdevel@vger.kernel.org, Logan Gunthorpe <logang@deltatee.com>,
- "David S. Miller" <davem@davemloft.net>
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, Tom Talpey <tom@talpey.com>,
+ Stefan Metzmacher <metze@samba.org>, Christoph Hellwig <hch@infradead.org>,
+ Rohith Surabattula <rohiths.msft@gmail.com>, linux-cifs@vger.kernel.org,
+ Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Steve French <sfrench@samba.org>,
+ linux-cachefs@redhat.com, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-First off the liver comment:  can we cut down things for a first
-round?  Maybe just convert everything using the bio based helpers
-and then chunk it up?  Reviewing 34 patches across a dozen subsystems
-isn't going to be easy and it will be hard to come up with a final
-positive conclusion.
+Add a function to extract the pages from a user-space supplied iterator
+(UBUF- or IOVEC-type) into a BVEC-type iterator, retaining the pages by
+getting a pin on them (as FOLL_PIN) as we go.
 
+This is useful in three situations:
+
+ (1) A userspace thread may have a sibling that unmaps or remaps the
+     process's VM during the operation, changing the assignment of the
+     pages and potentially causing an error.  Retaining the pages keeps
+     some pages around, even if this occurs; futher, we find out at the
+     point of extraction if EFAULT is going to be incurred.
+
+ (2) Pages might get swapped out/discarded if not retained, so we want to
+     retain them to avoid the reload causing a deadlock due to a DIO
+     from/to an mmapped region on the same file.
+
+ (3) The iterator may get passed to sendmsg() by the filesystem.  If a
+     fault occurs, we may get a short write to a TCP stream that's then
+     tricky to recover from.
+
+We don't deal with other types of iterator here, leaving it to other
+mechanisms to retain the pages (eg. PG_locked, PG_writeback and the pipe
+lock).
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: Steve French <sfrench@samba.org>
+cc: Shyam Prasad N <nspmangalore@gmail.com>
+cc: Rohith Surabattula <rohiths.msft@gmail.com>
+cc: linux-cachefs@redhat.com
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/netfs/Makefile     |   1 +
+ fs/netfs/iterator.c   | 102 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h |   2 +
+ 3 files changed, 105 insertions(+)
+ create mode 100644 fs/netfs/iterator.c
+
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index f684c0cd1ec5..386d6fb92793 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -3,6 +3,7 @@
+ netfs-y := \
+ 	buffered_read.o \
+ 	io.o \
++	iterator.o \
+ 	main.o \
+ 	objects.o
+ 
+diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
+new file mode 100644
+index 000000000000..7b7cdc2863fc
+--- /dev/null
++++ b/fs/netfs/iterator.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Iterator helpers.
++ *
++ * Copyright (C) 2022 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ */
++
++#include <linux/export.h>
++#include <linux/slab.h>
++#include <linux/uio.h>
++#include <linux/netfs.h>
++#include "internal.h"
++
++/**
++ * netfs_extract_user_iter - Extract the pages from a user iterator into a bvec
++ * @orig: The original iterator
++ * @orig_len: The amount of iterator to copy
++ * @new: The iterator to be set up
++ * @extract_flags: Flags to qualify the request
++ *
++ * Extract the page fragments from the given amount of the source iterator and
++ * build up a second iterator that refers to all of those bits.  This allows
++ * the original iterator to disposed of.
++ *
++ * @extract_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA be
++ * allowed on the pages extracted.
++ *
++ * On success, the number of elements in the bvec is returned, the original
++ * iterator will have been advanced by the amount extracted.
++ *
++ * The iov_iter_extract_mode() function should be used to query how cleanup
++ * should be performed.
++ */
++ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
++				struct iov_iter *new, unsigned int extract_flags)
++{
++	struct bio_vec *bv = NULL;
++	struct page **pages;
++	unsigned int cur_npages;
++	unsigned int max_pages;
++	unsigned int npages = 0;
++	unsigned int i;
++	ssize_t ret;
++	size_t count = orig_len, offset, len;
++	size_t bv_size, pg_size;
++
++	if (WARN_ON_ONCE(!iter_is_ubuf(orig) && !iter_is_iovec(orig)))
++		return -EIO;
++
++	max_pages = iov_iter_npages(orig, INT_MAX);
++	bv_size = array_size(max_pages, sizeof(*bv));
++	bv = kvmalloc(bv_size, GFP_KERNEL);
++	if (!bv)
++		return -ENOMEM;
++
++	/* Put the page list at the end of the bvec list storage.  bvec
++	 * elements are larger than page pointers, so as long as we work
++	 * 0->last, we should be fine.
++	 */
++	pg_size = array_size(max_pages, sizeof(*pages));
++	pages = (void *)bv + bv_size - pg_size;
++
++	while (count && npages < max_pages) {
++		ret = iov_iter_extract_pages(orig, &pages, count,
++					     max_pages - npages, extract_flags,
++					     &offset);
++		if (ret < 0) {
++			pr_err("Couldn't get user pages (rc=%zd)\n", ret);
++			break;
++		}
++
++		if (ret > count) {
++			pr_err("get_pages rc=%zd more than %zu\n", ret, count);
++			break;
++		}
++
++		count -= ret;
++		ret += offset;
++		cur_npages = DIV_ROUND_UP(ret, PAGE_SIZE);
++
++		if (npages + cur_npages > max_pages) {
++			pr_err("Out of bvec array capacity (%u vs %u)\n",
++			       npages + cur_npages, max_pages);
++			break;
++		}
++
++		for (i = 0; i < cur_npages; i++) {
++			len = ret > PAGE_SIZE ? PAGE_SIZE : ret;
++			bv[npages + i].bv_page	 = *pages++;
++			bv[npages + i].bv_offset = offset;
++			bv[npages + i].bv_len	 = len - offset;
++			ret -= len;
++			offset = 0;
++		}
++
++		npages += cur_npages;
++	}
++
++	iov_iter_bvec(new, orig->data_source, bv, npages, orig_len - count);
++	return npages;
++}
++EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 4c76ddfb6a67..e8c560131170 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -296,6 +296,8 @@ void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
+ void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
+ 			  bool was_async, enum netfs_sreq_ref_trace what);
+ void netfs_stats_show(struct seq_file *);
++ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
++				struct iov_iter *new, unsigned int extract_flags);
+ 
+ /**
+  * netfs_inode - Get the netfs inode context from the inode
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
