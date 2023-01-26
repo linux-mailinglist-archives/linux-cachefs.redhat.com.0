@@ -1,60 +1,102 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A07F67BEEB
-	for <lists+linux-cachefs@lfdr.de>; Wed, 25 Jan 2023 22:46:00 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7113A6812B1
+	for <lists+linux-cachefs@lfdr.de>; Mon, 30 Jan 2023 15:24:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674683159;
+	s=mimecast20190719; t=1675088642;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=pA/mgdeaQPPGAK9Rzwny7wDISnFD6izDk970oJ84nwQ=;
-	b=Xg0juMJgE2xNN9MGWbCQgu+Q8Wwq7EBxBeajAdaPDKz9TcicuDkzoPkKTL4g71G0iciLM6
-	Yogn074KfZpdSXXayJF7UQ5LPhkjjG1TGz+oayzQlcq9f0Wyt+jkwi68IeevAqtl0Kf7YK
-	AiKJlpnyMzunG4OqYDSCe3XbuJIXeEk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 in-reply-to:in-reply-to:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=fbaXIeGLwd4xdAeYuR4t8HbhS035csL97vKS5lUFlIg=;
+	b=I0HDwIPDFuwKN/XLyFkE7qtXjyUwTO+eIYCowK/PNzMu+qOBKLrWMDv0O3RonJrfKK9LMc
+	gzhdr8Jky06vVg+5PxEgWMegm1708tdF2UbacNnL3QkvTKjz6+OsawDPJtrRHDIlWp83ru
+	oACCzhuBYhvCZyKhl0L7WWbOjGO8HGY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-277-qxlWTrFLPI2XgsQVCjl8Bg-1; Wed, 25 Jan 2023 16:45:55 -0500
-X-MC-Unique: qxlWTrFLPI2XgsQVCjl8Bg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-592-YGL81scfOyOY6oCZpkVQUQ-1; Mon, 30 Jan 2023 09:23:59 -0500
+X-MC-Unique: YGL81scfOyOY6oCZpkVQUQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB6B3100F904;
-	Wed, 25 Jan 2023 21:45:53 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B11442026D76;
-	Wed, 25 Jan 2023 21:45:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9484F3C0E45E;
+	Mon, 30 Jan 2023 14:23:58 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B0874C15BAD;
+	Mon, 30 Jan 2023 14:23:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 812121946595;
-	Wed, 25 Jan 2023 21:45:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 568181946594;
+	Mon, 30 Jan 2023 14:23:57 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 01C7C194658C for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 25 Jan 2023 21:45:53 +0000 (UTC)
+ ESMTP id A70DB194658C for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 26 Jan 2023 07:43:29 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CB41F40C945A; Wed, 25 Jan 2023 21:45:52 +0000 (UTC)
+ id 94DC2492C18; Thu, 26 Jan 2023 07:43:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk.com (unknown [10.33.36.97])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DF46E40C1141;
- Wed, 25 Jan 2023 21:45:50 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Steve French <smfrench@gmail.com>
-Date: Wed, 25 Jan 2023 21:45:32 +0000
-Message-Id: <20230125214543.2337639-3-dhowells@redhat.com>
-In-Reply-To: <20230125214543.2337639-1-dhowells@redhat.com>
-References: <20230125214543.2337639-1-dhowells@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BA86492C14
+ for <linux-cachefs@redhat.com>; Thu, 26 Jan 2023 07:43:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F66F85D064
+ for <linux-cachefs@redhat.com>; Thu, 26 Jan 2023 07:43:29 +0000 (UTC)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-520-mI_jKoKSM1izKqErCmGtAw-1; Thu, 26 Jan 2023 02:43:27 -0500
+X-MC-Unique: mI_jKoKSM1izKqErCmGtAw-1
+Received: by mail-io1-f69.google.com with SMTP id
+ h17-20020a5d9e11000000b007049a892316so506696ioh.7
+ for <linux-cachefs@redhat.com>; Wed, 25 Jan 2023 23:43:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:in-reply-to:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7TQjimL8KUZMscO4m3fC34iqwHwmpZuK4STzqhRFKQI=;
+ b=61GgJ4zzXrpb4EIwcKk1T3R6ajegaZyQw3dAHXaXZq7JjT4YlaPGfCT9ke0QLuV10t
+ utInqdbj5alGnFcRCpxwh0+y7XaxdT2kiLRI6XlgJ/W3S6MvsO2simiO+1QyKwyG+IWS
+ TK4mlWvMaj8sbnQsWHHgsfL3gCGaHLjXrcoA/imRd01oaCb6WI0XApfdComX8nuBZXe2
+ SXynrKfSaeR2fZto1dw8kvq9RbHog3Dgx1Ml3s4IhqajcYBEUETfqN9FZ2WvzEmSWGhp
+ NE/nhWW/Ml82rdjy6WI5mcWc5puG3Y3p3j/Czy+3wWkdCZk8WqT94w9nQaugHCLnD+SB
+ 6Rrg==
+X-Gm-Message-State: AO0yUKXWLdzqPcCdZX0JNGrNcuyqV6TKK5SJUHc5AEM2omKIkcIglkd3
+ QT8i9zPNLRkttQ7njQVLNApvGJgrzfvm1iffTT+EPObKaAtK
+X-Google-Smtp-Source: AK7set/Vv6ZjO9ahlx0QhgfopXjJRbCub29Q4TxRW0teLnducMO6s47KRgREX7WE/K6uWQ9HZE4kOIcDUx6WGFFyypmZsXUQ6v8e
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [Linux-cachefs] [RFC 02/13] netfs: Add a function to extract an
- iterator into a scatterlist
+X-Received: by 2002:a92:8e05:0:b0:310:b8e9:dfd4 with SMTP id
+ c5-20020a928e05000000b00310b8e9dfd4mr103349ild.69.1674719006911; Wed, 25 Jan
+ 2023 23:43:26 -0800 (PST)
+Date: Wed, 25 Jan 2023 23:43:26 -0800
+In-Reply-To: <000000000000f2b07b05d5dc87cc@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000081766205f325e781@google.com>
+From: syzbot <syzbot+5b129e8586277719bab3@syzkaller.appspotmail.com>
+To: dhowells@redhat.com, dvyukov@google.com, linux-cachefs-bounces@redhat.com, 
+ linux-cachefs-owner@redhat.com, linux-cachefs@redhat.com, 
+ linux-kernel@vger.kernel.org, mudongliangabcd@gmail.com, nogikh@google.com, 
+ syzkaller-bugs@googlegroups.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mailman-Approved-At: Mon, 30 Jan 2023 14:23:55 +0000
+Subject: Re: [Linux-cachefs] [syzbot] general protection fault in
+ fscache_free_cookie
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,358 +108,46 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Shyam Prasad N <nspmangalore@gmail.com>, Tom Talpey <tom@talpey.com>,
- Stefan Metzmacher <metze@samba.org>, Christoph Hellwig <hch@infradead.org>,
- Rohith Surabattula <rohiths.msft@gmail.com>, linux-cifs@vger.kernel.org,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, Steve French <sfrench@samba.org>,
- linux-cachefs@redhat.com, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Provide a function for filling in a scatterlist from the list of pages
-contained in an iterator.
+This bug is marked as fixed by commit:
+fscache: fix GPF in fscache_free_cookie
 
-If the iterator is UBUF- or IOBUF-type, the pages have a pin taken on them
-(as FOLL_PIN).
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
 
-If the iterator is BVEC-, KVEC- or XARRAY-type, no pin is taken on the
-pages and it is left to the caller to manage their lifetime.  It cannot be
-assumed that a ref can be validly taken, particularly in the case of a KVEC
-iterator.
+#syz fix: exact-commit-title
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Jeff Layton <jlayton@kernel.org>
-cc: Steve French <sfrench@samba.org>
-cc: Shyam Prasad N <nspmangalore@gmail.com>
-cc: Rohith Surabattula <rohiths.msft@gmail.com>
-cc: linux-cachefs@redhat.com
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
+
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=5b129e8586277719bab3
+
 ---
- fs/netfs/iterator.c   | 269 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h |   4 +
- mm/vmalloc.c          |   1 +
- 3 files changed, 274 insertions(+)
+[1] I expect the commit to be present in:
 
-diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
-index 7b7cdc2863fc..9d198d0a5503 100644
---- a/fs/netfs/iterator.c
-+++ b/fs/netfs/iterator.c
-@@ -7,7 +7,9 @@
- 
- #include <linux/export.h>
- #include <linux/slab.h>
-+#include <linux/mm.h>
- #include <linux/uio.h>
-+#include <linux/scatterlist.h>
- #include <linux/netfs.h>
- #include "internal.h"
- 
-@@ -100,3 +102,270 @@ ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
- 	return npages;
- }
- EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
-+
-+/*
-+ * Extract and pin a list of up to sg_max pages from UBUF- or IOVEC-class
-+ * iterators, and add them to the scatterlist.
-+ */
-+static ssize_t netfs_extract_user_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int extract_flags)
-+{
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	struct page **pages;
-+	unsigned int npages;
-+	ssize_t ret = 0, res;
-+	size_t len, off;
-+
-+	/* We decant the page list into the tail of the scatterlist */
-+	pages = (void *)sgtable->sgl + array_size(sg_max, sizeof(struct scatterlist));
-+	pages -= sg_max;
-+
-+	do {
-+		res = iov_iter_extract_pages(iter, &pages, maxsize, sg_max,
-+					     extract_flags, &off);
-+		if (res < 0)
-+			goto failed;
-+
-+		len = res;
-+		maxsize -= len;
-+		ret += len;
-+		npages = DIV_ROUND_UP(off + len, PAGE_SIZE);
-+		sg_max -= npages;
-+
-+		for (; npages < 0; npages--) {
-+			struct page *page = *pages;
-+			size_t seg = min_t(size_t, PAGE_SIZE - off, len);
-+
-+			*pages++ = NULL;
-+			sg_set_page(sg, page, len, off);
-+			sgtable->nents++;
-+			sg++;
-+			len -= seg;
-+			off = 0;
-+		}
-+	} while (maxsize > 0 && sg_max > 0);
-+
-+	return ret;
-+
-+failed:
-+	while (sgtable->nents > sgtable->orig_nents)
-+		put_page(sg_page(&sgtable->sgl[--sgtable->nents]));
-+	return res;
-+}
-+
-+/*
-+ * Extract up to sg_max pages from a BVEC-type iterator and add them to the
-+ * scatterlist.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_bvec_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int extract_flags)
-+{
-+	const struct bio_vec *bv = iter->bvec;
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	unsigned long start = iter->iov_offset;
-+	unsigned int i;
-+	ssize_t ret = 0;
-+
-+	for (i = 0; i < iter->nr_segs; i++) {
-+		size_t off, len;
-+
-+		len = bv[i].bv_len;
-+		if (start >= len) {
-+			start -= len;
-+			continue;
-+		}
-+
-+		len = min_t(size_t, maxsize, len - start);
-+		off = bv[i].bv_offset + start;
-+
-+		sg_set_page(sg, bv[i].bv_page, len, off);
-+		sgtable->nents++;
-+		sg++;
-+		sg_max--;
-+
-+		ret += len;
-+		maxsize -= len;
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+		start = 0;
-+	}
-+
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	return ret;
-+}
-+
-+/*
-+ * Extract up to sg_max pages from a KVEC-type iterator and add them to the
-+ * scatterlist.  This can deal with vmalloc'd buffers as well as kmalloc'd or
-+ * static buffers.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_kvec_to_sg(struct iov_iter *iter,
-+					ssize_t maxsize,
-+					struct sg_table *sgtable,
-+					unsigned int sg_max,
-+					unsigned int extract_flags)
-+{
-+	const struct kvec *kv = iter->kvec;
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	unsigned long start = iter->iov_offset;
-+	unsigned int i;
-+	ssize_t ret = 0;
-+
-+	for (i = 0; i < iter->nr_segs; i++) {
-+		struct page *page;
-+		unsigned long kaddr;
-+		size_t off, len, seg;
-+
-+		len = kv[i].iov_len;
-+		if (start >= len) {
-+			start -= len;
-+			continue;
-+		}
-+
-+		kaddr = (unsigned long)kv[i].iov_base + start;
-+		off = kaddr & ~PAGE_MASK;
-+		len = min_t(size_t, maxsize, len - start);
-+		kaddr &= PAGE_MASK;
-+
-+		maxsize -= len;
-+		ret += len;
-+		do {
-+			seg = min_t(size_t, len, PAGE_SIZE - off);
-+			if (is_vmalloc_or_module_addr((void *)kaddr))
-+				page = vmalloc_to_page((void *)kaddr);
-+			else
-+				page = virt_to_page(kaddr);
-+
-+			sg_set_page(sg, page, len, off);
-+			sgtable->nents++;
-+			sg++;
-+			sg_max--;
-+
-+			len -= seg;
-+			kaddr += PAGE_SIZE;
-+			off = 0;
-+		} while (len > 0 && sg_max > 0);
-+
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+		start = 0;
-+	}
-+
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	return ret;
-+}
-+
-+/*
-+ * Extract up to sg_max folios from an XARRAY-type iterator and add them to
-+ * the scatterlist.  The pages are not pinned.
-+ */
-+static ssize_t netfs_extract_xarray_to_sg(struct iov_iter *iter,
-+					  ssize_t maxsize,
-+					  struct sg_table *sgtable,
-+					  unsigned int sg_max,
-+					  unsigned int extract_flags)
-+{
-+	struct scatterlist *sg = sgtable->sgl + sgtable->nents;
-+	struct xarray *xa = iter->xarray;
-+	struct folio *folio;
-+	loff_t start = iter->xarray_start + iter->iov_offset;
-+	pgoff_t index = start / PAGE_SIZE;
-+	ssize_t ret = 0;
-+	size_t offset, len;
-+	XA_STATE(xas, xa, index);
-+
-+	rcu_read_lock();
-+
-+	xas_for_each(&xas, folio, ULONG_MAX) {
-+		if (xas_retry(&xas, folio))
-+			continue;
-+		if (WARN_ON(xa_is_value(folio)))
-+			break;
-+		if (WARN_ON(folio_test_hugetlb(folio)))
-+			break;
-+
-+		offset = offset_in_folio(folio, start);
-+		len = min_t(size_t, maxsize, folio_size(folio) - offset);
-+
-+		sg_set_page(sg, folio_page(folio, 0), len, offset);
-+		sgtable->nents++;
-+		sg++;
-+		sg_max--;
-+
-+		maxsize -= len;
-+		ret += len;
-+		if (maxsize <= 0 || sg_max == 0)
-+			break;
-+	}
-+
-+	rcu_read_unlock();
-+	if (ret > 0)
-+		iov_iter_advance(iter, ret);
-+	return ret;
-+}
-+
-+/**
-+ * netfs_extract_iter_to_sg - Extract pages from an iterator and add ot an sglist
-+ * @iter: The iterator to extract from
-+ * @maxsize: The amount of iterator to copy
-+ * @sgtable: The scatterlist table to fill in
-+ * @sg_max: Maximum number of elements in @sgtable that may be filled
-+ * @extract_flags: Flags to qualify the request
-+ *
-+ * Extract the page fragments from the given amount of the source iterator and
-+ * add them to a scatterlist that refers to all of those bits, to a maximum
-+ * addition of @sg_max elements.
-+ *
-+ * The pages referred to by UBUF- and IOVEC-type iterators are extracted and
-+ * pinned; BVEC-, KVEC- and XARRAY-type are extracted but aren't pinned; PIPE-
-+ * and DISCARD-type are not supported.
-+ *
-+ * No end mark is placed on the scatterlist; that's left to the caller.
-+ *
-+ * @extract_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA be
-+ * allowed on the pages extracted.
-+ *
-+ * If successul, @sgtable->nents is updated to include the number of elements
-+ * added and the number of bytes added is returned.  @sgtable->orig_nents is
-+ * left unaltered.
-+ *
-+ * The iov_iter_extract_mode() function should be used to query how cleanup
-+ * should be performed.
-+ */
-+ssize_t netfs_extract_iter_to_sg(struct iov_iter *iter, size_t maxsize,
-+				 struct sg_table *sgtable, unsigned int sg_max,
-+				 unsigned int extract_flags)
-+{
-+	if (maxsize == 0)
-+		return 0;
-+
-+	switch (iov_iter_type(iter)) {
-+	case ITER_UBUF:
-+	case ITER_IOVEC:
-+		return netfs_extract_user_to_sg(iter, maxsize, sgtable, sg_max,
-+						extract_flags);
-+	case ITER_BVEC:
-+		return netfs_extract_bvec_to_sg(iter, maxsize, sgtable, sg_max,
-+						extract_flags);
-+	case ITER_KVEC:
-+		return netfs_extract_kvec_to_sg(iter, maxsize, sgtable, sg_max,
-+						extract_flags);
-+	case ITER_XARRAY:
-+		return netfs_extract_xarray_to_sg(iter, maxsize, sgtable, sg_max,
-+						  extract_flags);
-+	default:
-+		pr_err("netfs_extract_iter_to_sg(%u) unsupported\n",
-+		       iov_iter_type(iter));
-+		WARN_ON_ONCE(1);
-+		return -EIO;
-+	}
-+}
-+EXPORT_SYMBOL_GPL(netfs_extract_iter_to_sg);
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index e8c560131170..955225be6b75 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -298,6 +298,10 @@ void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
- void netfs_stats_show(struct seq_file *);
- ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
- 				struct iov_iter *new, unsigned int extract_flags);
-+struct sg_table;
-+ssize_t netfs_extract_iter_to_sg(struct iov_iter *iter, size_t len,
-+				 struct sg_table *sgtable, unsigned int sg_max,
-+				 unsigned int extract_flags);
- 
- /**
-  * netfs_inode - Get the netfs inode context from the inode
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index ca71de7c9d77..61f5bec0f2b6 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -656,6 +656,7 @@ int is_vmalloc_or_module_addr(const void *x)
- #endif
- 	return is_vmalloc_addr(x);
- }
-+EXPORT_SYMBOL_GPL(is_vmalloc_or_module_addr);
- 
- /*
-  * Walk a vmap address to the struct page it maps. Huge vmap mappings will
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+4. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+
+The full list of 10 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
+
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
