@@ -2,97 +2,110 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45FC690C4C
-	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Feb 2023 15:58:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DE59690C74
+	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Feb 2023 16:09:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675954729;
+	s=mimecast20190719; t=1675955395;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TSmlsg3/c1R8VCi+wxqJi14piqGtcu9AUMwTWUN1MwM=;
-	b=Y7zenkDc6qXuQhFXgFyzICx7gDyLTVYicHJIGSEWRoG1vw7EXgilpFZKXeMDH1uACBH5z7
-	DarOxKNcBinkTDT72Xrz8ff2t487lWIk9cxOv1gqfuT3tGbNyXzfHlxWHqJZRIXUJmZz5P
-	29wkGZ9mhiv4vYxINxv4yv9OoOdg260=
+	bh=Dq3wmZflIjCgA5gPSBAZdIlfCYcgRKRnRRdkbyEp2eA=;
+	b=N4xH6NiZ/R8A6ZVqyVyM4bGU/9R/a7PPsDkPgU87R5cWChcFSpZZVQGJdV303TwskO45Tn
+	mYzajONhfLuK3WCN4wcXi+Q0g0t7+IGKJGXusXonpTzf3jy0fsojT4o6E2whLxemEVKHGV
+	VlE/a5hSs643CCD74dWduMDE9TJaljc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-SMEqdygVPkm5fUnNOVHEBw-1; Thu, 09 Feb 2023 09:58:42 -0500
-X-MC-Unique: SMEqdygVPkm5fUnNOVHEBw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-528-wdr37uR5Oj6s76wOcoI9tg-1; Thu, 09 Feb 2023 10:09:53 -0500
+X-MC-Unique: wdr37uR5Oj6s76wOcoI9tg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A812856502;
-	Thu,  9 Feb 2023 14:58:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D7B2858F09;
+	Thu,  9 Feb 2023 15:09:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C6986140EBF6;
-	Thu,  9 Feb 2023 14:58:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4D7CA44037;
+	Thu,  9 Feb 2023 15:09:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 133A71946594;
-	Thu,  9 Feb 2023 14:58:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 246601946594;
+	Thu,  9 Feb 2023 15:09:52 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4BBF31946589 for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  9 Feb 2023 14:58:30 +0000 (UTC)
+ ESMTP id 63E6E1946589 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu,  9 Feb 2023 15:09:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 30BF51410F36; Thu,  9 Feb 2023 14:58:30 +0000 (UTC)
+ id EF15618EC5; Thu,  9 Feb 2023 15:09:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 297AF140EBF6
- for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 14:58:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D85D281722B
- for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 14:58:30 +0000 (UTC)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E68CA18EC1
+ for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 15:09:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB848100F906
+ for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 15:09:50 +0000 (UTC)
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-142-DaOIWtdXPnCYptm2LlGrpA-1; Thu, 09 Feb 2023 09:58:28 -0500
-X-MC-Unique: DaOIWtdXPnCYptm2LlGrpA-1
-Received: by mail-pg1-f197.google.com with SMTP id
- 201-20020a6300d2000000b004ccf545f44fso1198488pga.12
- for <linux-cachefs@redhat.com>; Thu, 09 Feb 2023 06:58:28 -0800 (PST)
+ us-mta-557-K5QBPYLxPDi4BmBwQMioeQ-1; Thu, 09 Feb 2023 10:09:49 -0500
+X-MC-Unique: K5QBPYLxPDi4BmBwQMioeQ-1
+Received: by mail-pg1-f198.google.com with SMTP id
+ 63-20020a630542000000b004fb3982dd50so1202420pgf.8
+ for <linux-cachefs@redhat.com>; Thu, 09 Feb 2023 07:09:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=M+Hn8xZygT9no9fpTt3S5jCK2p1FSMh8HQBhcvNZD6Q=;
- b=mUPDCm4mLr1aQBYxJgDU4hS2m50/yacZnNfvhHrNpi1CnH/IK2x0ZHU7FYijc2/E21
- U8xfMmbIlnwg2+I5OV6JLpUqLpycCyb+uI90nVJ5v2+rrhNHJ255A1dzOAFaqxoxLKEX
- tWuH4V1KU2nqAaUnXHSZS1uHgr0+TAWkDcQI9mXvkAVx7fbppPhdboXHWUYutG6MFExA
- rn5d4IOOJaFJDGBiR6/L3KL5ispHXDyZCLj1HfLsreT/mYq+IuM9LCYHUSbvH0zu1cJX
- /i8Y0Mr6ugqx33nRfT+PlUDadEmhVLSD7pvznZ7LWElg3N0lXt6yIVS9mt/T0uIm83gD
- +k7Q==
-X-Gm-Message-State: AO0yUKUDGFpKsCS8gWIBTP2ZW1VCtwHjQ5uyLha47dCsG1lFGPXBZlkR
- PSo29Ub/tYBiOztmScacBJ+8k09kpSmLCHyVGpwppLQAyEG47VWQKmWLh3Kos6n6Ib8eq4VWGvg
- 1YqGY6J73ks7h7yPw/4+pFJgDxwACjMR3j+902g==
-X-Received: by 2002:a17:90a:6807:b0:230:905b:582d with SMTP id
- p7-20020a17090a680700b00230905b582dmr1905564pjj.3.1675954707538; 
- Thu, 09 Feb 2023 06:58:27 -0800 (PST)
-X-Google-Smtp-Source: AK7set9XXmlWhj2iAyPUVopuoGNuCAj4ne+TsHapcSeaLD7umYhLgCc24+fqbCal0N23Mn5R4UtN4hk68QfUH3FNBtA=
-X-Received: by 2002:a17:90a:6807:b0:230:905b:582d with SMTP id
- p7-20020a17090a680700b00230905b582dmr1905556pjj.3.1675954707124; Thu, 09 Feb
- 2023 06:58:27 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EAan0+BgjpdG+jfQBOtm36c0W0gQy0m2TWi0omI9akg=;
+ b=rpxm0fBYGWHd9/77+e+u3DaaEWOUnUrEujl+5G8d23KYJFI/W0Uefb/ewb5R7k4WkY
+ pr6Wmu07igPtEZeGKWl3OX7Bv4fVxIcjY/DDLbOjvjstWgXP4MtUQq74L+NQpqNt+qgy
+ n7/YkHY9CVXFd8mHJal/5NBl+iJNyqkvJzG2tM+QXCvE8l9rvpLznIYSgG8mAgBllNP7
+ rEdb/QewTwWg/zakgLLQdx6eeaUnlrcxVOrElmrMU2igx8t94rvyHeMDjMSADL8qY/St
+ pPc178CuyDuzH24dDIMvnzsEu5TuP0dUxPZITX623iHI46E0rDNbTKi4OPq1r/tX/Zqa
+ GwyA==
+X-Gm-Message-State: AO0yUKW0L00armp3Zglujm8jrXXTB7aiH/bch2avqfn1r2UZM/B85R3i
+ DF1lIIu3rfmSIIt7lGUhFPM5FDiU3P9lfBllSdzIfSibj1gZ5BkKttMb+VQwtJ1J/SX5saIBXep
+ bHKFVL00pMFBvZ24yEUWnIW2+TCi70aTILEz1Zg==
+X-Received: by 2002:aa7:8429:0:b0:5a8:5e2f:68db with SMTP id
+ q9-20020aa78429000000b005a85e2f68dbmr369899pfn.24.1675955386881; 
+ Thu, 09 Feb 2023 07:09:46 -0800 (PST)
+X-Google-Smtp-Source: AK7set8uJ8EMVjrQCJUq4huAF1koj8e4Wf9E2ATC88peX2eMena3XtlKVC11L9jI29JiAUYxo58/j2pkixYzg3NzVmk=
+X-Received: by 2002:aa7:8429:0:b0:5a8:5e2f:68db with SMTP id
+ q9-20020aa78429000000b005a85e2f68dbmr369892pfn.24.1675955386254; Thu, 09 Feb
+ 2023 07:09:46 -0800 (PST)
 MIME-Version: 1.0
-References: <20221103161637.1725471-1-dwysocha@redhat.com>
-In-Reply-To: <20221103161637.1725471-1-dwysocha@redhat.com>
+References: <20221017105212.77588-1-dwysocha@redhat.com>
+ <20221017105212.77588-4-dwysocha@redhat.com>
+ <870684b35a45b94c426554a62b63f80f421dbb08.camel@kernel.org>
+ <CALF+zOm+-2QLOMu4J7NAK++xfjZ8SQqmMh8zNFcM2H78_qYAzA@mail.gmail.com>
+ <0676ecb2bb708e6fc29dbbe6b44551d6a0d021dc.camel@kernel.org>
+ <CALF+zOnRH_GiZooiNm1=J+gOpLMEncO72SA4jAmL+agG9RjbYg@mail.gmail.com>
+ <CALF+zOmDzp-UhLC0Dk4fmsjEzWgM75m5uOMBjv6TjTFYtbWPAQ@mail.gmail.com>
+ <1B2E1442-EB0A-43E3-96BB-15C717E966E5@hammerspace.com>
+ <CA+QRt4vM3NncgCWjKncorHmiWpCrJ7FsLC=y+v7gnEwYpM3PSw@mail.gmail.com>
+ <CALF+zOk3Q_UO9KG3Lxm-22e=nC338DGLndbHAfk1wkPaADOvkg@mail.gmail.com>
+ <CA+QRt4s4+pF+C3Bk-wgoPjGNZwDbBGFPAQ=-Fbrgt6ejrfqsTA@mail.gmail.com>
+ <CALF+zOnd+7YsofF3K7r8hdki8H-B5jWYnZfFpyO=nGzfxi=B2A@mail.gmail.com>
+ <CA+QRt4tvc7RT2VuUB+h6kmWnjMC6a3+=qDwH1C+ye50CM36u6A@mail.gmail.com>
+ <CAPt2mGPMn7C31NgTvR-DNUMsqCCtSSZTfkkFSp0iMd6G8nifdA@mail.gmail.com>
+ <CA+QRt4v18Qw2wPZLULQkrRNXK=moDCWEVSMUJZbA2nR2yd=ScQ@mail.gmail.com>
+ <CA+QRt4s1_UDJLaur=UC8XX+3a_p5Lr-JNryadiNB3O2HKxFTMQ@mail.gmail.com>
+In-Reply-To: <CA+QRt4s1_UDJLaur=UC8XX+3a_p5Lr-JNryadiNB3O2HKxFTMQ@mail.gmail.com>
 From: David Wysochanski <dwysocha@redhat.com>
-Date: Thu, 9 Feb 2023 09:57:50 -0500
-Message-ID: <CALF+zOk7ryO7GV7LYWjRa1b+C6fA5J=-=zshd+vE-FxewBNg=A@mail.gmail.com>
-To: Anna Schumaker <anna.schumaker@netapp.com>, 
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- David Howells <dhowells@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Linux-cachefs] [PATCH v10 0/6] Convert NFS with fscache to the
- netfs API
+Date: Thu, 9 Feb 2023 10:09:09 -0500
+Message-ID: <CALF+zOkRzgcuGXegN-VaKHYTCNpRUQ9RjtzeoFYEcDkJ_T85Tg@mail.gmail.com>
+To: Benjamin Maynard <benmaynard@google.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [Linux-cachefs] [PATCH v9 3/5] NFS: Convert buffered read paths
+ to use netfs when fscache is enabled
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,215 +117,976 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
- Benjamin Maynard <benmaynard@google.com>
+Cc: Jeff Layton <jlayton@poochiereds.net>,
+ "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+ Brennan Doyle <brennandoyle@google.com>,
+ "linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
+ Trond Myklebust <trondmy@hammerspace.com>, Daire Byrne <daire@dneg.com>,
+ Anna Schumaker <anna.schumaker@netapp.com>,
+ Trond Myklebust <trondmy@kernel.org>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 3, 2022 at 12:16 PM Dave Wysochanski <dwysocha@redhat.com> wrote:
->
-> This v10 patchset addresses at least some of Trond's latest concerns.
-> Some of the feedback like the unlock_page() wrapper function in
-> nfs_read_completion() I don't know how to address without an
-> ifdef.  Other feedback I'm not quite sure about splitting out
-> netfs bits or what you would like to see.  Trond I do not want to
-> in any way ignore or miss any of your feedback so please elaborate
-> as needed.
->
-> This patchset converts NFS with fscache non-direct READ IO paths to
-> use the netfs API with a non-invasive approach.  The existing NFS pgio
-> layer does not need extensive changes, and is the best way so far I've
-> found to address Trond's concerns about modifying the IO path [1] as
-> well as only enabling netfs when fscache is configured and enabled [2].
-> I have not attempted performance comparisions to address Chuck
-> Lever's concern [3] because we are not converting the non-fscache
-> enabled NFS IO paths to netfs.
->
-> The patchset is based on 6.1-rc3 and has been pushed to github at:
-> https://github.com/DaveWysochanskiRH/kernel/commits/nfs-fscache-netfs
-> https://github.com/DaveWysochanskiRH/kernel/commit/bff09aa979010f38a11a6f92451e85d04d850715
->
-> Changes since v9 [7]
-> ====================
-> PATCH1: Rename nfs_pageio_add_page to nfs_read_add_page (Trond)
-> PATCH3: Remove a few #ifdef's and replace with wrappers (Trond) [8]
-> PATCH6: RFC patch to reduce increase in nfs_inode memory footprint
-> when netfs is configured but not enabled (Trond) [9]
->
-> Testing
-> =======
-> I did not do much testing on this as the changes to patches 1 and 3
-> are cosmetic.  Patch #6 is RFC patch and may change, so if that is
-> added it may need more testing.
->
-> Known issues
-> ============
-> 1. Unit test setting rsize < readahead does not properly read from
-> fscache but re-reads data from the NFS server
-> * This will be fixed with another linux-cachefs [4] patch to resolve
-> "Stop read optimisation when folio removed from pagecache"
-> * Daire Byrne also verified the patch fixes his issue as well
->
-> 2. "Cache volume key already in use" after xfstest runs
-> * xfstests (hammerspace with vers=4.2,fsc) shows the following on the
-> console after some tests:
-> "NFS: Cache volume key already in use (nfs,4.1,2,c50,cfe0100a,3,,,8000,100000,100000,bb8,ea60,7530,ea60,1)"
-> * This may be fixed with another patch [5] that is in progress
->
-> 3. Daire Byrne reported a NULL pointer oops at cachefiles_prepare_write+0x28/0x90
-> * harder to reproduce/debug but under investigation [6]
-> * only reproduced on RHEL7.9 based NFS re-export server using fscache with upstream kernel plus
-> the previous patches
-> * Debug in progress, first pass at where the problem is indicates a race
-> between fscache cookie LRU and use_cookie; looking at cookie state machine [10]
->
-> [58710.346376] BUG: kernel NULL pointer dereference, address: 0000000000000008
-> [58710.371212] CPU: 12 PID: 9134 Comm: kworker/u129:0 Tainted: G E      6.0.0-2.dneg.x86_64 #1
-> ...
-> [58710.389995] Workqueue: events_unbound netfs_rreq_write_to_cache_work [netfs]
-> [58710.397188] RIP: 0010:cachefiles_prepare_write+0x28/0x90 [cachefiles]
-> ...
-> [58710.500316] Call Trace:
-> [58710.502894]  <TASK>
-> [58710.505126]  netfs_rreq_write_to_cache_work+0x11c/0x320 [netfs]
-> [58710.511201]  process_one_work+0x217/0x3e0
-> [58710.515358]  worker_thread+0x4a/0x3b0
-> [58710.519152]  ? process_one_work+0x3e0/0x3e0
-> [58710.523467]  kthread+0xd6/0x100
-> [58710.526740]  ? kthread_complete_and_exit+0x20/0x20
-> [58710.531659]  ret_from_fork+0x1f/0x30
->
->
->
-> References
-> ==========
-> [1] https://lore.kernel.org/linux-nfs/9cfd5bc3cfc6abc2d3316b0387222e708d67f595.camel@hammerspace.com/
-> [2] https://lore.kernel.org/linux-nfs/da9200f1bded9b8b078a7aef227fd6b92eb028fb.camel@hammerspace.com/
-> [3] https://marc.info/?l=linux-nfs&m=160597917525083&w=4
-> [4] https://www.mail-archive.com/linux-cachefs@redhat.com/msg03043.html
-> [5] https://marc.info/?l=linux-nfs&m=165962662200679&w=4
-> [6] https://listman.redhat.com/archives/linux-cachefs/2022-September/007183.html
-> [7] https://marc.info/?l=linux-nfs&m=166600357429305&w=4
-> [8] https://marc.info/?l=linux-nfs&m=166697599503342&w=4
-> [9] https://marc.info/?l=linux-nfs&m=166717208305834&w=4
-> [10] https://listman.redhat.com/archives/linux-cachefs/2022-October/007259.html
->
-> Dave Wysochanski (5):
->   NFS: Rename readpage_async_filler to nfs_pageio_add_page
->   NFS: Configure support for netfs when NFS fscache is configured
->   NFS: Convert buffered read paths to use netfs when fscache is enabled
->   NFS: Remove all NFSIOS_FSCACHE counters due to conversion to netfs API
->   NFS: Remove fscache specific trace points and NFS_INO_FSCACHE bit
->
->  fs/nfs/Kconfig             |   1 +
->  fs/nfs/delegation.c        |   2 +-
->  fs/nfs/dir.c               |   2 +-
->  fs/nfs/fscache.c           | 242 ++++++++++++++++++++++---------------
->  fs/nfs/fscache.h           | 111 +++++++++++------
->  fs/nfs/inode.c             |   8 +-
->  fs/nfs/internal.h          |  11 +-
->  fs/nfs/iostat.h            |  17 ---
->  fs/nfs/nfstrace.h          |  91 --------------
->  fs/nfs/pagelist.c          |  12 ++
->  fs/nfs/pnfs.c              |  12 +-
->  fs/nfs/read.c              | 110 +++++++++--------
->  fs/nfs/super.c             |  11 --
->  fs/nfs/write.c             |   2 +-
->  include/linux/nfs_fs.h     |  35 ++++--
->  include/linux/nfs_iostat.h |  12 --
->  include/linux/nfs_page.h   |   3 +
->  include/linux/nfs_xdr.h    |   3 +
->  18 files changed, 335 insertions(+), 350 deletions(-)
->
-> --
-> 2.31.1
->
-> *** BLURB HERE ***
->
-> Dave Wysochanski (6):
->   NFS: Rename readpage_async_filler to nfs_read_add_page
->   NFS: Configure support for netfs when NFS fscache is configured
->   NFS: Convert buffered read paths to use netfs when fscache is enabled
->   NFS: Remove all NFSIOS_FSCACHE counters due to conversion to netfs API
->   NFS: Remove fscache specific trace points and NFS_INO_FSCACHE bit
->   netfs: Change netfs_inode_init to allocate memory to allow opt-in
->
->  fs/9p/cache.c              |   2 +-
->  fs/9p/vfs_inode.c          |  17 ++-
->  fs/afs/dynroot.c           |   7 +-
->  fs/afs/inode.c             |  14 +--
->  fs/afs/internal.h          |   2 +-
->  fs/afs/super.c             |   7 ++
->  fs/afs/write.c             |   2 +-
->  fs/ceph/inode.c            |   6 +-
->  fs/netfs/buffered_read.c   |  16 +--
->  fs/netfs/internal.h        |   2 +-
->  fs/netfs/objects.c         |   2 +-
->  fs/nfs/Kconfig             |   1 +
->  fs/nfs/delegation.c        |   2 +-
->  fs/nfs/dir.c               |   2 +-
->  fs/nfs/fscache.c           | 242 ++++++++++++++++++++++---------------
->  fs/nfs/fscache.h           | 136 +++++++++++++++------
->  fs/nfs/inode.c             |  15 ++-
->  fs/nfs/internal.h          |  11 +-
->  fs/nfs/iostat.h            |  17 ---
->  fs/nfs/nfstrace.h          |  91 --------------
->  fs/nfs/pagelist.c          |   4 +
->  fs/nfs/pnfs.c              |  12 +-
->  fs/nfs/read.c              | 110 +++++++++--------
->  fs/nfs/super.c             |  11 --
->  fs/nfs/write.c             |   2 +-
->  include/linux/netfs.h      |  41 +++++--
->  include/linux/nfs_fs.h     |  35 ++++--
->  include/linux/nfs_iostat.h |  12 --
->  include/linux/nfs_page.h   |   3 +
->  include/linux/nfs_xdr.h    |   3 +
->  30 files changed, 428 insertions(+), 399 deletions(-)
->
-> --
-> 2.31.1
->
-> --
-> Linux-cachefs mailing list
-> Linux-cachefs@redhat.com
-> https://listman.redhat.com/mailman/listinfo/linux-cachefs
->
+Ben,
 
-Trond, David H, Ben, Daire, others,
+Thanks for your interest and sorry for the delay.
+I just replied on the v10 patchset thread.
 
-I am not sure about the next steps.
 
-I did not see any responses to this v10 posting, other than dhowells
-did not like the overhead that patch 6 added to other filesystems
-using netfs.  I'm not sure if that's a full NACK on that patch but it
-sounded like it to me.
-Trond is it ok if I drop patch 6?
-
-Beyond patch 6, Trond, I could post a rebased v11 but I am not sure it
-is acceptable to you the way it is and I don't want to do that if
-there's changes you want.
-From your responses on v9, one issue seems to be that you do not like
-the wrapping the NFS requests inside netfs requests for example.
-But I do not know another approach other than bypassing pgio layer
-completely which as far as I understand creates a whole new set of
-issues to be solved.
-Possibly you have another approach in mind or see the need for other
-refactoring or patches that should be done that would make this set
-more acceptable?
-I am not sure if you have other concerns on this v10.  If steps can be
-outlined a little better I can work on them.
-As it is now I'm not sure whether this needs a rebase and a v11
-posting, or a rethinking of the approach.
-
-Regarding the known issues, as far as I know issues #1 and #2 are
-still outstanding.
-I know issue #3 is fixed with
-b5b52de3214a fscache: Fix oops due to race with cookie_lru and use_cookie
+On Mon, Feb 6, 2023 at 12:33 PM Benjamin Maynard <benmaynard@google.com> wrote:
+>
+> Hi all,
+>
+> Just pinging this thread for any further updates.
+>
+> Kind Regards
+> Benjamin Maynard
+>
+>
+>
+> Kind Regards
+>
+> Benjamin Maynard
+>
+> Customer Engineer
+>
+> benmaynard@google.com
+>
+> Google, Inc.
+>
+>
+>
+>
+> On Tue, 3 Jan 2023 at 20:33, Benjamin Maynard <benmaynard@google.com> wrote:
+> >
+> > Hi all,
+> >
+> > I just wanted to follow up on this set of patches. As Daire explained
+> > below, these patches are really important to a number of us using
+> > FS-Cache due to the significant performance regression introduced in
+> > 5.17 and above.
+> >
+> > I'd love to see these patches merged, or some feedback on what changes
+> > might be needed.
+> >
+> > Kind Regards
+> > Benjamin Maynard
+> >
+> > On Thu, 17 Nov 2022 at 11:04, Daire Byrne <daire@dneg.com> wrote:
+> > >
+> > > Hi,
+> > >
+> > > I just wanted to take the opportunity to reiterate why these patches
+> > > are important to me (and others like Benjamin).
+> > >
+> > > The "new" fscache that is now in mainline has a major NFS performance
+> > > regression from the previous fscache code in pre 5.17 kernels - single
+> > > file reads from cache.
+> > >
+> > > Even if you have the fastest local disk (nvme/ssd) for your fscache,
+> > > reading back a cached file (via NFS) now tops out at around 40MB/s
+> > > whereas before (old fscache) the local fscache disk speed was the only
+> > > limit (e.g. 5000MB/s for NVMe).
+> > >
+> > > So, in many cases, depending on what you are using fscache for, it can
+> > > be faster to read the file over the (gigabit) network than from the
+> > > local disk cache which somewhat negates its usefulness. As such, we
+> > > mostly use pre-5.17 kernels in production and the old fscache code
+> > > which maintains high cache read performance (but has other annoying
+> > > issues).
+> > >
+> > > Now this performance regression might not be noticed too much by
+> > > desktop users looking to use fscache on their systems, but it sure
+> > > does affect servers (e.g. re-export servers) that want to use fscache
+> > > to achieve very high performance.
+> > >
+> > > I can't really comment on these patches or the approach taken, but I
+> > > do hope that we can restore/improve the fscache read performance for
+> > > NFS in the mainline kernel as soon as possible (like these patches
+> > > do).
+> > >
+> > > Daire
+> > >
+> > >
+> > > On Mon, 14 Nov 2022 at 21:26, Benjamin Maynard <benmaynard@google.com> wrote:
+> > > >
+> > > > Thanks Dave, that did the trick!
+> > > >
+> > > > Building the kernel from
+> > > > https://github.com/DaveWysochanskiRH/kernel/commit/42f58f3d36d83839022dc2617bb6c2d1b09db65f
+> > > > and re-running the exact same tests yielded the expected results. Data
+> > > > is now being served from /var/cache/fscache.
+> > > >
+> > > > I also reverted my change to the read ahead, so that read ahead is now
+> > > > greater than the rsize. Still works as expected.
+> > > >
+> > > > I am also seeing much better single file read speeds, and culling is
+> > > > working perfectly (not running into the issue we were seeing pre
+> > > > 5.17).
+> > > >
+> > > > Thanks a lot Dave, Jeff and Daire for your help.
+> > > >
+> > > > Kind Regards
+> > > > Benjamin Maynard
+> > > >
+> > > >
+> > > >
+> > > > Kind Regards
+> > > >
+> > > > Benjamin Maynard
+> > > >
+> > > > Customer Engineer
+> > > >
+> > > > benmaynard@google.com
+> > > >
+> > > > Google, Inc.
+> > > >
+> > > >
+> > > >
+> > > >
+> > > > On Mon, 14 Nov 2022 at 17:35, David Wysochanski <dwysocha@redhat.com> wrote:
+> > > > >
+> > > > > On Mon, Nov 14, 2022 at 11:04 AM Benjamin Maynard <benmaynard@google.com> wrote:
+> > > > > >
+> > > > > > Hi Dave,
+> > > > > >
+> > > > > > I've added responses to your questions inline below.
+> > > > > >
+> > > > > > I also tried adding the noatime option to the mount on the source
+> > > > > > filer as Jeff suggested, but this has not made any difference and the
+> > > > > > issue is still persisting for me.
+> > > > > >
+> > > > > > I created the following diagram that explains my setup, and the exact
+> > > > > > tests I am performing:
+> > > > > > https://drive.google.com/file/d/12Xf-9yHCKM4eMr2YGqdSAVfGcximW4OG/view?usp=sharing.
+> > > > > >
+> > > > > > Hopefully this is clearer than my explanations below (let me know if
+> > > > > > you'd prefer me to share an alternative way).
+> > > > > >
+> > > > > Yes, that's very helpful.  Let me think about this one as I'm not sure.
+> > > > > As Jeff says we may need tracepoints to track it down if I cannot repro
+> > > > > it and/or nothing comes to mind.
+> > > > >
+> > > > > > In order to remove the re-exporting layer of complexity, I also
+> > > > > > performed the tests without the re-export server (architecture:
+> > > > > > https://drive.google.com/file/d/1DQKhqo_UnQ8ul-z5Iram5LpisDmkKziQ/view?usp=share_link):
+> > > > > >
+> > > > > > Source NFS Server <-- Client (with FS-Cache)
+> > > > > >
+> > > > > > The same is happening, I cannot get FS-Cache to serve from cache.
+> > > > > > Heavy writes, but no reads, even when the same file is copied many
+> > > > > > times.
+> > > > > >
+> > > > > I'm pretty sure the above you're hitting the drop_caches /
+> > > > > "fscache read optimisation" issue #1 I mentioned.
+> > > > >
+> > > > > I see dhowells just posted a v2 version of his previous patch:
+> > > > > https://lore.kernel.org/linux-mm/166844174069.1124521.10890506360974169994.stgit@warthog.procyon.org.uk/
+> > > > >
+> > > > > I started with 6.1-rc5, added the above dhowells latest patch for that issue,
+> > > > > and then my 5 patches on top.  Then I added a small patch to utilize
+> > > > > dhowells patch to ensure the read optimisation is removed.  I ran my
+> > > > > unit test that has been failing all along and as expected it passes with
+> > > > > these patches.  I pushed the series to github:
+> > > > > https://github.com/DaveWysochanskiRH/kernel/commits/nfs-fscache-netfs
+> > > > > https://github.com/DaveWysochanskiRH/kernel/commit/42f58f3d36d83839022dc2617bb6c2d1b09db65f
+> > > > >
+> > > > > I will also email you the series of patches on top of 6.1-rc5 so you
+> > > > > can just apply from your mailbox if you want.
+> > > > >
+> > > > >
+> > > > >
+> > > > > > Hopefully something I am doing wrong on my end, but I can't figure out what.
+> > > > > >
+> > > > > > Kind Regards
+> > > > > > Benjamin Maynard
+> > > > > >
+> > > > > >
+> > > > > > On Mon, 14 Nov 2022 at 13:47, David Wysochanski <dwysocha@redhat.com> wrote:
+> > > > > > >
+> > > > > > > I apologize I did not read carefully enough and I missed some details
+> > > > > > > in your original post.
+> > > > > > > More below.
+> > > > > > >
+> > > > > > > On Sat, Nov 12, 2022 at 7:47 AM Benjamin Maynard <benmaynard@google.com> wrote:
+> > > > > > > >
+> > > > > > > > Hi all,
+> > > > > > > >
+> > > > > > > > I've been doing some more testing with these patches, I applied all of
+> > > > > > > > the patches (v10 from
+> > > > > > > > https://patchwork.kernel.org/project/linux-nfs/list/?series=691729)
+> > > > > > > > apart from Patch 6 (the RFC patch) to version 6.0.8 of the kernel.
+> > > > > > > >
+> > > > > > > > I have the following setup:
+> > > > > > > >
+> > > > > > > > Source NFS Server <-- Re-Export Server (with FS-Cache) <-- NFS Client.
+> > > > > > > >
+> > > > > > > > I have a 500Gb file on the Source NFS Server, which I am then copying
+> > > > > > > > to the NFS Client via the Re-Export Server.
+> > > > > > > >
+> > > > > > > > On the first copy, I see heavy writes to /var/cache/fscache on the
+> > > > > > > > re-export server, and once the file copy completes I see that
+> > > > > > > > /var/cache/fscache is approximately 500Gb in size. All good so far.
+> > > > > > > >
+> > > > > > > > I then deleted that file from the NFS Client, and dropped the caches
+> > > > > > > > just to be safe (echo 3 > /proc/sys/vm/drop_caches on the NFS Client).
+> > > > > > > >
+> > > > > > > If you delete the file from the NFS client, how does that not delete the
+> > > > > > > file from the original NFS server?
+> > > > > >
+> > > > > > Sorry - to be clear, I never deleted the file from the NFS mount
+> > > > > > (which I know would in turn delete it from the re-export server and
+> > > > > > the source filer).
+> > > > > >
+> > > > > > In order to perform the performance test, I copied the file from the
+> > > > > > NFS mount on the NFS Client, to a local directory (cp
+> > > > > > /mnt/nfs/500gb.img /tmp).
+> > > > > >
+> > > > > > When I said "I then deleted that file from the NFS Client", I meant I
+> > > > > > deleted the local copy of that file. Not the file on the mount (rm
+> > > > > > /tmp/500gb.img).
+> > > > > >
+> > > > > > Just to also stress, I have never dropped the caches on the Re-Export
+> > > > > > Server (the one with FS-Cache) at any point in any of these tests, so
+> > > > > > I don't think this is the problem. I have only ever dropped the caches
+> > > > > > on the NFS client that is mounting the Re-Export Server.
+> > > > > >
+> > > > > > > > I then performed another copy of the 500Gb file on the NFS Client,
+> > > > > > > > again via the Re-Export Server. What I expected would happen is that I
+> > > > > > > > would see heavy reads from the /var/cache/fscache volume as the file
+> > > > > > > > should be served from FS-Cache.
+> > > > > > > >
+> > > > > > > I don't understand this.  When you say you "performed another copy"
+> > > > > > > of what file?  Wasn't the file deleted in the above step?
+> > > > > >
+> > > > > > As above, only the local copy was deleted.
+> > > > > >
+> > > > > > > > However what I actually saw was no reads whatsoever, FS-Cache seems to
+> > > > > > > > be ignored and the file is pulled from the Source NFS Filer again. I
+> > > > > > > > also see heavy writes to /var/cache/fscache, so it appears that
+> > > > > > > > FS-Cache is overwriting its existing cache, and never using it.
+> > > > > > >
+> > > > > > > That would happen if the file was changed or re-created.
+> > > > > > >
+> > > > > > > > I only have 104Gb of memory on the Re-Export Server (with FS-Cache) so
+> > > > > > > > it is not possible that the file is being served from the page cache.
+> > > > > > > >
+> > > > > > > > We saw this behaviour before on an older set of the patches when our
+> > > > > > > > mount between the Re-Export Server and the Source NFS Filer was using
+> > > > > > > > the "sync" option, but we are now using the "async" option and the
+> > > > > > > > same is happening.
+> > > > > > > >
+> > > > > > > > Mount options:
+> > > > > > > >
+> > > > > > > > Source NFS Server <-- Re-Export Server (with FS-Cache):
+> > > > > > > >
+> > > > > > > > 10.0.0.49:/files /srv/nfs/files nfs
+> > > > > > > > rw,noatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,acregmin=600,acregmax=600,acdirmin=600,acdirmax=600,hard,nocto,proto=tcp,nconnect=16,timeo=600,retrans=2,sec=sys,mountaddr=10.0.0.49,mountvers=3,mountport=37485,mountproto=tcp,fsc,local_lock=none,addr=10.0.0.49
+> > > > > > > >
+> > > > > > > > Re-Export Server (with FS-Cache) <-- NFS Client:
+> > > > > > > >
+> > > > > > > > 10.0.0.3:/files /mnt/nfs nfs
+> > > > > > > > rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.0.0.3,mountvers=3,mountport=20048,mountproto=tcp,local_lock=none,addr=10.0.0.3
+> > > > > > > >
+> > > > > > > > It is also worth noting this behaviour is not unique to the re-export
+> > > > > > > > use case. I see FS-Cache not being used with the following setup:
+> > > > > > > >
+> > > > > > > > Source NFS Server <-- Client (with FS-Cache).
+> > > > > > > >
+> > > > > > >
+> > > > > > > This points at something more fundamental like something missed
+> > > > > > > in the test or maybe a mount option.  Can you explain what test
+> > > > > > > you're doing here when you say "this behavior is not unique"?
+> > > > > >
+> > > > > > I've created the following diagram which explains the test I am
+> > > > > > performing. I think it is a little easier to follow than explaining in
+> > > > > > text. This should be viewable without any authentication:
+> > > > > > https://drive.google.com/file/d/12Xf-9yHCKM4eMr2YGqdSAVfGcximW4OG/view?usp=sharing.
+> > > > > >
+> > > > > > By "this behaviour is not unique to the re-export use case" I mean
+> > > > > > that the same happens if I remove the re-export server completely, and
+> > > > > > just have the following setup:
+> > > > > >
+> > > > > > Source NFS Server <-- Client (with FS-Cache).
+> > > > > >
+> > > > > > > Can you show the mount options for both:
+> > > > > > > - fscache filesystem on the re-export server (/var/cache/fscache)
+> > > > > >
+> > > > > > root@reexport:~$ mount | grep /var/cache/fscache
+> > > > > > /dev/md127 on /var/cache/fscache type ext4
+> > > > > > (rw,relatime,discard,nobarrier,stripe=1024)
+> > > > > >
+> > > > > > > - exported filesystem on the NFS server (filesystem in /etc/exports)
+> > > > > >
+> > > > > > I have tried both:
+> > > > > >
+> > > > > > root@source:~$ mount | grep files
+> > > > > > /dev/sdb1 on /files type ext4 (rw)
+> > > > > >
+> > > > > > root@source:~$ cat /etc/exports
+> > > > > > /files 10.0.0.0/8(rw,sync,wdelay,no_root_squash,no_all_squash,no_subtree_check,sec=sys,secure,nohide)
+> > > > > >
+> > > > > > and (at Jeff's suggestion):
+> > > > > >
+> > > > > > root@source:~$ mount | grep files
+> > > > > > /dev/sdb1 on /files type ext4 (rw,noatime)
+> > > > > >
+> > > > > > root@source:~$ cat /etc/exports
+> > > > > > /files 10.0.0.0/8(rw,sync,wdelay,no_root_squash,no_all_squash,no_subtree_check,sec=sys,secure,nohide)
+> > > > > >
+> > > > > >
+> > > > > > > Unfortunately the problem with drop_caches makes it more difficult
+> > > > > > > to know when fscache is truly working.  But some other unit test
+> > > > > > > I have shows fscache does work with this patchset so I'm puzzled why
+> > > > > > > you're not seeing it work at all.
+> > > > > > >
+> > > > > > > I pinged dhowells on the drop_caches issue so maybe we can get
+> > > > > > > that one sorted out soon but I'm not sure since it's part of a series
+> > > > > > > and proposes changes in mm.
+> > > > > >
+> > > > > > Just to be clear, I have never used drop_caches on the re-export
+> > > > > > server in any of these tests. I have only ever done this on the NFS
+> > > > > > Client.
+> > > > > >
+> > > > > > >
+> > > > > > > > Thanks,
+> > > > > > > > Ben
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > Kind Regards
+> > > > > > > >
+> > > > > > > > Benjamin Maynard
+> > > > > > > >
+> > > > > > > > Customer Engineer
+> > > > > > > >
+> > > > > > > > benmaynard@google.com
+> > > > > > > >
+> > > > > > > > Google, Inc.
+> > > > > > > >
+> > > > > > > >
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > On Mon, 31 Oct 2022 at 22:22, Trond Myklebust <trondmy@hammerspace.com> wrote:
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > On Oct 30, 2022, at 19:25, David Wysochanski <dwysocha@redhat.com> wrote:
+> > > > > > > > > >
+> > > > > > > > > > On Sat, Oct 29, 2022 at 12:46 PM David Wysochanski <dwysocha@redhat.com> wrote:
+> > > > > > > > > >>
+> > > > > > > > > >> On Fri, Oct 28, 2022 at 12:59 PM Trond Myklebust <trondmy@kernel.org> wrote:
+> > > > > > > > > >>>
+> > > > > > > > > >>> On Fri, 2022-10-28 at 07:50 -0400, David Wysochanski wrote:
+> > > > > > > > > >>>> On Thu, Oct 27, 2022 at 3:16 PM Trond Myklebust <trondmy@kernel.org>
+> > > > > > > > > >>>> wrote:
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>> On Mon, 2022-10-17 at 06:52 -0400, Dave Wysochanski wrote:
+> > > > > > > > > >>>>>> Convert the NFS buffered read code paths to corresponding netfs
+> > > > > > > > > >>>>>> APIs,
+> > > > > > > > > >>>>>> but only when fscache is configured and enabled.
+> > > > > > > > > >>>>>>
+> > > > > > > > > >>>>>> The netfs API defines struct netfs_request_ops which must be
+> > > > > > > > > >>>>>> filled
+> > > > > > > > > >>>>>> in by the network filesystem.  For NFS, we only need to define 5
+> > > > > > > > > >>>>>> of
+> > > > > > > > > >>>>>> the functions, the main one being the issue_read() function.
+> > > > > > > > > >>>>>> The issue_read() function is called by the netfs layer when a
+> > > > > > > > > >>>>>> read
+> > > > > > > > > >>>>>> cannot be fulfilled locally, and must be sent to the server
+> > > > > > > > > >>>>>> (either
+> > > > > > > > > >>>>>> the cache is not active, or it is active but the data is not
+> > > > > > > > > >>>>>> available).
+> > > > > > > > > >>>>>> Once the read from the server is complete, netfs requires a call
+> > > > > > > > > >>>>>> to
+> > > > > > > > > >>>>>> netfs_subreq_terminated() which conveys either how many bytes
+> > > > > > > > > >>>>>> were
+> > > > > > > > > >>>>>> read
+> > > > > > > > > >>>>>> successfully, or an error.  Note that issue_read() is called with
+> > > > > > > > > >>>>>> a
+> > > > > > > > > >>>>>> structure, netfs_io_subrequest, which defines the IO requested,
+> > > > > > > > > >>>>>> and
+> > > > > > > > > >>>>>> contains a start and a length (both in bytes), and assumes the
+> > > > > > > > > >>>>>> underlying
+> > > > > > > > > >>>>>> netfs will return a either an error on the whole region, or the
+> > > > > > > > > >>>>>> number
+> > > > > > > > > >>>>>> of bytes successfully read.
+> > > > > > > > > >>>>>>
+> > > > > > > > > >>>>>> The NFS IO path is page based and the main APIs are the pgio APIs
+> > > > > > > > > >>>>>> defined
+> > > > > > > > > >>>>>> in pagelist.c.  For the pgio APIs, there is no way for the caller
+> > > > > > > > > >>>>>> to
+> > > > > > > > > >>>>>> know how many RPCs will be sent and how the pages will be broken
+> > > > > > > > > >>>>>> up
+> > > > > > > > > >>>>>> into underlying RPCs, each of which will have their own
+> > > > > > > > > >>>>>> completion
+> > > > > > > > > >>>>>> and
+> > > > > > > > > >>>>>> return code.  In contrast, netfs is subrequest based, a single
+> > > > > > > > > >>>>>> subrequest may contain multiple pages, and a single subrequest is
+> > > > > > > > > >>>>>> initiated with issue_read() and terminated with
+> > > > > > > > > >>>>>> netfs_subreq_terminated().
+> > > > > > > > > >>>>>> Thus, to utilze the netfs APIs, NFS needs some way to accommodate
+> > > > > > > > > >>>>>> the netfs API requirement on the single response to the whole
+> > > > > > > > > >>>>>> subrequest, while also minimizing disruptive changes to the NFS
+> > > > > > > > > >>>>>> pgio layer.
+> > > > > > > > > >>>>>>
+> > > > > > > > > >>>>>> The approach taken with this patch is to allocate a small
+> > > > > > > > > >>>>>> structure
+> > > > > > > > > >>>>>> for each nfs_netfs_issue_read() call, store the final error and
+> > > > > > > > > >>>>>> number
+> > > > > > > > > >>>>>> of bytes successfully transferred in the structure, and update
+> > > > > > > > > >>>>>> these
+> > > > > > > > > >>>>>> values
+> > > > > > > > > >>>>>> as each RPC completes.  The refcount on the structure is used as
+> > > > > > > > > >>>>>> a
+> > > > > > > > > >>>>>> marker
+> > > > > > > > > >>>>>> for the last RPC completion, is incremented in
+> > > > > > > > > >>>>>> nfs_netfs_read_initiate(),
+> > > > > > > > > >>>>>> and decremented inside nfs_netfs_read_completion(), when a
+> > > > > > > > > >>>>>> nfs_pgio_header
+> > > > > > > > > >>>>>> contains a valid pointer to the data.  On the final put (which
+> > > > > > > > > >>>>>> signals
+> > > > > > > > > >>>>>> the final outstanding RPC is complete) in
+> > > > > > > > > >>>>>> nfs_netfs_read_completion(),
+> > > > > > > > > >>>>>> call netfs_subreq_terminated() with either the final error value
+> > > > > > > > > >>>>>> (if
+> > > > > > > > > >>>>>> one or more READs complete with an error) or the number of bytes
+> > > > > > > > > >>>>>> successfully transferred (if all RPCs complete successfully).
+> > > > > > > > > >>>>>> Note
+> > > > > > > > > >>>>>> that when all RPCs complete successfully, the number of bytes
+> > > > > > > > > >>>>>> transferred
+> > > > > > > > > >>>>>> is capped to the length of the subrequest.  Capping the
+> > > > > > > > > >>>>>> transferred
+> > > > > > > > > >>>>>> length
+> > > > > > > > > >>>>>> to the subrequest length prevents "Subreq overread" warnings from
+> > > > > > > > > >>>>>> netfs.
+> > > > > > > > > >>>>>> This is due to the "aligned_len" in nfs_pageio_add_page(), and
+> > > > > > > > > >>>>>> the
+> > > > > > > > > >>>>>> corner case where NFS requests a full page at the end of the
+> > > > > > > > > >>>>>> file,
+> > > > > > > > > >>>>>> even when i_size reflects only a partial page (NFS overread).
+> > > > > > > > > >>>>>>
+> > > > > > > > > >>>>>> Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
+> > > > > > > > > >>>>>> Reviewed-by: Jeff Layton <jlayton@kernel.org>
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>> This is not doing what I asked for, which was to separate out the
+> > > > > > > > > >>>>> fscache functionality, so that we can call that if and when it is
+> > > > > > > > > >>>>> available.
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>> I must have misunderstood then.
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> The last feedback I have from you was that you wanted it to be
+> > > > > > > > > >>>> an opt-in feature, and it was a comment on a previous patch
+> > > > > > > > > >>>> to Kconfig.  I was proceeding the best I knew how, but
+> > > > > > > > > >>>> let me try to get back on track.
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>> Instead, it is just wrapping the NFS requests inside netfs
+> > > > > > > > > >>>>> requests. As
+> > > > > > > > > >>>>> it stands, that means it is just duplicating information, and
+> > > > > > > > > >>>>> adding
+> > > > > > > > > >>>>> unnecessary overhead to the standard I/O path (extra allocations,
+> > > > > > > > > >>>>> extra
+> > > > > > > > > >>>>> indirect calls, and extra bloat to the inode).
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>> I think I understand what you're saying but I'm not sure.  Let me
+> > > > > > > > > >>>> ask some clarifying questions.
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Are you objecting to the code when CONFIG_NFS_FSCACHE is
+> > > > > > > > > >>>> configured?  Or when it is not?  Or both?  I think you're objecting
+> > > > > > > > > >>>> when it's configured, but not enabled (we mount without 'fsc').
+> > > > > > > > > >>>> Am I right?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Also, are you objecting to the design that to use fcache we now
+> > > > > > > > > >>>> have to use netfs, specifically:
+> > > > > > > > > >>>> - call into netfs via either netfs_read_folio or netfs_readahead
+> > > > > > > > > >>>> - if fscache is enabled, then the IO can be satisfied from fscache
+> > > > > > > > > >>>> - if fscache is not enabled, or some of the IO cannot be satisfied
+> > > > > > > > > >>>> from the cache, then NFS is called back via netfs_issue_read
+> > > > > > > > > >>>> and we use the normal NFS read pageio interface.  This requires
+> > > > > > > > > >>>> we call netfs_subreq_terminated() when all the RPCs complete,
+> > > > > > > > > >>>> which is the reason for the small changes to pagelist.c
+> > > > > > > > > >>>
+> > > > > > > > > >>> I'm objecting to any middle layer "solution" that adds overhead to the
+> > > > > > > > > >>> NFS I/O paths.
+> > > > > > > > > >>>
+> > > > > > > > > >> Got it.
+> > > > > > > > > >>
+> > > > > > > > > >>> I'm willing to consider solutions that are specific only to the fscache
+> > > > > > > > > >>> use case (i.e. when the 'fsc' mount option is specified). However when
+> > > > > > > > > >>> I perform a normal NFS mount, and do I/O, then I don't want to see
+> > > > > > > > > >>> extra memory allocations, extra indirect calls and larger inode
+> > > > > > > > > >>> footprints.
+> > > > > > > > > >>>
+> > > > > > > > > >>> IOW: I want the code to optimise for the case of standard NFS, not for
+> > > > > > > > > >>> the case of 'NFS with cachefs additions'.
+> > > > > > > > > >>>
+> > > > > > > > > >> I agree completely.  Are you seeing extra memory allocations
+> > > > > > > > > >> happen on mounts without 'fsc' or is it more a concern or how
+> > > > > > > > > >> some of the patches look?  We should not be calling any netfs or
+> > > > > > > > > >> fscache code if 'fsc' is not on the mount and I don't see any in my
+> > > > > > > > > >> testing. So either there's a misunderstanding here, or there's a
+> > > > > > > > > >> bug I'm missing.
+> > > > > > > > > >>
+> > > > > > > > > >> If fscache is not configured, then nfs_netfs_read_folio() and
+> > > > > > > > > >> nfs_netfs_readahead() is a wrapper that returns -ENOBUFS.
+> > > > > > > > > >> If it's configured but not enabled, then the checks for
+> > > > > > > > > >> netfs_inode(inode)->cache should skip over any netfs code.
+> > > > > > > > > >> But maybe there's a non-obvious bug you're seeing and
+> > > > > > > > > >> somehow netfs is still getting called?  Because I cannot
+> > > > > > > > > >> see netfs getting called if 'fsc' is not on the mount in my
+> > > > > > > > > >> tests.
+> > > > > > > > > >>
+> > > > > > > > > >> int nfs_netfs_read_folio(struct file *file, struct folio *folio)
+> > > > > > > > > >> {
+> > > > > > > > > >>       if (!netfs_inode(folio_inode(folio))->cache)
+> > > > > > > > > >>               return -ENOBUFS;
+> > > > > > > > > >>
+> > > > > > > > > >>       return netfs_read_folio(file, folio);
+> > > > > > > > > >> }
+> > > > > > > > > >>
+> > > > > > > > > >> int nfs_netfs_readahead(struct readahead_control *ractl)
+> > > > > > > > > >> {
+> > > > > > > > > >>       struct inode *inode = ractl->mapping->host;
+> > > > > > > > > >>
+> > > > > > > > > >>       if (!netfs_inode(inode)->cache)
+> > > > > > > > > >>               return -ENOBUFS;
+> > > > > > > > > >>
+> > > > > > > > > >>       netfs_readahead(ractl);
+> > > > > > > > > >>       return 0;
+> > > > > > > > > >> }
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Can you be more specific as to the portions of the patch you don't
+> > > > > > > > > >>>> like
+> > > > > > > > > >>>> so I can move it in the right direction?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> This is from patch #2 which you didn't comment on.  I'm not sure
+> > > > > > > > > >>>> you're
+> > > > > > > > > >>>> ok with it though, since you mention "extra bloat to the inode".
+> > > > > > > > > >>>> Do you object to this even though it's wrapped in an
+> > > > > > > > > >>>> #ifdef CONFIG_NFS_FSCACHE?  If so, do you require no
+> > > > > > > > > >>>> extra size be added to nfs_inode?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -204,9 +208,11 @@ struct nfs_inode {
+> > > > > > > > > >>>>       __u64 write_io;
+> > > > > > > > > >>>>       __u64 read_io;
+> > > > > > > > > >>>> #ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> -       struct fscache_cookie   *fscache;
+> > > > > > > > > >>>> -#endif
+> > > > > > > > > >>>> +       struct netfs_inode      netfs; /* netfs context and VFS inode
+> > > > > > > > > >>>> */
+> > > > > > > > > >>>> +#else
+> > > > > > > > > >>>>       struct inode            vfs_inode;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>
+> > > > > > > > > >>> Ideally, I'd prefer no extra size. I can live with it up to a certain
+> > > > > > > > > >>> point, however for now NFS is not unconditionally opting into the netfs
+> > > > > > > > > >>> project. If we're to ever do that, then I want to see streamlined code
+> > > > > > > > > >>> for the standard I/O case.
+> > > > > > > > > >>>
+> > > > > > > > > >> Ok and understood about standard I/O case.
+> > > > > > > > > >>
+> > > > > > > > > >> I was thinking how we might not increase the size, but I don't think
+> > > > > > > > > >> I can make it work.
+> > > > > > > > > >>
+> > > > > > > > > >> I thought we could change to something like the below, without an
+> > > > > > > > > >> embedded struct inode:
+> > > > > > > > > >>
+> > > > > > > > > >> @@ -204,9 +208,11 @@ struct nfs_inode {
+> > > > > > > > > >>       __u64 write_io;
+> > > > > > > > > >>       __u64 read_io;
+> > > > > > > > > >> #ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >> -       struct fscache_cookie   *fscache;
+> > > > > > > > > >> -#endif
+> > > > > > > > > >> +       struct netfs_inode      *netfs; /* netfs context and VFS inode */
+> > > > > > > > > >> +#else
+> > > > > > > > > >>       struct inode            vfs_inode;
+> > > > > > > > > >> +#endif
+> > > > > > > > > >> +
+> > > > > > > > > >>
+> > > > > > > > > >> Then I would need to alloc/free a netfs_inode at the time of
+> > > > > > > > > >> nfs_inode initiation.  Unfortunately this has the issue that the NFS_I()
+> > > > > > > > > >> macro cannot work, because it requires an embedded "struct inode"
+> > > > > > > > > >> due to "container_of" use:
+> > > > > > > > > >>
+> > > > > > > > > >> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >> +static inline struct inode *VFS_I(struct nfs_inode *nfsi)
+> > > > > > > > > >> +{
+> > > > > > > > > >> +       return &nfsi->netfs.inode;
+> > > > > > > > > >> +}
+> > > > > > > > > >> +static inline struct nfs_inode *NFS_I(const struct inode *inode)
+> > > > > > > > > >> +{
+> > > > > > > > > >> +       return container_of(inode, struct nfs_inode, netfs.inode);
+> > > > > > > > > >> +}
+> > > > > > > > > >> +#else
+> > > > > > > > > >> +static inline struct inode *VFS_I(struct nfs_inode *nfsi)
+> > > > > > > > > >> +{
+> > > > > > > > > >> +       return &nfsi->vfs_inode;
+> > > > > > > > > >> +}
+> > > > > > > > > >> static inline struct nfs_inode *NFS_I(const struct inode *inode)
+> > > > > > > > > >> {
+> > > > > > > > > >>       return container_of(inode, struct nfs_inode, vfs_inode);
+> > > > > > > > > >> }
+> > > > > > > > > >> +#endif
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >
+> > > > > > > > > > Actually Trond maybe we can achieve a "0 length increase" of
+> > > > > > > > > > nfs_inode if dhowells would take a patch to modify the definition
+> > > > > > > > > > of struct netfs_inode and netfs_inode_init(), something like the WIP
+> > > > > > > > > > patch below.  What do you think?
+> > > > > > > > >
+> > > > > > > > > That works for me.
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > I think maybe this could be a follow-on patch and if you/dhowells
+> > > > > > > > > > think it's an ok idea I can try to work out what is needed across
+> > > > > > > > > > the tree.  I thought about it more and I kinda agree that in the
+> > > > > > > > > > case for NFS where fscache is "configured but not enabled",
+> > > > > > > > > > then even though we're only adding 24 bytes to the nfs_inode
+> > > > > > > > > > each time, it will add up so it is worth at least a discussion.
+> > > > > > > > > >
+> > > > > > > > > > diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+> > > > > > > > > > index f2402ddeafbf..195714f1c355 100644
+> > > > > > > > > > --- a/include/linux/netfs.h
+> > > > > > > > > > +++ b/include/linux/netfs.h
+> > > > > > > > > > @@ -118,11 +118,7 @@ enum netfs_io_source {
+> > > > > > > > > > typedef void (*netfs_io_terminated_t)(void *priv, ssize_t transferred_or_error,
+> > > > > > > > > >                                     bool was_async);
+> > > > > > > > > >
+> > > > > > > > > > -/*
+> > > > > > > > > > - * Per-inode context.  This wraps the VFS inode.
+> > > > > > > > > > - */
+> > > > > > > > > > -struct netfs_inode {
+> > > > > > > > > > -       struct inode            inode;          /* The VFS inode */
+> > > > > > > > > > +struct netfs_info {
+> > > > > > > > > >       const struct netfs_request_ops *ops;
+> > > > > > > > > > #if IS_ENABLED(CONFIG_FSCACHE)
+> > > > > > > > > >       struct fscache_cookie   *cache;
+> > > > > > > > > > @@ -130,6 +126,14 @@ struct netfs_inode {
+> > > > > > > > > >       loff_t                  remote_i_size;  /* Size of the remote file */
+> > > > > > > > > > };
+> > > > > > > > > >
+> > > > > > > > > > +/*
+> > > > > > > > > > + * Per-inode context.  This wraps the VFS inode.
+> > > > > > > > > > + */
+> > > > > > > > > > +struct netfs_inode {
+> > > > > > > > > > +       struct inode            inode;          /* The VFS inode */
+> > > > > > > > > > +       struct netfs_info       *netfs;         /* Rest of netfs data */
+> > > > > > > > > > +};
+> > > > > > > > > > +
+> > > > > > > > > > /*
+> > > > > > > > > > * Resources required to do operations on a cache.
+> > > > > > > > > > */
+> > > > > > > > > > @@ -312,10 +316,12 @@ static inline struct netfs_inode
+> > > > > > > > > > *netfs_inode(struct inode *inode)
+> > > > > > > > > > static inline void netfs_inode_init(struct netfs_inode *ctx,
+> > > > > > > > > >                                   const struct netfs_request_ops *ops)
+> > > > > > > > > > {
+> > > > > > > > > > -       ctx->ops = ops;
+> > > > > > > > > > -       ctx->remote_i_size = i_size_read(&ctx->inode);
+> > > > > > > > > > +       ctx->netfs = kzalloc(sizeof(struct netfs_info)), GFP_KERNEL);
+> > > > > > > > > > +       /* FIXME: Check for NULL */
+> > > > > > > > > > +       ctx->netfs->ops = ops;
+> > > > > > > > > > +       ctx->netfs->remote_i_size = i_size_read(&ctx->inode);
+> > > > > > > > > > #if IS_ENABLED(CONFIG_FSCACHE)
+> > > > > > > > > > -       ctx->cache = NULL;
+> > > > > > > > > > +       ctx->netfs->cache = NULL;
+> > > > > > > > > > #endif
+> > > > > > > > > > }
+> > > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Are you ok with the stub functions which are placed in fscache.h, and
+> > > > > > > > > >>>> when CONFIG_NFS_FSCACHE is not set, become either a no-op
+> > > > > > > > > >>>> or a 1-liner (nfs_netfs_readpage_release)?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> #else /* CONFIG_NFS_FSCACHE */
+> > > > > > > > > >>>> +static inline void nfs_netfs_inode_init(struct nfs_inode *nfsi) {}
+> > > > > > > > > >>>> +static inline void nfs_netfs_initiate_read(struct nfs_pgio_header
+> > > > > > > > > >>>> *hdr) {}
+> > > > > > > > > >>>> +static inline void nfs_netfs_read_completion(struct nfs_pgio_header
+> > > > > > > > > >>>> *hdr) {}
+> > > > > > > > > >>>> +static inline void nfs_netfs_readpage_release(struct nfs_page *req)
+> > > > > > > > > >>>> +{
+> > > > > > > > > >>>> +       unlock_page(req->wb_page);
+> > > > > > > > > >>>> +}
+> > > > > > > > > >>>> static inline void nfs_fscache_release_super_cookie(struct
+> > > > > > > > > >>>> super_block *sb) {}
+> > > > > > > > > >>>> static inline void nfs_fscache_init_inode(struct inode *inode) {}
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Do you object to the below?  If so, then do you want
+> > > > > > > > > >>>> #ifdef CONFIG_NFS_FSCACHE here?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> -- a/fs/nfs/inode.c
+> > > > > > > > > >>>> +++ b/fs/nfs/inode.c
+> > > > > > > > > >>>> @@ -2249,6 +2249,8 @@ struct inode *nfs_alloc_inode(struct
+> > > > > > > > > >>>> super_block *sb)
+> > > > > > > > > >>>> #ifdef CONFIG_NFS_V4_2
+> > > > > > > > > >>>>       nfsi->xattr_cache = NULL;
+> > > > > > > > > >>>> #endif
+> > > > > > > > > >>>> +       nfs_netfs_inode_init(nfsi);
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>>       return VFS_I(nfsi);
+> > > > > > > > > >>>> }
+> > > > > > > > > >>>> EXPORT_SYMBOL_GPL(nfs_alloc_i
+> > > > > > > > > >>>> node);
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Do you object to the changes in fs/nfs/read.c?  Specifically,
+> > > > > > > > > >>>> how about the below calls to netfs from nfs_read_folio and
+> > > > > > > > > >>>> nfs_readahead into equivalent netfs calls?  So when
+> > > > > > > > > >>>> NFS_CONFIG_FSCACHE is set, but fscache is not enabled
+> > > > > > > > > >>>> ('fsc' not on mount), these netfs functions do immediately call
+> > > > > > > > > >>>> netfs_alloc_request().  But I wonder if we could simply add a
+> > > > > > > > > >>>> check to see if fscache is enabled on the mount, and skip
+> > > > > > > > > >>>> over to satisfy what you want.  Am I understanding what you
+> > > > > > > > > >>>> want?
+> > > > > > > > > >>>
+> > > > > > > > > >>> Quite frankly, I'd prefer that we just split out the functionality that
+> > > > > > > > > >>> is needed from the netfs code so that it can be optimised. However I'm
+> > > > > > > > > >>> not interested enough in the cachefs functionality to work on that
+> > > > > > > > > >>> myself. ...and as I indicated above, I might be OK with opting into the
+> > > > > > > > > >>> netfs project, once the overhead can be made to disappear.
+> > > > > > > > > >>>
+> > > > > > > > > >> Understood.
+> > > > > > > > > >>
+> > > > > > > > > >> If you think it makes more sense, I can move some of the nfs_netfs_*
+> > > > > > > > > >> functions into a netfs.c file as a starting point.  Or that can maybe
+> > > > > > > > > >> be done in a future patchset?
+> > > > > > > > > >>
+> > > > > > > > > >> For now I was equating netfs and fscache together so we can
+> > > > > > > > > >> move on from the much older and single-page limiting fscache
+> > > > > > > > > >> interface that is likely to go away soon.
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -355,6 +343,10 @@ int nfs_read_folio(struct file *file, struct
+> > > > > > > > > >>>> folio *folio)
+> > > > > > > > > >>>>       if (NFS_STALE(inode))
+> > > > > > > > > >>>>               goto out_unlock;
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> +       ret = nfs_netfs_read_folio(file, folio);
+> > > > > > > > > >>>> +       if (!ret)
+> > > > > > > > > >>>> +               goto out;
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -405,6 +399,10 @@ void nfs_readahead(struct readahead_control
+> > > > > > > > > >>>> *ractl)
+> > > > > > > > > >>>>       if (NFS_STALE(inode))
+> > > > > > > > > >>>>               goto out;
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> +       ret = nfs_netfs_readahead(ractl);
+> > > > > > > > > >>>> +       if (!ret)
+> > > > > > > > > >>>> +               goto out;
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>>
+> > > > > > > > > >> The above wrappers should prevent any additional overhead when fscache
+> > > > > > > > > >> is not enabled.  As far as I know these work to avoid calling netfs
+> > > > > > > > > >> when 'fsc' is not on the mount.
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> And how about these calls from different points in the read
+> > > > > > > > > >>>> path to the earlier mentioned stub functions?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -110,20 +110,13 @@ EXPORT_SYMBOL_GPL(nfs_pageio_reset_read_mds);
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> static void nfs_readpage_release(struct nfs_page *req, int error)
+> > > > > > > > > >>>> {
+> > > > > > > > > >>>> -       struct inode *inode = d_inode(nfs_req_openctx(req)->dentry);
+> > > > > > > > > >>>>       struct page *page = req->wb_page;
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> -       dprintk("NFS: read done (%s/%llu %d@%lld)\n", inode->i_sb-
+> > > > > > > > > >>>>> s_id,
+> > > > > > > > > >>>> -               (unsigned long long)NFS_FILEID(inode), req->wb_bytes,
+> > > > > > > > > >>>> -               (long long)req_offset(req));
+> > > > > > > > > >>>> -
+> > > > > > > > > >>>>       if (nfs_error_is_fatal_on_server(error) && error != -
+> > > > > > > > > >>>> ETIMEDOUT)
+> > > > > > > > > >>>>               SetPageError(page);
+> > > > > > > > > >>>> -       if (nfs_page_group_sync_on_bit(req, PG_UNLOCKPAGE)) {
+> > > > > > > > > >>>> -               if (PageUptodate(page))
+> > > > > > > > > >>>> -                       nfs_fscache_write_page(inode, page);
+> > > > > > > > > >>>> -               unlock_page(page);
+> > > > > > > > > >>>> -       }
+> > > > > > > > > >>>> +       if (nfs_page_group_sync_on_bit(req, PG_UNLOCKPAGE))
+> > > > > > > > > >>>> +               nfs_netfs_readpage_release(req);
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>
+> > > > > > > > > >>> I'm not seeing the value of wrapping unlock_page(), no... That code is
+> > > > > > > > > >>> going to need to change when we move it to use folios natively anyway.
+> > > > > > > > > >>>
+> > > > > > > > > >> Ok, how about I make it conditional on whether fscache is configured
+> > > > > > > > > >> and enabled then, similar to the nfs_netfs_read_folio() and
+> > > > > > > > > >> nfs_netfs_readahead()?  Below is what that would look like.
+> > > > > > > > > >> I could inline the code in nfs_netfs_readpage_release() if you
+> > > > > > > > > >> think it would be clearer.
+> > > > > > > > > >>
+> > > > > > > > > >> static void nfs_readpage_release(struct nfs_page *req, int error)
+> > > > > > > > > >> {
+> > > > > > > > > >>       struct page *page = req->wb_page;
+> > > > > > > > > >>
+> > > > > > > > > >>       if (nfs_error_is_fatal_on_server(error) && error != -ETIMEDOUT)
+> > > > > > > > > >>               SetPageError(page);
+> > > > > > > > > >>       if (nfs_page_group_sync_on_bit(req, PG_UNLOCKPAGE))
+> > > > > > > > > >> #ifndef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>               unlock_page(req->wb_page);
+> > > > > > > > > >> #else
+> > > > > > > > > >>               nfs_netfs_readpage_release(req);
+> > > > > > > > > >> #endif
+> > > > > > > > > >>       nfs_release_request(req);
+> > > > > > > > > >> }
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >> void nfs_netfs_readpage_release(struct nfs_page *req)
+> > > > > > > > > >> {
+> > > > > > > > > >>   struct inode *inode = d_inode(nfs_req_openctx(req)->dentry);
+> > > > > > > > > >>
+> > > > > > > > > >>   /*
+> > > > > > > > > >>    * If fscache is enabled, netfs will unlock pages.
+> > > > > > > > > >>    */
+> > > > > > > > > >>   if (netfs_inode(inode)->cache)
+> > > > > > > > > >>       return;
+> > > > > > > > > >>
+> > > > > > > > > >>   unlock_page(req->wb_page);
+> > > > > > > > > >> }
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >>>>       nfs_release_request(req);
+> > > > > > > > > >>>> }
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -177,6 +170,8 @@ static void nfs_read_completion(struct
+> > > > > > > > > >>>> nfs_pgio_header *hdr)
+> > > > > > > > > >>>>               nfs_list_remove_request(req);
+> > > > > > > > > >>>>               nfs_readpage_release(req, error);
+> > > > > > > > > >>>>       }
+> > > > > > > > > >>>> +       nfs_netfs_read_completion(hdr);
+> > > > > > > > > >>>> +
+> > > > > > > > > >>>> out:
+> > > > > > > > > >>>>       hdr->release(hdr);
+> > > > > > > > > >>>> }
+> > > > > > > > > >>>> @@ -187,6 +182,7 @@ static void nfs_initiate_read(struct
+> > > > > > > > > >>>> nfs_pgio_header *hdr,
+> > > > > > > > > >>>>                             struct rpc_task_setup *task_setup_data,
+> > > > > > > > > >>>> int how)
+> > > > > > > > > >>>> {
+> > > > > > > > > >>>>       rpc_ops->read_setup(hdr, msg);
+> > > > > > > > > >>>> +       nfs_netfs_initiate_read(hdr);
+> > > > > > > > > >>>>       trace_nfs_initiate_read(hdr);
+> > > > > > > > > >>>> }
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Are you ok with these additions?  Something like this would
+> > > > > > > > > >>>> be required in the case of fscache configured and enabled,
+> > > > > > > > > >>>> because we could have some of the data in a read in
+> > > > > > > > > >>>> fscache, and some not.  That is the reason for the netfs
+> > > > > > > > > >>>> design, and why we need to be able to call the normal
+> > > > > > > > > >>>> NFS read IO path (netfs calls into issue_read, and we call
+> > > > > > > > > >>>> back via netfs_subreq_terminated)?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -101,6 +101,9 @@ struct nfs_pageio_descriptor {
+> > > > > > > > > >>>>       struct pnfs_layout_segment *pg_lseg;
+> > > > > > > > > >>>>       struct nfs_io_completion *pg_io_completion;
+> > > > > > > > > >>>>       struct nfs_direct_req   *pg_dreq;
+> > > > > > > > > >>>> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> +       void                    *pg_netfs;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -1619,6 +1619,9 @@ struct nfs_pgio_header {
+> > > > > > > > > >>>>       const struct nfs_rw_ops *rw_ops;
+> > > > > > > > > >>>>       struct nfs_io_completion *io_completion;
+> > > > > > > > > >>>>       struct nfs_direct_req   *dreq;
+> > > > > > > > > >>>> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> +       void                    *netfs;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> And these additions to pagelist.c?
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -68,6 +69,10 @@ void nfs_pgheader_init(struct
+> > > > > > > > > >>>> nfs_pageio_descriptor *desc,
+> > > > > > > > > >>>>       hdr->good_bytes = mirror->pg_count;
+> > > > > > > > > >>>>       hdr->io_completion = desc->pg_io_completion;
+> > > > > > > > > >>>>       hdr->dreq = desc->pg_dreq;
+> > > > > > > > > >>>> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> +       if (desc->pg_netfs)
+> > > > > > > > > >>>> +               hdr->netfs = desc->pg_netfs;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>
+> > > > > > > > > >>> Why the conditional?
+> > > > > > > > > >>>
+> > > > > > > > > >> Not really needed and I was thinking of removing it, so I'll do that.
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -846,6 +851,9 @@ void nfs_pageio_init(struct nfs_pageio_descriptor
+> > > > > > > > > >>>> *desc,
+> > > > > > > > > >>>>       desc->pg_lseg = NULL;
+> > > > > > > > > >>>>       desc->pg_io_completion = NULL;
+> > > > > > > > > >>>>       desc->pg_dreq = NULL;
+> > > > > > > > > >>>> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> +       desc->pg_netfs = NULL;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> @@ -1360,6 +1369,9 @@ int nfs_pageio_resend(struct
+> > > > > > > > > >>>> nfs_pageio_descriptor *desc,
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>       desc->pg_io_completion = hdr->io_completion;
+> > > > > > > > > >>>>       desc->pg_dreq = hdr->dreq;
+> > > > > > > > > >>>> +#ifdef CONFIG_NFS_FSCACHE
+> > > > > > > > > >>>> +       desc->pg_netfs = hdr->netfs;
+> > > > > > > > > >>>> +#endif
+> > > > > > > > > >>>
+> > > > > > > > > >>> Those all need wrapper functions instead of embedding #ifdefs.
+> > > > > > > > > >>>
+> > > > > > > > > >> Ok.
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>>> My expectation is that the standard I/O path should have minimal
+> > > > > > > > > >>>>> overhead, and should certainly not increase the overhead that we
+> > > > > > > > > >>>>> already have. Will this be addressed in future iterations of these
+> > > > > > > > > >>>>> patches?
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> I will do what I can to satisfy what you want, either by fixing up
+> > > > > > > > > >>>> this patch or follow-on patches.  Hopefully the above questions
+> > > > > > > > > >>>> will clarify the next steps.
+> > > > > > > > > >>>>
+> > > > > > > > > >>>
+> > > > > > > > > >>> --
+> > > > > > > > > >>> Trond Myklebust
+> > > > > > > > > >>> Linux NFS client maintainer, Hammerspace
+> > > > > > > > > >>> trond.myklebust@hammerspace.com
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > Trond Myklebust
+> > > > > > > > > CTO, Hammerspace Inc
+> > > > > > > > > 1900 S Norfolk St, Suite 350 - #45
+> > > > > > > > > San Mateo, CA 94403
+> > > > > > > > >
+> > > > > > > > > www.hammer.space
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > >
+> > > > > > >
+> > > > > >
+> > > > >
+>
 
 --
 Linux-cachefs mailing list
