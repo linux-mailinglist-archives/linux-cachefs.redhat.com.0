@@ -1,107 +1,60 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86CEB690F5F
-	for <lists+linux-cachefs@lfdr.de>; Thu,  9 Feb 2023 18:41:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A81692B2F
+	for <lists+linux-cachefs@lfdr.de>; Sat, 11 Feb 2023 00:32:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675964487;
+	s=mimecast20190719; t=1676071941;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uRC2jlDWs9GpnHE2XAe2CrAIgJtdgrrqY/0HZEo5Apw=;
-	b=bdFWGZhrGnOtPHSgZ5piLO7QTOQJJT8mmohgntdVhXamEZG1LKH719rsxBuYi+z2sJDH5I
-	uQ/1sJY46hovDwPNvYe2Vc9Z2ZV6m0Rzau1m0R8KOQeKPmJgAvwp4oFdQ28NfDmegqXUup
-	QSJrbedS4BH3YLO/LNaXqrwdtoq90W0=
+	bh=58NaOLUwEn97ZDthzHRkgzhwZvGDNikPyB/pPKFXN1Q=;
+	b=HF99QwERcBzO7XTnFdfKaS49IZntDCESiyMkqzff66Va/xvckXJgrzC25LeEbcSKh6bVx2
+	2w2Ms9LZLZbZfdY4kB2AiL7htzZlXNuaweBkgcNDwiCWgpUm0kQaMoER0ZVuGK65B8fCa5
+	wnaKUkRWOD1lgfBW4F2ZPlpEJ6+DyUc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-184-Roy1o6xzMCa1x-hyUNnCFA-1; Thu, 09 Feb 2023 12:41:24 -0500
-X-MC-Unique: Roy1o6xzMCa1x-hyUNnCFA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-481-XuOoVX30PRiiOaMogHuo-Q-1; Fri, 10 Feb 2023 18:32:18 -0500
+X-MC-Unique: XuOoVX30PRiiOaMogHuo-Q-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4DB9857D07;
-	Thu,  9 Feb 2023 17:41:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CCEF85D180;
+	Fri, 10 Feb 2023 23:32:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F34872166B29;
-	Thu,  9 Feb 2023 17:41:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 88413492C3F;
+	Fri, 10 Feb 2023 23:32:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AEDDD1946594;
-	Thu,  9 Feb 2023 17:41:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C72E01946597;
+	Fri, 10 Feb 2023 23:32:13 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 084411946589 for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  9 Feb 2023 17:41:03 +0000 (UTC)
+ ESMTP id 592CB194658F for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 10 Feb 2023 23:32:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B03EF18EC5; Thu,  9 Feb 2023 17:41:03 +0000 (UTC)
+ id 3A6D140CF8F0; Fri, 10 Feb 2023 23:32:12 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A7EBC51FF
- for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 17:41:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 768E31875041
- for <linux-cachefs@redhat.com>; Thu,  9 Feb 2023 17:41:03 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-316-JPoxo7tLNOOP5BphiOWTKw-1; Thu, 09 Feb 2023 12:40:59 -0500
-X-MC-Unique: JPoxo7tLNOOP5BphiOWTKw-1
-Received: by mail-qt1-f170.google.com with SMTP id c2so2834185qtw.5;
- Thu, 09 Feb 2023 09:40:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HqNN4HiWpJNrjUwLltLzhoO16BAiBnNWaCgUbWqV63Q=;
- b=RmhlLeVkXGqbuHbuNhEkgve88C+GKJgv9fjFuJrqXCZnNzIsqOHEmSiaIhqNIQwbUc
- yJJxTqR46ollWD6nxOtY2hipQposCOQphhRNUFrvDNoumuiXQj8Q5UAAP0aDts77HpMJ
- PfJNmfknjVizyFIdtjXNamJMdSi8cPEkm3Ev3k1jPHlLD1iKI+tt1Gk3Hh1sljfhDskF
- qoXFgCgwQlqP2WrpVDyjRNg7HW8bzI+XR15hGIoovT+gAfEdKbiWaf06T+A5pfsjJbZF
- fK6PqYMHcSRK9EL7o2wJNjdhi/ONtxbip8t+niOOhip9C6cNgAOqRhe2Ef5+nIlmFO37
- WaDg==
-X-Gm-Message-State: AO0yUKX8QmU5Wq+jfw32+Bu0DQOcDIk3RIK0JcZnqApUj0Aakt1vENbZ
- E54aEMcy24S2ecPi0Jac+1O8n0M0VQ==
-X-Google-Smtp-Source: AK7set/Rvi6a0ZNNLZOOzx8lpnKJtLjqG5TGS04YXT2JvrKEhlTERI3dXTjNjy93p6WAMwIVGj424A==
-X-Received: by 2002:a05:622a:11c2:b0:3a8:fdf:8ff8 with SMTP id
- n2-20020a05622a11c200b003a80fdf8ff8mr20151307qtk.36.1675964458729; 
- Thu, 09 Feb 2023 09:40:58 -0800 (PST)
-Received: from [192.168.75.138] (c-68-32-72-208.hsd1.mi.comcast.net.
- [68.32.72.208]) by smtp.gmail.com with ESMTPSA id
- l63-20020a378942000000b0071d3e432c9bsm1810994qkd.28.2023.02.09.09.40.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Feb 2023 09:40:58 -0800 (PST)
-Message-ID: <4d60636f62df4f5c200666ed2d1a5f2414c18e1f.camel@kernel.org>
-From: Trond Myklebust <trondmy@kernel.org>
-To: David Wysochanski <dwysocha@redhat.com>, Anna Schumaker
- <anna.schumaker@netapp.com>, Trond Myklebust
- <trond.myklebust@hammerspace.com>,  David Howells <dhowells@redhat.com>
-Date: Thu, 09 Feb 2023 12:40:57 -0500
-In-Reply-To: <CALF+zOk7ryO7GV7LYWjRa1b+C6fA5J=-=zshd+vE-FxewBNg=A@mail.gmail.com>
-References: <20221103161637.1725471-1-dwysocha@redhat.com>
- <CALF+zOk7ryO7GV7LYWjRa1b+C6fA5J=-=zshd+vE-FxewBNg=A@mail.gmail.com>
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7FA93400DB1E;
+ Fri, 10 Feb 2023 23:32:10 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Steve French <smfrench@gmail.com>
+Date: Fri, 10 Feb 2023 23:31:55 +0000
+Message-Id: <20230210233205.1517459-2-dhowells@redhat.com>
+In-Reply-To: <20230210233205.1517459-1-dhowells@redhat.com>
+References: <20230210233205.1517459-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [Linux-cachefs] [PATCH v10 0/6] Convert NFS with fscache to the
- netfs API
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [Linux-cachefs] [PATCH 01/11] netfs: Add a function to extract a
+ UBUF or IOVEC into a BVEC iterator
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,184 +66,205 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com,
- Benjamin Maynard <benmaynard@google.com>
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, Tom Talpey <tom@talpey.com>,
+ Stefan Metzmacher <metze@samba.org>, Christoph Hellwig <hch@infradead.org>,
+ Rohith Surabattula <rohiths.msft@gmail.com>, linux-cifs@vger.kernel.org,
+ Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Steve French <sfrench@samba.org>,
+ linux-cachefs@redhat.com, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCAyMDIzLTAyLTA5IGF0IDA5OjU3IC0wNTAwLCBEYXZpZCBXeXNvY2hhbnNraSB3cm90
-ZToKPiBPbiBUaHUsIE5vdiAzLCAyMDIyIGF0IDEyOjE2IFBNIERhdmUgV3lzb2NoYW5za2kKPiA8
-ZHd5c29jaGFAcmVkaGF0LmNvbT4gd3JvdGU6Cj4gPiAKPiA+IFRoaXMgdjEwIHBhdGNoc2V0IGFk
-ZHJlc3NlcyBhdCBsZWFzdCBzb21lIG9mIFRyb25kJ3MgbGF0ZXN0Cj4gPiBjb25jZXJucy4KPiA+
-IFNvbWUgb2YgdGhlIGZlZWRiYWNrIGxpa2UgdGhlIHVubG9ja19wYWdlKCkgd3JhcHBlciBmdW5j
-dGlvbiBpbgo+ID4gbmZzX3JlYWRfY29tcGxldGlvbigpIEkgZG9uJ3Qga25vdyBob3cgdG8gYWRk
-cmVzcyB3aXRob3V0IGFuCj4gPiBpZmRlZi7CoCBPdGhlciBmZWVkYmFjayBJJ20gbm90IHF1aXRl
-IHN1cmUgYWJvdXQgc3BsaXR0aW5nIG91dAo+ID4gbmV0ZnMgYml0cyBvciB3aGF0IHlvdSB3b3Vs
-ZCBsaWtlIHRvIHNlZS7CoCBUcm9uZCBJIGRvIG5vdCB3YW50IHRvCj4gPiBpbiBhbnkgd2F5IGln
-bm9yZSBvciBtaXNzIGFueSBvZiB5b3VyIGZlZWRiYWNrIHNvIHBsZWFzZSBlbGFib3JhdGUKPiA+
-IGFzIG5lZWRlZC4KPiA+IAo+ID4gVGhpcyBwYXRjaHNldCBjb252ZXJ0cyBORlMgd2l0aCBmc2Nh
-Y2hlIG5vbi1kaXJlY3QgUkVBRCBJTyBwYXRocyB0bwo+ID4gdXNlIHRoZSBuZXRmcyBBUEkgd2l0
-aCBhIG5vbi1pbnZhc2l2ZSBhcHByb2FjaC7CoCBUaGUgZXhpc3RpbmcgTkZTCj4gPiBwZ2lvCj4g
-PiBsYXllciBkb2VzIG5vdCBuZWVkIGV4dGVuc2l2ZSBjaGFuZ2VzLCBhbmQgaXMgdGhlIGJlc3Qg
-d2F5IHNvIGZhcgo+ID4gSSd2ZQo+ID4gZm91bmQgdG8gYWRkcmVzcyBUcm9uZCdzIGNvbmNlcm5z
-IGFib3V0IG1vZGlmeWluZyB0aGUgSU8gcGF0aCBbMV0KPiA+IGFzCj4gPiB3ZWxsIGFzIG9ubHkg
-ZW5hYmxpbmcgbmV0ZnMgd2hlbiBmc2NhY2hlIGlzIGNvbmZpZ3VyZWQgYW5kIGVuYWJsZWQKPiA+
-IFsyXS4KPiA+IEkgaGF2ZSBub3QgYXR0ZW1wdGVkIHBlcmZvcm1hbmNlIGNvbXBhcmlzaW9ucyB0
-byBhZGRyZXNzIENodWNrCj4gPiBMZXZlcidzIGNvbmNlcm4gWzNdIGJlY2F1c2Ugd2UgYXJlIG5v
-dCBjb252ZXJ0aW5nIHRoZSBub24tZnNjYWNoZQo+ID4gZW5hYmxlZCBORlMgSU8gcGF0aHMgdG8g
-bmV0ZnMuCj4gPiAKPiA+IFRoZSBwYXRjaHNldCBpcyBiYXNlZCBvbiA2LjEtcmMzIGFuZCBoYXMg
-YmVlbiBwdXNoZWQgdG8gZ2l0aHViIGF0Ogo+ID4gaHR0cHM6Ly9naXRodWIuY29tL0RhdmVXeXNv
-Y2hhbnNraVJIL2tlcm5lbC9jb21taXRzL25mcy1mc2NhY2hlLW5ldGZzCj4gPiBodHRwczovL2dp
-dGh1Yi5jb20vRGF2ZVd5c29jaGFuc2tpUkgva2VybmVsL2NvbW1pdC9iZmYwOWFhOTc5MDEwZjM4
-YTExYTZmOTI0NTFlODVkMDRkODUwNzE1Cj4gPiAKPiA+IENoYW5nZXMgc2luY2UgdjkgWzddCj4g
-PiA9PT09PT09PT09PT09PT09PT09PQo+ID4gUEFUQ0gxOiBSZW5hbWUgbmZzX3BhZ2Vpb19hZGRf
-cGFnZSB0byBuZnNfcmVhZF9hZGRfcGFnZSAoVHJvbmQpCj4gPiBQQVRDSDM6IFJlbW92ZSBhIGZl
-dyAjaWZkZWYncyBhbmQgcmVwbGFjZSB3aXRoIHdyYXBwZXJzIChUcm9uZCkgWzhdCj4gPiBQQVRD
-SDY6IFJGQyBwYXRjaCB0byByZWR1Y2UgaW5jcmVhc2UgaW4gbmZzX2lub2RlIG1lbW9yeSBmb290
-cHJpbnQKPiA+IHdoZW4gbmV0ZnMgaXMgY29uZmlndXJlZCBidXQgbm90IGVuYWJsZWQgKFRyb25k
-KSBbOV0KPiA+IAo+ID4gVGVzdGluZwo+ID4gPT09PT09PQo+ID4gSSBkaWQgbm90IGRvIG11Y2gg
-dGVzdGluZyBvbiB0aGlzIGFzIHRoZSBjaGFuZ2VzIHRvIHBhdGNoZXMgMSBhbmQgMwo+ID4gYXJl
-IGNvc21ldGljLsKgIFBhdGNoICM2IGlzIFJGQyBwYXRjaCBhbmQgbWF5IGNoYW5nZSwgc28gaWYg
-dGhhdCBpcwo+ID4gYWRkZWQgaXQgbWF5IG5lZWQgbW9yZSB0ZXN0aW5nLgo+ID4gCj4gPiBLbm93
-biBpc3N1ZXMKPiA+ID09PT09PT09PT09PQo+ID4gMS4gVW5pdCB0ZXN0IHNldHRpbmcgcnNpemUg
-PCByZWFkYWhlYWQgZG9lcyBub3QgcHJvcGVybHkgcmVhZCBmcm9tCj4gPiBmc2NhY2hlIGJ1dCBy
-ZS1yZWFkcyBkYXRhIGZyb20gdGhlIE5GUyBzZXJ2ZXIKPiA+ICogVGhpcyB3aWxsIGJlIGZpeGVk
-IHdpdGggYW5vdGhlciBsaW51eC1jYWNoZWZzIFs0XSBwYXRjaCB0bwo+ID4gcmVzb2x2ZQo+ID4g
-IlN0b3AgcmVhZCBvcHRpbWlzYXRpb24gd2hlbiBmb2xpbyByZW1vdmVkIGZyb20gcGFnZWNhY2hl
-Igo+ID4gKiBEYWlyZSBCeXJuZSBhbHNvIHZlcmlmaWVkIHRoZSBwYXRjaCBmaXhlcyBoaXMgaXNz
-dWUgYXMgd2VsbAo+ID4gCj4gPiAyLiAiQ2FjaGUgdm9sdW1lIGtleSBhbHJlYWR5IGluIHVzZSIg
-YWZ0ZXIgeGZzdGVzdCBydW5zCj4gPiAqIHhmc3Rlc3RzIChoYW1tZXJzcGFjZSB3aXRoIHZlcnM9
-NC4yLGZzYykgc2hvd3MgdGhlIGZvbGxvd2luZyBvbgo+ID4gdGhlCj4gPiBjb25zb2xlIGFmdGVy
-IHNvbWUgdGVzdHM6Cj4gPiAiTkZTOiBDYWNoZSB2b2x1bWUga2V5IGFscmVhZHkgaW4gdXNlCj4g
-PiAobmZzLDQuMSwyLGM1MCxjZmUwMTAwYSwzLCwsODAwMCwxMDAwMDAsMTAwMDAwLGJiOCxlYTYw
-LDc1MzAsZWE2MCwxCj4gPiApIgo+ID4gKiBUaGlzIG1heSBiZSBmaXhlZCB3aXRoIGFub3RoZXIg
-cGF0Y2ggWzVdIHRoYXQgaXMgaW4gcHJvZ3Jlc3MKPiA+IAo+ID4gMy4gRGFpcmUgQnlybmUgcmVw
-b3J0ZWQgYSBOVUxMIHBvaW50ZXIgb29wcyBhdAo+ID4gY2FjaGVmaWxlc19wcmVwYXJlX3dyaXRl
-KzB4MjgvMHg5MAo+ID4gKiBoYXJkZXIgdG8gcmVwcm9kdWNlL2RlYnVnIGJ1dCB1bmRlciBpbnZl
-c3RpZ2F0aW9uIFs2XQo+ID4gKiBvbmx5IHJlcHJvZHVjZWQgb24gUkhFTDcuOSBiYXNlZCBORlMg
-cmUtZXhwb3J0IHNlcnZlciB1c2luZwo+ID4gZnNjYWNoZSB3aXRoIHVwc3RyZWFtIGtlcm5lbCBw
-bHVzCj4gPiB0aGUgcHJldmlvdXMgcGF0Y2hlcwo+ID4gKiBEZWJ1ZyBpbiBwcm9ncmVzcywgZmly
-c3QgcGFzcyBhdCB3aGVyZSB0aGUgcHJvYmxlbSBpcyBpbmRpY2F0ZXMgYQo+ID4gcmFjZQo+ID4g
-YmV0d2VlbiBmc2NhY2hlIGNvb2tpZSBMUlUgYW5kIHVzZV9jb29raWU7IGxvb2tpbmcgYXQgY29v
-a2llIHN0YXRlCj4gPiBtYWNoaW5lIFsxMF0KPiA+IAo+ID4gWzU4NzEwLjM0NjM3Nl0gQlVHOiBr
-ZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOgo+ID4gMDAwMDAwMDAwMDAw
-MDAwOAo+ID4gWzU4NzEwLjM3MTIxMl0gQ1BVOiAxMiBQSUQ6IDkxMzQgQ29tbToga3dvcmtlci91
-MTI5OjAgVGFpbnRlZDogRwo+ID4gRcKgwqDCoMKgwqAgNi4wLjAtMi5kbmVnLng4Nl82NCAjMQo+
-ID4gLi4uCj4gPiBbNTg3MTAuMzg5OTk1XSBXb3JrcXVldWU6IGV2ZW50c191bmJvdW5kCj4gPiBu
-ZXRmc19ycmVxX3dyaXRlX3RvX2NhY2hlX3dvcmsgW25ldGZzXQo+ID4gWzU4NzEwLjM5NzE4OF0g
-UklQOiAwMDEwOmNhY2hlZmlsZXNfcHJlcGFyZV93cml0ZSsweDI4LzB4OTAKPiA+IFtjYWNoZWZp
-bGVzXQo+ID4gLi4uCj4gPiBbNTg3MTAuNTAwMzE2XSBDYWxsIFRyYWNlOgo+ID4gWzU4NzEwLjUw
-Mjg5NF3CoCA8VEFTSz4KPiA+IFs1ODcxMC41MDUxMjZdwqAgbmV0ZnNfcnJlcV93cml0ZV90b19j
-YWNoZV93b3JrKzB4MTFjLzB4MzIwIFtuZXRmc10KPiA+IFs1ODcxMC41MTEyMDFdwqAgcHJvY2Vz
-c19vbmVfd29yaysweDIxNy8weDNlMAo+ID4gWzU4NzEwLjUxNTM1OF3CoCB3b3JrZXJfdGhyZWFk
-KzB4NGEvMHgzYjAKPiA+IFs1ODcxMC41MTkxNTJdwqAgPyBwcm9jZXNzX29uZV93b3JrKzB4M2Uw
-LzB4M2UwCj4gPiBbNTg3MTAuNTIzNDY3XcKgIGt0aHJlYWQrMHhkNi8weDEwMAo+ID4gWzU4NzEw
-LjUyNjc0MF3CoCA/IGt0aHJlYWRfY29tcGxldGVfYW5kX2V4aXQrMHgyMC8weDIwCj4gPiBbNTg3
-MTAuNTMxNjU5XcKgIHJldF9mcm9tX2ZvcmsrMHgxZi8weDMwCj4gPiAKPiA+IAo+ID4gCj4gPiBS
-ZWZlcmVuY2VzCj4gPiA9PT09PT09PT09Cj4gPiBbMV0KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2xpbnV4LW5mcy85Y2ZkNWJjM2NmYzZhYmMyZDMzMTZiMDM4NzIyMmU3MDhkNjdmNTk1LmNh
-bWVsQGhhbW1lcnNwYWNlLmNvbS8KPiA+IFsyXQo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-bGludXgtbmZzL2RhOTIwMGYxYmRlZDliOGIwNzhhN2FlZjIyN2ZkNmI5MmViMDI4ZmIuY2FtZWxA
-aGFtbWVyc3BhY2UuY29tLwo+ID4gWzNdIGh0dHBzOi8vbWFyYy5pbmZvLz9sPWxpbnV4LW5mcyZt
-PTE2MDU5NzkxNzUyNTA4MyZ3PTQKPiA+IFs0XQo+ID4gaHR0cHM6Ly93d3cubWFpbC1hcmNoaXZl
-LmNvbS9saW51eC1jYWNoZWZzQHJlZGhhdC5jb20vbXNnMDMwNDMuaHRtbAo+ID4gWzVdIGh0dHBz
-Oi8vbWFyYy5pbmZvLz9sPWxpbnV4LW5mcyZtPTE2NTk2MjY2MjIwMDY3OSZ3PTQKPiA+IFs2XQo+
-ID4gaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vYXJjaGl2ZXMvbGludXgtY2FjaGVmcy8yMDIy
-LVNlcHRlbWJlci8wMDcxODMuaHRtbAo+ID4gWzddIGh0dHBzOi8vbWFyYy5pbmZvLz9sPWxpbnV4
-LW5mcyZtPTE2NjYwMDM1NzQyOTMwNSZ3PTQKPiA+IFs4XSBodHRwczovL21hcmMuaW5mby8/bD1s
-aW51eC1uZnMmbT0xNjY2OTc1OTk1MDMzNDImdz00Cj4gPiBbOV0gaHR0cHM6Ly9tYXJjLmluZm8v
-P2w9bGludXgtbmZzJm09MTY2NzE3MjA4MzA1ODM0Jnc9NAo+ID4gWzEwXQo+ID4gaHR0cHM6Ly9s
-aXN0bWFuLnJlZGhhdC5jb20vYXJjaGl2ZXMvbGludXgtY2FjaGVmcy8yMDIyLU9jdG9iZXIvMDA3
-MjU5Lmh0bWwKPiA+IAo+ID4gRGF2ZSBXeXNvY2hhbnNraSAoNSk6Cj4gPiDCoCBORlM6IFJlbmFt
-ZSByZWFkcGFnZV9hc3luY19maWxsZXIgdG8gbmZzX3BhZ2Vpb19hZGRfcGFnZQo+ID4gwqAgTkZT
-OiBDb25maWd1cmUgc3VwcG9ydCBmb3IgbmV0ZnMgd2hlbiBORlMgZnNjYWNoZSBpcyBjb25maWd1
-cmVkCj4gPiDCoCBORlM6IENvbnZlcnQgYnVmZmVyZWQgcmVhZCBwYXRocyB0byB1c2UgbmV0ZnMg
-d2hlbiBmc2NhY2hlIGlzCj4gPiBlbmFibGVkCj4gPiDCoCBORlM6IFJlbW92ZSBhbGwgTkZTSU9T
-X0ZTQ0FDSEUgY291bnRlcnMgZHVlIHRvIGNvbnZlcnNpb24gdG8KPiA+IG5ldGZzIEFQSQo+ID4g
-wqAgTkZTOiBSZW1vdmUgZnNjYWNoZSBzcGVjaWZpYyB0cmFjZSBwb2ludHMgYW5kIE5GU19JTk9f
-RlNDQUNIRSBiaXQKPiA+IAo+ID4gwqBmcy9uZnMvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8wqDCoCAxICsKPiA+IMKgZnMvbmZzL2RlbGVnYXRpb24uY8KgwqDCoMKgwqDCoMKgIHzC
-oMKgIDIgKy0KPiA+IMKgZnMvbmZzL2Rpci5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
-wqDCoCAyICstCj4gPiDCoGZzL25mcy9mc2NhY2hlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDI0
-MiArKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0KPiA+IC0tLS0KPiA+IMKgZnMvbmZz
-L2ZzY2FjaGUuaMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMTExICsrKysrKysrKysrLS0tLS0tCj4g
-PiDCoGZzL25mcy9pbm9kZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDggKy0KPiA+
-IMKgZnMvbmZzL2ludGVybmFsLmjCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDExICstCj4gPiDCoGZz
-L25mcy9pb3N0YXQuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDE3IC0tLQo+ID4gwqBmcy9u
-ZnMvbmZzdHJhY2UuaMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgOTEgLS0tLS0tLS0tLS0tLS0KPiA+
-IMKgZnMvbmZzL3BhZ2VsaXN0LmPCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEyICsrCj4gPiDCoGZz
-L25mcy9wbmZzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTIgKy0KPiA+IMKgZnMv
-bmZzL3JlYWQuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMTEwICsrKysrKysrKy0tLS0t
-LS0tCj4gPiDCoGZzL25mcy9zdXBlci5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxMSAt
-LQo+ID4gwqBmcy9uZnMvd3JpdGUuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAyICst
-Cj4gPiDCoGluY2x1ZGUvbGludXgvbmZzX2ZzLmjCoMKgwqDCoCB8wqAgMzUgKysrKy0tCj4gPiDC
-oGluY2x1ZGUvbGludXgvbmZzX2lvc3RhdC5oIHzCoCAxMiAtLQo+ID4gwqBpbmNsdWRlL2xpbnV4
-L25mc19wYWdlLmjCoMKgIHzCoMKgIDMgKwo+ID4gwqBpbmNsdWRlL2xpbnV4L25mc194ZHIuaMKg
-wqDCoCB8wqDCoCAzICsKPiA+IMKgMTggZmlsZXMgY2hhbmdlZCwgMzM1IGluc2VydGlvbnMoKyks
-IDM1MCBkZWxldGlvbnMoLSkKPiA+IAo+ID4gLS0KPiA+IDIuMzEuMQo+ID4gCj4gPiAqKiogQkxV
-UkIgSEVSRSAqKioKPiA+IAo+ID4gRGF2ZSBXeXNvY2hhbnNraSAoNik6Cj4gPiDCoCBORlM6IFJl
-bmFtZSByZWFkcGFnZV9hc3luY19maWxsZXIgdG8gbmZzX3JlYWRfYWRkX3BhZ2UKPiA+IMKgIE5G
-UzogQ29uZmlndXJlIHN1cHBvcnQgZm9yIG5ldGZzIHdoZW4gTkZTIGZzY2FjaGUgaXMgY29uZmln
-dXJlZAo+ID4gwqAgTkZTOiBDb252ZXJ0IGJ1ZmZlcmVkIHJlYWQgcGF0aHMgdG8gdXNlIG5ldGZz
-IHdoZW4gZnNjYWNoZSBpcwo+ID4gZW5hYmxlZAo+ID4gwqAgTkZTOiBSZW1vdmUgYWxsIE5GU0lP
-U19GU0NBQ0hFIGNvdW50ZXJzIGR1ZSB0byBjb252ZXJzaW9uIHRvCj4gPiBuZXRmcyBBUEkKPiA+
-IMKgIE5GUzogUmVtb3ZlIGZzY2FjaGUgc3BlY2lmaWMgdHJhY2UgcG9pbnRzIGFuZCBORlNfSU5P
-X0ZTQ0FDSEUgYml0Cj4gPiDCoCBuZXRmczogQ2hhbmdlIG5ldGZzX2lub2RlX2luaXQgdG8gYWxs
-b2NhdGUgbWVtb3J5IHRvIGFsbG93IG9wdC1pbgo+ID4gCj4gPiDCoGZzLzlwL2NhY2hlLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAyICstCj4gPiDCoGZzLzlwL3Zmc19pbm9kZS5j
-wqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxNyArKy0KPiA+IMKgZnMvYWZzL2R5bnJvb3QuY8KgwqDC
-oMKgwqDCoMKgwqDCoMKgIHzCoMKgIDcgKy0KPiA+IMKgZnMvYWZzL2lub2RlLmPCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgIDE0ICstLQo+ID4gwqBmcy9hZnMvaW50ZXJuYWwuaMKgwqDCoMKg
-wqDCoMKgwqDCoCB8wqDCoCAyICstCj4gPiDCoGZzL2Fmcy9zdXBlci5jwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHzCoMKgIDcgKysKPiA+IMKgZnMvYWZzL3dyaXRlLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfMKgwqAgMiArLQo+ID4gwqBmcy9jZXBoL2lub2RlLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHzCoMKgIDYgKy0KPiA+IMKgZnMvbmV0ZnMvYnVmZmVyZWRfcmVhZC5jwqDCoCB8wqAg
-MTYgKy0tCj4gPiDCoGZzL25ldGZzL2ludGVybmFsLmjCoMKgwqDCoMKgwqDCoCB8wqDCoCAyICst
-Cj4gPiDCoGZzL25ldGZzL29iamVjdHMuY8KgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiArLQo+ID4g
-wqBmcy9uZnMvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAxICsKPiA+IMKg
-ZnMvbmZzL2RlbGVnYXRpb24uY8KgwqDCoMKgwqDCoMKgIHzCoMKgIDIgKy0KPiA+IMKgZnMvbmZz
-L2Rpci5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAyICstCj4gPiDCoGZzL25m
-cy9mc2NhY2hlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDI0MiArKysrKysrKysrKysrKysrKysr
-KysrLS0tLS0tLS0tLS0KPiA+IC0tLS0KPiA+IMKgZnMvbmZzL2ZzY2FjaGUuaMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHwgMTM2ICsrKysrKysrKysrKysrKy0tLS0tLQo+ID4gwqBmcy9uZnMvaW5vZGUu
-Y8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTUgKystCj4gPiDCoGZzL25mcy9pbnRlcm5h
-bC5owqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxMSArLQo+ID4gwqBmcy9uZnMvaW9zdGF0LmjCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxNyAtLS0KPiA+IMKgZnMvbmZzL25mc3RyYWNlLmjCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgIDkxIC0tLS0tLS0tLS0tLS0tCj4gPiDCoGZzL25mcy9wYWdlbGlz
-dC5jwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDQgKwo+ID4gwqBmcy9uZnMvcG5mcy5jwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEyICstCj4gPiDCoGZzL25mcy9yZWFkLmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCB8IDExMCArKysrKysrKystLS0tLS0tLQo+ID4gwqBmcy9uZnMv
-c3VwZXIuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTEgLS0KPiA+IMKgZnMvbmZzL3dy
-aXRlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiArLQo+ID4gwqBpbmNsdWRlL2xp
-bnV4L25ldGZzLmjCoMKgwqDCoMKgIHzCoCA0MSArKysrKy0tCj4gPiDCoGluY2x1ZGUvbGludXgv
-bmZzX2ZzLmjCoMKgwqDCoCB8wqAgMzUgKysrKy0tCj4gPiDCoGluY2x1ZGUvbGludXgvbmZzX2lv
-c3RhdC5oIHzCoCAxMiAtLQo+ID4gwqBpbmNsdWRlL2xpbnV4L25mc19wYWdlLmjCoMKgIHzCoMKg
-IDMgKwo+ID4gwqBpbmNsdWRlL2xpbnV4L25mc194ZHIuaMKgwqDCoCB8wqDCoCAzICsKPiA+IMKg
-MzAgZmlsZXMgY2hhbmdlZCwgNDI4IGluc2VydGlvbnMoKyksIDM5OSBkZWxldGlvbnMoLSkKPiA+
-IAo+ID4gLS0KPiA+IDIuMzEuMQo+ID4gCj4gPiAtLQo+ID4gTGludXgtY2FjaGVmcyBtYWlsaW5n
-IGxpc3QKPiA+IExpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQo+ID4gaHR0cHM6Ly9saXN0bWFuLnJl
-ZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZzCj4gPiAKPiAKPiBUcm9uZCwg
-RGF2aWQgSCwgQmVuLCBEYWlyZSwgb3RoZXJzLAo+IAo+IEkgYW0gbm90IHN1cmUgYWJvdXQgdGhl
-IG5leHQgc3RlcHMuCj4gCj4gSSBkaWQgbm90IHNlZSBhbnkgcmVzcG9uc2VzIHRvIHRoaXMgdjEw
-IHBvc3RpbmcsIG90aGVyIHRoYW4gZGhvd2VsbHMKPiBkaWQgbm90IGxpa2UgdGhlIG92ZXJoZWFk
-IHRoYXQgcGF0Y2ggNiBhZGRlZCB0byBvdGhlciBmaWxlc3lzdGVtcwo+IHVzaW5nIG5ldGZzLsKg
-IEknbSBub3Qgc3VyZSBpZiB0aGF0J3MgYSBmdWxsIE5BQ0sgb24gdGhhdCBwYXRjaCBidXQgaXQK
-PiBzb3VuZGVkIGxpa2UgaXQgdG8gbWUuCj4gVHJvbmQgaXMgaXQgb2sgaWYgSSBkcm9wIHBhdGNo
-IDY/Cj4gCgpJZiB5b3UgZHJvcCBwYXRjaCA2LCB0aGVuIHdlIG5lZWQgYW5vdGhlciB3YXkgdG8g
-Z2V0IHJpZCBvZiB0aGUKdWdsaW5lc3MgaW50cm9kdWNlZCBieSBuZXRmc19pbm9kZS4gSSBkb24n
-dCB3YW50IHRvIGFkZCB0aG9zZSB3cmFwcGVycwppbiBvcmRlciB0byBhY2Nlc3MgdGhlIGlub2Rl
-IGluICdzdHJ1Y3QgbmZzX2lub2RlJy4KCk9uZSBzb2x1dGlvbiBtaWdodCBiZSBhbiBhbm9ueW1v
-dXMgdW5pb24uIGkuZS4Kc3RydWN0IG5mc19pbm9kZSB7Ci4uLi4KCXVuaW9uIHsKCQlzdHJ1Y3Qg
-aW5vZGUgdmZzX2lub2RlOwojaWZkZWYgQ09ORklHX05GU19GU0NBQ0hFCgkJc3RydWN0IG5ldGZz
-X2lub2RlIG5ldGZzX2lub2RlOwojZW5kaWYKCX07Cn07CgoKLi4uYW5kIHRoZW4gbW92ZSB0aGUg
-d3JldGNoZWQgeGF0dHJfY2FjaGUgZmllbGQgdG8gcmVzaWRlIGFib3ZlIHRoYXQKdW5pb24uCgot
-LSAKVHJvbmQgTXlrbGVidXN0CkxpbnV4IE5GUyBjbGllbnQgbWFpbnRhaW5lciwgSGFtbWVyc3Bh
-Y2UKdHJvbmQubXlrbGVidXN0QGhhbW1lcnNwYWNlLmNvbQoKCi0tCkxpbnV4LWNhY2hlZnMgbWFp
-bGluZyBsaXN0CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LWNhY2hlZnMK
+Add a function to extract the pages from a user-space supplied iterator
+(UBUF- or IOVEC-type) into a BVEC-type iterator, retaining the pages by
+getting a pin on them (as FOLL_PIN) as we go.
+
+This is useful in three situations:
+
+ (1) A userspace thread may have a sibling that unmaps or remaps the
+     process's VM during the operation, changing the assignment of the
+     pages and potentially causing an error.  Retaining the pages keeps
+     some pages around, even if this occurs; futher, we find out at the
+     point of extraction if EFAULT is going to be incurred.
+
+ (2) Pages might get swapped out/discarded if not retained, so we want to
+     retain them to avoid the reload causing a deadlock due to a DIO
+     from/to an mmapped region on the same file.
+
+ (3) The iterator may get passed to sendmsg() by the filesystem.  If a
+     fault occurs, we may get a short write to a TCP stream that's then
+     tricky to recover from.
+
+We don't deal with other types of iterator here, leaving it to other
+mechanisms to retain the pages (eg. PG_locked, PG_writeback and the pipe
+lock).
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: Steve French <sfrench@samba.org>
+cc: Shyam Prasad N <nspmangalore@gmail.com>
+cc: Rohith Surabattula <rohiths.msft@gmail.com>
+cc: linux-cachefs@redhat.com
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/netfs/Makefile     |   1 +
+ fs/netfs/iterator.c   | 103 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h |   4 ++
+ 3 files changed, 108 insertions(+)
+ create mode 100644 fs/netfs/iterator.c
+
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index f684c0cd1ec5..386d6fb92793 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -3,6 +3,7 @@
+ netfs-y := \
+ 	buffered_read.o \
+ 	io.o \
++	iterator.o \
+ 	main.o \
+ 	objects.o
+ 
+diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
+new file mode 100644
+index 000000000000..6f0d79080abc
+--- /dev/null
++++ b/fs/netfs/iterator.c
+@@ -0,0 +1,103 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Iterator helpers.
++ *
++ * Copyright (C) 2022 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ */
++
++#include <linux/export.h>
++#include <linux/slab.h>
++#include <linux/uio.h>
++#include <linux/netfs.h>
++#include "internal.h"
++
++/**
++ * netfs_extract_user_iter - Extract the pages from a user iterator into a bvec
++ * @orig: The original iterator
++ * @orig_len: The amount of iterator to copy
++ * @new: The iterator to be set up
++ * @extraction_flags: Flags to qualify the request
++ *
++ * Extract the page fragments from the given amount of the source iterator and
++ * build up a second iterator that refers to all of those bits.  This allows
++ * the original iterator to disposed of.
++ *
++ * @extraction_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA be
++ * allowed on the pages extracted.
++ *
++ * On success, the number of elements in the bvec is returned, the original
++ * iterator will have been advanced by the amount extracted.
++ *
++ * The iov_iter_extract_mode() function should be used to query how cleanup
++ * should be performed.
++ */
++ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
++				struct iov_iter *new,
++				iov_iter_extraction_t extraction_flags)
++{
++	struct bio_vec *bv = NULL;
++	struct page **pages;
++	unsigned int cur_npages;
++	unsigned int max_pages;
++	unsigned int npages = 0;
++	unsigned int i;
++	ssize_t ret;
++	size_t count = orig_len, offset, len;
++	size_t bv_size, pg_size;
++
++	if (WARN_ON_ONCE(!iter_is_ubuf(orig) && !iter_is_iovec(orig)))
++		return -EIO;
++
++	max_pages = iov_iter_npages(orig, INT_MAX);
++	bv_size = array_size(max_pages, sizeof(*bv));
++	bv = kvmalloc(bv_size, GFP_KERNEL);
++	if (!bv)
++		return -ENOMEM;
++
++	/* Put the page list at the end of the bvec list storage.  bvec
++	 * elements are larger than page pointers, so as long as we work
++	 * 0->last, we should be fine.
++	 */
++	pg_size = array_size(max_pages, sizeof(*pages));
++	pages = (void *)bv + bv_size - pg_size;
++
++	while (count && npages < max_pages) {
++		ret = iov_iter_extract_pages(orig, &pages, count,
++					     max_pages - npages, extraction_flags,
++					     &offset);
++		if (ret < 0) {
++			pr_err("Couldn't get user pages (rc=%zd)\n", ret);
++			break;
++		}
++
++		if (ret > count) {
++			pr_err("get_pages rc=%zd more than %zu\n", ret, count);
++			break;
++		}
++
++		count -= ret;
++		ret += offset;
++		cur_npages = DIV_ROUND_UP(ret, PAGE_SIZE);
++
++		if (npages + cur_npages > max_pages) {
++			pr_err("Out of bvec array capacity (%u vs %u)\n",
++			       npages + cur_npages, max_pages);
++			break;
++		}
++
++		for (i = 0; i < cur_npages; i++) {
++			len = ret > PAGE_SIZE ? PAGE_SIZE : ret;
++			bv[npages + i].bv_page	 = *pages++;
++			bv[npages + i].bv_offset = offset;
++			bv[npages + i].bv_len	 = len - offset;
++			ret -= len;
++			offset = 0;
++		}
++
++		npages += cur_npages;
++	}
++
++	iov_iter_bvec(new, orig->data_source, bv, npages, orig_len - count);
++	return npages;
++}
++EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 4c76ddfb6a67..b11a84f6c32b 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -17,6 +17,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/fs.h>
+ #include <linux/pagemap.h>
++#include <linux/uio.h>
+ 
+ enum netfs_sreq_ref_trace;
+ 
+@@ -296,6 +297,9 @@ void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
+ void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
+ 			  bool was_async, enum netfs_sreq_ref_trace what);
+ void netfs_stats_show(struct seq_file *);
++ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
++				struct iov_iter *new,
++				iov_iter_extraction_t extraction_flags);
+ 
+ /**
+  * netfs_inode - Get the netfs inode context from the inode
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
