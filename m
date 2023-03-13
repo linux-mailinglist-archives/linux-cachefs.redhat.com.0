@@ -2,98 +2,95 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C2C6B3265
-	for <lists+linux-cachefs@lfdr.de>; Fri, 10 Mar 2023 00:51:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8566B746C
+	for <lists+linux-cachefs@lfdr.de>; Mon, 13 Mar 2023 11:43:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678405906;
+	s=mimecast20190719; t=1678704181;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cNBwq6F7uwmIzM3LKFGBdpfg5oh6AoYI8lnzg3pzkyM=;
-	b=NXg/lE39OctyRA+T2KHB6BAdkyjOXPSqj77vK4h/rP8M/zFOGhxPSbWm1YQPlXQcrmEHY7
-	3BVrzb7kHaEcbNLk7Em+/pnLXVB2En5309cCdz3RbVvOvKN0ZW4R8dyXj06l4FqDONPPKe
-	AmthMh+4xNebd2L+rFtxR+JgYZXtGNc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=k6j3uzSx8FbzI/41f5B7uqzENSgFZgNf+ajEl3bbdEs=;
+	b=L0gJsKs2FG/5XPcANwn495/hPXStqdkHIEw4ISeVwhCxXAr0umexgn9XVtIHufOd/8dwmz
+	A+cQYzMgmutdHFoChYXUHe71RLIKRVru9oik1BLh4lvM1Epsq6E9/cuxuVq2ZHufUawaQJ
+	z3fe3lcGQ3XDcmeIAK5TkEpjgOZcdb0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-433-m7Oy9ZePNmu4jLLin2ZJiQ-1; Thu, 09 Mar 2023 18:51:43 -0500
-X-MC-Unique: m7Oy9ZePNmu4jLLin2ZJiQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-577-seAu5o60Pq2ldTeE5JjvJA-1; Mon, 13 Mar 2023 06:42:58 -0400
+X-MC-Unique: seAu5o60Pq2ldTeE5JjvJA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B77663C025B5;
-	Thu,  9 Mar 2023 23:51:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3985885CBE2;
+	Mon, 13 Mar 2023 10:42:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 292194010E7B;
-	Thu,  9 Mar 2023 23:51:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E06B640C6E67;
+	Mon, 13 Mar 2023 10:42:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 57BC81946A49;
-	Thu,  9 Mar 2023 23:51:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DBEE619465A3;
+	Mon, 13 Mar 2023 10:42:54 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C576E1946597 for <linux-cachefs@listman.corp.redhat.com>;
- Thu,  9 Mar 2023 23:51:38 +0000 (UTC)
+ ESMTP id A33501946588 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 13 Mar 2023 10:42:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B2AB5140EBF4; Thu,  9 Mar 2023 23:51:38 +0000 (UTC)
+ id 92C3F2A68; Mon, 13 Mar 2023 10:42:53 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AB29B1410DD9
- for <linux-cachefs@redhat.com>; Thu,  9 Mar 2023 23:51:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C00B1731B
+ for <linux-cachefs@redhat.com>; Mon, 13 Mar 2023 10:42:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BD68811E6E
+ for <linux-cachefs@redhat.com>; Mon, 13 Mar 2023 10:42:53 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-177--2lGrjtaNL-HlXvzzrrqtg-1; Mon,
+ 13 Mar 2023 06:42:51 -0400
+X-MC-Unique: -2lGrjtaNL-HlXvzzrrqtg-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8EDF12823804
- for <linux-cachefs@redhat.com>; Thu,  9 Mar 2023 23:51:38 +0000 (UTC)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-346-VTivnYl-Mweme7-PM4kvAQ-1; Thu, 09 Mar 2023 18:51:37 -0500
-X-MC-Unique: VTivnYl-Mweme7-PM4kvAQ-1
-Received: by mail-pj1-f70.google.com with SMTP id
- h19-20020a17090aa89300b0023a9e52c40dso1825848pjq.0
- for <linux-cachefs@redhat.com>; Thu, 09 Mar 2023 15:51:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678405895;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=A/Ex1IasW+Aw0khqFPJTnUAHDAW0XCrhREw6hTyC/ms=;
- b=XGUOS35/w5sU06Ejn9D3RAaz6Rjw3/0CDvZGGgp9M1RYh/24HCshvgQNjY3RUqYdim
- m8ir0jTAocKNqEAlhTm1IbkjWCTNIgizQKKX5pMYqlQE1eZTJBIb/7s3MtRgSTl5J+V1
- ZKwDLTeX3OIi4P/gNVMIMUvRFRbLHgIb29Q1Ppkkr7+Li/8gGsgjYNNCKwZwtWvnZRx7
- VeWvxek84EoECk7Ik4qem32DrvXRHPnJv/0V2Mla3IRd2kTucu8M/2oQkh5EuUlgeIF0
- NeL20KlnR8yE/44IKs4l1hi7yM3E2hgtMDEvu7Wnnsw3R2sjFWd8n05T+iXUvlZzcUl1
- PboQ==
-X-Gm-Message-State: AO0yUKUaXiR7BOi2FBDJSysqtd3498yzR20RS73K9vVrtXwnM/j7AbpJ
- WTNQoC2eceHHaA6E1GL+iC/04wTlgOd9cVPane1EelF80B1I3zxma5hsG605lh1GX7UT1o1uqcg
- LJUejFuZcwsWMYOHcMrhKdu5W228e/R/Fgnykfw==
-X-Received: by 2002:a17:90b:1881:b0:236:9f22:664a with SMTP id
- mn1-20020a17090b188100b002369f22664amr179648pjb.0.1678405895594; 
- Thu, 09 Mar 2023 15:51:35 -0800 (PST)
-X-Google-Smtp-Source: AK7set9oTEKhSpPlhPscfdE7TBpN0IkIUmPmo0TROCWvDRYwIAiw3rG+sJBk/Fh6ZvMmgw++l7qky9EpY85IUiCFBls=
-X-Received: by 2002:a17:90b:1881:b0:236:9f22:664a with SMTP id
- mn1-20020a17090b188100b002369f22664amr179638pjb.0.1678405895206; Thu, 09 Mar
- 2023 15:51:35 -0800 (PST)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8DEB722A3B;
+ Mon, 13 Mar 2023 10:32:44 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D1FB139F9;
+ Mon, 13 Mar 2023 10:32:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id U2j0Hcz7DmQsQgAAMHmgww
+ (envelope-from <jack@suse.cz>); Mon, 13 Mar 2023 10:32:44 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 018BCA06FD; Mon, 13 Mar 2023 11:32:43 +0100 (CET)
+Date: Mon, 13 Mar 2023 11:32:43 +0100
+From: Jan Kara <jack@suse.cz>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Message-ID: <20230313103243.ubn3mw3nkkcdyi5c@quack3>
+References: <20230310231206.3952808-1-mcgrof@kernel.org>
+ <20230310231206.3952808-4-mcgrof@kernel.org>
 MIME-Version: 1.0
-References: <20230220134308.1193219-1-dwysocha@redhat.com>
- <CAPt2mGPJxPWfFGtEacBw-AN5nMZfP_pvL6=wEM+QbrPf1brAFg@mail.gmail.com>
- <CALF+zOmcROD6tzSCixYQN-+hw8bpboTrF-Ff-hEZOMDAPe7BOA@mail.gmail.com>
- <CAPt2mGMCzGdqgrF6e7hNAzJiz55wP3PkPCJvaZkNtcVW9Ydnvg@mail.gmail.com>
-In-Reply-To: <CAPt2mGMCzGdqgrF6e7hNAzJiz55wP3PkPCJvaZkNtcVW9Ydnvg@mail.gmail.com>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Thu, 9 Mar 2023 18:50:58 -0500
-Message-ID: <CALF+zO=ZH3vt17653OC=x-ED4HbCKrdJ5QYxC6GmiQa=NW_VWA@mail.gmail.com>
-To: Daire Byrne <daire@dneg.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [Linux-cachefs] [PATCH v11 0/5] Convert NFS with fscache to the
- netfs API
+In-Reply-To: <20230310231206.3952808-4-mcgrof@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [Linux-cachefs] [PATCH 3/5] quota: simplify two-level sysctl
+ registration for fs_dqstats_table
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,154 +102,83 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org,
- Trond Myklebust <trond.myklebust@hammerspace.com>, linux-cachefs@redhat.com,
- Benjamin Maynard <benmaynard@google.com>,
- Anna Schumaker <anna.schumaker@netapp.com>
+Cc: j.granados@samsung.com, jaharkes@cs.cmu.edu, keescook@chromium.org,
+ linux-ntfs-dev@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev, codalist@coda.cs.cmu.edu, coda@cs.cmu.edu,
+ linux-cachefs@redhat.com, ebiederm@xmission.com, jack@suse.com,
+ linux-fsdevel@vger.kernel.org, yzaikin@google.com, anton@tuxera.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SSBwb3N0ZWQgYSBwYXRjaCB3aGljaCBzaG91bGQgZml4IHRoZSBwcm9ibGVtLiAgSXQgYXBwbGll
-ZCBjbGVhbmx5CnRvIDYuMy1yYzEgYXMgd2VsbCBhcyB0aGlzIHNlcmllcy4KCkkgdGhpbmsgbmV0
-ZnMgc2hvdWxkIG5vdCBiZSBjb3VudGluZyBpbiB0aGUgdW5sb2NrIHBhdGgKYmVjYXVzZSB0aGUg
-UElEIHdvbid0IGJlIGNvcnJlY3QuICBGaXhpbmcgbmV0ZnMgc2hvdWxkCmJlIGEgc2VwYXJhdGUg
-cGF0Y2ggdGhvdWdoLCBvcnRob2dvbmFsIHRvIHRoaXMgdjExIHNlcmllcy4KCk9uIFRodSwgRmVi
-IDIzLCAyMDIzIGF0IDEwOjQ34oCvQU0gRGFpcmUgQnlybmUgPGRhaXJlQGRuZWcuY29tPiB3cm90
-ZToKPgo+IE9oLCBJIGRpZG4ndCByZWFsaXNlIHRoYXQgd2FzIGluY2x1ZGVkLgo+Cj4gSSBkaWQg
-YSBxdWljayB0ZXN0IGRvaW5nIGEgZGQgb2ZmIGEgTkZTIG1vdW50IGJ1dCBJIGRpZCBub3Qgc2Vl
-IHRoZQo+IHJlYWRfYnl0ZXMgaW5jcmVtZW50IC0gcmNoYXIgeWVzLCByZWFkX2J5dGVzIG5vIChh
-cyBiZWZvcmUpLiBUaGlzIHdhcwo+IGFuIE5GU3YzIG1vdW50Lgo+Cj4gRGFpcmUKPgo+IE9uIFdl
-ZCwgMjIgRmViIDIwMjMgYXQgMTU6NTcsIERhdmlkIFd5c29jaGFuc2tpIDxkd3lzb2NoYUByZWRo
-YXQuY29tPiB3cm90ZToKPiA+Cj4gPiBUaGFua3MgRGFpcmUhICBEaWQgdGhpcyBhbHNvIHJlc29s
-dmUgdGhlIGlzc3VlIHdpdGgKPiA+IC9wcm9jL1BJRC9pby9yZWFkX2J5dGVzIHlvdSByZXBvcnRl
-ZCAobGluayBiZWxvdykKPiA+IHNpbmNlIG5ldGZzIHNob3VsZCBpbmNyZW1lbnQgdGhhdCBjb3Vu
-dCBub3c/Cj4gPgo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbmZzL0NBUHQybUdO
-RVlVazV1OFY0YWJlPTVNTTVtc1pxbXZ6Q1ZydENQNFF3MW49Z0NIQ253d0BtYWlsLmdtYWlsLmNv
-bS8KPiA+Cj4gPgo+ID4KPiA+IE9uIFdlZCwgRmViIDIyLCAyMDIzIGF0IDc6NTEgQU0gRGFpcmUg
-QnlybmUgPGRhaXJlQGRuZWcuY29tPiB3cm90ZToKPiA+ID4KPiA+ID4gRGF2ZSwKPiA+ID4KPiA+
-ID4gVGhhbmtzIGZvciB0aGlzISBJIGhhdmUgYmVlbiB0ZXN0aW5nIGl0IHdpdGggb3VyIHByb2R1
-Y3Rpb24gKHJlbmRlcgo+ID4gPiBmYXJtKSBsb2FkcyBmb3IgdGhlIGxhc3QgY291cGxlIG9mIGRh
-eXMgYW5kIGhhdmUgbm90IHJ1biBpbnRvIGFueQo+ID4gPiBpc3N1ZXMgc28gZmFyLiBJdCBzZWVt
-cyB0byBiZSBwZXJmb3JtaW5nIG9uIHBhciB3aXRoIHlvdXIgcHJldmlvdXMKPiA+ID4gdmVyc2lv
-biBvZiB0aGUgcGF0Y2hzZXQgKGJhc2VkIG9uIHY2LjApLgo+ID4gPgo+ID4gPiBJIGFtIGFsc28g
-cnVubmluZyB3aXRoIGJvdGggdGhlICJrbm93biBpc3N1ZXMiIGRob3dlbGxzIHBhdGNoZXMgWzhd
-ICYKPiA+ID4gWzldIG1lbnRpb25lZCBpbiB5b3VyIGVtYWlsIChhcyBJIHdhcyB3aXRoIHlvdXIg
-cHJldmlvdXMgdmVyc2lvbikuCj4gPiA+Cj4gPiA+IFRlc3RlZC1ieTogRGFpcmUgQnlybmUgPGRh
-aXJlQGRuZWcuY29tPgo+ID4gPgo+ID4gPgo+ID4gPgo+ID4gPiBPbiBNb24sIDIwIEZlYiAyMDIz
-IGF0IDEzOjQ0LCBEYXZlIFd5c29jaGFuc2tpIDxkd3lzb2NoYUByZWRoYXQuY29tPiB3cm90ZToK
-PiA+ID4gPgo+ID4gPiA+IFRyb25kLCB0aGlzIHYxMSBwYXRjaHNldCBhZGRyZXNzZXMgeW91ciBs
-YXRlc3QgZmVlZGJhY2sgb24gcGF0Y2ggIzIsCj4gPiA+ID4gYW5kIEkgZGlkIGEgbGl0dGxlIGJp
-dCBvZiBjbGVhbnVwIHRvIHBhdGNoIDMgKHNlZSBDaGFuZ2VzIG5vdGVzIGJlbG93KS4KPiA+ID4g
-PiBJJ20gbm90IHN1cmUgb2YgZnVydGhlciBjaGFuZ2VzIHRvIHBhdGNoICMzIHdpdGhvdXQgYSBt
-b3JlIGluLWRlcHRoCj4gPiA+ID4gcmV2aWV3IHdpdGggc3BlY2lmaWNzLCBpZiB5b3UgZmVlbCB0
-aGUgY3VycmVudCBhcHByb2FjaCBpcyB1bmFjY2VwdGFibGUgWzFdLgo+ID4gPiA+Cj4gPiA+ID4g
-QmVuIGFuZCBEYWlyZSwgaWYgeW91IGNvdWxkIHRlc3QgdGhpcyBzZXQgYW5kIHByb3ZpZGUgeW91
-IGZlZWRiYWNrCj4gPiA+ID4gYW5kIGEgVGVzdGVkLUJ5OiB0aGF0IHdvdWxkIGJlIGFwcHJlY2lh
-dGVkLiAgVGhpcyBzZXQgYWRkcmVzc2VzCj4gPiA+ID4gdGhlIGV4aXN0aW5nIE5GUyArIGZzY2Fj
-aGUgcGVyZm9ybWFuY2UgY29uY2VybnMgc2VlbiBieSBhIGZldwo+ID4gPiA+IHVzZXJzIFs1XSwg
-d2hpY2ggaXMgZHVlIHRvIHV0aWxpemF0aW9uIHVzZSBvZiB0aGUgZGVwcmVjYXRlZAo+ID4gPiA+
-IHNpbmdsZS1wYWdlIGZ1bmN0aW9uLCBmc2NhY2hlX2ZhbGxiYWNrX3JlYWRfcGFnZSgpLiAgSG93
-ZXZlciwKPiA+ID4gPiB1bnRpbCAia25vd24gaXNzdWUgIzEiIGJlbG93IGlzIGFsc28gcmVzb2x2
-ZWQsIGV2ZW4gd2l0aCB0aGVzZQo+ID4gPiA+IHBhdGNoZXMsIHBlcmZvcm1hbmNlIG9mIE5GUytm
-c2NhY2hlIHdpbGwgc3RpbGwgYmUgYSBwcm9ibGVtCj4gPiA+ID4gaW4gc29tZSBzY2VuYXJpb3Mu
-Cj4gPiA+ID4KPiA+ID4gPiBUaGlzIHBhdGNoc2V0IGNvbnZlcnRzIE5GUyB3aXRoIGZzY2FjaGUg
-YnVmZmVyZWQgcmVhZCBJTyBwYXRocyB0bwo+ID4gPiA+IHVzZSB0aGUgbmV0ZnMgQVBJIHdpdGgg
-YSBub24taW52YXNpdmUgYXBwcm9hY2guICBUaGUgZXhpc3RpbmcgTkZTIHBnaW8KPiA+ID4gPiBs
-YXllciBkb2VzIG5vdCBuZWVkIGV4dGVuc2l2ZSBjaGFuZ2VzLCBhbmQgaXMgdGhlIGJlc3Qgd2F5
-IHNvIGZhciBJJ3ZlCj4gPiA+ID4gZm91bmQgdG8gYWRkcmVzcyBUcm9uZCdzIHByZXZpb3VzIGNv
-bmNlcm5zIGFib3V0IG1vZGlmeWluZyB0aGUgSU8KPiA+ID4gPiBwYXRoIFsyXSBhcyB3ZWxsIGFz
-IG9ubHkgZW5hYmxpbmcgbmV0ZnMgd2hlbiBmc2NhY2hlIGlzIGNvbmZpZ3VyZWQKPiA+ID4gPiBh
-bmQgZW5hYmxlZCBbM10uICBJIGhhdmUgbm90IGF0dGVtcHRlZCBwZXJmb3JtYW5jZSBjb21wYXJp
-c2lvbnMgdG8KPiA+ID4gPiBhZGRyZXNzIENodWNrIExldmVyJ3MgY29uY2VybiBbNF0gYmVjYXVz
-ZSB3ZSBhcmUgbm90IGNvbnZlcnRpbmcgdGhlCj4gPiA+ID4gbm9uLWZzY2FjaGUgZW5hYmxlZCBO
-RlMgSU8gcGF0aHMgdG8gbmV0ZnMuCj4gPiA+ID4KPiA+ID4gPiBUaGUgcGF0Y2hzZXQgaXMgYmFz
-ZWQgb24gVHJvbmQncyBsYXRlc3QgJ3Rlc3RpbmcnIGJyYW5jaCB3aGljaCBpbmNsdWRlcwo+ID4g
-PiA+IGhpcyBmb2xpbyBwYXRjaHNldCwgYW5kIGlzIGJhc2VkIG9uIDYuMi1yYzUuICBJdCBoYXMg
-YmVlbiBwdXNoZWQgdG8KPiA+ID4gPiBnaXRodWIgYXQ6Cj4gPiA+ID4gaHR0cHM6Ly9naXRodWIu
-Y29tL0RhdmVXeXNvY2hhbnNraVJIL2tlcm5lbC9jb21taXRzL25mcy1mc2NhY2hlLW5ldGZzCj4g
-PiA+ID4gaHR0cHM6Ly9naXRodWIuY29tL0RhdmVXeXNvY2hhbnNraVJIL2tlcm5lbC9jb21taXQv
-NjQyNGU0ZjEzOTY1MmI3NTUyZWZmMjZlYjVkYTFmMjI4MmQzNTYxNgo+ID4gPiA+Cj4gPiA+ID4g
-Q2hhbmdlcyBzaW5jZSB2MTAgWzZdCj4gPiA+ID4gPT09PT09PT09PT09PT09PT09PT09Cj4gPiA+
-ID4gUEFUQ0g2OiBEcm9wcGVkCj4gPiA+ID4gUEFUQ0gxOiBSZW5hbWUgbmZzX3BhZ2Vpb19hZGRf
-cGFnZSB0byBuZnNfcmVhZF9hZGRfZm9saW8KPiA+ID4gPiBQQVRDSDI6IFVzZSBhbm9ueW1vdXMg
-dW5pb24gdG8gYWRkIHN0cnVjdCBuZXRmc19pbm9kZSB0byBuZnNfaW5vZGUgKFRyb25kKSBbN10K
-PiA+ID4gPiBQQVRDSDM6IENoYW5nZSBuZnNfbmV0ZnNfcmVhZHBhZ2VfcmVsZWFzZSgpIHRvIG5m
-c19uZXRmc19mb2xpb191bmxvY2soKQo+ID4gPiA+Cj4gPiA+ID4gVGVzdGluZwo+ID4gPiA+ID09
-PT09PT0KPiA+ID4gPiBJIGRpZCBhIGZ1bGwgcm91bmQgb2YgdGVzdGluZyBvbiB0aGlzIGJlY2F1
-c2UgaXQgd2FzIHJlYmFzZWQgb24gdG9wIG9mCj4gPiA+ID4gVHJvbmQncyB0ZXN0aW5nIGJyYW5j
-aCB3aGljaCBpbmNsdWRlZCBoaXMgZm9saW8gc2VyaWVzLgo+ID4gPiA+IEFsbCBvZiBteSB1bml0
-IHRlc3RzIHBhc3MgZXhjZXB0IHRoZSBvbmUgd2l0aCB0aGUga25vd24gaXNzdWUgIzEgYmVsb3cu
-Cj4gPiA+ID4gTXVsdGlwbGUgcnVucyBvZiB4ZnN0ZXN0cyBnZW5lcmljIHRlc3RzIChhcHBsaWNh
-YmxlIHRvIE5GUykgd2VyZSBydW4gd2l0aAo+ID4gPiA+IHdpdGggdmFyaW91cyBzZXJ2ZXJzLCBi
-b3RoIHdpdGggYW5kIHdpdGhvdXQgZnNjYWNoZSBlbmFibGVkLCBhbmQKPiA+ID4gPiBjb21wYXJl
-ZCB0byBiYXNlbGluZSAoVHJvbmQncyB0ZXN0aW5nIGJyYW5jaCkuICBObyBuZXcgZmFpbHVyZXMg
-d2VyZQo+ID4gPiA+IG9ic2VydmVkIHdpdGggdGhlc2UgcGF0Y2hlcywgYW5kIGluIHNvbWUgeGZz
-dGVzdCBpbnN0YW5jZXMsIHRoaXMKPiA+ID4gPiBwYXRjaHNldCBpbXByb3ZlcyB0aGUgcmVzdWx0
-cyAoc29tZSB0ZXN0cyB0aGF0IHdlcmUgZmFpbGluZyBub3cgcGFzcykuCj4gPiA+ID4gLSBoYW1t
-ZXJzcGFjZShwTkZTIGZsZXhmaWxlcyk6IE5GUzQuMSwgTkZTNC4yCj4gPiA+ID4gLSBOZXRBcHAo
-cE5GUyBmaWxlbGF5b3V0KTogTkZTNC4xLCBORlM0LjAsIE5GUzMKPiA+ID4gPiAtIFJIRUw5OiBO
-RlM0LjIsIE5GUzQuMSwgTkZTNC4wLCBORlMzCj4gPiA+ID4KPiA+ID4gPiBLbm93biBpc3N1ZXMK
-PiA+ID4gPiA9PT09PT09PT09PT0KPiA+ID4gPiAxLiBVbml0IHRlc3Qgc2V0dGluZyByc2l6ZSA8
-IHJlYWRhaGVhZCBkb2VzIG5vdCBwcm9wZXJseSByZWFkIGZyb20KPiA+ID4gPiBmc2NhY2hlIGJ1
-dCByZS1yZWFkcyBkYXRhIGZyb20gdGhlIE5GUyBzZXJ2ZXIKPiA+ID4gPiAqIFRoaXMgd2lsbCBi
-ZSBmaXhlZCB3aXRoIGFub3RoZXIgZGhvd2VsbHMgcGF0Y2ggWzhdOgo+ID4gPiA+ICAgIltQQVRD
-SCB2NiAyLzJdIG1tLCBuZXRmcywgZnNjYWNoZTogU3RvcCByZWFkIG9wdGltaXNhdGlvbiB3aGVu
-IGZvbGlvIHJlbW92ZWQgZnJvbSBwYWdlY2FjaGUiCj4gPiA+ID4gKiBEYWlyZSBCeXJuZSB2ZXJp
-ZmllZCB0aGUgcGF0Y2ggZml4ZXMgaGlzIGlzc3VlIGFzIHdlbGwKPiA+ID4gPgo+ID4gPiA+IDIu
-ICJDYWNoZSB2b2x1bWUga2V5IGFscmVhZHkgaW4gdXNlIiBhZnRlciB4ZnN0ZXN0IHJ1bnMgaW52
-b2x2aW5nIG11bHRpcGxlIG1vdW50cwo+ID4gPiA+ICogU2ltcGxlIHJlcHJvZHVjZXIgcmVxdWly
-ZXMganVzdCB0d28gbW91bnRzIGFzIGZvbGxvd3M6Cj4gPiA+ID4gIG1vdW50IC1vdmVycz00LjEs
-ZnNjLG5vc2hhcmVjYWNoZSAtbyBjb250ZXh0PXN5c3RlbV91Om9iamVjdF9yOnJvb3RfdDpzMCAg
-bmZzLXNlcnZlcjovZXhwMSAvbW50MQo+ID4gPiA+ICBtb3VudCAtb3ZlcnM9NC4xLGZzYyxub3No
-YXJlY2FjaGUgLW8gY29udGV4dD1zeXN0ZW1fdTpvYmplY3Rfcjpyb290X3Q6czAgIG5mcy1zZXJ2
-ZXI6L2V4cDIgL21udDIKPiA+ID4gPiAqIFRoaXMgc2hvdWxkIGJlIGZpeGVkIHdpdGggZGhvd2Vs
-bHMgcGF0Y2ggWzldOgo+ID4gPiA+ICAgIltQQVRDSCB2NV0gdmZzLCBzZWN1cml0eTogRml4IGF1
-dG9tb3VudCBzdXBlcmJsb2NrIExTTSBpbml0IHByb2JsZW0sIHByZXZlbnRpbmcgTkZTIHNiIHNo
-YXJpbmciCj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IFJlZmVyZW5jZXMKPiA+ID4gPiA9PT09PT09
-PT09Cj4gPiA+ID4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW5mcy8wNjc2ZWNi
-MmJiNzA4ZTZmYzI5ZGJiZTZiNDQ1NTFkNmEwZDAyMWRjLmNhbWVsQGtlcm5lbC5vcmcvCj4gPiA+
-ID4gWzJdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW5mcy85Y2ZkNWJjM2NmYzZhYmMy
-ZDMzMTZiMDM4NzIyMmU3MDhkNjdmNTk1LmNhbWVsQGhhbW1lcnNwYWNlLmNvbS8KPiA+ID4gPiBb
-M10gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbmZzL2RhOTIwMGYxYmRlZDliOGIwNzhh
-N2FlZjIyN2ZkNmI5MmViMDI4ZmIuY2FtZWxAaGFtbWVyc3BhY2UuY29tLwo+ID4gPiA+IFs0XSBo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1uZnMvMEE2NDBDNDctNUY1MS00N0U4LTg2NEQt
-RTBFOTgwRjhCMzEwQG9yYWNsZS5jb20vCj4gPiA+ID4gWzVdIGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2xpbnV4LW5mcy9DQStRUnQ0dFBxSDg3TlZrb0VUTGp4aWVHalpfZjdYeFJqK3hTM05WeGNK
-K2I4QUFLUWdAbWFpbC5nbWFpbC5jb20vCj4gPiA+ID4gWzZdIGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2xpbnV4LW5mcy8yMDIyMTEwMzE2MTYzNy4xNzI1NDcxLTEtZHd5c29jaGFAcmVkaGF0LmNv
-bS8KPiA+ID4gPiBbN10gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbmZzLzRkNjA2MzZm
-NjJkZjRmNWMyMDA2NjZlZDJkMWE1ZjI0MTRjMThlMWYuY2FtZWxAa2VybmVsLm9yZy8KPiA+ID4g
-PiBbOF0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbmZzLzIwMjMwMjE2MTUwNzAxLjM2
-NTQ4OTQtMS1kaG93ZWxsc0ByZWRoYXQuY29tL1QvI21mMzgwN2ZhNjhmYjZkNDk1Yjg3ZGRlMGQ3
-NmI1MjM3ODMzYTBjYzgxCj4gPiA+ID4gWzldIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4
-LWtlcm5lbC8yMTc1OTUuMTY2MjAzMzc3NUB3YXJ0aG9nLnByb2N5b24ub3JnLnVrLwo+ID4gPiA+
-Cj4gPiA+ID4gRGF2ZSBXeXNvY2hhbnNraSAoNSk6Cj4gPiA+ID4gICBORlM6IFJlbmFtZSByZWFk
-cGFnZV9hc3luY19maWxsZXIgdG8gbmZzX3JlYWRfYWRkX2ZvbGlvCj4gPiA+ID4gICBORlM6IENv
-bmZpZ3VyZSBzdXBwb3J0IGZvciBuZXRmcyB3aGVuIE5GUyBmc2NhY2hlIGlzIGNvbmZpZ3VyZWQK
-PiA+ID4gPiAgIE5GUzogQ29udmVydCBidWZmZXJlZCByZWFkIHBhdGhzIHRvIHVzZSBuZXRmcyB3
-aGVuIGZzY2FjaGUgaXMgZW5hYmxlZAo+ID4gPiA+ICAgTkZTOiBSZW1vdmUgYWxsIE5GU0lPU19G
-U0NBQ0hFIGNvdW50ZXJzIGR1ZSB0byBjb252ZXJzaW9uIHRvIG5ldGZzIEFQSQo+ID4gPiA+ICAg
-TkZTOiBSZW1vdmUgZnNjYWNoZSBzcGVjaWZpYyB0cmFjZSBwb2ludHMgYW5kIE5GU19JTk9fRlND
-QUNIRSBiaXQKPiA+ID4gPgo+ID4gPiA+ICBmcy9uZnMvS2NvbmZpZyAgICAgICAgICAgICB8ICAg
-MSArCj4gPiA+ID4gIGZzL25mcy9mc2NhY2hlLmMgICAgICAgICAgIHwgMjQyICsrKysrKysrKysr
-KysrKysrKysrKystLS0tLS0tLS0tLS0tLS0KPiA+ID4gPiAgZnMvbmZzL2ZzY2FjaGUuaCAgICAg
-ICAgICAgfCAxMzEgKysrKysrKysrKysrKystLS0tLS0KPiA+ID4gPiAgZnMvbmZzL2lub2RlLmMg
-ICAgICAgICAgICAgfCAgIDIgKwo+ID4gPiA+ICBmcy9uZnMvaW50ZXJuYWwuaCAgICAgICAgICB8
-ICAgOSArKwo+ID4gPiA+ICBmcy9uZnMvaW9zdGF0LmggICAgICAgICAgICB8ICAxNyAtLS0KPiA+
-ID4gPiAgZnMvbmZzL25mc3RyYWNlLmggICAgICAgICAgfCAgOTEgLS0tLS0tLS0tLS0tLS0KPiA+
-ID4gPiAgZnMvbmZzL3BhZ2VsaXN0LmMgICAgICAgICAgfCAgIDQgKwo+ID4gPiA+ICBmcy9uZnMv
-cmVhZC5jICAgICAgICAgICAgICB8IDEwNSArKysrKysrKy0tLS0tLS0tCj4gPiA+ID4gIGZzL25m
-cy9zdXBlci5jICAgICAgICAgICAgIHwgIDExIC0tCj4gPiA+ID4gIGluY2x1ZGUvbGludXgvbmZz
-X2ZzLmggICAgIHwgIDI1ICsrLS0KPiA+ID4gPiAgaW5jbHVkZS9saW51eC9uZnNfaW9zdGF0Lmgg
-fCAgMTIgLS0KPiA+ID4gPiAgaW5jbHVkZS9saW51eC9uZnNfcGFnZS5oICAgfCAgIDMgKwo+ID4g
-PiA+ICBpbmNsdWRlL2xpbnV4L25mc194ZHIuaCAgICB8ICAgMyArCj4gPiA+ID4gIDE0IGZpbGVz
-IGNoYW5nZWQsIDMxNyBpbnNlcnRpb25zKCspLCAzMzkgZGVsZXRpb25zKC0pCj4gPiA+ID4KPiA+
-ID4gPiAtLQo+ID4gPiA+IDIuMzEuMQo+ID4gPiA+Cj4gPiA+Cj4gPgo+CgotLQpMaW51eC1jYWNo
-ZWZzIG1haWxpbmcgbGlzdApMaW51eC1jYWNoZWZzQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFu
-LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZzCg==
+On Fri 10-03-23 15:12:04, Luis Chamberlain wrote:
+> There is no need to declare two tables to just create directories,
+> this can be easily be done with a prefix path with register_sysctl().
+> 
+> Simplify this registration.
+> 
+> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+
+Thanks. I've taken the patch into my tree.
+
+								Honza
+
+> ---
+>  fs/quota/dquot.c | 20 +-------------------
+>  1 file changed, 1 insertion(+), 19 deletions(-)
+> 
+> diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+> index a6357f728034..90cb70c82012 100644
+> --- a/fs/quota/dquot.c
+> +++ b/fs/quota/dquot.c
+> @@ -2948,24 +2948,6 @@ static struct ctl_table fs_dqstats_table[] = {
+>  	{ },
+>  };
+>  
+> -static struct ctl_table fs_table[] = {
+> -	{
+> -		.procname	= "quota",
+> -		.mode		= 0555,
+> -		.child		= fs_dqstats_table,
+> -	},
+> -	{ },
+> -};
+> -
+> -static struct ctl_table sys_table[] = {
+> -	{
+> -		.procname	= "fs",
+> -		.mode		= 0555,
+> -		.child		= fs_table,
+> -	},
+> -	{ },
+> -};
+> -
+>  static int __init dquot_init(void)
+>  {
+>  	int i, ret;
+> @@ -2973,7 +2955,7 @@ static int __init dquot_init(void)
+>  
+>  	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+>  
+> -	register_sysctl_table(sys_table);
+> +	register_sysctl("fs/quota", fs_dqstats_table);
+>  
+>  	dquot_cachep = kmem_cache_create("dquot",
+>  			sizeof(struct dquot), sizeof(unsigned long) * 4,
+> -- 
+> 2.39.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
+
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
