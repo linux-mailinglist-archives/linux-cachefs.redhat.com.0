@@ -1,99 +1,65 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 194516C6FAD
-	for <lists+linux-cachefs@lfdr.de>; Thu, 23 Mar 2023 18:50:57 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D761D6CC16A
+	for <lists+linux-cachefs@lfdr.de>; Tue, 28 Mar 2023 15:52:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679593856;
+	s=mimecast20190719; t=1680011546;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=lfppbHGk5INpXYoc5R5/DSfUBB/F37Gmmeoq7dh1rtQ=;
-	b=cj8i0CijNZoSRwLlRixIJJIp1F2Y7Vmbex0nItczAzfUPMpuDtKsVUpyxE/ujArmq5/5bX
-	3KNQ3Dt1V8ZjR6QjvZLRePDPI2slKE3LOHVNiVY6vDlAL4pvo/W1juw/iu7DlsYZgbNqIW
-	4OJnRytfBaNCohAXE3NkyI/be3zueuY=
+	bh=I8XeWgzTB+7nDrQkoQH8lMWl6WmmfGw5EuEaB20BBHk=;
+	b=JuKcjZNoDlY8DXTv5e0cPEzBQ7XNNY7t6tS1UlMIjSilK6oqC+wql7KWz5CsPnxdc5vJvZ
+	UdXUx0N38u0fFm8DMO+LL3L54MrsAraVZGBjuo2LZqOz7ktW7m17AtmsNqjBDYZThD35o1
+	S4uViQ1RY6coBE2wNOzQdX/AdycTYF4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-46-zGy5SeJFOIm6H5hcS2Eg5A-1; Thu, 23 Mar 2023 13:50:52 -0400
-X-MC-Unique: zGy5SeJFOIm6H5hcS2Eg5A-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-443-O5KSYYy0PtWkgUjlInhd9Q-1; Tue, 28 Mar 2023 09:52:23 -0400
+X-MC-Unique: O5KSYYy0PtWkgUjlInhd9Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24E423C10239;
-	Thu, 23 Mar 2023 17:50:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8F123C10145;
+	Tue, 28 Mar 2023 13:52:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9FC32492B01;
-	Thu, 23 Mar 2023 17:50:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B587C4042AC0;
+	Tue, 28 Mar 2023 13:52:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 385C719465BB;
-	Thu, 23 Mar 2023 17:50:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 02C00194658F;
+	Tue, 28 Mar 2023 13:52:15 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C782119465B7 for <linux-cachefs@listman.corp.redhat.com>;
- Thu, 23 Mar 2023 17:50:37 +0000 (UTC)
+ ESMTP id 995701946589 for <linux-cachefs@listman.corp.redhat.com>;
+ Tue, 28 Mar 2023 13:52:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B3F7F2027041; Thu, 23 Mar 2023 17:50:37 +0000 (UTC)
+ id 7D4F414171BC; Tue, 28 Mar 2023 13:52:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AC68E2027040
- for <linux-cachefs@redhat.com>; Thu, 23 Mar 2023 17:50:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8AAF9185A790
- for <linux-cachefs@redhat.com>; Thu, 23 Mar 2023 17:50:37 +0000 (UTC)
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-607-ovv2tx6gMiqE8HJpLoGCwA-1; Thu, 23 Mar 2023 13:50:36 -0400
-X-MC-Unique: ovv2tx6gMiqE8HJpLoGCwA-1
-Received: by mail-ua1-f71.google.com with SMTP id
- cd11-20020a056130108b00b00657d8cfac32so11392417uab.8
- for <linux-cachefs@redhat.com>; Thu, 23 Mar 2023 10:50:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679593833;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AJXAfUg8lo5eiFTUV2F0zyb6/OMKPB/p1phXxmrLWt8=;
- b=5sH9uXhWUn0fuYrpJShIKHr0t5dOz1YgFUng4ZnnNyIOaMjx9peft+d7hRwS3XlsSW
- Wp76ZooN71RUg/0YQI0KVznr4wEVKHT5bIl0G7baiQotYlNuCPhAZUEbY2RUsldDndW6
- TzCqAmEfdeoFzvxQBsduGpsoh2TW51J16XFAqAk7qAXXY77WJjAMoMvD1XZNGQG2rXmU
- IeHnTItOC/Fsup7dxKsvl5d6PROPQ3JYNT00+zkOhxDZMznaB2TwbB3N5xOj0OuwCL58
- 6f1P4REH6rbbPINKNKSyNPeon96V+hdbw23Ri+D6UsSObT1Dc772BLVM8jexAsdecMe9
- 0jGw==
-X-Gm-Message-State: AAQBX9ehSwTQ0uwQddTX0IqtJaGsbo6dlUHjlcFpRunf63Yor5UAQxKn
- sbnXOBNZhAP56En02pyFJeuRlNjdavvr+A9Ln29quuf53NAsEZPBaS+WVL/D49pvNNVHk9gA5A1
- tWKgikkHJU3ohL0SWY2bLyS83p+NU31xbh2Pj2Q==
-X-Received: by 2002:a05:6130:a6:b0:740:714f:aa5d with SMTP id
- x38-20020a05613000a600b00740714faa5dmr6499602uaf.0.1679593833248; 
- Thu, 23 Mar 2023 10:50:33 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZknsEbUDfiavtw+znx9EtFCVU4si0qeGoK+LNbUhZg27p6Me97Ovza8x4J/ffqsSK7vpl4R7RAM9wTw1Un38k=
-X-Received: by 2002:a05:6130:a6:b0:740:714f:aa5d with SMTP id
- x38-20020a05613000a600b00740714faa5dmr6499582uaf.0.1679593832912; Thu, 23 Mar
- 2023 10:50:32 -0700 (PDT)
+Received: from warthog.procyon.org.uk (unknown [10.33.36.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3E09614171BB;
+ Tue, 28 Mar 2023 13:52:12 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20230111052515.53941-2-zhujia.zj@bytedance.com>
+References: <20230111052515.53941-2-zhujia.zj@bytedance.com>
+ <20230111052515.53941-1-zhujia.zj@bytedance.com>
+To: Jia Zhu <zhujia.zj@bytedance.com>
 MIME-Version: 1.0
-References: <20230220134308.1193219-1-dwysocha@redhat.com>
-In-Reply-To: <20230220134308.1193219-1-dwysocha@redhat.com>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Thu, 23 Mar 2023 13:49:55 -0400
-Message-ID: <CALF+zOnr0B2w-0jY4DK6Asgb8m2g9d9hecR0mgw6wausaEEaSA@mail.gmail.com>
-To: Anna Schumaker <anna.schumaker@netapp.com>, 
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- David Howells <dhowells@redhat.com>, 
- Benjamin Maynard <benmaynard@google.com>, Daire Byrne <daire.byrne@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [PATCH v11 0/5] Convert NFS with fscache to the
- netfs API
+Date: Tue, 28 Mar 2023 14:52:11 +0100
+Message-ID: <131869.1680011531@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [Linux-cachefs] [PATCH V4 1/5] cachefiles: introduce object
+ ondemand state
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,123 +71,52 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com
+Cc: linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-ID: <131868.1680011531.1@warthog.procyon.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCBGZWIgMjAsIDIwMjMgYXQgODo0M+KAr0FNIERhdmUgV3lzb2NoYW5za2kgPGR3eXNv
-Y2hhQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gVHJvbmQsIHRoaXMgdjExIHBhdGNoc2V0IGFkZHJl
-c3NlcyB5b3VyIGxhdGVzdCBmZWVkYmFjayBvbiBwYXRjaCAjMiwKPiBhbmQgSSBkaWQgYSBsaXR0
-bGUgYml0IG9mIGNsZWFudXAgdG8gcGF0Y2ggMyAoc2VlIENoYW5nZXMgbm90ZXMgYmVsb3cpLgo+
-IEknbSBub3Qgc3VyZSBvZiBmdXJ0aGVyIGNoYW5nZXMgdG8gcGF0Y2ggIzMgd2l0aG91dCBhIG1v
-cmUgaW4tZGVwdGgKPiByZXZpZXcgd2l0aCBzcGVjaWZpY3MsIGlmIHlvdSBmZWVsIHRoZSBjdXJy
-ZW50IGFwcHJvYWNoIGlzIHVuYWNjZXB0YWJsZSBbMV0uCj4KClRyb25kIGFuZC9vciBBbm5hLAoK
-SGF2ZSB5b3UgaGFkIGEgY2hhbmNlIHRvIHJldmlldyB0aGlzIHBhdGNoc2V0IGFuZCBkbyB5b3Ug
-aGF2ZSBmdXJ0aGVyCmNvbmNlcm5zPwoKTm90ZSB0aGF0IHBhdGNoICMzIHdpbGwgcmVxdWlyZSBh
-IHNtYWxsIGZpeHVwIHRvIGFwcGx5IGFmdGVyIHY2LjMtcmMxCmR1ZSB0byB0aGlzIGNvbW1pdDoK
-OGJiN2NkODQyYzQ0IG5mczogdXNlIGJ2ZWNfc2V0X3BhZ2UgdG8gaW5pdGlhbGl6ZSBidmVjcwoK
-VGhlcmUgaXMgYWxzbyBzdGlsbCB0aGUgc21hbGwgb3BlbiBpc3N1ZSBvZiBuZXRmcyBjb3VudGlu
-ZyByZWFkX2J5dGVzCmluIGl0cyB1bmxvY2sgcGFnZSBwYXRoLCBidXQgSSB2aWV3IHRoYXQgYXMg
-YSBuZXRmcyBpc3N1ZS4gIEknbGwgZm9sbG93dXAKd2l0aCBEYXZpZCBIb3dlbGxzIG9uIHRoYXQu
-CgoKPiBCZW4gYW5kIERhaXJlLCBpZiB5b3UgY291bGQgdGVzdCB0aGlzIHNldCBhbmQgcHJvdmlk
-ZSB5b3UgZmVlZGJhY2sKPiBhbmQgYSBUZXN0ZWQtQnk6IHRoYXQgd291bGQgYmUgYXBwcmVjaWF0
-ZWQuICBUaGlzIHNldCBhZGRyZXNzZXMKPiB0aGUgZXhpc3RpbmcgTkZTICsgZnNjYWNoZSBwZXJm
-b3JtYW5jZSBjb25jZXJucyBzZWVuIGJ5IGEgZmV3Cj4gdXNlcnMgWzVdLCB3aGljaCBpcyBkdWUg
-dG8gdXRpbGl6YXRpb24gdXNlIG9mIHRoZSBkZXByZWNhdGVkCj4gc2luZ2xlLXBhZ2UgZnVuY3Rp
-b24sIGZzY2FjaGVfZmFsbGJhY2tfcmVhZF9wYWdlKCkuICBIb3dldmVyLAo+IHVudGlsICJrbm93
-biBpc3N1ZSAjMSIgYmVsb3cgaXMgYWxzbyByZXNvbHZlZCwgZXZlbiB3aXRoIHRoZXNlCj4gcGF0
-Y2hlcywgcGVyZm9ybWFuY2Ugb2YgTkZTK2ZzY2FjaGUgd2lsbCBzdGlsbCBiZSBhIHByb2JsZW0K
-PiBpbiBzb21lIHNjZW5hcmlvcy4KPgo+IFRoaXMgcGF0Y2hzZXQgY29udmVydHMgTkZTIHdpdGgg
-ZnNjYWNoZSBidWZmZXJlZCByZWFkIElPIHBhdGhzIHRvCj4gdXNlIHRoZSBuZXRmcyBBUEkgd2l0
-aCBhIG5vbi1pbnZhc2l2ZSBhcHByb2FjaC4gIFRoZSBleGlzdGluZyBORlMgcGdpbwo+IGxheWVy
-IGRvZXMgbm90IG5lZWQgZXh0ZW5zaXZlIGNoYW5nZXMsIGFuZCBpcyB0aGUgYmVzdCB3YXkgc28g
-ZmFyIEkndmUKPiBmb3VuZCB0byBhZGRyZXNzIFRyb25kJ3MgcHJldmlvdXMgY29uY2VybnMgYWJv
-dXQgbW9kaWZ5aW5nIHRoZSBJTwo+IHBhdGggWzJdIGFzIHdlbGwgYXMgb25seSBlbmFibGluZyBu
-ZXRmcyB3aGVuIGZzY2FjaGUgaXMgY29uZmlndXJlZAo+IGFuZCBlbmFibGVkIFszXS4gIEkgaGF2
-ZSBub3QgYXR0ZW1wdGVkIHBlcmZvcm1hbmNlIGNvbXBhcmlzaW9ucyB0bwo+IGFkZHJlc3MgQ2h1
-Y2sgTGV2ZXIncyBjb25jZXJuIFs0XSBiZWNhdXNlIHdlIGFyZSBub3QgY29udmVydGluZyB0aGUK
-PiBub24tZnNjYWNoZSBlbmFibGVkIE5GUyBJTyBwYXRocyB0byBuZXRmcy4KPgo+IFRoZSBwYXRj
-aHNldCBpcyBiYXNlZCBvbiBUcm9uZCdzIGxhdGVzdCAndGVzdGluZycgYnJhbmNoIHdoaWNoIGlu
-Y2x1ZGVzCj4gaGlzIGZvbGlvIHBhdGNoc2V0LCBhbmQgaXMgYmFzZWQgb24gNi4yLXJjNS4gIEl0
-IGhhcyBiZWVuIHB1c2hlZCB0bwo+IGdpdGh1YiBhdDoKPiBodHRwczovL2dpdGh1Yi5jb20vRGF2
-ZVd5c29jaGFuc2tpUkgva2VybmVsL2NvbW1pdHMvbmZzLWZzY2FjaGUtbmV0ZnMKPiBodHRwczov
-L2dpdGh1Yi5jb20vRGF2ZVd5c29jaGFuc2tpUkgva2VybmVsL2NvbW1pdC82NDI0ZTRmMTM5NjUy
-Yjc1NTJlZmYyNmViNWRhMWYyMjgyZDM1NjE2Cj4KPiBDaGFuZ2VzIHNpbmNlIHYxMCBbNl0KPiA9
-PT09PT09PT09PT09PT09PT09PT0KPiBQQVRDSDY6IERyb3BwZWQKPiBQQVRDSDE6IFJlbmFtZSBu
-ZnNfcGFnZWlvX2FkZF9wYWdlIHRvIG5mc19yZWFkX2FkZF9mb2xpbwo+IFBBVENIMjogVXNlIGFu
-b255bW91cyB1bmlvbiB0byBhZGQgc3RydWN0IG5ldGZzX2lub2RlIHRvIG5mc19pbm9kZSAoVHJv
-bmQpIFs3XQo+IFBBVENIMzogQ2hhbmdlIG5mc19uZXRmc19yZWFkcGFnZV9yZWxlYXNlKCkgdG8g
-bmZzX25ldGZzX2ZvbGlvX3VubG9jaygpCj4KPiBUZXN0aW5nCj4gPT09PT09PQo+IEkgZGlkIGEg
-ZnVsbCByb3VuZCBvZiB0ZXN0aW5nIG9uIHRoaXMgYmVjYXVzZSBpdCB3YXMgcmViYXNlZCBvbiB0
-b3Agb2YKPiBUcm9uZCdzIHRlc3RpbmcgYnJhbmNoIHdoaWNoIGluY2x1ZGVkIGhpcyBmb2xpbyBz
-ZXJpZXMuCj4gQWxsIG9mIG15IHVuaXQgdGVzdHMgcGFzcyBleGNlcHQgdGhlIG9uZSB3aXRoIHRo
-ZSBrbm93biBpc3N1ZSAjMSBiZWxvdy4KPiBNdWx0aXBsZSBydW5zIG9mIHhmc3Rlc3RzIGdlbmVy
-aWMgdGVzdHMgKGFwcGxpY2FibGUgdG8gTkZTKSB3ZXJlIHJ1biB3aXRoCj4gd2l0aCB2YXJpb3Vz
-IHNlcnZlcnMsIGJvdGggd2l0aCBhbmQgd2l0aG91dCBmc2NhY2hlIGVuYWJsZWQsIGFuZAo+IGNv
-bXBhcmVkIHRvIGJhc2VsaW5lIChUcm9uZCdzIHRlc3RpbmcgYnJhbmNoKS4gIE5vIG5ldyBmYWls
-dXJlcyB3ZXJlCj4gb2JzZXJ2ZWQgd2l0aCB0aGVzZSBwYXRjaGVzLCBhbmQgaW4gc29tZSB4ZnN0
-ZXN0IGluc3RhbmNlcywgdGhpcwo+IHBhdGNoc2V0IGltcHJvdmVzIHRoZSByZXN1bHRzIChzb21l
-IHRlc3RzIHRoYXQgd2VyZSBmYWlsaW5nIG5vdyBwYXNzKS4KPiAtIGhhbW1lcnNwYWNlKHBORlMg
-ZmxleGZpbGVzKTogTkZTNC4xLCBORlM0LjIKPiAtIE5ldEFwcChwTkZTIGZpbGVsYXlvdXQpOiBO
-RlM0LjEsIE5GUzQuMCwgTkZTMwo+IC0gUkhFTDk6IE5GUzQuMiwgTkZTNC4xLCBORlM0LjAsIE5G
-UzMKPgo+IEtub3duIGlzc3Vlcwo+ID09PT09PT09PT09PQo+IDEuIFVuaXQgdGVzdCBzZXR0aW5n
-IHJzaXplIDwgcmVhZGFoZWFkIGRvZXMgbm90IHByb3Blcmx5IHJlYWQgZnJvbQo+IGZzY2FjaGUg
-YnV0IHJlLXJlYWRzIGRhdGEgZnJvbSB0aGUgTkZTIHNlcnZlcgo+ICogVGhpcyB3aWxsIGJlIGZp
-eGVkIHdpdGggYW5vdGhlciBkaG93ZWxscyBwYXRjaCBbOF06Cj4gICAiW1BBVENIIHY2IDIvMl0g
-bW0sIG5ldGZzLCBmc2NhY2hlOiBTdG9wIHJlYWQgb3B0aW1pc2F0aW9uIHdoZW4gZm9saW8gcmVt
-b3ZlZCBmcm9tIHBhZ2VjYWNoZSIKPiAqIERhaXJlIEJ5cm5lIHZlcmlmaWVkIHRoZSBwYXRjaCBm
-aXhlcyBoaXMgaXNzdWUgYXMgd2VsbAo+Cj4gMi4gIkNhY2hlIHZvbHVtZSBrZXkgYWxyZWFkeSBp
-biB1c2UiIGFmdGVyIHhmc3Rlc3QgcnVucyBpbnZvbHZpbmcgbXVsdGlwbGUgbW91bnRzCj4gKiBT
-aW1wbGUgcmVwcm9kdWNlciByZXF1aXJlcyBqdXN0IHR3byBtb3VudHMgYXMgZm9sbG93czoKPiAg
-bW91bnQgLW92ZXJzPTQuMSxmc2Msbm9zaGFyZWNhY2hlIC1vIGNvbnRleHQ9c3lzdGVtX3U6b2Jq
-ZWN0X3I6cm9vdF90OnMwICBuZnMtc2VydmVyOi9leHAxIC9tbnQxCj4gIG1vdW50IC1vdmVycz00
-LjEsZnNjLG5vc2hhcmVjYWNoZSAtbyBjb250ZXh0PXN5c3RlbV91Om9iamVjdF9yOnJvb3RfdDpz
-MCAgbmZzLXNlcnZlcjovZXhwMiAvbW50Mgo+ICogVGhpcyBzaG91bGQgYmUgZml4ZWQgd2l0aCBk
-aG93ZWxscyBwYXRjaCBbOV06Cj4gICAiW1BBVENIIHY1XSB2ZnMsIHNlY3VyaXR5OiBGaXggYXV0
-b21vdW50IHN1cGVyYmxvY2sgTFNNIGluaXQgcHJvYmxlbSwgcHJldmVudGluZyBORlMgc2Igc2hh
-cmluZyIKPgo+Cj4gUmVmZXJlbmNlcwo+ID09PT09PT09PT0KPiBbMV0gaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvbGludXgtbmZzLzA2NzZlY2IyYmI3MDhlNmZjMjlkYmJlNmI0NDU1MWQ2YTBkMDIx
-ZGMuY2FtZWxAa2VybmVsLm9yZy8KPiBbMl0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgt
-bmZzLzljZmQ1YmMzY2ZjNmFiYzJkMzMxNmIwMzg3MjIyZTcwOGQ2N2Y1OTUuY2FtZWxAaGFtbWVy
-c3BhY2UuY29tLwo+IFszXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1uZnMvZGE5MjAw
-ZjFiZGVkOWI4YjA3OGE3YWVmMjI3ZmQ2YjkyZWIwMjhmYi5jYW1lbEBoYW1tZXJzcGFjZS5jb20v
-Cj4gWzRdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW5mcy8wQTY0MEM0Ny01RjUxLTQ3
-RTgtODY0RC1FMEU5ODBGOEIzMTBAb3JhY2xlLmNvbS8KPiBbNV0gaHR0cHM6Ly9sb3JlLmtlcm5l
-bC5vcmcvbGludXgtbmZzL0NBK1FSdDR0UHFIODdOVmtvRVRManhpZUdqWl9mN1h4UmoreFMzTlZ4
-Y0orYjhBQUtRZ0BtYWlsLmdtYWlsLmNvbS8KPiBbNl0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-bGludXgtbmZzLzIwMjIxMTAzMTYxNjM3LjE3MjU0NzEtMS1kd3lzb2NoYUByZWRoYXQuY29tLwo+
-IFs3XSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1uZnMvNGQ2MDYzNmY2MmRmNGY1YzIw
-MDY2NmVkMmQxYTVmMjQxNGMxOGUxZi5jYW1lbEBrZXJuZWwub3JnLwo+IFs4XSBodHRwczovL2xv
-cmUua2VybmVsLm9yZy9saW51eC1uZnMvMjAyMzAyMTYxNTA3MDEuMzY1NDg5NC0xLWRob3dlbGxz
-QHJlZGhhdC5jb20vVC8jbWYzODA3ZmE2OGZiNmQ0OTViODdkZGUwZDc2YjUyMzc4MzNhMGNjODEK
-PiBbOV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgta2VybmVsLzIxNzU5NS4xNjYyMDMz
-Nzc1QHdhcnRob2cucHJvY3lvbi5vcmcudWsvCj4KPiBEYXZlIFd5c29jaGFuc2tpICg1KToKPiAg
-IE5GUzogUmVuYW1lIHJlYWRwYWdlX2FzeW5jX2ZpbGxlciB0byBuZnNfcmVhZF9hZGRfZm9saW8K
-PiAgIE5GUzogQ29uZmlndXJlIHN1cHBvcnQgZm9yIG5ldGZzIHdoZW4gTkZTIGZzY2FjaGUgaXMg
-Y29uZmlndXJlZAo+ICAgTkZTOiBDb252ZXJ0IGJ1ZmZlcmVkIHJlYWQgcGF0aHMgdG8gdXNlIG5l
-dGZzIHdoZW4gZnNjYWNoZSBpcyBlbmFibGVkCj4gICBORlM6IFJlbW92ZSBhbGwgTkZTSU9TX0ZT
-Q0FDSEUgY291bnRlcnMgZHVlIHRvIGNvbnZlcnNpb24gdG8gbmV0ZnMgQVBJCj4gICBORlM6IFJl
-bW92ZSBmc2NhY2hlIHNwZWNpZmljIHRyYWNlIHBvaW50cyBhbmQgTkZTX0lOT19GU0NBQ0hFIGJp
-dAo+Cj4gIGZzL25mcy9LY29uZmlnICAgICAgICAgICAgIHwgICAxICsKPiAgZnMvbmZzL2ZzY2Fj
-aGUuYyAgICAgICAgICAgfCAyNDIgKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0t
-LQo+ICBmcy9uZnMvZnNjYWNoZS5oICAgICAgICAgICB8IDEzMSArKysrKysrKysrKysrKy0tLS0t
-LQo+ICBmcy9uZnMvaW5vZGUuYyAgICAgICAgICAgICB8ICAgMiArCj4gIGZzL25mcy9pbnRlcm5h
-bC5oICAgICAgICAgIHwgICA5ICsrCj4gIGZzL25mcy9pb3N0YXQuaCAgICAgICAgICAgIHwgIDE3
-IC0tLQo+ICBmcy9uZnMvbmZzdHJhY2UuaCAgICAgICAgICB8ICA5MSAtLS0tLS0tLS0tLS0tLQo+
-ICBmcy9uZnMvcGFnZWxpc3QuYyAgICAgICAgICB8ICAgNCArCj4gIGZzL25mcy9yZWFkLmMgICAg
-ICAgICAgICAgIHwgMTA1ICsrKysrKysrLS0tLS0tLS0KPiAgZnMvbmZzL3N1cGVyLmMgICAgICAg
-ICAgICAgfCAgMTEgLS0KPiAgaW5jbHVkZS9saW51eC9uZnNfZnMuaCAgICAgfCAgMjUgKystLQo+
-ICBpbmNsdWRlL2xpbnV4L25mc19pb3N0YXQuaCB8ICAxMiAtLQo+ICBpbmNsdWRlL2xpbnV4L25m
-c19wYWdlLmggICB8ICAgMyArCj4gIGluY2x1ZGUvbGludXgvbmZzX3hkci5oICAgIHwgICAzICsK
-PiAgMTQgZmlsZXMgY2hhbmdlZCwgMzE3IGluc2VydGlvbnMoKyksIDMzOSBkZWxldGlvbnMoLSkK
-Pgo+IC0tCj4gMi4zMS4xCj4KPiAtLQo+IExpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0Cj4gTGlu
-dXgtY2FjaGVmc0ByZWRoYXQuY29tCj4gaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1jYWNoZWZzCj4KCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0
-CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LWNhY2hlZnMK
+Jia Zhu <zhujia.zj@bytedance.com> wrote:
+
+> +enum cachefiles_object_state {
+> +	CACHEFILES_ONDEMAND_OBJSTATE_close, /* Anonymous fd closed by daemon or initial state */
+> +	CACHEFILES_ONDEMAND_OBJSTATE_open, /* Anonymous fd associated with object is available */
+
+That looks weird.  Maybe make them all-lowercase?
+
+> @@ -296,6 +302,21 @@ extern void cachefiles_ondemand_clean_object(struct cachefiles_object *object);
+>  extern int cachefiles_ondemand_read(struct cachefiles_object *object,
+>  				    loff_t pos, size_t len);
+>  
+> +#define CACHEFILES_OBJECT_STATE_FUNCS(_state)	\
+> +static inline bool								\
+> +cachefiles_ondemand_object_is_##_state(const struct cachefiles_object *object) \
+> +{												\
+> +	return object->state == CACHEFILES_ONDEMAND_OBJSTATE_##_state; \
+> +}												\
+> +												\
+> +static inline void								\
+> +cachefiles_ondemand_set_object_##_state(struct cachefiles_object *object) \
+> +{												\
+> +	object->state = CACHEFILES_ONDEMAND_OBJSTATE_##_state; \
+> +}
+> +
+> +CACHEFILES_OBJECT_STATE_FUNCS(open);
+> +CACHEFILES_OBJECT_STATE_FUNCS(close);
+
+Or just get rid of the macroisation?  If there are only two states, it doesn't
+save you that much and it means that "make TAGS" won't generate refs for those
+functions and grep won't find them.
+
+David
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
