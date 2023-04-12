@@ -2,60 +2,111 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657796DF4F4
-	for <lists+linux-cachefs@lfdr.de>; Wed, 12 Apr 2023 14:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB89F6DFB5B
+	for <lists+linux-cachefs@lfdr.de>; Wed, 12 Apr 2023 18:28:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681302043;
+	s=mimecast20190719; t=1681316881;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o9Bkv7pnns6Xuu66sEgPVDtDnNUYrR5r8eKYNZOiRqE=;
-	b=FQ+YR0H1UJA7SK96fgufNhkdePt7wZ08D9Db0QzRm9jwavxMP9CZnPrNFnTRpnRr00+z0g
-	qBnxtTvNL+fkef++dfXiUnxfJpUXNrmOVOJG77/IDVWHq9GGEYrWrDTRBz/Il9RA+dpqCD
-	ua5dxImmEJRSa8JM13z5XGwoNSgCQKs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=6kKDMSmRYEIgz/GebsKRry4JXS6kDguaIS93XFqCQ9c=;
+	b=AKD8oKwqR+ze7CyXMmGiM5gBii1uhLMvbATOH/smtbiAjRFsJ1NYUEPDzT9NlhxjApuXCx
+	4eEzwSRJ1F4O+1yxDTFiqyIwnpdf/xFrteyNp0nl1IQJNh9AYa3ClpTHMfRrjfP5lhPZA/
+	iuZQz69pBrVgEAJUZcAZJLn0rvpz0XQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-52-RcM3NlYLNzeNYY4uAPwTpw-1; Wed, 12 Apr 2023 08:20:40 -0400
-X-MC-Unique: RcM3NlYLNzeNYY4uAPwTpw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-98-RG8B0MTDOpyNSqABzVs7qw-1; Wed, 12 Apr 2023 12:27:58 -0400
+X-MC-Unique: RG8B0MTDOpyNSqABzVs7qw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70AD0101A531;
-	Wed, 12 Apr 2023 12:20:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3765A3C1485C;
+	Wed, 12 Apr 2023 16:27:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A73232166B26;
-	Wed, 12 Apr 2023 12:20:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5343B40C20FA;
+	Wed, 12 Apr 2023 16:27:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3C03819465A2;
-	Wed, 12 Apr 2023 12:20:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 084281946597;
+	Wed, 12 Apr 2023 16:27:57 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 892831946587 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 12 Apr 2023 12:18:59 +0000 (UTC)
+ ESMTP id D20BB1946587 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 12 Apr 2023 16:27:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7BDC2492C3E; Wed, 12 Apr 2023 12:18:59 +0000 (UTC)
+ id 9003640C6E71; Wed, 12 Apr 2023 16:27:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.33.36.177])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 378F0492B00;
- Wed, 12 Apr 2023 12:18:58 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: torvalds@linux-foundation.org
+Received: from mimecast-mx02.redhat.com
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 88A6540C6E70
+ for <linux-cachefs@redhat.com>; Wed, 12 Apr 2023 16:27:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6EB9B811E7C
+ for <linux-cachefs@redhat.com>; Wed, 12 Apr 2023 16:27:55 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-562-mxa1_MhIOjCNX7tDtgyh1A-1; Wed, 12 Apr 2023 12:27:53 -0400
+X-MC-Unique: mxa1_MhIOjCNX7tDtgyh1A-1
+Received: by mail-ej1-f49.google.com with SMTP id q23so20840407ejz.3
+ for <linux-cachefs@redhat.com>; Wed, 12 Apr 2023 09:27:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681316872; x=1683908872;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LlbBUU3Heh2HbQgGaI5PMM5WO9GB4tDWoyyHCpBYNx4=;
+ b=hSSGZJvoBzQbWlMGp9FvkRsW+tV7NN9x0MAGdU6Irz2ghTY2gJkFwMivosBuXjPhxh
+ PNPI3VAsVel9NVF5e7pKQxMCi7Afp+phGFmra8w4WdwSLt6E1hsCXUN+aVDyOvpuijOG
+ eYCtTxAKMVzu4B7x3AOnLY27jMcx2qS8LMIrn+LYhslTICmersJ2R6/6nsQFlvWoZRPd
+ wJhpkJILtg831KTZ5kxEZrNvHPpBZ50ckXJUxVc8ssZeMeyqXv+tUU7OekDZkB0GgNAy
+ sYIOdbS2EqJrOglgAa0DjFCfRxl0FQRThCqngxcNepLv3g0NIXEv6L3S5i+t7Nph6QmH
+ leyw==
+X-Gm-Message-State: AAQBX9csKJv757TB9LS3UXevyUsenyFRrb5kHni95tpSW59rwX0JbGIc
+ i0kHzWchDtzwl2pnnEfgSV1H21dNuEUPAQyYMEB6BQ==
+X-Google-Smtp-Source: AKy350Yhw7opfsG2TWgfnDSqwHyjMEzeSuol650BkOrvJ8B9V9IwD4KJEKI7Wqj+BMuqhp8qr/9F4w==
+X-Received: by 2002:a17:906:eea:b0:88f:a236:69e6 with SMTP id
+ x10-20020a1709060eea00b0088fa23669e6mr13844981eji.7.1681316871897; 
+ Wed, 12 Apr 2023 09:27:51 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com.
+ [209.85.218.45]) by smtp.gmail.com with ESMTPSA id
+ ta22-20020a1709078c1600b0094e7bb22860sm387329ejc.50.2023.04.12.09.27.50
+ for <linux-cachefs@redhat.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Apr 2023 09:27:50 -0700 (PDT)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-94a342ef3beso229187066b.0
+ for <linux-cachefs@redhat.com>; Wed, 12 Apr 2023 09:27:50 -0700 (PDT)
+X-Received: by 2002:a50:9fa2:0:b0:504:81d3:48f with SMTP id
+ c31-20020a509fa2000000b0050481d3048fmr3195779edf.2.1681316870239; Wed, 12 Apr
+ 2023 09:27:50 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 12 Apr 2023 13:18:57 +0100
-Message-ID: <110100.1681301937@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [Linux-cachefs] [PATCH] netfs: Fix netfs_extract_iter_to_sg() for
- ITER_UBUF/IOVEC
+References: <110100.1681301937@warthog.procyon.org.uk>
+In-Reply-To: <110100.1681301937@warthog.procyon.org.uk>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 12 Apr 2023 09:27:33 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjJt-6_PJ=hm2_TzwVHcWSatMCiByrFiUizpteogGNibA@mail.gmail.com>
+Message-ID: <CAHk-=wjJt-6_PJ=hm2_TzwVHcWSatMCiByrFiUizpteogGNibA@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Linux-cachefs] [PATCH] netfs: Fix netfs_extract_iter_to_sg()
+ for ITER_UBUF/IOVEC
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,64 +118,22 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Shyam Prasad N <nspmangalore@gmail.com>, Steve French <sfrench@samba.org>,
- linux-cifs@vger.kernel.org, Rohith Surabattula <rohiths.msft@gmail.com>,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
+ Rohith Surabattula <rohiths.msft@gmail.com>, Jeff Layton <jlayton@kernel.org>,
+ linux-kernel@vger.kernel.org, Steve French <sfrench@samba.org>,
  linux-cachefs@redhat.com, linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-ID: <110099.1681301937.1@warthog.procyon.org.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: linux-foundation.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Linus,
-
-Could you apply this, please?  It doesn't affect anything yet, but I have
-patches in the works that will use it.
-
-Thanks,
-David
----
-netfs: Fix netfs_extract_iter_to_sg() for ITER_UBUF/IOVEC
-
-Fix netfs_extract_iter_to_sg() for ITER_UBUF and ITER_IOVEC to set the size
-of the page to the part of the page extracted, not the remaining amount of
-data in the extracted page array at that point.
-
-This doesn't yet affect anything as cifs, the only current user, only
-passes in non-user-backed iterators.
-
-Fixes: 018584697533 ("netfs: Add a function to extract an iterator into a scatterlist")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-cc: Steve French <sfrench@samba.org>
-cc: Shyam Prasad N <nspmangalore@gmail.com>
-cc: Rohith Surabattula <rohiths.msft@gmail.com>
-cc: linux-cachefs@redhat.com
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
----
- fs/netfs/iterator.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
-index e9a45dea748a..8a4c86687429 100644
---- a/fs/netfs/iterator.c
-+++ b/fs/netfs/iterator.c
-@@ -139,7 +139,7 @@ static ssize_t netfs_extract_user_to_sg(struct iov_iter *iter,
- 			size_t seg = min_t(size_t, PAGE_SIZE - off, len);
- 
- 			*pages++ = NULL;
--			sg_set_page(sg, page, len, off);
-+			sg_set_page(sg, page, seg, off);
- 			sgtable->nents++;
- 			sg++;
- 			len -= seg;
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://listman.redhat.com/mailman/listinfo/linux-cachefs
+T24gV2VkLCBBcHIgMTIsIDIwMjMgYXQgNToxOeKAr0FNIERhdmlkIEhvd2VsbHMgPGRob3dlbGxz
+QHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gQ291bGQgeW91IGFwcGx5IHRoaXMsIHBsZWFzZT8gIEl0
+IGRvZXNuJ3QgYWZmZWN0IGFueXRoaW5nIHlldCwgYnV0IEkgaGF2ZQo+IHBhdGNoZXMgaW4gdGhl
+IHdvcmtzIHRoYXQgd2lsbCB1c2UgaXQuCgpBcHBsaWVkLAoKICAgICAgICAgICAgIExpbnVzCgot
+LQpMaW51eC1jYWNoZWZzIG1haWxpbmcgbGlzdApMaW51eC1jYWNoZWZzQHJlZGhhdC5jb20KaHR0
+cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZzCg==
 
