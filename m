@@ -2,98 +2,97 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8B056E255F
-	for <lists+linux-cachefs@lfdr.de>; Fri, 14 Apr 2023 16:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B35C96E268D
+	for <lists+linux-cachefs@lfdr.de>; Fri, 14 Apr 2023 17:13:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681481625;
+	s=mimecast20190719; t=1681485190;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LhnHeS19L+G7A0UiKFtgxzRb88h/ptAxILejbJ4n6GI=;
-	b=fPpFmRjCASCbWCmxwY0QBQXy0EtO+yrBCA5nVPYObPSwOzWbRAGFlQj6rvvIakI/WH4QS0
-	cLsGYTjFWYboQI1MUx+UQb6QBFhdTRk/heai3zI4m41c8Xk3goiNFwAiB0KFu9o6Q8QtLc
-	qD6dgR/WWE6ywvTS1G5Ewlw4WUk5m3s=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=dz53Y476jrKlkD+SsybkcHXD0ebMZlveGJLwG4s5dZE=;
+	b=Wpb72vY9f7truU96Fu/zBlS+0lhW5dNTqTPGOf6kmRxw5IeVaM1XcpDZTiimGLAaZhmE6U
+	OSMK+NOuwtrZY/QFQeIvvnwcLdg4ce0sRmmhKJJtXb+ibkRhjMawfD4EmQQVfVp06gIYgn
+	M8Zb5u0+EYe+z9K7S+O7EViNlBnAXA4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-49-PJUcXXRsOP-tcQpKu6Bq6w-1; Fri, 14 Apr 2023 10:13:42 -0400
-X-MC-Unique: PJUcXXRsOP-tcQpKu6Bq6w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-673-pOVfU6U9Ob20IaAvGjQWlQ-1; Fri, 14 Apr 2023 11:13:07 -0400
+X-MC-Unique: pOVfU6U9Ob20IaAvGjQWlQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 85A51858297;
-	Fri, 14 Apr 2023 14:13:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05637381495C;
+	Fri, 14 Apr 2023 15:13:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C8FE40C6E70;
-	Fri, 14 Apr 2023 14:13:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 748124042ACB;
+	Fri, 14 Apr 2023 15:13:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3EF2619472C4;
-	Fri, 14 Apr 2023 14:13:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 172D419472CE;
+	Fri, 14 Apr 2023 15:13:05 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1A3D41946A7F for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 14 Apr 2023 14:13:40 +0000 (UTC)
+ ESMTP id 1CBAB19472C9 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 14 Apr 2023 15:13:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 07B812166B29; Fri, 14 Apr 2023 14:13:40 +0000 (UTC)
+ id EDED7492C14; Fri, 14 Apr 2023 15:13:03 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 003DA2166B26
- for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 14:13:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D63908996E3
- for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 14:13:39 +0000 (UTC)
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E60FE492C13
+ for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 15:13:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA53C88B7A1
+ for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 15:13:03 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-35-A-BBqkA4M2SAyi_J23Nhnw-1; Fri, 14 Apr 2023 10:13:38 -0400
-X-MC-Unique: A-BBqkA4M2SAyi_J23Nhnw-1
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-63b5c48ea09so336451b3a.1
- for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 07:13:37 -0700 (PDT)
+ us-mta-155-GG4qOG7sM369dtlDL_488Q-1; Fri, 14 Apr 2023 11:13:02 -0400
+X-MC-Unique: GG4qOG7sM369dtlDL_488Q-1
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-24735727c83so172367a91.3
+ for <linux-cachefs@redhat.com>; Fri, 14 Apr 2023 08:13:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681481617; x=1684073617;
+ d=1e100.net; s=20221208; t=1681485181; x=1684077181;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
  :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=0khoLy+eSzRa5gLnIJcGGxbaem/Y8O3pCzVmwyuZdh8=;
- b=BP3q9abN+zNlaM/ZlzbAdZMESyuiS01WN8tSMqKMYVlGrsBF8DX8qT8P1F+FCwBGeL
- CIPdOqqQNHQS9sOVFam4GwNIH7cP0GHNqeXpbDVSSvFDJU83iZyeKeB4Z+3DaoSRaZSU
- 00mfh9CBD1GNmifMEqGjSl/qPO/23InpyGCl07NPKhm4TJI5CSM8/iIPdRmpevnU1a7h
- ey5aJg07e/bH0ztpBL2ZYmIn/XY6+LZsThuWQhndtVRBCvs0TjhonYYYGrXf2vi9sF0J
- PqmuG0r/RiJoUk6dF1uOUi5mzj4fENyYsqNsPWR6idGRgqjZe4CNhyqxzviS+XS5PmHS
- cuGw==
-X-Gm-Message-State: AAQBX9f6cJY3yQ7gmAAwh59Ae0W1UlnXsaf5UDWEbN0p3Rvupt1W4IKH
- jKj6PUgWjU1RPC/N+Cw27Bb4Fg==
-X-Google-Smtp-Source: AKy350aKg9lmYOUaUEQlZgWqZ66lzJFD1dcVcEBuDBWsSx/PM4wkmkAYb4pSZQkjOSGOhInZapBxgA==
-X-Received: by 2002:a05:6a00:178c:b0:63b:4e99:807d with SMTP id
- s12-20020a056a00178c00b0063b4e99807dmr7746205pfg.8.1681481616918; 
- Fri, 14 Apr 2023 07:13:36 -0700 (PDT)
+ bh=7E15TZKBUj7LhKJ72c7EvYGt3lCtMNYU30GwoWvGVWc=;
+ b=SiTeNosqloJg6vHtUMJaTGiDUS8iKlT+FjlnpkcBAajbsYhleNrbFcsayZ2bm57kKu
+ wpVydfOmdNrDNlVJiTMV84Y1Sgy5+JRElRlAOqNaV83wQOc4cMfRccUIzNJTFuCmxD/I
+ xAYUolGzJ3lu64ez+xXjx2bwNFWuUA80IsmDZIhV0gs57VjvUnuODLn7tHuAQvcxwVWP
+ wLnBMbO5FnZqEWUWzzVfe5Z5zRCPWrbVm6xt198JRPj1+ix5i6W1Uh4H/9wTfpxxOhDP
+ uV6eCdD7t9r+aI7jDRa++1gbTtyMrx8qWE1kczHTosav9jI0DkzNCE1i1bzHuGzJjqb8
+ GtlA==
+X-Gm-Message-State: AAQBX9caY9Gj3qKl78MDILI9NAQya1DlwabU72gZ00skBlxsYWb1PG+K
+ NRPERsDmx9zWScnXXNkAlviGpg==
+X-Google-Smtp-Source: AKy350a/j8gjvHx5XSjNdD1sExInjJAJ7u6ERNSyq4ejXK3n0tHMQ777nwe9LmVp5aHRdXJu3Y85pw==
+X-Received: by 2002:a05:6a00:2e1d:b0:636:ea6c:68d8 with SMTP id
+ fc29-20020a056a002e1d00b00636ea6c68d8mr8600263pfb.27.1681485181079; 
+ Fri, 14 Apr 2023 08:13:01 -0700 (PDT)
 Received: from [10.255.185.5] ([139.177.225.243])
  by smtp.gmail.com with ESMTPSA id
- s20-20020aa78294000000b005921c46cbadsm3189981pfm.99.2023.04.14.07.13.33
+ 5-20020aa79105000000b0063b1bb2e0a7sm3129352pfh.203.2023.04.14.08.12.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Apr 2023 07:13:36 -0700 (PDT)
-Message-ID: <1a9c4365-aae1-b4fe-d31d-dfd9b42afae6@bytedance.com>
-Date: Fri, 14 Apr 2023 22:13:30 +0800
+ Fri, 14 Apr 2023 08:13:00 -0700 (PDT)
+Message-ID: <65f424ca-d7cd-f53b-cefc-684ec0393bce@bytedance.com>
+Date: Fri, 14 Apr 2023 23:12:55 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.9.1
 To: David Howells <dhowells@redhat.com>
-References: <20230329140155.53272-5-zhujia.zj@bytedance.com>
+References: <20230329140155.53272-6-zhujia.zj@bytedance.com>
  <20230329140155.53272-1-zhujia.zj@bytedance.com>
- <1250225.1681480128@warthog.procyon.org.uk>
+ <1250439.1681480404@warthog.procyon.org.uk>
 From: Jia Zhu <zhujia.zj@bytedance.com>
-In-Reply-To: <1250225.1681480128@warthog.procyon.org.uk>
+In-Reply-To: <1250439.1681480404@warthog.procyon.org.uk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,9 +100,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [PATCH V5 4/5] cachefiles: narrow the scope of
- triggering EPOLLIN events in ondemand mode
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [Linux-cachefs] [PATCH V5 5/5] cachefiles: add restore command
+ to recover inflight ondemand read requests
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,24 +118,41 @@ Cc: linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
  linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-CgrlnKggMjAyMy80LzE0IDIxOjQ4LCBEYXZpZCBIb3dlbGxzIOWGmemBkzoKPiBKaWEgWmh1IDx6
-aHVqaWEuempAYnl0ZWRhbmNlLmNvbT4gd3JvdGU6Cj4gCj4+ICAgCWlmIChjYWNoZWZpbGVzX2lu
-X29uZGVtYW5kX21vZGUoY2FjaGUpKSB7Cj4+IC0JCWlmICgheGFfZW1wdHkoJmNhY2hlLT5yZXFz
-KSkKPj4gLQkJCW1hc2sgfD0gRVBPTExJTjsKPj4gKwkJaWYgKCF4YV9lbXB0eSh4YSkpIHsKPj4g
-KwkJCXJjdV9yZWFkX2xvY2soKTsKPj4gKwkJCXhhX2Zvcl9lYWNoX21hcmtlZCh4YSwgaW5kZXgs
-IHJlcSwgQ0FDSEVGSUxFU19SRVFfTkVXKSB7Cj4+ICsJCQkJaWYgKCFjYWNoZWZpbGVzX29uZGVt
-YW5kX2lzX3Jlb3BlbmluZ19yZWFkKHJlcSkpIHsKPj4gKwkJCQkJbWFzayB8PSBFUE9MTElOOwo+
-PiArCQkJCQlicmVhazsKPj4gKwkJCQl9Cj4+ICsJCQl9Cj4+ICsJCQlyY3VfcmVhZF91bmxvY2so
-KTsKPiAKPiBZb3Ugc2hvdWxkIHByb2JhYmx5IHVzZSB4YXNfZm9yX2VhY2hfbWFya2VkKCkgaW5z
-dGVhZCBvZiB4YV9mb3JfZWFjaF9tYXJrZWQoKQo+IGFzIHRoZSBmb3JtZXIgc2hvdWxkIHBlcmZv
-cm0gYmV0dGVyLgo+IAo+IERhdmlkCgpIaSBEYXZpZCwKClRoYW5rcyBmb3IgeW91ciBhZHZpY2Uu
-IEknbGwgcmV2aXNlIGl0IGluIG5leHQgdmVyc2lvbi4KCkppYQo+IAoKLS0KTGludXgtY2FjaGVm
-cyBtYWlsaW5nIGxpc3QKTGludXgtY2FjaGVmc0ByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5y
-ZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtY2FjaGVmcwo=
+CgrlnKggMjAyMy80LzE0IDIxOjUzLCBEYXZpZCBIb3dlbGxzIOWGmemBkzoKPiBKaWEgWmh1IDx6
+aHVqaWEuempAYnl0ZWRhbmNlLmNvbT4gd3JvdGU6Cj4gCj4+ICtpbnQgY2FjaGVmaWxlc19vbmRl
+bWFuZF9yZXN0b3JlKHN0cnVjdCBjYWNoZWZpbGVzX2NhY2hlICpjYWNoZSwgY2hhciAqYXJncykK
+Pj4gK3sKPj4gKwlzdHJ1Y3QgY2FjaGVmaWxlc19yZXEgKnJlcTsKPj4gKwo+PiArCVhBX1NUQVRF
+KHhhcywgJmNhY2hlLT5yZXFzLCAwKTsKPj4gKwo+PiArCWlmICghdGVzdF9iaXQoQ0FDSEVGSUxF
+U19PTkRFTUFORF9NT0RFLCAmY2FjaGUtPmZsYWdzKSkKPj4gKwkJcmV0dXJuIC1FT1BOT1RTVVBQ
+Owo+PiArCj4+ICsJLyoKPj4gKwkgKiBSZXNldCB0aGUgcmVxdWVzdHMgdG8gQ0FDSEVGSUxFU19S
+RVFfTkVXIHN0YXRlLCBzbyB0aGF0IHRoZQo+PiArCSAqIHJlcXVlc3RzIGhhdmUgYmVlbiBwcm9j
+ZXNzZWQgaGFsZndheSBiZWZvcmUgdGhlIGNyYXNoIG9mIHRoZQo+PiArCSAqIHVzZXIgZGFlbW9u
+IGNvdWxkIGJlIHJlcHJvY2Vzc2VkIGFmdGVyIHRoZSByZWNvdmVyeS4KPj4gKwkgKi8KPj4gKwl4
+YXNfbG9jaygmeGFzKTsKPj4gKwl4YXNfZm9yX2VhY2goJnhhcywgcmVxLCBVTE9OR19NQVgpCj4+
+ICsJCXhhc19zZXRfbWFyaygmeGFzLCBDQUNIRUZJTEVTX1JFUV9ORVcpOwo+PiArCXhhc191bmxv
+Y2soJnhhcyk7Cj4+ICsKPj4gKwl3YWtlX3VwX2FsbCgmY2FjaGUtPmRhZW1vbl9wb2xsd3EpOwo+
+PiArCXJldHVybiAwOwo+PiArfQo+IAo+IFNob3VsZCB0aGVyZSBiZSBhIGNoZWNrIHRvIHNlZSBp
+ZiB0aGlzIGlzIG5lZWRlZD8KPiAKPiBEYXZpZAoKSSd2ZSBjb25zaWRlcmVkIHdoZXRoZXIgdG8g
+YWRkIGEgY2hlY2sgaGVyZSwgc2luY2UgdGhlIHVzZXIgY291bGQgaW52b2tlCidyZXN0b3JlJyB0
+aHJvdWdoIGlvY3RsIGF0IGFueSB0aW1lLgoKSWYgJ3Jlc3RvcmUnIGlzIGNhbGxlZCB3aXRob3V0
+IHVzZXIgZGFlbW9uIGNyYXNoaW5nLiBUaGVuIHRoZSByZXEgYmVpbmcKcHJvY2Vzc2VkIGJ5IHRo
+ZSB1c2VyIGRhZW1vbiB3aWxsIGJlIHJlc2V0IHRvIENBQ0hFRklMRVNfUkVRX05FVyBhbmQKY291
+bGQgYmUgcmUtcmVhZCBhbmQgcHJvY2Vzc2VkIGJ5IHRoZSB1c2VyIGRhZW1vbi4KCkZvciBPUEVO
+IHJlcTogIFRoZSB1c2VyIGRhZW1vbiB3aWxsIGlnbm9yZSB0aGlzIHJlcGVhdGVkIHJlcSBzaW5j
+ZSB0aGUKcmVsYXRlZCBhbm9ueW1vdXMgZmQgaXMgdGhlIHNhbWUuCgpGb3IgUkVBRCByZXE6IFRo
+ZSB1c2VyIGRhZW1vbiB3aWxsIHJlYWQgdGhlIHNhbWUgcGFydCBvZiB0aGUgZGF0YSBhZ2Fpbgph
+bmQgd3JpdGUgaXQgdG8gZnNjYWNoZSAodGhpcyB3aWxsIG5vdCBjYXVzZSBhbnkgZXJyb3IpCgpG
+b3IgQ0xPU0UgcmVxOiBBY3R1YWxseSB0aGUgdXNlciBkYWVtb24gd2lsbCBjbG9zZSB0aGlzIGFu
+b255bW91cyBmZCwKYnV0IGZvcnR1bmF0ZWx5IFtQQVRDSCAzLzVdIGNvdWxkIGhhbmRsZSB0aGlz
+IGNhc2UgYnkgcmVvcGVuaW5nIGl0CmF1dG9tYXRpY2FsbHkuCgpUaHVzICJyZXN0b3JlIiBjb3Vs
+ZCBiZSBjYWxsZWQgYXQgYW55IHRpbWUgd2l0aG91dCBlcnJvciwgY2hlY2tzCm1pZ2h0IGludHJv
+ZHVjZSBleHRyYSByYWNlIGNvbmRpdGlvbnMuCgpKaWEKPiAKCi0tCkxpbnV4LWNhY2hlZnMgbWFp
+bGluZyBsaXN0CkxpbnV4LWNhY2hlZnNAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LWNhY2hlZnMK
 
