@@ -2,7 +2,7 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 648F8702A6D
+	by mail.lfdr.de (Postfix) with ESMTPS id A9AB7702A6E
 	for <lists+linux-cachefs@lfdr.de>; Mon, 15 May 2023 12:25:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1684146331;
@@ -12,58 +12,63 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=lKnWcRWFd5gm/jHMrbWnyFwV+p4/Omv92R1MIo2HCGo=;
-	b=T4PWm3TxIpSEtWz7dokeJRot2bLzFTDX5jjJWuWrDUq1jy325KjlrKNlz3vqWKhR/wJTds
-	sJbKNnmIeOCdSE9hJG/OCkpP9ZdRDaQclpFT0T+cz3Dord8M7nCBd60NB2rQR/tXoRdFGm
-	Tm3RvrpOyO3je24jzWT6Eq2GliKXbF4=
+	bh=/jkHECJbDQjJwsoc3lWE80O+OD/JUNUd5DeHg+6UW3w=;
+	b=ObE4RVhAz+JtitthoRvWu1/iNlDPcLx+KNsuHO3uRPC2RNJLCxM6lPImQHSsYvNAr02VPf
+	Szwgaj4m58TNnImvhn/rhe9yZOL96Y0P0QjWLaxEPNKALgdIzvvyiqsUJ/jJRY11mAL6ww
+	bXs7sTVAe1Ba0vtAsE6bm6x5rHXpHss=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-Osz-AVaiNW6nd7pjt8u9LQ-1; Mon, 15 May 2023 06:25:28 -0400
-X-MC-Unique: Osz-AVaiNW6nd7pjt8u9LQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-118-rJkTpzu8PwOGzFyOzLqL2w-1; Mon, 15 May 2023 06:25:28 -0400
+X-MC-Unique: rJkTpzu8PwOGzFyOzLqL2w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1061381D4C5;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F10B73C10C64;
 	Mon, 15 May 2023 10:25:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1B2E414152F6;
-	Mon, 15 May 2023 10:25:27 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C7E5219465A4;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E81F940C6EC4;
 	Mon, 15 May 2023 10:25:26 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B9AB519465B6;
+	Mon, 15 May 2023 10:25:25 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 06B871946A43 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  5 May 2023 08:31:06 +0000 (UTC)
+ ESMTP id CF12D19465BC for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 10 May 2023 00:58:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DD138C16024; Fri,  5 May 2023 08:31:06 +0000 (UTC)
+ id 9C42D40C6E68; Wed, 10 May 2023 00:58:25 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D5533C15BA0
- for <linux-cachefs@redhat.com>; Fri,  5 May 2023 08:31:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90F093C0ED6C
- for <linux-cachefs@redhat.com>; Fri,  5 May 2023 08:31:06 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 949BB40C6E67
+ for <linux-cachefs@redhat.com>; Wed, 10 May 2023 00:58:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78AF9811E7C
+ for <linux-cachefs@redhat.com>; Wed, 10 May 2023 00:58:25 +0000 (UTC)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
  [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-400-4CFGp31GOjetBN27Xhbbag-1; Fri, 05 May 2023 04:31:02 -0400
-X-MC-Unique: 4CFGp31GOjetBN27Xhbbag-1
+ us-mta-497-Gv7D_E1lOHyezj0OzhwzPg-1; Tue, 09 May 2023 20:58:22 -0400
+X-MC-Unique: Gv7D_E1lOHyezj0OzhwzPg-1
 Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4QCNcc6Nc2zTkCY;
- Fri,  5 May 2023 16:09:04 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.58) by
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4QGGjw6xnszTkTS;
+ Wed, 10 May 2023 08:53:40 +0800 (CST)
+Received: from [10.67.110.112] (10.67.110.112) by
  dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Fri, 5 May 2023 16:13:35 +0800
-From: Xiu Jianfeng <xiujianfeng@huawei.com>
+ 15.1.2507.23; Wed, 10 May 2023 08:58:18 +0800
+Message-ID: <c6e84076-9134-8c27-75bb-9191da6c23c3@huawei.com>
+Date: Wed, 10 May 2023 08:58:17 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+From: xiujianfeng <xiujianfeng@huawei.com>
 To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
  <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <dhowells@redhat.com>,
  <code@tyhicks.com>, <hirofumi@mail.parknet.co.jp>, <linkinjeon@kernel.org>,
@@ -75,13 +80,10 @@ To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
  <john.johansen@canonical.com>, <mcgrof@kernel.org>, <mortonm@chromium.org>,
  <fred@cloudflare.com>, <mic@digikod.net>, <mpe@ellerman.id.au>,
  <nathanl@linux.ibm.com>, <gnoack3000@gmail.com>, <roberto.sassu@huawei.com>
-Date: Fri, 5 May 2023 16:12:00 +0800
-Message-ID: <20230505081200.254449-3-xiujianfeng@huawei.com>
-In-Reply-To: <20230505081200.254449-1-xiujianfeng@huawei.com>
 References: <20230505081200.254449-1-xiujianfeng@huawei.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.67.174.58]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+In-Reply-To: <20230505081200.254449-1-xiujianfeng@huawei.com>
+X-Originating-IP: [10.67.110.112]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
  dggpeml500023.china.huawei.com (7.185.36.114)
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -91,10 +93,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Mon, 15 May 2023 10:25:24 +0000
-Subject: [Linux-cachefs] [PATCH -next 2/2] lsm: Change inode_setattr hook to
- take struct path argument
+Subject: Re: [Linux-cachefs] [PATCH -next 0/2] lsm: Change inode_setattr()
+ to take struct
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,163 +115,91 @@ Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
  wangweiyang2@huawei.com, linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huawei.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-For path-based LSMs such as Landlock, struct path instead of struct
-dentry is required to make sense of attr/xattr accesses. So change the
-argument of lsm hook inode_setattr() from struct dentry * to struct
-path *.
+sorry, I forgot to add the link to preview discussion:
 
-Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
----
- fs/attr.c                     |  2 +-
- fs/fat/file.c                 |  2 +-
- include/linux/lsm_hook_defs.h |  2 +-
- include/linux/security.h      |  4 ++--
- security/security.c           | 10 +++++-----
- security/selinux/hooks.c      |  3 ++-
- security/smack/smack_lsm.c    |  5 +++--
- 7 files changed, 15 insertions(+), 13 deletions(-)
+https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
 
-diff --git a/fs/attr.c b/fs/attr.c
-index eecd78944b83..54d4334c350f 100644
---- a/fs/attr.c
-+++ b/fs/attr.c
-@@ -473,7 +473,7 @@ int notify_change(struct mnt_idmap *idmap, const struct path *path,
- 	    !vfsgid_valid(i_gid_into_vfsgid(idmap, inode)))
- 		return -EOVERFLOW;
- 
--	error = security_inode_setattr(idmap, dentry, attr);
-+	error = security_inode_setattr(idmap, path, attr);
- 	if (error)
- 		return error;
- 	error = try_break_deleg(inode, delegated_inode);
-diff --git a/fs/fat/file.c b/fs/fat/file.c
-index 795a4fad5c40..bb31663f99b5 100644
---- a/fs/fat/file.c
-+++ b/fs/fat/file.c
-@@ -91,7 +91,7 @@ static int fat_ioctl_set_attributes(struct file *file, u32 __user *user_attr)
- 	 * module, just because it maps to a file mode.
- 	 */
- 	err = security_inode_setattr(file_mnt_idmap(file),
--				     file->f_path.dentry, &ia);
-+				     &file->f_path, &ia);
- 	if (err)
- 		goto out_unlock_inode;
- 
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 6bb55e61e8e8..542fa6ab87c5 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -134,7 +134,7 @@ LSM_HOOK(int, 0, inode_readlink, struct dentry *dentry)
- LSM_HOOK(int, 0, inode_follow_link, struct dentry *dentry, struct inode *inode,
- 	 bool rcu)
- LSM_HOOK(int, 0, inode_permission, struct inode *inode, int mask)
--LSM_HOOK(int, 0, inode_setattr, struct dentry *dentry, struct iattr *attr)
-+LSM_HOOK(int, 0, inode_setattr, const struct path *path, struct iattr *attr)
- LSM_HOOK(int, 0, inode_getattr, const struct path *path)
- LSM_HOOK(int, 0, inode_setxattr, struct mnt_idmap *idmap,
- 	 struct dentry *dentry, const char *name, const void *value,
-diff --git a/include/linux/security.h b/include/linux/security.h
-index e2734e9e44d5..9121f86feed1 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -353,7 +353,7 @@ int security_inode_follow_link(struct dentry *dentry, struct inode *inode,
- 			       bool rcu);
- int security_inode_permission(struct inode *inode, int mask);
- int security_inode_setattr(struct mnt_idmap *idmap,
--			   struct dentry *dentry, struct iattr *attr);
-+			   const struct path *path, struct iattr *attr);
- int security_inode_getattr(const struct path *path);
- int security_inode_setxattr(struct mnt_idmap *idmap,
- 			    struct dentry *dentry, const char *name,
-@@ -849,7 +849,7 @@ static inline int security_inode_permission(struct inode *inode, int mask)
- }
- 
- static inline int security_inode_setattr(struct mnt_idmap *idmap,
--					 struct dentry *dentry,
-+					 const struct path *path,
- 					 struct iattr *attr)
- {
- 	return 0;
-diff --git a/security/security.c b/security/security.c
-index d5ff7ff45b77..2ce7194fdb5c 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -2075,7 +2075,7 @@ int security_inode_permission(struct inode *inode, int mask)
- /**
-  * security_inode_setattr() - Check if setting file attributes is allowed
-  * @idmap: idmap of the mount
-- * @dentry: file
-+ * @path: path of file
-  * @attr: new attributes
-  *
-  * Check permission before setting file attributes.  Note that the kernel call
-@@ -2086,16 +2086,16 @@ int security_inode_permission(struct inode *inode, int mask)
-  * Return: Returns 0 if permission is granted.
-  */
- int security_inode_setattr(struct mnt_idmap *idmap,
--			   struct dentry *dentry, struct iattr *attr)
-+			   const struct path *path, struct iattr *attr)
- {
- 	int ret;
- 
--	if (unlikely(IS_PRIVATE(d_backing_inode(dentry))))
-+	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
- 		return 0;
--	ret = call_int_hook(inode_setattr, 0, dentry, attr);
-+	ret = call_int_hook(inode_setattr, 0, path, attr);
- 	if (ret)
- 		return ret;
--	return evm_inode_setattr(idmap, dentry, attr);
-+	return evm_inode_setattr(idmap, path->dentry, attr);
- }
- EXPORT_SYMBOL_GPL(security_inode_setattr);
- 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 79b4890e9936..81abaea4dd63 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3051,9 +3051,10 @@ static int selinux_inode_permission(struct inode *inode, int mask)
- 	return rc;
- }
- 
--static int selinux_inode_setattr(struct dentry *dentry, struct iattr *iattr)
-+static int selinux_inode_setattr(const struct path *path, struct iattr *iattr)
- {
- 	const struct cred *cred = current_cred();
-+	struct dentry *dentry = path->dentry;
- 	struct inode *inode = d_backing_inode(dentry);
- 	unsigned int ia_valid = iattr->ia_valid;
- 	__u32 av = FILE__WRITE;
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 7a3e9ab137d8..0b2931c87507 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -1147,14 +1147,15 @@ static int smack_inode_permission(struct inode *inode, int mask)
- 
- /**
-  * smack_inode_setattr - Smack check for setting attributes
-- * @dentry: the object
-+ * @path: path of the object
-  * @iattr: for the force flag
-  *
-  * Returns 0 if access is permitted, an error code otherwise
-  */
--static int smack_inode_setattr(struct dentry *dentry, struct iattr *iattr)
-+static int smack_inode_setattr(const struct path *path, struct iattr *iattr)
- {
- 	struct smk_audit_info ad;
-+	struct dentry *dentry = path->dentry;
- 	int rc;
- 
- 	/*
--- 
-2.17.1
+On 2023/5/5 16:11, Xiu Jianfeng wrote:
+> Hi,
+> 
+> I am working on adding xattr/attr support for landlock [1], so we can
+> control fs accesses such as chmod, chown, uptimes, setxattr, etc.. inside
+> landlock sandbox. the LSM hooks as following are invoved:
+> 1.inode_setattr
+> 2.inode_setxattr
+> 3.inode_removexattr
+> 4.inode_set_acl
+> 5.inode_remove_acl
+> which are controlled by LANDLOCK_ACCESS_FS_WRITE_METADATA.
+> 
+> and
+> 1.inode_getattr
+> 2.inode_get_acl
+> 3.inode_getxattr
+> 4.inode_listxattr
+> which are controlled by LANDLOCK_ACCESS_FS_READ_METADATA
+> 
+> Some of these hooks only take struct dentry as a argument, However, for
+> path-based LSMs such Landlock, Apparmor and Tomoyo, struct path instead
+> of struct dentry required to make sense of attr/xattr accesses. So we
+> need to refactor these hooks to take a struct path argument.
+> 
+> This patchset only refators inode_setattr hook as part of whole work.
+> 
+> Also, I have a problem about file_dentry() in __file_remove_privs() of the
+> first patch, before changes in commit c1892c37769cf ("vfs: fix deadlock in
+> file_remove_privs() on overlayfs"), it gets dentry and inode as belows:
+> 
+> struct dentry *dentry = file->f_path.dentry;
+> struct inode *inode = d_inode(dentry);
+> 
+> That would be clear to change it to pass &file->f_path to
+> __remove_privs()->notify_change()->inode_setattr().
+> After that commit, it has been changed to:
+> 
+> struct dentry *dentry = file_dentry(file);
+> struct inode *inode = file_inode(file);
+> 
+> If I understand correctly, the dentry from file_dentry() maybe the upper
+> or the lower, it can be different from file->f_path.dentry. It can't just
+> go back to use &file->f_path otherwise the bug will come back for
+> overlayfs. So for such scenario, how to get a path from file if the file
+> maybe or not from overlayfs, and which kind of overlayfs path is ok for
+> Landlock?
+> 
+> Xiu Jianfeng (2):
+>   fs: Change notify_change() to take struct path argument
+>   lsm: Change inode_setattr hook to take struct path argument
+> 
+>  drivers/base/devtmpfs.c       |  5 +++--
+>  fs/attr.c                     |  7 ++++---
+>  fs/cachefiles/interface.c     |  4 ++--
+>  fs/coredump.c                 |  2 +-
+>  fs/ecryptfs/inode.c           | 18 +++++++++---------
+>  fs/fat/file.c                 |  2 +-
+>  fs/inode.c                    |  8 +++++---
+>  fs/ksmbd/smb2pdu.c            |  6 +++---
+>  fs/ksmbd/smbacl.c             |  2 +-
+>  fs/namei.c                    |  2 +-
+>  fs/nfsd/vfs.c                 | 12 ++++++++----
+>  fs/open.c                     | 19 ++++++++++---------
+>  fs/overlayfs/overlayfs.h      |  4 +++-
+>  fs/utimes.c                   |  2 +-
+>  include/linux/fs.h            |  4 ++--
+>  include/linux/lsm_hook_defs.h |  2 +-
+>  include/linux/security.h      |  4 ++--
+>  security/security.c           | 10 +++++-----
+>  security/selinux/hooks.c      |  3 ++-
+>  security/smack/smack_lsm.c    |  5 +++--
+>  20 files changed, 67 insertions(+), 54 deletions(-)
+> 
 
 --
 Linux-cachefs mailing list
