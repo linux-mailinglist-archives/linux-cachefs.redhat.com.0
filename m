@@ -2,90 +2,74 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9AB7702A6E
-	for <lists+linux-cachefs@lfdr.de>; Mon, 15 May 2023 12:25:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C07EB703151
+	for <lists+linux-cachefs@lfdr.de>; Mon, 15 May 2023 17:18:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684146331;
+	s=mimecast20190719; t=1684163898;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/jkHECJbDQjJwsoc3lWE80O+OD/JUNUd5DeHg+6UW3w=;
-	b=ObE4RVhAz+JtitthoRvWu1/iNlDPcLx+KNsuHO3uRPC2RNJLCxM6lPImQHSsYvNAr02VPf
-	Szwgaj4m58TNnImvhn/rhe9yZOL96Y0P0QjWLaxEPNKALgdIzvvyiqsUJ/jJRY11mAL6ww
-	bXs7sTVAe1Ba0vtAsE6bm6x5rHXpHss=
+	bh=4z3sbBmUWlr7vZAUX4cg6aQPPjqH5AN6yukrTN1pPCg=;
+	b=MDhfLCwQ4IsOyeW9DAOYILjNg8JFrgHH36g+gSCFMUUAm1uhjdXfggpiGQM7LsaeN5MDRD
+	blQdSewQlNuIPdD9Kpxf9VFgh6IgchHToAaQkRoV317EYGjh2yzMlb52ZLK3RMLXfDz2Su
+	m3cGflI9WItUHhVmZ1vaeViVYXJHaCE=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-rJkTpzu8PwOGzFyOzLqL2w-1; Mon, 15 May 2023 06:25:28 -0400
-X-MC-Unique: rJkTpzu8PwOGzFyOzLqL2w-1
+ us-mta-456-q3TYf199OTWYEHj3D3Q-hw-1; Mon, 15 May 2023 11:18:16 -0400
+X-MC-Unique: q3TYf199OTWYEHj3D3Q-hw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F10B73C10C64;
-	Mon, 15 May 2023 10:25:27 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E81F940C6EC4;
-	Mon, 15 May 2023 10:25:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2908D1C0513D;
+	Mon, 15 May 2023 15:18:15 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B742A40C6EC4;
+	Mon, 15 May 2023 15:18:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B9AB519465B6;
-	Mon, 15 May 2023 10:25:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8E04219465A3;
+	Mon, 15 May 2023 15:18:13 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CF12D19465BC for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 10 May 2023 00:58:25 +0000 (UTC)
+ ESMTP id 99FB6194658C for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 15 May 2023 15:18:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9C42D40C6E68; Wed, 10 May 2023 00:58:25 +0000 (UTC)
+ id 379FA401DE04; Mon, 15 May 2023 15:18:11 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 949BB40C6E67
- for <linux-cachefs@redhat.com>; Wed, 10 May 2023 00:58:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78AF9811E7C
- for <linux-cachefs@redhat.com>; Wed, 10 May 2023 00:58:25 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
- [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3039340C6EC4
+ for <linux-cachefs@redhat.com>; Mon, 15 May 2023 15:18:11 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (unknown [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14BD385A588
+ for <linux-cachefs@redhat.com>; Mon, 15 May 2023 15:18:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-497-Gv7D_E1lOHyezj0OzhwzPg-1; Tue, 09 May 2023 20:58:22 -0400
-X-MC-Unique: Gv7D_E1lOHyezj0OzhwzPg-1
-Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4QGGjw6xnszTkTS;
- Wed, 10 May 2023 08:53:40 +0800 (CST)
-Received: from [10.67.110.112] (10.67.110.112) by
- dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Wed, 10 May 2023 08:58:18 +0800
-Message-ID: <c6e84076-9134-8c27-75bb-9191da6c23c3@huawei.com>
-Date: Wed, 10 May 2023 08:58:17 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-From: xiujianfeng <xiujianfeng@huawei.com>
-To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <dhowells@redhat.com>,
- <code@tyhicks.com>, <hirofumi@mail.parknet.co.jp>, <linkinjeon@kernel.org>,
- <sfrench@samba.org>, <senozhatsky@chromium.org>, <tom@talpey.com>,
- <chuck.lever@oracle.com>, <jlayton@kernel.org>, <miklos@szeredi.hu>,
- <paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
- <stephen.smalley.work@gmail.com>, <eparis@parisplace.org>,
- <casey@schaufler-ca.com>, <dchinner@redhat.com>,
- <john.johansen@canonical.com>, <mcgrof@kernel.org>, <mortonm@chromium.org>,
- <fred@cloudflare.com>, <mic@digikod.net>, <mpe@ellerman.id.au>,
- <nathanl@linux.ibm.com>, <gnoack3000@gmail.com>, <roberto.sassu@huawei.com>
+ us-mta-433-Oe1niP7iMKu56ZfvxtVbag-1; Mon, 15 May 2023 11:18:07 -0400
+X-MC-Unique: Oe1niP7iMKu56ZfvxtVbag-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8A3E7625DF;
+ Mon, 15 May 2023 15:12:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA3FC433D2;
+ Mon, 15 May 2023 15:12:28 +0000 (UTC)
+Date: Mon, 15 May 2023 17:12:24 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Xiu Jianfeng <xiujianfeng@huawei.com>
+Message-ID: <20230515-nutzen-umgekehrt-eee629a0101e@brauner>
 References: <20230505081200.254449-1-xiujianfeng@huawei.com>
+MIME-Version: 1.0
 In-Reply-To: <20230505081200.254449-1-xiujianfeng@huawei.com>
-X-Originating-IP: [10.67.110.112]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpeml500023.china.huawei.com (7.185.36.114)
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -94,7 +78,6 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Mon, 15 May 2023 10:25:24 +0000
 Subject: Re: [Linux-cachefs] [PATCH -next 0/2] lsm: Change inode_setattr()
  to take struct
 X-BeenThere: linux-cachefs@redhat.com
@@ -108,25 +91,29 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
- selinux@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-unionfs@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-cachefs@redhat.com,
- wangweiyang2@huawei.com, linux-fsdevel@vger.kernel.org
+Cc: mortonm@chromium.org, rafael@kernel.org, roberto.sassu@huawei.com,
+ linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org, paul@paul-moore.com,
+ miklos@szeredi.hu, mpe@ellerman.id.au, jmorris@namei.org, code@tyhicks.com,
+ linux-cachefs@redhat.com, linkinjeon@kernel.org, fred@cloudflare.com,
+ serge@hallyn.com, nathanl@linux.ibm.com, selinux@vger.kernel.org,
+ ecryptfs@vger.kernel.org, tom@talpey.com, linux-fsdevel@vger.kernel.org,
+ wangweiyang2@huawei.com, viro@zeniv.linux.org.uk, dchinner@redhat.com,
+ mic@digikod.net, eparis@parisplace.org, hirofumi@mail.parknet.co.jp,
+ gnoack3000@gmail.com, linux-nfs@vger.kernel.org, john.johansen@canonical.com,
+ gregkh@linuxfoundation.org, stephen.smalley.work@gmail.com, jlayton@kernel.org,
+ linux-kernel@vger.kernel.org, sfrench@samba.org, senozhatsky@chromium.org,
+ mcgrof@kernel.org, chuck.lever@oracle.com,
+ linux-security-module@vger.kernel.org, casey@schaufler-ca.com
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huawei.com
-Content-Language: en-US
+X-Mimecast-Originator: kernel.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-sorry, I forgot to add the link to preview discussion:
-
-https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
-
-On 2023/5/5 16:11, Xiu Jianfeng wrote:
+On Fri, May 05, 2023 at 04:11:58PM +0800, Xiu Jianfeng wrote:
 > Hi,
 > 
 > I am working on adding xattr/attr support for landlock [1], so we can
@@ -145,61 +132,23 @@ On 2023/5/5 16:11, Xiu Jianfeng wrote:
 > 3.inode_getxattr
 > 4.inode_listxattr
 > which are controlled by LANDLOCK_ACCESS_FS_READ_METADATA
-> 
-> Some of these hooks only take struct dentry as a argument, However, for
-> path-based LSMs such Landlock, Apparmor and Tomoyo, struct path instead
-> of struct dentry required to make sense of attr/xattr accesses. So we
-> need to refactor these hooks to take a struct path argument.
-> 
-> This patchset only refators inode_setattr hook as part of whole work.
-> 
-> Also, I have a problem about file_dentry() in __file_remove_privs() of the
-> first patch, before changes in commit c1892c37769cf ("vfs: fix deadlock in
-> file_remove_privs() on overlayfs"), it gets dentry and inode as belows:
-> 
-> struct dentry *dentry = file->f_path.dentry;
-> struct inode *inode = d_inode(dentry);
-> 
-> That would be clear to change it to pass &file->f_path to
-> __remove_privs()->notify_change()->inode_setattr().
-> After that commit, it has been changed to:
-> 
-> struct dentry *dentry = file_dentry(file);
-> struct inode *inode = file_inode(file);
-> 
-> If I understand correctly, the dentry from file_dentry() maybe the upper
-> or the lower, it can be different from file->f_path.dentry. It can't just
-> go back to use &file->f_path otherwise the bug will come back for
-> overlayfs. So for such scenario, how to get a path from file if the file
-> maybe or not from overlayfs, and which kind of overlayfs path is ok for
-> Landlock?
-> 
-> Xiu Jianfeng (2):
->   fs: Change notify_change() to take struct path argument
->   lsm: Change inode_setattr hook to take struct path argument
-> 
->  drivers/base/devtmpfs.c       |  5 +++--
->  fs/attr.c                     |  7 ++++---
->  fs/cachefiles/interface.c     |  4 ++--
->  fs/coredump.c                 |  2 +-
->  fs/ecryptfs/inode.c           | 18 +++++++++---------
->  fs/fat/file.c                 |  2 +-
->  fs/inode.c                    |  8 +++++---
->  fs/ksmbd/smb2pdu.c            |  6 +++---
->  fs/ksmbd/smbacl.c             |  2 +-
->  fs/namei.c                    |  2 +-
->  fs/nfsd/vfs.c                 | 12 ++++++++----
->  fs/open.c                     | 19 ++++++++++---------
->  fs/overlayfs/overlayfs.h      |  4 +++-
->  fs/utimes.c                   |  2 +-
->  include/linux/fs.h            |  4 ++--
->  include/linux/lsm_hook_defs.h |  2 +-
->  include/linux/security.h      |  4 ++--
->  security/security.c           | 10 +++++-----
->  security/selinux/hooks.c      |  3 ++-
->  security/smack/smack_lsm.c    |  5 +++--
->  20 files changed, 67 insertions(+), 54 deletions(-)
-> 
+
+It would be helpful to get the complete, full picture.
+
+Piecemeal extending vfs helpers with struct path arguments is costly,
+will cause a lot of churn and will require a lot of review time from us.
+
+Please give us the list of all security hooks to which you want to pass
+a struct path (if there are more to come apart from the ones listed
+here). Then please follow all callchains and identify the vfs helpers
+that would need to be updated. Then please figure out where those
+vfs helpers are called from and follow all callchains finding all
+inode_operations that would have to be updated and passed a struct path
+argument. So ultimately we'll end up with a list of vfs helpers and
+inode_operations that would have to be changed.
+
+I'm very reluctant to see anything merged without knowing _exactly_ what
+you're getting us into.
 
 --
 Linux-cachefs mailing list
