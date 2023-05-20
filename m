@@ -1,61 +1,88 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5908709E5B
-	for <lists+linux-cachefs@lfdr.de>; Fri, 19 May 2023 19:40:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9878070A492
+	for <lists+linux-cachefs@lfdr.de>; Sat, 20 May 2023 04:13:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684518006;
+	s=mimecast20190719; t=1684548789;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GeC4C9fm5zPL3zm/pVeLOmjiumC4xij8yXs4EcwdbRM=;
-	b=CpR8VPlH6lpVJ5mgYlLgvWI7GrOF+IcdFRK8w0FrumMCKfiJbDEoKgZsvx52t8P1Q8sLu4
-	pykFJLSEdv6vLRoXr54+H3r886iTd1sfdZqDku36X8Ler3Yt81fDpelyKklGHUZEYiYEKH
-	UZK563lZ6hzX797TlF3uxzikkC9262A=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wVSSxgXSFu6x5qoM9f2Z83mAvegBwDfwqF7sb2S1gHI=;
+	b=Bv7beEvOJkHuAUFfOdGHNI/Gp4n5Qd7dVeLcXKaOLX6Tl6qkt9/HO6uMadnsb59KZPcjvT
+	ErQJuSZy+ymcFIu8adlRAyKlQUhmxemCq0yEa44gqH9y0vhNr1osRjyZP06fKhaI2brf2m
+	2UnZJ1xC0UDCCgnAitWvXCtGiuydyew=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-335-jYzkpwjZOlmTToJm5Re1Vg-1; Fri, 19 May 2023 13:40:03 -0400
-X-MC-Unique: jYzkpwjZOlmTToJm5Re1Vg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-228-Ojsc8oY7NFqIO0GWhnMPJQ-1; Fri, 19 May 2023 22:13:06 -0400
+X-MC-Unique: Ojsc8oY7NFqIO0GWhnMPJQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14E22800C81;
-	Fri, 19 May 2023 17:40:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BF3F3804520;
+	Sat, 20 May 2023 02:13:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A7D940D1B60;
-	Fri, 19 May 2023 17:40:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 98C59140E955;
+	Sat, 20 May 2023 02:13:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C21FA19465B7;
-	Fri, 19 May 2023 17:40:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 080C819465BA;
+	Sat, 20 May 2023 02:13:01 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2DEE019465A4 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 19 May 2023 17:40:01 +0000 (UTC)
+ ESMTP id 24CC319465B3 for <linux-cachefs@listman.corp.redhat.com>;
+ Sat, 20 May 2023 02:12:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0FD222166B33; Fri, 19 May 2023 17:40:01 +0000 (UTC)
+ id ED95F40CFD01; Sat, 20 May 2023 02:12:58 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.42.28.221])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 70C792166B25;
- Fri, 19 May 2023 17:40:00 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: linux-cachefs@redhat.com
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E5BF040CFD00
+ for <linux-cachefs@redhat.com>; Sat, 20 May 2023 02:12:58 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF4C93C0256B
+ for <linux-cachefs@redhat.com>; Sat, 20 May 2023 02:12:58 +0000 (UTC)
+Received: from out199-7.us.a.mail.aliyun.com (out199-7.us.a.mail.aliyun.com
+ [47.90.199.7]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-166-ncNm1_cwNTiY3dSu2z8csg-1; Fri, 19 May 2023 22:12:56 -0400
+X-MC-Unique: ncNm1_cwNTiY3dSu2z8csg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
+ TI=SMTPD_---0Vj0SAfv_1684548461
+Received: from 192.168.3.7(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0Vj0SAfv_1684548461) by smtp.aliyun-inc.com;
+ Sat, 20 May 2023 10:07:44 +0800
+Message-ID: <caa318ba-a6fb-caa9-c7e0-f1f13b5ee577@linux.alibaba.com>
+Date: Sat, 20 May 2023 10:07:40 +0800
 MIME-Version: 1.0
-Date: Fri, 19 May 2023 18:39:59 +0100
-Message-ID: <1853961.1684517999@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [Linux-cachefs] [PATCH] cachefilesd: Allow the daemon to run as a
- non-root user
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+To: David Howells <dhowells@redhat.com>, linux-cachefs@redhat.com
+References: <1853230.1684516880@warthog.procyon.org.uk>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+In-Reply-To: <1853230.1684516880@warthog.procyon.org.uk>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [Linux-cachefs] [PATCH] cachefiles: Allow the cache to be
+ non-root
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,147 +94,41 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-erofs@lists.ozlabs.org, Jeff Layton <jlayton@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+ linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-ID: <1853960.1684517999.1@warthog.procyon.org.uk>
-Content-Type: text/plain; charset="us-ascii"
+X-Mimecast-Originator: linux.alibaba.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-    
-Allow the daemon to run as a non-root user after opening the control device
-- which will also make the kernel driver run as the same non-root user
-since it borrows the daemons credentials.
 
-This requires a fix to the cachefiles kernel driver to make it set the mode
-on files in creates to 0600.
 
-This also requires the SELinux policy to be changed so that cachefilesd can
-access /etc/passwd, otherwise only numeric uids and gids can be set.
+On 2023/5/20 10:21, David Howells wrote:
+>      
+> Set mode 0600 on files in the cache so that cachefilesd can run as an
+> unprivileged user rather than leaving the files all with 0.  Directories
+> are already set to 0700.
+> 
+> Userspace then needs to set the uid and gid before issuing the "bind"
+> command and the cache must've been chown'd to those IDs.
+> 
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> cc: David Howells <dhowells@redhat.com>
+> cc: Jeff Layton <jlayton@kernel.org>
+> cc: linux-cachefs@redhat.com
+> cc: linux-erofs@lists.ozlabs.org
+> cc: linux-fsdevel@vger.kernel.org
 
-Signed-off-by: David Howells <dhowells@redhat.com>
----
- cachefilesd.c      |   59 +++++++++++++++++++++++++++++++++++++++++++++++++++--
- cachefilesd.conf.5 |    7 ++++++
- 2 files changed, 64 insertions(+), 2 deletions(-)
+It seems useful on our side as well and safe:
 
-diff --git a/cachefilesd.c b/cachefilesd.c
-index 6c435f6..81bb87d 100644
---- a/cachefilesd.c
-+++ b/cachefilesd.c
-@@ -48,6 +48,7 @@
- #include <poll.h>
- #include <limits.h>
- #include <grp.h>
-+#include <pwd.h>
- #include <sys/inotify.h>
- #include <sys/time.h>
- #include <sys/vfs.h>
-@@ -121,6 +122,8 @@ static unsigned long long brun, bcull, bstop, frun, fcull, fstop;
- static unsigned long long b_resume_threshold = ULLONG_MAX;
- static unsigned long long f_resume_threshold = 5;
- 
-+static uid_t daemon_uid;
-+static gid_t daemon_gid;
- static const gid_t group_list[0];
- 
- #define cachefd 3
-@@ -489,6 +492,47 @@ int main(int argc, char *argv[])
- 			continue;
- 		}
- 
-+		/* Note UID to run as. */
-+		if (memcmp(cp, "uid", 3) == 0 && isspace(cp[3])) {
-+			struct passwd *pwd;
-+			char *end;
-+
-+			for (cp += 3; isspace(*cp); cp++) {;}
-+			if (!*cp)
-+				cfgerror("Error parsing username/uid");
-+
-+			daemon_uid = strtoul(cp, &end, 10);
-+			if (*end) {
-+				pwd = getpwnam(cp);
-+				if (!pwd)
-+					oserror("Couldn't look up username/uid '%s'", cp);
-+				daemon_uid = pwd->pw_uid;
-+				daemon_gid = pwd->pw_gid;
-+			} else {
-+				daemon_gid = -1;
-+			}
-+			continue;
-+		}
-+
-+		/* Note GID to run as. */
-+		if (memcmp(cp, "gid", 3) == 0 && isspace(cp[3])) {
-+			struct group *grp;
-+			char *end;
-+
-+			for (cp += 3; isspace(*cp); cp++) {;}
-+			if (!*cp)
-+				cfgerror("Error parsing group name/gid");
-+
-+			daemon_gid = strtoul(cp, &end, 10);
-+			if (*end) {
-+				grp = getgrnam(cp);
-+				if (!grp)
-+					oserror("Couldn't look up group name/gid '%s'", cp);
-+				daemon_gid = grp->gr_gid;
-+			}
-+			continue;
-+		}
-+
- 		/* note the dir command */
- 		if (memcmp(cp, "dir", 3) == 0 && isspace(cp[3])) {
- 			char *sp;
-@@ -545,13 +589,24 @@ int main(int argc, char *argv[])
- 	if (nullfd != 1)
- 		dup2(nullfd, 1);
- 
--	for (loop = 4; loop < open_max; loop++)
--		close(loop);
-+	if (close_range(4, open_max, 0) == -1) {
-+		for (loop = 4; loop < open_max; loop++)
-+			close(loop);
-+	}
- 
- 	/* set up a connection to syslog whilst we still can (the bind command
- 	 * will give us our own namespace with no /dev/log */
- 	openlog("cachefilesd", LOG_PID, LOG_DAEMON);
- 	xopenedlog = true;
-+
-+	if (daemon_uid || daemon_gid) {
-+		info("Setting credentials");
-+		if (setresgid(daemon_gid, daemon_gid, daemon_gid) < 0)
-+			oserror("Unable to set GID to %d", daemon_gid);
-+		if (setresuid(daemon_uid, daemon_uid, daemon_uid) < 0)
-+			oserror("Unable to set UID to %d", daemon_uid);
-+	}
-+
- 	info("About to bind cache");
- 
- 	/* now issue the bind command */
-diff --git a/cachefilesd.conf.5 b/cachefilesd.conf.5
-index b108bdc..534b8f0 100644
---- a/cachefilesd.conf.5
-+++ b/cachefilesd.conf.5
-@@ -35,6 +35,13 @@ access the cache.  The default is to use cachefilesd's security context.  Files
- will be created in the cache with the label of directory specified to the 'dir'
- command.
- .TP
-+.B uid <id>
-+.TP
-+.B gid <id>
-+Set the UID or GID that the daemon runs as to the specified ID.  The ID can be
-+given as a number or as a name.  The base cache directory and all the
-+directories and files under it must be owned by these IDs.
-+.TP
- .B brun <N>%
- .TP
- .B bcull <N>%
+Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+
+Thanks,
+Gao Xiang
+
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
