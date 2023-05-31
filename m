@@ -2,110 +2,94 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F0617187BA
-	for <lists+linux-cachefs@lfdr.de>; Wed, 31 May 2023 18:46:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A07AB72450C
+	for <lists+linux-cachefs@lfdr.de>; Tue,  6 Jun 2023 15:59:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685551571;
+	s=mimecast20190719; t=1686059967;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9uP7MjqOrx7Ie5Qa+ZLtuemRwzugyL+ve/wiEa6HNQI=;
-	b=L/bmEPvZzryqR26jmZzuDk2hvTdyhABhBPNSpipaMKwiu2RBw+iNTr44n20mCYY+7Pp6lA
-	a0WcQeLWcTDIo1J/A43W0/0+WgV+m5lFmDDdQGWl45Srgvu9LGtZ9dHdiOcrTJ46muMphW
-	p/y6oiJss4ky9iN9IrzBFTcMH4CHZ3k=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ItG184jUnJMMXd9eDBsPVbj2TLsT6jBMs6eL0zzpxPE=;
+	b=WABPA3mOkhcWyJX6rug4Bzs6XunzQpeS/3c6KZOJjQzOgHpNJx7S3SYAjc/SHWXkB0P0jJ
+	t1dtG8ZipnNADlt8pv/c/nl+FBPscl3tjBac9QNysjUV6yb64EXlfCCVmRoWjuCoir7L7m
+	Zf2FaslJvkr7zXmwfm0HZs1C/ehHYcU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-614-mZhVyq6iPBCZA4aTqL8ICA-1; Wed, 31 May 2023 12:46:08 -0400
-X-MC-Unique: mZhVyq6iPBCZA4aTqL8ICA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-388-RIGTyMakOtOrtVbBMDPmQA-1; Tue, 06 Jun 2023 09:59:26 -0400
+X-MC-Unique: RIGTyMakOtOrtVbBMDPmQA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 23B5F185A794;
-	Wed, 31 May 2023 16:46:07 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B0832140E962;
-	Wed, 31 May 2023 16:46:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B674A3825BB0;
+	Tue,  6 Jun 2023 13:59:25 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A8A9C2166B25;
+	Tue,  6 Jun 2023 13:59:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9CB3F1946595;
-	Wed, 31 May 2023 16:46:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7C6C41946A45;
+	Tue,  6 Jun 2023 13:59:25 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1E8221946595 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 31 May 2023 16:45:14 +0000 (UTC)
+ ESMTP id 4B5EB19465B1 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 31 May 2023 19:31:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E4116421C5; Wed, 31 May 2023 16:45:08 +0000 (UTC)
+ id 2829840C6CD0; Wed, 31 May 2023 19:31:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DC30F421DF
- for <linux-cachefs@redhat.com>; Wed, 31 May 2023 16:45:08 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 207B040C6EC4
+ for <linux-cachefs@redhat.com>; Wed, 31 May 2023 19:31:40 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5A0B3C0F186
- for <linux-cachefs@redhat.com>; Wed, 31 May 2023 16:45:08 +0000 (UTC)
-Received: from sonic309-27.consmr.mail.ne1.yahoo.com
- (sonic309-27.consmr.mail.ne1.yahoo.com [66.163.184.153]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-638-insgOfZUMo21e8IQOgEwsw-1; Wed,
- 31 May 2023 12:45:06 -0400
-X-MC-Unique: insgOfZUMo21e8IQOgEwsw-1
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1685551506; bh=IK4gslOeWW2xAgwNjF79sSMMDJ4aQyoyJI3YquDYDcv=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=jAWtEHJmvhubeBSmTqB0ckEPwUfFwywMKrCd0VAkbvfBOp93YxujbLeAq7uvJKzveVsUhcVLdoia1nkMTeFpwSXnKDVWGivZdQVzISUug+BmNDRPUf+pIOu4rcEvE2bc3IWJjDXrtGS/pu5BMyFaPlFbfHVq0iv6PYk2s9hIcpJE68x471JZk5aYw6l0wy0VfUqBXw/yoFTlxJA8u9WUgDAUhPGJu67B16gR8Ym35UbijnOSlYOlp0mnWyMC0SgSm0K/eHKWx+1wCNTy4lD0vw+nPAXLYoimbaUiQltt8nTub7zPY5Y1czAwbgVEyH9mJZ6HTY0j7Be3XTL6wP++Ww==
-X-YMail-OSG: rgeBCO8VM1ljf.g_Q8Uu4HS_ZUmEYXBNHKGjxGFeFP1zXRQjSTRHN8nmK_t3Ghh
- KfhjA97dsyErTNGzb2iQztk4XpI4plX8XNrAM9thC2YfJ83o1aid48x._U7bunTfYF22kKAfC86W
- pihY_Kd_AyLJwDspxCPJU7x2yz6Ww9ihlzM29qBJ63SjoKTZMoHzAaplbCbm4ix2mQfQfzR4M920
- TyWSRXJMdI5n5hDGC4WPm46QEY0zMWUOgVAkv1yVHS9kr0jBsxYjfwqs1FqQJU0mSwU3r3m_S3ye
- W9b75yqfA_mLknagjX_06Tjd._CoGdRyAiHjWrEcw4OqtQrMgNoKzGoYSi9PA6P2T0juIEMrrEek
- POEaXorQr8gJx5A7beMneXZ1ih.9jrhQ9PvHAxIWqW9eWz.M_6J3ZYmXZATZ7ksh5vwsNazoWeqE
- yY.Ty3WvL5Zf2MlQznIP2TSj2MfQA2BmTcfk5TTE2avbQC_0.W_nU0QVd_5StTGkTPCEDw7CWpaa
- Rd6L1tEpfx0o4FbxX9KlTTpIE_WRy9SemfMaJ39rNImgHlaVkIgeRdtmaAYWHmps6ADiPPeRb1sj
- 773B2oOSCpZLFC_3K7AbV9bVUTzw7RDe55huDpWRgH0VfNRsfy9VVaCXZzO5oq_oMBEJEMef.Pjd
- 2.GBTxonfgA3Y.np5AlLKRhTwT27x4fzruG786POBZ6QKVABH_v3Br9DhyyNh1D_yjZ_r0WM4QJR
- _RDW2jmTf0HObbjk7TPtwNrqqssro74U5dMV5nzd2Cbbvp3iEAtoEVPJK1I.nuxOfclzgXyxyj_c
- Xtv5qfFFuoTxa0jltG0_UaJFQ0D8_LKbxouwaVfh.ctIpdnG3Z_DKw2OpOth2mbx6VD0UNjlj0cI
- EazCeFbKRuguPX7eriAEpskoijKQXxGUu0qDK_DNL78Y8bD2f8HHcQWv5j8w.WPWqiaeEyi_GxTm
- YV8iJNWiTmGZ_SVMoXv15wdu6hjFd5f1WHQm_YUCI1nFDFR_QxKQQuw5IjoahYzR3ceSoTJu1Iwv
- iAhpfvvK54RBlpWXMvIuJNATzocWolr9t_pGkYiUrLWuncaFTLyXoQ.Aue0Fin.vzak8DtIXEdCt
- _i5XWmii9RUS3jL_GP_BqVTMCs.Y_mXJ_8tja3pkJ_ZJmt_X2RhXvk.ESwiPwf_2mqh2WxAkBaF_
- KJ6JaIiZlZaqquJmnm3PPGo6WPHsAf.N_Rh_pqRfDJQJ77vFo4Ex9oHwUMSbN95_6zVRyhRiflOu
- RwXoe2AERVLwDLMO6tcpetSOd_IgxIWK2UsdacwFRAIAiHeeU884r5xawKwFWr9fMrNJ3fCPQpz4
- fycG7D2KCWT5OXkwcxCGCkuGpHLD5utT2PG03u9LlbghhwPp1IG5O6xCr3ZPgPyghmcffILr4IOY
- hhIkMqt9j6rfJo7n3rOTDtLGELjc2raiHXgWXIg8zrxD8HevT9I5asSxx.IjMSOmvAkO4gjfpkU0
- TEPNxxrg1Xuv_U3FzWXOEF3k89BlycgJxoIiesbWBqkV17mQ0o0yRprUkRalcJZPCY5IAE5tLuAH
- GDhm43aOVKDYCxheBAEvfhshOXFrGcm6zt7qT29jU_eIXQ9GQfb7xNagUvXF9Ip8Ci8TkypgtuZc
- C14rmtStFLdivkFGpfdqhJwkjw87fWA2oFdX4Obb7o5X0vBhQCRtpk..B5W.EIAhz4pCCQz.9EEc
- MqoMz09zaHaNEWt7lbgP1m5mW410HjMjZEVGenH0YAnqPwiK0gOKCdkooEo5CfhEXGCpoMxlfRSI
- Os90fZagiOU0drdy2ZNP.8xS7dmfucAua7BvBJ6UvuHppG0H_SYZ3VkZQJdb4HNNTAdY8PvbTK12
- rlicdSMQv7H9v1Z9fi3JS0A0qBn_tqeZwl1IE.kw2f0Z2S3EJjmpyTyBcaQw0XPQKcjN4nweAC7v
- MQrm6d3HfBoSSSlE_YPAjIlzmm4JqdSLxe8f8MCaB_Ku8c05QeX9c9FXOWbZZ.u5XmMakVwxASAS
- TQuIyQX2VYVmmTW65cIeY8vvon2waKKff61vGcEN3ugb_MOBh9bw3sJlYZBHS3GvYUSWzsknh9zG
- _3s0JVQ3HUG6iiUR2D4DPoDQCcQlti8UC2HfaOHbV_CPj4FU4NKySEsHMVNqNeT1OFgx7mp_LZLe
- gvtN5Hu5J_pGoqSx8rRAe5w4bdwf1j1hcey_2V2q_NJn3XgBFnd0IyHOlRwI1CcnZ37gJk6Yp8bq
- v8mlCiX1pVMEqWDZ6GdyHTPfotsvu2g1HCLei.KGpQQbiVMWnf5h0lI9u2Miuty4g
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 3dc95e55-b757-4320-819b-cea79f802ef0
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.ne1.yahoo.com with HTTP; Wed, 31 May 2023 16:45:06 +0000
-Received: by hermes--production-ne1-574d4b7954-xz2cn (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 803444bd8cafbcfff4fb75f278168acc; 
- Wed, 31 May 2023 16:45:02 +0000 (UTC)
-Message-ID: <498f8719-219d-b4cf-8231-54d7fb6a58dd@schaufler-ca.com>
-Date: Wed, 31 May 2023 09:44:58 -0700
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04074185A78F
+ for <linux-cachefs@redhat.com>; Wed, 31 May 2023 19:31:40 +0000 (UTC)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-552-eVdcdd5PP0mfKVwrekswjQ-1; Wed, 31 May 2023 15:31:36 -0400
+X-MC-Unique: eVdcdd5PP0mfKVwrekswjQ-1
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2566e60cc5aso3555058a91.3; 
+ Wed, 31 May 2023 12:31:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685561495; x=1688153495;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hkxhWE5ln5W4Ru3EpAV1+CbYcZ+ng9C+mZBukdpBf70=;
+ b=DDZDwfYx2hFhmYBgjRT7WtRuEer5+EZmbN+CLvENOoYCqM90MVB1woVWqIDmqrhtcC
+ DlGMzaA6uJlT3YJbjFfm3ZkJr/FYkjgfLgqEfDj5pLkPtnKDtY/4jvbnDgsWAafFBK4J
+ rSxVmun6B/ywHiFqsEVFclVpfvRYjWdbCvA4N1SMTKy5533RR8m0EdKsy9h9iQxyZJTm
+ S1GF9eqzbMr6Lab/kcJIhh4ua5TIHdW4CXTOVVITcrt7n5AHAn237KFujJWetuq2PPap
+ /3nbOOuLYfmdrMWeByqPeU/q866fIQpq2nad/3+UqbWwaUq1BSQvoxjX5EUdxwGIjfIA
+ sLGg==
+X-Gm-Message-State: AC+VfDxdmozlJkNvcWEVOSJaeKc+n15RP+D4FopVN8204M7I2oFO2Eoa
+ LFvj+a4oCwFd9PkzV9CDHDM=
+X-Google-Smtp-Source: ACHHUZ6jVcItk0IyYkAw2stDb0JLeHq82CItdIVJ98e8SlK5bQfxCD/QIJhdJUNTzgVVF8W87q5ULg==
+X-Received: by 2002:a17:90a:2808:b0:252:dd86:9c46 with SMTP id
+ e8-20020a17090a280800b00252dd869c46mr6470479pjd.31.1685561494987; 
+ Wed, 31 May 2023 12:31:34 -0700 (PDT)
+Received: from [192.168.1.180] ([50.46.170.246])
+ by smtp.gmail.com with ESMTPSA id
+ g8-20020a17090ace8800b0025686131b36sm1641165pju.11.2023.05.31.12.31.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 May 2023 12:31:34 -0700 (PDT)
+Message-ID: <97b35d43-337f-9cac-0a0b-86b216fce594@gmail.com>
+Date: Wed, 31 May 2023 12:31:32 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Christian Brauner <brauner@kernel.org>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.2
+To: Christian Brauner <brauner@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>
 References: <20230505081200.254449-1-xiujianfeng@huawei.com>
  <20230515-nutzen-umgekehrt-eee629a0101e@brauner>
  <75b4746d-d41e-7c9f-4bb0-42a46bda7f17@digikod.net>
@@ -113,10 +97,8 @@ References: <20230505081200.254449-1-xiujianfeng@huawei.com>
  <20230530142826.GA9376@lst.de>
  <301a58de-e03f-02fd-57c5-1267876eb2df@schaufler-ca.com>
  <20230530-tumult-adrenalin-8d48cb35d506@brauner>
- <28f3ca55-29ea-4582-655d-2769881127ad@schaufler-ca.com>
- <20230531-endpreis-gepflanzt-80a5a4a9c8d6@brauner>
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20230531-endpreis-gepflanzt-80a5a4a9c8d6@brauner>
+From: Jay Freyensee <why2jjj.linux@gmail.com>
+In-Reply-To: <20230530-tumult-adrenalin-8d48cb35d506@brauner>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -124,7 +106,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Mailman-Approved-At: Tue, 06 Jun 2023 13:59:23 +0000
 Subject: Re: [Linux-cachefs] [PATCH -next 0/2] lsm: Change inode_setattr()
  to take struct
 X-BeenThere: linux-cachefs@redhat.com
@@ -145,8 +128,7 @@ Cc: mortonm@chromium.org, rafael@kernel.org, roberto.sassu@huawei.com,
  linux-cachefs@redhat.com, linkinjeon@kernel.org, fred@cloudflare.com,
  serge@hallyn.com, nathanl@linux.ibm.com, Xiu Jianfeng <xiujianfeng@huawei.com>,
  selinux@vger.kernel.org, ecryptfs@vger.kernel.org, tom@talpey.com,
- Casey Schaufler <casey@schaufler-ca.com>, wangweiyang2@huawei.com,
- viro@zeniv.linux.org.uk, dchinner@redhat.com,
+ wangweiyang2@huawei.com, viro@zeniv.linux.org.uk, dchinner@redhat.com,
  =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>, eparis@parisplace.org,
  hirofumi@mail.parknet.co.jp, gnoack3000@gmail.com, linux-nfs@vger.kernel.org,
  john.johansen@canonical.com, gregkh@linuxfoundation.org,
@@ -156,104 +138,88 @@ Cc: mortonm@chromium.org, rafael@kernel.org, roberto.sassu@huawei.com,
  linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: schaufler-ca.com
+X-Mimecast-Originator: gmail.com
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On 5/31/2023 1:36 AM, Christian Brauner wrote:
-> On Tue, May 30, 2023 at 03:15:01PM -0700, Casey Schaufler wrote:
->> On 5/30/2023 9:01 AM, Christian Brauner wrote:
->>> On Tue, May 30, 2023 at 07:55:17AM -0700, Casey Schaufler wrote:
->>>> On 5/30/2023 7:28 AM, Christoph Hellwig wrote:
->>>>> On Tue, May 30, 2023 at 03:58:35PM +0200, Christian Brauner wrote:
->>>>>> The main concern which was expressed on other patchsets before is that
->>>>>> modifying inode operations to take struct path is not the way to go.
->>>>>> Passing struct path into individual filesystems is a clear layering
->>>>>> violation for most inode operations, sometimes downright not feasible,
->>>>>> and in general exposing struct vfsmount to filesystems is a hard no. At
->>>>>> least as far as I'm concerned.
->>>>> Agreed.  Passing struct path into random places is not how the VFS works.
->>>>>
->>>>>> So the best way to achieve the landlock goal might be to add new hooks
->>>>> What is "the landlock goal", and why does it matter?
->>>>>
->>>>>> or not. And we keep adding new LSMs without deprecating older ones (A
->>>>>> problem we also face in the fs layer.) and then they sit around but
->>>>>> still need to be taken into account when doing changes.
->>>>> Yes, I'm really worried about th amount of LSMs we have, and the weird
->>>>> things they do.
->>>> Which LSM(s) do you think ought to be deprecated? I only see one that I
->>> I don't have a good insight into what LSMs are actively used or are
->>> effectively unused but I would be curious to hear what LSMs are
->>> considered actively used/maintained from the LSM maintainer's
->>> perspective.
->> I'm not the LSM maintainer, but I've been working on the infrastructure
->> for quite some time. All the existing LSMs save one can readily be associated
->> with active systems, and the one that isn't is actively maintained. We have
->> not gotten into the habit of accepting LSMs upstream that don't have a real
->> world use.
->>
->>>> might consider a candidate. As for weird behavior, that's what LSMs are
->>>> for, and the really weird ones proposed (e.g. pathname character set limitations)
->>> If this is effectively saying that LSMs are licensed to step outside the
->>> rules of the subsystem they're a guest in then it seems unlikely
->>> subsystems will be very excited to let new LSM changes go in important
->>> codepaths going forward. In fact this seems like a good argument against
->>> it.
->> This is an artifact of Linus' decision that security models should be
->> supported as add-on modules. On the one hand, all that a subsystem maintainer
->> needs to know about a security feature is what it needs in the way of hooks.
->> On the other hand, the subsystem maintainer loses control over what kinds of
->> things the security feature does with the available information. It's a
->> tension that we've had to deal with since the Orange Book days of the late
->> 1980's. The deal has always been:
->>
->> 	You can have your security feature if:
->> 	1. If I turn it off it has no performance impact
->> 	2. I don't have to do anything to maintain it
->> 	3. It doesn't interfere with any other system behavior
->> 	4. You'll leave me alone
->>
->> As a security developer from way back I would be delighted if maintainers of
->> other subsystems took an active interest in some of what we've been trying
->> to accomplish in the security space. If the VFS maintainers would like to
->> see the LSM interfaces for file systems changed I, for one, would like very
->> much to hear about what they'd prefer. 
-> What is important for us is that the security layer must understand and
-> accept that some things cannot be done the way it envisions them to be
-> done because it would involve design compromises in the fs layer that
-> the fs maintainers are unwilling to make. The idea to pass struct path
-> to almost every security hook is a good example.
-
-Yes, and that's completely acceptable. What would be really great is some
-guidance about what to do instead. Fishing for NAKs isn't fun for anybody.
-
-> If the project is feature parity between inode and path based LSMs then
-> it must be clear from the start that this won't be achieved at the cost
-> of mixing up the layer where only dentries and inodes are relevant and
-> the layer where struct paths are most relevant.
-
-Which is a fair point, and helps those of us who don't work in the VFS
-layer daily understand the rationale.
-
->
->> We do a lot of crazy things to avoid interfering with the subsystems we
->> interact with. A closer developer relationship would be most welcome, so
->> long as it helps us achieve or goals. We get a lot of complaints about how
->> LSM feature perform, but no one wants to hear that a good deal of that comes
->> about because of what has to be done in support of 1, 2 and 3 above. Sometimes
->> we do stoopid things, but usually it's to avoid changes "outside our swim lane".
-> I personally am not opposed to comment on patches but they will
-> naturally have lower priority than other things.
-
-I can't say that I see how security features "naturally have lower priority",
-but everyone has to balance things.
-
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://listman.redhat.com/mailman/listinfo/linux-cachefs
+Ck9uIDUvMzAvMjMgOTowMSBBTSwgQ2hyaXN0aWFuIEJyYXVuZXIgd3JvdGU6Cj4gT24gVHVlLCBN
+YXkgMzAsIDIwMjMgYXQgMDc6NTU6MTdBTSAtMDcwMCwgQ2FzZXkgU2NoYXVmbGVyIHdyb3RlOgo+
+PiBPbiA1LzMwLzIwMjMgNzoyOCBBTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4+PiBPbiBU
+dWUsIE1heSAzMCwgMjAyMyBhdCAwMzo1ODozNVBNICswMjAwLCBDaHJpc3RpYW4gQnJhdW5lciB3
+cm90ZToKPj4+PiBUaGUgbWFpbiBjb25jZXJuIHdoaWNoIHdhcyBleHByZXNzZWQgb24gb3RoZXIg
+cGF0Y2hzZXRzIGJlZm9yZSBpcyB0aGF0Cj4+Pj4gbW9kaWZ5aW5nIGlub2RlIG9wZXJhdGlvbnMg
+dG8gdGFrZSBzdHJ1Y3QgcGF0aCBpcyBub3QgdGhlIHdheSB0byBnby4KPj4+PiBQYXNzaW5nIHN0
+cnVjdCBwYXRoIGludG8gaW5kaXZpZHVhbCBmaWxlc3lzdGVtcyBpcyBhIGNsZWFyIGxheWVyaW5n
+Cj4+Pj4gdmlvbGF0aW9uIGZvciBtb3N0IGlub2RlIG9wZXJhdGlvbnMsIHNvbWV0aW1lcyBkb3du
+cmlnaHQgbm90IGZlYXNpYmxlLAo+Pj4+IGFuZCBpbiBnZW5lcmFsIGV4cG9zaW5nIHN0cnVjdCB2
+ZnNtb3VudCB0byBmaWxlc3lzdGVtcyBpcyBhIGhhcmQgbm8uIEF0Cj4+Pj4gbGVhc3QgYXMgZmFy
+IGFzIEknbSBjb25jZXJuZWQuCj4+PiBBZ3JlZWQuICBQYXNzaW5nIHN0cnVjdCBwYXRoIGludG8g
+cmFuZG9tIHBsYWNlcyBpcyBub3QgaG93IHRoZSBWRlMgd29ya3MuCj4+Pgo+Pj4+IFNvIHRoZSBi
+ZXN0IHdheSB0byBhY2hpZXZlIHRoZSBsYW5kbG9jayBnb2FsIG1pZ2h0IGJlIHRvIGFkZCBuZXcg
+aG9va3MKPj4+IFdoYXQgaXMgInRoZSBsYW5kbG9jayBnb2FsIiwgYW5kIHdoeSBkb2VzIGl0IG1h
+dHRlcj8KPj4+Cj4+Pj4gb3Igbm90LiBBbmQgd2Uga2VlcCBhZGRpbmcgbmV3IExTTXMgd2l0aG91
+dCBkZXByZWNhdGluZyBvbGRlciBvbmVzIChBCj4+Pj4gcHJvYmxlbSB3ZSBhbHNvIGZhY2UgaW4g
+dGhlIGZzIGxheWVyLikgYW5kIHRoZW4gdGhleSBzaXQgYXJvdW5kIGJ1dAo+Pj4+IHN0aWxsIG5l
+ZWQgdG8gYmUgdGFrZW4gaW50byBhY2NvdW50IHdoZW4gZG9pbmcgY2hhbmdlcy4KPj4+IFllcywg
+SSdtIHJlYWxseSB3b3JyaWVkIGFib3V0IHRoIGFtb3VudCBvZiBMU01zIHdlIGhhdmUsIGFuZCB0
+aGUgd2VpcmQKPj4+IHRoaW5ncyB0aGV5IGRvLgo+PiBXaGljaCBMU00ocykgZG8geW91IHRoaW5r
+IG91Z2h0IHRvIGJlIGRlcHJlY2F0ZWQ/IEkgb25seSBzZWUgb25lIHRoYXQgSQo+IEkgZG9uJ3Qg
+aGF2ZSBhIGdvb2QgaW5zaWdodCBpbnRvIHdoYXQgTFNNcyBhcmUgYWN0aXZlbHkgdXNlZCBvciBh
+cmUKPiBlZmZlY3RpdmVseSB1bnVzZWQgYnV0IEkgd291bGQgYmUgY3VyaW91cyB0byBoZWFyIHdo
+YXQgTFNNcyBhcmUKPiBjb25zaWRlcmVkIGFjdGl2ZWx5IHVzZWQvbWFpbnRhaW5lZCBmcm9tIHRo
+ZSBMU00gbWFpbnRhaW5lcidzCj4gcGVyc3BlY3RpdmUuCgpJdCdzIHBhcnQgb2YgbXkgam9iIHRv
+IGxvb2sgYXQgZnVuY3Rpb25hbGl0eSBlbmFibGVkIGJ5IExTTXMgYW5kIGhvdyAKdGhleSBjYW4g
+YmUgYXBwbGllZCB0byBwcm9kdWN0IHNlY3VyaXR5IGZlYXR1cmVzIGFuZCBwcm9kdWN0cyBhdCB0
+aGUgCmRpc3RybyBsZXZlbC4KCkZpcnN0IG9mIGFsbCB0aGUgZmxleGliaWxpdHkgb2Ygc3RhY2tp
+bmcgTFNNJ3MgaGFzIGdyZWF0bHkgaGVscGVkIGVuYWJsZSAKbmV3IGFuZCBtb3JlIGZlYXR1cmVz
+IHRvIGJlIHJ1biBhdCB0aGUgc2FtZSB0aW1lIG9uIGEgTGludXggcGxhdGZvcm0uCgpTbyB0aGVy
+ZSBhcmUgZmVhdHVyZSBidXp6IHdvcmRzIG91dCB0aGVyZSwgdGhlIG1haW4gb25lcyBJJ20gZmFt
+aWxpYXIgCndpdGgswqAgbGlrZSBwcm9jZXNzIGNvbnRyb2wsIGFudGktdGFtcGVyaW5nL3NlbGYt
+cHJvdGVjdCwgcXVhcmFudGluZSwgCnByb2Nlc3MgaW5qZWN0aW9uLsKgIFRoZSBMU00ncyBJJ3Zl
+IHRyaWVkIHRvIGZvbGxvdyB3L3Jlc3BlY3QgdG8gdGhlc2UgCmZlYXR1cmVzIGhhdmUgaW5jbHVk
+ZWQgU0VMaW51eCwgQXBwQXJtb3IsIHlhbWEsIGJwZi9rcnNpLCBsYW5kbG9jaywgYW5kIApzYWZl
+c2V0aWQuCgpVc3VhbGx5IGZvciBwcm9jZXNzIGNvbnRyb2wgcHBsIGFyZSBtb3N0IGludGVyZXN0
+ZWQgaW4ga2lsbGluZyBhIHByb2Nlc3MgCnF1aWNrbHkgaWYgaXRzIGRldGVjdGVkIGEgdGhyZWF0
+LsKgIEluIHRoYXQgZW5kIGJwZi9rcnNpIExTTSBpcyBhIAp3b25kZXJmdWwgTFNNIGZvciB0aGlz
+IGFuZCBwdXRzIExpbnV4IG9uIHBhciB3aXRoIFdpbmRvd3MgYW5kIG1hY09TIHdpdGggCnRoaXMg
+ZmVhdHVyZSAodGhvdWdoIHRoZSBhY3R1YWwga2lsbCBvcGVyYXRpb24gc2VlbXMgc2xvd2VyKS4K
+CmFudGktdGFtcGVyaW5nL3NlbGYtcHJvdGVjdCBpcyBhIG1lY2hhbmlzbSB0byBwcmV2ZW50IHNh
+eSwgYW4gYW50aS12aXJ1cyAKcHJvZ3JhbSBmcm9tIGdldHRpbmcga2lsbGVkIGJ5IGEgdGhyZWF0
+IHByb2Nlc3MgZXZlbiBpZiB0aGF0IHByb2Nlc3MgaGFzIApyb290LsKgIEkgYmVsaWV2ZSB0aGlz
+IGNvdWxkIGJlIGRvbmUgdmlhIFNFTGludXgsIEFwcGFybW9yLCBtYXliZSBicGYsIAphbmQgbWF5
+YmUgbGFuZGxvY2suwqAgSW4gY29tcGFyaXNvbiwgbWFjT1MgZG9lcyBoYXZlIHRoaXMgZnVuY3Rp
+b25hbGl0eSAKdmlhIGl0cyBFbmRwb2ludCBTZWN1cml0eSBzdWJzeXN0ZW0uCgpwcm9jZXNzIGlu
+amVjdGlvbiB3b3VsZCBiZSBhIHdheSB0byBtb25pdG9yIGEgcHJvY2VzcyB3aGljaCwgeWFtYSB3
+b3VsZCAKaGF2ZSB0byBiZSB0dXJuZWQgb2ZmIHdoaWNoIHRoZW4gYSBjdXN0b21lciB3b3VsZCBo
+YXZlIHRvIG1ha2UgYSBjYWxsIGlmIAp0aGV5IHdhbnQgdGhlIHByb3RlY3Rpb24gb2YgeWFtYSdz
+IGRpc2FibGVtZW50IG9mIHRyYWNpbmcgb3ZlciB3aGF0ZXZlciAKcHJvY2VzcyBpbmplY3Rpb24g
+ZmVhdHVyZSB0aGUgc2VjdXJpdHkgY29tcGFueSBtYXkgYmUgb2ZmZXJpbmcuCgpRdWFyYW50aW5l
+IGlzIGEgd2F5IHRvIHNhbmRib3ggYSBwcm9jZXNzIHRoYXQgaGFzIG5vdCBiZWVuIGRldGVybWlu
+ZWQgdG8gCmJlIGEgdGhyZWF0IG9yIG5vdCAodW5rbm93bikgYW5kIGNhbiBiZSBzdG9yZWQgImZv
+ciBsYXRlciAobGF0ZXIgCnRlcm1pbmF0aW9uIG9yIHNhdmUta2VlcGluZyBmb3Igc3R1ZHkiLsKg
+IFRoYXQgd291bGQgYmUgYSBuZWF0IGZ1dHVyZSAKTFNNLCBvbmUgSSB0aG91Z2h0IGNvdWxkIGJl
+IHRhY2tlZCBvbnRvIGxhbmRsb2NrIChidXQgZnJvbSB3aGF0IEkgCnVuZGVyc3RhbmQgd291bGQg
+cmVxdWlyZSB0aGUgdXNlIG9mIGNncm91cHMpLgoKQW5kIHNwZWFraW5nIG9mIGZ1dHVyZSBMU01z
+LCBJIHJlYWQgb25lIHByb3Bvc2FsIEkgc2F3IHRoYXQgSSB0aG91Z2h0IAp3YXMgYSBnb29kIGlk
+ZWEgY2FsbGVkIHRoZSBOQVggZHJpdmVyIHRoYXQgd2FzIHNvbWV0aGluZyBsaWtlIHRoZSB0aGUg
+CnlhbWEgZHJpdmVyLCBvbmx5IGl0cyBzb2xlIHB1cnBvc2Ugd2FzIHRvIHNodXQgb2ZmIHRoZSBh
+bm9ueW1vdXMgCmV4ZWN1dGFibGUgcGFnZXMgZm9yIGZpbGVsZXNzIG1hbHdhcmUgcHJvdGVjdGlv
+bi4gQnV0IGl0IGRpZG4ndCBsb29rIApsaWtlIGl0IGdvdCBhbnl3aGVyZS4KClNvbWUgaW50ZXJl
+c3RpbmcgdXNhZ2VzL2JlbGllZnMgb2YgTFNNJ3MgSSd2ZSBzZWVuOgoKKlVzaW5nIFNFTGludXgg
+b3ZlciBBcHBBcm1vciB3aWxsIGhlbHAgYSBzZWN1cml0eSBzb2x1dGlvbiBjb21wYW55IHdpbiBh
+IApnb3Z0IGNvbnRyYWN0IGR1ZSB0byB0aGUgTlNBIHJlbGF0aW9uc2hpcCB3aXRoIFNFTGludXgu
+CgoqVGhlIGJlbGllZiBsb2NrZG93biB3aWxsIHNodXQgb2ZmIG9yIGNhdXNlIGlzc3VlcyB3aXRo
+IGVicGYsIHRodXMgaXRzIApub3QgYWN0aXZhdGVkIGFuZCB1c2VkIG11Y2guCgoqUkhFTCA4Ljcg
+aGF2aW5nIHlhbWEgZHJpdmVyIHNldCB0byAwIHVwb24gaW5zdGFsbCwgd2hpY2ggSSB0aG91Z2h0
+IHRoZSAKa2VybmVsIEtjb25maWcgZGVmYXVsdCB3YXMgMT8gU28gaXQgbWFrZXMgbWUgd29uZGVy
+IHdoYXQgb3RoZXIgZGlzdHJvIAppbnN0YWxscyBzZXQgeWFtYSB0byAwIGJ5IGRlZmF1bHQ/IE1h
+eWJlIHlhbWEgY2F1c2VzIGFuIGlzc3VlIHdpdGggM3JkIApwYXJ0eSBTVyBpZiBpdHMgZW5hYmxl
+ZCB0byAxLT4zLgoKCklmIHlvdSB3YW50IHRvIGxvb2sgYXQgYSBzZWN1cml0eSBwcm9kdWN0IG1h
+a2luZyB1c2Ugb2YgTFNNJ3MsIGNoZWNrIG91dCAKS3ViZUFybW9yLgoKSG9wZSB0aGlzIGhlbHBz
+Li4uc29tZW9uZSA6LSkKCgoKCi0tCkxpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0CkxpbnV4LWNh
+Y2hlZnNAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LWNhY2hlZnMK
 
