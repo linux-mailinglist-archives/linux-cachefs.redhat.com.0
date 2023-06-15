@@ -2,75 +2,68 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E609172B85C
-	for <lists+linux-cachefs@lfdr.de>; Mon, 12 Jun 2023 08:56:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFCCF732CB5
+	for <lists+linux-cachefs@lfdr.de>; Fri, 16 Jun 2023 12:03:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686553012;
+	s=mimecast20190719; t=1686909806;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cBbP/T+jMUw+zW70uHoWxcRHlae27E4T+yVqF7CvMUs=;
-	b=XnuBzaX0+TmDuU8Ty5V4ADPgFB5U7uJnKiKpmYL+sp4A+fYpHpBbrdqMMcMZbu2bs68vVH
-	xmssWBb0Df/KlEByFlONYwjdQMZqV+TPNoB/NrbQ/lr12PSmuDi8AdK7YXDaJRTfqxR4pB
-	5Ot76UEAhBRCUBS2zcpLNzGIdUqW42Q=
+	bh=/ZAKm3FRTJSpnFdvYyGNGPjN0uPJc7ebSS0Dp3NHpdU=;
+	b=M3+ZXJD9G9R+zJsMO4z9Rtvx3LLJiSk+bAYbKnqa6IYQmt0F1Pfluzh7jsAPcpSCl0L5qc
+	9wkZamfHIIw4NpOhZfSyR8gXHD5xb9SNpyi+Q61mTpEHjjlnookKkbZ87zRhOlS5z+6lVn
+	0CkZOX/QZOL3CbIUd19rkgRHOix2DBg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-315-1Mpx-WQ_Mxu1_PB5HHhtmA-1; Mon, 12 Jun 2023 02:56:49 -0400
-X-MC-Unique: 1Mpx-WQ_Mxu1_PB5HHhtmA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-659-BbESmB-4OzeYdeN39bb0zw-1; Fri, 16 Jun 2023 06:03:22 -0400
+X-MC-Unique: BbESmB-4OzeYdeN39bb0zw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9875800888;
-	Mon, 12 Jun 2023 06:56:48 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4F62410BDF;
-	Mon, 12 Jun 2023 06:56:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C1133858EED;
+	Fri, 16 Jun 2023 10:03:21 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6C231141510A;
+	Fri, 16 Jun 2023 10:03:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F2F3E19465A8;
-	Mon, 12 Jun 2023 06:56:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5FDA619465B8;
+	Fri, 16 Jun 2023 10:03:13 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 888E4194658C for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 12 Jun 2023 06:56:46 +0000 (UTC)
+ ESMTP id B31221946589 for <linux-cachefs@listman.corp.redhat.com>;
+ Thu, 15 Jun 2023 16:17:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 24E0D492C38; Mon, 12 Jun 2023 06:56:46 +0000 (UTC)
+ id 9FEBC492C38; Thu, 15 Jun 2023 16:17:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E056492C1B
- for <linux-cachefs@redhat.com>; Mon, 12 Jun 2023 06:56:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F39172A59562
- for <linux-cachefs@redhat.com>; Mon, 12 Jun 2023 06:56:45 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-261-ssu1zwKvPnermi_QjvhJCw-1; Mon, 12 Jun 2023 02:56:43 -0400
-X-MC-Unique: ssu1zwKvPnermi_QjvhJCw-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1q8aqF-002kBQ-0T; Mon, 12 Jun 2023 06:15:51 +0000
-Date: Sun, 11 Jun 2023 23:15:51 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <ZIa4FwIIqmn0vqYy@infradead.org>
-References: <20230611132732.1502040-1-amir73il@gmail.com>
- <20230611132732.1502040-2-amir73il@gmail.com>
- <ZIaelQAs0EjPw4TR@infradead.org>
- <CAOQ4uxhNtnzpxUzfxjCJ3_7afCG1ye-pHViHjGi8asXTR_Cm3w@mail.gmail.com>
- <ZIa3DfH9D0BIBf8G@infradead.org>
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 98B25492C1B
+ for <linux-cachefs@redhat.com>; Thu, 15 Jun 2023 16:17:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 631ED1C00420
+ for <linux-cachefs@redhat.com>; Thu, 15 Jun 2023 16:17:10 +0000 (UTC)
+Received: from mail.holtmann.org (coyote.holtmann.net [212.227.132.17]) by
+ relay.mimecast.com with ESMTP id us-mta-651-stIv3mpXOxW4RnvCbYzE0Q-1; Thu,
+ 15 Jun 2023 12:17:05 -0400
+X-MC-Unique: stIv3mpXOxW4RnvCbYzE0Q-1
+Received: from fedora.. (p5b3d25f5.dip0.t-ipconnect.de [91.61.37.245])
+ by mail.holtmann.org (Postfix) with ESMTPSA id 4A1AACECD7;
+ Thu, 15 Jun 2023 18:08:10 +0200 (CEST)
+From: Marcel Holtmann <marcel@holtmann.org>
+To: linux-cachefs@redhat.com,
+	linux-kernel@vger.kernel.org
+Date: Thu, 15 Jun 2023 18:08:06 +0200
+Message-Id: <20230615160806.94000-1-marcel@holtmann.org>
 MIME-Version: 1.0
-In-Reply-To: <ZIa3DfH9D0BIBf8G@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,8 +72,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [Linux-cachefs] [PATCH v2 1/3] fs: rename FMODE_NOACCOUNT to
- FMODE_INTERNAL
+X-Mailman-Approved-At: Fri, 16 Jun 2023 10:03:12 +0000
+Subject: [Linux-cachefs] [PATCH] cachefiles: allocate static minor for
+ /dev/cachefiles
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,35 +86,76 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org,
- Christoph Hellwig <hch@infradead.org>, linux-cachefs@redhat.com,
- Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, arnd@arndb.de
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
-Content-Disposition: inline
+X-Mimecast-Originator: holtmann.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Jun 11, 2023 at 11:11:25PM -0700, Christoph Hellwig wrote:
-> On Mon, Jun 12, 2023 at 09:08:37AM +0300, Amir Goldstein wrote:
-> > Well, I am not sure if FMODE_FAKE_PATH in v3 is a better name,
-> > because you did rightfully say that "fake path" is not that descriptive,
-> > but I will think of a better way to describe "fake path" and match the
-> > flag to the file container name.
-> 
-> I suspect the just claling it out what it is and naming it
-> FMODE_OVERLAYFS might be a good idea.  We'd just need to make sure not
-> to set it for the cachefiles use case, which is probably a good idea
-> anyway.
+The cachefiles misc character device uses MISC_DYNAMIC_MINOR and thus
+doesn't support module auto-loading. Assign a static minor number for it
+and provide appropriate module aliases for it. This is enough for kmod to
+create the /dev/cachefiles device node on startup and facility module
+auto-loading.
 
-Adding Dave:
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+---
+ Documentation/admin-guide/devices.txt | 3 ++-
+ fs/cachefiles/main.c                  | 4 +++-
+ include/linux/miscdevice.h            | 1 +
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-not sure if I'm missing something, but is there any good reason
-cachefs doesn't juse use dentry_open() ?
+diff --git a/Documentation/admin-guide/devices.txt b/Documentation/admin-guide/devices.txt
+index 06c525e01ea5..21b2dda10006 100644
+--- a/Documentation/admin-guide/devices.txt
++++ b/Documentation/admin-guide/devices.txt
+@@ -376,8 +376,9 @@
+ 		240 = /dev/userio	Serio driver testing device
+ 		241 = /dev/vhost-vsock	Host kernel driver for virtio vsock
+ 		242 = /dev/rfkill	Turning off radio transmissions (rfkill)
++		243 = /dev/cachefiles	Filesystem caching on files
+ 
+-		243-254			Reserved for local use
++		244-254			Reserved for local use
+ 		255			Reserved for MISC_DYNAMIC_MINOR
+ 
+   11 char	Raw keyboard device	(Linux/SPARC only)
+diff --git a/fs/cachefiles/main.c b/fs/cachefiles/main.c
+index 3f369c6f816d..eead7b5016a7 100644
+--- a/fs/cachefiles/main.c
++++ b/fs/cachefiles/main.c
+@@ -30,11 +30,13 @@ MODULE_PARM_DESC(cachefiles_debug, "CacheFiles debugging mask");
+ MODULE_DESCRIPTION("Mounted-filesystem based cache");
+ MODULE_AUTHOR("Red Hat, Inc.");
+ MODULE_LICENSE("GPL");
++MODULE_ALIAS("devname:cachefiles");
++MODULE_ALIAS_MISCDEV(CACHEFILES_MINOR);
+ 
+ struct kmem_cache *cachefiles_object_jar;
+ 
+ static struct miscdevice cachefiles_dev = {
+-	.minor	= MISC_DYNAMIC_MINOR,
++	.minor	= CACHEFILES_MINOR,
+ 	.name	= "cachefiles",
+ 	.fops	= &cachefiles_daemon_fops,
+ };
+diff --git a/include/linux/miscdevice.h b/include/linux/miscdevice.h
+index c0fea6ca5076..d7f989f593b0 100644
+--- a/include/linux/miscdevice.h
++++ b/include/linux/miscdevice.h
+@@ -71,6 +71,7 @@
+ #define USERIO_MINOR		240
+ #define VHOST_VSOCK_MINOR	241
+ #define RFKILL_MINOR		242
++#define CACHEFILES_MINOR	243
+ #define MISC_DYNAMIC_MINOR	255
+ 
+ struct device;
+-- 
+2.40.1
 
 --
 Linux-cachefs mailing list
