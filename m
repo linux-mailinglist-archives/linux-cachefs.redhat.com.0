@@ -2,73 +2,75 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3678574B695
-	for <lists+linux-cachefs@lfdr.de>; Fri,  7 Jul 2023 20:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C6374B678
+	for <lists+linux-cachefs@lfdr.de>; Fri,  7 Jul 2023 20:40:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688755486;
+	s=mimecast20190719; t=1688755239;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eYEovCKLWHlCzJdgCnWWbX+Ou7cgOjFRf0TvuNzACOU=;
-	b=NaFt59yjrY8cuH87CwpeRGmL2Hty2+WUVGBRnSAr6ouaZIb0JckogJ3bEQJMOeS8U8bFEd
-	9sq8tZmkwdmDd6jO+JYA6k9Zqr3+vtKalfAi2IDupautbSFZwPeLPSlFlu7FjKeiJ6Aowk
-	kJn8/4uVzXPPzPlHyX21Vme9ddYhENU=
+	bh=wke5jm9gLMp03t3LjDEx2iimANrCClBMwptZkmaF2io=;
+	b=c3fJIPETB4oM1HCZP4nlMEuqlO8dXZ9NMnLNo7NAkYykJwcAh+SUOx19OzJ1YLe+pxDCLP
+	nuxcukctIAzSzNvegECXvECQanzhz/AqcoLuFthvqHw6kj14n44Sk7J3/SprqebBgDly4o
+	uhY6tageaeXhKWEFnFs2r0/+7l7j9HU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-504-CrbcNv8VMturTwSs9zrzDw-1; Fri, 07 Jul 2023 14:44:42 -0400
-X-MC-Unique: CrbcNv8VMturTwSs9zrzDw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-516-_2QMicy4N0yqItm6xvkD8w-1; Fri, 07 Jul 2023 14:40:36 -0400
+X-MC-Unique: _2QMicy4N0yqItm6xvkD8w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1AF21039655;
-	Fri,  7 Jul 2023 18:44:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 930EA800159;
+	Fri,  7 Jul 2023 18:40:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AB21DF643A;
-	Fri,  7 Jul 2023 18:44:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 889271121330;
+	Fri,  7 Jul 2023 18:40:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 764D31946A61;
-	Fri,  7 Jul 2023 18:44:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 27BF01946A61;
+	Fri,  7 Jul 2023 18:40:35 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1E70C1946A54 for <linux-cachefs@listman.corp.redhat.com>;
- Fri,  7 Jul 2023 18:44:39 +0000 (UTC)
+ ESMTP id F2F2F1946A54 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  7 Jul 2023 18:40:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DFCE9C478DE; Fri,  7 Jul 2023 18:44:39 +0000 (UTC)
+ id C27144CD0C8; Fri,  7 Jul 2023 18:40:33 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D78EBC09A09
- for <linux-cachefs@redhat.com>; Fri,  7 Jul 2023 18:44:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1A2438294A4
- for <linux-cachefs@redhat.com>; Fri,  7 Jul 2023 18:44:39 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BB598492C13
+ for <linux-cachefs@redhat.com>; Fri,  7 Jul 2023 18:40:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A022D3C0F682
+ for <linux-cachefs@redhat.com>; Fri,  7 Jul 2023 18:40:33 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-XJ6Adlr7Ob2WEmcgoPOBVQ-1; Fri,
- 07 Jul 2023 14:44:38 -0400
-X-MC-Unique: XJ6Adlr7Ob2WEmcgoPOBVQ-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-584-w1apyBTxOBiWcSyKiFI1tw-1; Fri,
+ 07 Jul 2023 14:40:31 -0400
+X-MC-Unique: w1apyBTxOBiWcSyKiFI1tw-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qHqGZ-00CFvk-6N; Fri, 07 Jul 2023 18:33:15 +0000
-Date: Fri, 7 Jul 2023 19:33:15 +0100
+ Hat Linux)) id 1qHqNQ-00CGGh-H0; Fri, 07 Jul 2023 18:40:20 +0000
+Date: Fri, 7 Jul 2023 19:40:20 +0100
 From: Matthew Wilcox <willy@infradead.org>
-To: David Wysochanski <dwysocha@redhat.com>
-Message-ID: <ZKhaa7xn9aaZYicR@casper.infradead.org>
+To: Hyeonggon Yoo <42.hyeyoo@gmail.com>
+Message-ID: <ZKhcFE1JpT6F2ez3@casper.infradead.org>
 References: <20230628104852.3391651-1-dhowells@redhat.com>
  <20230628104852.3391651-3-dhowells@redhat.com>
  <ZKg/J3OG3kQ9ynSO@fedora>
  <CAB=+i9Qbi7+o90Cd_ecd1TeaAYnWPcO-gNp7kzc95Pxecy0XTw@mail.gmail.com>
  <CALF+zO=nGdoxcT-ya3aaUCBi-4iKPo3kZyzcWYCKMCf4n2wVbA@mail.gmail.com>
+ <ZKhZHg6LSGnvryIe@fedora>
 MIME-Version: 1.0
-In-Reply-To: <CALF+zO=nGdoxcT-ya3aaUCBi-4iKPo3kZyzcWYCKMCf4n2wVbA@mail.gmail.com>
+In-Reply-To: <ZKhZHg6LSGnvryIe@fedora>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,7 +78,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 Subject: Re: [Linux-cachefs] [BUG mm-unstable] BUG: KASAN: use-after-free in
  shrink_folio_list+0x9f4/0x1ae0
 X-BeenThere: linux-cachefs@redhat.com
@@ -91,9 +93,8 @@ List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
 Cc: Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
- Hyeonggon Yoo <42.hyeyoo@gmail.com>, linux-afs@lists.infradead.org,
- Shyam Prasad N <nspmangalore@gmail.com>, linux-cifs@vger.kernel.org,
- Christoph Hellwig <hch@infradead.org>,
+ linux-afs@lists.infradead.org, Shyam Prasad N <nspmangalore@gmail.com>,
+ linux-cifs@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-cachefs@redhat.com,
  v9fs-developer@lists.sourceforge.net, Ilya Dryomov <idryomov@gmail.com>,
  linux-ext4@vger.kernel.org, ceph-devel@vger.kernel.org,
@@ -103,51 +104,26 @@ Cc: Dominique Martinet <asmadeus@codewreck.org>, linux-mm@kvack.org,
  linux-erofs@lists.ozlabs.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: infradead.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 07, 2023 at 02:12:06PM -0400, David Wysochanski wrote:
-> I think myself / Daire Byrne may have already tracked this down and I
-> found a 1-liner that fixed a similar crash in his environment.
-> 
-> Can you try this patch on top and let me know if it still crashes?
-> https://github.com/DaveWysochanskiRH/kernel/commit/902c990e311120179fa5de99d68364b2947b79ec
+On Sat, Jul 08, 2023 at 03:27:42AM +0900, Hyeonggon Yoo wrote:
+> Hmm, was it UAF because it references wrong field ->mapping,
+> instead of swapper address space?
 
-Said one-liner:
--	struct address_space *mapping = folio->mapping;
-+	struct address_space *mapping = folio_mapping(folio);
+Ooh, I know this one!
 
-This will definitely fix the problem.  shrink_folio_list() sees
-anonymous folios as well as file folios.
-
-I wonder if we want to go a step further and introduce ...
-
-+static inline bool __folio_needs_release(struct address_space *mapping,
-+               struct folio *folio)
-+{
-+       return folio_has_private(folio) ||
-+               (mapping && mapping_release_always(mapping));
-+}
-+
- /*
-  * Return true if a folio needs ->release_folio() calling upon it.
-  */
- static inline bool folio_needs_release(struct folio *folio)
- {
--       struct address_space *mapping = folio->mapping;
--
--       return folio_has_private(folio) ||
--               (mapping && mapping_release_always(mapping));
-+       return __folio_needs_release(folio_mapping(folio), folio);
- }
-
-since two of the three callers already have done the necessary dance to
-get the mapping (and they're the two which happen regularly; the third
-is an unusual situation).
+When a folio is in use as an anonymous page, ->mapping has the bottom
+two bits set to 01b.  The rest of the pointer is actually a pointer
+to an anon_vma.  It's entirely plausible that an anon page might have
+had its anon_vma freed by the time the folio is on the inactive list,
+and on its way to being recycled (eg it was unmapped).  I'm not
+terribly familiar with the lifetime rules of the anon_vma, but I doubt
+that a folio still being in RAM would pin it if it has been unmapped.
 
 --
 Linux-cachefs mailing list
