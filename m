@@ -1,97 +1,61 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A670E75F9B0
-	for <lists+linux-cachefs@lfdr.de>; Mon, 24 Jul 2023 16:21:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E5C2763460
+	for <lists+linux-cachefs@lfdr.de>; Wed, 26 Jul 2023 12:58:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690208507;
+	s=mimecast20190719; t=1690369093;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qVzLUZ6zKKxjVzyFDULHhUQ5NQFMF5e8IKsC5c7LkGw=;
-	b=Bk6fYpVkmkW3W+Y+2EpAmmZCDC2TV+3Fcdeha9FaXwt5rXzxjliUqhpT0X52RMrY1ze7Lr
-	9SJsvX8+MKEWJ+HMYv1wmOEUFpAe/kXHdAxZzcYb/6ZpuH14DNZ/7zZlup29tYaJ07sL5u
-	Z3L4DR0e36kFnNKoAUf0d3GXZMXutzI=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-136-mfPGoECNMxKRrTEMlctMlw-1; Mon, 24 Jul 2023 10:21:43 -0400
-X-MC-Unique: mfPGoECNMxKRrTEMlctMlw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+	bh=1Nv886O+ZjRL2YjwQPPKIuPikZ0x3wWP+At/yz0+5mQ=;
+	b=TRSXEgIWyK7jS2l3J9zmqcuEuvOtxSRNZWbGO6/LgmuAxhsdOBJERu9N9iFwX87Vxuw6/A
+	AKnCfxA2szfwF/KDBiv5/Kylebvn20aBlcpG5ingsfx1uI4Ok58OIOF+OTymC5Sh4qqvsc
+	g34vHzMK0paOTD3/61x0E1YUWX+VCfE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-173-GVvOFT8TNz6_PaNnvo8pig-1; Wed, 26 Jul 2023 06:58:09 -0400
+X-MC-Unique: GVvOFT8TNz6_PaNnvo8pig-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1EDA2A5957E;
-	Mon, 24 Jul 2023 14:21:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A476800888;
+	Wed, 26 Jul 2023 10:58:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C7E38F782D;
-	Mon, 24 Jul 2023 14:21:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 342E34094DC0;
+	Wed, 26 Jul 2023 10:58:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F31F219451D4;
-	Mon, 24 Jul 2023 14:21:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 787BA193F51A;
+	Wed, 26 Jul 2023 10:58:01 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6303D1946588 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 24 Jul 2023 14:21:39 +0000 (UTC)
+ ESMTP id 9A1ED1946A69 for <linux-cachefs@listman.corp.redhat.com>;
+ Wed, 26 Jul 2023 10:57:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4EF4A1121318; Mon, 24 Jul 2023 14:21:39 +0000 (UTC)
+ id 75B3E2166B26; Wed, 26 Jul 2023 10:57:59 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 46A011121315
- for <linux-cachefs@redhat.com>; Mon, 24 Jul 2023 14:21:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24E23856F67
- for <linux-cachefs@redhat.com>; Mon, 24 Jul 2023 14:21:39 +0000 (UTC)
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-663-JPAexGotNlipmBHR86GNKg-1; Mon, 24 Jul 2023 10:21:37 -0400
-X-MC-Unique: JPAexGotNlipmBHR86GNKg-1
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-268108bc663so1323670a91.0
- for <linux-cachefs@redhat.com>; Mon, 24 Jul 2023 07:21:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690208496; x=1690813296;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=a7+y4J72Q0kEFtJFZr3ToqDneS+Q2vn9lfoVlJ352mE=;
- b=A+w27plM/Vt9GCoBIlNRMPoZ+DfwL1ILzBLiRMxo9sMqwiH68lfY93evs4L6kYP9/M
- zZ7Xlax8NQj0tKcLf1y5ZKeLfQF3lu8tBL1aNqfFRwPr/LK1V/J6VVfN8egQmdOdTCi5
- qfgHRjjv6ERuB+MFOkOsCRUTTBy/gNfZkI81xcizxSE4jhjfE6E1ppa4/JAE+HUUA1ps
- 8aYZth5xvbqn1+QkxOUxnUn+D6xcZfZjO9wB7DRw3T2EG78+bttFU7jfsL1ArpFIwB5M
- vrtnetng23pSNbtJVrZlhkUFR+8Ba9ROi1rWk6JLms4xEClFtkG9KDTGhSWy5QQuzFZS
- 4Jew==
-X-Gm-Message-State: ABy/qLZG/4jWk/6dlHmkgaGG+i3bNV0i/eslGP7ChFkzOE6V0WxuIiTS
- vik18QOf8rzRsSnjOfmTFNMiEjDiWsoc7cE+MTU3rlgWCQitKiAwuo+Q3Nm9u5MrKefweT7CRIj
- kF3vOTpTZfHEt/PJ7gFBNwv7IjJyrZ4UiKk8LUg==
-X-Received: by 2002:a17:90b:1946:b0:268:2621:6a41 with SMTP id
- nk6-20020a17090b194600b0026826216a41mr1196356pjb.45.1690208496403; 
- Mon, 24 Jul 2023 07:21:36 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGuDMFWdU3qGv/NZSSOBNW9kWUCS3q97mp2l1nbTr0wImLmNrCBvwj+EKwCJCdxYKm0PhLqITGqeq58nBHRzHs=
-X-Received: by 2002:a17:90b:1946:b0:268:2621:6a41 with SMTP id
- nk6-20020a17090b194600b0026826216a41mr1196343pjb.45.1690208496104; Mon, 24
- Jul 2023 07:21:36 -0700 (PDT)
+Received: from warthog.procyon.org.uk (unknown [10.42.28.158])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DA5BE2166B25;
+ Wed, 26 Jul 2023 10:57:56 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>, Steve French <sfrench@samba.org>
 MIME-Version: 1.0
-References: <20230608214137.856006-1-dwysocha@redhat.com>
-In-Reply-To: <20230608214137.856006-1-dwysocha@redhat.com>
-From: David Wysochanski <dwysocha@redhat.com>
-Date: Mon, 24 Jul 2023 10:20:59 -0400
-Message-ID: <CALF+zOk+r18aDDJ19Ngt2N0G3CPeuXD8vVh7cqZ5s+Up9Kw4Uw@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [Linux-cachefs] [PATCH] netfs: Only call folio_start_fscache()
- one time for each folio
+Date: Wed, 26 Jul 2023 11:57:56 +0100
+Message-ID: <20571.1690369076@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [Linux-cachefs] [PATCH] crypto,
+ cifs: Fix error handling in extract_iter_to_sg()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,76 +67,120 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, linux-cachefs@redhat.com
+Cc: Shyam Prasad N <nspmangalore@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ linux-cifs@vger.kernel.org, Rohith Surabattula <rohiths.msft@gmail.com>,
+ netdev@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+ linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
+ linux-mm@kvack.org, Eric Dumazet <edumazet@google.com>,
+ linux-cachefs@redhat.com, Sven Schnelle <svens@linux.ibm.com>,
+ linux-fsdevel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ akpm@linux-foundation.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-ID: <20570.1690369076.1@warthog.procyon.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCBKdW4gOCwgMjAyMyBhdCA1OjQx4oCvUE0gRGF2ZSBXeXNvY2hhbnNraSA8ZHd5c29j
-aGFAcmVkaGF0LmNvbT4gd3JvdGU6Cj4KPiBJZiBhIG5ldHdvcmsgZmlsZXN5c3RlbSB1c2luZyBu
-ZXRmcyBpbXBsZW1lbnRzIGEgY2xhbXBfbGVuZ3RoKCkKPiBmdW5jdGlvbiwgaXQgY2FuIHNldCBz
-dWJyZXF1ZXN0IGxlbmd0aHMgc21hbGxlciB0aGFuIGEgcGFnZSBzaXplLgo+IFdoZW4gd2UgbG9v
-cCB0aHJvdWdoIHRoZSBmb2xpb3MgaW4gbmV0ZnNfcnJlcV91bmxvY2tfZm9saW9zKCkgdG8KPiBz
-ZXQgYW55IGZvbGlvcyB0byBiZSB3cml0dGVuIGJhY2ssIHdlIG5lZWQgdG8gbWFrZSBzdXJlIHdl
-IG9ubHkKPiBjYWxsIGZvbGlvX3N0YXJ0X2ZzY2FjaGUoKSBvbmNlIGZvciBlYWNoIGZvbGlvLiAg
-T3RoZXJ3aXNlLAo+IHRoaXMgc2ltcGxlIHRlc3RjYXNlOgo+ICAgbW91bnQgLW8gZnNjLHJzaXpl
-PTEwMjQsd3NpemU9MTAyNCAxMjcuMC4wLjE6L2V4cG9ydCAvbW50L25mcwo+ICAgZGQgaWY9L2Rl
-di96ZXJvIG9mPS9tbnQvbmZzL2ZpbGUuYmluIGJzPTQwOTYgY291bnQ9MQo+ICAgMSswIHJlY29y
-ZHMgaW4KPiAgIDErMCByZWNvcmRzIG91dAo+ICAgNDA5NiBieXRlcyAoNC4xIGtCLCA0LjAgS2lC
-KSBjb3BpZWQsIDAuMDEyNjM1OSBzLCAzMjQga0Ivcwo+ICAgY2F0IC9tbnQvbmZzL2ZpbGUuYmlu
-ID4gL2Rldi9udWxsCj4KPiB3aWxsIHRyaWdnZXIgYW4gb29wcyBzaW1pbGFyIHRvIHRoZSBmb2xs
-b3dpbmc6Cj4gLi4uCj4gIHBhZ2UgZHVtcGVkIGJlY2F1c2U6IFZNX0JVR19PTl9GT0xJTyhmb2xp
-b190ZXN0X3ByaXZhdGVfMihmb2xpbykpCj4gIC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0t
-LS0tLS0tLQo+ICBrZXJuZWwgQlVHIGF0IGluY2x1ZGUvbGludXgvbmV0ZnMuaDo0NCEKPiAuLi4K
-PiAgQ1BVOiA1IFBJRDogMTM0IENvbW06IGt3b3JrZXIvdTE2OjUgS2R1bXA6IGxvYWRlZCBOb3Qg
-dGFpbnRlZCA2LjQuMC1yYzUKPiAuLi4KPiAgUklQOiAwMDEwOm5ldGZzX3JyZXFfdW5sb2NrX2Zv
-bGlvcysweDY4ZS8weDczMCBbbmV0ZnNdCj4gLi4uCj4gIENhbGwgVHJhY2U6Cj4gICA8VEFTSz4K
-PiAgIG5ldGZzX3JyZXFfYXNzZXNzKzB4NDk3LzB4NjYwIFtuZXRmc10KPiAgIG5ldGZzX3N1YnJl
-cV90ZXJtaW5hdGVkKzB4MzJiLzB4NjEwIFtuZXRmc10KPiAgIG5mc19uZXRmc19yZWFkX2NvbXBs
-ZXRpb24rMHgxNGUvMHgxYTAgW25mc10KPiAgIG5mc19yZWFkX2NvbXBsZXRpb24rMHgyZjkvMHgz
-MzAgW25mc10KPiAgIHJwY19mcmVlX3Rhc2srMHg3Mi8weGEwIFtzdW5ycGNdCj4gICBycGNfYXN5
-bmNfcmVsZWFzZSsweDQ2LzB4NzAgW3N1bnJwY10KPiAgIHByb2Nlc3Nfb25lX3dvcmsrMHgzYmQv
-MHg3MTAKPiAgIHdvcmtlcl90aHJlYWQrMHg4OS8weDYxMAo+ICAga3RocmVhZCsweDE4MS8weDFj
-MAo+ICAgcmV0X2Zyb21fZm9yaysweDI5LzB4NTAKPgo+IFNpZ25lZC1vZmYtYnk6IERhdmUgV3lz
-b2NoYW5za2kgPGR3eXNvY2hhQHJlZGhhdC5jb20+Cj4gLS0tCj4gIGZzL25ldGZzL2J1ZmZlcmVk
-X3JlYWQuYyB8IDYgKysrKystCj4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDEg
-ZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9mcy9uZXRmcy9idWZmZXJlZF9yZWFkLmMgYi9m
-cy9uZXRmcy9idWZmZXJlZF9yZWFkLmMKPiBpbmRleCAzNDA0NzA3ZGRiZTcuLjBkYWZkOTcwYzFi
-NiAxMDA2NDQKPiAtLS0gYS9mcy9uZXRmcy9idWZmZXJlZF9yZWFkLmMKPiArKysgYi9mcy9uZXRm
-cy9idWZmZXJlZF9yZWFkLmMKPiBAQCAtMjEsNiArMjEsNyBAQCB2b2lkIG5ldGZzX3JyZXFfdW5s
-b2NrX2ZvbGlvcyhzdHJ1Y3QgbmV0ZnNfaW9fcmVxdWVzdCAqcnJlcSkKPiAgICAgICAgIHBnb2Zm
-X3QgbGFzdF9wYWdlID0gKChycmVxLT5zdGFydCArIHJyZXEtPmxlbikgLyBQQUdFX1NJWkUpIC0g
-MTsKPiAgICAgICAgIHNpemVfdCBhY2NvdW50ID0gMDsKPiAgICAgICAgIGJvb2wgc3VicmVxX2Zh
-aWxlZCA9IGZhbHNlOwo+ICsgICAgICAgYm9vbCBmb2xpb19zdGFydGVkOwo+Cj4gICAgICAgICBY
-QV9TVEFURSh4YXMsICZycmVxLT5tYXBwaW5nLT5pX3BhZ2VzLCBzdGFydF9wYWdlKTsKPgo+IEBA
-IC01Myw2ICs1NCw3IEBAIHZvaWQgbmV0ZnNfcnJlcV91bmxvY2tfZm9saW9zKHN0cnVjdCBuZXRm
-c19pb19yZXF1ZXN0ICpycmVxKQo+Cj4gICAgICAgICAgICAgICAgIHBnX2VuZCA9IGZvbGlvX3Bv
-cyhmb2xpbykgKyBmb2xpb19zaXplKGZvbGlvKSAtIDE7Cj4KPiArICAgICAgICAgICAgICAgZm9s
-aW9fc3RhcnRlZCA9IGZhbHNlOwo+ICAgICAgICAgICAgICAgICBmb3IgKDs7KSB7Cj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgbG9mZl90IHNyZXFfZW5kOwo+Cj4gQEAgLTYwLDggKzYyLDEwIEBA
-IHZvaWQgbmV0ZnNfcnJlcV91bmxvY2tfZm9saW9zKHN0cnVjdCBuZXRmc19pb19yZXF1ZXN0ICpy
-cmVxKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGdfZmFpbGVkID0gdHJ1ZTsK
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgICAgICAg
-ICAgICAgICAgIH0KPiAtICAgICAgICAgICAgICAgICAgICAgICBpZiAodGVzdF9iaXQoTkVURlNf
-U1JFUV9DT1BZX1RPX0NBQ0hFLCAmc3VicmVxLT5mbGFncykpCj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgaWYgKCFmb2xpb19zdGFydGVkICYmIHRlc3RfYml0KE5FVEZTX1NSRVFfQ09QWV9UT19D
-QUNIRSwgJnN1YnJlcS0+ZmxhZ3MpKSB7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBmb2xpb19zdGFydF9mc2NhY2hlKGZvbGlvKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZvbGlvX3N0YXJ0ZWQgPSB0cnVlOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIH0K
-PiAgICAgICAgICAgICAgICAgICAgICAgICBwZ19mYWlsZWQgfD0gc3VicmVxX2ZhaWxlZDsKPiAg
-ICAgICAgICAgICAgICAgICAgICAgICBzcmVxX2VuZCA9IHN1YnJlcS0+c3RhcnQgKyBzdWJyZXEt
-PmxlbiAtIDE7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHBnX2VuZCA8IHNyZXFfZW5k
-KQo+IC0tCj4gMi4zMS4xCj4KPiAtLQo+IExpbnV4LWNhY2hlZnMgbWFpbGluZyBsaXN0Cj4gTGlu
-dXgtY2FjaGVmc0ByZWRoYXQuY29tCj4gaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1jYWNoZWZzCj4KCkRhdmlkLAoKSnVzdCB3YW50ZWQgdG8gcGluZyBh
-IGZyaWVuZGx5IHJlbWluZGVyIG9uIHRoaXMgcGF0Y2ggYXMgSSBkaWRuJ3Qgc2VlCmFueSByZXNw
-b25zZSBvciBpbiBhbnkgdHJlZSB0aGF0IEkgY291bGQgZmluZC4KCkFsc28sIHRoZXJlIGlzIGEg
-UmVkIEhhdCBidWd6aWxsYSBmb3IgaXQsIHNvIHBhdGNoIHNob3VsZCBoYXZlIGhhZDoKTGluazog
-aHR0cHM6Ly9idWd6aWxsYS5yZWRoYXQuY29tL3Nob3dfYnVnLmNnaT9pZD0yMjEwNjEyCgotLQpM
-aW51eC1jYWNoZWZzIG1haWxpbmcgbGlzdApMaW51eC1jYWNoZWZzQHJlZGhhdC5jb20KaHR0cHM6
-Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1jYWNoZWZzCg==
+    
+Fix error handling in extract_iter_to_sg().  Pages need to be unpinned, not
+put in extract_user_to_sg() when handling IOVEC/UBUF sources.
+
+The bug may result in a warning like the following:
+
+  WARNING: CPU: 1 PID: 20384 at mm/gup.c:229 __lse_atomic_add arch/arm64/include/asm/atomic_lse.h:27 [inline]
+  WARNING: CPU: 1 PID: 20384 at mm/gup.c:229 arch_atomic_add arch/arm64/include/asm/atomic.h:28 [inline]
+  WARNING: CPU: 1 PID: 20384 at mm/gup.c:229 raw_atomic_add include/linux/atomic/atomic-arch-fallback.h:537 [inline]
+  WARNING: CPU: 1 PID: 20384 at mm/gup.c:229 atomic_add include/linux/atomic/atomic-instrumented.h:105 [inline]
+  WARNING: CPU: 1 PID: 20384 at mm/gup.c:229 try_grab_page+0x108/0x160 mm/gup.c:252
+  ...
+  pc : try_grab_page+0x108/0x160 mm/gup.c:229
+  lr : follow_page_pte+0x174/0x3e4 mm/gup.c:651
+  ...
+  Call trace:
+   __lse_atomic_add arch/arm64/include/asm/atomic_lse.h:27 [inline]
+   arch_atomic_add arch/arm64/include/asm/atomic.h:28 [inline]
+   raw_atomic_add include/linux/atomic/atomic-arch-fallback.h:537 [inline]
+   atomic_add include/linux/atomic/atomic-instrumented.h:105 [inline]
+   try_grab_page+0x108/0x160 mm/gup.c:252
+   follow_pmd_mask mm/gup.c:734 [inline]
+   follow_pud_mask mm/gup.c:765 [inline]
+   follow_p4d_mask mm/gup.c:782 [inline]
+   follow_page_mask+0x12c/0x2e4 mm/gup.c:839
+   __get_user_pages+0x174/0x30c mm/gup.c:1217
+   __get_user_pages_locked mm/gup.c:1448 [inline]
+   __gup_longterm_locked+0x94/0x8f4 mm/gup.c:2142
+   internal_get_user_pages_fast+0x970/0xb60 mm/gup.c:3140
+   pin_user_pages_fast+0x4c/0x60 mm/gup.c:3246
+   iov_iter_extract_user_pages lib/iov_iter.c:1768 [inline]
+   iov_iter_extract_pages+0xc8/0x54c lib/iov_iter.c:1831
+   extract_user_to_sg lib/scatterlist.c:1123 [inline]
+   extract_iter_to_sg lib/scatterlist.c:1349 [inline]
+   extract_iter_to_sg+0x26c/0x6fc lib/scatterlist.c:1339
+   hash_sendmsg+0xc0/0x43c crypto/algif_hash.c:117
+   sock_sendmsg_nosec net/socket.c:725 [inline]
+   sock_sendmsg+0x54/0x60 net/socket.c:748
+   ____sys_sendmsg+0x270/0x2ac net/socket.c:2494
+   ___sys_sendmsg+0x80/0xdc net/socket.c:2548
+   __sys_sendmsg+0x68/0xc4 net/socket.c:2577
+   __do_sys_sendmsg net/socket.c:2586 [inline]
+   __se_sys_sendmsg net/socket.c:2584 [inline]
+   __arm64_sys_sendmsg+0x24/0x30 net/socket.c:2584
+   __invoke_syscall arch/arm64/kernel/syscall.c:38 [inline]
+   invoke_syscall+0x48/0x114 arch/arm64/kernel/syscall.c:52
+   el0_svc_common.constprop.0+0x44/0xe4 arch/arm64/kernel/syscall.c:142
+   do_el0_svc+0x38/0xa4 arch/arm64/kernel/syscall.c:191
+   el0_svc+0x2c/0xb0 arch/arm64/kernel/entry-common.c:647
+   el0t_64_sync_handler+0xc0/0xc4 arch/arm64/kernel/entry-common.c:665
+   el0t_64_sync+0x19c/0x1a0 arch/arm64/kernel/entry.S:591
+
+Fixes: 018584697533 ("netfs: Add a function to extract an iterator into a scatterlist")
+Reported-by: syzbot+9b82859567f2e50c123e@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/linux-mm/000000000000273d0105ff97bf56@google.com/
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Sven Schnelle <svens@linux.ibm.com>
+cc: akpm@linux-foundation.org
+cc: Herbert Xu <herbert@gondor.apana.org.au>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jeff Layton <jlayton@kernel.org>
+cc: Steve French <sfrench@samba.org>
+cc: Shyam Prasad N <nspmangalore@gmail.com>
+cc: Rohith Surabattula <rohiths.msft@gmail.com>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Herbert Xu <herbert@gondor.apana.org.au>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Eric Dumazet <edumazet@google.com>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: linux-mm@kvack.org
+cc: linux-crypto@vger.kernel.org
+cc: linux-cachefs@redhat.com
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: netdev@vger.kernel.org
+---
+ lib/scatterlist.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/scatterlist.c b/lib/scatterlist.c
+index e86231a44c3d..c65566b4dc66 100644
+--- a/lib/scatterlist.c
++++ b/lib/scatterlist.c
+@@ -1148,7 +1148,7 @@ static ssize_t extract_user_to_sg(struct iov_iter *iter,
+ 
+ failed:
+ 	while (sgtable->nents > sgtable->orig_nents)
+-		put_page(sg_page(&sgtable->sgl[--sgtable->nents]));
++		unpin_user_page(sg_page(&sgtable->sgl[--sgtable->nents]));
+ 	return res;
+ }
+ 
+--
+Linux-cachefs mailing list
+Linux-cachefs@redhat.com
+https://listman.redhat.com/mailman/listinfo/linux-cachefs
 
