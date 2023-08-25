@@ -2,75 +2,70 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47CEA780B7E
-	for <lists+linux-cachefs@lfdr.de>; Fri, 18 Aug 2023 14:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA2D788B9C
+	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Aug 2023 16:22:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692360275;
+	s=mimecast20190719; t=1692973374;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=lDcYJRReO5Oz50abtIARIqTq384Q8ykP93XcN5V6OL4=;
-	b=Qhg8+lnmf6kZx52/+mYoRMvaWEbo23jCZ4eei8hMuBqlxXiFb47f+iHf2pJcNn8Tt9e8PS
-	5Eh5i377SbpMQMkZsG13hIar5Sr92oA3eC5hGhVwy6FAbeqtKw0HnuMQGb7r51QxkrW5Gv
-	23BZVwt28b+KYYPNvZ+/SlzLq8uJGc4=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-447-HcmoRUkMMPiD2sqH4MVMhw-1; Fri, 18 Aug 2023 08:04:32 -0400
-X-MC-Unique: HcmoRUkMMPiD2sqH4MVMhw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=D2RrwDlzrkMHmYZrsXQQeRui0/xJ30gSbsccSupxTWY=;
+	b=CaqVpQtXCcGmGV91j9WlBeyUUFaXjepG0qqvCxX8pab0y3468M5XfaQ5XrPGw4AqVNd+ux
+	QW0pxc35kZNsYcqreXlNnyMy8R264Y2z9y2f1ysxC2gS3BMeZThea2Ro+vlKgp3dcOVMh+
+	y7UjYRi9n/d3B3W3FqmBgUP9CgdAQ70=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-541-zkt4YxSeOvqYuwPYL0g7bg-1; Fri, 25 Aug 2023 10:22:51 -0400
+X-MC-Unique: zkt4YxSeOvqYuwPYL0g7bg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7358E85D062;
-	Fri, 18 Aug 2023 12:04:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17D3C280D211;
+	Fri, 25 Aug 2023 14:22:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8C0BD2026D68;
-	Fri, 18 Aug 2023 12:04:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E4C440D2839;
+	Fri, 25 Aug 2023 14:22:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D1D241946595;
-	Fri, 18 Aug 2023 12:04:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C096C19465B3;
+	Fri, 25 Aug 2023 14:22:50 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AC9F31946586 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 14 Aug 2023 09:36:06 +0000 (UTC)
+ ESMTP id C3B7C19465B7 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8A53D1121315; Mon, 14 Aug 2023 09:36:06 +0000 (UTC)
+ id B5472C1602E; Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 835231121314
- for <linux-cachefs@redhat.com>; Mon, 14 Aug 2023 09:36:06 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AD829C1602B
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 678733814941
- for <linux-cachefs@redhat.com>; Mon, 14 Aug 2023 09:36:06 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
- [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-328-b3zb85lZPdSggpctJFOJJA-1; Mon, 14 Aug 2023 05:36:02 -0400
-X-MC-Unique: b3zb85lZPdSggpctJFOJJA-1
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RPTkl4MWkzrSM0;
- Mon, 14 Aug 2023 17:34:39 +0800 (CST)
-Received: from huawei.com (10.67.175.31) by dggpemm500024.china.huawei.com
- (7.185.36.203) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Mon, 14 Aug
- 2023 17:35:57 +0800
-From: GUO Zihua <guozihua@huawei.com>
-To: <dhowells@redhat.com>
-Date: Mon, 14 Aug 2023 17:35:34 +0800
-Message-ID: <20230814093534.18278-1-guozihua@huawei.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89112280D20B
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:22:44 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-556-J44dYLWzP1CfA9Y3MB_LJw-1; Fri,
+ 25 Aug 2023 10:22:40 -0400
+X-MC-Unique: J44dYLWzP1CfA9Y3MB_LJw-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1qZXUl-00HWBm-5H; Fri, 25 Aug 2023 14:09:03 +0000
+Date: Fri, 25 Aug 2023 15:09:03 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Hao Xu <hao.xu@linux.dev>
+Message-ID: <ZOi1/yafn3HQFWnW@casper.infradead.org>
+References: <20230825135431.1317785-1-hao.xu@linux.dev>
+ <20230825135431.1317785-23-hao.xu@linux.dev>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.175.31]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500024.china.huawei.com (7.185.36.203)
-X-CFilter-Loop: Reflected
+In-Reply-To: <20230825135431.1317785-23-hao.xu@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,9 +73,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mailman-Approved-At: Fri, 18 Aug 2023 12:04:29 +0000
-Subject: [Linux-cachefs] [PATCH -next] fscache: Remove duplicated include
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [Linux-cachefs] [PATCH 22/29] xfs: comment page allocation for
+ nowait case in xfs_buf_find_insert()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +87,41 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-kernel@vger.kernel.org
+Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ linux-ext4@vger.kernel.org, devel@lists.orangefs.org,
+ linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ netdev@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
+ Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huawei.com
+X-Mimecast-Originator: infradead.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Remove duplicated include for linux/uio.h. Resolves checkincludes
-message.
+On Fri, Aug 25, 2023 at 09:54:24PM +0800, Hao Xu wrote:
+> @@ -633,6 +633,8 @@ xfs_buf_find_insert(
+>  	 * allocate the memory from the heap to minimise memory usage. If we
+>  	 * can't get heap memory for these small buffers, we fall back to using
+>  	 * the page allocator.
+> +	 * xfs_buf_alloc_kmem may return -EAGAIN, let's not return it but turn
+> +	 * to page allocator as well.
 
-Signed-off-by: GUO Zihua <guozihua@huawei.com>
----
- fs/fscache/io.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/fs/fscache/io.c b/fs/fscache/io.c
-index 0d2b8dec8f82..ac9f19388bfb 100644
---- a/fs/fscache/io.c
-+++ b/fs/fscache/io.c
-@@ -9,7 +9,6 @@
- #include <linux/uio.h>
- #include <linux/bvec.h>
- #include <linux/slab.h>
--#include <linux/uio.h>
- #include "internal.h"
- 
- /**
--- 
-2.17.1
+This new sentence seems like it says exactly the same thing as the
+previous sentence.  What am I missing?
 
 --
 Linux-cachefs mailing list
