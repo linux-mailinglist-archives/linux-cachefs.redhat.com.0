@@ -1,68 +1,68 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C6078D3FA
-	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Aug 2023 10:23:29 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F377678D407
+	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Aug 2023 10:23:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693383808;
+	s=mimecast20190719; t=1693383824;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yehWlJqApBDreeqeLFOs3Ad8XxmSK+OVs0V/LECsl+M=;
-	b=b5aIwE5AtA/SWfhJ7itLyyDgE5fmldaOAIR+N25OyzPaVbOKXRz8JogWYAq68JwpolLTQS
-	FAc21LIzK0NS7vfN+yJplW6e+7XPcLzILX5wc6SObFq3huhD4ClT1sU/4v/0ujm9KCb6Pt
-	BHcKRiwXXJWeVhyJV77QqDgI9fTmEIE=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-668-Jt5OTUL2MIiNcSAMcddxCQ-1; Wed, 30 Aug 2023 04:23:25 -0400
-X-MC-Unique: Jt5OTUL2MIiNcSAMcddxCQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	bh=i8ApKQ4Pm+26nR1h5FaMRwTWHYtQxapD/CvB1mne6Lc=;
+	b=huRl0vy/IIIEU9HjzqBd1XXnDCAwBwGqsJG4AZqYekE01t/UpDHldGKlhnvm0VIFoDJosA
+	Y4RTt6gekPdh+XSagKbOYV+iRQDoNhdEQ9CMBJkrS2edumMXFQshSXwaEi8KRkiaMKpSAy
+	5Pe0H3xp7BvLh39uynWkXN9WC1QWECQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-577-7XygxqhLPTaVV0KCF789zw-1; Wed, 30 Aug 2023 04:23:41 -0400
+X-MC-Unique: 7XygxqhLPTaVV0KCF789zw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F47A28237D2;
-	Wed, 30 Aug 2023 08:23:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47231101AA48;
+	Wed, 30 Aug 2023 08:23:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 95DA9492C13;
-	Wed, 30 Aug 2023 08:23:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DE30403168;
+	Wed, 30 Aug 2023 08:23:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AAED719452D0;
-	Wed, 30 Aug 2023 08:23:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AAF3A1946A6F;
+	Wed, 30 Aug 2023 08:23:29 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 965CC19465A8 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 14:05:41 +0000 (UTC)
+ ESMTP id 8EC9E19465B2 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 14:05:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 86054112131B; Fri, 25 Aug 2023 14:05:41 +0000 (UTC)
+ id 79830492C18; Fri, 25 Aug 2023 14:05:56 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DEA91121319
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:05:41 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 71FA2492C14
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:05:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 627268D40A8
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:05:41 +0000 (UTC)
-Received: from out-250.mta1.migadu.com (out-250.mta1.migadu.com
- [95.215.58.250]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5717C858EED
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:05:56 +0000 (UTC)
+Received: from out-253.mta1.migadu.com (out-253.mta1.migadu.com
+ [95.215.58.253]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-656-n4HH72pMOqC9bWbA-z2FGw-1; Fri, 25 Aug 2023 10:05:39 -0400
-X-MC-Unique: n4HH72pMOqC9bWbA-z2FGw-1
+ us-mta-400-0VFQjmi9PZaSjv29HIaxnQ-1; Fri, 25 Aug 2023 10:05:54 -0400
+X-MC-Unique: 0VFQjmi9PZaSjv29HIaxnQ-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:28 +0800
-Message-Id: <20230825135431.1317785-27-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:29 +0800
+Message-Id: <20230825135431.1317785-28-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -74,10 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Wed, 30 Aug 2023 08:22:42 +0000
-Subject: [Linux-cachefs] [PATCH 26/29] xfs: return -EAGAIN when nowait meets
- sync in transaction commit
+Subject: [Linux-cachefs] [PATCH 27/29] xfs: add a comment for xlog_kvmalloc()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +106,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -115,44 +114,28 @@ Content-Transfer-Encoding: 7bit
 
 From: Hao Xu <howeyxu@tencent.com>
 
-if the log transaction is a sync one, let's fail the nowait try and
-return -EAGAIN directly since sync transaction means blocked by IO.
+vmalloc() always succeed in 64 bit system?
+Not a real patch.
 
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/xfs/xfs_trans.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ fs/xfs/xfs_log_cil.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-index 7988b4c7f36e..f1f84a3dd456 100644
---- a/fs/xfs/xfs_trans.c
-+++ b/fs/xfs/xfs_trans.c
-@@ -968,12 +968,24 @@ __xfs_trans_commit(
- 	xfs_csn_t		commit_seq = 0;
- 	int			error = 0;
- 	int			sync = tp->t_flags & XFS_TRANS_SYNC;
-+	bool			nowait = tp->t_flags & XFS_TRANS_NOWAIT;
-+	bool			perm_log = tp->t_flags & XFS_TRANS_PERM_LOG_RES;
+diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
+index f17c1799b3c4..b31830ee36dd 100644
+--- a/fs/xfs/xfs_log_cil.c
++++ b/fs/xfs/xfs_log_cil.c
+@@ -335,6 +335,9 @@ xlog_cil_alloc_shadow_bufs(
+ 			 * storage.
+ 			 */
+ 			kmem_free(lip->li_lv_shadow);
++			/*
++			 * May this be indefinite loop in nowait case?
++			 */
+ 			lv = xlog_kvmalloc(buf_size);
  
- 	trace_xfs_trans_commit(tp, _RET_IP_);
- 
-+	if (nowait && sync) {
-+		/*
-+		 * Currently nowait is only from xfs_vn_update_time()
-+		 * so perm_log is always false here, but let's make
-+		 * code general.
-+		 */
-+		if (perm_log)
-+			xfs_defer_cancel(tp);
-+		goto out_unreserve;
-+	}
- 	error = xfs_trans_run_precommits(tp);
- 	if (error) {
--		if (tp->t_flags & XFS_TRANS_PERM_LOG_RES)
-+		if (perm_log)
- 			xfs_defer_cancel(tp);
- 		goto out_unreserve;
- 	}
+ 			memset(lv, 0, xlog_cil_iovec_space(niovecs));
 -- 
 2.25.1
 
