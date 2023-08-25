@@ -2,67 +2,68 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F359878D3EE
-	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Aug 2023 10:23:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B14D078D3EB
+	for <lists+linux-cachefs@lfdr.de>; Wed, 30 Aug 2023 10:23:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693383788;
+	s=mimecast20190719; t=1693383785;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ZTUIVE0PDs3rUsftHcHSJaXcl+D5FLDxGUsPDRDQNzE=;
-	b=ekVUAHA+z1pJMO5P3m5iOyeK+JuDcMlELlgjGPik2+H6Jsdw5zB0/cNW3DADveVrwegkIz
-	h8b9mzOVOU6ULR9Z1UJviMG9FhCaDL6Mn0FolVuyTe4FN7tCgISREEEUWPUYuuMkUeRNEY
-	80m+gnnuhBE5Y2fshQbohAk0ods36z0=
+	bh=iQ0+cXRkO7+Ik3vFRjeZOOilKrc8pSeaoefBpto+Hkc=;
+	b=i8B8jHUbauuN0Rek9VemQ2FtTMDidi8Zwm1cVTb51oeWbAvZ3bsorXbijJ3ag0jXDgCMWu
+	aqumbDdkckZy9UBmGdMW1sdMDuylvcLxOk+khmPko9ZLPomF8andcQbBAYuNUWkIklYlbA
+	yH+hdw7mOrN4+NgdR8+OIy7CXZ9NRbo=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-556-Sxs_0N7DMHmCsdt2JoZ5bQ-1; Wed, 30 Aug 2023 04:23:05 -0400
-X-MC-Unique: Sxs_0N7DMHmCsdt2JoZ5bQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-630-ExMdHYLDMLqxh5Na5bQ3Hg-1; Wed, 30 Aug 2023 04:22:59 -0400
+X-MC-Unique: ExMdHYLDMLqxh5Na5bQ3Hg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEB1C1C03D92;
-	Wed, 30 Aug 2023 08:23:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BFC71C0512E;
+	Wed, 30 Aug 2023 08:22:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E5DB240C6F4C;
-	Wed, 30 Aug 2023 08:23:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 31A5240316A;
+	Wed, 30 Aug 2023 08:22:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 32AD219452C8;
-	Wed, 30 Aug 2023 08:22:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D8C721946A47;
+	Wed, 30 Aug 2023 08:22:42 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CEEC819465A8 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 13:56:10 +0000 (UTC)
+ ESMTP id 0280E19465A8 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 13:56:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C0BADC1602E; Fri, 25 Aug 2023 13:56:10 +0000 (UTC)
+ id D51E340D283A; Fri, 25 Aug 2023 13:56:49 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B8C56C1602B
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 13:56:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E3A4858EED
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 13:56:10 +0000 (UTC)
-Received: from out-249.mta1.migadu.com (out-249.mta1.migadu.com
- [95.215.58.249]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CDF2040D2839
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 13:56:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AECD43C0FC90
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 13:56:49 +0000 (UTC)
+Received: from out-250.mta1.migadu.com (out-250.mta1.migadu.com
+ [95.215.58.250]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-x5pqytgINaahlEPfebM0Aw-1; Fri, 25 Aug 2023 09:56:08 -0400
-X-MC-Unique: x5pqytgINaahlEPfebM0Aw-1
+ us-mta-638-sdOEdH2gMnWLOPTLy8WccA-1; Fri, 25 Aug 2023 09:56:47 -0400
+X-MC-Unique: sdOEdH2gMnWLOPTLy8WccA-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Hao Xu <hao.xu@linux.dev>
 To: io-uring@vger.kernel.org,
 	Jens Axboe <axboe@kernel.dk>
-Date: Fri, 25 Aug 2023 21:54:06 +0800
-Message-Id: <20230825135431.1317785-5-hao.xu@linux.dev>
+Date: Fri, 25 Aug 2023 21:54:07 +0800
+Message-Id: <20230825135431.1317785-6-hao.xu@linux.dev>
 In-Reply-To: <20230825135431.1317785-1-hao.xu@linux.dev>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
 MIME-Version: 1.0
@@ -74,10 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Wed, 30 Aug 2023 08:22:42 +0000
-Subject: [Linux-cachefs] [PATCH 04/29] vfs: add nowait flag for struct
- dir_context
+Subject: [Linux-cachefs] [PATCH 05/29] vfs: add a vfs helper for io_uring
+ file pos lock
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +108,7 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -115,86 +116,53 @@ Content-Transfer-Encoding: 7bit
 
 From: Hao Xu <howeyxu@tencent.com>
 
-The flags will allow passing DIR_CONTEXT_F_NOWAIT to iterate()
-implementations that support it (as signaled through FMODE_NWAIT
-in file->f_mode)
+Add a vfs helper file_pos_lock_nowait() for io_uring usage. The function
+have conditional nowait logic, i.e. if nowait is needed, return -EAGAIN
+when trylock fails.
 
-Notes:
-- considered using IOCB_NOWAIT but if we add more flags later it
-would be confusing to keep track of which values are valid, use
-dedicated flags
-- might want to check ctx.flags & DIR_CONTEXT_F_NOWAIT is only set
-when file->f_mode & FMODE_NOWAIT in iterate_dir() as e.g. WARN_ONCE?
-
-Co-developed-by: Dominique Martinet <asmadeus@codewreck.org>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 Signed-off-by: Hao Xu <howeyxu@tencent.com>
 ---
- fs/internal.h      | 2 +-
- fs/readdir.c       | 6 ++++--
- include/linux/fs.h | 8 ++++++++
- 3 files changed, 13 insertions(+), 3 deletions(-)
+ fs/file.c            | 13 +++++++++++++
+ include/linux/file.h |  2 ++
+ 2 files changed, 15 insertions(+)
 
-diff --git a/fs/internal.h b/fs/internal.h
-index b1f66e52d61b..7508d485c655 100644
---- a/fs/internal.h
-+++ b/fs/internal.h
-@@ -311,4 +311,4 @@ void mnt_idmap_put(struct mnt_idmap *idmap);
- struct linux_dirent64;
+diff --git a/fs/file.c b/fs/file.c
+index 35c62b54c9d6..8e5c38f5db52 100644
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -1053,6 +1053,19 @@ void __f_unlock_pos(struct file *f)
+ 	mutex_unlock(&f->f_pos_lock);
+ }
  
- int vfs_getdents(struct file *file, struct linux_dirent64 __user *dirent,
--		 unsigned int count);
-+		 unsigned int count, unsigned long flags);
-diff --git a/fs/readdir.c b/fs/readdir.c
-index 9592259b7e7f..b80caf4c9321 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
-@@ -358,12 +358,14 @@ static bool filldir64(struct dir_context *ctx, const char *name, int namlen,
-  * @file    : pointer to file struct of directory
-  * @dirent  : pointer to user directory structure
-  * @count   : size of buffer
-+ * @flags   : additional dir_context flags
-  */
- int vfs_getdents(struct file *file, struct linux_dirent64 __user *dirent,
--		 unsigned int count)
-+		 unsigned int count, unsigned long flags)
- {
- 	struct getdents_callback64 buf = {
- 		.ctx.actor = filldir64,
-+		.ctx.flags = flags,
- 		.count = count,
- 		.current_dir = dirent
- 	};
-@@ -395,7 +397,7 @@ SYSCALL_DEFINE3(getdents64, unsigned int, fd,
- 	if (!f.file)
- 		return -EBADF;
- 
--	error = vfs_getdents(f.file, dirent, count);
-+	error = vfs_getdents(f.file, dirent, count, 0);
- 
- 	fdput_pos(f);
- 	return error;
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 6867512907d6..f3e315e8efdd 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1719,8 +1719,16 @@ typedef bool (*filldir_t)(struct dir_context *, const char *, int, loff_t, u64,
- struct dir_context {
- 	filldir_t actor;
- 	loff_t pos;
-+	unsigned long flags;
- };
- 
-+/*
-+ * flags for dir_context flags
-+ * DIR_CONTEXT_F_NOWAIT: Request non-blocking iterate
-+ *                       (requires file->f_mode & FMODE_NOWAIT)
-+ */
-+#define DIR_CONTEXT_F_NOWAIT	(1 << 0)
++int file_pos_lock_nowait(struct file *file, bool nowait)
++{
++	if (!(file->f_mode & FMODE_ATOMIC_POS))
++		return 0;
++
++	if (!nowait)
++		mutex_lock(&file->f_pos_lock);
++	else if (!mutex_trylock(&file->f_pos_lock))
++		return -EAGAIN;
++
++	return 1;
++}
 +
  /*
-  * These flags let !MMU mmap() govern direct device mapping vs immediate
-  * copying more easily for MAP_PRIVATE, especially for ROM filesystems.
+  * We only lock f_pos if we have threads or if the file might be
+  * shared with another process. In both cases we'll have an elevated
+diff --git a/include/linux/file.h b/include/linux/file.h
+index 6e9099d29343..bcc6ba0aec50 100644
+--- a/include/linux/file.h
++++ b/include/linux/file.h
+@@ -81,6 +81,8 @@ static inline void fdput_pos(struct fd f)
+ 	fdput(f);
+ }
+ 
++extern int file_pos_lock_nowait(struct file *file, bool nowait);
++
+ DEFINE_CLASS(fd, struct fd, fdput(_T), fdget(fd), int fd)
+ 
+ extern int f_dupfd(unsigned int from, struct file *file, unsigned flags);
 -- 
 2.25.1
 
