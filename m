@@ -1,99 +1,99 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421437890C7
-	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Aug 2023 23:54:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD167890EC
+	for <lists+linux-cachefs@lfdr.de>; Fri, 25 Aug 2023 23:58:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693000442;
+	s=mimecast20190719; t=1693000706;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=C7l1YaJD25TqfZ/bjRwlYqAfEB2vwnWqScd01AsuG7U=;
-	b=YZ55oAZcPK5s5uySA3+CzA/8+lWXDl9jrBvh31rkYwtGWcLphMqMGfu15E1VUf0ODlJo/X
-	BJspBP2QrcNbddtr8Am5fUKJ6RmfC0t/AeTqVN1fONbqg3BJAfd+j3cW1wSKdlq4iM9GAN
-	GH2yUx4eCere/90iE8oPtwJXbr3Arfc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-48-5Q8yGMqePhGl8S80tanW3Q-1; Fri, 25 Aug 2023 17:53:59 -0400
-X-MC-Unique: 5Q8yGMqePhGl8S80tanW3Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=cW0O3/wWg85PEwrPYradZqDoNdNN7Dl46r59zYmNTQA=;
+	b=Y9UiX7m2M5OBn/Eb1Sdb0Wd2iqdi1+Bm4+1PvV9A22+spKu7hZYWLDBbf75Xd14NcT7xzR
+	hg+OQ+4Xzdm/ApM99GI7ciXQcPPIAnXPTSNFiGZdUv4fKL+8wBj8L8RWU0qKibPpSEddk1
+	wx/cUaHp0d/+MLhIdMg4ol+4z9uJcAM=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-473-0y7O8jrrO7WE31_bqHyo0g-1; Fri, 25 Aug 2023 17:58:22 -0400
+X-MC-Unique: 0y7O8jrrO7WE31_bqHyo0g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7138C101A528;
-	Fri, 25 Aug 2023 21:53:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F08CF38041C6;
+	Fri, 25 Aug 2023 21:58:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6753940D2839;
-	Fri, 25 Aug 2023 21:53:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E7AD11121319;
+	Fri, 25 Aug 2023 21:58:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F396E19465B3;
-	Fri, 25 Aug 2023 21:53:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AA5B119465B3;
+	Fri, 25 Aug 2023 21:58:21 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A55B019465A8 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 25 Aug 2023 21:53:57 +0000 (UTC)
+ ESMTP id A4DE319465A8 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 25 Aug 2023 21:58:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 693512026D76; Fri, 25 Aug 2023 21:53:57 +0000 (UTC)
+ id 6498E2026D76; Fri, 25 Aug 2023 21:58:20 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 60E902026D68
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 21:53:57 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D1382026D68
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 21:58:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 450F4858EED
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 21:53:57 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BFE4185A78B
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 21:58:20 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-483-Mt0MbrKwO6WsPx0Tf-QwvQ-1; Fri, 25 Aug 2023 17:53:55 -0400
-X-MC-Unique: Mt0MbrKwO6WsPx0Tf-QwvQ-1
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-565f86ff4d1so781117a12.2
- for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:53:55 -0700 (PDT)
+ us-mta-75-WvkSeob3M7a90g27K51Ftg-1; Fri, 25 Aug 2023 17:58:18 -0400
+X-MC-Unique: WvkSeob3M7a90g27K51Ftg-1
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1c0bae4da38so10226455ad.0
+ for <linux-cachefs@redhat.com>; Fri, 25 Aug 2023 14:58:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693000434; x=1693605234;
+ d=1e100.net; s=20221208; t=1693000697; x=1693605497;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EA93GbJhFaX1RD1S1v1NWvgWKkuCopUaLEmO6z67OS0=;
- b=XNM80obmr8dWMcJhF2sA4vgZPuMhaF+jTUn9cjsPVcry8HBFTK0PKzxAfl/VJrnAYZ
- JHJajezBEKQIbIdmSRp3H2z4rGPyEt2UHZYuuwxHuf3QbMDvE/6debE+8F4UY4FiH+jd
- WlWYYDCX0J1CGexb3hTJ/LnRRdLveseP+UdPe1qVB5J5M7YXxz0M6DnzjNEbfTnaA3Ka
- y9za0YiD0f573y4mAJRucRpmONybT1/W52bYp0TIqJHlipwxGPi5aYB7XMPQvup6GQE3
- 9X2mfdPkRHYS/oWaNm7QGlmRWra5XDFpnXdH2QHKSwpaFEvhJJdX+G9sTZ5dLedFEZUD
- NjQg==
-X-Gm-Message-State: AOJu0Yyaqc6gjv+1vfS9H71Xkcd5nYsFRlE4r13FINEvbqS0Sz7XzWaQ
- /ZNNoVy/i1Kr1AJMmg4GFi9SqQ==
-X-Google-Smtp-Source: AGHT+IGuXiZpaiaSoWbg0vAVB9MheRguVETxlh6z74Aponrqbg78kQHVeidygYbMeETEncHmOPB93Q==
-X-Received: by 2002:a17:90a:bf88:b0:263:5d25:150c with SMTP id
- d8-20020a17090abf8800b002635d25150cmr15563047pjs.29.1693000434105; 
- Fri, 25 Aug 2023 14:53:54 -0700 (PDT)
+ bh=KYhyzbAkZA6I0JpkJP7NgCytRvclFoiu9vcGiedxJnM=;
+ b=GGvC73exxnYWe1GDvmnSnaSdO9m6uSh2PG3Hzxg8vV048UiXPnVRRSX0h0upuurX3S
+ GZo7Z5szp8Rkdu/lMklWSESnxzCXnSQa3aI7ENAO6Jt7zcOCe0+2QrfOYTCsCHA4QN4S
+ VHAT25ThtisxI1uHZWvK2zIQ7ye3H7shKz+4ar8LjxSU1T11dYiMVPNckJaLBitF46+Z
+ SDWd0k3XoqPYzeUDbNgRnJQQAtYvghAxUOb9P61e+XigE0bf2blSGaIPVX5bN23wh88m
+ ppKfoqCt5xr6AXhI8NZ/kBAI8OPOJaebhGllZ0fVt3a/8znOtyAhbbBjbZpzgnGNfZw4
+ tPIg==
+X-Gm-Message-State: AOJu0Yyvs3CuuLkwsYIDl4ki9nbmKqlrv5nFotvoN/0yoZg25TwzpPL9
+ cZxv+rsrYnQP09XjR3jkY/92dg==
+X-Google-Smtp-Source: AGHT+IGbNBRmb5i9MT6K586yDhJt+XUD4xbkK8zWzYl+0zg/QCNqIJVK22pGEJPGpFxCH5bzJj3AjQ==
+X-Received: by 2002:a17:902:c454:b0:1b8:6984:f5e5 with SMTP id
+ m20-20020a170902c45400b001b86984f5e5mr20508009plm.12.1693000697391; 
+ Fri, 25 Aug 2023 14:58:17 -0700 (PDT)
 Received: from dread.disaster.area (pa49-195-66-88.pa.nsw.optusnet.com.au.
  [49.195.66.88]) by smtp.gmail.com with ESMTPSA id
- fz23-20020a17090b025700b0026b4decfe59sm2177778pjb.31.2023.08.25.14.53.53
+ 13-20020a170902c24d00b0019ee045a2b3sm2241969plg.308.2023.08.25.14.58.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Aug 2023 14:53:53 -0700 (PDT)
+ Fri, 25 Aug 2023 14:58:16 -0700 (PDT)
 Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1qZekY-006V5n-1X;
- Sat, 26 Aug 2023 07:53:50 +1000
-Date: Sat, 26 Aug 2023 07:53:50 +1000
+ (envelope-from <david@fromorbit.com>) id 1qZeoo-006VLc-08;
+ Sat, 26 Aug 2023 07:58:14 +1000
+Date: Sat, 26 Aug 2023 07:58:14 +1000
 From: Dave Chinner <david@fromorbit.com>
 To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <ZOki7u/zJGmZtL6g@dread.disaster.area>
+Message-ID: <ZOkj9uTkoHPR/tDV@dread.disaster.area>
 References: <20230825135431.1317785-1-hao.xu@linux.dev>
- <20230825135431.1317785-25-hao.xu@linux.dev>
+ <20230825135431.1317785-27-hao.xu@linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20230825135431.1317785-25-hao.xu@linux.dev>
+In-Reply-To: <20230825135431.1317785-27-hao.xu@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -102,8 +102,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [Linux-cachefs] [PATCH 24/29] xfs: support nowait for
- xfs_buf_read_map()
+Subject: Re: [Linux-cachefs] [PATCH 26/29] xfs: return -EAGAIN when nowait
+ meets sync in transaction commit
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,56 +132,58 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  Pavel Begunkov <asml.silence@gmail.com>, linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: fromorbit.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 25, 2023 at 09:54:26PM +0800, Hao Xu wrote:
+On Fri, Aug 25, 2023 at 09:54:28PM +0800, Hao Xu wrote:
 > From: Hao Xu <howeyxu@tencent.com>
 > 
-> This causes xfstests generic/232 hung in umount process, waiting for ail
-> push, so I comment it for now, need some hints from xfs folks.
-> Not a real patch.
+> if the log transaction is a sync one, let's fail the nowait try and
+> return -EAGAIN directly since sync transaction means blocked by IO.
 > 
 > Signed-off-by: Hao Xu <howeyxu@tencent.com>
 > ---
->  fs/xfs/xfs_buf.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  fs/xfs/xfs_trans.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
 > 
-> diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-> index cdad80e1ae25..284962a9f31a 100644
-> --- a/fs/xfs/xfs_buf.c
-> +++ b/fs/xfs/xfs_buf.c
-> @@ -828,6 +828,13 @@ xfs_buf_read_map(
->  	trace_xfs_buf_read(bp, flags, _RET_IP_);
+> diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
+> index 7988b4c7f36e..f1f84a3dd456 100644
+> --- a/fs/xfs/xfs_trans.c
+> +++ b/fs/xfs/xfs_trans.c
+> @@ -968,12 +968,24 @@ __xfs_trans_commit(
+>  	xfs_csn_t		commit_seq = 0;
+>  	int			error = 0;
+>  	int			sync = tp->t_flags & XFS_TRANS_SYNC;
+> +	bool			nowait = tp->t_flags & XFS_TRANS_NOWAIT;
+> +	bool			perm_log = tp->t_flags & XFS_TRANS_PERM_LOG_RES;
 >  
->  	if (!(bp->b_flags & XBF_DONE)) {
-> +//		/*
-> +//		 * Let's bypass the _xfs_buf_read() for now
-> +//		 */
-> +//		if (flags & XBF_NOWAIT) {
-> +//			xfs_buf_relse(bp);
-> +//			return -EAGAIN;
-> +//		}
+>  	trace_xfs_trans_commit(tp, _RET_IP_);
+>  
+> +	if (nowait && sync) {
+> +		/*
+> +		 * Currently nowait is only from xfs_vn_update_time()
+> +		 * so perm_log is always false here, but let's make
+> +		 * code general.
+> +		 */
+> +		if (perm_log)
+> +			xfs_defer_cancel(tp);
+> +		goto out_unreserve;
+> +	}
 
-This is *fundamentally broken*, and apart from anything else breaks
-readahead.
+This is fundamentally broken.  We cannot about a transaction commit
+with dirty items at this point with shutting down the filesystem.
 
-IF we asked for a read, we cannot instantiate the buffer and then
-*not issue any IO on it* and release it. That leaves an
-uninitialised buffer in memory, and there's every chance that
-something then trips over it and bad things happen.
+This points to XFS_TRANS_NOWAIT being completely broken, too,
+because we don't call xfs_trans_set_sync() until just before we
+commit the transaction. At this point, it is -too late- for
+nowait+sync to be handled gracefully, and it will *always* go bad.
 
-A buffer like this *must* be errored out and marked stale so that
-the next access to it will then re-initialise the buffer state and
-trigger any preparatory work that needs to be done for the new
-operation.
-
-This comes back to my first comments that XBF_TRYLOCK cannot simpy
-be replaced with XBF_NOWAIT semantics...
+IOWs, the whole transaction "nowait" semantics as designed and
+implemented is not a workable solution....
 
 -Dave.
 -- 
