@@ -2,70 +2,71 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA86478A1A2
-	for <lists+linux-cachefs@lfdr.de>; Sun, 27 Aug 2023 22:52:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D865478A1E0
+	for <lists+linux-cachefs@lfdr.de>; Sun, 27 Aug 2023 23:32:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693169550;
+	s=mimecast20190719; t=1693171975;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4rQo+EJXeoMbW/LzdpYAkDs5v0lX5rXARmgmtaBlUt0=;
-	b=Yf/op7zN21EyBYzgp5GhTeLFiz/AR8sIMioEmCttGahjF+72b0FCvqKCmEQ9RBQav/W/+U
-	8V65UE2qzG6rTKanOP5eQtsHblKftZyt3iHOGRhjY4XwlOOZxNBfn2p92oL+z+VXDzMY//
-	2tEHn9u7OW2ga88BOBY16SdjWTpQ5ak=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-578-ofqGctAcOQyLj7BDHu2jLQ-1; Sun, 27 Aug 2023 16:52:27 -0400
-X-MC-Unique: ofqGctAcOQyLj7BDHu2jLQ-1
+	bh=BTd2gJdZAz/iBTBgNGCA3oF9IM4pnEZj0WrvinyEKZo=;
+	b=FFhagYqdVxoYHDN/xBus63xUeZ8tvSnU9wetQxobIAu6agZ9jiW+t8+xnaN5oKt7GAtpQ9
+	b2rBZ6+Mw4tpC2py9OeHP8E2bp/I+XLubEwg4ycKprxTysj/p5YWt+SQEVkm7soNPQUXBU
+	15QhSd28YToAgf6ArPFwN2EWa7QCWPA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-644-stvY4YL6O2K9V0eY57lJYw-1; Sun, 27 Aug 2023 17:32:52 -0400
+X-MC-Unique: stvY4YL6O2K9V0eY57lJYw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D97429DD9A0;
-	Sun, 27 Aug 2023 20:52:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D82F185A78B;
+	Sun, 27 Aug 2023 21:32:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 841E2492C14;
-	Sun, 27 Aug 2023 20:52:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7D5AF492C13;
+	Sun, 27 Aug 2023 21:32:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5269B19465B6;
-	Sun, 27 Aug 2023 20:52:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 57D0E19465B7;
+	Sun, 27 Aug 2023 21:32:51 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DDF5119465A8 for <linux-cachefs@listman.corp.redhat.com>;
- Sun, 27 Aug 2023 20:52:24 +0000 (UTC)
+ ESMTP id B880E19465A8 for <linux-cachefs@listman.corp.redhat.com>;
+ Sun, 27 Aug 2023 21:32:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BA61F2166B26; Sun, 27 Aug 2023 20:52:24 +0000 (UTC)
+ id 8A83D40C6F4E; Sun, 27 Aug 2023 21:32:50 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B29CE2166B25
- for <linux-cachefs@redhat.com>; Sun, 27 Aug 2023 20:52:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96915856F67
- for <linux-cachefs@redhat.com>; Sun, 27 Aug 2023 20:52:24 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 833D440C6F4C
+ for <linux-cachefs@redhat.com>; Sun, 27 Aug 2023 21:32:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6331C29AA2CE
+ for <linux-cachefs@redhat.com>; Sun, 27 Aug 2023 21:32:50 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-307-YFVFPq_XOM6R5TfU6Xgpxg-1; Sun,
- 27 Aug 2023 16:52:21 -0400
-X-MC-Unique: YFVFPq_XOM6R5TfU6Xgpxg-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-Abwt3TFBMY2XprDFT35-Eg-1; Sun,
+ 27 Aug 2023 17:32:48 -0400
+X-MC-Unique: Abwt3TFBMY2XprDFT35-Eg-1
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qaMjj-00DkxQ-7a; Sun, 27 Aug 2023 20:51:55 +0000
-Date: Sun, 27 Aug 2023 21:51:55 +0100
+ Hat Linux)) id 1qaNMq-00DvXM-Sy; Sun, 27 Aug 2023 21:32:21 +0000
+Date: Sun, 27 Aug 2023 22:32:20 +0100
 From: Matthew Wilcox <willy@infradead.org>
 To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <ZOu3a/24YJrtpIy1@casper.infradead.org>
+Message-ID: <ZOvA5DJDZN0FRymp@casper.infradead.org>
 References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-10-hao.xu@linux.dev>
+ <20230827132835.1373581-8-hao.xu@linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20230827132835.1373581-10-hao.xu@linux.dev>
+In-Reply-To: <20230827132835.1373581-8-hao.xu@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -73,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [Linux-cachefs] [PATCH 09/11] vfs: error out -EAGAIN if atime
- needs to be updated
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [Linux-cachefs] [PATCH 07/11] vfs: add nowait parameter for
+ file_accessed()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,13 +113,43 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 27, 2023 at 09:28:33PM +0800, Hao Xu wrote:
+On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
 > From: Hao Xu <howeyxu@tencent.com>
 > 
-> To enforce nowait semantics, error out -EAGAIN if atime needs to be
-> updated.
+> Add a boolean parameter for file_accessed() to support nowait semantics.
+> Currently it is true only with io_uring as its initial caller.
 
-Squash this into patch 6.  Otherwise patch 6 makes no sense.
+So why do we need to do this as part of this series?  Apparently it
+hasn't caused any problems for filemap_read().
+
+> +++ b/mm/filemap.c
+> @@ -2723,7 +2723,7 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
+>  		folio_batch_init(&fbatch);
+>  	} while (iov_iter_count(iter) && iocb->ki_pos < isize && !error);
+>  
+> -	file_accessed(filp);
+> +	file_accessed(filp, false);
+>  
+>  	return already_read ? already_read : error;
+>  }
+> @@ -2809,7 +2809,7 @@ generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+>  		retval = kiocb_write_and_wait(iocb, count);
+>  		if (retval < 0)
+>  			return retval;
+> -		file_accessed(file);
+> +		file_accessed(file, false);
+>  
+>  		retval = mapping->a_ops->direct_IO(iocb, iter);
+>  		if (retval >= 0) {
+> @@ -2978,7 +2978,7 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
+>  
+>  out:
+>  	folio_batch_release(&fbatch);
+> -	file_accessed(in);
+> +	file_accessed(in, false);
+>  
+>  	return total_spliced ? total_spliced : error;
+>  }
 
 --
 Linux-cachefs mailing list
