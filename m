@@ -2,77 +2,76 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5031D791569
-	for <lists+linux-cachefs@lfdr.de>; Mon,  4 Sep 2023 12:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E2679154F
+	for <lists+linux-cachefs@lfdr.de>; Mon,  4 Sep 2023 11:57:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693821615;
+	s=mimecast20190719; t=1693821470;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7ZtZKfaZg2r5KHO5i6QDkVBOyQ+9yCpIP6qMftL7GsA=;
-	b=cC7e8R5SmNh0xk9yyzGgtup9auIS24HaX/Ovm3JJT0vZC87XcyDvHeCiyq0Y6lshf0xmUu
-	loTbDf6pIE2AID5KE2ZErh83HAl7nD5B7Y61kNMvRgvCzEGh+fEJfA4NhnOR2AxaHbFGmd
-	2YQQNs0gk0UUMcOE/Kj39D8FKvYKt9k=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-rY_7n3KDPyWPNp5p_QLAYw-1; Mon, 04 Sep 2023 06:00:11 -0400
-X-MC-Unique: rY_7n3KDPyWPNp5p_QLAYw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	bh=VnABkwF+s5o3g4Avbih8nHLo+kUbv2Y7SokewzXf+5I=;
+	b=O7Qv+X5a9shsXa3nLYASet+E2xie9mfY+M+XG8hdr0CJfFZp0JlyoX2IO9i7U5NKuyvSuL
+	exQmYG7Mzqx4wyAhPN73jJsrDyKO6SgkN6gtIBienigUAo0VULB9TKPNrRCIlq8gSGXFiK
+	GBUd3k+E1iZXPLBsbutcRMqgftJbS2E=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-299-e_RbshsGO4qrhFNpCyFc3Q-1; Mon, 04 Sep 2023 05:57:47 -0400
+X-MC-Unique: e_RbshsGO4qrhFNpCyFc3Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CED529DD99A;
-	Mon,  4 Sep 2023 10:00:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5BD2925FC6;
+	Mon,  4 Sep 2023 09:57:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 036A3493110;
-	Mon,  4 Sep 2023 10:00:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9BBF0140E964;
+	Mon,  4 Sep 2023 09:57:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B9CA419465BC;
-	Mon,  4 Sep 2023 10:00:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 209C91946A4F;
+	Mon,  4 Sep 2023 09:57:46 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 196421946595 for <linux-cachefs@listman.corp.redhat.com>;
- Mon,  4 Sep 2023 10:00:09 +0000 (UTC)
+ ESMTP id DBD4B1946595 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon,  4 Sep 2023 09:57:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 04A3F40C105A; Mon,  4 Sep 2023 10:00:09 +0000 (UTC)
+ id C9B4140C6CCC; Mon,  4 Sep 2023 09:57:44 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F1AF540C1258
- for <linux-cachefs@redhat.com>; Mon,  4 Sep 2023 10:00:08 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C1E4040C6F4E
+ for <linux-cachefs@redhat.com>; Mon,  4 Sep 2023 09:57:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA810181790A
- for <linux-cachefs@redhat.com>; Mon,  4 Sep 2023 10:00:08 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-166-UqScAirMM8CbTrN0O28F_w-1; Mon,
- 04 Sep 2023 06:00:04 -0400
-X-MC-Unique: UqScAirMM8CbTrN0O28F_w-1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A32921C25A61
+ for <linux-cachefs@redhat.com>; Mon,  4 Sep 2023 09:57:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-168-tRN-QZiQMoiM4DyXGwjdUg-1; Mon, 04 Sep 2023 05:57:41 -0400
+X-MC-Unique: tRN-QZiQMoiM4DyXGwjdUg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id C4EA7CE0E30;
- Mon,  4 Sep 2023 09:51:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B855FC433C8;
- Mon,  4 Sep 2023 09:51:43 +0000 (UTC)
-Date: Mon, 4 Sep 2023 11:51:40 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2128260110;
+ Mon,  4 Sep 2023 09:57:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2861AC433CA;
+ Mon,  4 Sep 2023 09:57:32 +0000 (UTC)
+Date: Mon, 4 Sep 2023 11:57:30 +0200
 From: Christian Brauner <brauner@kernel.org>
 To: Hao Xu <hao.xu@linux.dev>
-Message-ID: <20230904-trennen-gewettert-0b2dc5ba60bc@brauner>
+Message-ID: <20230904-butterbrot-aufraffen-db483c53eab5@brauner>
 References: <20230827132835.1373581-1-hao.xu@linux.dev>
- <20230827132835.1373581-8-hao.xu@linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20230827132835.1373581-8-hao.xu@linux.dev>
+In-Reply-To: <20230827132835.1373581-1-hao.xu@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -81,8 +80,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [Linux-cachefs] [PATCH 07/11] vfs: add nowait parameter for
- file_accessed()
+Subject: Re: [Linux-cachefs] [PATCH v6 00/11] io_uring getdents
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,76 +110,22 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
  linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
-> From: Hao Xu <howeyxu@tencent.com>
-> 
-> Add a boolean parameter for file_accessed() to support nowait semantics.
-> Currently it is true only with io_uring as its initial caller.
-> 
-> Signed-off-by: Hao Xu <howeyxu@tencent.com>
-> ---
->  arch/s390/hypfs/inode.c | 2 +-
->  block/fops.c            | 2 +-
->  fs/btrfs/file.c         | 2 +-
->  fs/btrfs/inode.c        | 2 +-
->  fs/coda/dir.c           | 4 ++--
->  fs/ext2/file.c          | 4 ++--
->  fs/ext4/file.c          | 6 +++---
->  fs/f2fs/file.c          | 4 ++--
->  fs/fuse/dax.c           | 2 +-
->  fs/fuse/file.c          | 4 ++--
->  fs/gfs2/file.c          | 2 +-
->  fs/hugetlbfs/inode.c    | 2 +-
->  fs/nilfs2/file.c        | 2 +-
->  fs/orangefs/file.c      | 2 +-
->  fs/orangefs/inode.c     | 2 +-
->  fs/pipe.c               | 2 +-
->  fs/ramfs/file-nommu.c   | 2 +-
->  fs/readdir.c            | 2 +-
->  fs/smb/client/cifsfs.c  | 2 +-
->  fs/splice.c             | 2 +-
->  fs/ubifs/file.c         | 2 +-
->  fs/udf/file.c           | 2 +-
->  fs/xfs/xfs_file.c       | 6 +++---
->  fs/zonefs/file.c        | 4 ++--
->  include/linux/fs.h      | 5 +++--
->  mm/filemap.c            | 8 ++++----
->  mm/shmem.c              | 6 +++---
->  27 files changed, 43 insertions(+), 42 deletions(-)
-> 
-> diff --git a/arch/s390/hypfs/inode.c b/arch/s390/hypfs/inode.c
-> index ee919bfc8186..55f562027c4f 100644
-> --- a/arch/s390/hypfs/inode.c
-> +++ b/arch/s390/hypfs/inode.c
-> @@ -157,7 +157,7 @@ static ssize_t hypfs_read_iter(struct kiocb *iocb, struct iov_iter *to)
->  	if (!count)
->  		return -EFAULT;
->  	iocb->ki_pos = pos + count;
-> -	file_accessed(file);
-> +	file_accessed(file, false);
+On Sun, Aug 27, 2023 at 09:28:24PM +0800, Hao Xu wrote:
 
-Why? If all you do is skip atime update anyway then just add something
-like:
+For the future it would be helpful to hold of on sending larger series
+that like this until a stable tag is out.
 
-bool file_needs_atime(struct file *file)
-{
-       return !(file->f_flags & O_NOATIME) &&
-              atime_needs_update(&file->f_path, d_inode(path->dentry));
-}
-
-and then
-
-if (file_needs_atime(file) && IOURING_WANTS_ASYNC)
-	return -EAGAIN;
-
-instead of touching all this code.
+Right now this series is generating a bunch of merge conflicts because
+of all the changes to relevant codepaths that got merged. So either we
+have to resolve them to see whether things still make sense within the
+context of all the changed code or risk that stuff we comment is outdated.
 
 --
 Linux-cachefs mailing list
