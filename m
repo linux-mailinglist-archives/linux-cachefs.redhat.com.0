@@ -2,60 +2,111 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E597A4A8A
-	for <lists+linux-cachefs@lfdr.de>; Mon, 18 Sep 2023 15:17:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C6D7A5E09
+	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Sep 2023 11:34:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695043046;
+	s=mimecast20190719; t=1695116069;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UmI7wESrsgvs9KpZbZM3SFsCWSs/0LwPhRFV6h/vMl4=;
-	b=A7e9nnA7XnETV1uAbimu2aKPoAcBiJw2u+QR9XBJL0mlRWkeX12LLld8mNXSEjrLws5mYs
-	nkMlSXxLMf09F/eTzPu3UFopjvtW+hVMqKdvZ8FpXZ6aNGj4AM5Bcbb3i8ALb/gXH5g8nP
-	Bn6Qnki9z2UujrzxsjUgwGDPdcKw0KY=
+	bh=XhftuCt3lpLWSDKDoHxxcLKbzfkVjkY7jQWAl0IAuoQ=;
+	b=aH0jrgMuySaRLEUO8tU54aYoL5tDmar87Z6QTUKHSun3jsWs1C99NQTq5viRBCp6sEG4MR
+	g1SmKJzITtWOFHoSYe97lNy7Jo8Q0PSspgFqkdJhIXftzxpUUzL2hTQkkQuaB5UynrY/2J
+	4b3JPWKgCrnnmOl4aoV8rUELycMdhgY=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-131-0h3TGvmUPG2jN95SML-wOA-1; Mon, 18 Sep 2023 09:17:23 -0400
-X-MC-Unique: 0h3TGvmUPG2jN95SML-wOA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-311-AbFK2fgoPyC1cDVRcDeaPg-1; Tue, 19 Sep 2023 05:34:27 -0400
+X-MC-Unique: AbFK2fgoPyC1cDVRcDeaPg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF9011C0514D;
-	Mon, 18 Sep 2023 13:17:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F8AA3C0C489;
+	Tue, 19 Sep 2023 09:34:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 16B4640C2064;
-	Mon, 18 Sep 2023 13:17:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 107372156701;
+	Tue, 19 Sep 2023 09:34:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D7A11946594;
-	Mon, 18 Sep 2023 13:17:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D620F1946594;
+	Tue, 19 Sep 2023 09:34:23 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E4FED194658C for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 18 Sep 2023 13:17:12 +0000 (UTC)
+ ESMTP id B4979194658C for <linux-cachefs@listman.corp.redhat.com>;
+ Fri,  8 Sep 2023 00:30:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 90721C154CB; Mon, 18 Sep 2023 13:17:12 +0000 (UTC)
+ id 6315EC03293; Fri,  8 Sep 2023 00:30:25 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.42.28.216])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 96ADAC158BA;
- Mon, 18 Sep 2023 13:17:11 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: torvalds@linux-foundation.org
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B52BC03292
+ for <linux-cachefs@redhat.com>; Fri,  8 Sep 2023 00:30:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 387073C1014F
+ for <linux-cachefs@redhat.com>; Fri,  8 Sep 2023 00:30:25 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-553-ahrpmCrZOB6aVEDDhVGXTA-1; Thu, 07 Sep 2023 20:30:23 -0400
+X-MC-Unique: ahrpmCrZOB6aVEDDhVGXTA-1
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-9a2a4a5472dso575101066b.1; 
+ Thu, 07 Sep 2023 17:30:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694133021; x=1694737821;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rWH+VGW4ynUEnqVgfK8Uo5vbTneevGaezyT5mB/sqg4=;
+ b=dnF/uDUfuVbAOiKTbYgUweA0275ue7DyIZnkCHeWJX84KyZBiqR37zy/4WUXjUSqy/
+ y38fI+5EK6QIrvTksSu7fMWwZNzbVRyBkmGQHuzZcTBO0ygmod8WBUzLH7Y3QLqB8p11
+ xMaYcbi4aqJ/HYRE+MKQ+t9RKX/Dz6/RPTgfMbPwXn64FtFyQb5e+fx7dYBGSWOkA4VP
+ Y8ShkSsBdz02nMCg2995hnYtj8Rkpqphg5PdtoOwr/N2ZBkO/WZYBIy+hZ+2gIcgEWhK
+ V+NfR5PTeLHmbgjXPf5Dtn3GmjwqN6W7vG9gRvZ92pT32OXcoLdhlONBh1XiA+2nmGRu
+ GMyA==
+X-Gm-Message-State: AOJu0YzZZEmYPnwidfpU/BDF6SeoqVLHR9AbQ3+X/zob+Q6XrD5rxXkt
+ v6Ew/Rrl2DgeIeSyPaqY+8LdgXKG3nGCxA==
+X-Google-Smtp-Source: AGHT+IHUmcSd3yGn0Yc+fxHKH36GJLlYUzap6qvtcfMqwZgOcAgDOYhbcm3dJF4+eYZ9U6PvPuYQ6g==
+X-Received: by 2002:a17:907:6e87:b0:9a1:c69c:9388 with SMTP id
+ sh7-20020a1709076e8700b009a1c69c9388mr4152809ejc.37.1694133021412; 
+ Thu, 07 Sep 2023 17:30:21 -0700 (PDT)
+Received: from [192.168.8.100] ([148.252.141.16])
+ by smtp.gmail.com with ESMTPSA id
+ lz24-20020a170906fb1800b009932337747esm280974ejb.86.2023.09.07.17.30.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Sep 2023 17:30:21 -0700 (PDT)
+Message-ID: <6489b8cb-7d54-1e29-f192-a3449ed87fa1@gmail.com>
+Date: Fri, 8 Sep 2023 01:29:55 +0100
 MIME-Version: 1.0
-Date: Mon, 18 Sep 2023 14:17:11 +0100
-Message-ID: <3993457.1695043031@warthog.procyon.org.uk>
+User-Agent: Mozilla Thunderbird
+To: Dave Chinner <david@fromorbit.com>, Hao Xu <hao.xu@linux.dev>
+References: <20230827132835.1373581-1-hao.xu@linux.dev>
+ <20230827132835.1373581-8-hao.xu@linux.dev>
+ <ZOvA5DJDZN0FRymp@casper.infradead.org>
+ <c728bf3f-d9db-4865-8473-058b26c11c06@linux.dev>
+ <ZO3cI+DkotHQo3md@casper.infradead.org>
+ <642de4e6-801d-fcad-a7ce-bfc6dec3b6e5@linux.dev>
+ <ZPUJHAKzxvXiEDYA@dread.disaster.area>
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <ZPUJHAKzxvXiEDYA@dread.disaster.area>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [Linux-cachefs] [PATCH v2] netfs: Only call folio_start_fscache()
- one time for each folio
+X-Mailman-Approved-At: Tue, 19 Sep 2023 09:34:23 +0000
+Subject: Re: [Linux-cachefs] [PATCH 07/11] vfs: add nowait parameter for
+ file_accessed()
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,108 +118,84 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org, linux-cachefs@redhat.com,
- linux-fsdevel@vger.kernel.org
+Cc: Wanpeng Li <wanpengli@tencent.com>, "Darrick J . Wong" <djwong@kernel.org>,
+ Dominique Martinet <asmadeus@codewreck.org>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Stefan Roesch <shr@fb.com>, Clay Harris <bugs@claycon.org>,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, codalist@coda.cs.cmu.edu,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com, linux-ext4@vger.kernel.org,
+ devel@lists.orangefs.org, linux-cifs@vger.kernel.org, ecryptfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-block@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ netdev@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-unionfs@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, bpf@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-ID: <3993456.1695043031.1@warthog.procyon.org.uk>
-Content-Type: text/plain; charset="us-ascii"
+X-Mimecast-Originator: gmail.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Linus,
+On 9/3/23 23:30, Dave Chinner wrote:
+> On Wed, Aug 30, 2023 at 02:11:31PM +0800, Hao Xu wrote:
+>> On 8/29/23 19:53, Matthew Wilcox wrote:
+>>> On Tue, Aug 29, 2023 at 03:46:13PM +0800, Hao Xu wrote:
+>>>> On 8/28/23 05:32, Matthew Wilcox wrote:
+>>>>> On Sun, Aug 27, 2023 at 09:28:31PM +0800, Hao Xu wrote:
+>>>>>> From: Hao Xu <howeyxu@tencent.com>
+>>>>>>
+>>>>>> Add a boolean parameter for file_accessed() to support nowait semantics.
+>>>>>> Currently it is true only with io_uring as its initial caller.
+>>>>>
+>>>>> So why do we need to do this as part of this series?  Apparently it
+>>>>> hasn't caused any problems for filemap_read().
+>>>>>
+>>>>
+>>>> We need this parameter to indicate if nowait semantics should be enforced in
+>>>> touch_atime(), There are locks and maybe IOs in it.
+>>>
+>>> That's not my point.  We currently call file_accessed() and
+>>> touch_atime() for nowait reads and nowait writes.  You haven't done
+>>> anything to fix those.
+>>>
+>>> I suspect you can trim this patchset down significantly by avoiding
+>>> fixing the file_accessed() problem.  And then come back with a later
+>>> patchset that fixes it for all nowait i/o.  Or do a separate prep series
+>>
+>> I'm ok to do that.
+>>
+>>> first that fixes it for the existing nowait users, and then a second
+>>> series to do all the directory stuff.
+>>>
+>>> I'd do the first thing.  Just ignore the problem.  Directory atime
+>>> updates cause I/O so rarely that you can afford to ignore it.  Almost
+>>> everyone uses relatime or nodiratime.
+>>
+>> Hi Matthew,
+>> The previous discussion shows this does cause issues in real
+>> producations: https://lore.kernel.org/io-uring/2785f009-2ebb-028d-8250-d5f3a30510f0@gmail.com/#:~:text=fwiw%2C%20we%27ve%20just%20recently%20had%20similar%20problems%20with%20io_uring%20read/write
+>>
+> 
+> Then separate it out into it's own patch set so we can have a
+> discussion on the merits of requiring using noatime, relatime or
+> lazytime for really latency sensitive IO applications. Changing code
+> is not always the right solution...
 
-Could you apply this please?
+Separation sounds reasonable, but it can hardly be said that only
+latency sensitive apps would care about >1s nowait/async submission
+delays. Presumably, btrfs can improve on that, but it still looks
+like it's perfectly legit for filesystems do heavy stuff in
+timestamping like waiting for IO. Right?
 
-Thanks,
-David
----
-From: Dave Wysochanski <dwysocha@redhat.com>
+-- 
+Pavel Begunkov
 
-If a network filesystem using netfs implements a clamp_length()
-function, it can set subrequest lengths smaller than a page size.
-When we loop through the folios in netfs_rreq_unlock_folios() to
-set any folios to be written back, we need to make sure we only
-call folio_start_fscache() once for each folio.  Otherwise,
-this simple testcase:
-
-  mount -o fsc,rsize=1024,wsize=1024 127.0.0.1:/export /mnt/nfs
-  dd if=/dev/zero of=/mnt/nfs/file.bin bs=4096 count=1
-  1+0 records in
-  1+0 records out
-  4096 bytes (4.1 kB, 4.0 KiB) copied, 0.0126359 s, 324 kB/s
-  echo 3 > /proc/sys/vm/drop_caches
-  cat /mnt/nfs/file.bin > /dev/null
-
-will trigger an oops similar to the following:
-
-...
- page dumped because: VM_BUG_ON_FOLIO(folio_test_private_2(folio))
- ------------[ cut here ]------------
- kernel BUG at include/linux/netfs.h:44!
-...
- CPU: 5 PID: 134 Comm: kworker/u16:5 Kdump: loaded Not tainted 6.4.0-rc5
-...
- RIP: 0010:netfs_rreq_unlock_folios+0x68e/0x730 [netfs]
-...
- Call Trace:
-  <TASK>
-  netfs_rreq_assess+0x497/0x660 [netfs]
-  netfs_subreq_terminated+0x32b/0x610 [netfs]
-  nfs_netfs_read_completion+0x14e/0x1a0 [nfs]
-  nfs_read_completion+0x2f9/0x330 [nfs]
-  rpc_free_task+0x72/0xa0 [sunrpc]
-  rpc_async_release+0x46/0x70 [sunrpc]
-  process_one_work+0x3bd/0x710
-  worker_thread+0x89/0x610
-  kthread+0x181/0x1c0
-  ret_from_fork+0x29/0x50
-
-Fixes: 3d3c95046742 ("netfs: Provide readahead and readpage netfs helpers"
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2210612
-Signed-off-by: Dave Wysochanski <dwysocha@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: David Howells <dhowells@redhat.com>
-Link: https://lore.kernel.org/r/20230608214137.856006-1-dwysocha@redhat.com/ # v1
-Link: https://lore.kernel.org/r/20230915185704.1082982-1-dwysocha@redhat.com/ # v2
----
- fs/netfs/buffered_read.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 3404707ddbe7..2cd3ccf4c439 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -47,12 +47,14 @@ void netfs_rreq_unlock_folios(struct netfs_io_request *rreq)
- 	xas_for_each(&xas, folio, last_page) {
- 		loff_t pg_end;
- 		bool pg_failed = false;
-+		bool folio_started;
- 
- 		if (xas_retry(&xas, folio))
- 			continue;
- 
- 		pg_end = folio_pos(folio) + folio_size(folio) - 1;
- 
-+		folio_started = false;
- 		for (;;) {
- 			loff_t sreq_end;
- 
-@@ -60,8 +62,10 @@ void netfs_rreq_unlock_folios(struct netfs_io_request *rreq)
- 				pg_failed = true;
- 				break;
- 			}
--			if (test_bit(NETFS_SREQ_COPY_TO_CACHE, &subreq->flags))
-+			if (!folio_started && test_bit(NETFS_SREQ_COPY_TO_CACHE, &subreq->flags)) {
- 				folio_start_fscache(folio);
-+				folio_started = true;
-+			}
- 			pg_failed |= subreq_failed;
- 			sreq_end = subreq->start + subreq->len - 1;
- 			if (pg_end < sreq_end)
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
