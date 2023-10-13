@@ -2,60 +2,60 @@ Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 962727C893E
-	for <lists+linux-cachefs@lfdr.de>; Fri, 13 Oct 2023 17:57:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E968F7C8941
+	for <lists+linux-cachefs@lfdr.de>; Fri, 13 Oct 2023 17:57:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1697212665;
+	s=mimecast20190719; t=1697212670;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Yky5h0/Hk+yPPsFOe40zs5ktnX2a1TvXhLk0wM3hVBU=;
-	b=HamXXZutWy2m2eP5vTXBAyp8/ZUqXjY1aZriKQznes38aUMwdudLQT1saoBEomhAODRKEX
-	sn+9nkAbnGRHk94A6VzCaAQQnsM6BU1DqlW7yyNKcsvlazMLRzjmxH9XkVQhBsbFjNua+w
-	BgbvtM2MW4oScYobk5kntSLDe3iMvd8=
+	bh=x1vGsAf6ZFrpt3449dpadvBTw7Y1iQZd1hwrR1mmx0U=;
+	b=XKLLqhuojWBgwlZtu9t399iEkC1wJZYZVD3GlxWYugXtlwgC5teou6LSMeXkF+/AxJxFul
+	ROSIVB5OahNqnDWfPJp66/RV0GW5ob1sa/4HOzm4yBIqPBM+6JC2wo1MT5wseLgKIxLkcL
+	aWvBAmKxOt8o8bdLwyNhOxLo+uDq51Y=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-eUeTtKTcPGmPXjhx6b9qHA-1; Fri, 13 Oct 2023 11:57:44 -0400
-X-MC-Unique: eUeTtKTcPGmPXjhx6b9qHA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-664-oMUvlHdkM9Kkyk-_IfRzgQ-1; Fri, 13 Oct 2023 11:57:47 -0400
+X-MC-Unique: oMUvlHdkM9Kkyk-_IfRzgQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 881EE855311;
-	Fri, 13 Oct 2023 15:57:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 983A1800162;
+	Fri, 13 Oct 2023 15:57:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7E50525C2;
-	Fri, 13 Oct 2023 15:57:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8CA0D1C060DF;
+	Fri, 13 Oct 2023 15:57:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4968C1946589;
-	Fri, 13 Oct 2023 15:57:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5BAA01946589;
+	Fri, 13 Oct 2023 15:57:46 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 782F91946586 for <linux-cachefs@listman.corp.redhat.com>;
- Fri, 13 Oct 2023 15:57:42 +0000 (UTC)
+ ESMTP id AE7A61946586 for <linux-cachefs@listman.corp.redhat.com>;
+ Fri, 13 Oct 2023 15:57:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5AF4A492BE0; Fri, 13 Oct 2023 15:57:42 +0000 (UTC)
+ id A0ADC492BE2; Fri, 13 Oct 2023 15:57:45 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.42.28.226])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B58C2492BD9;
- Fri, 13 Oct 2023 15:57:39 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0621C492BD9;
+ Fri, 13 Oct 2023 15:57:42 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
-Date: Fri, 13 Oct 2023 16:56:36 +0100
-Message-ID: <20231013155727.2217781-4-dhowells@redhat.com>
+Date: Fri, 13 Oct 2023 16:56:37 +0100
+Message-ID: <20231013155727.2217781-5-dhowells@redhat.com>
 In-Reply-To: <20231013155727.2217781-1-dhowells@redhat.com>
 References: <20231013155727.2217781-1-dhowells@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
-Subject: [Linux-cachefs] [RFC PATCH 03/53] netfs: Note nonblockingness in
- the netfs_io_request struct
+Subject: [Linux-cachefs] [RFC PATCH 04/53] netfs: Allow the netfs to make
+ the io (sub)request alloc larger
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,14 +79,15 @@ Cc: Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>,
  Christian Brauner <christian@brauner.io>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Allow O_NONBLOCK to be noted in the netfs_io_request struct.  Also add a
-flag, NETFS_RREQ_BLOCKED to record if we did block.
+Allow the network filesystem to specify extra space to be allocated on the
+end of the io (sub)request.  This allows cifs, for example, to use this
+space rather than allocating its own cifs_readdata struct.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -94,36 +95,48 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/objects.c    | 2 ++
+ fs/netfs/objects.c    | 7 +++++--
  include/linux/netfs.h | 2 ++
- 2 files changed, 4 insertions(+)
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 85f428fc52e6..e41f9fc9bdd2 100644
+index e41f9fc9bdd2..2f1865ff7cce 100644
 --- a/fs/netfs/objects.c
 +++ b/fs/netfs/objects.c
-@@ -37,6 +37,8 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 	INIT_LIST_HEAD(&rreq->subrequests);
- 	refcount_set(&rreq->ref, 1);
- 	__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
-+	if (file && file->f_flags & O_NONBLOCK)
-+		__set_bit(NETFS_RREQ_NONBLOCK, &rreq->flags);
- 	if (rreq->netfs_ops->init_request) {
- 		ret = rreq->netfs_ops->init_request(rreq, file);
- 		if (ret < 0) {
+@@ -22,7 +22,8 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 	struct netfs_io_request *rreq;
+ 	int ret;
+ 
+-	rreq = kzalloc(sizeof(struct netfs_io_request), GFP_KERNEL);
++	rreq = kzalloc(ctx->ops->io_request_size ?: sizeof(struct netfs_io_request),
++		       GFP_KERNEL);
+ 	if (!rreq)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -116,7 +117,9 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
+ {
+ 	struct netfs_io_subrequest *subreq;
+ 
+-	subreq = kzalloc(sizeof(struct netfs_io_subrequest), GFP_KERNEL);
++	subreq = kzalloc(rreq->netfs_ops->io_subrequest_size ?:
++			 sizeof(struct netfs_io_subrequest),
++			 GFP_KERNEL);
+ 	if (subreq) {
+ 		INIT_LIST_HEAD(&subreq->rreq_link);
+ 		refcount_set(&subreq->ref, 2);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 282511090ead..b92e982ac4a0 100644
+index b92e982ac4a0..6942b8cf03dc 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -205,6 +205,8 @@ struct netfs_io_request {
- #define NETFS_RREQ_DONT_UNLOCK_FOLIOS	3	/* Don't unlock the folios on completion */
- #define NETFS_RREQ_FAILED		4	/* The request failed */
- #define NETFS_RREQ_IN_PROGRESS		5	/* Unlocked when the request completes */
-+#define NETFS_RREQ_NONBLOCK		6	/* Don't block if possible (O_NONBLOCK) */
-+#define NETFS_RREQ_BLOCKED		7	/* We blocked */
- 	const struct netfs_request_ops *netfs_ops;
- };
- 
+@@ -214,6 +214,8 @@ struct netfs_io_request {
+  * Operations the network filesystem can/must provide to the helpers.
+  */
+ struct netfs_request_ops {
++	unsigned int	io_request_size;	/* Alloc size for netfs_io_request struct */
++	unsigned int	io_subrequest_size;	/* Alloc size for netfs_io_subrequest struct */
+ 	int (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 	void (*free_request)(struct netfs_io_request *rreq);
+ 	int (*begin_cache_operation)(struct netfs_io_request *rreq);
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
