@@ -1,86 +1,66 @@
 Return-Path: <linux-cachefs-bounces@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7335A7CAE9C
-	for <lists+linux-cachefs@lfdr.de>; Mon, 16 Oct 2023 18:11:11 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4A47CAEEF
+	for <lists+linux-cachefs@lfdr.de>; Mon, 16 Oct 2023 18:20:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1697472670;
+	s=mimecast20190719; t=1697473200;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ePOYt2eUf2k7jvpJEZTQZt7l2WxMBp+8hGATqXvPHF0=;
-	b=btY9m3pcuZHLHWkuc+ebohvXm7TEjBr/d5MnHjZe4ebbex+HdbQfm/UgluMU94MTrsVtdz
-	9hjT+BqPYrNRCuvQGNLjh+aIGLrtqIFzkThAxoDQAGiQdKjz95Ak0nRtkWJFUAs9f4Za0A
-	Zd8VLFGXeJO5gzU1H3B2Ml9DAK9enns=
+	bh=VAXr/DDmWQ///6lzZa8hFGzhH4tDzXrz68LCtxxkpek=;
+	b=FffgR1OwIxm03zslU07zmgEVFYvGz5pcHpC2rsD3UbPoR6yVxi4WG8xdApuGMXZueSiFar
+	s53SieJUGfbnU+/7uUiRriPq5HQrYbdlZ41KeHMpfAzdlSBfyyNMwz9ephXQRiNH8pQC5v
+	BT7QmVJsBtw/DOXJCJJDjWiXFWpir7s=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-643-OhU6o80JMBC_hmjwiidn1g-1; Mon, 16 Oct 2023 12:11:02 -0400
-X-MC-Unique: OhU6o80JMBC_hmjwiidn1g-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-490-s599lP8bOIebuwM1sbHs_Q-1; Mon, 16 Oct 2023 12:19:57 -0400
+X-MC-Unique: s599lP8bOIebuwM1sbHs_Q-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0547E81DBEB;
-	Mon, 16 Oct 2023 16:11:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D4CD858281;
+	Mon, 16 Oct 2023 16:19:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ECA01492BEE;
-	Mon, 16 Oct 2023 16:10:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BAC38492BFC;
+	Mon, 16 Oct 2023 16:19:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD868194658C;
-	Mon, 16 Oct 2023 16:10:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7C51C194658C;
+	Mon, 16 Oct 2023 16:19:55 +0000 (UTC)
 X-Original-To: linux-cachefs@listman.corp.redhat.com
 Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD94A1946587 for <linux-cachefs@listman.corp.redhat.com>;
- Mon, 16 Oct 2023 16:10:58 +0000 (UTC)
+ ESMTP id 4B7131946587 for <linux-cachefs@listman.corp.redhat.com>;
+ Mon, 16 Oct 2023 16:19:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B0368492BFA; Mon, 16 Oct 2023 16:10:58 +0000 (UTC)
+ id 2027A25C9; Mon, 16 Oct 2023 16:19:54 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A9660492BFC
- for <linux-cachefs@redhat.com>; Mon, 16 Oct 2023 16:10:58 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A3CD29ABA24
- for <linux-cachefs@redhat.com>; Mon, 16 Oct 2023 16:10:58 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-280-WZVFny7UOsmTcPxe5sdhNA-1; Mon,
- 16 Oct 2023 12:10:56 -0400
-X-MC-Unique: WZVFny7UOsmTcPxe5sdhNA-1
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2AFF3CE181B;
- Mon, 16 Oct 2023 16:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6700C433C9;
- Mon, 16 Oct 2023 16:10:50 +0000 (UTC)
-Message-ID: <bb0b02b4241da7f486cde28bdc83bb9ce077ee0e.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: David Howells <dhowells@redhat.com>, Steve French <smfrench@gmail.com>
-Date: Mon, 16 Oct 2023 12:10:49 -0400
-In-Reply-To: <20231013160423.2218093-12-dhowells@redhat.com>
-References: <20231013160423.2218093-1-dhowells@redhat.com>
- <20231013160423.2218093-12-dhowells@redhat.com>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+Received: from warthog.procyon.org.uk (unknown [10.42.28.178])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A802825C8;
+ Mon, 16 Oct 2023 16:19:51 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+ Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+ Kingdom.
+ Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <be2434a2d51900b9e51d8bf0fe5a8b82e3f1a879.camel@kernel.org>
+References: <be2434a2d51900b9e51d8bf0fe5a8b82e3f1a879.camel@kernel.org>
+ <20231013160423.2218093-1-dhowells@redhat.com>
+ <20231013160423.2218093-9-dhowells@redhat.com>
+To: Jeff Layton <jlayton@kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
-Subject: Re: [Linux-cachefs] [RFC PATCH 11/53] netfs: Add support for DIO
- buffering
+Date: Mon, 16 Oct 2023 17:19:51 +0100
+Message-ID: <2840974.1697473191@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+Subject: Re: [Linux-cachefs] [RFC PATCH 08/53] netfs: Add rsize to
+ netfs_io_request
 X-BeenThere: linux-cachefs@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,109 +72,56 @@ List-Post: <mailto:linux-cachefs@redhat.com>
 List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
  <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Paulo Alcantara <pc@manguebit.com>, linux-cifs@vger.kernel.org,
- Shyam Prasad N <sprasad@microsoft.com>, v9fs@lists.linux.dev,
- netdev@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, linux-cifs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
  ceph-devel@vger.kernel.org, linux-nfs@vger.kernel.org,
  Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org,
- Tom Talpey <tom@talpey.com>, linux-fsdevel@vger.kernel.org,
- linux-cachefs@redhat.com, linux-mm@kvack.org,
- Marc Dionne <marc.dionne@auristor.com>, Ilya Dryomov <idryomov@gmail.com>,
- linux-afs@lists.infradead.org, Christian Brauner <christian@brauner.io>
+ Steve French <smfrench@gmail.com>, linux-cachefs@redhat.com,
+ linux-mm@kvack.org, netdev@vger.kernel.org,
+ Marc Dionne <marc.dionne@auristor.com>, v9fs@lists.linux.dev,
+ Ilya Dryomov <idryomov@gmail.com>, linux-afs@lists.infradead.org,
+ Christian Brauner <christian@brauner.io>
 Errors-To: linux-cachefs-bounces@redhat.com
 Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: redhat.com
+Content-ID: <2840973.1697473191.1@warthog.procyon.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2023-10-13 at 17:03 +0100, David Howells wrote:
-> Add a bvec array pointer and an iterator to netfs_io_request for either
-> holding a copy of a DIO iterator or a list of all the bits of buffer
-> pointed to by a DIO iterator.
-> 
-> There are two problems:  Firstly, if an iovec-class iov_iter is passed to
-> ->read_iter() or ->write_iter(), this cannot be passed directly to
-> kernel_sendmsg() or kernel_recvmsg() as that may cause locking recursion if
-> a fault is generated, so we need to keep track of the pages involved
-> separately.
-> 
-> Secondly, if the I/O is asynchronous, we must copy the iov_iter describing
-> the buffer before returning to the caller as it may be immediately
-> deallocated.
-> 
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Jeff Layton <jlayton@kernel.org>
-> cc: linux-cachefs@redhat.com
-> cc: linux-fsdevel@vger.kernel.org
-> cc: linux-mm@kvack.org
-> ---
->  fs/netfs/objects.c    | 10 ++++++++++
->  include/linux/netfs.h |  3 +++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-> index 8e92b8401aaa..4396318081bf 100644
-> --- a/fs/netfs/objects.c
-> +++ b/fs/netfs/objects.c
-> @@ -78,6 +78,7 @@ static void netfs_free_request(struct work_struct *work)
->  {
->  	struct netfs_io_request *rreq =
->  		container_of(work, struct netfs_io_request, work);
-> +	unsigned int i;
->  
->  	trace_netfs_rreq(rreq, netfs_rreq_trace_free);
->  	netfs_proc_del_rreq(rreq);
-> @@ -86,6 +87,15 @@ static void netfs_free_request(struct work_struct *work)
->  		rreq->netfs_ops->free_request(rreq);
->  	if (rreq->cache_resources.ops)
->  		rreq->cache_resources.ops->end_operation(&rreq->cache_resources);
-> +	if (rreq->direct_bv) {
-> +		for (i = 0; i < rreq->direct_bv_count; i++) {
-> +			if (rreq->direct_bv[i].bv_page) {
-> +				if (rreq->direct_bv_unpin)
-> +					unpin_user_page(rreq->direct_bv[i].bv_page);
-> +			}
-> +		}
-> +		kvfree(rreq->direct_bv);
-> +	}
->  	kfree_rcu(rreq, rcu);
->  	netfs_stat_d(&netfs_n_rh_rreq);
->  }
-> diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-> index bd0437088f0e..66479a61ad00 100644
-> --- a/include/linux/netfs.h
-> +++ b/include/linux/netfs.h
-> @@ -191,7 +191,9 @@ struct netfs_io_request {
->  	struct list_head	subrequests;	/* Contributory I/O operations */
->  	struct iov_iter		iter;		/* Unencrypted-side iterator */
->  	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
-> +	struct bio_vec		*direct_bv;	/* DIO buffer list (when handling iovec-iter) */
->  	void			*netfs_priv;	/* Private data for the netfs */
-> +	unsigned int		direct_bv_count; /* Number of elements in bv[] */
+Jeff Layton <jlayton@kernel.org> wrote:
 
-nit: "number of elements in direct_bv[]"
-
-Also, just for better readability, can you swap direct_bv and
-netfs_priv? Then at least the array and count are together.
-
->  	unsigned int		debug_id;
->  	unsigned int		rsize;		/* Maximum read size (0 for none) */
->  	atomic_t		nr_outstanding;	/* Number of ops in progress */
-> @@ -200,6 +202,7 @@ struct netfs_io_request {
->  	size_t			len;		/* Length of the request */
->  	short			error;		/* 0 or error that occurred */
->  	enum netfs_io_origin	origin;		/* Origin of the request */
-> +	bool			direct_bv_unpin; /* T if direct_bv[] must be unpinned */
->  	loff_t			i_size;		/* Size of the file */
->  	loff_t			start;		/* Start position */
->  	pgoff_t			no_unlock_folio; /* Don't unlock this folio after read */
+> > +	rreq->rsize = 4 * 1024 * 1024;
+> >  	return 0;
+> ...
+> > +	rreq->rsize = 1024 * 1024;
+> > +
 > 
+> Holy magic numbers, batman! I think this deserves a comment that
+> explains how you came up with these values.
 
--- 
-Jeff Layton <jlayton@kernel.org>
+Actually, that should be set to something like the object size for ceph.
 
+> Also, do 9p and cifs not need this for some reason?
+
+At this point, cifs doesn't use netfslib, so that's implemented in a later
+patch in this series.
+
+9p does need setting, but I haven't tested that yet.  It probably needs
+setting to 1MiB as I think that's the maximum the 9p transport can handle.
+
+But in the case of cifs, this is actually dynamic, depending on how many
+credits we can obtain.  The same may be true of ceph, though I'm not entirely
+clear on that as yet.
+
+For afs, the maximum [rw]size the protocol supports is actually something like
+281350422593565 (ie. (65535-28) * (2^32-1)) minus a few bytes, but that's
+probably not a good idea.  I might be best setting it at something like 256KiB
+as that's what OpenAFS uses.
+
+David
 --
 Linux-cachefs mailing list
 Linux-cachefs@redhat.com
