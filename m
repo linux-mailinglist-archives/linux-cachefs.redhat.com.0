@@ -1,342 +1,223 @@
-Return-Path: <linux-cachefs-bounces@redhat.com>
+Return-Path: <linux-cachefs+bncBCXIHK4S6EJRBOPCVCVAMGQEL6WY6LQ@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 145D37CE0EF
-	for <lists+linux-cachefs@lfdr.de>; Wed, 18 Oct 2023 17:17:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1697642227;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=uvTCVZwGb+53DNZmX43QtU7ub0uCU3AK7rJQ8xuj/ko=;
-	b=YtAQsQJztd0k168lcmGEGWri4rVzaTgC5En2t+drUOgBdZ06yYt/rauvXVxa2mg0LpP8Xv
-	4vvcheSoNTxGEpqGU/Zqca6S0U50Rt1jIe6oKRn/QJ9UzjyLV7GlcZvUit6oFl+sH09FA3
-	J72WeOsJac6X631flxZTmrjJv2ql1Cw=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-314-n7Yp6i_rMD-iZmWea92GwA-1; Wed, 18 Oct 2023 11:17:04 -0400
-X-MC-Unique: n7Yp6i_rMD-iZmWea92GwA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 315521C2B66C;
-	Wed, 18 Oct 2023 15:17:01 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8ED94C15BBC;
-	Wed, 18 Oct 2023 15:16:56 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E9A8019466F6;
-	Wed, 18 Oct 2023 15:16:55 +0000 (UTC)
-X-Original-To: linux-cachefs@listman.corp.redhat.com
-Delivered-To: linux-cachefs@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8D4D319465B3 for <linux-cachefs@listman.corp.redhat.com>;
- Wed, 18 Oct 2023 15:03:21 +0000 (UTC)
-Received: by smtp.corp.redhat.com (Postfix)
- id 6BB18492BFB; Wed, 18 Oct 2023 15:03:21 +0000 (UTC)
-Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 63A35492BFA
- for <linux-cachefs@redhat.com>; Wed, 18 Oct 2023 15:03:21 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FCC82825EA1
- for <linux-cachefs@redhat.com>; Wed, 18 Oct 2023 15:03:21 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-530-RthS2MadPdq2fswsSNu87w-1; Wed,
- 18 Oct 2023 11:03:17 -0400
-X-MC-Unique: RthS2MadPdq2fswsSNu87w-1
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 51C8ECE24F4;
- Wed, 18 Oct 2023 15:03:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3E9C433C8;
- Wed, 18 Oct 2023 15:03:11 +0000 (UTC)
-Message-ID: <9d2fc137b4295058ac3f88f1cca7a54bc67f01fd.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: David Howells <dhowells@redhat.com>, Steve French <smfrench@gmail.com>
-Date: Wed, 18 Oct 2023 11:03:10 -0400
-In-Reply-To: <20231013160423.2218093-13-dhowells@redhat.com>
-References: <20231013160423.2218093-1-dhowells@redhat.com>
- <20231013160423.2218093-13-dhowells@redhat.com>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
-MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
-Subject: Re: [Linux-cachefs] [RFC PATCH 12/53] netfs: Provide tools to
- create a buffer in an xarray
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mail.lfdr.de (Postfix) with ESMTPS id A90267E3EE6
+	for <lists+linux-cachefs@lfdr.de>; Tue,  7 Nov 2023 13:44:43 +0100 (CET)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-5b1ff96d5b9sf77531057b3.1
+        for <lists+linux-cachefs@lfdr.de>; Tue, 07 Nov 2023 04:44:43 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1699361082; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=xrMlrcJhFyTUMWTwlWQmw07ojBp34aTveZ4idZWR6TJXIQ6kMG17+IrTtbgOs9vB80
+         9hKwZh8z8yovUkvik3K11aVaVnnwdOAcyvK1NBLOiEddg7xefKGKTbJJC9SzAH+xvqmV
+         Tw9lJuJ1Ro7GlfJihza0ArvH+4z1qBr6n32AB+cAsS3JS01nbqQtGF7/NelISLVlqJXO
+         PEcmbjJcn1dcF15MFzfMgoZ0tY/5RG+4rhPyIG8x+6OmUKMiPUe+tGOHzJNuO4Hfx0Y/
+         h+sqwAWtSDRLa59xUfGzpwb6HNxH6PRFABCQucs6uWihbKarmpq2lV4OM1N4ydZUHngx
+         yEzg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:content-transfer-encoding:in-reply-to:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :delivered-to;
+        bh=PyYJLsHgyF5qYbepP6/eKvNiS4cLMHdEFVMdn6fdTEA=;
+        fh=fQ2ixLmgbfTIXwu2ILqaBMK+IB4mjKOkTtSrJWEhQGs=;
+        b=oogZbufIlCCGeuPvdu/irjWsqkRayJqHjoGQhM4AzkKJOV2v0GffRHdds8sKWpl0e0
+         T9Gl5ScuF1Yp0skGzviiUBeU2P0EbRM9YgGHFNCHmbLNQhBqIa4BXFw3idX/6bKDr13B
+         kxWqaZ0gu6QQ8XcCpn7DzGAOp/sND0490/GZ+x1T+ekGDMhuC2gD3OZxTkpi0NKF1E6j
+         McCn7E1Bhy22LR/aCBXE51kL5YR1mkdcFGCHcSQm2IyszAuyVhVaHbAtuOSSYFPjN+li
+         EdBULfDUt7/Vz4aLKJEtb5Wl79pSNQi8ej91E/9exv34/AnvbA42r+2D1RrTuXQE2cnf
+         NAdQ==
+ARC-Authentication-Results: i=2; mx.google.com;
+       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.124 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699361082; x=1699965882;
+        h=list-unsubscribe:list-archive:list-help:list-post
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-authentication-results:x-original-sender
+         :content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:delivered-to:x-beenthere
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PyYJLsHgyF5qYbepP6/eKvNiS4cLMHdEFVMdn6fdTEA=;
+        b=Ls7hGCDfh7dujTjRR5xxB9l9ly0ScHYNPyBXRPWbRBcpFCWIh8M/r3HrsEztOCKLrm
+         3TR3yl63N/0GLJ2DIzuc16txTjQD+Gxw3lXDd20/YVrDx9thBwukZGJFPxhnEvAphw5K
+         ceg55JjGP+Jh/f1yJtO2TFnaYjnTUd0+nuEOK6NX0771vt2XGgkv8cfdnV4crZJScqtz
+         2plC7rT/epq5pXFszdkfZKJUS2Nlq7TY2fItOCV83PlVzYejbPHXKQgMstNkqSvnsG2C
+         +i+00Pnr5ty4o2G3HZunTacJqZ5qIw5yRUirGj+G2CaR7GnRK9lkWAxdONp76UrTQLZR
+         ebiA==
+X-Gm-Message-State: AOJu0YzPHnmOxrgLpBTQmVARu4dGvLjA5BWsMbWXE+T+zYNXJQYxjH3Q
+	lv92LFtA/idDuadc8whz4XgCYA==
+X-Google-Smtp-Source: AGHT+IFtHTRnPgaDxwVcLXM0kyLLA5G+jfKbqXrQ9LysdA028kuksVnn4oL+XfoncLXycFu0rMaLVQ==
+X-Received: by 2002:a25:9f8f:0:b0:dae:263e:5007 with SMTP id u15-20020a259f8f000000b00dae263e5007mr6176208ybq.52.1699361082358;
+        Tue, 07 Nov 2023 04:44:42 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-X-Mailman-Version: 2.1.29
-Precedence: list
-List-Id: Linux filesystem caching discussion list <linux-cachefs.redhat.com>
-List-Unsubscribe: <https://listman.redhat.com/mailman/options/linux-cachefs>, 
- <mailto:linux-cachefs-request@redhat.com?subject=unsubscribe>
-List-Archive: <http://listman.redhat.com/archives/linux-cachefs/>
-List-Post: <mailto:linux-cachefs@redhat.com>
-List-Help: <mailto:linux-cachefs-request@redhat.com?subject=help>
-List-Subscribe: <https://listman.redhat.com/mailman/listinfo/linux-cachefs>,
- <mailto:linux-cachefs-request@redhat.com?subject=subscribe>
-Cc: Paulo Alcantara <pc@manguebit.com>, linux-cifs@vger.kernel.org,
- Shyam Prasad N <sprasad@microsoft.com>, v9fs@lists.linux.dev,
- netdev@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
- ceph-devel@vger.kernel.org, linux-nfs@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org,
- Tom Talpey <tom@talpey.com>, linux-fsdevel@vger.kernel.org,
- linux-cachefs@redhat.com, linux-mm@kvack.org,
- Marc Dionne <marc.dionne@auristor.com>, Ilya Dryomov <idryomov@gmail.com>,
- linux-afs@lists.infradead.org, Christian Brauner <christian@brauner.io>
-Errors-To: linux-cachefs-bounces@redhat.com
-Sender: "Linux-cachefs" <linux-cachefs-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
+Received: by 2002:a25:3d87:0:b0:d9b:d44f:f44e with SMTP id k129-20020a253d87000000b00d9bd44ff44els170735yba.0.-pod-prod-01-us;
+ Tue, 07 Nov 2023 04:44:39 -0800 (PST)
+X-Received: by 2002:a25:f811:0:b0:da3:76d7:ddcf with SMTP id u17-20020a25f811000000b00da376d7ddcfmr21968380ybd.14.1699361079525;
+        Tue, 07 Nov 2023 04:44:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1699361079; cv=none;
+        d=google.com; s=arc-20160816;
+        b=gA+JanlAwiWXjRjAfQFcQn5bBiXYEgA3sJGvY3jx0/JaizIBhBK6vf/5/edXhqDTWA
+         uiRyRyq+gD/kPViTidh5bydlXe8IC3MSivpehYV4xsU9EurI8nTEjoDFRcYOhzB4OP0I
+         Rjfg6OvjulX6g8UJaAz1/Qme+ZyaOC2EYDiJPUVUkHjLjKDg7gu7gX7sr251WWaZ3B0C
+         tfKhhErA82EkyHnhRyn5nDFU8bvaq2kfJtoVx8PKv1mHQWzpplKORn+pL+Keg27QOVfK
+         b/L0uVGh24K49Jm+To25Y3clX7G31mz/Hmag5SpiLekIHr47B+QdQ5zQliQWQbOwLuHh
+         aNSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:delivered-to;
+        bh=oOVhbCAi0YNNH2hg+E/S9FYULUjPxKBB4Twvf/qKWwY=;
+        fh=fQ2ixLmgbfTIXwu2ILqaBMK+IB4mjKOkTtSrJWEhQGs=;
+        b=K60K9mcKMXgCBvSac1KnU7PxM98hUFSMTD7c/VqyMZbPEQArfobK0NxeObsn5Z7Dvr
+         63jmQ1rnTukVYChFngXV7abn5acBqYPJ3nAQwsRxEd/AGz6w0oSTCGbB1J4qDet96hI7
+         r3JaXDunehKduQ3tp27OmuiFYfoSS9UYHKNZaZADWr0NizeRmZHKYp6eJGC8LIpDRh33
+         CpaKnWZdGsOesQtr+8MEX0T7JhksN2IqqBI2I9G234DwVPAF4QcStTfI1wFUX/oNuOPi
+         AevENryf4065wJoGy1PVm6/0cAO1sHKe3oKkGVF3UDavVla+cCTSbAhbGvS3U3WwpRFt
+         JSKw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.124 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
+        by mx.google.com with ESMTPS id n6-20020a056214008600b0065b086dcab8si6806382qvr.457.2023.11.07.04.44.39
+        for <linux-cachefs@gapps.redhat.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Nov 2023 04:44:39 -0800 (PST)
+Received-SPF: pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.124 as permitted sender) client-ip=115.124.30.124;
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-140-CMj3b2jQPYyASiLRNr6a_g-1; Tue, 07 Nov 2023 07:44:38 -0500
+X-MC-Unique: CMj3b2jQPYyASiLRNr6a_g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D5FE88D70A
+	for <linux-cachefs@gapps.redhat.com>; Tue,  7 Nov 2023 12:44:38 +0000 (UTC)
+Received: by smtp.corp.redhat.com (Postfix)
+	id 1A659492BE7; Tue,  7 Nov 2023 12:44:38 +0000 (UTC)
+Delivered-To: linux-cachefs@redhat.com
+Received: from mimecast-mx02.redhat.com (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 138DA492BE0
+	for <linux-cachefs@redhat.com>; Tue,  7 Nov 2023 12:44:38 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFAC1101A52D
+	for <linux-cachefs@redhat.com>; Tue,  7 Nov 2023 12:44:37 +0000 (UTC)
+Received: from out30-124.freemail.mail.aliyun.com
+ (out30-124.freemail.mail.aliyun.com [115.124.30.124]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
+ id us-mta-441-m0k0eNkgM5WQvU-QjEwmdw-1; Tue, 07 Nov 2023 07:44:33 -0500
+X-MC-Unique: m0k0eNkgM5WQvU-QjEwmdw-1
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=hsiangkao@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VvuU5zg_1699360752
+Received: from 30.25.227.158(mailfrom:hsiangkao@linux.alibaba.com fp:SMTPD_---0VvuU5zg_1699360752)
+          by smtp.aliyun-inc.com;
+          Tue, 07 Nov 2023 20:39:16 +0800
+Message-ID: <32abf57d-d3bc-d812-c70f-bba8356162ff@linux.alibaba.com>
+Date: Tue, 7 Nov 2023 20:39:12 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH -next,V2] fscache: support to disable assert macro
+To: Zizhi Wo <wozizhi@huawei.com>, dhowells@redhat.com
+Cc: linux-cachefs@redhat.com, linux-kernel@vger.kernel.org,
+ yangerkun@huawei.com
+References: <20231101163414.2105727-1-wozizhi@huawei.com>
+ <d3a50c46-93c9-4b60-8609-9465e1605f77@huawei.com>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+In-Reply-To: <d3a50c46-93c9-4b60-8609-9465e1605f77@huawei.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection Definition;Similar Internal Domain=false;Similar Monitored External Domain=false;Custom External Domain=false;Mimecast External Domain=false;Newly Observed Domain=false;Internal User Name=false;Custom Display Name List=false;Reply-to Address Mismatch=false;Targeted Threat Dictionary=false;Mimecast Threat Dictionary=false;Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-
-On Fri, 2023-10-13 at 17:03 +0100, David Howells wrote:
-> Provide tools to create a buffer in an xarray, with a function to add
-> new folios with a mark.  This will be used to create bounce buffer and can be
-> used more easily to create a list of folios the span of which would require
-> more than a page's worth of bio_vec structs.
-> 
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Jeff Layton <jlayton@kernel.org>
-> cc: linux-cachefs@redhat.com
-> cc: linux-fsdevel@vger.kernel.org
-> cc: linux-mm@kvack.org
-> ---
->  fs/netfs/internal.h   |  16 +++++
->  fs/netfs/misc.c       | 140 ++++++++++++++++++++++++++++++++++++++++++
->  include/linux/netfs.h |   4 ++
->  3 files changed, 160 insertions(+)
-> 
-> diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-> index 1f067aa96c50..00e01278316f 100644
-> --- a/fs/netfs/internal.h
-> +++ b/fs/netfs/internal.h
-> @@ -52,6 +52,22 @@ static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq) {}
->  static inline void netfs_proc_del_rreq(struct netfs_io_request *rreq) {}
->  #endif
->  
-> +/*
-> + * misc.c
-> + */
-> +int netfs_xa_store_and_mark(struct xarray *xa, unsigned long index,
-> +			    struct folio *folio, bool put_mark,
-> +			    bool pagecache_mark, gfp_t gfp_mask);
-> +int netfs_add_folios_to_buffer(struct xarray *buffer,
-> +			       struct address_space *mapping,
-> +			       pgoff_t index, pgoff_t to, gfp_t gfp_mask);
-> +int netfs_set_up_buffer(struct xarray *buffer,
-> +			struct address_space *mapping,
-> +			struct readahead_control *ractl,
-> +			struct folio *keep,
-> +			pgoff_t have_index, unsigned int have_folios);
-> +void netfs_clear_buffer(struct xarray *buffer);
-> +
->  /*
->   * objects.c
->   */
-> diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
-> index c3baf2b247d9..c70f856f3129 100644
-> --- a/fs/netfs/misc.c
-> +++ b/fs/netfs/misc.c
-> @@ -8,6 +8,146 @@
->  #include <linux/swap.h>
->  #include "internal.h"
->  
-> +/*
-> + * Attach a folio to the buffer and maybe set marks on it to say that we need
-> + * to put the folio later and twiddle the pagecache flags.
-> + */
-> +int netfs_xa_store_and_mark(struct xarray *xa, unsigned long index,
-> +			    struct folio *folio, bool put_mark,
-> +			    bool pagecache_mark, gfp_t gfp_mask)
-> +{
-> +	XA_STATE_ORDER(xas, xa, index, folio_order(folio));
-> +
-> +retry:
-> +	xas_lock(&xas);
-> +	for (;;) {
-> +		xas_store(&xas, folio);
-> +		if (!xas_error(&xas))
-> +			break;
-> +		xas_unlock(&xas);
-> +		if (!xas_nomem(&xas, gfp_mask))
-> +			return xas_error(&xas);
-> +		goto retry;
-> +	}
-> +
-> +	if (put_mark)
-> +		xas_set_mark(&xas, NETFS_BUF_PUT_MARK);
-> +	if (pagecache_mark)
-> +		xas_set_mark(&xas, NETFS_BUF_PAGECACHE_MARK);
-> +	xas_unlock(&xas);
-> +	return xas_error(&xas);
-> +}
-> +
-> +/*
-> + * Create the specified range of folios in the buffer attached to the read
-> + * request.  The folios are marked with NETFS_BUF_PUT_MARK so that we know that
-> + * these need freeing later.
-> + */
-
-Some kerneldoc comments on these new helpers would be nice. I assume
-that "index" and "to" are "start" and "end" for this, but it'd be nice
-to make that explicit.
+X-Mimecast-Originator: linux.alibaba.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: hsiangkao@linux.alibaba.com
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
+ domain of hsiangkao@linux.alibaba.com designates 115.124.30.124 as permitted
+ sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+Precedence: list
+Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
+List-ID: <linux-cachefs.redhat.com>
+X-Spam-Checked-In-Group: linux-cachefs@redhat.com
+X-Google-Group-Id: 998933772329
+List-Post: <https://groups.google.com/a/redhat.com/group/linux-cachefs/post>, <mailto:linux-cachefs@redhat.com>
+List-Help: <https://support.google.com/a/redhat.com/bin/topic.py?topic=25838>, <mailto:linux-cachefs+help@redhat.com>
+List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
+List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
 
-> +int netfs_add_folios_to_buffer(struct xarray *buffer,
-> +			       struct address_space *mapping,
-> +			       pgoff_t index, pgoff_t to, gfp_t gfp_mask)
-> +{
-> +	struct folio *folio;
-> +	int ret;
-> +
-> +	if (to + 1 == index) /* Page range is inclusive */
-> +		return 0;
-> +
-> +	do {
-> +		/* TODO: Figure out what order folio can be allocated here */
-> +		folio = filemap_alloc_folio(readahead_gfp_mask(mapping), 0);
-> +		if (!folio)
-> +			return -ENOMEM;
-> +		folio->index = index;
-> +		ret = netfs_xa_store_and_mark(buffer, index, folio,
-> +					      true, false, gfp_mask);
-> +		if (ret < 0) {
-> +			folio_put(folio);
-> +			return ret;
-> +		}
-> +
-> +		index += folio_nr_pages(folio);
-> +	} while (index <= to && index != 0);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Set up a buffer into which to data will be read or decrypted/decompressed.
-> + * The folios to be read into are attached to this buffer and the gaps filled
-> + * in to form a continuous region.
-> + */
-> +int netfs_set_up_buffer(struct xarray *buffer,
-> +			struct address_space *mapping,
-> +			struct readahead_control *ractl,
-> +			struct folio *keep,
-> +			pgoff_t have_index, unsigned int have_folios)
-> +{
-> +	struct folio *folio;
-> +	gfp_t gfp_mask = readahead_gfp_mask(mapping);
-> +	unsigned int want_folios = have_folios;
-> +	pgoff_t want_index = have_index;
-> +	int ret;
-> +
-> +	ret = netfs_add_folios_to_buffer(buffer, mapping, want_index,
-> +					 have_index - 1, gfp_mask);
-> +	if (ret < 0)
-> +		return ret;
-> +	have_folios += have_index - want_index;
-> +
-> +	ret = netfs_add_folios_to_buffer(buffer, mapping,
-> +					 have_index + have_folios,
-> +					 want_index + want_folios - 1,
-> +					 gfp_mask);
 
-I don't get it. Why are you calling netfs_add_folios_to_buffer twice
-here? Why not just make one call? Either way, a comment here explaining
-that would also be nice.
+On 2023/11/7 18:16, Zizhi Wo wrote:
+> friendly ping
+>=20
+> =E5=9C=A8 2023/11/2 0:34, WoZ1zh1 =E5=86=99=E9=81=93:
+>> In fs/fscache/internal.h, ASSERT macro is enabled by default and can not
+>> be disabled, then assert failure will crash the kernel as the BUG() is
+>> included in the ASSERT macro. Therefore, add FSCACHE_ASSERT to control i=
+t.
 
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Transfer the folios proposed by the VM into the buffer and take refs
-> +	 * on them.  The locks will be dropped in netfs_rreq_unlock().
-> +	 */
-> +	if (ractl) {
-> +		while ((folio = readahead_folio(ractl))) {
-> +			folio_get(folio);
-> +			if (folio == keep)
-> +				folio_get(folio);
-> +			ret = netfs_xa_store_and_mark(buffer, folio->index, folio,
-> +						      true, true, gfp_mask);
-> +			if (ret < 0) {
-> +				if (folio != keep)
-> +					folio_unlock(folio);
-> +				folio_put(folio);
-> +				return ret;
-> +			}
-> +		}
-> +	} else {
-> +		folio_get(keep);
-> +		ret = netfs_xa_store_and_mark(buffer, keep->index, keep,
-> +					      true, true, gfp_mask);
-> +		if (ret < 0) {
-> +			folio_put(keep);
-> +			return ret;
-> +		}
-> +	}
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Clear an xarray buffer, putting a ref on the folios that have
-> + * NETFS_BUF_PUT_MARK set.
-> + */
-> +void netfs_clear_buffer(struct xarray *buffer)
-> +{
-> +	struct folio *folio;
-> +	XA_STATE(xas, buffer, 0);
-> +
-> +	rcu_read_lock();
-> +	xas_for_each_marked(&xas, folio, ULONG_MAX, NETFS_BUF_PUT_MARK) {
-> +		folio_put(folio);
-> +	}
-> +	rcu_read_unlock();
-> +	xa_destroy(buffer);
-> +}
-> +
->  /**
->   * netfs_invalidate_folio - Invalidate or partially invalidate a folio
->   * @folio: Folio proposed for release
-> diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-> index 66479a61ad00..e8d702ac6968 100644
-> --- a/include/linux/netfs.h
-> +++ b/include/linux/netfs.h
-> @@ -109,6 +109,10 @@ static inline int wait_on_page_fscache_killable(struct page *page)
->  	return folio_wait_private_2_killable(page_folio(page));
->  }
->  
-> +/* Marks used on xarray-based buffers */
-> +#define NETFS_BUF_PUT_MARK	XA_MARK_0	/* - Page needs putting  */
-> +#define NETFS_BUF_PAGECACHE_MARK XA_MARK_1	/* - Page needs wb/dirty flag wrangling */
-> +
->  enum netfs_io_source {
->  	NETFS_FILL_WITH_ZEROES,
->  	NETFS_DOWNLOAD_FROM_SERVER,
-> 
+Personally it looks good to me, yet we could also turn
+them into WARN_ON_ONCE case by case? Anyway, it depends
+on how David thinks...
 
--- 
-Jeff Layton <jlayton@kernel.org>
+Thanks,
+Gao Xiang
 
---
-Linux-cachefs mailing list
-Linux-cachefs@redhat.com
-https://listman.redhat.com/mailman/listinfo/linux-cachefs
+>>
+>> Signed-off-by: WoZ1zh1 <wozizhi@huawei.com>
+>> ---
+>> =C2=A0 fs/fscache/Kconfig=C2=A0=C2=A0=C2=A0 | 10 ++++++++++
+>> =C2=A0 fs/fscache/internal.h |=C2=A0 2 +-
+>> =C2=A0 2 files changed, 11 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/fscache/Kconfig b/fs/fscache/Kconfig
+>> index b313a978ae0a..7ff844038bc3 100644
+>> --- a/fs/fscache/Kconfig
+>> +++ b/fs/fscache/Kconfig
+>> @@ -38,3 +38,13 @@ config FSCACHE_DEBUG
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enabled by setting bits in /s=
+ys/modules/fscache/parameter/debug.
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 See Documentation/filesystems=
+/caching/fscache.rst for more information.
+>> +
+>> +config FSCACHE_ASSERT
+>> +=C2=A0=C2=A0=C2=A0 bool "FSCACHE asserts"
+>> +=C2=A0=C2=A0=C2=A0 default n
+>> +=C2=A0=C2=A0=C2=A0 depends on FSCACHE
+>> +=C2=A0=C2=A0=C2=A0 help
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Support the ASSERT mode for failure beha=
+vior.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Say N here to disable the ASSERT by defa=
+ult.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Say Y to add assertion checks in some pl=
+aces. But the assertion
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 failure will result in fatal errors that=
+ BUG() the kernel.
+>> diff --git a/fs/fscache/internal.h b/fs/fscache/internal.h
+>> index 1336f517e9b1..951166ed772f 100644
+>> --- a/fs/fscache/internal.h
+>> +++ b/fs/fscache/internal.h
+>> @@ -225,7 +225,7 @@ do {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 \
+>> =C2=A0 /*
+>> =C2=A0=C2=A0 * assertions
+>> =C2=A0=C2=A0 */
+>> -#if 1 /* defined(__KDEBUGALL) */
+>> +#ifdef CONFIG_FSCACHE_ASSERT
+>> =C2=A0 #define ASSERT(X)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+>> =C2=A0 do {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ \
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+linux-cachefs@redhat.com" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to linux-cachefs+unsubscribe@redhat.com.
 
