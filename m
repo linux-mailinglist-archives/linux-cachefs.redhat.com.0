@@ -1,102 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBENR36VAMGQE4ZSWQCA@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBFFR36VAMGQE5JWBF2Y@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AAD97EF9C3
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:18:10 +0100 (CET)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-41ea8e21785sf62301071cf.1
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:18:10 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255889; cv=pass;
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C307EF9C6
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:18:14 +0100 (CET)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-1ef4f8d26ecsf2133282fac.1
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:18:13 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255893; cv=pass;
         d=google.com; s=arc-20160816;
-        b=LnCtkI5VWyBpRWS10eCISz8dLH1Lvik3jyu2gtq0mNqye3lUPl3Ha8GbfNK2MlvYGJ
-         Lp2tTUTav4/onweU4bKRWe34oT+1VRdg2WkF4/+WT058PgaRmMsXllIHDzg3u0cdv3gU
-         yr6rNHZtqeNNfYkY9SjXdjhsMBPdYKNy/ZLil25XNiyQsge9AeoDwCZZSTyev3p6AdeZ
-         Z+akXO9M+0KeG70ZOD2E2K6sGL2jMa6Tm9qp41BwylayumLXKdba5TejmzT0FQUuazxo
-         X5jOu+9xY8zH08te6BhgqzcM7G6CytlVIbY3jotpJlTN7ttDq29DWmBV5Qb5l4XYVFTS
-         JYQw==
+        b=cRj0fbASAbqu29Qsg0h4mdckp7A8jR5u+Hct08wmTOT2veIG1bkZJzHT3injRA2Yhz
+         bwQmCfW9v9MbzSX78CU8NAHVX66sVCMfVZdO02IGG7hVcYE8S9HNRCsFb+o4OW9ntvIM
+         43paN3j0zpZFm6Sgey3USqrMDpkNtNaiaDCwDj6kQmNJNwRran9pPTQFva7NhkW3ibNA
+         Y+ve7oYrh+KyjDqYT6P0c88O2iQ6BRIEWOIh9/FaRPEPYKYn8vRzkzmWSWsx8ww04CY6
+         BUmwZkDUvKIQpBJGcQN4Kwuq9/kbMrOg/v3BC9gKpmxkHLuweuRKkKogemDS0oQWE7mL
+         0dyg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=wtl/BObBIRQIv66hgNCsE4lVweao3zhOn6k0VcTShJs=;
+        bh=A5dWeOr4+kkaR7tn/iza+t8ZHqlrjCFeE5ScF1O0IkY=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=KSe87essBVQTmswHJ+GdJJvsEXhMibwWWrbA6TdloVMoTHCahmFnu7JWQr9v9jnunK
-         3gb4+L1ijhptWe7fJ80eYZxKF5ki55xLOishzMPCiQ/TUceRF/XCh/Bppy+6KKIKpuJC
-         y9bYRhvEb/VDcPiVjzimk0yIeUgy4XBE6ENspgSl2FdHSDkoSlGofA/gO6dadVJWG2/S
-         b8yXDemq3EgN6Jp8aXyg8b7nuPM6HFZ9RQGgvwccmD7kPM8YwDn3MZC0Ek1YgVBBS2wv
-         vl2VcjQIsqqQEel05KHYSljtOvGzEygTP0FJvUm20OiHqozobZlBUQ9xkSHF8GgcDoY6
-         fEzw==
+        b=WfWxTceQWYx+GNrr3GFbcj+IwyL/0gEy+AN1ez8V/RMtPuah2+oJq2LHaIbQGoZYoo
+         j0oy7L9kd9c9H0CefnJg8RlRdg424T4jdUhH4LnVEXI4anz2d3kfUImX+2ysrYr3Op9u
+         fSltpavDX5yt/hljQhS4orLHyRj+9FKd5OkTjFzTXwzsrmLz5DfJjZUc/XuxHLNDvWNa
+         GwaoUfoTZCa/3JlxoG1X9iwUB2smP8f2Uh4vuRvfhcQaWU2mXE8NRbeYiWohk9XR/O2W
+         pl0AVFei28VYlZG+/pwfykBhJ192nEOXawU0WzN9zkIx+V+axjt6BQ2aIj+r5n4VIcGz
+         bNGA==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255889; x=1700860689;
+        d=1e100.net; s=20230601; t=1700255893; x=1700860693;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wtl/BObBIRQIv66hgNCsE4lVweao3zhOn6k0VcTShJs=;
-        b=hhYWkMh6L9eOwM0+21fm4B5Q5o/iddoawa64vfI5TOQlUit79wxwi9Sbmsbe93oFSY
-         XRco6dgCIo62b/qst6IwfuhQ6Ublv0yWnoOjP63Dm6WkRFwqtVACzUNVA0TLmxmidvs6
-         EJAon+97dOQWhMHZojHzNQepEbQRICQAr5XcQ+UFRtUYhq1+8LBrLT1b3U+JvTyHEser
-         jyuU3DL/XeihnxW80qV5eyF0/pU6vgcwpOzrM8feb/9iw1zjQ+DJa36he9npjhY/auEI
-         iKlN990/LlN0qWBscqc/71HY/NGMU163BSGsuGriVpbMbhgJ7Q1sEDmjxKQWPDQZfOEF
-         gDrA==
-X-Gm-Message-State: AOJu0YzyDQguXv/pZN5w+GdUI3ZTm2xW2Pygf0kq3NoHBSmLhWPrS1uH
-	Zh9dD8t+EH/stYrOcGuXlHGvRQ==
-X-Google-Smtp-Source: AGHT+IE+vcfxhumcKQ+AF8h1za6JuxUhGLCluKpjLjl3mfq4DzeZ60oN3slLSoII3A8cvKicAHdhDg==
-X-Received: by 2002:a05:622a:1004:b0:41c:c045:2c86 with SMTP id d4-20020a05622a100400b0041cc0452c86mr8954626qte.31.1700255889526;
-        Fri, 17 Nov 2023 13:18:09 -0800 (PST)
+        bh=A5dWeOr4+kkaR7tn/iza+t8ZHqlrjCFeE5ScF1O0IkY=;
+        b=A+EPRQ64FOopkz8ZITm0YC18sL76PakZH4qDUo18Lkmv9DPvSDcFBSgz1SBXRqTraC
+         qwyAbo163u5VBmZLIB2UpPgFKKVzuhl+mydpOI8LzAyAJCzn7Q+VSpPyWPmGqnnERHeq
+         BjFwOKox6vwRI4kkVxh/jkJKkzRoc6g5YkZ2cosoFCA37dgQuHW+gBKBnwyCpGqgQZ9q
+         elM8DK6Fh8SxtHHdDFO71CyByAOAB1AY/suL5KNfHYcYKic3PLBItlaNLKKdF6z8hTqD
+         wpjPzGoxl+fMqgdoRCI42QxYHLkIF8SYVsTKabzi6vrl9K5SyEjLay8/N2tB22RLli6X
+         kERg==
+X-Gm-Message-State: AOJu0YzkPjXxqmDZqk9uryS1w06cDlRJ0ifCollpji06RfAUAaJnCBiL
+	XMfI1y5fBeonm6WhTISQfFWaZA==
+X-Google-Smtp-Source: AGHT+IGmn5wGrjgLiKyWAxjhOt3Fvp+UJL7vMVGZGE+ppv2mFMImbhKEkJlnDA007AHRly3xkNqohA==
+X-Received: by 2002:a05:6870:bf16:b0:1e9:8d7a:fc5b with SMTP id qh22-20020a056870bf1600b001e98d7afc5bmr424645oab.47.1700255892850;
+        Fri, 17 Nov 2023 13:18:12 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ac8:7d13:0:b0:41f:f013:e433 with SMTP id g19-20020ac87d13000000b0041ff013e433ls1416489qtb.0.-pod-prod-00-us;
- Fri, 17 Nov 2023 13:18:09 -0800 (PST)
-X-Received: by 2002:a05:622a:60d:b0:412:1c5f:478b with SMTP id z13-20020a05622a060d00b004121c5f478bmr655384qta.15.1700255888941;
-        Fri, 17 Nov 2023 13:18:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255888; cv=none;
+Received: by 2002:ac8:7f4d:0:b0:419:5434:d639 with SMTP id g13-20020ac87f4d000000b004195434d639ls1364374qtk.0.-pod-prod-06-us;
+ Fri, 17 Nov 2023 13:18:12 -0800 (PST)
+X-Received: by 2002:a05:620a:880f:b0:778:8676:fd4 with SMTP id qj15-20020a05620a880f00b0077886760fd4mr867892qkn.73.1700255892153;
+        Fri, 17 Nov 2023 13:18:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255892; cv=none;
         d=google.com; s=arc-20160816;
-        b=wp4XRrwMQyODKEpw4qfY8TYcy906Gtsx3bbHpgFytWM53FfpXnj6liBr/y5f/BatcM
-         2+3OQtTTxa0eoays8yIazXtQZd6Ao7fiiawQDOUkHrC8BKF062riT4JfBhAItPCeejH7
-         gmNZSFkxVuloiWSfRWv1Y6UVcfHWT67ducn/dz3RSg+cD5ZGn/q22G8UO/ulovOBtYjZ
-         1qhd6oA/bYogq8XLR76YOgTjqGvczc81HpAQYwfn5bBQ/HgOEf1dUIJDUEwPdhOJYhR8
-         Udeya9fsuce0Ma88I+sLPFJtEFCRVwwXOMWfDWbBA6zmwyxdETd4woRSh5D5grB8sfSN
-         EIgA==
+        b=mijwmvaQeRhghRrRrrDDFZ46/ARaVCCJfBsali7TBdMc70sgS/L3zCsQo1FIvocbLL
+         oGTsRyaXaDkdkC7wgb0lnW6djS3m1WuwIDP8I0StmBipSB7+dJWeWNyLFY9Hik2jqyT/
+         B7mGMgOZFAW9Qsrn4w2B8wGo6189lRPNFdesBD7xaiqsfljQFsakSL2bTHHh38lw+YR9
+         fzWDireYWIWun2fUsJ5bYGt5RhKRm0weZ8Of1dIO4pT0zF3ovXNj77NYcgNnRuqHVi4x
+         oy7gf4aMSahKC9HXP9JLDcivE4++CMDBj6EJSOl8NaSwa58lyF195DUA4TuujHOVi3D/
+         vDpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=5Qasw+3DRr0CW1YV8TSL9wIAaCWlUGU8d7+6bcjpE3Y=;
+        bh=f/GtZmHCvQ0C6cEV7lrqQKTToBGwZLos13Q7MvBYGlc=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=bdSPwZnHrALWYWMZ3wig8u7NZNBnVMT2Hi9Y8OpWL2CyMiUcYHssU+htXvjWFGK+eA
-         vdQhRu3u+gOIks0EUniswqO1CnecgRVdLzES/yCRYjtpO+4wHPolSqv4Usdcp++jLuFx
-         iItkaUjCOlpd8UnOxvNwVllpUJ5ufmu0SR7wpWOobEi+BSuIStaNtmPMLJIXJNcvS1gQ
-         rQMPldbuArpV1x9lUv0hshJKbM65J1VqBZMnpvXFl6z2kpFNQjjV7s2Ce5VW4guhbM99
-         gPw6q+2ae0GCCHLoXDey1e6c8W/MnwjjDfAa7AuMLcBBauO6ftBVatzuBnTjiO5Z9IvI
-         JLRw==
+        b=GpuhIFwsfo3fQev8xhiOG8zHk8ozeVTUzO5wDPImbWxzJ6lUFFURvNiJEK3CNhbF5n
+         zzq7TeBLzFRWdVpsoAJqljd5foae4yvd/mFG/Jg4FG7/cLpz0IvMeC67fAr9QTTElefS
+         WqD8KjXqwSitCcGFaKNJTzkUeFzu1N7ofA+qlE/eABMILdq0tIJHxMm6mCg/7Y0PMyP3
+         UOIdp68b9WZrgYsLk34wBDOyt0o/6ErUd7avV9VEDCubeNvi+PjT20a3KVJG1bZCWAFY
+         534ncBtFVyK8Ct5pSCubFMImzPCSo9+8ZLUfWA+y6hawCbrDOBAtgO/PY9nWmFfRQ8N/
+         d/9w==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
-        by mx.google.com with ESMTPS id s8-20020a05622a178800b00421ba5e92d8si2382568qtk.620.2023.11.17.13.18.08
+       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.81])
+        by mx.google.com with ESMTPS id o22-20020a05620a111600b0077bca21c539si2369946qkk.81.2023.11.17.13.18.12
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:18:08 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-453-IjUR4PTBNCCIxMFX_OmPow-1; Fri,
- 17 Nov 2023 16:18:07 -0500
-X-MC-Unique: IjUR4PTBNCCIxMFX_OmPow-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+        Fri, 17 Nov 2023 13:18:12 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-255-FmrppCfGO42G7_7lF9vwTQ-1; Fri, 17 Nov 2023 16:18:10 -0500
+X-MC-Unique: FmrppCfGO42G7_7lF9vwTQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C34B31C068E4
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:18:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49468811E91
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:18:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id BFEBB1121307; Fri, 17 Nov 2023 21:18:06 +0000 (UTC)
+	id 43AD6C15887; Fri, 17 Nov 2023 21:18:10 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 29E541121306;
-	Fri, 17 Nov 2023 21:18:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 88C3BC15881;
+	Fri, 17 Nov 2023 21:18:07 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -119,19 +119,19 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 35/51] netfs: Support decryption on ubuffered/DIO read
-Date: Fri, 17 Nov 2023 21:15:27 +0000
-Message-ID: <20231117211544.1740466-36-dhowells@redhat.com>
+Subject: [PATCH v2 36/51] netfs: Support encryption on Unbuffered/DIO write
+Date: Fri, 17 Nov 2023 21:15:28 +0000
+Message-ID: <20231117211544.1740466-37-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+ domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -143,10 +143,9 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Support unbuffered and direct I/O reads from an encrypted file.  This may
-require making a larger read than is required into a bounce buffer and
-copying out the required bits.  We don't decrypt in-place in the user
-buffer lest userspace interfere and muck up the decryption.
+Support unbuffered and direct I/O writes to an encrypted file.  This may
+require making an RMW cycle if the write is not appropriately aligned with
+respect to the crypto blocks.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -154,59 +153,502 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/direct_read.c | 10 ++++++++++
- fs/netfs/internal.h    | 17 +++++++++++++++++
- 2 files changed, 27 insertions(+)
+ fs/netfs/direct_read.c       |   2 +-
+ fs/netfs/direct_write.c      | 210 ++++++++++++++++++++++++++++++++++-
+ fs/netfs/internal.h          |   8 ++
+ fs/netfs/io.c                | 117 +++++++++++++++++++
+ fs/netfs/main.c              |   1 +
+ include/linux/netfs.h        |   4 +
+ include/trace/events/netfs.h |   1 +
+ 7 files changed, 337 insertions(+), 6 deletions(-)
 
 diff --git a/fs/netfs/direct_read.c b/fs/netfs/direct_read.c
-index 52ad8fa66dd5..158719b56900 100644
+index 158719b56900..c01cbe42db8a 100644
 --- a/fs/netfs/direct_read.c
 +++ b/fs/netfs/direct_read.c
-@@ -181,6 +181,16 @@ static ssize_t netfs_unbuffered_read_iter_locked(struct kiocb *iocb, struct iov_
- 		iov_iter_advance(iter, orig_count);
+@@ -88,7 +88,7 @@ static int netfs_copy_xarray_to_iter(struct netfs_io_request *rreq,
+  * If we did a direct read to a bounce buffer (say we needed to decrypt it),
+  * copy the data obtained to the destination iterator.
+  */
+-static int netfs_dio_copy_bounce_to_dest(struct netfs_io_request *rreq)
++int netfs_dio_copy_bounce_to_dest(struct netfs_io_request *rreq)
+ {
+ 	struct iov_iter *dest_iter = &rreq->iter;
+ 	struct kiocb *iocb = rreq->iocb;
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index b1a4921ac4a2..f9dea801d6dd 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -23,6 +23,100 @@ static void netfs_cleanup_dio_write(struct netfs_io_request *wreq)
  	}
- 
-+	/* If we're going to do decryption or decompression, we're going to
-+	 * need a bounce buffer - and if the data is misaligned for the crypto
-+	 * algorithm, we decrypt in place and then copy.
-+	 */
-+	if (test_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &rreq->flags)) {
-+		if (!netfs_is_crypto_aligned(rreq, iter))
-+			__set_bit(NETFS_RREQ_CRYPT_IN_PLACE, &rreq->flags);
-+		__set_bit(NETFS_RREQ_USE_BOUNCE_BUFFER, &rreq->flags);
-+	}
-+
- 	/* If we're going to use a bounce buffer, we need to set it up.  We
- 	 * will then need to pad the request out to the minimum block size.
- 	 */
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index fbecfd9b3174..447a67301329 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -193,6 +193,23 @@ static inline void netfs_put_group_many(struct netfs_group *netfs_group, int nr)
- 		netfs_group->free(netfs_group);
  }
  
 +/*
-+ * Check to see if a buffer aligns with the crypto unit block size.  If it
-+ * doesn't the crypto layer is going to copy all the data - in which case
-+ * relying on the crypto op for a free copy is pointless.
++ * Allocate a bunch of pages and add them into the xarray buffer starting at
++ * the given index.
 + */
-+static inline bool netfs_is_crypto_aligned(struct netfs_io_request *rreq,
-+					   struct iov_iter *iter)
++static int netfs_alloc_buffer(struct xarray *xa, pgoff_t index, unsigned int nr_pages)
 +{
-+	struct netfs_inode *ctx = netfs_inode(rreq->inode);
-+	unsigned long align, mask = (1UL << ctx->min_bshift) - 1;
++	struct page *page;
++	unsigned int n;
++	int ret = 0;
++	LIST_HEAD(list);
 +
-+	if (!ctx->min_bshift)
-+		return true;
-+	align = iov_iter_alignment(iter);
-+	return (align & mask) == 0;
++	n = alloc_pages_bulk_list(GFP_NOIO, nr_pages, &list);
++	if (n < nr_pages) {
++		ret = -ENOMEM;
++	}
++
++	while ((page = list_first_entry_or_null(&list, struct page, lru))) {
++		list_del(&page->lru);
++		page->index = index;
++		ret = xa_insert(xa, index++, page, GFP_NOIO);
++		if (ret < 0)
++			break;
++	}
++
++	while ((page = list_first_entry_or_null(&list, struct page, lru))) {
++		list_del(&page->lru);
++		__free_page(page);
++	}
++	return ret;
 +}
 +
- /*****************************************************************************/
++/*
++ * Copy all of the data from the source iterator into folios in the destination
++ * xarray.  We cannot step through and kmap the source iterator if it's an
++ * iovec, so we have to step through the xarray and drop the RCU lock each
++ * time.
++ */
++static int netfs_copy_iter_to_xarray(struct iov_iter *src, struct xarray *xa,
++				     unsigned long long start)
++{
++	struct folio *folio;
++	void *base;
++	pgoff_t index = start / PAGE_SIZE;
++	size_t len, copied, count = iov_iter_count(src);
++
++	XA_STATE(xas, xa, index);
++
++	_enter("%zx", count);
++
++	if (!count)
++		return -EIO;
++
++	len = PAGE_SIZE - offset_in_page(start);
++	rcu_read_lock();
++	xas_for_each(&xas, folio, ULONG_MAX) {
++		size_t offset;
++
++		if (xas_retry(&xas, folio))
++			continue;
++
++		/* There shouldn't be a need to call xas_pause() as no one else
++		 * can see the xarray we're iterating over.
++		 */
++		rcu_read_unlock();
++
++		offset = offset_in_folio(folio, start);
++		_debug("folio %lx +%zx [%llx]", folio->index, offset, start);
++
++		while (offset < folio_size(folio)) {
++			len = min(count, len);
++
++			base = kmap_local_folio(folio, offset);
++			copied = copy_from_iter(base, len, src);
++			kunmap_local(base);
++			if (copied != len)
++				goto out;
++			count -= len;
++			if (count == 0)
++				goto out;
++
++			start += len;
++			offset += len;
++			len = PAGE_SIZE;
++		}
++
++		rcu_read_lock();
++	}
++
++	rcu_read_unlock();
++out:
++	_leave(" = %zx", count);
++	return count ? -EIO : 0;
++}
++
  /*
-  * debug tracing
+  * Perform an unbuffered write where we may have to do an RMW operation on an
+  * encrypted file.  This can also be used for direct I/O writes.
+@@ -31,20 +125,47 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 					   struct netfs_group *netfs_group)
+ {
+ 	struct netfs_io_request *wreq;
++	struct netfs_inode *ctx = netfs_inode(file_inode(iocb->ki_filp));
++	unsigned long long real_size = ctx->remote_i_size;
+ 	unsigned long long start = iocb->ki_pos;
+ 	unsigned long long end = start + iov_iter_count(iter);
+ 	ssize_t ret, n;
+-	bool async = !is_sync_kiocb(iocb);
++	size_t min_bsize = 1UL << ctx->min_bshift;
++	size_t bmask = min_bsize - 1;
++	size_t gap_before = start & bmask;
++	size_t gap_after = (min_bsize - end) & bmask;
++	bool use_bounce, async = !is_sync_kiocb(iocb);
++	enum {
++		DIRECT_IO, COPY_TO_BOUNCE, ENC_TO_BOUNCE, COPY_THEN_ENC,
++	} buffering;
+ 
+ 	_enter("");
+ 
++	/* The real size must be rounded out to the crypto block size plus
++	 * any trailer we might want to attach.
++	 */
++	if (real_size && ctx->crypto_bshift) {
++		size_t cmask = 1UL << ctx->crypto_bshift;
++
++		if (real_size < ctx->crypto_trailer)
++			return -EIO;
++		if ((real_size - ctx->crypto_trailer) & cmask)
++			return -EIO;
++		real_size -= ctx->crypto_trailer;
++	}
++
+ 	/* We're going to need a bounce buffer if what we transmit is going to
+ 	 * be different in some way to the source buffer, e.g. because it gets
+ 	 * encrypted/compressed or because it needs expanding to a block size.
+ 	 */
+-	// TODO
++	use_bounce = test_bit(NETFS_ICTX_ENCRYPTED, &ctx->flags);
++	if (gap_before || gap_after) {
++		if (iocb->ki_flags & IOCB_DIRECT)
++			return -EINVAL;
++		use_bounce = true;
++	}
+ 
+-	_debug("uw %llx-%llx", start, end);
++	_debug("uw %llx-%llx +%zx,%zx", start, end, gap_before, gap_after);
+ 
+ 	wreq = netfs_alloc_request(iocb->ki_filp->f_mapping, iocb->ki_filp,
+ 				   start, end - start,
+@@ -53,7 +174,57 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 	if (IS_ERR(wreq))
+ 		return PTR_ERR(wreq);
+ 
+-	{
++	if (use_bounce) {
++		unsigned long long bstart = start - gap_before;
++		unsigned long long bend = end + gap_after;
++		pgoff_t first = bstart / PAGE_SIZE;
++		pgoff_t last  = (bend - 1) / PAGE_SIZE;
++
++		_debug("bounce %llx-%llx %lx-%lx", bstart, bend, first, last);
++
++		ret = netfs_alloc_buffer(&wreq->bounce, first, last - first + 1);
++		if (ret < 0)
++			goto out;
++
++		iov_iter_xarray(&wreq->io_iter, READ, &wreq->bounce,
++				bstart, bend - bstart);
++
++		if (gap_before || gap_after)
++			async = false; /* We may have to repeat the RMW cycle */
++	}
++
++repeat_rmw_cycle:
++	if (use_bounce) {
++		/* If we're going to need to do an RMW cycle, fill in the gaps
++		 * at the ends of the buffer.
++		 */
++		if (gap_before || gap_after) {
++			struct iov_iter buffer = wreq->io_iter;
++
++			if ((gap_before && start - gap_before < real_size) ||
++			    (gap_after && end < real_size)) {
++				ret = netfs_rmw_read(wreq, iocb->ki_filp,
++						     start - gap_before, gap_before,
++						     end, end < real_size ? gap_after : 0);
++				if (ret < 0)
++					goto out;
++			}
++
++			if (gap_before && start - gap_before >= real_size)
++				iov_iter_zero(gap_before, &buffer);
++			if (gap_after && end >= real_size) {
++				iov_iter_advance(&buffer, end - start);
++				iov_iter_zero(gap_after, &buffer);
++			}
++		}
++
++		if (!test_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &wreq->flags))
++			buffering = COPY_TO_BOUNCE;
++		else if (!gap_before && !gap_after && netfs_is_crypto_aligned(wreq, iter))
++			buffering = ENC_TO_BOUNCE;
++		else
++			buffering = COPY_THEN_ENC;
++	} else {
+ 		/* If this is an async op and we're not using a bounce buffer,
+ 		 * we have to save the source buffer as the iterator is only
+ 		 * good until we return.  In such a case, extract an iterator
+@@ -77,10 +248,25 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 		}
+ 
+ 		wreq->io_iter = wreq->iter;
++		buffering = DIRECT_IO;
+ 	}
+ 
+ 	/* Copy the data into the bounce buffer and encrypt it. */
+-	// TODO
++	if (buffering == COPY_TO_BOUNCE ||
++	    buffering == COPY_THEN_ENC) {
++		ret = netfs_copy_iter_to_xarray(iter, &wreq->bounce, wreq->start);
++		if (ret < 0)
++			goto out;
++		wreq->iter = wreq->io_iter;
++		wreq->start -= gap_before;
++		wreq->len += gap_before + gap_after;
++	}
++
++	if (buffering == COPY_THEN_ENC ||
++	    buffering == ENC_TO_BOUNCE) {
++		if (!netfs_encrypt(wreq))
++			goto out;
++	}
+ 
+ 	/* Dispatch the write. */
+ 	__set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags);
+@@ -101,6 +287,20 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 		wait_on_bit(&wreq->flags, NETFS_RREQ_IN_PROGRESS,
+ 			    TASK_UNINTERRUPTIBLE);
+ 
++		/* See if the write failed due to a 3rd party race when doing
++		 * an RMW on a partially modified block in an encrypted file.
++		 */
++		if (test_and_clear_bit(NETFS_RREQ_REPEAT_RMW, &wreq->flags)) {
++			netfs_clear_subrequests(wreq, false);
++			iov_iter_revert(iter, end - start);
++			wreq->error = 0;
++			wreq->start = start;
++			wreq->len = end - start;
++			wreq->transferred = 0;
++			wreq->submitted = 0;
++			goto repeat_rmw_cycle;
++		}
++
+ 		ret = wreq->error;
+ 		_debug("waited = %zd", ret);
+ 		if (ret == 0) {
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 447a67301329..782b73b1f5a7 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -28,6 +28,11 @@ int netfs_prefetch_for_write(struct file *file, struct folio *folio,
+ bool netfs_encrypt(struct netfs_io_request *wreq);
+ void netfs_decrypt(struct netfs_io_request *rreq);
+ 
++/*
++ * direct_read.c
++ */
++int netfs_dio_copy_bounce_to_dest(struct netfs_io_request *rreq);
++
+ /*
+  * direct_write.c
+  */
+@@ -38,6 +43,9 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+  * io.c
+  */
+ int netfs_begin_read(struct netfs_io_request *rreq, bool sync);
++ssize_t netfs_rmw_read(struct netfs_io_request *wreq, struct file *file,
++		       unsigned long long start1, size_t len1,
++		       unsigned long long start2, size_t len2);
+ 
+ /*
+  * main.c
+diff --git a/fs/netfs/io.c b/fs/netfs/io.c
+index 9887b22e4cb3..14a9f3312d3b 100644
+--- a/fs/netfs/io.c
++++ b/fs/netfs/io.c
+@@ -775,3 +775,120 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
+ out:
+ 	return ret;
+ }
++
++static bool netfs_rmw_read_one(struct netfs_io_request *rreq,
++			       unsigned long long start, size_t len)
++{
++	struct netfs_inode *ctx = netfs_inode(rreq->inode);
++	struct iov_iter io_iter;
++	unsigned long long pstart, end = start + len;
++	pgoff_t first, last;
++	ssize_t ret;
++	size_t min_bsize = 1UL << ctx->min_bshift;
++
++	/* Determine the block we need to load. */
++	end = round_up(end, min_bsize);
++	start = round_down(start, min_bsize);
++
++	/* Determine the folios we need to insert. */
++	pstart = round_down(start, PAGE_SIZE);
++	first = pstart / PAGE_SIZE;
++	last = DIV_ROUND_UP(end, PAGE_SIZE);
++
++	ret = netfs_add_folios_to_buffer(&rreq->bounce, rreq->mapping,
++					 first, last, GFP_NOFS);
++	if (ret < 0) {
++		rreq->error = ret;
++		return false;
++	}
++
++	rreq->start = start;
++	rreq->len = len;
++	rreq->submitted = 0;
++	iov_iter_xarray(&rreq->io_iter, ITER_DEST, &rreq->bounce, start, len);
++
++	io_iter = rreq->io_iter;
++	do {
++		_debug("submit %llx + %zx >= %llx",
++		       rreq->start, rreq->submitted, rreq->i_size);
++		if (rreq->start + rreq->submitted >= rreq->i_size)
++			break;
++		if (!netfs_rreq_submit_slice(rreq, &io_iter, &rreq->subreq_counter))
++			break;
++	} while (rreq->submitted < rreq->len);
++
++	if (rreq->submitted < rreq->len) {
++		netfs_put_request(rreq, false, netfs_rreq_trace_put_no_submit);
++		return false;
++	}
++
++	return true;
++}
++
++/*
++ * Begin the process of reading in one or two chunks of data for use by
++ * unbuffered write to perform an RMW cycle.  We don't read directly into the
++ * write buffer as this may get called to redo the read in the case that a
++ * conditional write fails due to conflicting 3rd-party modifications.
++ */
++ssize_t netfs_rmw_read(struct netfs_io_request *wreq, struct file *file,
++		       unsigned long long start1, size_t len1,
++		       unsigned long long start2, size_t len2)
++{
++	struct netfs_io_request *rreq;
++	ssize_t ret;
++
++	_enter("RMW:R=%x %llx-%llx %llx-%llx",
++	       rreq->debug_id, start1, start1 + len1 - 1, start2, start2 + len2 - 1);
++
++	rreq = netfs_alloc_request(wreq->mapping, file,
++				   start1, start2 - start1 + len2, NETFS_RMW_READ);
++	if (IS_ERR(rreq))
++		return PTR_ERR(rreq);
++
++	INIT_WORK(&rreq->work, netfs_rreq_work);
++
++	rreq->iter = wreq->io_iter;
++	__set_bit(NETFS_RREQ_CRYPT_IN_PLACE, &rreq->flags);
++	__set_bit(NETFS_RREQ_USE_BOUNCE_BUFFER, &rreq->flags);
++
++	/* Chop the reads into slices according to what the netfs wants and
++	 * submit each one.
++	 */
++	netfs_get_request(rreq, netfs_rreq_trace_get_for_outstanding);
++	atomic_set(&rreq->nr_outstanding, 1);
++	if (len1 && !netfs_rmw_read_one(rreq, start1, len1))
++		goto wait;
++	if (len2)
++		netfs_rmw_read_one(rreq, start2, len2);
++
++wait:
++	/* Keep nr_outstanding incremented so that the ref always belongs to us
++	 * and the service code isn't punted off to a random thread pool to
++	 * process.
++	 */
++	for (;;) {
++		wait_var_event(&rreq->nr_outstanding,
++			       atomic_read(&rreq->nr_outstanding) == 1);
++		netfs_rreq_assess(rreq, false);
++		if (atomic_read(&rreq->nr_outstanding) == 1)
++			break;
++		cond_resched();
++	}
++
++	trace_netfs_rreq(wreq, netfs_rreq_trace_wait_ip);
++	wait_on_bit(&wreq->flags, NETFS_RREQ_IN_PROGRESS,
++		    TASK_UNINTERRUPTIBLE);
++
++	ret = rreq->error;
++	if (ret == 0 && rreq->submitted < rreq->len) {
++		trace_netfs_failure(rreq, NULL, ret, netfs_fail_short_read);
++		ret = -EIO;
++	}
++
++	if (ret == 0)
++		ret = netfs_dio_copy_bounce_to_dest(rreq);
++
++	netfs_put_request(rreq, false, netfs_rreq_trace_put_return);
++	return ret;
++}
+diff --git a/fs/netfs/main.c b/fs/netfs/main.c
+index 1cf10f9c4c1f..b335e6a50f9c 100644
+--- a/fs/netfs/main.c
++++ b/fs/netfs/main.c
+@@ -33,6 +33,7 @@ static const char *netfs_origins[nr__netfs_io_origin] = {
+ 	[NETFS_READPAGE]		= "RP",
+ 	[NETFS_READ_FOR_WRITE]		= "RW",
+ 	[NETFS_WRITEBACK]		= "WB",
++	[NETFS_RMW_READ]		= "RM",
+ 	[NETFS_UNBUFFERED_WRITE]	= "UW",
+ 	[NETFS_DIO_READ]		= "DR",
+ 	[NETFS_DIO_WRITE]		= "DW",
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 364361cc93be..c3d1eac1ce51 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -145,6 +145,7 @@ struct netfs_inode {
+ #define NETFS_ICTX_ENCRYPTED	2		/* The file contents are encrypted */
+ 	unsigned char		min_bshift;	/* log2 min block size for bounding box or 0 */
+ 	unsigned char		crypto_bshift;	/* log2 of crypto block size */
++	unsigned char		crypto_trailer;	/* Size of crypto trailer */
+ };
+ 
+ /*
+@@ -233,6 +234,7 @@ enum netfs_io_origin {
+ 	NETFS_READPAGE,			/* This read is a synchronous read */
+ 	NETFS_READ_FOR_WRITE,		/* This read is to prepare a write */
+ 	NETFS_WRITEBACK,		/* This write was triggered by writepages */
++	NETFS_RMW_READ,			/* This is an unbuffered read for RMW */
+ 	NETFS_UNBUFFERED_WRITE,		/* This is an unbuffered write */
+ 	NETFS_DIO_READ,			/* This is a direct I/O read */
+ 	NETFS_DIO_WRITE,		/* This is a direct I/O write */
+@@ -291,6 +293,7 @@ struct netfs_io_request {
+ #define NETFS_RREQ_BLOCKED		10	/* We blocked */
+ #define NETFS_RREQ_CONTENT_ENCRYPTION	11	/* Content encryption is in use */
+ #define NETFS_RREQ_CRYPT_IN_PLACE	12	/* Enc/dec in place in ->io_iter */
++#define NETFS_RREQ_REPEAT_RMW		13	/* Need to repeat RMW cycle */
+ 	const struct netfs_request_ops *netfs_ops;
+ 	void (*cleanup)(struct netfs_io_request *req);
+ };
+@@ -479,6 +482,7 @@ static inline void netfs_inode_init(struct netfs_inode *ctx,
+ 	ctx->flags = 0;
+ 	ctx->min_bshift = 0;
+ 	ctx->crypto_bshift = 0;
++	ctx->crypto_trailer = 0;
+ #if IS_ENABLED(CONFIG_FSCACHE)
+ 	ctx->cache = NULL;
+ #endif
+diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
+index 2f35057602fa..825946f510ee 100644
+--- a/include/trace/events/netfs.h
++++ b/include/trace/events/netfs.h
+@@ -33,6 +33,7 @@
+ 	EM(NETFS_READPAGE,			"RP")		\
+ 	EM(NETFS_READ_FOR_WRITE,		"RW")		\
+ 	EM(NETFS_WRITEBACK,			"WB")		\
++	EM(NETFS_RMW_READ,			"RM")		\
+ 	EM(NETFS_UNBUFFERED_WRITE,		"UW")		\
+ 	EM(NETFS_DIO_READ,			"DR")		\
+ 	E_(NETFS_DIO_WRITE,			"DW")
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
