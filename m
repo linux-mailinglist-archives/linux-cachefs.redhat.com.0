@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBIVQ36VAMGQETHEUGJY@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBJVQ36VAMGQEYG7NV4I@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD0D7EF967
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:20 +0100 (CET)
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-1e9c2c00182sf2378543fac.1
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:20 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255779; cv=pass;
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C21C7EF96A
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:23 +0100 (CET)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-421ad4ca88dsf25968171cf.1
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:23 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255782; cv=pass;
         d=google.com; s=arc-20160816;
-        b=D+zKA34s1WHt3PUOVdMcz7z2fT+z0I/pig0Rjk6xnDiAj0uM7MtuoF7Pvailmr5jnx
-         J2vrDdwX/djFMjNXTimbU30OJTqF7gY8UBk15okyu8Sw66UgoEfQh2UywK1VwVy/NIDt
-         dSRKwI6WYpsrinQ9NMkmVExA0DYU+Z/RjdKomU6V0Q0SQW/zA6nfLAjM12/OXnnSDEVQ
-         0CQQ1+gi8m5nYUVSLQwPb/bKmAUQTNOnJ624Us+oGNVjUm3BxJISXeh+cW4hHbXSODX1
-         Y+wNkFl4ejqYYkJGq90g+1nCT70/ygaUhT08/XZKJHD/qKcGwClzjUxj+JDDLfkJo2Cx
-         GVWA==
+        b=U6VYuaojvZsbZBXHkbll2IdcOmp3SX8IHXnOVuvqA+YtXPfO70Ud5rYwsZbKVD4YJh
+         XPsChDg7AM4tWxxAQuEuGYxkZSQKp2v9vDGTerZWwvwURMpcp0era48r4ay7qpR7tGdq
+         Rfjd+yTAlQOXqaieD6RNwFYZiO+JGF6xTsaVpCyCZJXHtTel1btpKQroRe6iuhtjax8z
+         ZhW3K2t1SQldKV7g0CoU9F9dgiFLofNXYL2D4IVCy8ZX09v5HsaKduxYISoedEy1C9aW
+         O5hmH0OrT3hlTKsv1pbrRY5c/8mSy3HvSgbI+MNapr1egWZ5/+l8p0+VVXCtGXoiZ5mk
+         Mikg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=VCNk/TvOcc15a8zA2qYQjbCXNLIOBE6HSQyMn1xfFM0=;
+        bh=DYvYeChO8iFF9+oYjbzQbeEXXmurWNeAnKwbzmzscF8=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=u+aE0Q+0jByqmoN5Pb0vvMVw4oMXJwcHpiuooQ33AnVyA7ro/hnRBvNUWtIfAox2ik
-         nmGyKK5BrAxA4Y4FIsfx+ryWG7qvw++GloExpCtYiNioyxeuKOVzlPCb1Ud+YJnIHTml
-         ZV109OWi7ivmORJx9wIf+S6NuRwTK+SgLqNwYehWqW0NUsBN06Zn7kxMSMC59Gd1YKOX
-         rzHpwWbRTX1NMtv5zIXEIcj758/+DOEs9nebiSRe1tSz5/svK/boUQUwqJAGjQUI6BOE
-         PTa3XzelpihgIwq9TBJPjD7qkX2r/T37QNUIHN6gHdDBs3Ze92Z8UuhlC94eVlmtL6VW
-         vByw==
+        b=Rc1MWUljajAGBtdOxvzYU6x/w+BjMdgRCTN25FUO73mGG53KHVO9rNk16h000bCoTI
+         RHleR6c7LwSC4/+U/7tgFNnO2VsTxAcVvOY/GdtKXCfCd4tv29NAWdoWoGfH5dN+Lcrr
+         cD3xHt/ahHqoeVhKr4mxYxhBrpox2dhOWvvSNk7oKt9UlZ+5SlBRouc8Io7bEH9sEzcl
+         pdtpE+XFqwAvv15uKgd/+236RDs/Fw4TEHnEnty4RUdVkzlvB0ISJZjMVqjZmDSdq4Vc
+         e6Jm+pj4ER47TYibSTrG2GkoeVWB/AhzoBLfrKAHY8xTQaxxX+Hbk5QhIBs/JDhuXGlB
+         fsjQ==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
+       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255779; x=1700860579;
+        d=1e100.net; s=20230601; t=1700255782; x=1700860582;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VCNk/TvOcc15a8zA2qYQjbCXNLIOBE6HSQyMn1xfFM0=;
-        b=IIpg0jKLtmpl6MEoU3hdpl8VXX+8YtktfCoe9MEAEvwscN+d09CKwX4gHN3IF9rDFz
-         phOSrO3k0WlpaW2kDqi3J7AfzXB2zq7bQeUHbcG8rpGlm7CTy5TxRWfpPYj6rBRihkuU
-         e1/e2/Ree3VR2imcLzgtMsLi+jhFINsRZyeyD5umt0NqdiTZ+IP3Gzn2mQ8LcSxnsat/
-         H/16ubo3nyhoXyjkACuceIIHLKWnSsbjk1yzBb+oSdqaErO/eUuz6CMG4+GM8gnHYe8Y
-         Etg6SACU9brsYvnXShmdcEzc3wL5Wl9xn1eZarWbE+qrrxiJA38mLvlE8SdeRDitcz53
-         EMjw==
-X-Gm-Message-State: AOJu0YwVbXOHTPsjHikbOdhbLEn3+50dlSuF75EMdk6EXTTSk3FhN4/b
-	sPBxWSErPqPN8r/jqnwbSIrs8w==
-X-Google-Smtp-Source: AGHT+IE7gaemQ0BY6h5pdkvNhQeAh7zYLVH9bvn/7wav3gWlFmtSNAj8mLTOmIAfaglZBPKgOuEopA==
-X-Received: by 2002:a05:6870:ce8e:b0:1e9:ce72:35e0 with SMTP id xe14-20020a056870ce8e00b001e9ce7235e0mr518446oab.0.1700255778884;
-        Fri, 17 Nov 2023 13:16:18 -0800 (PST)
+        bh=DYvYeChO8iFF9+oYjbzQbeEXXmurWNeAnKwbzmzscF8=;
+        b=wimDpQtzN2P9Pi0AZXME9Jw1/JsKidLoyuXtmVmAOEONW3piObEctD7iGdT99JfeKg
+         qxBUTEUpu+/3r0uv1CkSEEbiCfyOdDaGWPbktulm0ugkGtlQU+PN27XyAh4nuN26CbsJ
+         JuOF8KCW2jXbeuCjNTlwsuEsMcZAdOCQW6PlJCpfU6gK2alRLMKduZHJ9rCWIZ5VoXps
+         lcpbguXBLBGlQnqsnG6S3cHowTvxsc6EEuoXsx2/Qi3qx8KFm2ot0uTXTFlWG5erHQ89
+         VDoVMxSsHk/u2l8VUVhyxJzG5bpDY00vnVmdy7mzG+dzwc/tClpyT1Ov73QCBgdiIHBm
+         1R2Q==
+X-Gm-Message-State: AOJu0YzRqsidzgsuAR7uVjQEGpiwN7ScoVLKhx7PY3KvuBScRKGST6tF
+	Wi1jUHbJiiJATQn19Z0gFY7BPA==
+X-Google-Smtp-Source: AGHT+IHtRY52DOhwJzmSaUZcSoSdLZ/Yp2Dww2KSN/GjLFkDM3tiyM7VjjVctwfWhRseHp8TwYyyTQ==
+X-Received: by 2002:a05:622a:1393:b0:412:395c:e794 with SMTP id o19-20020a05622a139300b00412395ce794mr1109700qtk.50.1700255782267;
+        Fri, 17 Nov 2023 13:16:22 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6871:740a:b0:1f4:88df:8b64 with SMTP id
- nw10-20020a056871740a00b001f488df8b64ls2120579oac.1.-pod-prod-09-us; Fri, 17
- Nov 2023 13:16:18 -0800 (PST)
-X-Received: by 2002:a05:6358:4407:b0:16d:abc7:bfab with SMTP id z7-20020a056358440700b0016dabc7bfabmr627380rwc.15.1700255778159;
-        Fri, 17 Nov 2023 13:16:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255778; cv=none;
+Received: by 2002:a05:622a:4184:b0:422:1bd:4708 with SMTP id
+ cd4-20020a05622a418400b0042201bd4708ls1872811qtb.1.-pod-prod-01-us; Fri, 17
+ Nov 2023 13:16:21 -0800 (PST)
+X-Received: by 2002:a05:6102:284e:b0:45d:9bac:d899 with SMTP id az14-20020a056102284e00b0045d9bacd899mr761384vsb.16.1700255781757;
+        Fri, 17 Nov 2023 13:16:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255781; cv=none;
         d=google.com; s=arc-20160816;
-        b=kB1I8WKaObUk9ZqZCkM7Gg09unkWumnXUf44NO5c++Qe9j24haJYgzJ7Alco3bDoN0
-         UXhqH5E+89kSv+cGYDodVtSA9nWDRj06vMK5zutri1hPVk2EDv4/QsYAwJiHNmXlcvmA
-         slhOZtE0Q4MSaOhgfCbs2VynkPLmVVarYE5u5zsHex7WYIw9bfR/0HTCrTUj1cqVgm3o
-         /mnjDGnJIq35+NwtuW18JPFiIusFiBgjLbbKDXu1M0lb7zGiBT5L9gmQOcczD/vilNrs
-         R62tNVjSMRGCtqoUrS+EShG/6wRCMFKmHB6u41/I3azG6b4V4Dh7ScLC22fAA8Me/oAm
-         wU3g==
+        b=mTzETiOZjOV99GqCEoQf8LN5EdpGnaaa6ATcB+VPVPd+p+gi6/IAI4W54BEihM0KLP
+         ngFeJ/NHQnYNlud+Ri/epDV2LobVCGorJAnrSl66AZaavvwGauN3tuH9YoeaflF9NV4Q
+         MWCryKPkkkiO/vvTKrncRdtOJW60HCZyJoe080i0W2SjTAijPuUNCZDhH55wpH2DQeFa
+         DTjhv1zWJdx865pP/HZ2lTSxUCnOKUXK2TCNkJytbrlmzos3KrdPmSjQf2MKoBKmauwa
+         Wq/Ceu876L12Bsq0j8aNSqvy0wWKsvmh3Fb0mddOPSRCMc//WGwwilaWtFYDZrEX+WGJ
+         HSig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=GmsQwEX2uB9xEmzG477By7AeVK+QOhZz+3Yr2KCPFgw=;
+        bh=bIcfdnuUCbQOOB+XHi4o+OLT8DZkVqX+ywLCC563uKQ=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=fIIeCo543dMZqmxG1O2eD3D5vpWedwmMJc/KtrCQlo6I13gbAyoCb9JKLR5JWnUMm6
-         joQrDAJ4OrzB7UlbzahOxVqduufCCYb8S62hrqibVtMQluL4IU54iS/4NJKDj8QXrcbJ
-         HiB7kMQ3scciKQDlCU5Cfv0B1xMe8kUoD5dd6NtG3Y6/9vkoegeYxC7u1fbQA1DfrCJ+
-         /IUf+L4p3a1tWeSelncBFEkrT991nbnTNfAvCc9TYZqPGEx7S+436oBBYhcbZoZ7YAah
-         tbgzpll9sO3xdv9+HQoFaiTh1Z1Vz+v+a5zrhLQ3xEp1cjCSt+Y6EJdjrdzYRjmd3Xdy
-         1NMw==
+        b=js+FWsWaRsxE8rK+Ug84fJMPyeH7I3NUIqm1wBAcEBhQOHsGZ9tdZDXdLcEnsQz+ZE
+         Bfb/Qfz+iCmQspyYGgicwtwRm5hOWFCgdT1/RIDXTH5OTUtvryDbIfwXnkewyjAVWJ70
+         xq3Z4ING4FjBDlE/lz07zahqLksKHCGqtZKyhfHAMOmgTc+MuHHuwNEVOyzYU3XvB8Jw
+         13HiGdpkLa3MOXGRA9vC1hQcjScl+/kzCDDPtJztjMZfZ9zPvEyqKh7R3G7H6bgVw57y
+         QuIrnocL4mQlNN2HC0PasJyUXNA1QWn26IKM6Y/jpze5Qby4jOHgDPgWmMJbB6OV/3Xj
+         GKdA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.81])
-        by mx.google.com with ESMTPS id f16-20020a05620a409000b00773b364bd64si2465140qko.391.2023.11.17.13.16.18
+       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [205.139.110.61])
+        by mx.google.com with ESMTPS id ho19-20020a056102397300b0045479276f70si606837vsb.195.2023.11.17.13.16.21
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:16:18 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-437-T46V3umNOyeL18h0VHRWfA-1; Fri,
- 17 Nov 2023 16:16:16 -0500
-X-MC-Unique: T46V3umNOyeL18h0VHRWfA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+        Fri, 17 Nov 2023 13:16:21 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-454-XXg40Ih_O5iFaDlXfvtJ3Q-1; Fri, 17 Nov 2023 16:16:20 -0500
+X-MC-Unique: XXg40Ih_O5iFaDlXfvtJ3Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 549AF28040B9
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC7CF8527A5
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 512182026D68; Fri, 17 Nov 2023 21:16:16 +0000 (UTC)
+	id B825F40C6EBD; Fri, 17 Nov 2023 21:16:19 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B04812026D4C;
-	Fri, 17 Nov 2023 21:16:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 220B540C6EB9;
+	Fri, 17 Nov 2023 21:16:17 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,19 +120,19 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 08/51] netfs: Add iov_iters to (sub)requests to describe various buffers
-Date: Fri, 17 Nov 2023 21:15:00 +0000
-Message-ID: <20231117211544.1740466-9-dhowells@redhat.com>
+Subject: [PATCH v2 09/51] netfs: Add support for DIO buffering
+Date: Fri, 17 Nov 2023 21:15:01 +0000
+Message-ID: <20231117211544.1740466-10-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
+ domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -144,28 +144,19 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Add three iov_iter structs:
+Add a bvec array pointer and an iterator to netfs_io_request for either
+holding a copy of a DIO iterator or a list of all the bits of buffer
+pointed to by a DIO iterator.
 
- (1) Add an iov_iter (->iter) to the I/O request to describe the
-     unencrypted-side buffer.
+There are two problems:  Firstly, if an iovec-class iov_iter is passed to
+->read_iter() or ->write_iter(), this cannot be passed directly to
+kernel_sendmsg() or kernel_recvmsg() as that may cause locking recursion if
+a fault is generated, so we need to keep track of the pages involved
+separately.
 
- (2) Add an iov_iter (->io_iter) to the I/O request to describe the
-     encrypted-side I/O buffer.  This may be a different size to the buffer
-     in (1).
-
- (3) Add an iov_iter (->io_iter) to the I/O subrequest to describe the part
-     of the I/O buffer for that subrequest.
-
-This will allow future patches to point to a bounce buffer instead for
-purposes of handling oversize writes, decryption (where we want to save the
-encrypted data to the cache) and decompression.
-
-These iov_iters persist for the lifetime of the (sub)request, and so can be
-accessed multiple times without worrying about them being deallocated upon
-return to the caller.
-
-The network filesystem must appropriately advance the iterator before
-terminating the request.
+Secondly, if the I/O is asynchronous, we must copy the iov_iter describing
+the buffer before returning to the caller as it may be immediately
+deallocated.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -173,257 +164,60 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/afs/file.c            |  6 +---
- fs/netfs/buffered_read.c | 13 ++++++++
- fs/netfs/io.c            | 69 +++++++++++++++++++++++++++++-----------
- include/linux/netfs.h    |  3 ++
- 4 files changed, 67 insertions(+), 24 deletions(-)
+ fs/netfs/objects.c    | 10 ++++++++++
+ include/linux/netfs.h |  4 ++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/fs/afs/file.c b/fs/afs/file.c
-index 3fea5cd8ef13..a7658fb2d7dc 100644
---- a/fs/afs/file.c
-+++ b/fs/afs/file.c
-@@ -323,11 +323,7 @@ static void afs_issue_read(struct netfs_io_subrequest *subreq)
- 	fsreq->len	= subreq->len   - subreq->transferred;
- 	fsreq->key	= key_get(subreq->rreq->netfs_priv);
- 	fsreq->vnode	= vnode;
--	fsreq->iter	= &fsreq->def_iter;
--
--	iov_iter_xarray(&fsreq->def_iter, ITER_DEST,
--			&fsreq->vnode->netfs.inode.i_mapping->i_pages,
--			fsreq->pos, fsreq->len);
-+	fsreq->iter	= &subreq->io_iter;
- 
- 	afs_fetch_data(fsreq->vnode, fsreq);
- 	afs_put_read(fsreq);
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index a2852fa64ad0..3b7eb706f2fe 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -206,6 +206,10 @@ void netfs_readahead(struct readahead_control *ractl)
- 
- 	netfs_rreq_expand(rreq, ractl);
- 
-+	/* Set up the output buffer */
-+	iov_iter_xarray(&rreq->iter, ITER_DEST, &ractl->mapping->i_pages,
-+			rreq->start, rreq->len);
-+
- 	/* Drop the refs on the folios here rather than in the cache or
- 	 * filesystem.  The locks will be dropped in netfs_rreq_unlock().
- 	 */
-@@ -258,6 +262,11 @@ int netfs_read_folio(struct file *file, struct folio *folio)
- 
- 	netfs_stat(&netfs_n_rh_readpage);
- 	trace_netfs_read(rreq, rreq->start, rreq->len, netfs_read_trace_readpage);
-+
-+	/* Set up the output buffer */
-+	iov_iter_xarray(&rreq->iter, ITER_DEST, &mapping->i_pages,
-+			rreq->start, rreq->len);
-+
- 	return netfs_begin_read(rreq, true);
- 
- discard:
-@@ -415,6 +424,10 @@ int netfs_write_begin(struct netfs_inode *ctx,
- 	ractl._nr_pages = folio_nr_pages(folio);
- 	netfs_rreq_expand(rreq, &ractl);
- 
-+	/* Set up the output buffer */
-+	iov_iter_xarray(&rreq->iter, ITER_DEST, &mapping->i_pages,
-+			rreq->start, rreq->len);
-+
- 	/* We hold the folio locks, so we can drop the references */
- 	folio_get(folio);
- 	while (readahead_folio(&ractl))
-diff --git a/fs/netfs/io.c b/fs/netfs/io.c
-index 7f753380e047..e9d408e211b8 100644
---- a/fs/netfs/io.c
-+++ b/fs/netfs/io.c
-@@ -21,12 +21,7 @@
-  */
- static void netfs_clear_unread(struct netfs_io_subrequest *subreq)
+diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
+index 1bd20bdad983..4df5e5eeada6 100644
+--- a/fs/netfs/objects.c
++++ b/fs/netfs/objects.c
+@@ -76,6 +76,7 @@ static void netfs_free_request(struct work_struct *work)
  {
--	struct iov_iter iter;
--
--	iov_iter_xarray(&iter, ITER_DEST, &subreq->rreq->mapping->i_pages,
--			subreq->start + subreq->transferred,
--			subreq->len   - subreq->transferred);
--	iov_iter_zero(iov_iter_count(&iter), &iter);
-+	iov_iter_zero(iov_iter_count(&subreq->io_iter), &subreq->io_iter);
- }
+ 	struct netfs_io_request *rreq =
+ 		container_of(work, struct netfs_io_request, work);
++	unsigned int i;
  
- static void netfs_cache_read_terminated(void *priv, ssize_t transferred_or_error,
-@@ -46,14 +41,9 @@ static void netfs_read_from_cache(struct netfs_io_request *rreq,
- 				  enum netfs_read_from_hole read_hole)
- {
- 	struct netfs_cache_resources *cres = &rreq->cache_resources;
--	struct iov_iter iter;
- 
- 	netfs_stat(&netfs_n_rh_read);
--	iov_iter_xarray(&iter, ITER_DEST, &rreq->mapping->i_pages,
--			subreq->start + subreq->transferred,
--			subreq->len   - subreq->transferred);
--
--	cres->ops->read(cres, subreq->start, &iter, read_hole,
-+	cres->ops->read(cres, subreq->start, &subreq->io_iter, read_hole,
- 			netfs_cache_read_terminated, subreq);
- }
- 
-@@ -88,6 +78,11 @@ static void netfs_read_from_server(struct netfs_io_request *rreq,
- 				   struct netfs_io_subrequest *subreq)
- {
- 	netfs_stat(&netfs_n_rh_download);
-+	if (iov_iter_count(&subreq->io_iter) != subreq->len - subreq->transferred)
-+		pr_warn("R=%08x[%u] ITER PRE-MISMATCH %zx != %zx-%zx %lx\n",
-+			rreq->debug_id, subreq->debug_index,
-+			iov_iter_count(&subreq->io_iter), subreq->len,
-+			subreq->transferred, subreq->flags);
- 	rreq->netfs_ops->issue_read(subreq);
- }
- 
-@@ -259,6 +254,30 @@ static void netfs_rreq_short_read(struct netfs_io_request *rreq,
- 		netfs_read_from_server(rreq, subreq);
- }
- 
-+/*
-+ * Reset the subrequest iterator prior to resubmission.
-+ */
-+static void netfs_reset_subreq_iter(struct netfs_io_request *rreq,
-+				    struct netfs_io_subrequest *subreq)
-+{
-+	size_t remaining = subreq->len - subreq->transferred;
-+	size_t count = iov_iter_count(&subreq->io_iter);
-+
-+	if (count == remaining)
-+		return;
-+
-+	_debug("R=%08x[%u] ITER RESUB-MISMATCH %zx != %zx-%zx-%llx %x\n",
-+	       rreq->debug_id, subreq->debug_index,
-+	       iov_iter_count(&subreq->io_iter), subreq->transferred,
-+	       subreq->len, rreq->i_size,
-+	       subreq->io_iter.iter_type);
-+
-+	if (count < remaining)
-+		iov_iter_revert(&subreq->io_iter, remaining - count);
-+	else
-+		iov_iter_advance(&subreq->io_iter, count - remaining);
-+}
-+
- /*
-  * Resubmit any short or failed operations.  Returns true if we got the rreq
-  * ref back.
-@@ -287,6 +306,7 @@ static bool netfs_rreq_perform_resubmissions(struct netfs_io_request *rreq)
- 			trace_netfs_sreq(subreq, netfs_sreq_trace_download_instead);
- 			netfs_get_subrequest(subreq, netfs_sreq_trace_get_resubmit);
- 			atomic_inc(&rreq->nr_outstanding);
-+			netfs_reset_subreq_iter(rreq, subreq);
- 			netfs_read_from_server(rreq, subreq);
- 		} else if (test_bit(NETFS_SREQ_SHORT_IO, &subreq->flags)) {
- 			netfs_rreq_short_read(rreq, subreq);
-@@ -399,9 +419,9 @@ void netfs_subreq_terminated(struct netfs_io_subrequest *subreq,
- 	struct netfs_io_request *rreq = subreq->rreq;
- 	int u;
- 
--	_enter("[%u]{%llx,%lx},%zd",
--	       subreq->debug_index, subreq->start, subreq->flags,
--	       transferred_or_error);
-+	_enter("R=%x[%x]{%llx,%lx},%zd",
-+	       rreq->debug_id, subreq->debug_index,
-+	       subreq->start, subreq->flags, transferred_or_error);
- 
- 	switch (subreq->source) {
- 	case NETFS_READ_FROM_CACHE:
-@@ -501,7 +521,8 @@ static enum netfs_io_source netfs_cache_prepare_read(struct netfs_io_subrequest
-  */
- static enum netfs_io_source
- netfs_rreq_prepare_read(struct netfs_io_request *rreq,
--			struct netfs_io_subrequest *subreq)
-+			struct netfs_io_subrequest *subreq,
-+			struct iov_iter *io_iter)
- {
- 	enum netfs_io_source source;
- 
-@@ -528,9 +549,14 @@ netfs_rreq_prepare_read(struct netfs_io_request *rreq,
- 		}
- 	}
- 
--	if (WARN_ON(subreq->len == 0))
-+	if (WARN_ON(subreq->len == 0)) {
- 		source = NETFS_INVALID_READ;
-+		goto out;
+ 	trace_netfs_rreq(rreq, netfs_rreq_trace_free);
+ 	netfs_proc_del_rreq(rreq);
+@@ -84,6 +85,15 @@ static void netfs_free_request(struct work_struct *work)
+ 		rreq->netfs_ops->free_request(rreq);
+ 	if (rreq->cache_resources.ops)
+ 		rreq->cache_resources.ops->end_operation(&rreq->cache_resources);
++	if (rreq->direct_bv) {
++		for (i = 0; i < rreq->direct_bv_count; i++) {
++			if (rreq->direct_bv[i].bv_page) {
++				if (rreq->direct_bv_unpin)
++					unpin_user_page(rreq->direct_bv[i].bv_page);
++			}
++		}
++		kvfree(rreq->direct_bv);
 +	}
- 
-+	subreq->io_iter = *io_iter;
-+	iov_iter_truncate(&subreq->io_iter, subreq->len);
-+	iov_iter_advance(io_iter, subreq->len);
- out:
- 	subreq->source = source;
- 	trace_netfs_sreq(subreq, netfs_sreq_trace_prepare);
-@@ -541,6 +567,7 @@ netfs_rreq_prepare_read(struct netfs_io_request *rreq,
-  * Slice off a piece of a read request and submit an I/O request for it.
-  */
- static bool netfs_rreq_submit_slice(struct netfs_io_request *rreq,
-+				    struct iov_iter *io_iter,
- 				    unsigned int *_debug_index)
- {
- 	struct netfs_io_subrequest *subreq;
-@@ -565,7 +592,7 @@ static bool netfs_rreq_submit_slice(struct netfs_io_request *rreq,
- 	 * (the starts must coincide), in which case, we go around the loop
- 	 * again and ask it to download the next piece.
- 	 */
--	source = netfs_rreq_prepare_read(rreq, subreq);
-+	source = netfs_rreq_prepare_read(rreq, subreq, io_iter);
- 	if (source == NETFS_INVALID_READ)
- 		goto subreq_failed;
- 
-@@ -603,6 +630,7 @@ static bool netfs_rreq_submit_slice(struct netfs_io_request *rreq,
-  */
- int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- {
-+	struct iov_iter io_iter;
- 	unsigned int debug_index = 0;
- 	int ret;
- 
-@@ -615,6 +643,8 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 		return -EIO;
- 	}
- 
-+	rreq->io_iter = rreq->iter;
-+
- 	INIT_WORK(&rreq->work, netfs_rreq_work);
- 
- 	if (sync)
-@@ -624,8 +654,9 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 	 * want and submit each one.
- 	 */
- 	atomic_set(&rreq->nr_outstanding, 1);
-+	io_iter = rreq->io_iter;
- 	do {
--		if (!netfs_rreq_submit_slice(rreq, &debug_index))
-+		if (!netfs_rreq_submit_slice(rreq, &io_iter, &debug_index))
- 			break;
- 
- 	} while (rreq->submitted < rreq->len);
+ 	kfree_rcu(rreq, rcu);
+ 	netfs_stat_d(&netfs_n_rh_rreq);
+ }
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 18e3d8b53646..48868b3e4d51 100644
+index 48868b3e4d51..6d820a860052 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -152,6 +152,7 @@ struct netfs_cache_resources {
- struct netfs_io_subrequest {
- 	struct netfs_io_request *rreq;		/* Supervising I/O request */
- 	struct list_head	rreq_link;	/* Link in rreq->subrequests */
-+	struct iov_iter		io_iter;	/* Iterator for this subrequest */
- 	loff_t			start;		/* Where to start the I/O */
- 	size_t			len;		/* Size of the I/O */
- 	size_t			transferred;	/* Amount of data transferred */
-@@ -188,6 +189,8 @@ struct netfs_io_request {
- 	struct netfs_cache_resources cache_resources;
- 	struct list_head	proc_link;	/* Link in netfs_iorequests */
- 	struct list_head	subrequests;	/* Contributory I/O operations */
-+	struct iov_iter		iter;		/* Unencrypted-side iterator */
-+	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
+@@ -192,6 +192,9 @@ struct netfs_io_request {
+ 	struct iov_iter		iter;		/* Unencrypted-side iterator */
+ 	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
  	void			*netfs_priv;	/* Private data for the netfs */
++	struct bio_vec		*direct_bv	/* DIO buffer list (when handling iovec-iter) */
++	__counted_by(direct_bv_count);
++	unsigned int		direct_bv_count; /* Number of elements in direct_bv[] */
  	unsigned int		debug_id;
  	atomic_t		nr_outstanding;	/* Number of ops in progress */
+ 	atomic_t		nr_copy_ops;	/* Number of copy-to-cache ops in progress */
+@@ -199,6 +202,7 @@ struct netfs_io_request {
+ 	size_t			len;		/* Length of the request */
+ 	short			error;		/* 0 or error that occurred */
+ 	enum netfs_io_origin	origin;		/* Origin of the request */
++	bool			direct_bv_unpin; /* T if direct_bv[] must be unpinned */
+ 	loff_t			i_size;		/* Size of the file */
+ 	loff_t			start;		/* Start position */
+ 	pgoff_t			no_unlock_folio; /* Don't unlock this folio after read */
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
