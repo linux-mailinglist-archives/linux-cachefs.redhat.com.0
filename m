@@ -1,103 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBLFQ36VAMGQEZGCM52A@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBL5Q36VAMGQEJEESYQY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8E67EF96F
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:30 +0100 (CET)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-587a58f3346sf2320908eaf.1
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:29 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255789; cv=pass;
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA1787EF974
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:32 +0100 (CET)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-66d24cdf232sf28326446d6.1
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:32 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255792; cv=pass;
         d=google.com; s=arc-20160816;
-        b=edr2JRNNarx7xx/iKO+G7KpBv8eipDqv9lb9n/s3YQIPOyRG7H+UbL1sXwJ4ElbyZ3
-         9ooWaMwMZl5P8jSJXnRPLHqdLCtFX9zLgO3lXJ49UY9fWed3G11KzBxCM25FOIjNNIVz
-         dtFCAU8D3mLxkScPSmbjDHlLVzfra0bn2dSGi+iZW4/RWgOLSyC2AAH0ZxDwzw7BxN2D
-         FRbyx8wkGLGiY9NYFUbjcszXocU22BDLSME1iTBgDPrmch1FLL7qpPmE7FgR6xPZICTJ
-         GExY24wqUw7Wsy44vGJ71coEjaGU4M3eIqtOLRB6IYC1TyuFOv5eFc0CYLQycMHg0Aim
-         X7Sg==
+        b=I0noM+0FH9fhRM3ka97XWGgcs2N40ZoUtft1kHWSRSQw61GgfaNZ4vEIU5mPyLSlRH
+         D5yCpFt+VqhNztNIUK1PpdrYplhYI7ZuhNf1gdt8hVngFpqvCCDUMVz2dnjq9zzrALXF
+         DkRP8kCTXNy0hGmH7bpt1bINTgXUbYlTzvJIYHxf+xT0c06k8aLkz3VSWp2LFB7COriv
+         ykwyuw1P3SxZX7oIu5au76mBDV8xAJ9B+zDFFl0HaEobHy1dPVUac4gtDcfQmhrjfv3Q
+         c2ZYkaYykyFi3q2UEdFqQ/XpWn0q6v4AKwTSPxkcgxNu+PbCNRelqi6XEfdubevkTlL+
+         sLWA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=TZRxaVe0GiQo1j4RDU1vJkJsVvALLkKumQXA1hH61o8=;
+        bh=gcitzqcuFS7mi6srEqTPsVpb8qY+ugAHkY/axBynZlo=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=e/LmhKXAkocWHGWYB8pZbFgs+FAphdSPOnnGpdy/I+BKl+tOur9m3ViXtK1i5eaojU
-         3Vi42orxKmvMwKo5IngFgUcq39aG+wEhyLLC1Va/T0xrXBuXR3ReKgtNhynl6dPXC+38
-         hTIgHj7JA7b1shyVotZ1wenzBID/1ZHVmJby5UNtaTCJtR2d9SjhTb6Xnug9Q2fMBFvw
-         rs3e5YRQ4gX9jSyORN6/KnKd16l/adEN4h3cPmH/FOHgL+JFQNhBdDXbmgtkv5WcKEpK
-         pZriKGCHyYqzm/4yVvCc7vw9It8xFI3bGeMORNQbXKVmvA50Ts+15MNZm4X2M5oqAyG+
-         0qKw==
+        b=XLKet7kv5ngGrm06+5oSMAFMpygeSLuVRzndQ+aGMjnzBH6hXY+PWwIdE3+adw+4kC
+         PdnYLxHuK3yw9l4ZUWRfGa2lYBCbY5rEvpMDAlCAwmx9kO7aZ6HJvuz7x0Sey8q3dSmF
+         Nf4u6dWXKX1uL2HB7VibWiHINNA5epp8DGzffwAOlniuAVKvbyRLkNOyWdPpvGEpf6ed
+         9GpPhItDcrbf34YO8eMK1xA6AwQX8NMESBFGMvtapSBjMSDZDAIj9lsZW1WiItSwv6C9
+         duvVNv0mq7ZMcZa/pgGgRDZPyOoWaUJVEwvtYOr2bC73mtEKbN79zBQ26X7NfDMU3wIF
+         6DjA==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255789; x=1700860589;
+        d=1e100.net; s=20230601; t=1700255792; x=1700860592;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TZRxaVe0GiQo1j4RDU1vJkJsVvALLkKumQXA1hH61o8=;
-        b=JxfBTsT9jJ13tHeWqKRPdNj9FUrdhKR+w5r6I9KZpMAzPknodiE8YtFwBKqqabU3/w
-         wBoImdKGAI+M13HL/8YX56e6W7v1GQgvtHs9qwdIKCOp0eSP9znXGeO9+wWJgLhLt2yF
-         vBn/trz/l8df0bvc/cjXONrINShfPWJ1BSFLkTWRsw/dZyb0arUQxTNWImZyTFsL/KuR
-         45OVZvcScyL8G9SXg7O+bdDxS9qYaB4AhGQH5s+5uZccZkf6eK0dr5WMHMFyUNbr8Lqo
-         FXLz+LzhWsfXnIymUCem5FRc1AWDvr6EXS4FYCiB5xRsyo/Tt2TqcGBIUPr7rIP/T+w2
-         yUSg==
-X-Gm-Message-State: AOJu0YxlzXK3WDEqxVy5yMJ30KvmFsYeC9WAg+cW8gRNHsJA4ik9RwGw
-	UoRgL9VlWQ+Sjl7zbKSu/AnZjw==
-X-Google-Smtp-Source: AGHT+IEe03btXEhsy4dRf1hNIIq8/yUvkKjJ4yLH3j6FneomSG0UxQxJkLcmbGuw3j+6RLqCOe7EkQ==
-X-Received: by 2002:a05:6820:552:b0:57b:c983:bce9 with SMTP id n18-20020a056820055200b0057bc983bce9mr930247ooj.8.1700255788963;
-        Fri, 17 Nov 2023 13:16:28 -0800 (PST)
+        bh=gcitzqcuFS7mi6srEqTPsVpb8qY+ugAHkY/axBynZlo=;
+        b=eo3gHgClfOgq3lMQPtWGffzRQFM1CXLtO0IBKKsuqAqRQhlSmTTyFwC549S4FnE5eG
+         LgqeYVUl29sT/hDl6FRkfCB0fSz7ZODTrKR5J86SO8rJuCulXx6k3gnbPmiYRkDOqunN
+         t9DH1GDcJ+fRP/V0ruJP0WZEMq1zL7yCodlRlPZIwZugCjJJwdnaUCSdlq9Boy8FWVCI
+         J5d3DZ+h01R01/DdNWSuw4B3nf1Or26lgaVUKwjDIlx298m6YJ9dZkkl7qm8GCKwmmMm
+         jFycAADwkTL/jkydbPbbOWRUbQOr06gSb0sQ9Ca8U1mdOWFx/VDM99M+eWSRz92iwuBu
+         4Law==
+X-Gm-Message-State: AOJu0YyVYxa+iRnej4Zi5gvQoXFc5hUegtreSjR16m9TJR78vPxb8pbC
+	7xcHS2od8ia/tXB9E/p2epcHyQ==
+X-Google-Smtp-Source: AGHT+IHhK3fFDpWKBU8CMVrYi+UtJeAfRzfkjCsUE3bR+svqlt5fySUMohWi2tBV0n3+7hRyXcHPOg==
+X-Received: by 2002:a05:6214:5294:b0:66d:50a6:da72 with SMTP id kj20-20020a056214529400b0066d50a6da72mr303871qvb.26.1700255791955;
+        Fri, 17 Nov 2023 13:16:31 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6820:b87:b0:587:a4ff:5f8d with SMTP id
- eg7-20020a0568200b8700b00587a4ff5f8dls1958571oob.0.-pod-prod-04-us; Fri, 17
- Nov 2023 13:16:28 -0800 (PST)
-X-Received: by 2002:a05:6830:39ea:b0:6d3:14dc:823e with SMTP id bt42-20020a05683039ea00b006d314dc823emr405605otb.11.1700255788243;
-        Fri, 17 Nov 2023 13:16:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255788; cv=none;
+Received: by 2002:ad4:4c02:0:b0:65b:1c2b:3bb0 with SMTP id bz2-20020ad44c02000000b0065b1c2b3bb0ls898029qvb.2.-pod-prod-06-us;
+ Fri, 17 Nov 2023 13:16:31 -0800 (PST)
+X-Received: by 2002:a05:6214:5294:b0:66d:50a6:da72 with SMTP id kj20-20020a056214529400b0066d50a6da72mr303855qvb.26.1700255791460;
+        Fri, 17 Nov 2023 13:16:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255791; cv=none;
         d=google.com; s=arc-20160816;
-        b=WqmoCAzDv6lVoyb9cm/Z07mNX0qzb1jDcspXI03TDZfZEctD04ZbCE1dPQ/FqFLaUP
-         Vc3lOTLREikAGFQsQVzioxhyBwdVqLRheIYnP/ZiN1CMM+MJVm1VAOiNdBerj0JzXLLI
-         EyzW4yQGeMh3x22aazTmVBIRiCZRVzREoi9avxW4itubDpxW0tOinICNQC/zmmEPA9H2
-         Aqi0z2udiKhU3jnN9e3ZGFoBRAk7HYaZPg0NKZLaPN1PoeIYl7yFnBlmV6aMYPjhPuTE
-         2u/Zp5MQiw5vkECyNBoTpWlfXQeMfhGg2KPDStPoJdXQMc9f1qfnY3+pUYj9qqqiD5Gm
-         kLVg==
+        b=FP0MkxjlQPrOpKJwVfcoSj3zQ0iDoBL6/9hdS3YSdcwyliznqxi9A5Kur64C7sMP6U
+         jF12UkTqoZ+gvDiKdR7We9/6uM8tAQsBL1Q4AZmbF7bSA8ZOPSUAZSI9dPS6pQ53EIfk
+         tKcenHhyowUbaYc8mhlStt/esyB3jMOQbDJusZ7qxIJXr3JdpEWwuWvBaBRMZiuoyPb1
+         9bIm0Qjmfueh/oBuXWtXPRvWySe8wWKIKc6aUFgGrGhS96Ap3iSOpvY+AZr/MCYV5uIC
+         HdoPg6mEX6hBtfgZ/qa1O7nBiXs8JNvIML3vFIZZk3yE6fhbJGRWMIPyn5RX8ki6KLgn
+         xO5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=k3JiidRzkKBvkLp798rxmXLVnzVJoyLEMATfdNMMsEo=;
+        bh=a+cTmaciv8sFXDtNEzB6xtMwFyjcuJcgPFS5oMA9nmQ=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=pHEW4IXQTPU3csi3M+nNleIsty+TDniWQo3LTi4b3ZNo3lhoEAp4s/ogsatCSyBFoS
-         Y0rbYh3W6Ub/sm8PzM0Oo9sWO7V8oPpsmTOFPVMVHHHOHa3GEp+bJe1LI44pEePCmUKU
-         EO6KoyXO/RkLOkfsFjYv6jAO14cPVW8/SL7IRR3iMqc953Z8Um+lhmHZnwuEnU3U4zFF
-         I5515nGky5AvmP1uHv5BmfXJyrbMY1vD9J+k3OwMKHocJRc6lAnNqM8973urFdYgX/Y1
-         Kkax0wvIupNty4Hk0tUziN05wERnAPqRNVhAXWpJICicntcYxzrRzNs5bYV75exeJdUG
-         MSzg==
+        b=wOs35qg4OuEof3g6BMA68/kr/JQiYfLYTZDx2UlyGC0HnlxLuhkPgwVcSoAKynp1wc
+         jbqfiJOo4xVfilRfd6L2ODCtHCgwq470ntf1KQlTAfo5s1r6MIo0HaPWV3GSogFk0XKx
+         y3VCMGTZKsFJ73YgRoOrcS5myhdneODBbjj3nr1lEwmb8ZhzCRL1cfjzR1vEstCMc+ik
+         Y5wdnKVz+nWBfC1S2hQWhAKj9sQ63Kawuakmn6HpwNKw2BJUEyDMpKAOZhZc8LuAp/Po
+         XMgFnJElG/VEFLl3XXw6AC96KW93RevV2CkpbCWeTtS47o3FnRuH7kabHKsfi9GIL5O0
+         DXrA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id dk4-20020a056214092400b006709ee177f3si2315040qvb.231.2023.11.17.13.16.28
+       spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id e15-20020a0cd64f000000b0066d28ec81edsi2353447qvj.36.2023.11.17.13.16.31
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:16:28 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
+        Fri, 17 Nov 2023 13:16:31 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-228-c5RD3WGoNyWK8XxcXhqhgg-1; Fri,
- 17 Nov 2023 16:16:26 -0500
-X-MC-Unique: c5RD3WGoNyWK8XxcXhqhgg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-543-XUni20EDNauOhNzVvNcWnA-1; Fri,
+ 17 Nov 2023 16:16:30 -0500
+X-MC-Unique: XUni20EDNauOhNzVvNcWnA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CB5D3821354
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C08D5382135C
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:29 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7705BC15885; Fri, 17 Nov 2023 21:16:26 +0000 (UTC)
+	id BC57E1121308; Fri, 17 Nov 2023 21:16:29 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE580C15881;
-	Fri, 17 Nov 2023 21:16:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 267A61121306;
+	Fri, 17 Nov 2023 21:16:27 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,19 +119,19 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 11/51] netfs: Add bounce buffering support
-Date: Fri, 17 Nov 2023 21:15:03 +0000
-Message-ID: <20231117211544.1740466-12-dhowells@redhat.com>
+Subject: [PATCH v2 12/51] netfs: Add func to calculate pagecount/size-limited span of an iterator
+Date: Fri, 17 Nov 2023 21:15:04 +0000
+Message-ID: <20231117211544.1740466-13-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+ domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -144,9 +143,10 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Add a second xarray struct to netfs_io_request for the purposes of holding
-a bounce buffer for when we have to deal with encrypted/compressed data or
-if we have to up/download data in blocks larger than we were asked for.
+Add a function to work out how much of an ITER_BVEC or ITER_XARRAY iterator
+we can use in a pagecount-limited and size-limited span.  This will be
+used, for example, to limit the number of segments in a subrequest to the
+maximum number of elements that an RDMA transfer can handle.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -154,75 +154,128 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/io.c         | 6 +++++-
- fs/netfs/objects.c    | 3 +++
- include/linux/netfs.h | 2 ++
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ fs/netfs/iterator.c   | 97 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h |  2 +
+ 2 files changed, 99 insertions(+)
 
-diff --git a/fs/netfs/io.c b/fs/netfs/io.c
-index e9d408e211b8..d8e9cd6ce338 100644
---- a/fs/netfs/io.c
-+++ b/fs/netfs/io.c
-@@ -643,7 +643,11 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 		return -EIO;
- 	}
- 
--	rreq->io_iter = rreq->iter;
-+	if (test_bit(NETFS_RREQ_USE_BOUNCE_BUFFER, &rreq->flags))
-+		iov_iter_xarray(&rreq->io_iter, ITER_DEST, &rreq->bounce,
-+				rreq->start, rreq->len);
-+	else
-+		rreq->io_iter = rreq->iter;
- 
- 	INIT_WORK(&rreq->work, netfs_rreq_work);
- 
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 4df5e5eeada6..9f3f33c93317 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -35,12 +35,14 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 	rreq->inode	= inode;
- 	rreq->i_size	= i_size_read(inode);
- 	rreq->debug_id	= atomic_inc_return(&debug_ids);
-+	xa_init(&rreq->bounce);
- 	INIT_LIST_HEAD(&rreq->subrequests);
- 	refcount_set(&rreq->ref, 1);
- 	__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
- 	if (rreq->netfs_ops->init_request) {
- 		ret = rreq->netfs_ops->init_request(rreq, file);
- 		if (ret < 0) {
-+			xa_destroy(&rreq->bounce);
- 			kfree(rreq);
- 			return ERR_PTR(ret);
- 		}
-@@ -94,6 +96,7 @@ static void netfs_free_request(struct work_struct *work)
- 		}
- 		kvfree(rreq->direct_bv);
- 	}
-+	netfs_clear_buffer(&rreq->bounce);
- 	kfree_rcu(rreq, rcu);
- 	netfs_stat_d(&netfs_n_rh_rreq);
+diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
+index 2ff07ba655a0..b781bbbf1d8d 100644
+--- a/fs/netfs/iterator.c
++++ b/fs/netfs/iterator.c
+@@ -101,3 +101,100 @@ ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+ 	return npages;
  }
+ EXPORT_SYMBOL_GPL(netfs_extract_user_iter);
++
++/*
++ * Select the span of a bvec iterator we're going to use.  Limit it by both maximum
++ * size and maximum number of segments.  Returns the size of the span in bytes.
++ */
++static size_t netfs_limit_bvec(const struct iov_iter *iter, size_t start_offset,
++			       size_t max_size, size_t max_segs)
++{
++	const struct bio_vec *bvecs = iter->bvec;
++	unsigned int nbv = iter->nr_segs, ix = 0, nsegs = 0;
++	size_t len, span = 0, n = iter->count;
++	size_t skip = iter->iov_offset + start_offset;
++
++	if (WARN_ON(!iov_iter_is_bvec(iter)) ||
++	    WARN_ON(start_offset > n) ||
++	    n == 0)
++		return 0;
++
++	while (n && ix < nbv && skip) {
++		len = bvecs[ix].bv_len;
++		if (skip < len)
++			break;
++		skip -= len;
++		n -= len;
++		ix++;
++	}
++
++	while (n && ix < nbv) {
++		len = min3(n, bvecs[ix].bv_len - skip, max_size);
++		span += len;
++		nsegs++;
++		ix++;
++		if (span >= max_size || nsegs >= max_segs)
++			break;
++		skip = 0;
++		n -= len;
++	}
++
++	return min(span, max_size);
++}
++
++/*
++ * Select the span of an xarray iterator we're going to use.  Limit it by both
++ * maximum size and maximum number of segments.  It is assumed that segments
++ * can be larger than a page in size, provided they're physically contiguous.
++ * Returns the size of the span in bytes.
++ */
++static size_t netfs_limit_xarray(const struct iov_iter *iter, size_t start_offset,
++				 size_t max_size, size_t max_segs)
++{
++	struct folio *folio;
++	unsigned int nsegs = 0;
++	loff_t pos = iter->xarray_start + iter->iov_offset;
++	pgoff_t index = pos / PAGE_SIZE;
++	size_t span = 0, n = iter->count;
++
++	XA_STATE(xas, iter->xarray, index);
++
++	if (WARN_ON(!iov_iter_is_xarray(iter)) ||
++	    WARN_ON(start_offset > n) ||
++	    n == 0)
++		return 0;
++	max_size = min(max_size, n - start_offset);
++
++	rcu_read_lock();
++	xas_for_each(&xas, folio, ULONG_MAX) {
++		size_t offset, flen, len;
++		if (xas_retry(&xas, folio))
++			continue;
++		if (WARN_ON(xa_is_value(folio)))
++			break;
++		if (WARN_ON(folio_test_hugetlb(folio)))
++			break;
++
++		flen = folio_size(folio);
++		offset = offset_in_folio(folio, pos);
++		len = min(max_size, flen - offset);
++		span += len;
++		nsegs++;
++		if (span >= max_size || nsegs >= max_segs)
++			break;
++	}
++
++	rcu_read_unlock();
++	return min(span, max_size);
++}
++
++size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
++			size_t max_size, size_t max_segs)
++{
++	if (iov_iter_is_bvec(iter))
++		return netfs_limit_bvec(iter, start_offset, max_size, max_segs);
++	if (iov_iter_is_xarray(iter))
++		return netfs_limit_xarray(iter, start_offset, max_size, max_segs);
++	BUG();
++}
++EXPORT_SYMBOL(netfs_limit_iter);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 47270f5d9e89..0bc90c4035a2 100644
+index 0bc90c4035a2..cd673596b411 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -196,6 +196,7 @@ struct netfs_io_request {
- 	struct iov_iter		iter;		/* Unencrypted-side iterator */
- 	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
- 	void			*netfs_priv;	/* Private data for the netfs */
-+	struct xarray		bounce;		/* Bounce buffer (eg. for crypto/compression) */
- 	struct bio_vec		*direct_bv	/* DIO buffer list (when handling iovec-iter) */
- 	__counted_by(direct_bv_count);
- 	unsigned int		direct_bv_count; /* Number of elements in direct_bv[] */
-@@ -218,6 +219,7 @@ struct netfs_io_request {
- #define NETFS_RREQ_DONT_UNLOCK_FOLIOS	3	/* Don't unlock the folios on completion */
- #define NETFS_RREQ_FAILED		4	/* The request failed */
- #define NETFS_RREQ_IN_PROGRESS		5	/* Unlocked when the request completes */
-+#define NETFS_RREQ_USE_BOUNCE_BUFFER	6	/* Use bounce buffer */
- 	const struct netfs_request_ops *netfs_ops;
- };
+@@ -326,6 +326,8 @@ void netfs_stats_show(struct seq_file *);
+ ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+ 				struct iov_iter *new,
+ 				iov_iter_extraction_t extraction_flags);
++size_t netfs_limit_iter(const struct iov_iter *iter, size_t start_offset,
++			size_t max_size, size_t max_segs);
  
+ int netfs_start_io_read(struct inode *inode);
+ void netfs_end_io_read(struct inode *inode);
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
