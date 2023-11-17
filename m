@@ -1,103 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBHFQ36VAMGQE3XZMUJQ@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBIFQ36VAMGQEHAEA6WA@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21BB97EF95F
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:14 +0100 (CET)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-58a83a73ce9sf2604180eaf.2
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:14 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255772; cv=pass;
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C51A7EF963
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:17 +0100 (CET)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-6d315cd0e77sf2315240a34.1
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255776; cv=pass;
         d=google.com; s=arc-20160816;
-        b=m73gebFum5bIuFFk865nUVA5kKbFRM2WToxSrTjzj8Jd5zmnM7RSUD2oic6BPHaty8
-         rwXTQWhoctsg5cZjr76DDfD3NyrzJquou7VAn8yFETR6iMWzYmeyja5wvU+1aJTxc0lu
-         YehtmyFuH5BPDPIUxyuNgRq89x1fRUhsQFQzBRIyDkaPuBmHfzZS2PtQjEMomcopcBav
-         Qyqzd+Ezm0ehbFBfQcd4Y/rxx0IvFSmjUWDYE9UzW7nT0LhUchlf8DRzQk1x+4squKUT
-         0ROkf0z48nh9S0lf8LjkPTRyOc7rSJGa22yp3lnELj8Lem03o9Qpx2rk7haFG5VNCSzh
-         /OtQ==
+        b=Ap9CPflbZwzUFdA/m+1uVo+bE+a+PXPvc/MVK101Vye2THCMdJ3nYyAk36Syd5bOKr
+         9Ssr3iIqNF7wdw3h4ls3Ow4IU3Zn6wSntGzRS+cG4vsLKddQUlP8OdFfn37cYS90Yla7
+         gD6wQ3Bcgg+SYvBsgm/7xRufCKaOcspovrD27j0ptnYa30La0cJLjsybqbrv4bPjds/e
+         HY6Q3dBWJrXgH2ICAHL605CjTjC4/2agNy33LqznHS0CwreXUR+ZWBLKML4gOz+lfIQ9
+         FifngxQznmkwD9uRMWEx54deSokYkJa79LB8jOsTe4XFRyOKg8hD2+CLUgRgyQgdlhof
+         gc7g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=BAgw2iSqvzFWtu9ukW51F7W+8GLfHWLy6Y1TSxn3gL0=;
+        bh=aA2LUzKyKCO35vM1EfN3RjRvJnHSnQjcMepFd503HXQ=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=v3SXdJ+izzGDH8Gc5WoCBFpWerzd25oSvDpmOBpJu6Iv/jR6Vl9ka2RwybTnZuSH/F
-         3GOwxZU0yqnfbe98Kxj0OkcVtNdY3vsFkhgxLFsXT6yk/d00I3YBTZeZoMfSYIvPiCAw
-         78fZaHsq/v9n6Z4er0o7LJfBMFr8Wje2tt8D+hz+pQA2WkLwHZbDgd24SyMhvYM2ufgb
-         queK9So8SwJr68IELzn3OuEDAY3Z8O8LcXiNXdujB2doBsxde2B+udTem6HZhxe8kW6G
-         a+bG5a3LHHcQafUojRi4Lbz4+URM+fw5mc5OD+jgSkcX9xPapDFzhfJV/e63eM9+4dwh
-         VzFw==
+        b=W21/IAR4xYQrGsiNEbQNNc0XvApbDwUKO4iMdCqise1adaMRop9qMjuTLa6dFCl3TU
+         4RZ4n4TqGof1leBYStuu/P0Qip2fr1NqpYessIMFWdhahAtX+4lHQFMNt95kSqPX1+8U
+         nBm8TnmmT2WW1eblyBPTWTzZ/XUVkeES6KQim6RXazKxRJFD5/U7i4P0IayXvLykeYXn
+         e7lNooADlzKa8kp/mjGCu9n4D6FsyTHEnbUO5lDGdiXxyQraKX9YLyDlKfj4mLcbbSyy
+         E8/QhtaGMD/uzC5dVwCobe0b06XvbQai4LtgjBI6mGoL7lygaf1we5GVPTnJA/8Yn0W0
+         QbyA==
 ARC-Authentication-Results: i=2; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255772; x=1700860572;
+        d=1e100.net; s=20230601; t=1700255776; x=1700860576;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BAgw2iSqvzFWtu9ukW51F7W+8GLfHWLy6Y1TSxn3gL0=;
-        b=hcpqaBP6jgBa13IK+qYQLbRcWfMX5id3FmcOvOfIXbrj+3FO4I4+6AExKxXmYSdOou
-         A2T0QDfJXx7td5+fp+QGmpeHK0+UrBgTbDc6WZ+2y7Me1VT9xcXb/GyRODhtIyibbNXz
-         iKWBCVgXDFgEpISo2PoYXL22DTsLX/UcI65QrR0gsyymJz57o8iWyY5y+wd1qeA62cSa
-         BPaSDTVdGqpWWodDbW7VPtSOAeRQRfQyk+e3whOyhploZIMF6uWlYK70qGzJq2D2dEX6
-         uiYiXeUti64mC/YUxIPxEeYTG795WCSPHJqN0QuZTpaG/Ov54loaxcbONV3uldDxKfg7
-         WAHQ==
-X-Gm-Message-State: AOJu0YyGL524XJRhAOpr+/jl8ieRLsoLIoAoYShEw08+fPhSJgJUSby1
-	ijDLSCK2FFElltNaCbfiWVJtzg==
-X-Google-Smtp-Source: AGHT+IH4OevxwLdDP7EAH6da8MNjfyDucK0T71oh2ATtzdL3blTdUBrBX8XMO1qTpBokJaOYaxBeSg==
-X-Received: by 2002:a05:6870:b015:b0:1ef:cedd:5c32 with SMTP id y21-20020a056870b01500b001efcedd5c32mr474489oae.3.1700255772657;
-        Fri, 17 Nov 2023 13:16:12 -0800 (PST)
+        bh=aA2LUzKyKCO35vM1EfN3RjRvJnHSnQjcMepFd503HXQ=;
+        b=hHb/cvM7G9VhJRqeIxkY8WndvLi0UnECvVvMSnyqWXiimlNTc78UyAPnagYBxBpmlZ
+         3At8Yi8U0zsqoFs+6kTPYUYhjHlgENSIzwX17gUXd6niHtS9s5puN9ObZ2HI/Hld/M93
+         KnBgLabr4zJnYL5fhigWGSheien9ARwZ7RQ6ozaA4AckedudhiG4vuBVKdCxiabrJrHW
+         URcR4JqARDireABUbjhlMAXOh1OVk/TURntnSfFezlCaff0GGCJ8lWifCmVPLJuAXwne
+         o65rWJdgwJ4cQH3XDd/S+pVX8Rkx/Wq+cP+uHFEWny3w/tgHtel5hA+NbgQEsgPf0/Bd
+         ws9w==
+X-Gm-Message-State: AOJu0YyQRiVdwszmthzjoqvSUpq+3wv3sfjRS7dqwofZLTlH6SUxTkW7
+	B4AjaKe2SGzo5nz+XrbGKY+htA==
+X-Google-Smtp-Source: AGHT+IFuFIm6XpGMlOVLkuJHwtRtITGPQz666se+NyThtToWlX1MGMTR1uO3gfrEYDODWz7RSlxoJg==
+X-Received: by 2002:a05:6830:6b8e:b0:6d3:1982:6f49 with SMTP id dd14-20020a0568306b8e00b006d319826f49mr394460otb.6.1700255776275;
+        Fri, 17 Nov 2023 13:16:16 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:622a:20c:b0:41c:b879:6082 with SMTP id
- b12-20020a05622a020c00b0041cb8796082ls2203203qtx.2.-pod-prod-09-us; Fri, 17
- Nov 2023 13:16:11 -0800 (PST)
-X-Received: by 2002:a05:620a:618f:b0:77b:bdc0:5b96 with SMTP id or15-20020a05620a618f00b0077bbdc05b96mr799070qkn.25.1700255771773;
-        Fri, 17 Nov 2023 13:16:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255771; cv=none;
+Received: by 2002:a0c:e787:0:b0:677:e7da:9886 with SMTP id x7-20020a0ce787000000b00677e7da9886ls669320qvn.2.-pod-prod-05-us;
+ Fri, 17 Nov 2023 13:16:15 -0800 (PST)
+X-Received: by 2002:a05:6214:c83:b0:66d:139f:34cd with SMTP id r3-20020a0562140c8300b0066d139f34cdmr440760qvr.13.1700255775581;
+        Fri, 17 Nov 2023 13:16:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255775; cv=none;
         d=google.com; s=arc-20160816;
-        b=U+S4Fsyf60/EZM+e2mH1OfxGj6AxdH/4sRDjWb4VyD+JtFnAoTQhznsUxETyBl+OJ/
-         1RS2V+BMK6zsc7uCzy6UMINcJV2XhFmmDaJe/yRUBXOp/NgbxJa+h400O087Az96IpPA
-         IPkxU6kLWimOuip41tBKNdSwe+7Z6B2F2N2TebQ7eZT41nsIEamQEqZB3jge/MP/Rtq9
-         qmxR3og9Rowze2PanZgLHr0a/Xd65QffJGkrgCs8HSRWu3NGbQqziT9IPYYtPBZoy9ZB
-         BJZZgf5ow7kfwCEbwQAfgbAhb0y2JEDO/gLnSitjeUkPBclMpt7LX19swQMdBpKjFA5W
-         rEvQ==
+        b=nNJFwZXlZx5fDe8LC/08OMv2ZirG7hZREvaA8fEf+V7psnqq/UxpyaR4KKduFQsESa
+         dlHq+2fifDGbwYDJlNCPVsvSvF4+cPEi58jMpcEkeMr9qeIDLQyB1banHnCJ+AikhYA5
+         OGOsh7wjeaInJ+c48OzUruJXKZIrSnI1qYbVn0MrPZBh1dllZLYnxhI/5XqMUEUP4gpL
+         p/kCtJLWAwEiaS2DFGgGtVIWcntuCiKYhlh4MtjKBWLcL08/FeYkXt6Gmd0j2jjrFjqk
+         ymDdGt0NQmfBYKtyE3s7XttRoc+eN3qX5CWTFkTbaNpCcpwnEMJlj/llTuXgHoJp2o37
+         mJkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=RAdHKgYpUek4Mt7/SzWhJ3QQTVPyo9j8DPb8bs9innY=;
+        bh=sDuRQ8qt5BAHVjo78hLbEI2A9+TTuLpwEa7n+hIfUok=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=SzWtEXVcyCXMjPhd7gS7L6+LU+9MGH29V7HuSGtijd0dCgGPDk1uUZQ/VP+6pNwh8i
-         E9FpdvbGvDj5RqkDxsuoBK37r9Qos4GrEbkJp0aR5xglfp9GP2Sdddf75b7zpQySlNn4
-         f0iGXN6JKcCYBLF5eA0DVy/8KyaB0iUIgeq7yOVYmLm0Fsg4ubQRaohbR/S8roTPmPjo
-         mDLVRP3dmoBDxZTTxRFg8i5HV0RmWOcb8cNMAJ9C9xU2vP88ioKXbhMbxm5y1NqrdXiA
-         bHEoZMrJUqtOlSjnpKo9qshQgE8716zP0fmBF3E7ZT2KULOdKy+54paxHfDeEHVv0wdo
-         kdQw==
+        b=C0pUnff1oyHJs8yQcDNVoRPQCGL5p7LHvVIMRtOJChM+Jv20A/49Q4J8o9RC+Q7z7r
+         bJN6isk5RaG975wO7wlHC9eTSyJDKDvRvYrP+IWyw9NiyqUDCSDlMaVEzetYXI9l7g5k
+         PvbrBIJudIGJs9pl2ctFRxK8UTZekhzm1pAihfrFx224NNIGgnHjc1NTOYAogthlvjdF
+         CE88TxX08E4mPa2PU14Jj49JGL5y6JVtEPOViMiO42NdgJLDnXYHMvwpW2BhzNzL86Kj
+         Yz3iFFL8cXG2bgeeKj1vKsrqhkwDPpWTn+lDo5zbSpj1JfDuPJQopm19l8bT65SEVnz3
+         Rvhg==
 ARC-Authentication-Results: i=1; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address) smtp.mailfrom=dhowells@redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.81])
-        by mx.google.com with ESMTPS id pw9-20020a05620a63c900b00775d3ebaab5si2484116qkn.286.2023.11.17.13.16.11
+        by mx.google.com with ESMTPS id a13-20020a05620a066d00b007788fa5ef4fsi2358741qkh.187.2023.11.17.13.16.15
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:16:11 -0800 (PST)
+        Fri, 17 Nov 2023 13:16:15 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.81 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-671-oZ9ZRYigM4Cn7FimiSDVIw-1; Fri,
- 17 Nov 2023 16:16:10 -0500
-X-MC-Unique: oZ9ZRYigM4Cn7FimiSDVIw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-351-ImSODwzONUixVaH8triLrA-1; Fri, 17 Nov 2023 16:16:13 -0500
+X-MC-Unique: ImSODwzONUixVaH8triLrA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6CC91C060EB
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ABBA101A53B
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id B3BEA5038; Fri, 17 Nov 2023 21:16:09 +0000 (UTC)
+	id 071242166B2B; Fri, 17 Nov 2023 21:16:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1FE995036;
-	Fri, 17 Nov 2023 21:16:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 683CE2166B29;
+	Fri, 17 Nov 2023 21:16:10 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,13 +119,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 06/51] netfs: Provide invalidate_folio and release_folio calls
-Date: Fri, 17 Nov 2023 21:14:58 +0000
-Message-ID: <20231117211544.1740466-7-dhowells@redhat.com>
+Subject: [PATCH v2 07/51] netfs: Implement unbuffered/DIO vs buffered I/O locking
+Date: Fri, 17 Nov 2023 21:14:59 +0000
+Message-ID: <20231117211544.1740466-8-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -144,289 +143,292 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Provide default invalidate_folio and release_folio calls.  These will need
-to interact with invalidation correctly at some point.  They will be needed
-if netfslib is to make use of folio->private for its own purposes.
+Borrow NFS's direct-vs-buffered I/O locking into netfslib.  Similar code is
+also used in ceph.
+
+Modify it to have the correct checker annotations for i_rwsem lock
+acquisition/release and to return -ERESTARTSYS if waits are interrupted.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+cc: Jeff Layton <jlayton@kernel.org>
 cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/9p/vfs_addr.c      | 33 ++-------------------------
- fs/afs/file.c         | 53 ++++---------------------------------------
- fs/ceph/addr.c        | 24 ++------------------
- fs/netfs/Makefile     |  1 +
- fs/netfs/misc.c       | 51 +++++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h |  6 +++--
- 6 files changed, 64 insertions(+), 104 deletions(-)
- create mode 100644 fs/netfs/misc.c
+ fs/netfs/Makefile     |   1 +
+ fs/netfs/locking.c    | 215 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h |  10 ++
+ 3 files changed, 226 insertions(+)
+ create mode 100644 fs/netfs/locking.c
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index 8a635999a7d6..18a666c43e4a 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -104,35 +104,6 @@ const struct netfs_request_ops v9fs_req_ops = {
- 	.issue_read		= v9fs_issue_read,
- };
- 
--/**
-- * v9fs_release_folio - release the private state associated with a folio
-- * @folio: The folio to be released
-- * @gfp: The caller's allocation restrictions
-- *
-- * Returns true if the page can be released, false otherwise.
-- */
--
--static bool v9fs_release_folio(struct folio *folio, gfp_t gfp)
--{
--	if (folio_test_private(folio))
--		return false;
--#ifdef CONFIG_9P_FSCACHE
--	if (folio_test_fscache(folio)) {
--		if (current_is_kswapd() || !(gfp & __GFP_FS))
--			return false;
--		folio_wait_fscache(folio);
--	}
--	fscache_note_page_release(v9fs_inode_cookie(V9FS_I(folio_inode(folio))));
--#endif
--	return true;
--}
--
--static void v9fs_invalidate_folio(struct folio *folio, size_t offset,
--				 size_t length)
--{
--	folio_wait_fscache(folio);
--}
--
- #ifdef CONFIG_9P_FSCACHE
- static void v9fs_write_to_cache_done(void *priv, ssize_t transferred_or_error,
- 				     bool was_async)
-@@ -355,8 +326,8 @@ const struct address_space_operations v9fs_addr_operations = {
- 	.writepage = v9fs_vfs_writepage,
- 	.write_begin = v9fs_write_begin,
- 	.write_end = v9fs_write_end,
--	.release_folio = v9fs_release_folio,
--	.invalidate_folio = v9fs_invalidate_folio,
-+	.release_folio = netfs_release_folio,
-+	.invalidate_folio = netfs_invalidate_folio,
- 	.launder_folio = v9fs_launder_folio,
- 	.direct_IO = v9fs_direct_IO,
- };
-diff --git a/fs/afs/file.c b/fs/afs/file.c
-index 0c49b3b6f214..3fea5cd8ef13 100644
---- a/fs/afs/file.c
-+++ b/fs/afs/file.c
-@@ -20,9 +20,6 @@
- 
- static int afs_file_mmap(struct file *file, struct vm_area_struct *vma);
- static int afs_symlink_read_folio(struct file *file, struct folio *folio);
--static void afs_invalidate_folio(struct folio *folio, size_t offset,
--			       size_t length);
--static bool afs_release_folio(struct folio *folio, gfp_t gfp_flags);
- 
- static ssize_t afs_file_read_iter(struct kiocb *iocb, struct iov_iter *iter);
- static ssize_t afs_file_splice_read(struct file *in, loff_t *ppos,
-@@ -57,8 +54,8 @@ const struct address_space_operations afs_file_aops = {
- 	.readahead	= netfs_readahead,
- 	.dirty_folio	= afs_dirty_folio,
- 	.launder_folio	= afs_launder_folio,
--	.release_folio	= afs_release_folio,
--	.invalidate_folio = afs_invalidate_folio,
-+	.release_folio	= netfs_release_folio,
-+	.invalidate_folio = netfs_invalidate_folio,
- 	.write_begin	= afs_write_begin,
- 	.write_end	= afs_write_end,
- 	.writepages	= afs_writepages,
-@@ -67,8 +64,8 @@ const struct address_space_operations afs_file_aops = {
- 
- const struct address_space_operations afs_symlink_aops = {
- 	.read_folio	= afs_symlink_read_folio,
--	.release_folio	= afs_release_folio,
--	.invalidate_folio = afs_invalidate_folio,
-+	.release_folio	= netfs_release_folio,
-+	.invalidate_folio = netfs_invalidate_folio,
- 	.migrate_folio	= filemap_migrate_folio,
- };
- 
-@@ -405,48 +402,6 @@ int afs_write_inode(struct inode *inode, struct writeback_control *wbc)
- 	return 0;
- }
- 
--/*
-- * invalidate part or all of a page
-- * - release a page and clean up its private data if offset is 0 (indicating
-- *   the entire page)
-- */
--static void afs_invalidate_folio(struct folio *folio, size_t offset,
--			       size_t length)
--{
--	_enter("{%lu},%zu,%zu", folio->index, offset, length);
--
--	folio_wait_fscache(folio);
--	_leave("");
--}
--
--/*
-- * release a page and clean up its private state if it's not busy
-- * - return true if the page can now be released, false if not
-- */
--static bool afs_release_folio(struct folio *folio, gfp_t gfp)
--{
--	struct afs_vnode *vnode = AFS_FS_I(folio_inode(folio));
--
--	_enter("{{%llx:%llu}[%lu],%lx},%x",
--	       vnode->fid.vid, vnode->fid.vnode, folio_index(folio), folio->flags,
--	       gfp);
--
--	/* deny if folio is being written to the cache and the caller hasn't
--	 * elected to wait */
--#ifdef CONFIG_AFS_FSCACHE
--	if (folio_test_fscache(folio)) {
--		if (current_is_kswapd() || !(gfp & __GFP_FS))
--			return false;
--		folio_wait_fscache(folio);
--	}
--	fscache_note_page_release(afs_vnode_cache(vnode));
--#endif
--
--	/* Indicate that the folio can be released */
--	_leave(" = T");
--	return true;
--}
--
- static void afs_add_open_mmap(struct afs_vnode *vnode)
- {
- 	if (atomic_inc_return(&vnode->cb_nr_mmap) == 1) {
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 85be3bf18cdf..03feb4dc6352 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -159,27 +159,7 @@ static void ceph_invalidate_folio(struct folio *folio, size_t offset,
- 		ceph_put_snap_context(snapc);
- 	}
- 
--	folio_wait_fscache(folio);
--}
--
--static bool ceph_release_folio(struct folio *folio, gfp_t gfp)
--{
--	struct inode *inode = folio->mapping->host;
--	struct ceph_client *cl = ceph_inode_to_client(inode);
--
--	doutc(cl, "%llx.%llx idx %lu (%sdirty)\n", ceph_vinop(inode),
--	      folio->index, folio_test_dirty(folio) ? "" : "not ");
--
--	if (folio_test_private(folio))
--		return false;
--
--	if (folio_test_fscache(folio)) {
--		if (current_is_kswapd() || !(gfp & __GFP_FS))
--			return false;
--		folio_wait_fscache(folio);
--	}
--	ceph_fscache_note_page_release(inode);
--	return true;
-+	netfs_invalidate_folio(folio, offset, length);
- }
- 
- static void ceph_netfs_expand_readahead(struct netfs_io_request *rreq)
-@@ -1586,7 +1566,7 @@ const struct address_space_operations ceph_aops = {
- 	.write_end = ceph_write_end,
- 	.dirty_folio = ceph_dirty_folio,
- 	.invalidate_folio = ceph_invalidate_folio,
--	.release_folio = ceph_release_folio,
-+	.release_folio = netfs_release_folio,
- 	.direct_IO = noop_direct_IO,
- };
- 
 diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
-index 386d6fb92793..cd22554d9048 100644
+index cd22554d9048..647ce1935674 100644
 --- a/fs/netfs/Makefile
 +++ b/fs/netfs/Makefile
-@@ -5,6 +5,7 @@ netfs-y := \
+@@ -4,6 +4,7 @@ netfs-y := \
+ 	buffered_read.o \
  	io.o \
  	iterator.o \
++	locking.o \
  	main.o \
-+	misc.o \
+ 	misc.o \
  	objects.o
- 
- netfs-$(CONFIG_NETFS_STATS) += stats.o
-diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
+diff --git a/fs/netfs/locking.c b/fs/netfs/locking.c
 new file mode 100644
-index 000000000000..c3baf2b247d9
+index 000000000000..58e0f48394c5
 --- /dev/null
-+++ b/fs/netfs/misc.c
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Miscellaneous routines.
++++ b/fs/netfs/locking.c
+@@ -0,0 +1,215 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * I/O and data path helper functionality.
 + *
-+ * Copyright (C) 2022 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
++ * Borrowed from NFS Copyright (c) 2016 Trond Myklebust
 + */
 +
-+#include <linux/swap.h>
-+#include "internal.h"
++#include <linux/kernel.h>
++#include <linux/netfs.h>
 +
-+/**
-+ * netfs_invalidate_folio - Invalidate or partially invalidate a folio
-+ * @folio: Folio proposed for release
-+ * @offset: Offset of the invalidated region
-+ * @length: Length of the invalidated region
++/*
++ * inode_dio_wait_interruptible - wait for outstanding DIO requests to finish
++ * @inode: inode to wait for
 + *
-+ * Invalidate part or all of a folio for a network filesystem.  The folio will
-+ * be removed afterwards if the invalidated region covers the entire folio.
++ * Waits for all pending direct I/O requests to finish so that we can
++ * proceed with a truncate or equivalent operation.
++ *
++ * Must be called under a lock that serializes taking new references
++ * to i_dio_count, usually by inode->i_mutex.
 + */
-+void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
++static int inode_dio_wait_interruptible(struct inode *inode)
 +{
-+	_enter("{%lx},%zx,%zx", folio_index(folio), offset, length);
++	if (!atomic_read(&inode->i_dio_count))
++		return 0;
 +
-+	folio_wait_fscache(folio);
-+}
-+EXPORT_SYMBOL(netfs_invalidate_folio);
++	wait_queue_head_t *wq = bit_waitqueue(&inode->i_state, __I_DIO_WAKEUP);
++	DEFINE_WAIT_BIT(q, &inode->i_state, __I_DIO_WAKEUP);
 +
-+/**
-+ * netfs_release_folio - Try to release a folio
-+ * @folio: Folio proposed for release
-+ * @gfp: Flags qualifying the release
-+ *
-+ * Request release of a folio and clean up its private state if it's not busy.
-+ * Returns true if the folio can now be released, false if not
-+ */
-+bool netfs_release_folio(struct folio *folio, gfp_t gfp)
-+{
-+	struct netfs_inode *ctx = netfs_inode(folio_inode(folio));
-+
-+	if (folio_test_private(folio))
-+		return false;
-+	if (folio_test_fscache(folio)) {
-+		if (current_is_kswapd() || !(gfp & __GFP_FS))
-+			return false;
-+		folio_wait_fscache(folio);
++	for (;;) {
++		prepare_to_wait(wq, &q.wq_entry, TASK_INTERRUPTIBLE);
++		if (!atomic_read(&inode->i_dio_count))
++			break;
++		if (signal_pending(current))
++			break;
++		schedule();
 +	}
++	finish_wait(wq, &q.wq_entry);
 +
-+	fscache_note_page_release(netfs_i_cookie(ctx));
-+	return true;
++	return atomic_read(&inode->i_dio_count) ? -ERESTARTSYS : 0;
 +}
-+EXPORT_SYMBOL(netfs_release_folio);
++
++/* Call with exclusively locked inode->i_rwsem */
++static int netfs_block_o_direct(struct netfs_inode *ictx)
++{
++	if (!test_bit(NETFS_ICTX_ODIRECT, &ictx->flags))
++		return 0;
++	clear_bit(NETFS_ICTX_ODIRECT, &ictx->flags);
++	return inode_dio_wait_interruptible(&ictx->inode);
++}
++
++/**
++ * netfs_start_io_read - declare the file is being used for buffered reads
++ * @inode: file inode
++ *
++ * Declare that a buffered read operation is about to start, and ensure
++ * that we block all direct I/O.
++ * On exit, the function ensures that the NETFS_ICTX_ODIRECT flag is unset,
++ * and holds a shared lock on inode->i_rwsem to ensure that the flag
++ * cannot be changed.
++ * In practice, this means that buffered read operations are allowed to
++ * execute in parallel, thanks to the shared lock, whereas direct I/O
++ * operations need to wait to grab an exclusive lock in order to set
++ * NETFS_ICTX_ODIRECT.
++ * Note that buffered writes and truncates both take a write lock on
++ * inode->i_rwsem, meaning that those are serialised w.r.t. the reads.
++ */
++int netfs_start_io_read(struct inode *inode)
++	__acquires(inode->i_rwsem)
++{
++	struct netfs_inode *ictx = netfs_inode(inode);
++
++	/* Be an optimist! */
++	if (down_read_interruptible(&inode->i_rwsem) < 0)
++		return -ERESTARTSYS;
++	if (test_bit(NETFS_ICTX_ODIRECT, &ictx->flags) == 0)
++		return 0;
++	up_read(&inode->i_rwsem);
++
++	/* Slow path.... */
++	if (down_write_killable(&inode->i_rwsem) < 0)
++		return -ERESTARTSYS;
++	if (netfs_block_o_direct(ictx) < 0) {
++		up_write(&inode->i_rwsem);
++		return -ERESTARTSYS;
++	}
++	downgrade_write(&inode->i_rwsem);
++	return 0;
++}
++EXPORT_SYMBOL(netfs_start_io_read);
++
++/**
++ * netfs_end_io_read - declare that the buffered read operation is done
++ * @inode: file inode
++ *
++ * Declare that a buffered read operation is done, and release the shared
++ * lock on inode->i_rwsem.
++ */
++void netfs_end_io_read(struct inode *inode)
++	__releases(inode->i_rwsem)
++{
++	up_read(&inode->i_rwsem);
++}
++EXPORT_SYMBOL(netfs_end_io_read);
++
++/**
++ * netfs_start_io_write - declare the file is being used for buffered writes
++ * @inode: file inode
++ *
++ * Declare that a buffered read operation is about to start, and ensure
++ * that we block all direct I/O.
++ */
++int netfs_start_io_write(struct inode *inode)
++	__acquires(inode->i_rwsem)
++{
++	struct netfs_inode *ictx = netfs_inode(inode);
++
++	if (down_write_killable(&inode->i_rwsem) < 0)
++		return -ERESTARTSYS;
++	if (netfs_block_o_direct(ictx) < 0) {
++		up_write(&inode->i_rwsem);
++		return -ERESTARTSYS;
++	}
++	return 0;
++}
++EXPORT_SYMBOL(netfs_start_io_write);
++
++/**
++ * netfs_end_io_write - declare that the buffered write operation is done
++ * @inode: file inode
++ *
++ * Declare that a buffered write operation is done, and release the
++ * lock on inode->i_rwsem.
++ */
++void netfs_end_io_write(struct inode *inode)
++	__releases(inode->i_rwsem)
++{
++	up_write(&inode->i_rwsem);
++}
++EXPORT_SYMBOL(netfs_end_io_write);
++
++/* Call with exclusively locked inode->i_rwsem */
++static int netfs_block_buffered(struct inode *inode)
++{
++	struct netfs_inode *ictx = netfs_inode(inode);
++	int ret;
++
++	if (!test_bit(NETFS_ICTX_ODIRECT, &ictx->flags)) {
++		set_bit(NETFS_ICTX_ODIRECT, &ictx->flags);
++		if (inode->i_mapping->nrpages != 0) {
++			unmap_mapping_range(inode->i_mapping, 0, 0, 0);
++			ret = filemap_fdatawait(inode->i_mapping);
++			if (ret < 0) {
++				clear_bit(NETFS_ICTX_ODIRECT, &ictx->flags);
++				return ret;
++			}
++		}
++	}
++	return 0;
++}
++
++/**
++ * netfs_start_io_direct - declare the file is being used for direct i/o
++ * @inode: file inode
++ *
++ * Declare that a direct I/O operation is about to start, and ensure
++ * that we block all buffered I/O.
++ * On exit, the function ensures that the NETFS_ICTX_ODIRECT flag is set,
++ * and holds a shared lock on inode->i_rwsem to ensure that the flag
++ * cannot be changed.
++ * In practice, this means that direct I/O operations are allowed to
++ * execute in parallel, thanks to the shared lock, whereas buffered I/O
++ * operations need to wait to grab an exclusive lock in order to clear
++ * NETFS_ICTX_ODIRECT.
++ * Note that buffered writes and truncates both take a write lock on
++ * inode->i_rwsem, meaning that those are serialised w.r.t. O_DIRECT.
++ */
++int netfs_start_io_direct(struct inode *inode)
++	__acquires(inode->i_rwsem)
++{
++	struct netfs_inode *ictx = netfs_inode(inode);
++	int ret;
++
++	/* Be an optimist! */
++	if (down_read_interruptible(&inode->i_rwsem) < 0)
++		return -ERESTARTSYS;
++	if (test_bit(NETFS_ICTX_ODIRECT, &ictx->flags) != 0)
++		return 0;
++	up_read(&inode->i_rwsem);
++
++	/* Slow path.... */
++	if (down_write_killable(&inode->i_rwsem) < 0)
++		return -ERESTARTSYS;
++	ret = netfs_block_buffered(inode);
++	if (ret < 0) {
++		up_write(&inode->i_rwsem);
++		return ret;
++	}
++	downgrade_write(&inode->i_rwsem);
++	return 0;
++}
++EXPORT_SYMBOL(netfs_start_io_direct);
++
++/**
++ * netfs_end_io_direct - declare that the direct i/o operation is done
++ * @inode: file inode
++ *
++ * Declare that a direct I/O operation is done, and release the shared
++ * lock on inode->i_rwsem.
++ */
++void netfs_end_io_direct(struct inode *inode)
++	__releases(inode->i_rwsem)
++{
++	up_read(&inode->i_rwsem);
++}
++EXPORT_SYMBOL(netfs_end_io_direct);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 0633cd9644e1..6e662832c3ae 100644
+index 6e662832c3ae..18e3d8b53646 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -297,8 +297,10 @@ struct readahead_control;
- void netfs_readahead(struct readahead_control *);
- int netfs_read_folio(struct file *, struct folio *);
- int netfs_write_begin(struct netfs_inode *, struct file *,
--		struct address_space *, loff_t pos, unsigned int len,
--		struct folio **, void **fsdata);
-+		      struct address_space *, loff_t pos, unsigned int len,
-+		      struct folio **, void **fsdata);
-+void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
-+bool netfs_release_folio(struct folio *folio, gfp_t gfp);
+@@ -131,6 +131,8 @@ struct netfs_inode {
+ 	loff_t			remote_i_size;	/* Size of the remote file */
+ 	loff_t			zero_point;	/* Size after which we assume there's no data
+ 						 * on the server */
++	unsigned long		flags;
++#define NETFS_ICTX_ODIRECT	0		/* The file has DIO in progress */
+ };
  
- void netfs_subreq_terminated(struct netfs_io_subrequest *, ssize_t, bool);
- void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
+ /*
+@@ -312,6 +314,13 @@ ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
+ 				struct iov_iter *new,
+ 				iov_iter_extraction_t extraction_flags);
+ 
++int netfs_start_io_read(struct inode *inode);
++void netfs_end_io_read(struct inode *inode);
++int netfs_start_io_write(struct inode *inode);
++void netfs_end_io_write(struct inode *inode);
++int netfs_start_io_direct(struct inode *inode);
++void netfs_end_io_direct(struct inode *inode);
++
+ /**
+  * netfs_inode - Get the netfs inode context from the inode
+  * @inode: The inode to query
+@@ -338,6 +347,7 @@ static inline void netfs_inode_init(struct netfs_inode *ctx,
+ 	ctx->ops = ops;
+ 	ctx->remote_i_size = i_size_read(&ctx->inode);
+ 	ctx->zero_point = ctx->remote_i_size;
++	ctx->flags = 0;
+ #if IS_ENABLED(CONFIG_FSCACHE)
+ 	ctx->cache = NULL;
+ #endif
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
