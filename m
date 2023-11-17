@@ -1,103 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBKVR36VAMGQE6PYA3QY@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBL5R36VAMGQE5WSOJAQ@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D317EF9D4
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:18:36 +0100 (CET)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-6d64f84b8besf2783473a34.0
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:18:36 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255915; cv=pass;
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A9877EF9DA
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:18:40 +0100 (CET)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-4628b84100fsf130293137.3
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:18:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255919; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wSBQ8Q5mGJ6Wt+Ii39mfTc2v73bbBa7pc71JYxV0GhZUdpEsfHYnNY1qkfWN60ECoU
-         /BlhLyximW5rPptxWUAnAoKAB8i+L1z8SQOwT0BevwTOxv3A5xR4dVOC5tSV+OF7Khsl
-         2oapQMxdpXIPuu9WTGmyQiTjpLzV2x2slmmSjs3bUQimyo74UhiV2JnerkvvRpCGT0zK
-         Y5A2SxoYHy4gQjSyXnFVmLOQEqEnDH1vRPjwQo943UDlzuwm4etBjA4EBt+7JMNDnKt5
-         r/cxAuafn7wczBdXEQGAT8kgI32EssH4a1Fy9d/Kc/aSw7tirxmitwDk4Muc7qbn6g5+
-         Hrdg==
+        b=iKYEQNVNO0ImQZjwa6i2RPf2Qv10RybQQ9c5xZbt8dWVtO2fXBn6J+3gzLiBJcUKnK
+         G04dxiuGB53mgmd/VpRqt8DxYpHpQZ84mTKhThkY/LAyg7C0j8vZbFm93AEx3ATFBSxx
+         KVMOoK83Ki1NI1wvupWiNr9y+CtYndjyys1S4zc3UvCCfPHV7eO7zEKY+LXm8LN55cYl
+         0gJF9GnjPSOOSf93oQVkcOjQ2R+MdIBwEf1wCAcBK2YjTu4zH6FwPEZit15siefmpduP
+         tvETk6dXfFSf85O0bGYqG3o+67HrS43QsOZ2JUo4odtPZSYa7qCb9pFmrS7ywULpqI/3
+         I/5w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=jy9SO4cFNTeW57Ql4fj777Qkgz4i2H4c0hjXG1HACFo=;
+        bh=59z/EWOaBH4ivvKuwSi40dsKVsO0fiN0jqyC2x7uZso=;
         fh=AI41B/YzCSs7tBbUxY970+MFg5Gw1IjT3WzpBEwdswQ=;
-        b=EExudKaDHwgQB7X0PvKIX/foP55Y5nVVuGNs7s/nVqXu0FNTiFgWwVyD5Cb40XZ1Hb
-         pRppS3Kto4m/TS7EcS/8nLbr1Uakf9LtWxI4Wi59QGDL+gV2JTxzK4nxyL3e7qllVjCD
-         4K0TRJIgENSX+hZ5aanapEpDCzT+dhYWXDbA9amRYpjlMjEh8evEjqSZnxQ8zKmXt3ym
-         dU+iran41i/As77080EruaBrYCF2W2dgcjUavMuRQy1uANxjL6rRz4SlRNOFp5yp42ge
-         kGSn0InJBZR7Hq0y9gGWpuKDfom/XZilgnd7woC0GwgWR9CTrSBzGEyXp8aksulPI0eg
-         cGKQ==
+        b=TOa5JvmXY5fY7aqLjOONg3++G4/iRVwV6aM5A0/V+ZkEIJCpDIh+IikiSCqfffHeAw
+         4so1HhweD88VfqnnLJ7kPGRVKH1J6yTW43xfMkKCepDcWvSZSQCIN6zbwCcqEKtbEcsd
+         DQMgI2U1JCBagNgGWD5iGtL34pGgjpmkcWnPDVAvcCfluP56eaPe/M+Uf6fP2JhbqeLm
+         DVuIxRhfOfRaaY9rAzN/K0AvJb/BY2dpULQthY18cANDYTr/1RMDBOKy8+5dQZZ1KD0y
+         WHEvd3XS/h+cOlYK4kq//ZwbXcI25xMuqUjNoDxo/Hrlyr6ZPVQGi+bjS+0BEeSOO9J9
+         qjkQ==
 ARC-Authentication-Results: i=2; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255915; x=1700860715;
+        d=1e100.net; s=20230601; t=1700255919; x=1700860719;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jy9SO4cFNTeW57Ql4fj777Qkgz4i2H4c0hjXG1HACFo=;
-        b=AZq1hW0BVGwe4onjUbjDvyZhrxrL9rL3I2t5VcZCCwPzCXIP7RguStl/zaA3glpur0
-         bnNMpWcyfVbL6UAr94MZnAkKT0CEf4g9gcArE0nJHUKMuPLF2lkDz9dB89o9Jui3nS8R
-         lNVETUdcev1HbifqrD/YKOVswXSCkLt74O8FGTm41oCTz8oVoXHXc3eurQo1m0WupJrZ
-         efl12oont7nMXjyucLlWAn6rRop+voq6GgevYJXxVW0TTGRz0DMBnCAQR/V6x2zf8NT1
-         JDYVAgJJ3GpAphOJb+PScxHAmGJxZEdqUISQ4AT16yb0Vx+yh8Rrwvl7cVAh1qDt7Beh
-         IkOA==
-X-Gm-Message-State: AOJu0YzSpIx/KNCnvJ02hHdhNPk1fMklP1CfnuzZsva1rWp7czLJlaEh
-	HydkZVRvmu5UjmUjgsJiIB3q3A==
-X-Google-Smtp-Source: AGHT+IExqUy5HHt9P6MWAQp3Dadp+C66EFRgLbTWmwB/wIpS/YCQV3E1Dt9KwsWZiY+XQvz7/PYkkg==
-X-Received: by 2002:a05:6870:c06:b0:1f4:d208:ab4e with SMTP id le6-20020a0568700c0600b001f4d208ab4emr567926oab.39.1700255915066;
-        Fri, 17 Nov 2023 13:18:35 -0800 (PST)
+        bh=59z/EWOaBH4ivvKuwSi40dsKVsO0fiN0jqyC2x7uZso=;
+        b=GdGpwOWGxoaHbGAnRG0Uny3bwV3Z+OS+m2N5+3MAG8zBAikn24DX0mdlrdx7r3VAQe
+         C59D/hJaszsvAEVvtHQSb5bC7I98L9Tx6jp2PlbYdAd4XReDXNtk18jQ7cAUfo6ycbPz
+         sxZjaNetnppFDjgg63ERU9q8Px9rqB8CVtPvAGfgGQCrI70dE7ZLJ5lMv0gmlW8vIsaW
+         f0stLPcC7JvheI6F4C5HqevFvtTmwGz6orPfW1+4qRQa03YAM+0avqpdOQgXIEww3lHI
+         c++50zz3VmoPm8GtH20SSZKga8GROWyL7LNB3jksgiihCx1B9Rr8yIqMNtMhuoWY9w9Z
+         UFSg==
+X-Gm-Message-State: AOJu0YyPrOfZdqeeQPZnYNaFDq06ZFo/eesTpPGTN0v4nfXNeVNkUCCq
+	Sb+D9XKsFzhU2lQ+9AW/tJwg9g==
+X-Google-Smtp-Source: AGHT+IGE/HxZ9U/ryjpO5NqpGCxo1ZhOxq0JCN9Oxzp2K2niYwSbUd3BMN4FJ+nf+Yr2RwvFgdnSKQ==
+X-Received: by 2002:a05:6102:2c10:b0:462:712b:7524 with SMTP id ie16-20020a0561022c1000b00462712b7524mr990347vsb.25.1700255919467;
+        Fri, 17 Nov 2023 13:18:39 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6870:9d82:b0:1e1:5989:cb9f with SMTP id
- pv2-20020a0568709d8200b001e15989cb9fls3225745oab.2.-pod-prod-04-us; Fri, 17
- Nov 2023 13:18:34 -0800 (PST)
-X-Received: by 2002:a05:6358:63a2:b0:16b:7964:90e6 with SMTP id k34-20020a05635863a200b0016b796490e6mr480001rwh.3.1700255914445;
-        Fri, 17 Nov 2023 13:18:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255914; cv=none;
+Received: by 2002:ac8:5d12:0:b0:421:c71a:9295 with SMTP id f18-20020ac85d12000000b00421c71a9295ls1865160qtx.0.-pod-prod-01-us;
+ Fri, 17 Nov 2023 13:18:38 -0800 (PST)
+X-Received: by 2002:ac8:5d91:0:b0:421:c58e:f9b6 with SMTP id d17-20020ac85d91000000b00421c58ef9b6mr906560qtx.64.1700255918747;
+        Fri, 17 Nov 2023 13:18:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255918; cv=none;
         d=google.com; s=arc-20160816;
-        b=VQS+afqjOzq+fk6gr9RHZwHHEdegddbvLKAsruMFR2lQTNyGS1Q26s8CBYPVoPM7Yu
-         USbJj+Fjh5p4RatgDhe4U+pJ3bjM29/YAaRaqBdZdJJJAr1skYQVm/2YINathev07QIG
-         xJ7iPJ+jFzImsP5Sudk+0kEDh6OlJq3InFRfhfSkyD3EsMr85HAeuUk8dtaJXZLlJRno
-         /f0K6RHRePKRzYypqgVZTXV9m7tYPSpQceJf1pZnUEBv6ap+SmPrg2J4A7WhEg3eUh+y
-         pKLhN0stkaz9LE4BiJMVk1W0SwoNIpkgqo9H3o3EsceT+0jt1XO6f63+IY7A/iMIO2V/
-         uGiA==
+        b=PsT7jntT5s5xcmSXA5AdZfglKp/lPaa2PnGGr595cVRnCMYW8h6GDNJQrlkQUXMx78
+         HQMsu6uuPZK+LAfjxU/9/8APHkeIjQl3z61G5wkgLgMJ5eW36J+eQnOUL+NFXa+CbmQo
+         p5Rv/hsDoyx8kXDbaVbuH2q1TnY54u6Hw/OB0d8dkTRmld7ejWsXTnbjXjFOg2nAouN2
+         aDZbNTrIPpGbJZks8yjHKQEMXW6JXHcQcVQKUY/aK/BgbGOgI8/NTpVlFIfcC7KAN9vA
+         qWPb/WMtwOmdLcLQ1M25d4RnMWb4oH7B/YBEUZo8d2MqGK8UVxfrcaL18T4aHFQzV3UT
+         BLAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=lr+2x0KwBOZEsditfYiGs6AJLLCWZ6zNWlFkfokEznY=;
+        bh=rc68sQS3vmzqJSqW6jNz9fp7Z8N7J7iRWbA/L5CiA9Y=;
         fh=AI41B/YzCSs7tBbUxY970+MFg5Gw1IjT3WzpBEwdswQ=;
-        b=lWu1WwNe2E6acxpxAH8u+1pCslRYe0d/LBuLdggmrqqd+UjJTCEy7n87JDIZR2yHyp
-         ZDZyCcJDX/lvtfmiSOQBGbsYzRKmg7i5nRx2Etx46Yhoz1a+6KTFeUVBjwF1EY9B+abT
-         p9UWXjJb79xlZzROjAzqDqcBX570MNRldTqCgKVglqHhPRS+lGKgvt9pYE2PxbWS6nSE
-         VSKJK8zmeP2lrKciiE0GxfpUE2NyRHN1bBJbQUYlhnXE+UENm6lEvgKOeA7Q+/iGRFq2
-         SQNNil3oEu0KZ4XJwoSzIh4OFeVT3yKktzwcdw7LXAJgt7S/l9RoEWhGsGbG/feOyl0g
-         o9ew==
+        b=FQBMMDmKMDBdIvVDLZBwdntTrqrlSEE5oP130e4j1cCSTx7I+xTp1NGFgCeLBIETCI
+         /4yOixnFA3lR5CHlNbe0BtRzf/LphTG9LnN9GiIXe2tJebF6maRXxmOroDCNRPYTr0Vo
+         yVtmAdI4hXhwTtimlg/VxHaqOSfeuVczC00kGoyJTRq9qIe8++yvTvtE/K7V8X9bcd2a
+         pEXDcFtpKELivErqQRcYDE8ZEGxr/FPoysDPInJKRqBV9QFN5JT754VS/NUSXNhfOZVW
+         BIRMkK4RFdqWwel67fbt2MfWfCqtmrcHC6YM2nSWmv2AkHaV516HQkX8Pg4QTvJ8k4Ze
+         WCVQ==
 ARC-Authentication-Results: i=1; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [205.139.110.61])
-        by mx.google.com with ESMTPS id i11-20020a0cfccb000000b0065b26265ae5si2402278qvq.490.2023.11.17.13.18.34
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com. [205.139.110.61])
+        by mx.google.com with ESMTPS id 14-20020ac8590e000000b0041cde9ed1adsi2414338qty.742.2023.11.17.13.18.38
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:18:34 -0800 (PST)
+        Fri, 17 Nov 2023 13:18:38 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-402-4yRXWzp2Oi6o_Gk_bHqt-w-1; Fri,
- 17 Nov 2023 16:18:32 -0500
-X-MC-Unique: 4yRXWzp2Oi6o_Gk_bHqt-w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-558-vjsEVQgONAW4mKqI0eL7jw-1; Fri, 17 Nov 2023 16:18:37 -0500
+X-MC-Unique: vjsEVQgONAW4mKqI0eL7jw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A21D21C068DF
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:18:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 796AE8527A6
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:18:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9EEBDC15882; Fri, 17 Nov 2023 21:18:32 +0000 (UTC)
+	id 763B31C060B5; Fri, 17 Nov 2023 21:18:36 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9F169C15881;
-	Fri, 17 Nov 2023 21:18:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4BD861C060AE;
+	Fri, 17 Nov 2023 21:18:33 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -123,13 +122,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	Steve French <sfrench@samba.org>,
 	Shyam Prasad N <nspmangalore@gmail.com>,
 	Rohith Surabattula <rohiths.msft@gmail.com>
-Subject: [PATCH v2 42/51] cifs: Share server EOF pos with netfslib
-Date: Fri, 17 Nov 2023 21:15:34 +0000
-Message-ID: <20231117211544.1740466-43-dhowells@redhat.com>
+Subject: [PATCH v2 43/51] cifs: Replace cifs_writedata with a wrapper around netfs_io_subrequest
+Date: Fri, 17 Nov 2023 21:15:35 +0000
+Message-ID: <20231117211544.1740466-44-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -147,8 +146,8 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Use cifsi->netfs_ctx.remote_i_size instead of cifsi->server_eof so that
-netfslib can refer to it to.
+Replace the cifs_writedata struct with the same wrapper around
+netfs_io_subrequest that was used to replace cifs_readdata.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Steve French <sfrench@samba.org>
@@ -160,131 +159,449 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/smb/client/cifsfs.c   |  2 +-
- fs/smb/client/cifsglob.h |  1 -
- fs/smb/client/file.c     |  8 ++++----
- fs/smb/client/inode.c    |  6 +++---
- fs/smb/client/smb2ops.c  | 10 +++++-----
- 5 files changed, 13 insertions(+), 14 deletions(-)
+ fs/smb/client/cifsglob.h  | 30 +++------------
+ fs/smb/client/cifsproto.h | 16 ++++++--
+ fs/smb/client/cifssmb.c   |  9 ++---
+ fs/smb/client/file.c      | 79 ++++++++++++++++-----------------------
+ fs/smb/client/smb2pdu.c   |  9 ++---
+ fs/smb/client/smb2proto.h |  3 +-
+ 6 files changed, 58 insertions(+), 88 deletions(-)
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index ea3a7a668b45..c7d8251c28d5 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -395,7 +395,7 @@ cifs_alloc_inode(struct super_block *sb)
- 	spin_lock_init(&cifs_inode->writers_lock);
- 	cifs_inode->writers = 0;
- 	cifs_inode->netfs.inode.i_blkbits = 14;  /* 2**14 = CIFS_MAX_MSGSIZE */
--	cifs_inode->server_eof = 0;
-+	cifs_inode->netfs.remote_i_size = 0;
- 	cifs_inode->uniqueid = 0;
- 	cifs_inode->createtime = 0;
- 	cifs_inode->epoch = 0;
 diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 0f74aa12e6b6..94f2411861d0 100644
+index 94f2411861d0..a41aeb2967bd 100644
 --- a/fs/smb/client/cifsglob.h
 +++ b/fs/smb/client/cifsglob.h
-@@ -1531,7 +1531,6 @@ struct cifsInodeInfo {
- 	spinlock_t writers_lock;
- 	unsigned int writers;		/* Number of writers on this inode */
- 	unsigned long time;		/* jiffies of last update of inode */
--	u64  server_eof;		/* current file size on server -- protected by i_lock */
- 	u64  uniqueid;			/* server inode number */
- 	u64  createtime;		/* creation time on server */
- 	__u8 lease_key[SMB2_LEASE_KEY_SIZE];	/* lease key for this inode */
+@@ -238,7 +238,6 @@ struct cifs_fattr;
+ struct smb3_fs_context;
+ struct cifs_fid;
+ struct cifs_io_subrequest;
+-struct cifs_writedata;
+ struct cifs_io_parms;
+ struct cifs_search_info;
+ struct cifsInodeInfo;
+@@ -413,8 +412,7 @@ struct smb_version_operations {
+ 	/* async read from the server */
+ 	int (*async_readv)(struct cifs_io_subrequest *);
+ 	/* async write to the server */
+-	int (*async_writev)(struct cifs_writedata *,
+-			    void (*release)(struct kref *));
++	int (*async_writev)(struct cifs_io_subrequest *);
+ 	/* sync read from the server */
+ 	int (*sync_read)(const unsigned int, struct cifs_fid *,
+ 			 struct cifs_io_parms *, unsigned int *, char **,
+@@ -1442,35 +1440,17 @@ struct cifs_io_subrequest {
+ #endif
+ 	struct cifs_credits		credits;
+ 
+-	// TODO: Remove following elements
+-	struct list_head		list;
+-	struct completion		done;
+-	struct work_struct		work;
+-	struct iov_iter			iter;
+-	__u64				offset;
+-	unsigned int			bytes;
+-};
++	enum writeback_sync_modes	sync_mode;
++	bool				uncached;
++	struct bio_vec			*bv;
+ 
+-/* asynchronous write support */
+-struct cifs_writedata {
+-	struct kref			refcount;
++	// TODO: Remove following elements
+ 	struct list_head		list;
+ 	struct completion		done;
+-	enum writeback_sync_modes	sync_mode;
+ 	struct work_struct		work;
+-	struct cifsFileInfo		*cfile;
+-	struct cifs_aio_ctx		*ctx;
+ 	struct iov_iter			iter;
+-	struct bio_vec			*bv;
+ 	__u64				offset;
+-	pid_t				pid;
+ 	unsigned int			bytes;
+-	int				result;
+-	struct TCP_Server_Info		*server;
+-#ifdef CONFIG_CIFS_SMB_DIRECT
+-	struct smbd_mr			*mr;
+-#endif
+-	struct cifs_credits		credits;
+ };
+ 
+ /*
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index 1702f95efda1..be46efbbf7ac 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -590,11 +590,19 @@ static inline void cifs_put_readdata(struct cifs_io_subrequest *rdata)
+ int cifs_async_readv(struct cifs_io_subrequest *rdata);
+ int cifs_readv_receive(struct TCP_Server_Info *server, struct mid_q_entry *mid);
+ 
+-int cifs_async_writev(struct cifs_writedata *wdata,
+-		      void (*release)(struct kref *kref));
++int cifs_async_writev(struct cifs_io_subrequest *wdata);
+ void cifs_writev_complete(struct work_struct *work);
+-struct cifs_writedata *cifs_writedata_alloc(work_func_t complete);
+-void cifs_writedata_release(struct kref *refcount);
++struct cifs_io_subrequest *cifs_writedata_alloc(work_func_t complete);
++void cifs_writedata_release(struct cifs_io_subrequest *rdata);
++static inline void cifs_get_writedata(struct cifs_io_subrequest *wdata)
++{
++	refcount_inc(&wdata->subreq.ref);
++}
++static inline void cifs_put_writedata(struct cifs_io_subrequest *wdata)
++{
++	if (refcount_dec_and_test(&wdata->subreq.ref))
++		cifs_writedata_release(wdata);
++}
+ int cifs_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
+ 			  struct cifs_sb_info *cifs_sb,
+ 			  const unsigned char *path, char *pbuf,
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 76005b3d5ffe..14fca3fa3e08 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -1610,7 +1610,7 @@ CIFSSMBWrite(const unsigned int xid, struct cifs_io_parms *io_parms,
+ static void
+ cifs_writev_callback(struct mid_q_entry *mid)
+ {
+-	struct cifs_writedata *wdata = mid->callback_data;
++	struct cifs_io_subrequest *wdata = mid->callback_data;
+ 	struct cifs_tcon *tcon = tlink_tcon(wdata->cfile->tlink);
+ 	unsigned int written;
+ 	WRITE_RSP *smb = (WRITE_RSP *)mid->resp_buf;
+@@ -1655,8 +1655,7 @@ cifs_writev_callback(struct mid_q_entry *mid)
+ 
+ /* cifs_async_writev - send an async write, and set up mid to handle result */
+ int
+-cifs_async_writev(struct cifs_writedata *wdata,
+-		  void (*release)(struct kref *kref))
++cifs_async_writev(struct cifs_io_subrequest *wdata)
+ {
+ 	int rc = -EACCES;
+ 	WRITE_REQ *smb = NULL;
+@@ -1723,14 +1722,14 @@ cifs_async_writev(struct cifs_writedata *wdata,
+ 		iov[1].iov_len += 4; /* pad bigger by four bytes */
+ 	}
+ 
+-	kref_get(&wdata->refcount);
++	cifs_get_writedata(wdata);
+ 	rc = cifs_call_async(tcon->ses->server, &rqst, NULL,
+ 			     cifs_writev_callback, NULL, wdata, 0, NULL);
+ 
+ 	if (rc == 0)
+ 		cifs_stats_inc(&tcon->stats.cifs_stats.num_writes);
+ 	else
+-		kref_put(&wdata->refcount, release);
++		cifs_put_writedata(wdata);
+ 
+ async_writev_out:
+ 	cifs_small_buf_release(smb);
 diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 8c9e33efb9a9..385830b02e0a 100644
+index 385830b02e0a..6b28fea8a980 100644
 --- a/fs/smb/client/file.c
 +++ b/fs/smb/client/file.c
-@@ -2118,8 +2118,8 @@ cifs_update_eof(struct cifsInodeInfo *cifsi, loff_t offset,
- {
- 	loff_t end_of_write = offset + bytes_written;
- 
--	if (end_of_write > cifsi->server_eof)
--		cifsi->server_eof = end_of_write;
-+	if (end_of_write > cifsi->netfs.remote_i_size)
-+		netfs_resize_file(&cifsi->netfs, end_of_write);
+@@ -2411,10 +2411,10 @@ cifs_get_readable_path(struct cifs_tcon *tcon, const char *name,
  }
  
- static ssize_t
-@@ -3245,8 +3245,8 @@ cifs_uncached_writev_complete(struct work_struct *work)
+ void
+-cifs_writedata_release(struct kref *refcount)
++cifs_writedata_release(struct cifs_io_subrequest *wdata)
+ {
+-	struct cifs_writedata *wdata = container_of(refcount,
+-					struct cifs_writedata, refcount);
++	if (wdata->uncached)
++		kref_put(&wdata->ctx->refcount, cifs_aio_ctx_release);
+ #ifdef CONFIG_CIFS_SMB_DIRECT
+ 	if (wdata->mr) {
+ 		smbd_deregister_mr(wdata->mr);
+@@ -2433,7 +2433,7 @@ cifs_writedata_release(struct kref *refcount)
+  * possible that the page was redirtied so re-clean the page.
+  */
+ static void
+-cifs_writev_requeue(struct cifs_writedata *wdata)
++cifs_writev_requeue(struct cifs_io_subrequest *wdata)
+ {
+ 	int rc = 0;
+ 	struct inode *inode = d_inode(wdata->cfile->dentry);
+@@ -2443,7 +2443,7 @@ cifs_writev_requeue(struct cifs_writedata *wdata)
  
- 	spin_lock(&inode->i_lock);
- 	cifs_update_eof(cifsi, wdata->offset, wdata->bytes);
--	if (cifsi->server_eof > inode->i_size)
--		i_size_write(inode, cifsi->server_eof);
-+	if (cifsi->netfs.remote_i_size > inode->i_size)
-+		i_size_write(inode, cifsi->netfs.remote_i_size);
- 	spin_unlock(&inode->i_lock);
+ 	server = tlink_tcon(wdata->cfile->tlink)->ses->server;
+ 	do {
+-		struct cifs_writedata *wdata2;
++		struct cifs_io_subrequest *wdata2;
+ 		unsigned int wsize, cur_len;
  
- 	complete(&wdata->done);
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 86fbd3f847d6..500c8104786d 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -104,7 +104,7 @@ cifs_revalidate_cache(struct inode *inode, struct cifs_fattr *fattr)
- 	fattr->cf_mtime = timestamp_truncate(fattr->cf_mtime, inode);
- 	mtime = inode_get_mtime(inode);
- 	if (timespec64_equal(&mtime, &fattr->cf_mtime) &&
--	    cifs_i->server_eof == fattr->cf_eof) {
-+	    cifs_i->netfs.remote_i_size == fattr->cf_eof) {
- 		cifs_dbg(FYI, "%s: inode %llu is unchanged\n",
- 			 __func__, cifs_i->uniqueid);
- 		return;
-@@ -193,7 +193,7 @@ cifs_fattr_to_inode(struct inode *inode, struct cifs_fattr *fattr)
- 	else
- 		clear_bit(CIFS_INO_DELETE_PENDING, &cifs_i->flags);
+ 		wsize = server->ops->wp_retry_size(inode);
+@@ -2466,7 +2466,7 @@ cifs_writev_requeue(struct cifs_writedata *wdata)
+ 		wdata2->sync_mode = wdata->sync_mode;
+ 		wdata2->offset	= fpos;
+ 		wdata2->bytes	= cur_len;
+-		wdata2->iter	= wdata->iter;
++		wdata2->iter = wdata->iter;
  
--	cifs_i->server_eof = fattr->cf_eof;
-+	cifs_i->netfs.remote_i_size = fattr->cf_eof;
- 	/*
- 	 * Can't safely change the file size here if the client is writing to
- 	 * it due to potential races.
-@@ -2779,7 +2779,7 @@ cifs_set_file_size(struct inode *inode, struct iattr *attrs,
+ 		iov_iter_advance(&wdata2->iter, fpos - wdata->offset);
+ 		iov_iter_truncate(&wdata2->iter, wdata2->bytes);
+@@ -2488,11 +2488,10 @@ cifs_writev_requeue(struct cifs_writedata *wdata)
+ 				rc = -EBADF;
+ 		} else {
+ 			wdata2->pid = wdata2->cfile->pid;
+-			rc = server->ops->async_writev(wdata2,
+-						       cifs_writedata_release);
++			rc = server->ops->async_writev(wdata2);
+ 		}
  
- set_size_out:
- 	if (rc == 0) {
--		cifsInode->server_eof = attrs->ia_size;
-+		netfs_resize_file(&cifsInode->netfs, attrs->ia_size);
- 		cifs_setsize(inode, attrs->ia_size);
- 		/*
- 		 * i_blocks is not related to (i_size / i_blksize), but instead
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index ae0acf9c411d..bd978544d857 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3562,7 +3562,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
- 				  cfile->fid.volatile_fid, cfile->pid, &eof);
- 		if (rc == 0) {
--			cifsi->server_eof = off + len;
-+			netfs_resize_file(&cifsi->netfs, off + len);
- 			cifs_setsize(inode, off + len);
- 			cifs_truncate_page(inode->i_mapping, inode->i_size);
- 			truncate_setsize(inode, off + len);
-@@ -3654,8 +3654,8 @@ static long smb3_collapse_range(struct file *file, struct cifs_tcon *tcon,
- 	int rc;
- 	unsigned int xid;
- 	struct inode *inode = file_inode(file);
--	struct cifsFileInfo *cfile = file->private_data;
+-		kref_put(&wdata2->refcount, cifs_writedata_release);
++		cifs_put_writedata(wdata2);
+ 		if (rc) {
+ 			if (is_retryable_error(rc))
+ 				continue;
+@@ -2511,14 +2510,14 @@ cifs_writev_requeue(struct cifs_writedata *wdata)
+ 
+ 	if (rc != 0 && !is_retryable_error(rc))
+ 		mapping_set_error(inode->i_mapping, rc);
+-	kref_put(&wdata->refcount, cifs_writedata_release);
++	cifs_put_writedata(wdata);
+ }
+ 
+ void
+ cifs_writev_complete(struct work_struct *work)
+ {
+-	struct cifs_writedata *wdata = container_of(work,
+-						struct cifs_writedata, work);
++	struct cifs_io_subrequest *wdata = container_of(work,
++						struct cifs_io_subrequest, work);
+ 	struct inode *inode = d_inode(wdata->cfile->dentry);
+ 
+ 	if (wdata->result == 0) {
+@@ -2539,16 +2538,16 @@ cifs_writev_complete(struct work_struct *work)
+ 
+ 	if (wdata->result != -EAGAIN)
+ 		mapping_set_error(inode->i_mapping, wdata->result);
+-	kref_put(&wdata->refcount, cifs_writedata_release);
++	cifs_put_writedata(wdata);
+ }
+ 
+-struct cifs_writedata *cifs_writedata_alloc(work_func_t complete)
++struct cifs_io_subrequest *cifs_writedata_alloc(work_func_t complete)
+ {
+-	struct cifs_writedata *wdata;
++	struct cifs_io_subrequest *wdata;
+ 
+ 	wdata = kzalloc(sizeof(*wdata), GFP_NOFS);
+ 	if (wdata != NULL) {
+-		kref_init(&wdata->refcount);
++		refcount_set(&wdata->subreq.ref, 1);
+ 		INIT_LIST_HEAD(&wdata->list);
+ 		init_completion(&wdata->done);
+ 		INIT_WORK(&wdata->work, complete);
+@@ -2729,7 +2728,7 @@ static ssize_t cifs_write_back_from_locked_folio(struct address_space *mapping,
+ {
+ 	struct inode *inode = mapping->host;
+ 	struct TCP_Server_Info *server;
+-	struct cifs_writedata *wdata;
++	struct cifs_io_subrequest *wdata;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
+ 	struct cifs_credits credits_on_stack;
+ 	struct cifs_credits *credits = &credits_on_stack;
+@@ -2821,10 +2820,9 @@ static ssize_t cifs_write_back_from_locked_folio(struct address_space *mapping,
+ 		if (wdata->cfile->invalidHandle)
+ 			rc = -EAGAIN;
+ 		else
+-			rc = wdata->server->ops->async_writev(wdata,
+-							      cifs_writedata_release);
++			rc = wdata->server->ops->async_writev(wdata);
+ 		if (rc >= 0) {
+-			kref_put(&wdata->refcount, cifs_writedata_release);
++			cifs_put_writedata(wdata);
+ 			goto err_close;
+ 		}
+ 	} else {
+@@ -2834,7 +2832,7 @@ static ssize_t cifs_write_back_from_locked_folio(struct address_space *mapping,
+ 	}
+ 
+ err_wdata:
+-	kref_put(&wdata->refcount, cifs_writedata_release);
++	cifs_put_writedata(wdata);
+ err_uncredit:
+ 	add_credits_and_wake_if(server, credits, 0);
+ err_close:
+@@ -3223,23 +3221,13 @@ int cifs_flush(struct file *file, fl_owner_t id)
+ 	return rc;
+ }
+ 
+-static void
+-cifs_uncached_writedata_release(struct kref *refcount)
+-{
+-	struct cifs_writedata *wdata = container_of(refcount,
+-					struct cifs_writedata, refcount);
+-
+-	kref_put(&wdata->ctx->refcount, cifs_aio_ctx_release);
+-	cifs_writedata_release(refcount);
+-}
+-
+ static void collect_uncached_write_data(struct cifs_aio_ctx *ctx);
+ 
+ static void
+ cifs_uncached_writev_complete(struct work_struct *work)
+ {
+-	struct cifs_writedata *wdata = container_of(work,
+-					struct cifs_writedata, work);
++	struct cifs_io_subrequest *wdata = container_of(work,
++					struct cifs_io_subrequest, work);
+ 	struct inode *inode = d_inode(wdata->cfile->dentry);
  	struct cifsInodeInfo *cifsi = CIFS_I(inode);
-+	struct cifsFileInfo *cfile = file->private_data;
- 	__le64 eof;
- 	loff_t old_eof;
  
-@@ -3690,9 +3690,9 @@ static long smb3_collapse_range(struct file *file, struct cifs_tcon *tcon,
+@@ -3252,11 +3240,11 @@ cifs_uncached_writev_complete(struct work_struct *work)
+ 	complete(&wdata->done);
+ 	collect_uncached_write_data(wdata->ctx);
+ 	/* the below call can possibly free the last ref to aio ctx */
+-	kref_put(&wdata->refcount, cifs_uncached_writedata_release);
++	cifs_put_writedata(wdata);
+ }
  
- 	rc = 0;
+ static int
+-cifs_resend_wdata(struct cifs_writedata *wdata, struct list_head *wdata_list,
++cifs_resend_wdata(struct cifs_io_subrequest *wdata, struct list_head *wdata_list,
+ 	struct cifs_aio_ctx *ctx)
+ {
+ 	unsigned int wsize;
+@@ -3305,8 +3293,7 @@ cifs_resend_wdata(struct cifs_writedata *wdata, struct list_head *wdata_list,
+ 					wdata->mr = NULL;
+ 				}
+ #endif
+-				rc = server->ops->async_writev(wdata,
+-					cifs_uncached_writedata_release);
++				rc = server->ops->async_writev(wdata);
+ 			}
+ 		}
  
--	cifsi->server_eof = i_size_read(inode) - len;
--	truncate_setsize(inode, cifsi->server_eof);
--	fscache_resize_cookie(cifs_inode_cookie(inode), cifsi->server_eof);
-+	netfs_resize_file(&cifsi->netfs, eof);
-+	truncate_setsize(inode, eof);
-+	fscache_resize_cookie(cifs_inode_cookie(inode), eof);
- out_2:
- 	filemap_invalidate_unlock(inode->i_mapping);
-  out:
+@@ -3321,7 +3308,7 @@ cifs_resend_wdata(struct cifs_writedata *wdata, struct list_head *wdata_list,
+ 	} while (rc == -EAGAIN);
+ 
+ fail:
+-	kref_put(&wdata->refcount, cifs_uncached_writedata_release);
++	cifs_put_writedata(wdata);
+ 	return rc;
+ }
+ 
+@@ -3373,7 +3360,7 @@ cifs_write_from_iter(loff_t fpos, size_t len, struct iov_iter *from,
+ {
+ 	int rc = 0;
+ 	size_t cur_len, max_len;
+-	struct cifs_writedata *wdata;
++	struct cifs_io_subrequest *wdata;
+ 	pid_t pid;
+ 	struct TCP_Server_Info *server;
+ 	unsigned int xid, max_segs = INT_MAX;
+@@ -3437,6 +3424,7 @@ cifs_write_from_iter(loff_t fpos, size_t len, struct iov_iter *from,
+ 			break;
+ 		}
+ 
++		wdata->uncached	= true;
+ 		wdata->sync_mode = WB_SYNC_ALL;
+ 		wdata->offset	= (__u64)fpos;
+ 		wdata->cfile	= cifsFileInfo_get(open_file);
+@@ -3456,14 +3444,12 @@ cifs_write_from_iter(loff_t fpos, size_t len, struct iov_iter *from,
+ 			if (wdata->cfile->invalidHandle)
+ 				rc = -EAGAIN;
+ 			else
+-				rc = server->ops->async_writev(wdata,
+-					cifs_uncached_writedata_release);
++				rc = server->ops->async_writev(wdata);
+ 		}
+ 
+ 		if (rc) {
+ 			add_credits_and_wake_if(server, &wdata->credits, 0);
+-			kref_put(&wdata->refcount,
+-				 cifs_uncached_writedata_release);
++			cifs_put_writedata(wdata);
+ 			if (rc == -EAGAIN)
+ 				continue;
+ 			break;
+@@ -3481,7 +3467,7 @@ cifs_write_from_iter(loff_t fpos, size_t len, struct iov_iter *from,
+ 
+ static void collect_uncached_write_data(struct cifs_aio_ctx *ctx)
+ {
+-	struct cifs_writedata *wdata, *tmp;
++	struct cifs_io_subrequest *wdata, *tmp;
+ 	struct cifs_tcon *tcon;
+ 	struct cifs_sb_info *cifs_sb;
+ 	struct dentry *dentry = ctx->cfile->dentry;
+@@ -3536,8 +3522,7 @@ static void collect_uncached_write_data(struct cifs_aio_ctx *ctx)
+ 						ctx->cfile, cifs_sb, &tmp_list,
+ 						ctx);
+ 
+-					kref_put(&wdata->refcount,
+-						cifs_uncached_writedata_release);
++					cifs_put_writedata(wdata);
+ 				}
+ 
+ 				list_splice(&tmp_list, &ctx->list);
+@@ -3545,7 +3530,7 @@ static void collect_uncached_write_data(struct cifs_aio_ctx *ctx)
+ 			}
+ 		}
+ 		list_del_init(&wdata->list);
+-		kref_put(&wdata->refcount, cifs_uncached_writedata_release);
++		cifs_put_writedata(wdata);
+ 	}
+ 
+ 	cifs_stats_bytes_written(tcon, ctx->total_len);
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index 148652891ead..85a85821390f 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -4520,7 +4520,7 @@ SMB2_read(const unsigned int xid, struct cifs_io_parms *io_parms,
+ static void
+ smb2_writev_callback(struct mid_q_entry *mid)
+ {
+-	struct cifs_writedata *wdata = mid->callback_data;
++	struct cifs_io_subrequest *wdata = mid->callback_data;
+ 	struct cifs_tcon *tcon = tlink_tcon(wdata->cfile->tlink);
+ 	struct TCP_Server_Info *server = wdata->server;
+ 	unsigned int written;
+@@ -4601,8 +4601,7 @@ smb2_writev_callback(struct mid_q_entry *mid)
+ 
+ /* smb2_async_writev - send an async write, and set up mid to handle result */
+ int
+-smb2_async_writev(struct cifs_writedata *wdata,
+-		  void (*release)(struct kref *kref))
++smb2_async_writev(struct cifs_io_subrequest *wdata)
+ {
+ 	int rc = -EACCES, flags = 0;
+ 	struct smb2_write_req *req = NULL;
+@@ -4734,7 +4733,7 @@ smb2_async_writev(struct cifs_writedata *wdata,
+ 		flags |= CIFS_HAS_CREDITS;
+ 	}
+ 
+-	kref_get(&wdata->refcount);
++	cifs_get_writedata(wdata);
+ 	rc = cifs_call_async(server, &rqst, NULL, smb2_writev_callback, NULL,
+ 			     wdata, flags, &wdata->credits);
+ 
+@@ -4746,7 +4745,7 @@ smb2_async_writev(struct cifs_writedata *wdata,
+ 				     io_parms->offset,
+ 				     io_parms->length,
+ 				     rc);
+-		kref_put(&wdata->refcount, release);
++		cifs_put_writedata(wdata);
+ 		cifs_stats_fail_inc(tcon, SMB2_WRITE_HE);
+ 	}
+ 
+diff --git a/fs/smb/client/smb2proto.h b/fs/smb/client/smb2proto.h
+index 02ffe5ec9b21..4d3d51e42d3c 100644
+--- a/fs/smb/client/smb2proto.h
++++ b/fs/smb/client/smb2proto.h
+@@ -189,8 +189,7 @@ extern int SMB2_get_srv_num(const unsigned int xid, struct cifs_tcon *tcon,
+ extern int smb2_async_readv(struct cifs_io_subrequest *rdata);
+ extern int SMB2_read(const unsigned int xid, struct cifs_io_parms *io_parms,
+ 		     unsigned int *nbytes, char **buf, int *buf_type);
+-extern int smb2_async_writev(struct cifs_writedata *wdata,
+-			     void (*release)(struct kref *kref));
++extern int smb2_async_writev(struct cifs_io_subrequest *wdata);
+ extern int SMB2_write(const unsigned int xid, struct cifs_io_parms *io_parms,
+ 		      unsigned int *nbytes, struct kvec *iov, int n_vec);
+ extern int SMB2_echo(struct TCP_Server_Info *server);
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
