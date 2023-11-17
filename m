@@ -1,103 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBA5R36VAMGQE5BKZ2KI@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBB5R36VAMGQEFC22IXI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031E47EF9B9
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:17:57 +0100 (CET)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-66fa17e145asf29531866d6.0
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:17:56 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255876; cv=pass;
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA4D7EF9BC
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:18:00 +0100 (CET)
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-5876e3b42d7sf481353eaf.0
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:18:00 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255879; cv=pass;
         d=google.com; s=arc-20160816;
-        b=oN8O020fxie2fy3qOh3BXdBEwiGAMPplhNOSg4gionslDtc8kr0B2h9EvVtDT0YeNE
-         9QRS7kbf2+AXMr0sbj4+uFY8Gd3/7wJPhyucNlPskd6Fe3JUDq00a2HbIO9ma7jLY+ps
-         xdXU24n+8v5Nfx9Roh5atifGXOI49NveMFf83O+wwq9tTngcIUHwwu3HcNXoBWLyvjTZ
-         +n42j8/Un2cIQ/HvmYRDwIwChBvAlVYxaqR4ZwoqDASjn4JuG2bJkYGWWVUKrzhSVVax
-         pkq41TQrilqv7zvJEmHIlolUhfJfXzL/25xtg+Sezxi+TBfoeruQuB7sWt0JUV0HapFW
-         y8fA==
+        b=UT4RK9p7xlGwbwJjZqKeX0iCrUTPJ+P68Q5s8i2GnXyq8fDwG/su/w64b3eFSqDwjo
+         jlLcif2fo69xus8vHA77MFj/lkjZsqepb9I4NPT/8UTwcmrFBOCo71L5+MXhsEbFzXoc
+         iRMGaVb8Bk+LJdQUwEdIV0LCWwsKNXxz+uOEMaYQBQtOvgftHBf6o3PRijXXSPhPEl38
+         heeZ+yE+XCbGRGjs74wV5uAJjd4ohF9Gk2tThUGHnSS77k8voNQveo/zr8jeAKRY1a06
+         tYh/YdCg+Kf5XJnQyUnkW+ernYLi3mVILtMjD6Z+aii26IM0kd9lu9h+haBcvEpsZldW
+         kvaQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=wem5nCa6TVAnsSjhnFBE0he/hNEmPlS2I1iRYwYIuHo=;
+        bh=5IFZafkHTdUxgqT6cgJ13fa1z1PHp/LIHCmEEc7zZFE=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=hXe//3Futqsr2ik+syBYcKZCokqBJzBB3utxMDeCdn7Xqp1jgEZf+MyFVkSZjeP6hS
-         jjQm1kgH9YU6KyQG4GiqVmDXJPLHCQf4hzQdJobh6qbWU7wyceeV4DheBTLakj0RfJfO
-         vo8N6GZvvh6+Ghqycxt8NcHIHgySj2nAwLaj4HYCsM3ieZ+adHrYU/2a+xJbHIqJiwVJ
-         4+/njHb7jH4b0YBoA1IxQVNG6WpPdxPHbnsPY3tV/cs3HUQljFwT1ttcDRLPRIBZzI8L
-         8z4KNbNTAK9Igzg0E/7ZsSo/O8aSWMCsiHvcHYH8rP7GYvHG6pY3tld6f1GIUj3okb0z
-         GyvA==
+        b=0eKTsolbJLJsJft34+jDpJUKJRuRfmFYxB/izI8ZPPqjlf8zyBTGBMfcK44nPacla2
+         G30V1q1TLe0nbahDzJJEY3mQ/pHYuvCvlWIT6N4HdVuAxDF8GhRAOGVEifnO98snENNz
+         nCqTmlEqbifV0yz2XZAUf1s46VoSJ2FJ+J/k5Hb0QfL8zcxDzwC1zTKuQqTjLgkR6Vot
+         c0fsNOBF5ep3MDOVrKltrms7ocnNWlPeTu7E8Efv3/olQGJRDmCHf9JcP2c5Zw1gEJrS
+         vJ/QL/FUMoejkEHFsQo1hPa9H5gGjgu/287bR3r/yAKqYZ4caWK5NPiZsJJKkWoBhel/
+         ky3w==
 ARC-Authentication-Results: i=2; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255876; x=1700860676;
+        d=1e100.net; s=20230601; t=1700255879; x=1700860679;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wem5nCa6TVAnsSjhnFBE0he/hNEmPlS2I1iRYwYIuHo=;
-        b=fJqCe5Sqgn16xcc1HQo2o/AwJsdDm3T6XBKIBRm6ps5BbBeouh8u6TuToMX0vystpk
-         jgBf1eq+64smvUADWceOXvzyXqropbNcSTQlJSagVlTybSihy9YUBsHbfe3mXZJoLnmH
-         ozf0EaT/nZoQTMISG9O3E921yJ2WJyWy46YSfe1ZsKvqOf4ypBlGgjb36hs45GyqgdfP
-         n3YKsEAUbznD+g8T35tb1XdJfYq+JZysl4NEiUwWkfErbkwAE+wiBNYfma3DIZGRknpN
-         B0n7evHlyjJq1JabC5hmSPOOGItjSQW8FC2s9ETZp5sGEiF4UFTKxByJ4KSbs0DH5iVR
-         eiqQ==
-X-Gm-Message-State: AOJu0YxkfxiFBgjmOJ2EGhmxQuFYWtW6cazdTHPvEKHyBsmFOTAr1g8N
-	v9nJJohPOCryczlrnDZ+7TMJdQ==
-X-Google-Smtp-Source: AGHT+IFpQTdLXwYPKkehJMuC7Q9oHpoSOdqeACUo0DArkA4Ie1iKbVyu9Lq9HQC/+stE2dPAZAjMHw==
-X-Received: by 2002:ad4:5cc9:0:b0:66d:2aa3:cd49 with SMTP id iu9-20020ad45cc9000000b0066d2aa3cd49mr375976qvb.14.1700255875927;
-        Fri, 17 Nov 2023 13:17:55 -0800 (PST)
+        bh=5IFZafkHTdUxgqT6cgJ13fa1z1PHp/LIHCmEEc7zZFE=;
+        b=UU85YgVaC8MMuFFmFImGwfPiwQB1of3/NyB/flFwTVlB8AYeKsTFLzbeOrnHHjIJYu
+         QZsQZt2Q5iZJwHhENoSgc5OiGXwgysC/AxaMZRcXfGZ716u+dWXh/8gusM7dSBxb0ooM
+         XSVGlLvG0AhH72VpKq0sj9NOMOYb3vWE4Lkfh2H8pfgHmiZXeM30oT/bfAlo5bnccvBQ
+         nc9wd4nslFazVL0iEHIVJp6NdLQHuYS39LL7aWj2C7ltu9ReBb9puoNoEVmj1WGfsUHk
+         Xu6Wf2nrHznZffXp9poBqki7p4RIqv1Va8JGPzLind1iIliF2tlQXd/YdlCgKYEIMlmb
+         +cfQ==
+X-Gm-Message-State: AOJu0Yxyw+wsQhIPnotOZWv8ZlcsbwIrgfmldVOWw8JA9XM82HwXD5VD
+	E3C8i3sTmB1C+6eDHyjKbJ+7CA==
+X-Google-Smtp-Source: AGHT+IHJjFos1ExQKlHnMVfjtk7L30B9+ZXpauBZCoxqiC1xfIRapCnPD5ngfOkBezgUg7gyIiia0A==
+X-Received: by 2002:a4a:d44c:0:b0:584:1080:f0a5 with SMTP id p12-20020a4ad44c000000b005841080f0a5mr841839oos.1.1700255879399;
+        Fri, 17 Nov 2023 13:17:59 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:709:b0:65d:592:a279 with SMTP id
- c9-20020a056214070900b0065d0592a279ls1772577qvz.0.-pod-prod-04-us; Fri, 17
- Nov 2023 13:17:55 -0800 (PST)
-X-Received: by 2002:a05:620a:9447:b0:778:9130:dbd1 with SMTP id sm7-20020a05620a944700b007789130dbd1mr675293qkn.36.1700255875466;
-        Fri, 17 Nov 2023 13:17:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255875; cv=none;
+Received: by 2002:a4a:5850:0:b0:58a:758e:d0b5 with SMTP id f77-20020a4a5850000000b0058a758ed0b5ls1456782oob.0.-pod-prod-06-us;
+ Fri, 17 Nov 2023 13:17:58 -0800 (PST)
+X-Received: by 2002:a05:6358:7f10:b0:168:e7aa:596c with SMTP id p16-20020a0563587f1000b00168e7aa596cmr503289rwn.19.1700255878672;
+        Fri, 17 Nov 2023 13:17:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255878; cv=none;
         d=google.com; s=arc-20160816;
-        b=xa1Pm+tLq9sjOq3nOt0BFYnB9grNU3E/BTmwz0baAtUUE386DYK5jzPvYEAQ5suceS
-         p3gg3+zRqZhEgUEDY3TWCVy4ZihJp7uCZHA37hywP5UCGnkYQ82I3UCwkUzp/I9Pibbu
-         iPWd8/NhQOQt2MzbYnq2Zuzz6/Xf0r+7Vw/kuP7txnU6vG1/u3dsA5QiCat74coReWSa
-         uRTyaZdl2pLMYSeroJNNIpjywQeZfZNkhk6Hhobb+EI49uNV1uKqCw0faL0jyM2i3h+L
-         lbHhx5CoWatsWXN9dFI7DlcfCoD2lqdykc36Fz8IpgD6KgU221CL3jLfNMXfj0AokJbi
-         McSQ==
+        b=vOBeTdwAWEMvnIILIKHLL5G+HFWdbmEqLpH9tfiT9CXLuazNO2GHnl2vNO/TLoFIqS
+         xbENmGXpCBtg1gb/yGV/rj+T8P4XGvqUG5L7RRNlAbTD2zpHeLC+8DF/95BAe6pRxTCT
+         nZbPdDFkrfVl9T3PYvQeAkWDpBlAVrPTdkiqyQHqd1SOT1HZjfbOTs87b0QE/ns7KLla
+         83KrrPRmLzdt/hMK7gezkTu+7opKKpQ9WN98C2MlYD9HsCa34pZPG0enWH1EmRSS4GO+
+         pyr2pT5I2TLFNn/sDX44gfmOgcSYElgGjvbAqyQ4tk1Mj0DRqH3vrYwJFCOLzV99nZRI
+         ZVDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=ablsJdTiyO2NAigj2ijcrkqA9EUIfyGm7/v4HJQaeAo=;
+        bh=yJ0EH3j50U389igBFANhTwAFPV4cR9SbiJMpaWBP0sQ=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=KIKzJ9hvCdBtuB2+/RSX5Sc5//NZDc3OnvxTfI3pPdPjjzp6lRzwccJ5N+sI/ePQnX
-         vmYWJHCfT9rKw3t+i7NZZZYBr9A3O5STvUfBcdACAo1prHNhoyXv2GlxcHlXra4NJN02
-         DtyUSMUIFo5LxM/VegOuV9szwpXS1sxF/EJRE+Ifg+DUzfYOTR0dTu1tAf93W43ljckH
-         NAP/hSmbMxWFHdyCfSNdaoCuRCWusLZKMDj+VZI8UV78JgQJUKMnkneLureMvG9Xs95+
-         veuNdbatCXf2Wp4MgvkyCEkzSWVLJeummQLdnGGdysqOQg0FubfFjoPLKD54MN9EjiO/
-         oWNQ==
+        b=y+ynUhW5ah8/pfZCEdJ+D+cocMMW8uaSHJf1D7j9P6Ip10f+iznIGtls6/GUYRY1ne
+         1bjY6H1IVRAgGsF0SiZk5MOrOUwHnVK4w8HLcipHIvrleL4bMKXJ3VMzL54EtMJtHYM+
+         +rcrbxG9BnOXA0U1psKM9FKTTGTac8C+SlXsi4aeHAKUN+GL7RxQQytlzUn1x6u9mdOZ
+         tmVlAbo5rZBep1eYFMFHavZOP1z2VnXxx8UMF7rEwZMP3b1rvw5pbplj0BKNelmQCQl1
+         dWhbSN/Ru5s75kL85kW1J7teNmUfu/grxI5If71Y2Rv5DXUwijjDsL2a73Sl5bhOk5BK
+         b9rA==
 ARC-Authentication-Results: i=1; mx.google.com;
        spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com. [205.139.110.61])
-        by mx.google.com with ESMTPS id az9-20020a05620a170900b00775c5458f6esi2678048qkb.267.2023.11.17.13.17.55
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [205.139.110.61])
+        by mx.google.com with ESMTPS id cv7-20020ad44d87000000b00678006594e3si20202qvb.397.2023.11.17.13.17.58
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:17:55 -0800 (PST)
+        Fri, 17 Nov 2023 13:17:58 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-182-nlu6pvfDNWKoT9nWBTjK7Q-1; Fri,
- 17 Nov 2023 16:17:53 -0500
-X-MC-Unique: nlu6pvfDNWKoT9nWBTjK7Q-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-670-sxXaJAJLNpajAXIA7LfCBQ-1; Fri, 17 Nov 2023 16:17:57 -0500
+X-MC-Unique: sxXaJAJLNpajAXIA7LfCBQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D95B382135D
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:17:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C07E381B567
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:17:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5A77F492CAB; Fri, 17 Nov 2023 21:17:53 +0000 (UTC)
+	id BCD38C15885; Fri, 17 Nov 2023 21:17:56 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B99B6492BFD;
-	Fri, 17 Nov 2023 21:17:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B871C15882;
+	Fri, 17 Nov 2023 21:17:54 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,13 +119,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 31/51] netfs: Provide minimum blocksize parameter
-Date: Fri, 17 Nov 2023 21:15:23 +0000
-Message-ID: <20231117211544.1740466-32-dhowells@redhat.com>
+Subject: [PATCH v2 32/51] netfs: Make netfs_skip_folio_read() take account of blocksize
+Date: Fri, 17 Nov 2023 21:15:24 +0000
+Message-ID: <20231117211544.1740466-33-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -144,10 +143,8 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Add a parameter for minimum blocksize in the netfs_i_context struct.  This
-can be used, for instance, to force I/O alignment for content encryption.
-It also requires the use of an RMW cycle if a write we want to do doesn't
-meet the block alignment requirements.
+Make netfs_skip_folio_read() take account of blocksize such as crypto
+blocksize.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -155,109 +152,82 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_read.c  | 26 ++++++++++++++++++++++----
- fs/netfs/buffered_write.c |  3 ++-
- fs/netfs/direct_read.c    |  3 ++-
- include/linux/netfs.h     |  2 ++
- 4 files changed, 28 insertions(+), 6 deletions(-)
+ fs/netfs/buffered_read.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
 diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index ab9f8e123245..e06461ef0bfa 100644
+index e06461ef0bfa..de696aaaefbd 100644
 --- a/fs/netfs/buffered_read.c
 +++ b/fs/netfs/buffered_read.c
-@@ -527,14 +527,26 @@ int netfs_prefetch_for_write(struct file *file, struct folio *folio,
- 	struct address_space *mapping = folio_file_mapping(folio);
- 	struct netfs_inode *ctx = netfs_inode(mapping->host);
- 	unsigned long long start = folio_pos(folio);
--	size_t flen = folio_size(folio);
-+	unsigned long long i_size, rstart, end;
-+	size_t rlen;
- 	int ret;
- 
--	_enter("%zx @%llx", flen, start);
-+	DEFINE_READAHEAD(ractl, file, NULL, mapping, folio_index(folio));
-+
-+	_enter("%zx @%llx", len, start);
- 
- 	ret = -ENOMEM;
- 
--	rreq = netfs_alloc_request(mapping, file, start, flen,
-+	i_size = i_size_read(mapping->host);
-+	end = round_up(start + len, 1U << ctx->min_bshift);
-+	if (end > i_size) {
-+		unsigned long long limit = round_up(start + len, PAGE_SIZE);
-+		end = max(limit, round_up(i_size, PAGE_SIZE));
-+	}
-+	rstart = round_down(start, 1U << ctx->min_bshift);
-+	rlen   = end - rstart;
-+
-+	rreq = netfs_alloc_request(mapping, file, rstart, rlen,
- 				   NETFS_READ_FOR_WRITE);
- 	if (IS_ERR(rreq)) {
- 		ret = PTR_ERR(rreq);
-@@ -548,7 +560,13 @@ int netfs_prefetch_for_write(struct file *file, struct folio *folio,
- 		goto error_put;
- 
- 	netfs_stat(&netfs_n_rh_write_begin);
--	trace_netfs_read(rreq, start, flen, netfs_read_trace_prefetch_for_write);
-+	trace_netfs_read(rreq, rstart, rlen, netfs_read_trace_prefetch_for_write);
-+
-+	/* Expand the request to meet caching requirements and download
-+	 * preferences.
-+	 */
-+	ractl._nr_pages = folio_nr_pages(folio);
-+	netfs_rreq_expand(rreq, &ractl);
- 
- 	/* Set up the output buffer */
- 	iov_iter_xarray(&rreq->iter, ITER_DEST, &mapping->i_pages,
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 097086d75d1c..4f0feedb357a 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -80,7 +80,8 @@ static enum netfs_how_to_modify netfs_how_to_modify(struct netfs_inode *ctx,
- 	if (file->f_mode & FMODE_READ)
- 		return NETFS_JUST_PREFETCH;
- 
--	if (netfs_is_cache_enabled(ctx))
-+	if (netfs_is_cache_enabled(ctx) ||
-+	    ctx->min_bshift > 0)
- 		return NETFS_JUST_PREFETCH;
- 
- 	if (!finfo)
-diff --git a/fs/netfs/direct_read.c b/fs/netfs/direct_read.c
-index 1d26468aafd9..52ad8fa66dd5 100644
---- a/fs/netfs/direct_read.c
-+++ b/fs/netfs/direct_read.c
-@@ -185,7 +185,8 @@ static ssize_t netfs_unbuffered_read_iter_locked(struct kiocb *iocb, struct iov_
- 	 * will then need to pad the request out to the minimum block size.
- 	 */
- 	if (test_bit(NETFS_RREQ_USE_BOUNCE_BUFFER, &rreq->flags)) {
--		start = rreq->start;
-+		min_bsize = 1ULL << ctx->min_bshift;
-+		start = round_down(rreq->start, min_bsize);
- 		end = min_t(unsigned long long,
- 			    round_up(rreq->start + rreq->len, min_bsize),
- 			    ctx->remote_i_size);
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 02a8ddddc8cd..cb80de66d165 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -141,6 +141,7 @@ struct netfs_inode {
- 	unsigned long		flags;
- #define NETFS_ICTX_ODIRECT	0		/* The file has DIO in progress */
- #define NETFS_ICTX_UNBUFFERED	1		/* I/O should not use the pagecache */
-+	unsigned char		min_bshift;	/* log2 min block size for bounding box or 0 */
- };
+@@ -337,6 +337,7 @@ EXPORT_SYMBOL(netfs_read_folio);
  
  /*
-@@ -463,6 +464,7 @@ static inline void netfs_inode_init(struct netfs_inode *ctx,
- 	ctx->remote_i_size = i_size_read(&ctx->inode);
- 	ctx->zero_point = ctx->remote_i_size;
- 	ctx->flags = 0;
-+	ctx->min_bshift = 0;
- #if IS_ENABLED(CONFIG_FSCACHE)
- 	ctx->cache = NULL;
- #endif
+  * Prepare a folio for writing without reading first
++ * @ctx: File context
+  * @folio: The folio being prepared
+  * @pos: starting position for the write
+  * @len: length of write
+@@ -350,32 +351,41 @@ EXPORT_SYMBOL(netfs_read_folio);
+  * If any of these criteria are met, then zero out the unwritten parts
+  * of the folio and return true. Otherwise, return false.
+  */
+-static bool netfs_skip_folio_read(struct folio *folio, loff_t pos, size_t len,
+-				 bool always_fill)
++static bool netfs_skip_folio_read(struct netfs_inode *ctx, struct folio *folio,
++				  loff_t pos, size_t len, bool always_fill)
+ {
+ 	struct inode *inode = folio_inode(folio);
+-	loff_t i_size = i_size_read(inode);
++	loff_t i_size = i_size_read(inode), low, high;
+ 	size_t offset = offset_in_folio(folio, pos);
+ 	size_t plen = folio_size(folio);
++	size_t min_bsize = 1UL << ctx->min_bshift;
++
++	if (likely(min_bsize == 1)) {
++		low = folio_file_pos(folio);
++		high = low + plen;
++	} else {
++		low = round_down(pos, min_bsize);
++		high = round_up(pos + len, min_bsize);
++	}
+ 
+ 	if (unlikely(always_fill)) {
+-		if (pos - offset + len <= i_size)
+-			return false; /* Page entirely before EOF */
++		if (low < i_size)
++			return false; /* Some part of the block before EOF */
+ 		zero_user_segment(&folio->page, 0, plen);
+ 		folio_mark_uptodate(folio);
+ 		return true;
+ 	}
+ 
+-	/* Full folio write */
+-	if (offset == 0 && len >= plen)
++	/* Full page write */
++	if (pos == low && high == pos + len)
+ 		return true;
+ 
+-	/* Page entirely beyond the end of the file */
+-	if (pos - offset >= i_size)
++	/* pos beyond last page in the file */
++	if (low >= i_size)
+ 		goto zero_out;
+ 
+ 	/* Write that covers from the start of the folio to EOF or beyond */
+-	if (offset == 0 && (pos + len) >= i_size)
++	if (pos == low && (pos + len) >= i_size)
+ 		goto zero_out;
+ 
+ 	return false;
+@@ -454,7 +464,7 @@ int netfs_write_begin(struct netfs_inode *ctx,
+ 	 * to preload the granule.
+ 	 */
+ 	if (!netfs_is_cache_enabled(ctx) &&
+-	    netfs_skip_folio_read(folio, pos, len, false)) {
++	    netfs_skip_folio_read(ctx, folio, pos, len, false)) {
+ 		netfs_stat(&netfs_n_rh_write_zskip);
+ 		goto have_folio_no_wait;
+ 	}
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
