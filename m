@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBJVQ36VAMGQEYG7NV4I@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBKNQ36VAMGQECSONLGI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C21C7EF96A
-	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:23 +0100 (CET)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-421ad4ca88dsf25968171cf.1
-        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:23 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700255782; cv=pass;
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id 842127EF96D
+	for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 22:16:26 +0100 (CET)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-41cb577d45asf25860581cf.3
+        for <lists+linux-cachefs@lfdr.de>; Fri, 17 Nov 2023 13:16:26 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700255785; cv=pass;
         d=google.com; s=arc-20160816;
-        b=U6VYuaojvZsbZBXHkbll2IdcOmp3SX8IHXnOVuvqA+YtXPfO70Ud5rYwsZbKVD4YJh
-         XPsChDg7AM4tWxxAQuEuGYxkZSQKp2v9vDGTerZWwvwURMpcp0era48r4ay7qpR7tGdq
-         Rfjd+yTAlQOXqaieD6RNwFYZiO+JGF6xTsaVpCyCZJXHtTel1btpKQroRe6iuhtjax8z
-         ZhW3K2t1SQldKV7g0CoU9F9dgiFLofNXYL2D4IVCy8ZX09v5HsaKduxYISoedEy1C9aW
-         O5hmH0OrT3hlTKsv1pbrRY5c/8mSy3HvSgbI+MNapr1egWZ5/+l8p0+VVXCtGXoiZ5mk
-         Mikg==
+        b=syLeFjRodYIWpGYuGn+iTQh+I+3VDJdJQXzLKbDX/Sp2z/Pcm2MOKqUUmvNiCS+uch
+         g0Xh2G1rcZFH5KsT2e44i9w59N39mh7k+kRscH6S92kzZ6TLRffd1fmL+24j9lLIaSR2
+         B7qchKTWVXC2kNMcVTjp6R7LjFE/WaDmNM/veTDaDS9OXKA3fEWo5VHdbCekcbjPtZRK
+         oftXeuaA21pgZm8PnCpSp35rn1TzV0qpt76khKtUIF5lBcjwWSTeDuhsFirFhkK8C5TL
+         hq9BPAaxwZ9vbzpLp1ng6FOwNjMOyBQaGIovrLkM1ltirCgoAcWk5Wp3lPEJ6m3U6VwF
+         BrQA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=DYvYeChO8iFF9+oYjbzQbeEXXmurWNeAnKwbzmzscF8=;
+        bh=JvR+XaknXXA1SQUUGaifuvKGJgRlJXcBJ3UJqjlNAWE=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=Rc1MWUljajAGBtdOxvzYU6x/w+BjMdgRCTN25FUO73mGG53KHVO9rNk16h000bCoTI
-         RHleR6c7LwSC4/+U/7tgFNnO2VsTxAcVvOY/GdtKXCfCd4tv29NAWdoWoGfH5dN+Lcrr
-         cD3xHt/ahHqoeVhKr4mxYxhBrpox2dhOWvvSNk7oKt9UlZ+5SlBRouc8Io7bEH9sEzcl
-         pdtpE+XFqwAvv15uKgd/+236RDs/Fw4TEHnEnty4RUdVkzlvB0ISJZjMVqjZmDSdq4Vc
-         e6Jm+pj4ER47TYibSTrG2GkoeVWB/AhzoBLfrKAHY8xTQaxxX+Hbk5QhIBs/JDhuXGlB
-         fsjQ==
+        b=Hbd4umbarrzW6yK04jFLywGiEovUacqTLmLvLmcnXfZ211/yWLkrHMzJL7od6Gkffn
+         cdKi4ERYhmmQj/Lix+rWiC9k9f51quK2aA76xUmb/YuimRhJHNS0qS3KnnyfVisqdiPS
+         uzWz+PYQNTuokICR5zXAGRTAtzzZavrl/8xOZ6xpiwdI//HL+cqnz5CI1+ol66ZeOcBa
+         /BIul7LiniSr2U4xEj5BWG7056WIj/eMrAjBXqKWNcvVmQew6iZKjy8lyLrMJdWEVhqL
+         QKwx/6tb2BGbD5vzeXCZXc/fGoPJsqfU10HkzbZxoSlWQHeiZfMY/jLi1ku4j+Nh51LF
+         kVYw==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
+       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700255782; x=1700860582;
+        d=1e100.net; s=20230601; t=1700255785; x=1700860585;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DYvYeChO8iFF9+oYjbzQbeEXXmurWNeAnKwbzmzscF8=;
-        b=wimDpQtzN2P9Pi0AZXME9Jw1/JsKidLoyuXtmVmAOEONW3piObEctD7iGdT99JfeKg
-         qxBUTEUpu+/3r0uv1CkSEEbiCfyOdDaGWPbktulm0ugkGtlQU+PN27XyAh4nuN26CbsJ
-         JuOF8KCW2jXbeuCjNTlwsuEsMcZAdOCQW6PlJCpfU6gK2alRLMKduZHJ9rCWIZ5VoXps
-         lcpbguXBLBGlQnqsnG6S3cHowTvxsc6EEuoXsx2/Qi3qx8KFm2ot0uTXTFlWG5erHQ89
-         VDoVMxSsHk/u2l8VUVhyxJzG5bpDY00vnVmdy7mzG+dzwc/tClpyT1Ov73QCBgdiIHBm
-         1R2Q==
-X-Gm-Message-State: AOJu0YzRqsidzgsuAR7uVjQEGpiwN7ScoVLKhx7PY3KvuBScRKGST6tF
-	Wi1jUHbJiiJATQn19Z0gFY7BPA==
-X-Google-Smtp-Source: AGHT+IHtRY52DOhwJzmSaUZcSoSdLZ/Yp2Dww2KSN/GjLFkDM3tiyM7VjjVctwfWhRseHp8TwYyyTQ==
-X-Received: by 2002:a05:622a:1393:b0:412:395c:e794 with SMTP id o19-20020a05622a139300b00412395ce794mr1109700qtk.50.1700255782267;
-        Fri, 17 Nov 2023 13:16:22 -0800 (PST)
+        bh=JvR+XaknXXA1SQUUGaifuvKGJgRlJXcBJ3UJqjlNAWE=;
+        b=RWE9mT+1Ws8wxQqgfCrn/DCg8WYt7k/yxCAtv5EUcwRpCpLjSciPUtXpSi4Q4COXS+
+         1rriITDA58FJXPskWsBytNCnIzxA4/TRGgSXSmYCalJzTtEa7P4tGwi+A8VdYCCfkkcf
+         MULDKxIvXBkEie+wKFde4OXfWCNgJklYMY4TdJE7W/C3aj0SUwZvp4ubGj2AlilPRhtF
+         6sBNpB1mMNU9taUyolcNDn21NCAzAlMltniH4Fw2fnclrumK+rilWQphNNS/yJnnx4oy
+         0bH/XzCkEM/Qse0ogZVkYEDbTeN/eQZeFLtZJ5m2hzERmQB8PTwJHxn8SNyN9To66Wcf
+         n1hA==
+X-Gm-Message-State: AOJu0YxueKmJEV8dQKCFRZSUnKpv6xfYdLUug2jpGpAA7CaDRsLKYJpN
+	8djp/Mnuw/C5bTsWrVWd+FbXEw==
+X-Google-Smtp-Source: AGHT+IFodicURtDrqx7E3BpgAa7t5+lTdP2z6pEWuDeAg/M0IqU1h2TLYdRI8MJ7DVXSep1qWutvvw==
+X-Received: by 2002:a05:622a:1c4:b0:41e:5470:2b1e with SMTP id t4-20020a05622a01c400b0041e54702b1emr1014248qtw.2.1700255785538;
+        Fri, 17 Nov 2023 13:16:25 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
 Received: by 2002:a05:622a:4184:b0:422:1bd:4708 with SMTP id
- cd4-20020a05622a418400b0042201bd4708ls1872811qtb.1.-pod-prod-01-us; Fri, 17
- Nov 2023 13:16:21 -0800 (PST)
-X-Received: by 2002:a05:6102:284e:b0:45d:9bac:d899 with SMTP id az14-20020a056102284e00b0045d9bacd899mr761384vsb.16.1700255781757;
-        Fri, 17 Nov 2023 13:16:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700255781; cv=none;
+ cd4-20020a05622a418400b0042201bd4708ls1872850qtb.1.-pod-prod-01-us; Fri, 17
+ Nov 2023 13:16:25 -0800 (PST)
+X-Received: by 2002:a05:620a:6406:b0:774:2a7f:fa24 with SMTP id pz6-20020a05620a640600b007742a7ffa24mr791967qkn.25.1700255784898;
+        Fri, 17 Nov 2023 13:16:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700255784; cv=none;
         d=google.com; s=arc-20160816;
-        b=mTzETiOZjOV99GqCEoQf8LN5EdpGnaaa6ATcB+VPVPd+p+gi6/IAI4W54BEihM0KLP
-         ngFeJ/NHQnYNlud+Ri/epDV2LobVCGorJAnrSl66AZaavvwGauN3tuH9YoeaflF9NV4Q
-         MWCryKPkkkiO/vvTKrncRdtOJW60HCZyJoe080i0W2SjTAijPuUNCZDhH55wpH2DQeFa
-         DTjhv1zWJdx865pP/HZ2lTSxUCnOKUXK2TCNkJytbrlmzos3KrdPmSjQf2MKoBKmauwa
-         Wq/Ceu876L12Bsq0j8aNSqvy0wWKsvmh3Fb0mddOPSRCMc//WGwwilaWtFYDZrEX+WGJ
-         HSig==
+        b=GiZZdYtDqPN7/VeykEqZE7U1QIc65X2bRE8T9rk0U2CwYIHh99M5GW5R/R5sqKhEMZ
+         ONTV9dGkygJs5v51SrV9oNswyJUPTQXHkVhF0+2bvycipcW2TyBNGjSOewcTZPZYiLs6
+         qL1ruKjU9vSu4Uyrr7KRrVkJTQbxrIxszeEuqAiKYEDZYVBOb7X3RJdttQOdyrwWXlSb
+         ZX+aANdskxEJwA06Unx8A55+3cmvhhNv9FazrBzNoaP8i3nZt9dgn0iRF/aVWei7izod
+         gPw0ng94MMFi68SffSwC2DwwrGSW6deuruPozVbB2YpjV6Md0zHmBs7rfCJnWSjw7BRV
+         JzlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=bIcfdnuUCbQOOB+XHi4o+OLT8DZkVqX+ywLCC563uKQ=;
+        bh=mTplFuJpJrC57Jye0A7Rs4hbbfJuamUNfWOMgqHa0J4=;
         fh=lVY/c7gYUTDnyYYKKvGQU3Q29dA69hck6eN/HP5dBQ0=;
-        b=js+FWsWaRsxE8rK+Ug84fJMPyeH7I3NUIqm1wBAcEBhQOHsGZ9tdZDXdLcEnsQz+ZE
-         Bfb/Qfz+iCmQspyYGgicwtwRm5hOWFCgdT1/RIDXTH5OTUtvryDbIfwXnkewyjAVWJ70
-         xq3Z4ING4FjBDlE/lz07zahqLksKHCGqtZKyhfHAMOmgTc+MuHHuwNEVOyzYU3XvB8Jw
-         13HiGdpkLa3MOXGRA9vC1hQcjScl+/kzCDDPtJztjMZfZ9zPvEyqKh7R3G7H6bgVw57y
-         QuIrnocL4mQlNN2HC0PasJyUXNA1QWn26IKM6Y/jpze5Qby4jOHgDPgWmMJbB6OV/3Xj
-         GKdA==
+        b=wf1zlgy5slHgz53vecjmV9DwNZGDi/vH3at5Nrky6OfujGaRWeC+Al/w/Li/chxY+Q
+         gGkelVsZ9n4L4T/rKecAhCUrkck2fRmqEqAk+ymO1elL+tfUPLEvdD2OH0LJP0vGFWoH
+         lrP+m81EPBxUglNF87W+iqVUdtJZ3csdfRTmNQ/HVlpB4rXjVvqRHsxxaljUCWXh1qlW
+         O8VeNZGq3LOSXlWM6WammnvK5VHX/9HfpjnSxWCAl8Xw0YjPMrHWfRuC3r4DEEyizQTH
+         Q6yIopTwLlI8pbAG0xZDEH/kOlW17i1FtK7xWgID2eKL6HUEXi6ktabTo4+sU9gQL/Uo
+         3MAg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [205.139.110.61])
-        by mx.google.com with ESMTPS id ho19-20020a056102397300b0045479276f70si606837vsb.195.2023.11.17.13.16.21
+       spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
+        by mx.google.com with ESMTPS id h6-20020a05620a244600b0077091864d1esi2546563qkn.687.2023.11.17.13.16.24
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Nov 2023 13:16:21 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.61 as internal address)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-454-XXg40Ih_O5iFaDlXfvtJ3Q-1; Fri, 17 Nov 2023 16:16:20 -0500
-X-MC-Unique: XXg40Ih_O5iFaDlXfvtJ3Q-1
+        Fri, 17 Nov 2023 13:16:24 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-210-pZJ8d-BHMnGJ3zUL_bV3NQ-1; Fri,
+ 17 Nov 2023 16:16:23 -0500
+X-MC-Unique: pZJ8d-BHMnGJ3zUL_bV3NQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC7CF8527A5
-	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A5471C06369
+	for <linux-cachefs@gapps.redhat.com>; Fri, 17 Nov 2023 21:16:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id B825F40C6EBD; Fri, 17 Nov 2023 21:16:19 +0000 (UTC)
+	id 06D9140C6EBB; Fri, 17 Nov 2023 21:16:23 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 220B540C6EB9;
-	Fri, 17 Nov 2023 21:16:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 64D1040C6EB9;
+	Fri, 17 Nov 2023 21:16:20 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,9 +120,9 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 09/51] netfs: Add support for DIO buffering
-Date: Fri, 17 Nov 2023 21:15:01 +0000
-Message-ID: <20231117211544.1740466-10-dhowells@redhat.com>
+Subject: [PATCH v2 10/51] netfs: Provide tools to create a buffer in an xarray
+Date: Fri, 17 Nov 2023 21:15:02 +0000
+Message-ID: <20231117211544.1740466-11-dhowells@redhat.com>
 In-Reply-To: <20231117211544.1740466-1-dhowells@redhat.com>
 References: <20231117211544.1740466-1-dhowells@redhat.com>
 MIME-Version: 1.0
@@ -132,7 +132,7 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain gapps.redhat.com configured 205.139.110.61 as internal address) smtp.mailfrom=dhowells@redhat.com
+ domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -144,19 +144,10 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Add a bvec array pointer and an iterator to netfs_io_request for either
-holding a copy of a DIO iterator or a list of all the bits of buffer
-pointed to by a DIO iterator.
-
-There are two problems:  Firstly, if an iovec-class iov_iter is passed to
-->read_iter() or ->write_iter(), this cannot be passed directly to
-kernel_sendmsg() or kernel_recvmsg() as that may cause locking recursion if
-a fault is generated, so we need to keep track of the pages involved
-separately.
-
-Secondly, if the I/O is asynchronous, we must copy the iov_iter describing
-the buffer before returning to the caller as it may be immediately
-deallocated.
+Provide tools to create a buffer in an xarray, with a function to add new
+folios with a mark.  This will be used to create bounce buffer and can be
+used more easily to create a list of folios the span of which would require
+more than a page's worth of bio_vec structs.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -164,60 +155,142 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/objects.c    | 10 ++++++++++
- include/linux/netfs.h |  4 ++++
- 2 files changed, 14 insertions(+)
+ fs/netfs/internal.h   | 13 +++++++
+ fs/netfs/misc.c       | 81 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h |  4 +++
+ 3 files changed, 98 insertions(+)
 
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 1bd20bdad983..4df5e5eeada6 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -76,6 +76,7 @@ static void netfs_free_request(struct work_struct *work)
- {
- 	struct netfs_io_request *rreq =
- 		container_of(work, struct netfs_io_request, work);
-+	unsigned int i;
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 1f067aa96c50..21a47f118009 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -52,6 +52,19 @@ static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq) {}
+ static inline void netfs_proc_del_rreq(struct netfs_io_request *rreq) {}
+ #endif
  
- 	trace_netfs_rreq(rreq, netfs_rreq_trace_free);
- 	netfs_proc_del_rreq(rreq);
-@@ -84,6 +85,15 @@ static void netfs_free_request(struct work_struct *work)
- 		rreq->netfs_ops->free_request(rreq);
- 	if (rreq->cache_resources.ops)
- 		rreq->cache_resources.ops->end_operation(&rreq->cache_resources);
-+	if (rreq->direct_bv) {
-+		for (i = 0; i < rreq->direct_bv_count; i++) {
-+			if (rreq->direct_bv[i].bv_page) {
-+				if (rreq->direct_bv_unpin)
-+					unpin_user_page(rreq->direct_bv[i].bv_page);
-+			}
-+		}
-+		kvfree(rreq->direct_bv);
++/*
++ * misc.c
++ */
++#define NETFS_FLAG_PUT_MARK		BIT(0)
++#define NETFS_FLAG_PAGECACHE_MARK	BIT(1)
++int netfs_xa_store_and_mark(struct xarray *xa, unsigned long index,
++			    struct folio *folio, unsigned int flags,
++			    gfp_t gfp_mask);
++int netfs_add_folios_to_buffer(struct xarray *buffer,
++			       struct address_space *mapping,
++			       pgoff_t index, pgoff_t to, gfp_t gfp_mask);
++void netfs_clear_buffer(struct xarray *buffer);
++
+ /*
+  * objects.c
+  */
+diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
+index c3baf2b247d9..106f2fbdccd8 100644
+--- a/fs/netfs/misc.c
++++ b/fs/netfs/misc.c
+@@ -8,6 +8,87 @@
+ #include <linux/swap.h>
+ #include "internal.h"
+ 
++/*
++ * Attach a folio to the buffer and maybe set marks on it to say that we need
++ * to put the folio later and twiddle the pagecache flags.
++ */
++int netfs_xa_store_and_mark(struct xarray *xa, unsigned long index,
++			    struct folio *folio, unsigned int flags,
++			    gfp_t gfp_mask)
++{
++	XA_STATE_ORDER(xas, xa, index, folio_order(folio));
++
++retry:
++	xas_lock(&xas);
++	for (;;) {
++		xas_store(&xas, folio);
++		if (!xas_error(&xas))
++			break;
++		xas_unlock(&xas);
++		if (!xas_nomem(&xas, gfp_mask))
++			return xas_error(&xas);
++		goto retry;
 +	}
- 	kfree_rcu(rreq, rcu);
- 	netfs_stat_d(&netfs_n_rh_rreq);
- }
++
++	if (flags & NETFS_FLAG_PUT_MARK)
++		xas_set_mark(&xas, NETFS_BUF_PUT_MARK);
++	if (flags & NETFS_FLAG_PAGECACHE_MARK)
++		xas_set_mark(&xas, NETFS_BUF_PAGECACHE_MARK);
++	xas_unlock(&xas);
++	return xas_error(&xas);
++}
++
++/*
++ * Create the specified range of folios in the buffer attached to the read
++ * request.  The folios are marked with NETFS_BUF_PUT_MARK so that we know that
++ * these need freeing later.
++ */
++int netfs_add_folios_to_buffer(struct xarray *buffer,
++			       struct address_space *mapping,
++			       pgoff_t index, pgoff_t to, gfp_t gfp_mask)
++{
++	struct folio *folio;
++	int ret;
++
++	if (to + 1 == index) /* Page range is inclusive */
++		return 0;
++
++	do {
++		/* TODO: Figure out what order folio can be allocated here */
++		folio = filemap_alloc_folio(readahead_gfp_mask(mapping), 0);
++		if (!folio)
++			return -ENOMEM;
++		folio->index = index;
++		ret = netfs_xa_store_and_mark(buffer, index, folio,
++					      NETFS_FLAG_PUT_MARK, gfp_mask);
++		if (ret < 0) {
++			folio_put(folio);
++			return ret;
++		}
++
++		index += folio_nr_pages(folio);
++	} while (index <= to && index != 0);
++
++	return 0;
++}
++
++/*
++ * Clear an xarray buffer, putting a ref on the folios that have
++ * NETFS_BUF_PUT_MARK set.
++ */
++void netfs_clear_buffer(struct xarray *buffer)
++{
++	struct folio *folio;
++	XA_STATE(xas, buffer, 0);
++
++	rcu_read_lock();
++	xas_for_each_marked(&xas, folio, ULONG_MAX, NETFS_BUF_PUT_MARK) {
++		folio_put(folio);
++	}
++	rcu_read_unlock();
++	xa_destroy(buffer);
++}
++
+ /**
+  * netfs_invalidate_folio - Invalidate or partially invalidate a folio
+  * @folio: Folio proposed for release
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 48868b3e4d51..6d820a860052 100644
+index 6d820a860052..47270f5d9e89 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -192,6 +192,9 @@ struct netfs_io_request {
- 	struct iov_iter		iter;		/* Unencrypted-side iterator */
- 	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
- 	void			*netfs_priv;	/* Private data for the netfs */
-+	struct bio_vec		*direct_bv	/* DIO buffer list (when handling iovec-iter) */
-+	__counted_by(direct_bv_count);
-+	unsigned int		direct_bv_count; /* Number of elements in direct_bv[] */
- 	unsigned int		debug_id;
- 	atomic_t		nr_outstanding;	/* Number of ops in progress */
- 	atomic_t		nr_copy_ops;	/* Number of copy-to-cache ops in progress */
-@@ -199,6 +202,7 @@ struct netfs_io_request {
- 	size_t			len;		/* Length of the request */
- 	short			error;		/* 0 or error that occurred */
- 	enum netfs_io_origin	origin;		/* Origin of the request */
-+	bool			direct_bv_unpin; /* T if direct_bv[] must be unpinned */
- 	loff_t			i_size;		/* Size of the file */
- 	loff_t			start;		/* Start position */
- 	pgoff_t			no_unlock_folio; /* Don't unlock this folio after read */
+@@ -109,6 +109,10 @@ static inline int wait_on_page_fscache_killable(struct page *page)
+ 	return folio_wait_private_2_killable(page_folio(page));
+ }
+ 
++/* Marks used on xarray-based buffers */
++#define NETFS_BUF_PUT_MARK	XA_MARK_0	/* - Page needs putting  */
++#define NETFS_BUF_PAGECACHE_MARK XA_MARK_1	/* - Page needs wb/dirty flag wrangling */
++
+ enum netfs_io_source {
+ 	NETFS_FILL_WITH_ZEROES,
+ 	NETFS_DOWNLOAD_FROM_SERVER,
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
