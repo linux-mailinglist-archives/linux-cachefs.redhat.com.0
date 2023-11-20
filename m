@@ -1,121 +1,122 @@
-Return-Path: <linux-cachefs+bncBDKYBHUEQUPBB2N25OVAMGQE2FGN2UI@redhat.com>
+Return-Path: <linux-cachefs+bncBDKYBHUEQUPBB3F25OVAMGQEWMRCMYA@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685207F0B41
-	for <lists+linux-cachefs@lfdr.de>; Mon, 20 Nov 2023 05:15:38 +0100 (CET)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-41cc5b9d26esf109826701cf.0
-        for <lists+linux-cachefs@lfdr.de>; Sun, 19 Nov 2023 20:15:38 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700453737; cv=pass;
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCB47F0B44
+	for <lists+linux-cachefs@lfdr.de>; Mon, 20 Nov 2023 05:15:41 +0100 (CET)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-7c3f35a21b5sf378570241.2
+        for <lists+linux-cachefs@lfdr.de>; Sun, 19 Nov 2023 20:15:41 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700453740; cv=pass;
         d=google.com; s=arc-20160816;
-        b=GPwSlckHX2VrtoRrP3zhJGdGlCNKo9E9RZKPEx5P5C3tZpOUTMODTT/J7vfvbYbXZT
-         i+W1rifz6HrWrPpaMh609/p0Zx4MhmamoGoDQsrwGVGH+GfpEePfby4wyjwKUQDhZzW7
-         ADomAXBgMcfObAKRsW2JCBNNLEhDKl1P/ZLB8wmKeBdls0qW6Boj+ZjVJcPkO5RVjU0G
-         OgiAYCNhZaCUOlDtR+sNJQW03LWoaHGBsf/lc91K5YCNU4/YTF1TmxpYokentEILLiGn
-         Rz/e5wzGMoJNfUa6zSGiVM9/PVziI8e4SC2gjjhvUzQxLgb7OwfphHvaUhxGYv+GCdGP
-         moyw==
+        b=dI/UB3Gmt+SBWwtcdfQWe5OQlmGCZqhRmsMeN1zwTzm2CHUWhaAkpLSnUVodnw16CF
+         UInQjtadcJYLh7wQrAIL2x0n1nlZmJQztnDXeryawa2Lcm0fOKp76CoyQKHTSE9S230m
+         G3hfiJI/rb/2HEoKsi6dJ3LbifpedWV9W+NImMG/XHt63q2lR60sdugfERP/E4GSIgXH
+         gS5NIky43TS6zFQV7DAD0PqUQh3YFxox7XNL6Edlovk5A8dg5qdAp6Lfor2gQB1paDoK
+         fQ9FAF1aWVncI8D/3K5Ms4V5tkX69m+CPGtuv610J81bWaUDCRU3V1V49uEMqFhhFwmt
+         u9wg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:delivered-to;
-        bh=sK/20Yewoy55w46BstKvhKaowOFpCZWFkoPgeW99bMU=;
-        fh=2MjqSmE/Flr/Azt/mtnMNhZyMmjsqHVSxMPyjqy6YHI=;
-        b=e2a8PET7p39ZG4bOVPcW42e7MJa4D4PA6NL5CWfhCuU2tUbF7NUsswxYdlWmnIUYj5
-         vKTambANb93qapPZuV+Rw3HrXDQrh1WqtPZmDl6zuGDpzqCxLAVmkbzusZ4zF1fnL12k
-         wbYb/ytQBlvhw41IQSvDSfGrg/bxMZ33k1qHc1UZpATgo9Fc74ZOdeoCc8S6M2Wt6g++
-         r3j/LNCg8NGJNwYUS33Fd+pgH7W0tXXBPiEf/nPOTRZdJbtO4y9KUVfRasZgR3RAoiHf
-         LVQn2wOzky/0wOL9QFjwgzHD42mAjJajOtrWn2aTjdV+7cO+oa+ptnQLtdyU5F+lb0ff
-         EraA==
+        bh=R2uhnJwYzoo8WU0oKpkRqZOU8mIwK9KuT4YmX2Sho7w=;
+        fh=gTY9Ttsg2h15YfzLiYhbw6/47QPOSTuIOvkuo3BASSw=;
+        b=RYwXuJz5wBXBfMY0TPjp5X5EAyYVaLOzjU0TZd7HRgbT/hw5wzjxtSzDUfY4mpHea8
+         Lgyvz767Unugh2NC/c3zYJ/YMzTVp5hTjdrHyfGsoQogKWb7ykObfMMWk7hCajFp7wLD
+         YkbL3wq2AQ7GchHR2p+l4LhHey0aPE7uVg2UwRldHVip3nrb7+vYk6MAI3IGBvepqmgp
+         tSSUuTH9T9OWIRM2ALxwacPf6iFhecaTh16tiXPEFiaoSLxx2TOnNsOkbvS1xt6Z3zwf
+         cgY1HKOG87ERZ1T181hL+4bSb+jH9sKjN6IQ6GIJmsDsC1la9gczY2DUItNpFtWcLw8s
+         SQbw==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.214.181 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
+       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.215.169 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700453737; x=1701058537;
+        d=1e100.net; s=20230601; t=1700453740; x=1701058540;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sK/20Yewoy55w46BstKvhKaowOFpCZWFkoPgeW99bMU=;
-        b=mWbsQ14SKW8xB+1SwBlHshSyR8ho8IPsEolTIkaa5YsEFiOG62MCSkgCQo5pXNt3Il
-         RZCLQVyfH/V69mjQIJKQ9VGSwVXu9yShy1Mp134kxYVPv6RKycaiDFVivBxJRPvvM8Mj
-         IhwmGkzhyR4UGAvaLHurzH24qWD++4E7MnEVN1fNDCfunrv6duM2XpLaYRdG57LbcPyN
-         2Gi3kcpyQKt2HAdT6+YtqhpGMeaTRFwzthwAF6DWNRJPRu/s/7qA9xlfybIb4KhlN/Mj
-         dM8uwHoBEjsXXiG632b60oTftQiWkcQiCqzbIJHLgRprsjDT6G5EwbIpF5QbYGJC3uOY
-         4bSw==
-X-Gm-Message-State: AOJu0Ywif9Kky6Nk+vQBN6+gLh5r3eozoZp9Wfszk3sEwwtYkdlzRLC+
-	nzKvqL7Qrqd3+FSQrzxwInB1CQ==
-X-Google-Smtp-Source: AGHT+IE9XnFaTGBXH25adp0ogeBmsbJC6ZUFJU/70fE7j3wAOkHMpvKEon27NKcLainhIB6+E7ytqA==
-X-Received: by 2002:a05:622a:44e:b0:417:fa13:a8f7 with SMTP id o14-20020a05622a044e00b00417fa13a8f7mr10888208qtx.4.1700453737279;
-        Sun, 19 Nov 2023 20:15:37 -0800 (PST)
+        bh=R2uhnJwYzoo8WU0oKpkRqZOU8mIwK9KuT4YmX2Sho7w=;
+        b=hUWMrjrtQovk1x1/Bwubr+2oKGnzmbuv1o21r++rKSFZ1Qg6KHT398BTXh3SWFj53W
+         0rcL3CyVtwk/Chp2KsnzyOtEvig6LcTebHLev58vNgn12PKvIoPLswNBhEBMSAZggt+5
+         c93HeJvwfYRCxW6aaiTkgiGxZnaeJRY0pRhDLI8IjwiY2XUPjm+e3veKuefwxd+YvGSR
+         r74EoKZSr+6kt4Ag1rnKPWhK+VkhYZk8jTgQW2CMgjHmVqGRjw+RbrCT5G/AujDctiZ8
+         FvlZy/vRsu0tYIQdO7kh7ZGV1WsVYxG+8bPMcMGptnWhQsvYAxg2vRb9h9VoCh+oAiPT
+         Nf3g==
+X-Gm-Message-State: AOJu0YyFXvjinhATUO6hrtWcoOdT3cXpM/TljULCEF8f2ba0lducVVP2
+	xT53AXhm5qLrViYMjRJ+qtHLvA==
+X-Google-Smtp-Source: AGHT+IFYbROuCSwN0SWjYYx3CNe7vuxF+m6a6q2CCt19+qJyOahayA+0y4VISeoO2ytqsE95CBB3IA==
+X-Received: by 2002:a05:6102:2a59:b0:45f:bab9:4414 with SMTP id gt25-20020a0561022a5900b0045fbab94414mr5953582vsb.24.1700453740522;
+        Sun, 19 Nov 2023 20:15:40 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ac8:7d13:0:b0:41f:f013:e433 with SMTP id g19-20020ac87d13000000b0041ff013e433ls2446472qtb.0.-pod-prod-00-us;
- Sun, 19 Nov 2023 20:15:36 -0800 (PST)
-X-Received: by 2002:a05:622a:251:b0:41c:c588:b821 with SMTP id c17-20020a05622a025100b0041cc588b821mr8584232qtx.25.1700453736698;
-        Sun, 19 Nov 2023 20:15:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700453736; cv=none;
+Received: by 2002:a05:6214:1ec:b0:65a:fb9d:b123 with SMTP id
+ c12-20020a05621401ec00b0065afb9db123ls1589153qvu.1.-pod-prod-02-us; Sun, 19
+ Nov 2023 20:15:40 -0800 (PST)
+X-Received: by 2002:a05:6102:20ca:b0:462:a86a:53d8 with SMTP id i10-20020a05610220ca00b00462a86a53d8mr565166vsr.19.1700453739860;
+        Sun, 19 Nov 2023 20:15:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700453739; cv=none;
         d=google.com; s=arc-20160816;
-        b=eRmOoceBGGP9SA8+g4FIp1+CfeYtvO+qNbI+YXCFfmDoFVU+MC5vYZaNe+j3VLYs/x
-         i26AmgJQ5ylyGLWV5wHdPSrRXDgeZjPP5AlRbbMhmPO16+b9P4sQ7FnXq5HpDICsV7qR
-         aTTpStEC1+FyhGxKKqk/3Vusk+QDcHhpGpdS4VUlRwiNp8HY1DuY3ZIzpORoitnmLgw9
-         KmpcH55uuZyTwlu4RV0t5qCvQMVd7QgaxxoTRFYdv/NFI9r/d50gSyaTSgmdhMxtQ/aE
-         4IALCylvy9EoDZS6TtNjDURdMhVxoljh4g88P7slQFCPrbXMkZYHxbA7OXsAvMyXEjpx
-         ZaKw==
+        b=V4ZhqXMGasTd9jp+fXHo3029cthf/OFpeiFDnblzSh8SIGm5EjRcBjZQTHia4p53RO
+         NcISfWfZ2HHGrPJjvcXFDnoW0hLhCVrz0MXi6SVkYfU8UAm8YQjUmJVJNAJgta5plbiU
+         ExDUX+7q/yawVAADKOK4J+lxRkHPD80fEjBxJ58ixdp0nKw88rEOjENS8GhuR2w9e68q
+         iquZX8CL9qScfimC1+TsTw0Ypzl28UPkIH1+tHIzbUA4QJhbU60uu+I8mJ3ASW01gQax
+         Erj6iagvApmPzYVRw5pHivPoizMwKDbRwr2V8R9qZaIKkq0S3aKCLzquJf2QRH/EnG/5
+         dZ8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=aS5flV+CfxePU4FZE8c9ZQB+Fy6Gmv6dv/iJq9bZJTo=;
-        fh=2MjqSmE/Flr/Azt/mtnMNhZyMmjsqHVSxMPyjqy6YHI=;
-        b=yZM80xesBClFTwDtJPJs1rQlFZef7EIRHSaoteY89bQDtwv/HpHIFTWsNoSDuzeLVi
-         c6B9YjKyU7vU2MpwHfrGavuZXdlWGtN6bUqY3MM3yY1JnHW3zB6ctr+5ypG0xLLimO3N
-         zxdMvLZghcu5VqUzVnAIMadnS3rzhqYMxMDY1wfbHVUE7F7svw3LqtQJFYBAd3AvjJPL
-         DcDcxJ70H4eK3f3FPsGD6SBUDeuo91DP/hV0PVzURjVLUqp0EQwz+HzvMh+RUgR6aCUZ
-         TsPMVvPxwTfgtqAoQvk84251Sot4bsvhXEsdYu+gEs55mgHVf8IHX4HnWtRf+g5kvPmZ
-         MckQ==
+        bh=I3yQNAV5i9i/OMA9ll/UNVMs7Fn6oZ5qFKK0D5McEKU=;
+        fh=gTY9Ttsg2h15YfzLiYhbw6/47QPOSTuIOvkuo3BASSw=;
+        b=S/Pw5qc6MTmy70r56X/5IPCoi/OgneXp86fc7Q9yc9rnwoM+C1ObpuHZ+hFZ/16TVR
+         7gXC0kztt6cD2WA04EhQV2ogS7n8HasH4zkxFhO7V/eXSTvb3uJ/lg3GiirJw0a8Gf3D
+         3XLhJOxU/QaHf15D23gj9fWyL8uD13F6DlwS/aZMeugieo8wjdN+/UdEPUjSdtgGZPru
+         rFmv8WL6yG2C7ltMJZEbDCWpi9TWGbzRiUJ/N9e9KgyLg8Ot5JQdKZkUU75eRbC4wBgc
+         zfFvOS6fDdPvz3ZEPdeiH0l0D/IfXbIzDyfxkoLoD8NhoGGiS+F5cdp7hD21luXX2bES
+         gtvg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.214.181 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com. [207.211.31.81])
-        by mx.google.com with ESMTPS id z12-20020ac87f8c000000b00421ae955e53si6792323qtj.107.2023.11.19.20.15.36
+       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.215.169 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
+        by mx.google.com with ESMTPS id s28-20020a05621412dc00b0066e0c9c71cdsi6422805qvv.297.2023.11.19.20.15.39
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Nov 2023 20:15:36 -0800 (PST)
-Received-SPF: pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.214.181 as permitted sender) client-ip=209.85.214.181;
+        Sun, 19 Nov 2023 20:15:39 -0800 (PST)
+Received-SPF: pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.215.169 as permitted sender) client-ip=209.85.215.169;
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-387-6df4rbNTP5e4636i3YsAwA-1; Sun, 19 Nov 2023 23:15:35 -0500
-X-MC-Unique: 6df4rbNTP5e4636i3YsAwA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-368-HU976ZLpNcWV8CERZYlqmw-1; Sun, 19 Nov 2023 23:15:38 -0500
+X-MC-Unique: HU976ZLpNcWV8CERZYlqmw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DBE7811E7D
-	for <linux-cachefs@gapps.redhat.com>; Mon, 20 Nov 2023 04:15:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 544DF185A782
+	for <linux-cachefs@gapps.redhat.com>; Mon, 20 Nov 2023 04:15:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1A7E640C6EBB; Mon, 20 Nov 2023 04:15:35 +0000 (UTC)
+	id 51628492BFC; Mon, 20 Nov 2023 04:15:38 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1316D40C6EB9
-	for <linux-cachefs@redhat.com>; Mon, 20 Nov 2023 04:15:34 +0000 (UTC)
+Received: from mimecast-mx02.redhat.com (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A0E9492BFA
+	for <linux-cachefs@redhat.com>; Mon, 20 Nov 2023 04:15:38 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com [205.139.110.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C71FC101A529
-	for <linux-cachefs@redhat.com>; Mon, 20 Nov 2023 04:15:34 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A75338062AC
+	for <linux-cachefs@redhat.com>; Mon, 20 Nov 2023 04:15:38 +0000 (UTC)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-382-T8_LXL82OtG3HpHkJcp1dg-1; Sun, 19 Nov 2023 23:15:32 -0500
-X-MC-Unique: T8_LXL82OtG3HpHkJcp1dg-1
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-1cf52e5e07eso7620085ad.0
-        for <linux-cachefs@redhat.com>; Sun, 19 Nov 2023 20:15:31 -0800 (PST)
-X-Received: by 2002:a17:902:fac4:b0:1cc:4b3d:1a8d with SMTP id ld4-20020a170902fac400b001cc4b3d1a8dmr14850687plb.17.1700453731015;
-        Sun, 19 Nov 2023 20:15:31 -0800 (PST)
+ us-mta-184-M3g2CE6tPaq1zA1qhtQcKg-1; Sun, 19 Nov 2023 23:15:36 -0500
+X-MC-Unique: M3g2CE6tPaq1zA1qhtQcKg-1
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-5bd6ac9833fso2096649a12.0
+        for <linux-cachefs@redhat.com>; Sun, 19 Nov 2023 20:15:35 -0800 (PST)
+X-Received: by 2002:a05:6a20:438d:b0:187:b4f2:b025 with SMTP id i13-20020a056a20438d00b00187b4f2b025mr5073423pzl.27.1700453734859;
+        Sun, 19 Nov 2023 20:15:34 -0800 (PST)
 Received: from C02G705SMD6V.bytedance.net ([61.213.176.5])
-        by smtp.gmail.com with ESMTPSA id h18-20020a170902f7d200b001cc4e477861sm5065266plw.212.2023.11.19.20.15.27
+        by smtp.gmail.com with ESMTPSA id h18-20020a170902f7d200b001cc4e477861sm5065266plw.212.2023.11.19.20.15.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Nov 2023 20:15:30 -0800 (PST)
+        Sun, 19 Nov 2023 20:15:34 -0800 (PST)
 From: "'Jia Zhu' via linux-cachefs@redhat.com" <linux-cachefs@redhat.com>
 To: dhowells@redhat.com,
 	linux-cachefs@redhat.com
@@ -124,21 +125,22 @@ Cc: linux-erofs@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	jefflexu@linux.alibaba.com,
 	hsiangkao@linux.alibaba.com,
-	Jia Zhu <zhujia.zj@bytedance.com>
-Subject: [PATCH V6 RESEND 3/5] cachefiles: resend an open request if the read request's object is closed
-Date: Mon, 20 Nov 2023 12:14:20 +0800
-Message-Id: <20231120041422.75170-4-zhujia.zj@bytedance.com>
+	Jia Zhu <zhujia.zj@bytedance.com>,
+	Xin Yin <yinxin.x@bytedance.com>
+Subject: [PATCH V6 RESEND 4/5] cachefiles: narrow the scope of triggering EPOLLIN events in ondemand mode
+Date: Mon, 20 Nov 2023 12:14:21 +0800
+Message-Id: <20231120041422.75170-5-zhujia.zj@bytedance.com>
 In-Reply-To: <20231120041422.75170-1-zhujia.zj@bytedance.com>
 References: <20231120041422.75170-1-zhujia.zj@bytedance.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection Definition;Similar Internal Domain=false;Similar Monitored External Domain=false;Custom External Domain=false;Mimecast External Domain=false;Newly Observed Domain=false;Internal User Name=false;Custom Display Name List=false;Reply-to Address Mismatch=false;Targeted Threat Dictionary=false;Mimecast Threat Dictionary=false;Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: zhujia.zj@bytedance.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain of zhujia.zj@bytedance.com designates 209.85.214.181 as permitted
+ domain of zhujia.zj@bytedance.com designates 209.85.215.169 as permitted
  sender) smtp.mailfrom=zhujia.zj@bytedance.com
 X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
 Reply-To: Jia Zhu <zhujia.zj@bytedance.com>
@@ -153,260 +155,78 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-When an anonymous fd is closed by user daemon, if there is a new read
-request for this file comes up, the anonymous fd should be re-opened
-to handle that read request rather than fail it directly.
+Don't trigger EPOLLIN when there are only reopening read requests in
+xarray.
 
-1. Introduce reopening state for objects that are closed but have
-   inflight/subsequent read requests.
-2. No longer flush READ requests but only CLOSE requests when anonymous
-   fd is closed.
-3. Enqueue the reopen work to workqueue, thus user daemon could get rid
-   of daemon_read context and handle that request smoothly. Otherwise,
-   the user daemon will send a reopen request and wait for itself to
-   process the request.
-
+Suggested-by: Xin Yin <yinxin.x@bytedance.com>
 Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
 Reviewed-by: Jingbo Xu <jefflexu@linux.alibaba.com>
 ---
- fs/cachefiles/internal.h |  3 ++
- fs/cachefiles/ondemand.c | 98 ++++++++++++++++++++++++++++------------
- 2 files changed, 72 insertions(+), 29 deletions(-)
+ fs/cachefiles/daemon.c   | 14 ++++++++++++--
+ fs/cachefiles/internal.h | 12 ++++++++++++
+ 2 files changed, 24 insertions(+), 2 deletions(-)
 
+diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
+index aa4efcabb5e3..70caa1946207 100644
+--- a/fs/cachefiles/daemon.c
++++ b/fs/cachefiles/daemon.c
+@@ -355,14 +355,24 @@ static __poll_t cachefiles_daemon_poll(struct file *file,
+ 					   struct poll_table_struct *poll)
+ {
+ 	struct cachefiles_cache *cache = file->private_data;
++	XA_STATE(xas, &cache->reqs, 0);
++	struct cachefiles_req *req;
+ 	__poll_t mask;
+ 
+ 	poll_wait(file, &cache->daemon_pollwq, poll);
+ 	mask = 0;
+ 
+ 	if (cachefiles_in_ondemand_mode(cache)) {
+-		if (!xa_empty(&cache->reqs))
+-			mask |= EPOLLIN;
++		if (!xa_empty(&cache->reqs)) {
++			rcu_read_lock();
++			xas_for_each_marked(&xas, req, ULONG_MAX, CACHEFILES_REQ_NEW) {
++				if (!cachefiles_ondemand_is_reopening_read(req)) {
++					mask |= EPOLLIN;
++					break;
++				}
++			}
++			rcu_read_unlock();
++		}
+ 	} else {
+ 		if (test_bit(CACHEFILES_STATE_CHANGED, &cache->flags))
+ 			mask |= EPOLLIN;
 diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index b0fe76964bc0..b9a90f1a0c01 100644
+index b9a90f1a0c01..26e5f8f123ef 100644
 --- a/fs/cachefiles/internal.h
 +++ b/fs/cachefiles/internal.h
-@@ -47,9 +47,11 @@ struct cachefiles_volume {
- enum cachefiles_object_state {
- 	CACHEFILES_ONDEMAND_OBJSTATE_CLOSE, /* Anonymous fd closed by daemon or initial state */
- 	CACHEFILES_ONDEMAND_OBJSTATE_OPEN, /* Anonymous fd associated with object is available */
-+	CACHEFILES_ONDEMAND_OBJSTATE_REOPENING, /* Object that was closed and is being reopened. */
- };
- 
- struct cachefiles_ondemand_info {
-+	struct work_struct		ondemand_work;
- 	int				ondemand_id;
- 	enum cachefiles_object_state	state;
- 	struct cachefiles_object	*object;
-@@ -326,6 +328,7 @@ cachefiles_ondemand_set_object_##_state(struct cachefiles_object *object) \
- 
+@@ -329,6 +329,13 @@ cachefiles_ondemand_set_object_##_state(struct cachefiles_object *object) \
  CACHEFILES_OBJECT_STATE_FUNCS(open, OPEN);
  CACHEFILES_OBJECT_STATE_FUNCS(close, CLOSE);
-+CACHEFILES_OBJECT_STATE_FUNCS(reopening, REOPENING);
+ CACHEFILES_OBJECT_STATE_FUNCS(reopening, REOPENING);
++
++static inline bool cachefiles_ondemand_is_reopening_read(struct cachefiles_req *req)
++{
++	return cachefiles_ondemand_object_is_reopening(req->object) &&
++			req->msg.opcode == CACHEFILES_OP_READ;
++}
++
  #else
  static inline ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
  					char __user *_buffer, size_t buflen)
-diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
-index deb7e3007aa1..8e130de952f7 100644
---- a/fs/cachefiles/ondemand.c
-+++ b/fs/cachefiles/ondemand.c
-@@ -18,14 +18,10 @@ static int cachefiles_ondemand_fd_release(struct inode *inode,
- 	info->ondemand_id = CACHEFILES_ONDEMAND_ID_CLOSED;
- 	cachefiles_ondemand_set_object_close(object);
- 
--	/*
--	 * Flush all pending READ requests since their completion depends on
--	 * anon_fd.
--	 */
--	xas_for_each(&xas, req, ULONG_MAX) {
-+	/* Only flush CACHEFILES_REQ_NEW marked req to avoid race with daemon_read */
-+	xas_for_each_marked(&xas, req, ULONG_MAX, CACHEFILES_REQ_NEW) {
- 		if (req->msg.object_id == object_id &&
--		    req->msg.opcode == CACHEFILES_OP_READ) {
--			req->error = -EIO;
-+		    req->msg.opcode == CACHEFILES_OP_CLOSE) {
- 			complete(&req->done);
- 			xas_store(&xas, NULL);
- 		}
-@@ -179,6 +175,7 @@ int cachefiles_ondemand_copen(struct cachefiles_cache *cache, char *args)
- 	trace_cachefiles_ondemand_copen(req->object, id, size);
- 
- 	cachefiles_ondemand_set_object_open(req->object);
-+	wake_up_all(&cache->daemon_pollwq);
- 
- out:
- 	complete(&req->done);
-@@ -222,7 +219,6 @@ static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
- 
- 	load = (void *)req->msg.data;
- 	load->fd = fd;
--	req->msg.object_id = object_id;
- 	object->ondemand->ondemand_id = object_id;
- 
- 	cachefiles_get_unbind_pincount(cache);
-@@ -238,6 +234,43 @@ static int cachefiles_ondemand_get_fd(struct cachefiles_req *req)
- 	return ret;
- }
- 
-+static void ondemand_object_worker(struct work_struct *work)
-+{
-+	struct cachefiles_ondemand_info *info =
-+		container_of(work, struct cachefiles_ondemand_info, ondemand_work);
-+
-+	cachefiles_ondemand_init_object(info->object);
-+}
-+
-+/*
-+ * If there are any inflight or subsequent READ requests on the
-+ * closed object, reopen it.
-+ * Skip read requests whose related object is reopening.
-+ */
-+static struct cachefiles_req *cachefiles_ondemand_select_req(struct xa_state *xas,
-+							      unsigned long xa_max)
-+{
-+	struct cachefiles_req *req;
-+	struct cachefiles_object *object;
-+	struct cachefiles_ondemand_info *info;
-+
-+	xas_for_each_marked(xas, req, xa_max, CACHEFILES_REQ_NEW) {
-+		if (req->msg.opcode != CACHEFILES_OP_READ)
-+			return req;
-+		object = req->object;
-+		info = object->ondemand;
-+		if (cachefiles_ondemand_object_is_close(object)) {
-+			cachefiles_ondemand_set_object_reopening(object);
-+			queue_work(fscache_wq, &info->ondemand_work);
-+			continue;
-+		}
-+		if (cachefiles_ondemand_object_is_reopening(object))
-+			continue;
-+		return req;
-+	}
-+	return NULL;
-+}
-+
- ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
- 					char __user *_buffer, size_t buflen)
+@@ -359,6 +366,11 @@ static inline int cachefiles_ondemand_init_obj_info(struct cachefiles_object *ob
+ static inline void cachefiles_ondemand_deinit_obj_info(struct cachefiles_object *obj)
  {
-@@ -248,16 +281,16 @@ ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
- 	int ret = 0;
- 	XA_STATE(xas, &cache->reqs, cache->req_id_next);
- 
-+	xa_lock(&cache->reqs);
- 	/*
- 	 * Cyclically search for a request that has not ever been processed,
- 	 * to prevent requests from being processed repeatedly, and make
- 	 * request distribution fair.
- 	 */
--	xa_lock(&cache->reqs);
--	req = xas_find_marked(&xas, UINT_MAX, CACHEFILES_REQ_NEW);
-+	req = cachefiles_ondemand_select_req(&xas, ULONG_MAX);
- 	if (!req && cache->req_id_next > 0) {
- 		xas_set(&xas, 0);
--		req = xas_find_marked(&xas, cache->req_id_next - 1, CACHEFILES_REQ_NEW);
-+		req = cachefiles_ondemand_select_req(&xas, cache->req_id_next - 1);
- 	}
- 	if (!req) {
- 		xa_unlock(&cache->reqs);
-@@ -277,14 +310,18 @@ ssize_t cachefiles_ondemand_daemon_read(struct cachefiles_cache *cache,
- 	xa_unlock(&cache->reqs);
- 
- 	id = xas.xa_index;
--	msg->msg_id = id;
- 
- 	if (msg->opcode == CACHEFILES_OP_OPEN) {
- 		ret = cachefiles_ondemand_get_fd(req);
--		if (ret)
-+		if (ret) {
-+			cachefiles_ondemand_set_object_close(req->object);
- 			goto error;
-+		}
- 	}
- 
-+	msg->msg_id = id;
-+	msg->object_id = req->object->ondemand->ondemand_id;
+ }
 +
- 	if (copy_to_user(_buffer, msg, n) != 0) {
- 		ret = -EFAULT;
- 		goto err_put_fd;
-@@ -317,19 +354,23 @@ static int cachefiles_ondemand_send_req(struct cachefiles_object *object,
- 					void *private)
- {
- 	struct cachefiles_cache *cache = object->volume->cache;
--	struct cachefiles_req *req;
-+	struct cachefiles_req *req = NULL;
- 	XA_STATE(xas, &cache->reqs, 0);
- 	int ret;
++static inline bool cachefiles_ondemand_is_reopening_read(struct cachefiles_req *req)
++{
++	return false;
++}
+ #endif
  
- 	if (!test_bit(CACHEFILES_ONDEMAND_MODE, &cache->flags))
- 		return 0;
- 
--	if (test_bit(CACHEFILES_DEAD, &cache->flags))
--		return -EIO;
-+	if (test_bit(CACHEFILES_DEAD, &cache->flags)) {
-+		ret = -EIO;
-+		goto out;
-+	}
- 
- 	req = kzalloc(sizeof(*req) + data_len, GFP_KERNEL);
--	if (!req)
--		return -ENOMEM;
-+	if (!req) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
- 
- 	req->object = object;
- 	init_completion(&req->done);
-@@ -367,7 +408,7 @@ static int cachefiles_ondemand_send_req(struct cachefiles_object *object,
- 		/* coupled with the barrier in cachefiles_flush_reqs() */
- 		smp_mb();
- 
--		if (opcode != CACHEFILES_OP_OPEN &&
-+		if (opcode == CACHEFILES_OP_CLOSE &&
- 			!cachefiles_ondemand_object_is_open(object)) {
- 			WARN_ON_ONCE(object->ondemand->ondemand_id == 0);
- 			xas_unlock(&xas);
-@@ -392,7 +433,15 @@ static int cachefiles_ondemand_send_req(struct cachefiles_object *object,
- 	wake_up_all(&cache->daemon_pollwq);
- 	wait_for_completion(&req->done);
- 	ret = req->error;
-+	kfree(req);
-+	return ret;
- out:
-+	/* Reset the object to close state in error handling path.
-+	 * If error occurs after creating the anonymous fd,
-+	 * cachefiles_ondemand_fd_release() will set object to close.
-+	 */
-+	if (opcode == CACHEFILES_OP_OPEN)
-+		cachefiles_ondemand_set_object_close(object);
- 	kfree(req);
- 	return ret;
- }
-@@ -439,7 +488,6 @@ static int cachefiles_ondemand_init_close_req(struct cachefiles_req *req,
- 	if (!cachefiles_ondemand_object_is_open(object))
- 		return -ENOENT;
- 
--	req->msg.object_id = object->ondemand->ondemand_id;
- 	trace_cachefiles_ondemand_close(object, &req->msg);
- 	return 0;
- }
-@@ -455,16 +503,7 @@ static int cachefiles_ondemand_init_read_req(struct cachefiles_req *req,
- 	struct cachefiles_object *object = req->object;
- 	struct cachefiles_read *load = (void *)req->msg.data;
- 	struct cachefiles_read_ctx *read_ctx = private;
--	int object_id = object->ondemand->ondemand_id;
--
--	/* Stop enqueuing requests when daemon has closed anon_fd. */
--	if (!cachefiles_ondemand_object_is_open(object)) {
--		WARN_ON_ONCE(object_id == 0);
--		pr_info_once("READ: anonymous fd closed prematurely.\n");
--		return -EIO;
--	}
- 
--	req->msg.object_id = object_id;
- 	load->off = read_ctx->off;
- 	load->len = read_ctx->len;
- 	trace_cachefiles_ondemand_read(object, &req->msg, load);
-@@ -513,6 +552,7 @@ int cachefiles_ondemand_init_obj_info(struct cachefiles_object *object,
- 		return -ENOMEM;
- 
- 	object->ondemand->object = object;
-+	INIT_WORK(&object->ondemand->ondemand_work, ondemand_object_worker);
- 	return 0;
- }
- 
+ /*
 -- 
 2.20.1
 
