@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBGXPZCVQMGQERCNYH3Y@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBHPPZCVQMGQEB5QVIOY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	by mail.lfdr.de (Postfix) with ESMTPS id C527B809342
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:22:35 +0100 (CET)
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-3b89b3ebd5dsf419732b6e.1
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:22:35 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701984154; cv=pass;
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62ACA809343
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:22:38 +0100 (CET)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-4258ff0106dsf10667241cf.0
+        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:22:38 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701984157; cv=pass;
         d=google.com; s=arc-20160816;
-        b=T6cYBKzTb0IkAOr+ady9T/uwJqgH5EFGnGVzn12Bp1RiVN3Z9yu2FkfF5bCmNXr6y9
-         oQniYHUoUR9NfnN9+Hm8s0NvnCgNT0wq9D02AdV2A0rSUEWYEYq80umbP/BtMypdyIem
-         yFqCdvUJX+KrZyEY/FIMaSOPSf+/PJXOFZiqgCBZGLiIQ22FEzCGTx9mPeWyUfuUrgck
-         2OK1desAmdQ38tqk7BeChDgwZcinS24VM8yNqLPNEcnK4iCJTmB1L/8G3HnwQoFenB5M
-         cqbsRaNu3nl4UTXFWwWptekMG3KNkD+iA5TP9zIwxtcEQ5IRx/fHrFThRAT7/LWBHKla
-         g66w==
+        b=lNHTEtE3lSEnCd4gbvxh6FlvTaOt5YFYxhkMjDgdr3PLccpHjFC7BgyRyrKopa71T1
+         Xc+mIzY28oUOar1Jye41o3cpfxhqP+Z+Gmpfs/drS70Lo/Xtn5UwvIN9CRNiKGzCoX+0
+         olxCCsfPHrwCmcDvfgZMKGJ3H3nQTaHA4apW+JV2EXSN2G1COdHgEfxFrtnFkb+thBoj
+         Iz0Wn2AhRVw0N8vdeIQRdtO45W2JbbC9bG58iCHdPHwytj1ymC+dNG4VzIw31+6e0dog
+         FgIZUz8KqrEuqn6u1r93lYdHObrBihAbiffo69zzO6KfReNmg77M7Sz5Dc7oEIdCxTdg
+         FfbA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=AaK5Pk55IPyyZfj9bDfwvZzj0865pvEEYLVndZIw9Ck=;
+        bh=LLOPmn24fD8ychxqBPm0k/loUGGaoX3Y4YWst4+LyZY=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=DGidYWGg11Ag0Hh+SdhWbapD70I0ixOUHe1lQkKFIftRWohgWvlqUorFd/pXBvgtgo
-         uxVNWMs+MUUSf4GleK7mk7Ed6nEAsJF1CV2ob463+9+O0bwFSpXRopkO72uzKhQZqkFi
-         +3REob8DUevMSpzmsDUoCru3S+pSt9v3R0eEDGCLdaCBAlVKi14oySWxvZUHkD0S3w5g
-         0vtulrt7vDqbCGuUG+wICW/LeX62zLdXNmyqZ7VBj4eFDClL79zf/wBn8iwYv2m4D+f+
-         NBFrL0uVFs1dp//lS388LxyxoYAhpP5WmjL4AeUQHTW+FmooLBoTiqUvzDSsDjqmxUS2
-         euCA==
+        b=MQGttUdX6JSf4d9qfPBk+rJYqBVMhR7hA3OPPsABcuEY3mbPw5pMSFVJbCNQ6H7Pdc
+         elAKUn6Bx/EyzxJ5UK28yxfVY6LLpMDrlmBH6rY/gg8/aqax4o3flf/CMR5R+jfdLqbI
+         JjTL1fYUrrDHylEbBfsqWYZtrdFTOx2Gyaa8Q6FZvmgd6E3i9lkUwEXrRKdrRxjcj0lv
+         VigK3g11hytCiOVWWiWI7usArguI3vqaYSg5L1OoTfJPZqwAPWbdYRgiJl2mN1HoBLf/
+         nsJYYuP1EySV1SED7l8aL86+OGSa5b05mRvZbky87d6dNSNJkBeLYOU6PjtpWDZHbMz7
+         vdbg==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701984154; x=1702588954;
+        d=1e100.net; s=20230601; t=1701984157; x=1702588957;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AaK5Pk55IPyyZfj9bDfwvZzj0865pvEEYLVndZIw9Ck=;
-        b=gNAegLJAychIWEnx1Fm9IeIVQtG2ie3HAMWOCkG1rlcVHwmkzRUkue6gE719I0n7vI
-         2yPyPL6oIeplseeik3lh7GyymH2Of/lJwB9MS3+kneX+knTFGzGavVTNiSDW4itUiJeg
-         cyHOWiIw8JilH+C5wuOcNtXw4nYa22lN6Mqu63VXDt8cvIDm5eJF8jBQwCt/3VcRl90/
-         EVHznuBb6qvunT3FiLlcGZrQt3+XFp7dPs6eatgC/cLgbPcdX1yHU0nlHHkA30MCfh/L
-         92upBFpx2/AKzdKnCnuJllvoX9RW/wBXhfV8Mg14P7bfqHmqNfQK2My3ILPZNRihTU54
-         r7xw==
-X-Gm-Message-State: AOJu0Yw2CB04gOz6Wff6ohvqUdNHh5zic6R6XM4RC2IF5klLHTZpVWt5
-	ykLZszXomzG+klOun+Xw6JN4pA==
-X-Google-Smtp-Source: AGHT+IHxnmCoEXATRJuXpGlI7rBcpEa6IBuwUEN9blgxJZYwwNn2HWAKBSdr8JTbNDhLBtMEg6ms4w==
-X-Received: by 2002:a05:6358:5925:b0:16e:b5d:43ce with SMTP id g37-20020a056358592500b0016e0b5d43cemr7075274rwf.0.1701984154498;
-        Thu, 07 Dec 2023 13:22:34 -0800 (PST)
+        bh=LLOPmn24fD8ychxqBPm0k/loUGGaoX3Y4YWst4+LyZY=;
+        b=KBr51ljpBOvyS7A1sVKhvF7YAYiK0h5Bkbzp723TKLci92lDJsY2EvCH5FkTE6Xd/m
+         V2j9hplKgtb40uqIhPuLaajsCUMwyTFqFm13Bh9m268GKhvNi8JlrNEMlCkednvoQePR
+         xJUxwbQQe+b+quumZll4bjVHrhjhlzsp+tas6HVX2E1FE+X2SkHoz26X1TG7ZkDlRxpr
+         nFB8mF1GGSvfP7+xfua7d7gZJfuYuqUO/VjEjKHO529rdnhRQMx4do2X9JOvkCU64OAj
+         yBbu/Q9KhHLW+X0gPUJv6Y5G5p5HhE3wW33/IDtsk+rggtdD79NiR9T7BMWuXxTn3VTl
+         cgPg==
+X-Gm-Message-State: AOJu0YyHmGrAob5PjVc+pH6iqdRLjU0/iArEhaatawRhFj0IrfpYuv32
+	Pff8osgJYVPRZ4DJW4BOr/5fkw==
+X-Google-Smtp-Source: AGHT+IGexnQemilWOkXE5FiWJXvBGO4ttrJRkIJ3Fb3LJcPNoFLTSMkEPsXmxlM70VgfTGClQdR4ew==
+X-Received: by 2002:a05:622a:120f:b0:425:4043:41cc with SMTP id y15-20020a05622a120f00b00425404341ccmr3584406qtx.120.1701984157361;
+        Thu, 07 Dec 2023 13:22:37 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:a8b:b0:67a:9611:38ee with SMTP id
- ev11-20020a0562140a8b00b0067a961138eels632925qvb.2.-pod-prod-07-us; Thu, 07
- Dec 2023 13:22:34 -0800 (PST)
-X-Received: by 2002:a05:6214:1398:b0:67a:a721:e132 with SMTP id pp24-20020a056214139800b0067aa721e132mr3674732qvb.95.1701984153929;
-        Thu, 07 Dec 2023 13:22:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701984153; cv=none;
+Received: by 2002:a05:622a:1aa4:b0:423:e09f:e8dd with SMTP id
+ s36-20020a05622a1aa400b00423e09fe8ddls1618287qtc.0.-pod-prod-04-us; Thu, 07
+ Dec 2023 13:22:37 -0800 (PST)
+X-Received: by 2002:ae9:f80f:0:b0:77e:fba3:81e5 with SMTP id x15-20020ae9f80f000000b0077efba381e5mr2128179qkh.123.1701984156837;
+        Thu, 07 Dec 2023 13:22:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701984156; cv=none;
         d=google.com; s=arc-20160816;
-        b=mDJAKrER/Sp1MQAzOfoKqbLl058zPrfrRmWCavhz5jnf0Z/40IfU59BB5mrW5gAQDo
-         3zuQ4D1kSSE2zERCs/APSthP6LYoFcn7BO14+mNqdy2UQyKK5MD6kXu9fyobE7tqU4wf
-         5uQrnpaiEAxNQl2LOV8EyUnihtgvG323TfEaPWBtByFgMUU/heML7YIyW32TxACMmuhF
-         3ACkYJ8/GGxTe3VO4HBMAtdXT1DYPw1IQDjop7qS8uhzEoSg/WWRUa8czSwi5Vgh9nO7
-         UubFCzX1A7BmNPrnsEfo3Rt+aYOwiZ2psH8PKIrjOUZXLBdm5MdNn4JlQWUja/AqIoSn
-         FoeA==
+        b=akmzYtF1g+fJUT1x9+AMZ8dXazI4XbpvjbiYxJhzlCeaQrV3Di+ycdogWigNo9D/v+
+         xqd9YsSD89+g0PelkI4BpMTPOxj6TpKoso3Y/gJEpiHdLJXnijKiQrPPvWRHYeRdr0XA
+         a61OQ7A4fE8/Y7fU7/swREa8zstwVm8FcATfNySkRbgwrgu/dxSrORIFro0YvSSCvs9P
+         PeQkYYPC8dhl5X8oRD4FIImPh+D41XpO/GQYVPQ1mSNOHaAoZ6NFlUiRiHjHUy/UP9xy
+         gNI8EjSFpToF01IwxHyStke0zTosr++S5UYRjSQpyZMsmB+i5Evf2/9Zizd3wCO5lXEU
+         Sjgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=gYUIXZ+PiNdh85g2qszNwYuewLXwpj0jIftWKnkTXRI=;
+        bh=4hViO3AGp6pToaoN8VF8Iwb+OF6je+qeF4CeyLwe0vY=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=XWOZnSMIp6FflDlxICzVAXOLG5NU2AzW2yS8FS+8gxX8rOsYHbD9DzhTmGjXRKcftF
-         bQdk5F2vBjZzzOTOCJ4FRQ4oOv42Vx0MnMDw4ZMuR1VwvA6418iOj24ZqIcBS0kxyQLe
-         MmAXtUMUSlwh4OINNg0vZjKxKRlBA3djFC+aEiQ+8PnHhc69KZOC0DPrj13fc3LODuI2
-         /V6oku1FUaGS3BdBBIsqv2ZmnTPd38o5cjrCPN0wdF25JTHotsyR7dV63J/180rlO0w7
-         LwOUd9KahkbythCQAjkcKOrlyAU9XoMrtGWvqm37OrDiK5Vyz3HALoqFty7ykSZD+Cf4
-         kPxg==
+        b=uz5ctBLzUzxKNLUREqY8xPPcx5z0c+hAT1Ubq7C6ETJsTTAQmNfnHUhhhoiGaO1VN4
+         vdwmQ1YY+jXZui23o4rcvysA2DrXlqSRnjAjOV17SArHcC+YqPoICSV07RAZHmM0P4FX
+         UzpwgSWvkxDbyxQx/L6XDkMEpedUsUcnRpKqQEbbzPL3O/94D7gJvioWEnSIViOXPScQ
+         73nsYs0gCzTNcqol8U6YKqZlVwc3p3UJX/wcx8rIaZ6piwjbvTEQwCxr30O4AfqojFO8
+         XiY495dlQGsbCwvKMY7RRPIdBO01casyhDLv5NADva1ij651NPKlkcUuxp/IwQw+bVlb
+         VfqQ==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id cm17-20020a05622a251100b00419628da454si764015qtb.177.2023.12.07.13.22.33
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id z31-20020a05620a261f00b0077f3c33cf55si608635qko.704.2023.12.07.13.22.36
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:22:33 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-7GOF24CdNye6oj5RXQLTGQ-1; Thu, 07 Dec 2023 16:22:32 -0500
-X-MC-Unique: 7GOF24CdNye6oj5RXQLTGQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+        Thu, 07 Dec 2023 13:22:36 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-619-aMa0JqaOMZCWhTLUeB2SqQ-1; Thu,
+ 07 Dec 2023 16:22:35 -0500
+X-MC-Unique: aMa0JqaOMZCWhTLUeB2SqQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D880485A58F
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:22:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 191A229AC00A
+	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:22:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id D26801C05E1A; Thu,  7 Dec 2023 21:22:31 +0000 (UTC)
+	id 15B973C32; Thu,  7 Dec 2023 21:22:35 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DE911C060AF;
-	Thu,  7 Dec 2023 21:22:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 776CB3C2E;
+	Thu,  7 Dec 2023 21:22:32 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,20 +121,20 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 06/59] netfs: Add a procfile to list in-progress requests
-Date: Thu,  7 Dec 2023 21:21:13 +0000
-Message-ID: <20231207212206.1379128-7-dhowells@redhat.com>
+Subject: [PATCH v3 07/59] netfs: Allow the netfs to make the io (sub)request alloc larger
+Date: Thu,  7 Dec 2023 21:21:14 +0000
+Message-ID: <20231207212206.1379128-8-dhowells@redhat.com>
 In-Reply-To: <20231207212206.1379128-1-dhowells@redhat.com>
 References: <20231207212206.1379128-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -146,8 +146,9 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Add a procfile, /proc/fs/netfs/requests, to list in-progress netfslib I/O
-requests.
+Allow the network filesystem to specify extra space to be allocated on the
+end of the io (sub)request.  This allows cifs, for example, to use this
+space rather than allocating its own cifs_readdata struct.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -155,178 +156,48 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/internal.h   | 22 ++++++++++++++
- fs/netfs/main.c       | 69 ++++++++++++++++++++++++++++++++++++++++++-
- fs/netfs/objects.c    |  4 ++-
- include/linux/netfs.h |  6 +++-
- 4 files changed, 98 insertions(+), 3 deletions(-)
+ fs/netfs/objects.c    | 7 +++++--
+ include/linux/netfs.h | 2 ++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index 3e6e6a2c0375..2bd99989dd7f 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -33,6 +33,28 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync);
-  * main.c
-  */
- extern unsigned int netfs_debug;
-+extern struct list_head netfs_io_requests;
-+extern spinlock_t netfs_proc_lock;
-+
-+#ifdef CONFIG_PROC_FS
-+static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq)
-+{
-+	spin_lock(&netfs_proc_lock);
-+	list_add_tail_rcu(&rreq->proc_link, &netfs_io_requests);
-+	spin_unlock(&netfs_proc_lock);
-+}
-+static inline void netfs_proc_del_rreq(struct netfs_io_request *rreq)
-+{
-+	if (!list_empty(&rreq->proc_link)) {
-+		spin_lock(&netfs_proc_lock);
-+		list_del_rcu(&rreq->proc_link);
-+		spin_unlock(&netfs_proc_lock);
-+	}
-+}
-+#else
-+static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq) {}
-+static inline void netfs_proc_del_rreq(struct netfs_io_request *rreq) {}
-+#endif
- 
- /*
-  * objects.c
-diff --git a/fs/netfs/main.c b/fs/netfs/main.c
-index c9af6e0896d3..97ce1436615b 100644
---- a/fs/netfs/main.c
-+++ b/fs/netfs/main.c
-@@ -21,13 +21,80 @@ unsigned netfs_debug;
- module_param_named(debug, netfs_debug, uint, S_IWUSR | S_IRUGO);
- MODULE_PARM_DESC(netfs_debug, "Netfs support debugging mask");
- 
-+#ifdef CONFIG_PROC_FS
-+LIST_HEAD(netfs_io_requests);
-+DEFINE_SPINLOCK(netfs_proc_lock);
-+
-+static const char *netfs_origins[] = {
-+	[NETFS_READAHEAD]	= "RA",
-+	[NETFS_READPAGE]	= "RP",
-+	[NETFS_READ_FOR_WRITE]	= "RW",
-+};
-+
-+/*
-+ * Generate a list of I/O requests in /proc/fs/netfs/requests
-+ */
-+static int netfs_requests_seq_show(struct seq_file *m, void *v)
-+{
-+	struct netfs_io_request *rreq;
-+
-+	if (v == &netfs_io_requests) {
-+		seq_puts(m,
-+			 "REQUEST  OR REF FL ERR  OPS COVERAGE\n"
-+			 "======== == === == ==== === =========\n"
-+			 );
-+		return 0;
-+	}
-+
-+	rreq = list_entry(v, struct netfs_io_request, proc_link);
-+	seq_printf(m,
-+		   "%08x %s %3d %2lx %4d %3d @%04llx %zx/%zx",
-+		   rreq->debug_id,
-+		   netfs_origins[rreq->origin],
-+		   refcount_read(&rreq->ref),
-+		   rreq->flags,
-+		   rreq->error,
-+		   atomic_read(&rreq->nr_outstanding),
-+		   rreq->start, rreq->submitted, rreq->len);
-+	seq_putc(m, '\n');
-+	return 0;
-+}
-+
-+static void *netfs_requests_seq_start(struct seq_file *m, loff_t *_pos)
-+	__acquires(rcu)
-+{
-+	rcu_read_lock();
-+	return seq_list_start_head(&netfs_io_requests, *_pos);
-+}
-+
-+static void *netfs_requests_seq_next(struct seq_file *m, void *v, loff_t *_pos)
-+{
-+	return seq_list_next(v, &netfs_io_requests, _pos);
-+}
-+
-+static void netfs_requests_seq_stop(struct seq_file *m, void *v)
-+	__releases(rcu)
-+{
-+	rcu_read_unlock();
-+}
-+
-+static const struct seq_operations netfs_requests_seq_ops = {
-+	.start  = netfs_requests_seq_start,
-+	.next   = netfs_requests_seq_next,
-+	.stop   = netfs_requests_seq_stop,
-+	.show   = netfs_requests_seq_show,
-+};
-+#endif /* CONFIG_PROC_FS */
-+
- static int __init netfs_init(void)
- {
- 	int ret = -ENOMEM;
- 
- 	if (!proc_mkdir("fs/netfs", NULL))
- 		goto error;
--
-+	if (!proc_create_seq("fs/netfs/requests", S_IFREG | 0444, NULL,
-+			     &netfs_requests_seq_ops))
-+		goto error_proc;
- #ifdef CONFIG_FSCACHE_STATS
- 	if (!proc_create_single("fs/netfs/stats", S_IFREG | 0444, NULL,
- 				netfs_stats_show))
 diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index e17cdf53f6a7..85f428fc52e6 100644
+index 85f428fc52e6..c4229c5f3f54 100644
 --- a/fs/netfs/objects.c
 +++ b/fs/netfs/objects.c
-@@ -45,6 +45,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 		}
- 	}
+@@ -22,7 +22,8 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 	struct netfs_io_request *rreq;
+ 	int ret;
  
-+	netfs_proc_add_rreq(rreq);
- 	netfs_stat(&netfs_n_rh_rreq);
- 	return rreq;
- }
-@@ -76,12 +77,13 @@ static void netfs_free_request(struct work_struct *work)
- 		container_of(work, struct netfs_io_request, work);
+-	rreq = kzalloc(sizeof(struct netfs_io_request), GFP_KERNEL);
++	rreq = kzalloc(ctx->ops->io_request_size ?: sizeof(struct netfs_io_request),
++		       GFP_KERNEL);
+ 	if (!rreq)
+ 		return ERR_PTR(-ENOMEM);
  
- 	trace_netfs_rreq(rreq, netfs_rreq_trace_free);
-+	netfs_proc_del_rreq(rreq);
- 	netfs_clear_subrequests(rreq, false);
- 	if (rreq->netfs_ops->free_request)
- 		rreq->netfs_ops->free_request(rreq);
- 	if (rreq->cache_resources.ops)
- 		rreq->cache_resources.ops->end_operation(&rreq->cache_resources);
--	kfree(rreq);
-+	kfree_rcu(rreq, rcu);
- 	netfs_stat_d(&netfs_n_rh_rreq);
- }
+@@ -114,7 +115,9 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
+ {
+ 	struct netfs_io_subrequest *subreq;
  
+-	subreq = kzalloc(sizeof(struct netfs_io_subrequest), GFP_KERNEL);
++	subreq = kzalloc(rreq->netfs_ops->io_subrequest_size ?:
++			 sizeof(struct netfs_io_subrequest),
++			 GFP_KERNEL);
+ 	if (subreq) {
+ 		INIT_LIST_HEAD(&subreq->rreq_link);
+ 		refcount_set(&subreq->ref, 2);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 32faf6c89702..7244ddebd974 100644
+index 7244ddebd974..d6f27000eeb0 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -175,10 +175,14 @@ enum netfs_io_origin {
-  * operations to a variety of data stores and then stitch the result together.
+@@ -210,6 +210,8 @@ struct netfs_io_request {
+  * Operations the network filesystem can/must provide to the helpers.
   */
- struct netfs_io_request {
--	struct work_struct	work;
-+	union {
-+		struct work_struct work;
-+		struct rcu_head rcu;
-+	};
- 	struct inode		*inode;		/* The file being accessed */
- 	struct address_space	*mapping;	/* The mapping being accessed */
- 	struct netfs_cache_resources cache_resources;
-+	struct list_head	proc_link;	/* Link in netfs_iorequests */
- 	struct list_head	subrequests;	/* Contributory I/O operations */
- 	void			*netfs_priv;	/* Private data for the netfs */
- 	unsigned int		debug_id;
+ struct netfs_request_ops {
++	unsigned int	io_request_size;	/* Alloc size for netfs_io_request struct */
++	unsigned int	io_subrequest_size;	/* Alloc size for netfs_io_subrequest struct */
+ 	int (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 	void (*free_request)(struct netfs_io_request *rreq);
+ 
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
