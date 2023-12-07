@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB3XPZCVQMGQE6ZEGG2A@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB4XPZCVQMGQEX24WQNY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B741809375
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:23:59 +0100 (CET)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-1faf33fe0easf2629438fac.0
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:23:59 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701984238; cv=pass;
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mail.lfdr.de (Postfix) with ESMTPS id C33CA809379
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:24:03 +0100 (CET)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-6d9db462dbcsf1222969a34.2
+        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:24:03 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701984242; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Nx1/A3LZtwki7HECXfKNYpe+DeieGQ60ZTOmLmHgJ4jz9LAh4rynoXY6QE+PovI7Xu
-         prGhy6cXU8WhH5S+drVW7HIB107Vj/gDPqkiAEIc9U9ZIE5wAaVP3ZFxzHJJj7FW6bJM
-         sKXQYw1x0JmKgRgXd4ixybTgjExDk2nPpc9hqNBzQSEqSm6KQvJHv5aPCGo/R00n4sFs
-         eR/xqxEdcg5wJTS28HtSzqWpI9xm+wlvXZUPqJtkkdMn5vZxAt1mV+gbMLEPsIPf0lpJ
-         RHGVXzCtbpkMUXFhRNSUqrzDfn/xbrdu0QlXPDQmG2VQomdSmP+dPAGJdRQEIKmupEsy
-         LwCg==
+        b=gKy0pRb9nRTwnI0N2N3dKvMvhvKYhWIefkTeIRy7/LpB3iawYdGnxqaNODmYSeFrya
+         bw6yXdZpZu+QMWnsqoIG6tmQuR2cakxNhARnY67zkZszDtPMzk1DqIQiWdHTZ75Nz6L1
+         lEsBKUfuqTcEnhKQZWGRPTY3yoz8bwwX8RrroX5w4LLAZ4SSN3uKAfrabCYOvEoyrlqL
+         S5CZkS1CZPS4CnnJ1afWx2SWOwsOBjlEuj8UPj3+7KeRdERKwM7tcSiBInm00o1w2Y5M
+         rbx3B5afL6oPHfRpRzYCgZj78XAq6HTn+P8iT/0NkRbhutPfS1II51iurhmPBufrvCf2
+         daWQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=3aTkRg0DPwu4PVISQUGMqg/3RIYNnTXsy19sWNGeBVc=;
+        bh=7sXFpkD23kLN1FguBHrToqi10RStXhvJVnqm4QXUOvg=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=MWQNRCnUx7IFCwQz0lMdOi5izZmYWR5jLzjhBQbctQbvM8QcFpWcxKN9DTNhJHzURm
-         apxe7XdYhgKGByT7LA4AyhQIYCEPTURT6EE3GwOt/V/9HcS/2nBp2j2tEFDkiHlZ/Oib
-         hR3YbB2rSmXVafdTHJxX6dOj/DvH6WDYnzOu2Ii1w7oOMsWyhvj239MytXR3xaLyn8uo
-         yFiG6RMNuLOcznQwccezh3cyD2x74dsFcbjAKh0xY9UmK8DljeqROy5Pw0KGLL8r+mQ8
-         OXRYqYYu4SsZHaVOZwnLLxf/f5EOI5QfLcFHoTvwnLXXGG49HpOP9PFFYnRs3EQOtMpg
-         zrOQ==
+        b=MOCsToblDz1LCqyRHxJyh9wdkFY9zr0X0i8CLaykcvs+K0UoSSQjMVzg1gsnQQ1vqh
+         8dbfD6GaVMVfHHVvOyfrTQdcndjw/npPd/b34/TaNPZeXARgyoVLedlTkEng524EYTfg
+         B9FdSl1GIGUwqpBpdJKyClmz09BSSOAP9MXMTyTsb2n2+0ddJlFoktB2C/Wg3L97OHMJ
+         9u042ob4B+n30u2aTbUFUxqj5MSNOy/2e2+eF3J3T5nLgiNuuGbRXksGOxOMpkbge6ng
+         NaRGwKQbbA2ceMzLkG3CwFJITUe4H/6NzNSaYurMqs+IHNQjiEqfNq+fORAn3sHe22Li
+         I5ng==
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701984238; x=1702589038;
+        d=1e100.net; s=20230601; t=1701984242; x=1702589042;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3aTkRg0DPwu4PVISQUGMqg/3RIYNnTXsy19sWNGeBVc=;
-        b=rsecy0Wy4kC/PrcBz1cOwk5Yn/Up6deVFzirNSjbCZTsPydvxl0BamussqX3aF9Tqw
-         +Pbe5FOMHj6O78QsTGdX+1ETUmC8lxdaS3KGXPppFDR3/nLiyhFxGnB1JykNu9d/nLmH
-         p+jwXZRtB6xqxpN5gAbgaZHlxWF2FOP26HLKosmutJbWdtQxNijRnbPk3WENqy+vOpZ6
-         XV/kyd1+pS2VPoVEHCQ5Flsd+DviRKy+gc19agF1eDLv15DyUvzkL/K9uW6aUvj2gAHK
-         4fdzCWzCyCkZlWxIm3WdUHzT8gIpjZbnhOvQZJDB7lWXxk4z484U0Lyztxhu2jCULzMc
-         invA==
-X-Gm-Message-State: AOJu0YxqIPm13HG6haznffkzXqn/NNXQQo8nifpbmreRUCfhnFVxHrNV
-	73C2neq2IgH0u2aJ/hOZsLXC0Q==
-X-Google-Smtp-Source: AGHT+IGKA9niRA1kzVKHx+HfazU+18UtdIMDCrgv6lFrMS+6MeGVUNvYmcSKQQDF3s3LQyRMtOPgoA==
-X-Received: by 2002:a05:6871:53ce:b0:1fa:2b7a:9ece with SMTP id hz14-20020a05687153ce00b001fa2b7a9ecemr3833457oac.46.1701984238149;
-        Thu, 07 Dec 2023 13:23:58 -0800 (PST)
+        bh=7sXFpkD23kLN1FguBHrToqi10RStXhvJVnqm4QXUOvg=;
+        b=XP9YgMYUX7xZre/wAh4hC6WjxBeeLhJTzeR0QPGa2IBpcjvP9W9ZjMXRo9QcASha9M
+         c8uq+LgKkf6KIYaFeArikPZ6KDl6xS4GdNgHrcOhO30LkQ6ho5aVrXrQbdHzoMirsrdN
+         sHAxz4ZPpK9WggrP9JQbeCFX4Qb+cJvJBXVW2eJf30Mw+E9E70JpNq/wjf0q7qU6CClg
+         PYMYH/Gp9Vt1bEBFlRu/n4q2jJ4VXZPfOLtUWUvMi2fMMKDCjFvZySjNW9IVssibzQ/0
+         8kqX4hxpuivtAvpZKxRB3RmKLYOuTsW7DSW9LD7m31mcs7S2IebbIT666L4cES0Aw7IW
+         lJfw==
+X-Gm-Message-State: AOJu0YwY6irSyc522CM0qgL3PMxWyenamI6+Ip2fllofVOyjVDLTPYPc
+	06L8VYkAVdRkOcYLO0725FUjkw==
+X-Google-Smtp-Source: AGHT+IEuZyE9ks7dQo6xZbESJqOhGEpu5Oj6IrgFxxiJ2waskCG7yw2VMDZv3TTyJhrUZ0XroHHTlQ==
+X-Received: by 2002:a05:6830:6991:b0:6d8:7993:da75 with SMTP id cy17-20020a056830699100b006d87993da75mr3320677otb.13.1701984242607;
+        Thu, 07 Dec 2023 13:24:02 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6870:3d9b:b0:1fb:29aa:69d3 with SMTP id
- lm27-20020a0568703d9b00b001fb29aa69d3ls2408610oab.2.-pod-prod-05-us; Thu, 07
- Dec 2023 13:23:57 -0800 (PST)
-X-Received: by 2002:a05:6870:f111:b0:1fa:2602:2e9 with SMTP id k17-20020a056870f11100b001fa260202e9mr3930438oac.8.1701984237657;
-        Thu, 07 Dec 2023 13:23:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701984237; cv=none;
+Received: by 2002:a05:622a:1751:b0:425:88a9:d1e2 with SMTP id
+ l17-20020a05622a175100b0042588a9d1e2ls1624844qtk.0.-pod-prod-06-us; Thu, 07
+ Dec 2023 13:24:00 -0800 (PST)
+X-Received: by 2002:ac8:5916:0:b0:425:4043:5f3c with SMTP id 22-20020ac85916000000b0042540435f3cmr4152304qty.122.1701984240596;
+        Thu, 07 Dec 2023 13:24:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701984240; cv=none;
         d=google.com; s=arc-20160816;
-        b=H9+yoFj1TQ4tHN/X4N4N2hybMBSznAvnohrd5hdhajoNKfyu9fK7Iax8AzROBQ19iF
-         nOUaJy/5OhMWq8pUMz7UCMt8Q8uyv6XCxY9WUI2LiTwpI+TC0XHZQZ3F4NMRyIEn6zRa
-         Pu/TVTwXFAL8AZ1bhFU61p0lmWFKO36b6VNhl2MKV231qF05CH53+NQERZX44aa4VIPV
-         qK4FbOAHuZgb3hVmp00l0iDYpX/qHrBHmNehrxoTVpeS7LoRVAHES8Qk9nDCh5Hcw+fw
-         4i4mOD6mKSjzaAzXju6zRMA19BYx4/L+ako8VfZxxCsVZjmS2FVcIMCA2o4Yj6NeGzcY
-         eugQ==
+        b=mIG74GwzgGY2NkOXkvVZYUx5ieahGhtM9Y4eJ+1OCW4We2FcxkjSAewyd1PM/Oisxd
+         POOtRCxmlcPXORJ+QXcyXSyqL2lnLER5eQfoJSe7yCDwuqXRSgI995E7iE25Uo10nYjx
+         NdxYu6zr9ZBXZm50L4FmzYrKkDrsK0voRE6Pv7diBuKxnjmHCQpuQLKHpqVHNTSs3hc2
+         Nx58w11RecToVfmEDAnbBK2xGYd5wJ7QSRN06MXJgj/D/umW/2U+UARHV2f5EauVZAIN
+         lWUWxN5WZB7hkqqR4xk/5f6UluKxsqn2KXjpXARWzVC4TzhElhl46xEwzHwDyCbUBzNR
+         STwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=bK45Roxm3IC/nkVEsH43k2qGwF+l+q9rJ2GGBczBW+0=;
+        bh=YcUt6Wlq9qFzNGrM+VViKKkJSoOctikTKew3FuWO+5w=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=S3CwjEGF1zD8t+AxicsFN05ifk/JVc8nU4zXMTxca4jtE0OWU1CJ23AgLjIEOhhz2i
-         hMMPghRJiakfgZErG9jZfXLfFfNPojdhJqbPyueG2C/h2whzsrQuIuh1e27BfgngyMqU
-         9bkf45ztv+VIcc7Vvcwu11BbdCUfXf14kXmB19iGFFzX31uCayMKmxFqAt6DaJ1KYHW0
-         aVcOUZz9PCxuQ83dsK9ExdHY3hy+IWKEqVmFrG7QqDIVRLrgWzitgyNnQlef9UHXY1hT
-         2OlkGsCGYYbG07WrEhNuMNvuk1SkBgSHE1MjFnoZZ66Pq4oK3/299uyyOQmaVgHlJK2X
-         nSEw==
+        b=WV/HbL94bzyKOZMI5o0th2zBSyzb4uufV88n+oSZHBIPGDDuDW638zGxyNNCiu0Qy+
+         cyWV2npf9bqwclJtbliExR2FpgjN5xPPJRMS4orcBRaq1qaytkIC15L/WsAAmsBQyeCK
+         hBo+k5kB0BbEb+TBgMx/IbHadKAfJl0NyHcgSJWQmBkptSp2HXOiCy35FSGqFlIOubQo
+         mOKSLM7cbezaBFYuW6TQ2LWVP+58CFsiqPaB6DIroZ++NIxxFu0K8pb/z7cnEOhVz4at
+         8zNNeW41NYukBpVluTxHL+fwxCSQt9zVrhkYE+RJFGUgQ2i+o+6mjcMAj+tJE/0LVzqA
+         gh6Q==
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id fa14-20020a05622a4cce00b004237b1fca88si695089qtb.737.2023.12.07.13.23.57
+        by mx.google.com with ESMTPS id l16-20020ac84a90000000b00423847441e9si631855qtq.60.2023.12.07.13.24.00
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:23:57 -0800 (PST)
+        Thu, 07 Dec 2023 13:24:00 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-688-lBbFdb0ROK2R0QLT4D-xIA-1; Thu, 07 Dec 2023 16:23:55 -0500
-X-MC-Unique: lBbFdb0ROK2R0QLT4D-xIA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-50-022OYqIvPsm5z3HQ6RRLdA-1; Thu, 07 Dec 2023 16:23:59 -0500
+X-MC-Unique: 022OYqIvPsm5z3HQ6RRLdA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 617E186C047
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:23:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C425788CDCA
+	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:23:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E32D1C060AF; Thu,  7 Dec 2023 21:23:55 +0000 (UTC)
+	id C140C492C29; Thu,  7 Dec 2023 21:23:58 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BF5661C060BC;
-	Thu,  7 Dec 2023 21:23:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2968C492BE6;
+	Thu,  7 Dec 2023 21:23:56 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,13 +121,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 30/59] netfs: Implement buffered write API
-Date: Thu,  7 Dec 2023 21:21:37 +0000
-Message-ID: <20231207212206.1379128-31-dhowells@redhat.com>
+Subject: [PATCH v3 31/59] netfs: Allow buffered shared-writeable mmap through netfs_page_mkwrite()
+Date: Thu,  7 Dec 2023 21:21:38 +0000
+Message-ID: <20231207212206.1379128-32-dhowells@redhat.com>
 In-Reply-To: <20231207212206.1379128-1-dhowells@redhat.com>
 References: <20231207212206.1379128-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -146,10 +146,9 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Institute a netfs write helper, netfs_file_write_iter(), to be pointed at
-by the network filesystem ->write_iter() call.  Make it handled buffered
-writes by calling the previously defined netfs_perform_write() to copy the
-source data into the pagecache.
+Provide an entry point to delegate a filesystem's ->page_mkwrite() to.
+This checks for conflicting writes, then attached any netfs-specific group
+marking (e.g. ceph snap) to the page to be considered dirty.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -157,116 +156,92 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_write.c | 83 +++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h     |  3 ++
- 2 files changed, 86 insertions(+)
+ fs/netfs/buffered_write.c | 59 +++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h     |  4 +++
+ 2 files changed, 63 insertions(+)
 
 diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index b76688e98f81..f244123ab568 100644
+index f244123ab568..70cb8e98d068 100644
 --- a/fs/netfs/buffered_write.c
 +++ b/fs/netfs/buffered_write.c
-@@ -333,3 +333,86 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
- 	goto out;
+@@ -416,3 +416,62 @@ ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	return ret;
  }
- EXPORT_SYMBOL(netfs_perform_write);
+ EXPORT_SYMBOL(netfs_file_write_iter);
 +
-+/**
-+ * netfs_buffered_write_iter_locked - write data to a file
-+ * @iocb:	IO state structure (file, offset, etc.)
-+ * @from:	iov_iter with data to write
-+ * @netfs_group: Grouping for dirty pages (eg. ceph snaps).
-+ *
-+ * This function does all the work needed for actually writing data to a
-+ * file. It does all basic checks, removes SUID from the file, updates
-+ * modification times and calls proper subroutines depending on whether we
-+ * do direct IO or a standard buffered write.
-+ *
-+ * The caller must hold appropriate locks around this function and have called
-+ * generic_write_checks() already.  The caller is also responsible for doing
-+ * any necessary syncing afterwards.
-+ *
-+ * This function does *not* take care of syncing data in case of O_SYNC write.
-+ * A caller has to handle it. This is mainly due to the fact that we want to
-+ * avoid syncing under i_rwsem.
-+ *
-+ * Return:
-+ * * number of bytes written, even for truncated writes
-+ * * negative error code if no data has been written at all
++/*
++ * Notification that a previously read-only page is about to become writable.
++ * Note that the caller indicates a single page of a multipage folio.
 + */
-+ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *from,
-+					 struct netfs_group *netfs_group)
++vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_group)
 +{
-+	struct file *file = iocb->ki_filp;
-+	ssize_t ret;
++	struct folio *folio = page_folio(vmf->page);
++	struct file *file = vmf->vma->vm_file;
++	struct inode *inode = file_inode(file);
++	vm_fault_t ret = VM_FAULT_RETRY;
++	int err;
 +
-+	trace_netfs_write_iter(iocb, from);
++	_enter("%lx", folio->index);
 +
-+	ret = file_remove_privs(file);
-+	if (ret)
-+		return ret;
++	sb_start_pagefault(inode->i_sb);
 +
-+	ret = file_update_time(file);
-+	if (ret)
-+		return ret;
++	if (folio_wait_writeback_killable(folio))
++		goto out;
 +
-+	return netfs_perform_write(iocb, from, netfs_group);
-+}
-+EXPORT_SYMBOL(netfs_buffered_write_iter_locked);
++	if (folio_lock_killable(folio) < 0)
++		goto out;
 +
-+/**
-+ * netfs_file_write_iter - write data to a file
-+ * @iocb: IO state structure
-+ * @from: iov_iter with data to write
-+ *
-+ * Perform a write to a file, writing into the pagecache if possible and doing
-+ * an unbuffered write instead if not.
-+ *
-+ * Return:
-+ * * Negative error code if no data has been written at all of
-+ *   vfs_fsync_range() failed for a synchronous write
-+ * * Number of bytes written, even for truncated writes
-+ */
-+ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
-+{
-+	struct file *file = iocb->ki_filp;
-+	struct inode *inode = file->f_mapping->host;
-+	struct netfs_inode *ictx = netfs_inode(inode);
-+	ssize_t ret;
++	/* Can we see a streaming write here? */
++	if (WARN_ON(!folio_test_uptodate(folio))) {
++		ret = VM_FAULT_SIGBUS | VM_FAULT_LOCKED;
++		goto out;
++	}
 +
-+	_enter("%llx,%zx,%llx", iocb->ki_pos, iov_iter_count(from), i_size_read(inode));
++	if (netfs_folio_group(folio) != netfs_group) {
++		folio_unlock(folio);
++		err = filemap_fdatawait_range(inode->i_mapping,
++					      folio_pos(folio),
++					      folio_pos(folio) + folio_size(folio));
++		switch (err) {
++		case 0:
++			ret = VM_FAULT_RETRY;
++			goto out;
++		case -ENOMEM:
++			ret = VM_FAULT_OOM;
++			goto out;
++		default:
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
++	}
 +
-+	if ((iocb->ki_flags & IOCB_DIRECT) ||
-+	    test_bit(NETFS_ICTX_UNBUFFERED, &ictx->flags))
-+		return netfs_unbuffered_write_iter(iocb, from);
-+
-+	ret = netfs_start_io_write(inode);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = generic_write_checks(iocb, from);
-+	if (ret > 0)
-+		ret = netfs_buffered_write_iter_locked(iocb, from, NULL);
-+	netfs_end_io_write(inode);
-+	if (ret > 0)
-+		ret = generic_write_sync(iocb, ret);
++	if (folio_test_dirty(folio))
++		trace_netfs_folio(folio, netfs_folio_trace_mkwrite_plus);
++	else
++		trace_netfs_folio(folio, netfs_folio_trace_mkwrite);
++	netfs_set_group(folio, netfs_group);
++	file_update_time(file);
++	ret = VM_FAULT_LOCKED;
++out:
++	sb_end_pagefault(inode->i_sb);
 +	return ret;
 +}
-+EXPORT_SYMBOL(netfs_file_write_iter);
++EXPORT_SYMBOL(netfs_page_mkwrite);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 00c87f4e809c..702b864a4993 100644
+index 702b864a4993..46c0a6b45bb8 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -385,7 +385,10 @@ ssize_t netfs_unbuffered_read_iter(struct kiocb *iocb, struct iov_iter *iter);
- /* High-level write API */
- ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
- 			    struct netfs_group *netfs_group);
-+ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *from,
-+					 struct netfs_group *netfs_group);
- ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from);
-+ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
+@@ -403,6 +403,10 @@ void netfs_clear_inode_writeback(struct inode *inode, const void *aux);
+ void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+ bool netfs_release_folio(struct folio *folio, gfp_t gfp);
  
- /* Address operations API */
- struct readahead_control;
++/* VMA operations API. */
++vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_group);
++
++/* (Sub)request management API. */
+ void netfs_subreq_terminated(struct netfs_io_subrequest *, ssize_t, bool);
+ void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
+ 			  enum netfs_sreq_ref_trace what);
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
