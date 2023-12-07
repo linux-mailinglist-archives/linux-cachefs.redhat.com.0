@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBDPPZCVQMGQE76TFD4Q@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBEHPZCVQMGQEE275WUI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9C0280933A
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:22:22 +0100 (CET)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-1faf4442fa5sf2449206fac.1
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:22:22 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701984141; cv=pass;
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	by mail.lfdr.de (Postfix) with ESMTPS id 975FB80933B
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:22:25 +0100 (CET)
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-6d9dfa56ab2sf917526a34.2
+        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:22:25 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701984144; cv=pass;
         d=google.com; s=arc-20160816;
-        b=RNRnE6enfRqkoiHUQwH4Mfev0sJlVhQuwCFGyC1Qkyb7HdPgUgwGWI9GDeQ/agaLh3
-         3kHk12Cv8uVrYcyDapSgoH1IrfsH7yC0DLGgZP6OQUEwHa4WXguga0Th0ZreKuDNZ08t
-         898z6MGDo7xDpM3vTdwCkHfENWihNQg09hRlESYHZAyWodWXYdSrZJIbB2m3il/cEq1z
-         u3D0V9DEWd6LFmDttDtPxHTv85VjJrPl99aq9gH9MwXZuYgF4h3RX+C4b7v+UnKUoduw
-         XxpN9IAbJfJYHjn9YcR5wqRFNSv7si0GP2eAJ+5Ln9BaFy+0zvgT9ub96X15ojbx9370
-         8MwQ==
+        b=AdT1kFJRsnIheaPb9/2W+F6FhF1j2XzpL7M/vVJ6PNk30Fi/nfVgUlfIw9R884FoeB
+         aG6d8WeD9rWD2G9smCQAgB3LTGofHJSGrMNtfLt2HRkrphl6sp7h8IMO259EWZaous0Y
+         QrVFNXhwPZz6FktvuVRGM03BOaNeiADtSOdbjj06hK/wJn77sWL0TaC1xirdrxhsv5cz
+         omwo0TrUI1YpQPR2Qq3p1eXf3F6MtW/LOddOiVp4vr5XDGl37byCP3pJ85NyJN0VIF1t
+         Djt0kqjLQ9aD0rStFVwTllWrwIA9HKAXbfjkARzqoT0Nc8bVAAwT7TZhyVEXY8ioQ7PX
+         PBdw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=OU2k5YlqnilviSN59LVx5NvmcH2raw5rV0IR6ct6lT8=;
+        bh=8vLcCY3COftbkQRLYly10ve9ruw7svkTWgkcRAjEJ8c=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=hSGWB5jqjAOT45rSddtwME5LRS/P59MmFfhmSVjhqTIXVdC4ra+miw3KXtxtJAfrMP
-         kBkevk+kC2fy+TMnB/aeBvlYiXlSZ9D5VQUn1EoRoec/HcR5ep4z/cfuDiR1slxcLPXM
-         Lj3TKoXmbbxvpDMAKAsCzyLqu7mtYaFoo76QTQuiLSPy1rt5Rn2nCx8sDY/nQ1L6x47j
-         pv0W2KBLDWHvOA8OcR06rnNhpiEs41BaPuwbIOaEaRFy4sM31gclC/nhsLKOWuUOA+GL
-         L+WGJ+dFG+8yRghz1gMgrKl+WZFBq7oZiJYoV+7yTU+KxKihenSz6X3noLx8SiuDe855
-         Z2FA==
+        b=DlSlzCZ+QU+z/L9GpFREopfdd+aeFHDEw7luQtGl63xD/T+w6Ey1M/cY98JjwYmpfl
+         uk+VNVov1lvKBbcmduNZumiYCvww/2pBU/tcet5M/F7TWTS4ycMc01VMRI4r9R+8MGVu
+         Q728qCRZkcP2iCBUb13RzHDwXYVSXTNnnPl30YNC2r0GIXywBnxVMwVTAJBL8Il0vyFJ
+         7SKukbE0RXiiLx/uqoDIu2VYr3mOuGyF/JzHl/PgQwA/aHCJ8gq+oqNrgWkFMNZCi+Ik
+         1fobAU5Jjpa60hCkdZpSYA07e5J7J0wXbbmk/aBPOjHoyyQ5rImKUzUzE9Gte6A11Uo8
+         PDWg==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701984141; x=1702588941;
+        d=1e100.net; s=20230601; t=1701984144; x=1702588944;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OU2k5YlqnilviSN59LVx5NvmcH2raw5rV0IR6ct6lT8=;
-        b=clC9/WP2sy0kXkJgl0ZbKjwjk3ZCfwDjCwo5+upDQnq7ZsWeLvww8HuUoHaECYORVE
-         tYA3oGGFWVlescfMTFzrV5UrNmO0u6VmbzgosdhJqxrs+DdpazalZFdb6KKO85/L3+54
-         yeB8oCyKWihPEgqb8vkU3DIFK7TiX5gcS8kH8KynOkz2LavTo9vnZba1SiV5ABakmyp+
-         rZkXiuWFhr5gTQ4CyktIKCFTpCmi8hUAwkjbFg6NJ+uSVEOGgD52WXor9ukETlhwalgD
-         JpQBFKgMxB80ZMXsEPiloRAY1vbmsyWGJEwEHZWwlIQiH7AO59bqQUu4Xvcvk3DmVu7q
-         yOKQ==
-X-Gm-Message-State: AOJu0Yzmg/oBgQxknlEpDKnyUZe4iPmwAbyf+udCH3L3BcpgpchDSKcN
-	B33PjQDcHYh9GNO1Se5VT7L30g==
-X-Google-Smtp-Source: AGHT+IE99ql5lkjrAV113vngtyVYzYvYTmEfjlKnbjnigIfS7kF8SojuMNci89atnyJiZ0uIwqP3eg==
-X-Received: by 2002:a05:6870:82a2:b0:1fb:75a:6d38 with SMTP id q34-20020a05687082a200b001fb075a6d38mr3773586oae.95.1701984141500;
-        Thu, 07 Dec 2023 13:22:21 -0800 (PST)
+        bh=8vLcCY3COftbkQRLYly10ve9ruw7svkTWgkcRAjEJ8c=;
+        b=i1PxgWDlwcXUknK2JEFVxlCXXj1K2pzX0PgnkQOVBk7ARRZaPLWvIrhmGumRTM0AnG
+         +VNWfgbIFXppO67Jm4gJbe7YBMkLUPRI7o9FxTns4wIIOF51hsdjbMi9UH3EbOYYjK0q
+         A7huEUBAnrr9+N6/t4QAAPTrmYkPDwL2tUBuyl+QVX5m2Dn+Q2frFxs/36RE3yB/QRHb
+         2OQO6Bt068G74vQteP1jlzaf/gSNrqDbwwyGfb0EvTTggr14bXBTPIaPhgYs1e6MvPR2
+         NRXgRBUe8ueeodk6V6+F0MFHButGbWRVHvTYVGRb/kbycdVxMzXjoZu7gg+c1jOjCj8F
+         /FnQ==
+X-Gm-Message-State: AOJu0Yzkv2BkTg6819iXbNr13g/pIAufFV2HKi//ZfEq0eMTH1mk6qGv
+	H86ESE2OJL1qMwQEvKbr+X2jxg==
+X-Google-Smtp-Source: AGHT+IHSoCaudKnhg2RnoVOTJtk5Lk7AtA3rQqnAOJtJ10DsJ7ipMSm5LtVwbuyE/yfGRQVDNxfP8Q==
+X-Received: by 2002:a05:6871:53c8:b0:1fb:648:520c with SMTP id hz8-20020a05687153c800b001fb0648520cmr3696674oac.0.1701984144205;
+        Thu, 07 Dec 2023 13:22:24 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:622a:1aa4:b0:421:c71a:9295 with SMTP id
- s36-20020a05622a1aa400b00421c71a9295ls1445694qtc.0.-pod-prod-01-us; Thu, 07
- Dec 2023 13:22:21 -0800 (PST)
-X-Received: by 2002:a05:622a:44d:b0:425:8abd:f475 with SMTP id o13-20020a05622a044d00b004258abdf475mr2572851qtx.69.1701984140975;
-        Thu, 07 Dec 2023 13:22:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701984140; cv=none;
+Received: by 2002:a05:6870:9a21:b0:1fa:1717:fc5a with SMTP id
+ fo33-20020a0568709a2100b001fa1717fc5als2052826oab.1.-pod-prod-08-us; Thu, 07
+ Dec 2023 13:22:23 -0800 (PST)
+X-Received: by 2002:a05:6358:3107:b0:170:17eb:7c6e with SMTP id c7-20020a056358310700b0017017eb7c6emr3533174rwe.65.1701984143615;
+        Thu, 07 Dec 2023 13:22:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701984143; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZrxxNr4vdI1Ab5bkxfwW3QkLzrOd48H9Bg/GlmworLrOWUGQsVq4Ch8yJ/oQ4MOeFS
-         ZyPBT2thaBTiQT0Meh2Ae/zZdFEH/tSaLGHgfjKpC+5XacD/doL1mo3ZY2pFxgPAv/+1
-         cbgHqR28Nc9bPs/NvjISe+q1GhqefB6WBAGp/M+fPVHhjWIUev4pIIpDSD9jQadHN7Uo
-         hwlinx7ZXJmnTNfQ7p2bZhU2y1AUMcTCQnTfsHaTYoGBP8HspmYEKgQwx2HYz6W7YzY6
-         +ZWmdJio69myqxgiY+oh3MjY8sPySlnIJKEZrOpgvW36rpBxbkn0bsFCna6PF6G4Gx/8
-         luyw==
+        b=0hgP5rCx3ipfWHReR5EvXRcJZn5Aln81DzCWnziyh4/onROpG9TPrTPKYoArmc+zm4
+         tKo6/iV6Uh8v6y6Fc0xWw/HkWSoIWErH9x6pbRUNPTcJQEmRYugO10rlqOi0wDTMJcZo
+         VaUWW/mVLPsRPyxbvfEQrGjTYz8T+rMKhVIm+29qvFEo9vl5/nNQjAGs2VFoElo7t+ke
+         savdEKU5cCgUoR2EX2UU7vGfCsRHmB3Yg9bUopKZrBfviVpaFAVnB2E9qsOq+eaU6cpk
+         FAHQtQ9WE1pSQshyJzOMpj+g0d7kodKi2QviJj8VM08czsFyZuRV9Qv5DAYcWOW7ukoF
+         GgyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=9Y9euyWEGfidgx/vKsfjsLN27GtF1QcJe/xeicFqYw8=;
+        bh=mZrm/dYKxXrvd0xi3EByzY+bhbU0/1OC5R18onTmJ2I=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=pgKpBewIDje6bSOLqv+KfTbRyVuxolYWKpJqI4qVjGwSV/FGOtRM+rC0DqwuI3gU5F
-         tSDWZIqlKl+xiLmjmXW5l1bAvJPGSxvt7Pzj524ql0FhhfK+Q++4NXX00eCSYgKqsTpi
-         /CY0TxitRhAUZqF5QztHuHmdqmc6muj4DbyfpkhbwxwuaziMpbtRnEmbthLZV7MJhYRT
-         efk3Po+ciLZ2o11EJlHRMxcU+D5hw0tXeoAFlMYwPLa6Bq+HoFtSDw9fzcOYFo81c8dV
-         XYdMAFfDCyB/ihrxRVb7hvTiIXZGOa6MewpSgLJOG6aJy4nbUOGVrjKPsdw87ZaDkhGk
-         wopg==
+        b=D7Ggf3J8RUV9BY3MKW1XCTvCLiCoZLdwBABPxkk53ZL0qeW3eHCu49aqaUVfc9RVoT
+         ot4y73195b8oIp9g4zk/idJFN2aMe+EET2PPTyg6PQPfv3em5OeUkoW1sSXOGNg3R4WO
+         uInHkETjG7qR5+4BH+p9ZSrNxzyzlRNuq2n/jb83H5hsmdpveevqtmJ+AF2oVhlNxl0x
+         G2zB8KlQvcx9V9vvPxcXX9W3V7hvKY8ELAXlJ6JHjdYJemOms53X61xswZ1Iy9a0UcmE
+         XaXiLqDGFM2WMzQh8QDq7oGjVTMAGGkCowH7xz4Srj9198TUiB4mwhZhKwr/U6kv5Qud
+         bFtg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id ey10-20020a05622a4c0a00b0042582c44cdbsi795636qtb.188.2023.12.07.13.22.20
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id j11-20020a0cc34b000000b0067ade4b5b48si647531qvi.74.2023.12.07.13.22.23
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:22:20 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-I3qKjOKqMxClcml2aw7PLw-1; Thu, 07 Dec 2023 16:22:18 -0500
-X-MC-Unique: I3qKjOKqMxClcml2aw7PLw-1
+        Thu, 07 Dec 2023 13:22:23 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-19-HvKkRdiqOVySiOH-wIYSFg-1; Thu,
+ 07 Dec 2023 16:22:22 -0500
+X-MC-Unique: HvKkRdiqOVySiOH-wIYSFg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7D954845DC1
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:22:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D50293813BD0
+	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:22:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7A01840C6E30; Thu,  7 Dec 2023 21:22:18 +0000 (UTC)
+	id D1A4340C6E30; Thu,  7 Dec 2023 21:22:21 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BAD7B40C6EB9;
-	Thu,  7 Dec 2023 21:22:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 262E840C6EB9;
+	Thu,  7 Dec 2023 21:22:19 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,9 +121,9 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 02/59] netfs, fscache: Combine fscache with netfs
-Date: Thu,  7 Dec 2023 21:21:09 +0000
-Message-ID: <20231207212206.1379128-3-dhowells@redhat.com>
+Subject: [PATCH v3 03/59] netfs, fscache: Remove ->begin_cache_operation
+Date: Thu,  7 Dec 2023 21:21:10 +0000
+Message-ID: <20231207212206.1379128-4-dhowells@redhat.com>
 In-Reply-To: <20231207212206.1379128-1-dhowells@redhat.com>
 References: <20231207212206.1379128-1-dhowells@redhat.com>
 MIME-Version: 1.0
@@ -133,8 +133,8 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -146,8 +146,7 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Now that the fscache code is moved to be colocated with the netfslib code
-so that they combined into one module, do the combining.
+Remove ->begin_cache_operation() in favour of just calling fscache directly.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -155,640 +154,298 @@ cc: Christian Brauner <christian@brauner.io>
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-cachefs@redhat.com
 ---
- fs/netfs/Kconfig            |   4 +-
- fs/netfs/Makefile           |  24 ++--
- fs/netfs/fscache_internal.h | 267 +-----------------------------------
- fs/netfs/fscache_main.c     |  17 +--
- fs/netfs/internal.h         | 194 +++++++++++++++++++++++++-
- fs/netfs/main.c             |   1 -
- fs/nfs/Kconfig              |   4 +-
- 7 files changed, 213 insertions(+), 298 deletions(-)
+ Documentation/filesystems/netfs_library.rst | 23 +++-----------
+ fs/9p/vfs_addr.c                            | 16 ----------
+ fs/afs/file.c                               | 13 --------
+ fs/ceph/addr.c                              |  1 -
+ fs/ceph/cache.h                             | 12 --------
+ fs/netfs/buffered_read.c                    | 33 +++++++++++----------
+ fs/nfs/fscache.c                            |  7 -----
+ include/linux/fscache.h                     |  3 --
+ include/linux/netfs.h                       |  4 +--
+ 9 files changed, 23 insertions(+), 89 deletions(-)
 
-diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
-index b4378688357c..bec805e0c44c 100644
---- a/fs/netfs/Kconfig
-+++ b/fs/netfs/Kconfig
-@@ -23,8 +23,8 @@ config NETFS_STATS
- 	  debugging purposes.  Saying 'Y' here is recommended.
+diff --git a/Documentation/filesystems/netfs_library.rst b/Documentation/filesystems/netfs_library.rst
+index 48b95d04f72d..4cc657d743f7 100644
+--- a/Documentation/filesystems/netfs_library.rst
++++ b/Documentation/filesystems/netfs_library.rst
+@@ -295,7 +295,6 @@ through which it can issue requests and negotiate::
+ 	struct netfs_request_ops {
+ 		void (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 		void (*free_request)(struct netfs_io_request *rreq);
+-		int (*begin_cache_operation)(struct netfs_io_request *rreq);
+ 		void (*expand_readahead)(struct netfs_io_request *rreq);
+ 		bool (*clamp_length)(struct netfs_io_subrequest *subreq);
+ 		void (*issue_read)(struct netfs_io_subrequest *subreq);
+@@ -317,20 +316,6 @@ The operations are as follows:
+    [Optional] This is called as the request is being deallocated so that the
+    filesystem can clean up any state it has attached there.
  
- config FSCACHE
--	tristate "General filesystem local caching manager"
--	select NETFS_SUPPORT
-+	bool "General filesystem local caching manager"
-+	depends on NETFS_SUPPORT
- 	help
- 	  This option enables a generic filesystem caching manager that can be
- 	  used by various network and other filesystems to cache data locally.
-diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
-index bbb2b824bd5e..b57162ef9cfb 100644
---- a/fs/netfs/Makefile
-+++ b/fs/netfs/Makefile
-@@ -1,17 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--fscache-y := \
--	fscache_cache.o \
--	fscache_cookie.o \
--	fscache_io.o \
--	fscache_main.o \
--	fscache_volume.o
+- * ``begin_cache_operation()``
 -
--fscache-$(CONFIG_PROC_FS) += fscache_proc.o
--fscache-$(CONFIG_FSCACHE_STATS) += fscache_stats.o
+-   [Optional] This is called to ask the network filesystem to call into the
+-   cache (if present) to initialise the caching state for this read.  The netfs
+-   library module cannot access the cache directly, so the cache should call
+-   something like fscache_begin_read_operation() to do this.
 -
--obj-$(CONFIG_FSCACHE) := fscache.o
+-   The cache gets to store its state in ->cache_resources and must set a table
+-   of operations of its own there (though of a different type).
 -
- netfs-y := \
- 	buffered_read.o \
- 	io.o \
-@@ -21,4 +9,16 @@ netfs-y := \
+-   This should return 0 on success and an error code otherwise.  If an error is
+-   reported, the operation may proceed anyway, just without local caching (only
+-   out of memory and interruption errors cause failure here).
+-
+  * ``expand_readahead()``
  
- netfs-$(CONFIG_NETFS_STATS) += stats.o
+    [Optional] This is called to allow the filesystem to expand the size of a
+@@ -460,14 +445,14 @@ When implementing a local cache to be used by the read helpers, two things are
+ required: some way for the network filesystem to initialise the caching for a
+ read request and a table of operations for the helpers to call.
  
-+netfs-$(CONFIG_FSCACHE) += \
-+	fscache_cache.o \
-+	fscache_cookie.o \
-+	fscache_io.o \
-+	fscache_main.o \
-+	fscache_volume.o
+-The network filesystem's ->begin_cache_operation() method is called to set up a
+-cache and this must call into the cache to do the work.  If using fscache, for
+-example, the cache would call::
++To begin a cache operation on an fscache object, the following function is
++called::
+ 
+ 	int fscache_begin_read_operation(struct netfs_io_request *rreq,
+ 					 struct fscache_cookie *cookie);
+ 
+-passing in the request pointer and the cookie corresponding to the file.
++passing in the request pointer and the cookie corresponding to the file.  This
++fills in the cache resources mentioned below.
+ 
+ The netfs_io_request object contains a place for the cache to hang its
+ state::
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 8a635999a7d6..39db7c01e30a 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -82,25 +82,9 @@ static void v9fs_free_request(struct netfs_io_request *rreq)
+ 	p9_fid_put(fid);
+ }
+ 
+-/**
+- * v9fs_begin_cache_operation - Begin a cache operation for a read
+- * @rreq: The read request
+- */
+-static int v9fs_begin_cache_operation(struct netfs_io_request *rreq)
+-{
+-#ifdef CONFIG_9P_FSCACHE
+-	struct fscache_cookie *cookie = v9fs_inode_cookie(V9FS_I(rreq->inode));
+-
+-	return fscache_begin_read_operation(&rreq->cache_resources, cookie);
+-#else
+-	return -ENOBUFS;
+-#endif
+-}
+-
+ const struct netfs_request_ops v9fs_req_ops = {
+ 	.init_request		= v9fs_init_request,
+ 	.free_request		= v9fs_free_request,
+-	.begin_cache_operation	= v9fs_begin_cache_operation,
+ 	.issue_read		= v9fs_issue_read,
+ };
+ 
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index d37dd201752b..8c17e37c2e59 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -366,18 +366,6 @@ static int afs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 	return 0;
+ }
+ 
+-static int afs_begin_cache_operation(struct netfs_io_request *rreq)
+-{
+-#ifdef CONFIG_AFS_FSCACHE
+-	struct afs_vnode *vnode = AFS_FS_I(rreq->inode);
+-
+-	return fscache_begin_read_operation(&rreq->cache_resources,
+-					    afs_vnode_cache(vnode));
+-#else
+-	return -ENOBUFS;
+-#endif
+-}
+-
+ static int afs_check_write_begin(struct file *file, loff_t pos, unsigned len,
+ 				 struct folio **foliop, void **_fsdata)
+ {
+@@ -394,7 +382,6 @@ static void afs_free_request(struct netfs_io_request *rreq)
+ const struct netfs_request_ops afs_req_ops = {
+ 	.init_request		= afs_init_request,
+ 	.free_request		= afs_free_request,
+-	.begin_cache_operation	= afs_begin_cache_operation,
+ 	.check_write_begin	= afs_check_write_begin,
+ 	.issue_read		= afs_issue_read,
+ };
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 13af429ab030..654f408a0aca 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -509,7 +509,6 @@ static void ceph_netfs_free_request(struct netfs_io_request *rreq)
+ const struct netfs_request_ops ceph_netfs_ops = {
+ 	.init_request		= ceph_init_request,
+ 	.free_request		= ceph_netfs_free_request,
+-	.begin_cache_operation	= ceph_begin_cache_operation,
+ 	.issue_read		= ceph_netfs_issue_read,
+ 	.expand_readahead	= ceph_netfs_expand_readahead,
+ 	.clamp_length		= ceph_netfs_clamp_length,
+diff --git a/fs/ceph/cache.h b/fs/ceph/cache.h
+index dc502daac49a..b804f1094764 100644
+--- a/fs/ceph/cache.h
++++ b/fs/ceph/cache.h
+@@ -57,13 +57,6 @@ static inline int ceph_fscache_dirty_folio(struct address_space *mapping,
+ 	return fscache_dirty_folio(mapping, folio, ceph_fscache_cookie(ci));
+ }
+ 
+-static inline int ceph_begin_cache_operation(struct netfs_io_request *rreq)
+-{
+-	struct fscache_cookie *cookie = ceph_fscache_cookie(ceph_inode(rreq->inode));
+-
+-	return fscache_begin_read_operation(&rreq->cache_resources, cookie);
+-}
+-
+ static inline bool ceph_is_cache_enabled(struct inode *inode)
+ {
+ 	return fscache_cookie_enabled(ceph_fscache_cookie(ceph_inode(inode)));
+@@ -135,11 +128,6 @@ static inline bool ceph_is_cache_enabled(struct inode *inode)
+ 	return false;
+ }
+ 
+-static inline int ceph_begin_cache_operation(struct netfs_io_request *rreq)
+-{
+-	return -ENOBUFS;
+-}
+-
+ static inline void ceph_fscache_note_page_release(struct inode *inode)
+ {
+ }
+diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
+index 2cd3ccf4c439..d39d0ffe75d2 100644
+--- a/fs/netfs/buffered_read.c
++++ b/fs/netfs/buffered_read.c
+@@ -147,6 +147,15 @@ static void netfs_rreq_expand(struct netfs_io_request *rreq,
+ 	}
+ }
+ 
++/*
++ * Begin an operation, and fetch the stored zero point value from the cookie if
++ * available.
++ */
++static int netfs_begin_cache_read(struct netfs_io_request *rreq, struct netfs_inode *ctx)
++{
++	return fscache_begin_read_operation(&rreq->cache_resources, netfs_i_cookie(ctx));
++}
 +
-+ifeq ($(CONFIG_PROC_FS),y)
-+netfs-$(CONFIG_FSCACHE) += fscache_proc.o
-+endif
-+netfs-$(CONFIG_FSCACHE_STATS) += fscache_stats.o
-+
- obj-$(CONFIG_NETFS_SUPPORT) += netfs.o
-diff --git a/fs/netfs/fscache_internal.h b/fs/netfs/fscache_internal.h
-index 1336f517e9b1..a09b948fcef2 100644
---- a/fs/netfs/fscache_internal.h
-+++ b/fs/netfs/fscache_internal.h
-@@ -5,273 +5,10 @@
-  * Written by David Howells (dhowells@redhat.com)
-  */
+ /**
+  * netfs_readahead - Helper to manage a read request
+  * @ractl: The description of the readahead request
+@@ -180,11 +189,9 @@ void netfs_readahead(struct readahead_control *ractl)
+ 	if (IS_ERR(rreq))
+ 		return;
  
-+#include "internal.h"
-+
- #ifdef pr_fmt
- #undef pr_fmt
- #endif
+-	if (ctx->ops->begin_cache_operation) {
+-		ret = ctx->ops->begin_cache_operation(rreq);
+-		if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
+-			goto cleanup_free;
+-	}
++	ret = netfs_begin_cache_read(rreq, ctx);
++	if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
++		goto cleanup_free;
  
- #define pr_fmt(fmt) "FS-Cache: " fmt
--
--#include <linux/slab.h>
--#include <linux/fscache-cache.h>
--#include <trace/events/fscache.h>
--#include <linux/sched.h>
--#include <linux/seq_file.h>
--
--/*
-- * cache.c
-- */
--#ifdef CONFIG_PROC_FS
--extern const struct seq_operations fscache_caches_seq_ops;
--#endif
--bool fscache_begin_cache_access(struct fscache_cache *cache, enum fscache_access_trace why);
--void fscache_end_cache_access(struct fscache_cache *cache, enum fscache_access_trace why);
--struct fscache_cache *fscache_lookup_cache(const char *name, bool is_cache);
--void fscache_put_cache(struct fscache_cache *cache, enum fscache_cache_trace where);
--
--static inline enum fscache_cache_state fscache_cache_state(const struct fscache_cache *cache)
--{
--	return smp_load_acquire(&cache->state);
--}
--
--static inline bool fscache_cache_is_live(const struct fscache_cache *cache)
--{
--	return fscache_cache_state(cache) == FSCACHE_CACHE_IS_ACTIVE;
--}
--
--static inline void fscache_set_cache_state(struct fscache_cache *cache,
--					   enum fscache_cache_state new_state)
--{
--	smp_store_release(&cache->state, new_state);
--
--}
--
--static inline bool fscache_set_cache_state_maybe(struct fscache_cache *cache,
--						 enum fscache_cache_state old_state,
--						 enum fscache_cache_state new_state)
--{
--	return try_cmpxchg_release(&cache->state, &old_state, new_state);
--}
--
--/*
-- * cookie.c
-- */
--extern struct kmem_cache *fscache_cookie_jar;
--#ifdef CONFIG_PROC_FS
--extern const struct seq_operations fscache_cookies_seq_ops;
--#endif
--extern struct timer_list fscache_cookie_lru_timer;
--
--extern void fscache_print_cookie(struct fscache_cookie *cookie, char prefix);
--extern bool fscache_begin_cookie_access(struct fscache_cookie *cookie,
--					enum fscache_access_trace why);
--
--static inline void fscache_see_cookie(struct fscache_cookie *cookie,
--				      enum fscache_cookie_trace where)
--{
--	trace_fscache_cookie(cookie->debug_id, refcount_read(&cookie->ref),
--			     where);
--}
--
--/*
-- * main.c
-- */
--extern unsigned fscache_debug;
--
--extern unsigned int fscache_hash(unsigned int salt, const void *data, size_t len);
--
--/*
-- * proc.c
-- */
--#ifdef CONFIG_PROC_FS
--extern int __init fscache_proc_init(void);
--extern void fscache_proc_cleanup(void);
--#else
--#define fscache_proc_init()	(0)
--#define fscache_proc_cleanup()	do {} while (0)
--#endif
--
--/*
-- * stats.c
-- */
--#ifdef CONFIG_FSCACHE_STATS
--extern atomic_t fscache_n_volumes;
--extern atomic_t fscache_n_volumes_collision;
--extern atomic_t fscache_n_volumes_nomem;
--extern atomic_t fscache_n_cookies;
--extern atomic_t fscache_n_cookies_lru;
--extern atomic_t fscache_n_cookies_lru_expired;
--extern atomic_t fscache_n_cookies_lru_removed;
--extern atomic_t fscache_n_cookies_lru_dropped;
--
--extern atomic_t fscache_n_acquires;
--extern atomic_t fscache_n_acquires_ok;
--extern atomic_t fscache_n_acquires_oom;
--
--extern atomic_t fscache_n_invalidates;
--
--extern atomic_t fscache_n_relinquishes;
--extern atomic_t fscache_n_relinquishes_retire;
--extern atomic_t fscache_n_relinquishes_dropped;
--
--extern atomic_t fscache_n_resizes;
--extern atomic_t fscache_n_resizes_null;
--
--static inline void fscache_stat(atomic_t *stat)
--{
--	atomic_inc(stat);
--}
--
--static inline void fscache_stat_d(atomic_t *stat)
--{
--	atomic_dec(stat);
--}
--
--#define __fscache_stat(stat) (stat)
--
--int fscache_stats_show(struct seq_file *m, void *v);
--#else
--
--#define __fscache_stat(stat) (NULL)
--#define fscache_stat(stat) do {} while (0)
--#define fscache_stat_d(stat) do {} while (0)
--#endif
--
--/*
-- * volume.c
-- */
--#ifdef CONFIG_PROC_FS
--extern const struct seq_operations fscache_volumes_seq_ops;
--#endif
--
--struct fscache_volume *fscache_get_volume(struct fscache_volume *volume,
--					  enum fscache_volume_trace where);
--void fscache_put_volume(struct fscache_volume *volume,
--			enum fscache_volume_trace where);
--bool fscache_begin_volume_access(struct fscache_volume *volume,
--				 struct fscache_cookie *cookie,
--				 enum fscache_access_trace why);
--void fscache_create_volume(struct fscache_volume *volume, bool wait);
--
--
--/*****************************************************************************/
--/*
-- * debug tracing
-- */
--#define dbgprintk(FMT, ...) \
--	printk("[%-6.6s] "FMT"\n", current->comm, ##__VA_ARGS__)
--
--#define kenter(FMT, ...) dbgprintk("==> %s("FMT")", __func__, ##__VA_ARGS__)
--#define kleave(FMT, ...) dbgprintk("<== %s()"FMT"", __func__, ##__VA_ARGS__)
--#define kdebug(FMT, ...) dbgprintk(FMT, ##__VA_ARGS__)
--
--#define kjournal(FMT, ...) no_printk(FMT, ##__VA_ARGS__)
--
--#ifdef __KDEBUG
--#define _enter(FMT, ...) kenter(FMT, ##__VA_ARGS__)
--#define _leave(FMT, ...) kleave(FMT, ##__VA_ARGS__)
--#define _debug(FMT, ...) kdebug(FMT, ##__VA_ARGS__)
--
--#elif defined(CONFIG_FSCACHE_DEBUG)
--#define _enter(FMT, ...)			\
--do {						\
--	if (__do_kdebug(ENTER))			\
--		kenter(FMT, ##__VA_ARGS__);	\
--} while (0)
--
--#define _leave(FMT, ...)			\
--do {						\
--	if (__do_kdebug(LEAVE))			\
--		kleave(FMT, ##__VA_ARGS__);	\
--} while (0)
--
--#define _debug(FMT, ...)			\
--do {						\
--	if (__do_kdebug(DEBUG))			\
--		kdebug(FMT, ##__VA_ARGS__);	\
--} while (0)
--
--#else
--#define _enter(FMT, ...) no_printk("==> %s("FMT")", __func__, ##__VA_ARGS__)
--#define _leave(FMT, ...) no_printk("<== %s()"FMT"", __func__, ##__VA_ARGS__)
--#define _debug(FMT, ...) no_printk(FMT, ##__VA_ARGS__)
--#endif
--
--/*
-- * determine whether a particular optional debugging point should be logged
-- * - we need to go through three steps to persuade cpp to correctly join the
-- *   shorthand in FSCACHE_DEBUG_LEVEL with its prefix
-- */
--#define ____do_kdebug(LEVEL, POINT) \
--	unlikely((fscache_debug & \
--		  (FSCACHE_POINT_##POINT << (FSCACHE_DEBUG_ ## LEVEL * 3))))
--#define ___do_kdebug(LEVEL, POINT) \
--	____do_kdebug(LEVEL, POINT)
--#define __do_kdebug(POINT) \
--	___do_kdebug(FSCACHE_DEBUG_LEVEL, POINT)
--
--#define FSCACHE_DEBUG_CACHE	0
--#define FSCACHE_DEBUG_COOKIE	1
--#define FSCACHE_DEBUG_OBJECT	2
--#define FSCACHE_DEBUG_OPERATION	3
--
--#define FSCACHE_POINT_ENTER	1
--#define FSCACHE_POINT_LEAVE	2
--#define FSCACHE_POINT_DEBUG	4
--
--#ifndef FSCACHE_DEBUG_LEVEL
--#define FSCACHE_DEBUG_LEVEL CACHE
--#endif
--
--/*
-- * assertions
-- */
--#if 1 /* defined(__KDEBUGALL) */
--
--#define ASSERT(X)							\
--do {									\
--	if (unlikely(!(X))) {						\
--		pr_err("\n");					\
--		pr_err("Assertion failed\n");	\
--		BUG();							\
--	}								\
--} while (0)
--
--#define ASSERTCMP(X, OP, Y)						\
--do {									\
--	if (unlikely(!((X) OP (Y)))) {					\
--		pr_err("\n");					\
--		pr_err("Assertion failed\n");	\
--		pr_err("%lx " #OP " %lx is false\n",		\
--		       (unsigned long)(X), (unsigned long)(Y));		\
--		BUG();							\
--	}								\
--} while (0)
--
--#define ASSERTIF(C, X)							\
--do {									\
--	if (unlikely((C) && !(X))) {					\
--		pr_err("\n");					\
--		pr_err("Assertion failed\n");	\
--		BUG();							\
--	}								\
--} while (0)
--
--#define ASSERTIFCMP(C, X, OP, Y)					\
--do {									\
--	if (unlikely((C) && !((X) OP (Y)))) {				\
--		pr_err("\n");					\
--		pr_err("Assertion failed\n");	\
--		pr_err("%lx " #OP " %lx is false\n",		\
--		       (unsigned long)(X), (unsigned long)(Y));		\
--		BUG();							\
--	}								\
--} while (0)
--
--#else
--
--#define ASSERT(X)			do {} while (0)
--#define ASSERTCMP(X, OP, Y)		do {} while (0)
--#define ASSERTIF(C, X)			do {} while (0)
--#define ASSERTIFCMP(C, X, OP, Y)	do {} while (0)
--
--#endif /* assert or not */
-diff --git a/fs/netfs/fscache_main.c b/fs/netfs/fscache_main.c
-index dad85fd84f6f..00600a4d9ce5 100644
---- a/fs/netfs/fscache_main.c
-+++ b/fs/netfs/fscache_main.c
-@@ -8,18 +8,9 @@
- #define FSCACHE_DEBUG_LEVEL CACHE
- #include <linux/module.h>
- #include <linux/init.h>
--#define CREATE_TRACE_POINTS
- #include "internal.h"
--
--MODULE_DESCRIPTION("FS Cache Manager");
--MODULE_AUTHOR("Red Hat, Inc.");
--MODULE_LICENSE("GPL");
--
--unsigned fscache_debug;
--module_param_named(debug, fscache_debug, uint,
--		   S_IWUSR | S_IRUGO);
--MODULE_PARM_DESC(fscache_debug,
--		 "FS-Cache debugging mask");
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/fscache.h>
- 
- EXPORT_TRACEPOINT_SYMBOL(fscache_access_cache);
- EXPORT_TRACEPOINT_SYMBOL(fscache_access_volume);
-@@ -92,7 +83,7 @@ static int __init fscache_init(void)
- 		goto error_cookie_jar;
+ 	netfs_stat(&netfs_n_rh_readahead);
+ 	trace_netfs_read(rreq, readahead_pos(ractl), readahead_length(ractl),
+@@ -238,11 +245,9 @@ int netfs_read_folio(struct file *file, struct folio *folio)
+ 		goto alloc_error;
  	}
  
--	pr_notice("Loaded\n");
-+	pr_notice("FS-Cache loaded\n");
- 	return 0;
+-	if (ctx->ops->begin_cache_operation) {
+-		ret = ctx->ops->begin_cache_operation(rreq);
+-		if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
+-			goto discard;
+-	}
++	ret = netfs_begin_cache_read(rreq, ctx);
++	if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
++		goto discard;
  
- error_cookie_jar:
-@@ -115,7 +106,7 @@ static void __exit fscache_exit(void)
- 	kmem_cache_destroy(fscache_cookie_jar);
- 	fscache_proc_cleanup();
- 	destroy_workqueue(fscache_wq);
--	pr_notice("Unloaded\n");
-+	pr_notice("FS-Cache unloaded\n");
+ 	netfs_stat(&netfs_n_rh_readpage);
+ 	trace_netfs_read(rreq, rreq->start, rreq->len, netfs_read_trace_readpage);
+@@ -390,11 +395,9 @@ int netfs_write_begin(struct netfs_inode *ctx,
+ 	rreq->no_unlock_folio	= folio_index(folio);
+ 	__set_bit(NETFS_RREQ_NO_UNLOCK_FOLIO, &rreq->flags);
+ 
+-	if (ctx->ops->begin_cache_operation) {
+-		ret = ctx->ops->begin_cache_operation(rreq);
+-		if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
+-			goto error_put;
+-	}
++	ret = netfs_begin_cache_read(rreq, ctx);
++	if (ret == -ENOMEM || ret == -EINTR || ret == -ERESTARTSYS)
++		goto error_put;
+ 
+ 	netfs_stat(&netfs_n_rh_write_begin);
+ 	trace_netfs_read(rreq, pos, len, netfs_read_trace_write_begin);
+diff --git a/fs/nfs/fscache.c b/fs/nfs/fscache.c
+index b05717fe0d4e..2d1bfee225c3 100644
+--- a/fs/nfs/fscache.c
++++ b/fs/nfs/fscache.c
+@@ -274,12 +274,6 @@ static void nfs_netfs_free_request(struct netfs_io_request *rreq)
+ 	put_nfs_open_context(rreq->netfs_priv);
  }
  
- module_exit(fscache_exit);
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index e96432499eb2..dc764b98c7f0 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -9,8 +9,9 @@
- #include <linux/seq_file.h>
- #include <linux/netfs.h>
- #include <linux/fscache.h>
-+#include <linux/fscache-cache.h>
- #include <trace/events/netfs.h>
--#include "fscache_internal.h"
-+#include <trace/events/fscache.h>
+-static inline int nfs_netfs_begin_cache_operation(struct netfs_io_request *rreq)
+-{
+-	return fscache_begin_read_operation(&rreq->cache_resources,
+-					    netfs_i_cookie(netfs_inode(rreq->inode)));
+-}
+-
+ static struct nfs_netfs_io_data *nfs_netfs_alloc(struct netfs_io_subrequest *sreq)
+ {
+ 	struct nfs_netfs_io_data *netfs;
+@@ -387,7 +381,6 @@ void nfs_netfs_read_completion(struct nfs_pgio_header *hdr)
+ const struct netfs_request_ops nfs_netfs_ops = {
+ 	.init_request		= nfs_netfs_init_request,
+ 	.free_request		= nfs_netfs_free_request,
+-	.begin_cache_operation	= nfs_netfs_begin_cache_operation,
+ 	.issue_read		= nfs_netfs_issue_read,
+ 	.clamp_length		= nfs_netfs_clamp_length
+ };
+diff --git a/include/linux/fscache.h b/include/linux/fscache.h
+index 8e312c8323a8..9ed6696aee7a 100644
+--- a/include/linux/fscache.h
++++ b/include/linux/fscache.h
+@@ -437,9 +437,6 @@ const struct netfs_cache_ops *fscache_operation_valid(const struct netfs_cache_r
+  * indicates the cache resources to which the operation state should be
+  * attached; @cookie indicates the cache object that will be accessed.
+  *
+- * This is intended to be called from the ->begin_cache_operation() netfs lib
+- * operation as implemented by the network filesystem.
+- *
+  * @cres->inval_counter is set from @cookie->inval_counter for comparison at
+  * the end of the operation.  This allows invalidation during the operation to
+  * be detected by the caller.
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index b11a84f6c32b..d294ff8f9ae4 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -208,7 +208,6 @@ struct netfs_io_request {
+ struct netfs_request_ops {
+ 	int (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 	void (*free_request)(struct netfs_io_request *rreq);
+-	int (*begin_cache_operation)(struct netfs_io_request *rreq);
  
- #ifdef pr_fmt
- #undef pr_fmt
-@@ -106,11 +107,145 @@ static inline bool netfs_is_cache_enabled(struct netfs_inode *ctx)
- #endif
- }
+ 	void (*expand_readahead)(struct netfs_io_request *rreq);
+ 	bool (*clamp_length)(struct netfs_io_subrequest *subreq);
+@@ -229,8 +228,7 @@ enum netfs_read_from_hole {
+ };
  
-+/*
-+ * fscache-cache.c
-+ */
-+#ifdef CONFIG_PROC_FS
-+extern const struct seq_operations fscache_caches_seq_ops;
-+#endif
-+bool fscache_begin_cache_access(struct fscache_cache *cache, enum fscache_access_trace why);
-+void fscache_end_cache_access(struct fscache_cache *cache, enum fscache_access_trace why);
-+struct fscache_cache *fscache_lookup_cache(const char *name, bool is_cache);
-+void fscache_put_cache(struct fscache_cache *cache, enum fscache_cache_trace where);
-+
-+static inline enum fscache_cache_state fscache_cache_state(const struct fscache_cache *cache)
-+{
-+	return smp_load_acquire(&cache->state);
-+}
-+
-+static inline bool fscache_cache_is_live(const struct fscache_cache *cache)
-+{
-+	return fscache_cache_state(cache) == FSCACHE_CACHE_IS_ACTIVE;
-+}
-+
-+static inline void fscache_set_cache_state(struct fscache_cache *cache,
-+					   enum fscache_cache_state new_state)
-+{
-+	smp_store_release(&cache->state, new_state);
-+
-+}
-+
-+static inline bool fscache_set_cache_state_maybe(struct fscache_cache *cache,
-+						 enum fscache_cache_state old_state,
-+						 enum fscache_cache_state new_state)
-+{
-+	return try_cmpxchg_release(&cache->state, &old_state, new_state);
-+}
-+
-+/*
-+ * fscache-cookie.c
-+ */
-+extern struct kmem_cache *fscache_cookie_jar;
-+#ifdef CONFIG_PROC_FS
-+extern const struct seq_operations fscache_cookies_seq_ops;
-+#endif
-+extern struct timer_list fscache_cookie_lru_timer;
-+
-+extern void fscache_print_cookie(struct fscache_cookie *cookie, char prefix);
-+extern bool fscache_begin_cookie_access(struct fscache_cookie *cookie,
-+					enum fscache_access_trace why);
-+
-+static inline void fscache_see_cookie(struct fscache_cookie *cookie,
-+				      enum fscache_cookie_trace where)
-+{
-+	trace_fscache_cookie(cookie->debug_id, refcount_read(&cookie->ref),
-+			     where);
-+}
-+
-+/*
-+ * fscache-main.c
-+ */
-+extern unsigned fscache_debug;
-+
-+extern unsigned int fscache_hash(unsigned int salt, const void *data, size_t len);
-+
-+/*
-+ * fscache-proc.c
-+ */
-+#ifdef CONFIG_PROC_FS
-+extern int __init fscache_proc_init(void);
-+extern void fscache_proc_cleanup(void);
-+#else
-+#define fscache_proc_init()	(0)
-+#define fscache_proc_cleanup()	do {} while (0)
-+#endif
-+
-+/*
-+ * fscache-stats.c
-+ */
-+#ifdef CONFIG_FSCACHE_STATS
-+extern atomic_t fscache_n_volumes;
-+extern atomic_t fscache_n_volumes_collision;
-+extern atomic_t fscache_n_volumes_nomem;
-+extern atomic_t fscache_n_cookies;
-+extern atomic_t fscache_n_cookies_lru;
-+extern atomic_t fscache_n_cookies_lru_expired;
-+extern atomic_t fscache_n_cookies_lru_removed;
-+extern atomic_t fscache_n_cookies_lru_dropped;
-+
-+extern atomic_t fscache_n_acquires;
-+extern atomic_t fscache_n_acquires_ok;
-+extern atomic_t fscache_n_acquires_oom;
-+
-+extern atomic_t fscache_n_invalidates;
-+
-+extern atomic_t fscache_n_relinquishes;
-+extern atomic_t fscache_n_relinquishes_retire;
-+extern atomic_t fscache_n_relinquishes_dropped;
-+
-+extern atomic_t fscache_n_resizes;
-+extern atomic_t fscache_n_resizes_null;
-+
-+static inline void fscache_stat(atomic_t *stat)
-+{
-+	atomic_inc(stat);
-+}
-+
-+static inline void fscache_stat_d(atomic_t *stat)
-+{
-+	atomic_dec(stat);
-+}
-+
-+#define __fscache_stat(stat) (stat)
-+
-+int fscache_stats_show(struct seq_file *m, void *v);
-+#else
-+
-+#define __fscache_stat(stat) (NULL)
-+#define fscache_stat(stat) do {} while (0)
-+#define fscache_stat_d(stat) do {} while (0)
-+#endif
-+
-+/*
-+ * fscache-volume.c
-+ */
-+#ifdef CONFIG_PROC_FS
-+extern const struct seq_operations fscache_volumes_seq_ops;
-+#endif
-+
-+struct fscache_volume *fscache_get_volume(struct fscache_volume *volume,
-+					  enum fscache_volume_trace where);
-+void fscache_put_volume(struct fscache_volume *volume,
-+			enum fscache_volume_trace where);
-+bool fscache_begin_volume_access(struct fscache_volume *volume,
-+				 struct fscache_cookie *cookie,
-+				 enum fscache_access_trace why);
-+void fscache_create_volume(struct fscache_volume *volume, bool wait);
-+
- /*****************************************************************************/
  /*
-  * debug tracing
+- * Table of operations for access to a cache.  This is obtained by
+- * rreq->ops->begin_cache_operation().
++ * Table of operations for access to a cache.
   */
--#if 0
- #define dbgprintk(FMT, ...) \
- 	printk("[%-6.6s] "FMT"\n", current->comm, ##__VA_ARGS__)
- 
-@@ -147,4 +282,57 @@ do {						\
- #define _leave(FMT, ...) no_printk("<== %s()"FMT"", __func__, ##__VA_ARGS__)
- #define _debug(FMT, ...) no_printk(FMT, ##__VA_ARGS__)
- #endif
--#endif
-+
-+/*
-+ * assertions
-+ */
-+#if 1 /* defined(__KDEBUGALL) */
-+
-+#define ASSERT(X)							\
-+do {									\
-+	if (unlikely(!(X))) {						\
-+		pr_err("\n");					\
-+		pr_err("Assertion failed\n");	\
-+		BUG();							\
-+	}								\
-+} while (0)
-+
-+#define ASSERTCMP(X, OP, Y)						\
-+do {									\
-+	if (unlikely(!((X) OP (Y)))) {					\
-+		pr_err("\n");					\
-+		pr_err("Assertion failed\n");	\
-+		pr_err("%lx " #OP " %lx is false\n",		\
-+		       (unsigned long)(X), (unsigned long)(Y));		\
-+		BUG();							\
-+	}								\
-+} while (0)
-+
-+#define ASSERTIF(C, X)							\
-+do {									\
-+	if (unlikely((C) && !(X))) {					\
-+		pr_err("\n");					\
-+		pr_err("Assertion failed\n");	\
-+		BUG();							\
-+	}								\
-+} while (0)
-+
-+#define ASSERTIFCMP(C, X, OP, Y)					\
-+do {									\
-+	if (unlikely((C) && !((X) OP (Y)))) {				\
-+		pr_err("\n");					\
-+		pr_err("Assertion failed\n");	\
-+		pr_err("%lx " #OP " %lx is false\n",		\
-+		       (unsigned long)(X), (unsigned long)(Y));		\
-+		BUG();							\
-+	}								\
-+} while (0)
-+
-+#else
-+
-+#define ASSERT(X)			do {} while (0)
-+#define ASSERTCMP(X, OP, Y)		do {} while (0)
-+#define ASSERTIF(C, X)			do {} while (0)
-+#define ASSERTIFCMP(C, X, OP, Y)	do {} while (0)
-+
-+#endif /* assert or not */
-diff --git a/fs/netfs/main.c b/fs/netfs/main.c
-index 1f3d5a9e0a12..068568702957 100644
---- a/fs/netfs/main.c
-+++ b/fs/netfs/main.c
-@@ -15,7 +15,6 @@ MODULE_DESCRIPTION("Network fs support");
- MODULE_AUTHOR("Red Hat, Inc.");
- MODULE_LICENSE("GPL");
- 
--unsigned fscache_debug;
- unsigned netfs_debug;
- module_param_named(debug, netfs_debug, uint, S_IWUSR | S_IRUGO);
- MODULE_PARM_DESC(netfs_debug, "Netfs support debugging mask");
-diff --git a/fs/nfs/Kconfig b/fs/nfs/Kconfig
-index 01ac733a6320..f7e32d76e34d 100644
---- a/fs/nfs/Kconfig
-+++ b/fs/nfs/Kconfig
-@@ -169,8 +169,8 @@ config ROOT_NFS
- 
- config NFS_FSCACHE
- 	bool "Provide NFS client caching support"
--	depends on NFS_FS=m && FSCACHE || NFS_FS=y && FSCACHE=y
--	select NETFS_SUPPORT
-+	depends on NFS_FS=m && NETFS_SUPPORT || NFS_FS=y && NETFS_SUPPORT=y
-+	select FSCACHE
- 	help
- 	  Say Y here if you want NFS data to be cached locally on disc through
- 	  the general filesystem cache manager
+ struct netfs_cache_ops {
+ 	/* End an operation */
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
