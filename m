@@ -1,102 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBBPQZCVQMGQEZQONCYQ@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBCHQZCVQMGQET3OCWAI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8C9A809388
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:24:22 +0100 (CET)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-423f290bbfdsf44553961cf.0
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:24:22 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701984261; cv=pass;
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D08780938A
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:24:26 +0100 (CET)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-4254409870fsf16109911cf.1
+        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:24:25 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701984265; cv=pass;
         d=google.com; s=arc-20160816;
-        b=hMI6I6oXtKMgJFRcGENUiUZkTsFBIanpzR6i+6uhH64+V5B/LBPyXEirm1DnuGZxNB
-         gMSAdUWQC93XOpvtR6yh1vwreWEFUWs+RJ7R3vI+TaiVzFFqQi0I+tt61RtnJI4bd3+6
-         A6M07gIpolfMejf4LsZpZ6BAmVHolravi9+Xj+uRkp33sk1qYw0k7DRiLxGebK7LDWWB
-         RdnixccLev3XEA4lkEPzE8L7rWmeIk6nZKAO5ENhJY2MJqMKKtexNuSoe5BdJFyATfxP
-         asO4esByKC0OgzwDFCGbg47NtaXLbzS0pGjkSbAcckleVEQMgs4eoiwzdXer1yZ1DEvF
-         XP7A==
+        b=dhr1C7C4HM17Wg8JMEsFPAU+HrUCg6OPF3WcLAnmx4n8VAhpOOt9urNoUr1GZjZ44y
+         /l1yuBA2c4qZGyJiShVC5ks6xbN27R7QbRjRmQPxbTHfPxebNVIv2Gnze8Ztj5lUVeYf
+         C2bgT555v3T1quCJHxBEHT/xFAmidxL+Q2kVuAYROIgBqOUjiPl+Q1uuABS79fko4lbh
+         v0TdZVwqyG6BDccrYJ6Ai4Ew2qWheZL0Hcq9qyRnhYekcf7JCwzOH1NFOpGcktf8KUy/
+         +NPJNUNmkm09k9IrdcFyP62vJAMm0Jv/7nW3harfL7hdL+FRgFhGE7fihoOemKyHpKBt
+         KdTQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=X0phQIAJGr/0qe0HC3kPLPMnhX4dzCskTl7DO4lDC0I=;
+        bh=ElXUF1Sz1yF9+SZU/0T7IXAGmID2OBRK3ZbzsCy2qVs=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=fgrn2N1lWVoBg1S4G2Rgy9Jov4liQAxMzeEM3U9vOdG0bME96ytcLCkKH+BWTZrIoF
-         858vueXUkm87FRhsizqoLSSLBKaZr5IdfSD2EdsbR3Il60wi69ShzjlB6UWl3GuOnsM/
-         rHUPTsNQTET+ZSVDui92KwGBmK/RH9GnSBgr7BmIjYNI4yN+Tz9FHlnvqDBkVrLWZYa4
-         GjIz1nC4/pxwVrFpAXYgNLy0G4zjLkr/LqjEVH5zExMy1unvFgFLB87ZA2n2VyUkaS7q
-         IlZe4MBtQdUBzHr+1qfkM/ODaI8r1gHDdjlR7WlvJHNVugl5ZK7P1Ve7+hnFM1MACVAB
-         /Uqg==
+        b=XVVa9K5e4HJIobgx4uKey85jl68BcWb6HKUpymyC6z4ycBW4PdjXS8n86IBvwRoKMP
+         ZO2ihuf1Pyz55gxa16fsZ5dGuqjO4h3mBcE2l4js6cjO4vMpjzwsp7fW3OVTrbzn6Cqi
+         6Fu2Slm/vyMI3KhFGXBwPPOYFsGnh6s1MKd4MNSqXxBe7D8A5SuSmHjI6/ECC6tTRu+H
+         GiLrlK5UABIVOiB/39rDCnPwsFS+nw91wYSLlr1CM4Jjv49a/0FGpKmedp0YZLDg3OKx
+         KQ7h/lMLhp4BkfwsGAxacidihYv/ahhSeR/piFMnuxdNzXJgD6QDjNLwmk3EB9vTVt/d
+         DO+g==
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701984261; x=1702589061;
+        d=1e100.net; s=20230601; t=1701984265; x=1702589065;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X0phQIAJGr/0qe0HC3kPLPMnhX4dzCskTl7DO4lDC0I=;
-        b=DCsfc0+/V6714NnjZH9sLlzay22ArBidnSBrnY6bywmtOD9TBBi2Fpp5dDriF+fgNC
-         8xEkXGJutlhkMSNAZHM7tHBLqkT1lrc+Ampq16DacfKIO1VLjJTfQiB4gsZVxjt8EgYz
-         lnOj2orPcGvBRZ05XiVv0SuzbG4mgMIFwQbwbaClgtT+pD5nPHVNYM2vs8T0FBzpc3ND
-         VaFSoKGgsB8+WIGAv8yvvGJPZdgnDM0C4e3hunEb/I2pRavWOGPb0dLn1f30XfxNbqnd
-         ++wy+VXVsYdoPU4bimxcMczbjJ/I3/qRDnWtSIo9KKSSVqScyRMuegClUZtkaQdQyHtx
-         qByA==
-X-Gm-Message-State: AOJu0YwDYOVI+QMSaZ8u5wp0RK9sd87Bv/4URamjKgR9sf+3SMLoXtT2
-	dWogGV9E0EQoMvm8mZ+yajIbhA==
-X-Google-Smtp-Source: AGHT+IFljKREqBKQAZanoAnvp7IDAAGnuNNozT+Z3veYJ6BZGjoaAS654Rs9eJxZKJ/nx1vArdNeew==
-X-Received: by 2002:ac8:7d06:0:b0:3f9:aa80:b48a with SMTP id g6-20020ac87d06000000b003f9aa80b48amr5602094qtb.8.1701984261660;
-        Thu, 07 Dec 2023 13:24:21 -0800 (PST)
+        bh=ElXUF1Sz1yF9+SZU/0T7IXAGmID2OBRK3ZbzsCy2qVs=;
+        b=a9gA+UT+UpTJo/MrbP47vyYdbs3GWL8t0R/aGu9VPDGs9dBw1PNpbR9C9DO+WXEURQ
+         sSP2cTV9fGEGEwf46AqTC+RMxLWCntcSM3CuhuH7UfsCaeT6gU3rsd5YvSIvAyq+JIcz
+         zZivVkfOlrrIonrMQ8O+zNFssSEM62P1ua21B6Ns51kcPAtbg26G1YYKnmUHN72LBSxd
+         cbdne3r1ZFS/W9zSEy5gdEm2emix++njHqoE4z2YmIsUZG+veYKDL3Lx6GiAHTyBIknS
+         kJjqAWEmCFFPBfVBu4WlesBqKCjS/IG8kKyXvzm8yQR2yNLzlAvJyrun3WyN77Ia9mJW
+         0/Xw==
+X-Gm-Message-State: AOJu0YzLxeOY5YLimUnofP7IuZ4h36YjkfAceYhtblsp20FPsZCDxkiz
+	rD9ykC4PSLdWp86RJd5jkGgbAQ==
+X-Google-Smtp-Source: AGHT+IHkOOignbC9mjg0Np0YzXWbfifsDTVX5oyfDZ6j6oljLpLUauzOBDkQgnYupo6yDUp2rC1QZg==
+X-Received: by 2002:ac8:5ac2:0:b0:425:4043:50b9 with SMTP id d2-20020ac85ac2000000b00425404350b9mr3662529qtd.72.1701984264925;
+        Thu, 07 Dec 2023 13:24:24 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ac8:7c44:0:b0:423:8463:9511 with SMTP id o4-20020ac87c44000000b0042384639511ls2650200qtv.2.-pod-prod-00-us;
- Thu, 07 Dec 2023 13:24:21 -0800 (PST)
-X-Received: by 2002:a05:620a:3b0f:b0:77d:7cfd:e46a with SMTP id tl15-20020a05620a3b0f00b0077d7cfde46amr2895812qkn.15.1701984261010;
-        Thu, 07 Dec 2023 13:24:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701984260; cv=none;
+Received: by 2002:a05:622a:190b:b0:423:8c6b:5043 with SMTP id
+ w11-20020a05622a190b00b004238c6b5043ls1584397qtc.1.-pod-prod-05-us; Thu, 07
+ Dec 2023 13:24:24 -0800 (PST)
+X-Received: by 2002:a37:f509:0:b0:77f:3bb8:baa5 with SMTP id l9-20020a37f509000000b0077f3bb8baa5mr1677466qkk.87.1701984264434;
+        Thu, 07 Dec 2023 13:24:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701984264; cv=none;
         d=google.com; s=arc-20160816;
-        b=OkE00qOBPJJEaHbU+e+CpgKWvD06LvTHU/Q7mNjesVX4SGo3h9l9E482aKQ9zH6XDP
-         tbetbLZq4rGYYV1Du8Jwnak0NRk8X2dMIrxUrrD01hTIJ6iJvxy4N5a59OPdbagh3/ys
-         ZizrjazHiLhwSIMouBqeNVYzsjBvn0P14YwfYQB4971HHDGgAP38TxiEzbkIgc3GKIR6
-         jhzUZQs66xgyQMQjGpmRcTW1eHwMsoJQTWAsejFrTTSr321GNpLI9mJEpriVLExhU0MT
-         OaUYx1OXiVk7toL3Wnxw6cmD1pWvPme3aUD/tG3Vpa8eBMc2+llYT5HH33BlhnBA0nUs
-         8txA==
+        b=YJyJEpq2cyuheVOQ1lvE8CoQu2PEePkbMuV98MRU2x0ttx4nNYYgwSRBjUUxLOGs4H
+         CwfvVVPS+QLvPAGIBfKPwWVSVpYOllTOOuUKLy55fY8+9nVujJM6+thISuu4bNy9f9XZ
+         PalRkcS15RHqa/GOuPgjSrpSzj7fdqW6L+b1+PGUw60mdamocirnYEz+K/bJZ5QLAxfK
+         X3YN/rnSDcMivNcvSu6s2AzLji0vE9Rmav13+mCkoF15oEnwpE9PfuYm9deSKRY7ePck
+         jCym9KFneho8krMGXolxY05jFyD83siJ2qiKzyxzPQ85b5mhKXrmlC0pUBe8Vfq31zhD
+         eIAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=+RGhYTY83CzEEwD3sxxlcJDtqFoFg1xQiYrcAXYGcq4=;
+        bh=0/ZWBPm/tHnmUrEq/8pNkYJ1kzJiXAey759Ylmcjid8=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=DOM0TtOJ4k3KDhmmkq85bIAevO/YzxXFhXy6PXQwdwFObxmjcAw8WfBAZP9gJGwDkF
-         Yl6vAUTB2ocGZXbc7BT1paYrfzTWca60P88HvT9gQLJPu7rtqxmEuKivxKhFwYlIwQCN
-         Rs6E+oiuwEmmmoJOWH+bkduwXSwQXdwRuDVBPAun7TOTMVzvEJ/rvNwrp5fT6ndh7M1c
-         6ZRA48t0BrnpJ/1riYqgofzulY9VvqnWWUACxtYZ8eMMFjDgisru+xYEFEtGww5ngJn6
-         s+x3P7G8EhcCIg5PCxQ5ctW+loUtyJbgsMawdHb0rbbfKhrrs5lj4v6F5zzBTEFShySd
-         af5Q==
+        b=NsaifDJmroLv8vnRbupo4PtRlWF6sWezSTPtDTkgdmU89VurEqzOwzOewAWqHXxa9d
+         /CH79pi6ObcX5jZCZo+arhMJNHOSrZ0BLAli9Di8mx3iX/R72+lJKeNqsFPqTvB1X2oL
+         l7vhnV8HHo+Him06FEQA4MTzzGo7U40FVRrRlMQrqAdsr+9tJogoB3F+67ckgYl+qSas
+         cYitfDrHHEYgNrQJF+x93HgG5yEAHLFpHXMbGIMw9w9SdXk4X2mOPsdF0JHd8HBg4Vm/
+         5R8rlVfhMaX9VWYbWDpH5YANa9vJMPKVvVrV1W/EhN0cIEVEw5qhKj/6OrLrXsUQR+K2
+         JfIg==
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
-        by mx.google.com with ESMTPS id n5-20020a05620a294500b00779db6b77dcsi609762qkp.353.2023.12.07.13.24.20
+        by mx.google.com with ESMTPS id x18-20020ae9f812000000b0077dd0fe28d0si495400qkh.737.2023.12.07.13.24.24
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:24:20 -0800 (PST)
+        Thu, 07 Dec 2023 13:24:24 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-127-hCV_52G3Nk-ED6yw-YKUkA-1; Thu, 07 Dec 2023 16:24:19 -0500
-X-MC-Unique: hCV_52G3Nk-ED6yw-YKUkA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-321-ZDRQbIdmPfaiEccB9VMWtw-1; Thu, 07 Dec 2023 16:24:22 -0500
+X-MC-Unique: ZDRQbIdmPfaiEccB9VMWtw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE48E85A58C
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:24:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 641CC185A78F
+	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:24:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB2CEC0164E; Thu,  7 Dec 2023 21:24:18 +0000 (UTC)
+	id 619958CD2; Thu,  7 Dec 2023 21:24:22 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 51189C15880;
-	Thu,  7 Dec 2023 21:24:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B769D8174;
+	Thu,  7 Dec 2023 21:24:19 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,13 +121,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 37/59] netfs: Perform content encryption
-Date: Thu,  7 Dec 2023 21:21:44 +0000
-Message-ID: <20231207212206.1379128-38-dhowells@redhat.com>
+Subject: [PATCH v3 38/59] netfs: Decrypt encrypted content
+Date: Thu,  7 Dec 2023 21:21:45 +0000
+Message-ID: <20231207212206.1379128-39-dhowells@redhat.com>
 In-Reply-To: <20231207212206.1379128-1-dhowells@redhat.com>
 References: <20231207212206.1379128-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -145,19 +146,14 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-When dealing with an encrypted file, we gather together sufficient pages
-from the pagecache to constitute a logical crypto block, allocate a bounce
-buffer and then ask the filesystem to encrypt between the buffers.  The
-bounce buffer is then passed to the filesystem to upload.
+Implement a facility to provide decryption for encrypted content to a whole
+read-request in one go (which might have been stitched together from
+disparate sources with divisions that don't match page boundaries).
 
-The network filesystem must set a flag to indicate what service is desired
-and what the logical blocksize will be.
-
-The netfs library iterates through each block to be processed, providing a
-pair of scatterlists to describe the start and end buffers.
-
-Note that it should be possible in future to encrypt DIO writes also by
-this same mechanism.
+Note that this doesn't necessarily gain the best throughput if the crypto
+block size is equal to or less than the size of a page (in which case we
+might be better doing it as pages become read), but it will handle crypto
+blocks larger than the size of a page.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -165,263 +161,150 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/Makefile            |  1 +
- fs/netfs/buffered_write.c    |  3 +-
- fs/netfs/crypto.c            | 89 ++++++++++++++++++++++++++++++++++++
- fs/netfs/internal.h          |  5 ++
- fs/netfs/objects.c           |  2 +
- fs/netfs/output.c            |  7 ++-
- include/linux/netfs.h        | 11 +++++
- include/trace/events/netfs.h |  2 +
- 8 files changed, 118 insertions(+), 2 deletions(-)
- create mode 100644 fs/netfs/crypto.c
+ fs/netfs/crypto.c            | 59 ++++++++++++++++++++++++++++++++++++
+ fs/netfs/internal.h          |  1 +
+ fs/netfs/io.c                |  6 +++-
+ include/linux/netfs.h        |  3 ++
+ include/trace/events/netfs.h |  2 ++
+ 5 files changed, 70 insertions(+), 1 deletion(-)
 
-diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
-index d4d1d799819e..0c433fce15dc 100644
---- a/fs/netfs/Makefile
-+++ b/fs/netfs/Makefile
-@@ -3,6 +3,7 @@
- netfs-y := \
- 	buffered_read.o \
- 	buffered_write.o \
-+	crypto.o \
- 	direct_read.o \
- 	direct_write.o \
- 	io.o \
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 8339e3f753af..bffa508945cb 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -77,7 +77,8 @@ static enum netfs_how_to_modify netfs_how_to_modify(struct netfs_inode *ctx,
- 	if (!maybe_trouble && offset == 0 && len >= flen)
- 		return NETFS_WHOLE_FOLIO_MODIFY;
- 
--	if (file->f_mode & FMODE_READ)
-+	if (file->f_mode & FMODE_READ ||
-+	    test_bit(NETFS_ICTX_ENCRYPTED, &ctx->flags))
- 		return NETFS_JUST_PREFETCH;
- 
- 	if (netfs_is_cache_enabled(ctx) ||
 diff --git a/fs/netfs/crypto.c b/fs/netfs/crypto.c
-new file mode 100644
-index 000000000000..943d01f430e2
---- /dev/null
+index 943d01f430e2..6729bcda4f47 100644
+--- a/fs/netfs/crypto.c
 +++ b/fs/netfs/crypto.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Network filesystem content encryption support.
-+ *
-+ * Copyright (C) 2023 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ */
-+
-+#include <linux/fs.h>
-+#include <linux/mm.h>
-+#include <linux/pagemap.h>
-+#include <linux/slab.h>
-+#include <linux/scatterlist.h>
-+#include "internal.h"
+@@ -87,3 +87,62 @@ bool netfs_encrypt(struct netfs_io_request *wreq)
+ 	wreq->error = ret;
+ 	return false;
+ }
 +
 +/*
-+ * Populate a scatterlist from the next bufferage of an I/O iterator.
++ * Decrypt the result of a read request.
 + */
-+static int netfs_iter_to_sglist(const struct iov_iter *iter, size_t len,
-+				struct scatterlist *sg, unsigned int n_sg)
++void netfs_decrypt(struct netfs_io_request *rreq)
 +{
-+	struct iov_iter tmp_iter = *iter;
-+	struct sg_table sgtable = { .sgl = sg };
-+	ssize_t ret;
-+
-+	_enter("%zx/%zx", len, iov_iter_count(iter));
-+
-+	sg_init_table(sg, n_sg);
-+	ret = extract_iter_to_sg(&tmp_iter, len, &sgtable, n_sg, 0);
-+	if (ret < 0)
-+		return ret;
-+	sg_mark_end(&sg[sgtable.nents - 1]);
-+	return sgtable.nents;
-+}
-+
-+/*
-+ * Prepare a write request for writing.  We encrypt in/into the bounce buffer.
-+ */
-+bool netfs_encrypt(struct netfs_io_request *wreq)
-+{
-+	struct netfs_inode *ctx = netfs_inode(wreq->inode);
++	struct netfs_inode *ctx = netfs_inode(rreq->inode);
 +	struct scatterlist source_sg[16], dest_sg[16];
-+	unsigned int n_dest;
++	unsigned int n_source;
 +	size_t n, chunk, bsize = 1UL << ctx->crypto_bshift;
 +	loff_t pos;
 +	int ret;
 +
-+	_enter("");
++	trace_netfs_rreq(rreq, netfs_rreq_trace_decrypt);
++	if (rreq->start >= rreq->i_size)
++		return;
 +
-+	trace_netfs_rreq(wreq, netfs_rreq_trace_encrypt);
++	n = min_t(unsigned long long, rreq->len, rreq->i_size - rreq->start);
 +
-+	pos = wreq->start;
-+	n = wreq->len;
-+	_debug("ENCRYPT %llx-%llx", pos, pos + n - 1);
++	_debug("DECRYPT %llx-%llx f=%lx",
++	       rreq->start, rreq->start + n, rreq->flags);
 +
++	pos = rreq->start;
 +	for (; n > 0; n -= chunk, pos += chunk) {
 +		chunk = min(n, bsize);
 +
-+		ret = netfs_iter_to_sglist(&wreq->io_iter, chunk,
-+					   dest_sg, ARRAY_SIZE(dest_sg));
++		ret = netfs_iter_to_sglist(&rreq->io_iter, chunk,
++					   source_sg, ARRAY_SIZE(source_sg));
 +		if (ret < 0)
 +			goto error;
-+		n_dest = ret;
++		n_source = ret;
 +
-+		if (test_bit(NETFS_RREQ_CRYPT_IN_PLACE, &wreq->flags)) {
-+			ret = ctx->ops->encrypt_block(wreq, pos, chunk,
-+						      dest_sg, n_dest,
-+						      dest_sg, n_dest);
++		if (test_bit(NETFS_RREQ_CRYPT_IN_PLACE, &rreq->flags)) {
++			ret = ctx->ops->decrypt_block(rreq, pos, chunk,
++						      source_sg, n_source,
++						      source_sg, n_source);
 +		} else {
-+			ret = netfs_iter_to_sglist(&wreq->iter, chunk,
-+						   source_sg, ARRAY_SIZE(source_sg));
++			ret = netfs_iter_to_sglist(&rreq->iter, chunk,
++						   dest_sg, ARRAY_SIZE(dest_sg));
 +			if (ret < 0)
 +				goto error;
-+			ret = ctx->ops->encrypt_block(wreq, pos, chunk,
-+						      source_sg, ret,
-+						      dest_sg, n_dest);
++			ret = ctx->ops->decrypt_block(rreq, pos, chunk,
++						      source_sg, n_source,
++						      dest_sg, ret);
 +		}
 +
 +		if (ret < 0)
 +			goto error_failed;
 +	}
 +
-+	return true;
++	return;
 +
 +error_failed:
-+	trace_netfs_failure(wreq, NULL, ret, netfs_fail_encryption);
++	trace_netfs_failure(rreq, NULL, ret, netfs_fail_decryption);
 +error:
-+	wreq->error = ret;
-+	return false;
++	rreq->error = ret;
++	set_bit(NETFS_RREQ_FAILED, &rreq->flags);
++	return;
 +}
 diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index ae7a6aedc7cb..9412ec886df1 100644
+index 9412ec886df1..b6c142ef996a 100644
 --- a/fs/netfs/internal.h
 +++ b/fs/netfs/internal.h
-@@ -26,6 +26,11 @@ void netfs_rreq_unlock_folios(struct netfs_io_request *rreq);
- int netfs_prefetch_for_write(struct file *file, struct folio *folio,
- 			     size_t offset, size_t len);
+@@ -30,6 +30,7 @@ int netfs_prefetch_for_write(struct file *file, struct folio *folio,
+  * crypto.c
+  */
+ bool netfs_encrypt(struct netfs_io_request *wreq);
++void netfs_decrypt(struct netfs_io_request *rreq);
  
-+/*
-+ * crypto.c
-+ */
-+bool netfs_encrypt(struct netfs_io_request *wreq);
-+
  /*
   * direct_write.c
-  */
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 16252cc4576e..8e4585216fc7 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -45,6 +45,8 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 	refcount_set(&rreq->ref, 1);
+diff --git a/fs/netfs/io.c b/fs/netfs/io.c
+index 5d9098db815a..e4633ebc269f 100644
+--- a/fs/netfs/io.c
++++ b/fs/netfs/io.c
+@@ -400,6 +400,9 @@ static void netfs_rreq_assess(struct netfs_io_request *rreq, bool was_async)
+ 		return;
+ 	}
  
- 	__set_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
-+	if (test_bit(NETFS_ICTX_ENCRYPTED, &ctx->flags))
-+		__set_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &rreq->flags);
- 	if (cached)
- 		__set_bit(NETFS_RREQ_WRITE_TO_CACHE, &rreq->flags);
- 	if (file && file->f_flags & O_NONBLOCK)
-diff --git a/fs/netfs/output.c b/fs/netfs/output.c
-index cc9065733b42..c0ac3ac57861 100644
---- a/fs/netfs/output.c
-+++ b/fs/netfs/output.c
-@@ -364,7 +364,11 @@ int netfs_begin_write(struct netfs_io_request *wreq, bool may_wait,
- 	 * background whilst we generate a list of write ops that we want to
- 	 * perform.
- 	 */
--	// TODO: Encrypt or compress the region as appropriate
-+	if (test_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &wreq->flags) &&
-+	    !netfs_encrypt(wreq)) {
-+		may_wait = true;
-+		goto out;
-+	}
- 
- 	/* We need to write all of the region to the cache */
- 	if (test_bit(NETFS_RREQ_WRITE_TO_CACHE, &wreq->flags))
-@@ -376,6 +380,7 @@ int netfs_begin_write(struct netfs_io_request *wreq, bool may_wait,
- 	if (test_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags))
- 		ctx->ops->create_write_requests(wreq, wreq->start, wreq->len);
- 
-+out:
- 	if (atomic_dec_and_test(&wreq->nr_outstanding))
- 		netfs_write_terminated(wreq, false);
- 
++	if (!test_bit(NETFS_RREQ_FAILED, &rreq->flags) &&
++	    test_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &rreq->flags))
++		netfs_decrypt(rreq);
+ 	if (rreq->origin != NETFS_DIO_READ)
+ 		netfs_rreq_unlock_folios(rreq);
+ 	else
+@@ -429,7 +432,8 @@ static void netfs_rreq_work(struct work_struct *work)
+ static void netfs_rreq_terminated(struct netfs_io_request *rreq,
+ 				  bool was_async)
+ {
+-	if (test_bit(NETFS_RREQ_INCOMPLETE_IO, &rreq->flags) &&
++	if ((test_bit(NETFS_RREQ_INCOMPLETE_IO, &rreq->flags) ||
++	     test_bit(NETFS_RREQ_CONTENT_ENCRYPTION, &rreq->flags)) &&
+ 	    was_async) {
+ 		if (!queue_work(system_unbound_wq, &rreq->work))
+ 			BUG();
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 69ff5d652931..c2985f73d870 100644
+index c2985f73d870..50adcf6942b8 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -19,6 +19,7 @@
- #include <linux/pagemap.h>
- #include <linux/uio.h>
- 
-+struct scatterlist;
- enum netfs_sreq_ref_trace;
- 
- /*
-@@ -139,7 +140,9 @@ struct netfs_inode {
- 	unsigned long		flags;
- #define NETFS_ICTX_ODIRECT	0		/* The file has DIO in progress */
- #define NETFS_ICTX_UNBUFFERED	1		/* I/O should not use the pagecache */
-+#define NETFS_ICTX_ENCRYPTED	2		/* The file contents are encrypted */
- 	unsigned char		min_bshift;	/* log2 min block size for bounding box or 0 */
-+	unsigned char		crypto_bshift;	/* log2 of crypto block size */
- };
- 
- /*
-@@ -285,6 +288,8 @@ struct netfs_io_request {
- #define NETFS_RREQ_UPLOAD_TO_SERVER	8	/* Need to write to the server */
- #define NETFS_RREQ_NONBLOCK		9	/* Don't block if possible (O_NONBLOCK) */
- #define NETFS_RREQ_BLOCKED		10	/* We blocked */
-+#define NETFS_RREQ_CONTENT_ENCRYPTION	11	/* Content encryption is in use */
-+#define NETFS_RREQ_CRYPT_IN_PLACE	12	/* Enc/dec in place in ->io_iter */
- 	const struct netfs_request_ops *netfs_ops;
- 	void (*cleanup)(struct netfs_io_request *req);
- };
-@@ -315,6 +320,11 @@ struct netfs_request_ops {
- 	void (*create_write_requests)(struct netfs_io_request *wreq,
- 				      loff_t start, size_t len);
- 	void (*invalidate_cache)(struct netfs_io_request *wreq);
-+
-+	/* Content encryption */
-+	int (*encrypt_block)(struct netfs_io_request *wreq, loff_t pos, size_t len,
+@@ -325,6 +325,9 @@ struct netfs_request_ops {
+ 	int (*encrypt_block)(struct netfs_io_request *wreq, loff_t pos, size_t len,
+ 			     struct scatterlist *source_sg, unsigned int n_source,
+ 			     struct scatterlist *dest_sg, unsigned int n_dest);
++	int (*decrypt_block)(struct netfs_io_request *rreq, loff_t pos, size_t len,
 +			     struct scatterlist *source_sg, unsigned int n_source,
 +			     struct scatterlist *dest_sg, unsigned int n_dest);
  };
  
  /*
-@@ -464,6 +474,7 @@ static inline void netfs_inode_init(struct netfs_inode *ctx,
- 	ctx->remote_i_size = i_size_read(&ctx->inode);
- 	ctx->flags = 0;
- 	ctx->min_bshift = 0;
-+	ctx->crypto_bshift = 0;
- #if IS_ENABLED(CONFIG_FSCACHE)
- 	ctx->cache = NULL;
- #endif
 diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index 914a24b03d08..3f50819613e2 100644
+index 3f50819613e2..6394fdf7a9cd 100644
 --- a/include/trace/events/netfs.h
 +++ b/include/trace/events/netfs.h
-@@ -41,6 +41,7 @@
+@@ -40,6 +40,7 @@
+ #define netfs_rreq_traces					\
  	EM(netfs_rreq_trace_assess,		"ASSESS ")	\
  	EM(netfs_rreq_trace_copy,		"COPY   ")	\
++	EM(netfs_rreq_trace_decrypt,		"DECRYPT")	\
  	EM(netfs_rreq_trace_done,		"DONE   ")	\
-+	EM(netfs_rreq_trace_encrypt,		"ENCRYPT")	\
+ 	EM(netfs_rreq_trace_encrypt,		"ENCRYPT")	\
  	EM(netfs_rreq_trace_free,		"FREE   ")	\
- 	EM(netfs_rreq_trace_redirty,		"REDIRTY")	\
- 	EM(netfs_rreq_trace_resubmit,		"RESUBMT")	\
-@@ -76,6 +77,7 @@
+@@ -75,6 +76,7 @@
+ #define netfs_failures							\
+ 	EM(netfs_fail_check_write_begin,	"check-write-begin")	\
  	EM(netfs_fail_copy_to_cache,		"copy-to-cache")	\
++	EM(netfs_fail_decryption,		"decryption")		\
  	EM(netfs_fail_dio_read_short,		"dio-read-short")	\
  	EM(netfs_fail_dio_read_zero,		"dio-read-zero")	\
-+	EM(netfs_fail_encryption,		"encryption")		\
- 	EM(netfs_fail_read,			"read")			\
- 	EM(netfs_fail_short_read,		"short-read")		\
- 	EM(netfs_fail_prepare_write,		"prep-write")		\
+ 	EM(netfs_fail_encryption,		"encryption")		\
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
