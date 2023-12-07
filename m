@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB5PPZCVQMGQE6UWSPPY@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB57PZCVQMGQED27ULFY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47C4B80937B
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:24:06 +0100 (CET)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-423dba1e166sf17436511cf.3
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:24:06 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701984245; cv=pass;
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD64080937F
+	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:24:08 +0100 (CET)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-4259c8e6ab7sf331961cf.1
+        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:24:08 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701984248; cv=pass;
         d=google.com; s=arc-20160816;
-        b=cuW+4CSxqVogIL0JGBNVnkeucwogFmlxEFNQU2QnyZYQXNVKoNEjO+Plk/X8IksDTm
-         bmfe3WpAHauBGSNSxPuD/M6V35eMw4A8vmgxjnbH/Q7sbbbeg4Js6BUBFvh6DZsLMDn7
-         QrkiBOjBANAO8Qhl3I5MKuKm2vpDlDzwXJKcTIkg9nyytpl3dY0T0iMObNSiLjJ/5xDB
-         ehwIj5Yw58FDOrUxV+7aoNriFOW1TTZbDImyglxraKnWYvjSFNRVcg5Jmfa9tTXjM3ad
-         hQFy718RuHPmW3j2o0fu/Jb8qSt1N+RomKxmWXX4PHMALVsmE/LSOkxs2meNdNNoIDuG
-         9SCg==
+        b=EJovSu2ldO3X9euOQWaGrpPSzQLI5P03eWbCWRUliCToJ4LgA5csnfUtWeYMv6YUNx
+         95Rj5Wdmx2Bb4QTBwmGJD25BpAdcwxB4tTlvkJfA6RN4MkIHJx/waDLf1iyav0pOh7iM
+         GgfFTjgZqREaIDxsHn69QHPwtPqADtyDLsHAw/LO5osvdm/RXcTFTedekBdGg98RmjF2
+         nEjHz3S0IplO6yDUQjETBnzmwj52S9/MSAzW2qhZH9Lh1P3yyL4w4E30D0ejiUoK3vDq
+         Uatf0PQIqSWRUtPZs8O7y/ZD3eOFHC1BkTHlGsU5cHEfJKyNAr5wj9dlanl5pyQPRZCz
+         hc2w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=aGdbc1dlCoWlkbbzSe+0XwmCsp7YlBCfN+Vrf1Q25a8=;
+        bh=d6rWfN60iQDHeSsPn3vOAD+PTmB0MyW7wDXX9DBzjZI=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=agEV5ctEdd6gISGePFT1yGIosW4sQo2Kyi3gRIwZ2ZO83CDZw4pwsw4nuAl7xdG/Oq
-         /69GlgqqyLkslIx/b4F18rtVzWHIJNcDVt7TKpIoF+Ywu5jkb0ore+6VXC1WzcyNcWIJ
-         ggjPW46LX22L/lsQrPDFBey5cXowy6Q0ZAKUDJG1rGnOtLBxr8CEZsni+ShqLjRi7Rl+
-         yRPCA3CmW8FPkPQDYEjr4Z/d5TID3zcXnl0vcD1v9Ecp+TLYfHwEjWdgkMnGTcN4Fa1l
-         YKIjjGhHsHPXGzIi8CbDj1aL7rZYnMXBfToTEKDW8rhePVYrJ3PExZFHMD6me+/uw+Ji
-         iK+Q==
+        b=ayU50gMW7SHJ1VGohD4Bu+B6ErG+8gQWTBcC5+ZuRvNA1JKdBHAYDqv1gYWvOS4085
+         Jo7v/te9IyCucMW5FngYfiPvhU/xwIohebUKjSZVgEERCNjwljWdqpU6bG9/tIcHjwGy
+         ezH0n2HFGGiBF8/0ZxpfxAiF2U8XFPUCovZcR4dYCQdv9AO1sIB8qgHoATcFWEeEaxiS
+         khUEbR2wyGa7Vwuis2wTzPAbpWg4+jCswa0MepK0xTHn0ZmsBMqMLI1SmezYs5eXQyg6
+         tjJh4vAjg4yhsY+bXPSwphqPUt9yEvfcTjbU/ImNVx9RxxvR9EMy4Xa42AoPU3nUxZc3
+         6LUQ==
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701984245; x=1702589045;
+        d=1e100.net; s=20230601; t=1701984248; x=1702589048;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aGdbc1dlCoWlkbbzSe+0XwmCsp7YlBCfN+Vrf1Q25a8=;
-        b=Ok6IDrmQre3EB1piXFicCwL/Eq8Y0n/1nCWkoFRw3YRxXuLX6kzzCjdvywp+GSaKfP
-         ImtDAWyipZL0lLt6tNckZ9+CtK90T9icjiGMn/NDpkCFSqIA/wm5EQTu/lHApasYboCH
-         2Wq6LbGffFQJAO6gVElThBITpH7DxAprxfBWhLANbkJZo4R6IZuvpIXge8hWDZ+iN+k2
-         Omdbf9V5tJzxor4z/Q8xG7WpTH+Ey2rOGkAMiOvkcBarhX9hOGWmRlpawJDNadU3ry6v
-         +nho65BIOf+R+7iU5gOMMyVWZVgFuYgzG6sCJULo8MZJm3xqpjIeaijAjle4J3xbD4ii
-         dGkQ==
-X-Gm-Message-State: AOJu0YzE+DRX+jYatkQAfqngOg20p66O1TvswEqJ9rGRCswPUIpc2N+c
-	Gz7r4IBoJYAPj/fyVloOovnuWg==
-X-Google-Smtp-Source: AGHT+IEXM6LxYGve4lt32GUGJ/quXoG3LzY4355PDNx4d0VSA69O9WWZcfLg1ESeNB3n2Ngl+1RVlQ==
-X-Received: by 2002:a05:622a:211:b0:425:962a:1973 with SMTP id b17-20020a05622a021100b00425962a1973mr958352qtx.137.1701984245294;
-        Thu, 07 Dec 2023 13:24:05 -0800 (PST)
+        bh=d6rWfN60iQDHeSsPn3vOAD+PTmB0MyW7wDXX9DBzjZI=;
+        b=B0Mv5IKjmoMLHIwHJ5AXLU63SIli/MKrtX65oO05qgHruGHLyqpBIahDYX1/Q80z+5
+         bFoDYjUFgWdjvE9IVXDVSxIxCjVcajz/jTJR0fdnm7xGyyukgopeHeFVZxHG2wMiNOFC
+         P0f3anvL/FFM7YXQKC1YItujnO1ngFhFWRRJirDU4tK5pm3eLGU6zWhW3HX/tOl+yLPM
+         Sc8W0ADYos4c97VVQoxKmzskUGjBrD62S6bVDo62z3KltGkIv6qUtMLJdJIcpKxtMm2b
+         gruYcoQji/SVlVycCx2EFjHybIJ9I2h9qG0238iD1ixSAMdPMGXTsbWTtoW/slR6/7wR
+         0DkA==
+X-Gm-Message-State: AOJu0YzEhxu2dAT89jKV4fo7xxJzaZPWJ/VIPaca4BSABXZo6gxD3zlj
+	bF20v7z7D8zgpNWY29Trmlj3VA==
+X-Google-Smtp-Source: AGHT+IH/XdqCIBIwAxB/Gg1L+6tZ3LVF64t+Clh8ROybzKMZT2dhrB0Lh6b/ZEQLi4raNxq5bWC52Q==
+X-Received: by 2002:a05:622a:130a:b0:423:dbbc:aab7 with SMTP id v10-20020a05622a130a00b00423dbbcaab7mr6731579qtk.1.1701984247890;
+        Thu, 07 Dec 2023 13:24:07 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:622a:1a20:b0:423:731a:7859 with SMTP id
- f32-20020a05622a1a2000b00423731a7859ls507779qtb.0.-pod-prod-09-us; Thu, 07
- Dec 2023 13:24:04 -0800 (PST)
-X-Received: by 2002:a05:620a:3c09:b0:77f:9d5:185b with SMTP id tn9-20020a05620a3c0900b0077f09d5185bmr1825046qkn.25.1701984244751;
-        Thu, 07 Dec 2023 13:24:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701984244; cv=none;
+Received: by 2002:a05:622a:651:b0:41c:d096:577c with SMTP id
+ a17-20020a05622a065100b0041cd096577cls1510817qtb.2.-pod-prod-07-us; Thu, 07
+ Dec 2023 13:24:07 -0800 (PST)
+X-Received: by 2002:a05:622a:151:b0:425:9b8f:15b9 with SMTP id v17-20020a05622a015100b004259b8f15b9mr442886qtw.41.1701984247247;
+        Thu, 07 Dec 2023 13:24:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701984247; cv=none;
         d=google.com; s=arc-20160816;
-        b=oLekRazp6DIfzMWoWEo4jJdIHANrXE4h8f1S+RjPWi2dlQxOfqn91FpeReoTge6kcg
-         v5O0W7LqLTDNZE6suOuwQ+A02CQTxxMHFWjKRg3VwcEm0IsEiO6j2pP6kIToOq3c/tQl
-         0v0WwafKTeasMbOm+guptkZOhrh3In1q13KCaL169nu+MBNt5NZXIWhSkovdx38pjMyq
-         iG5+18j29Rd2PcYeLAWcFIyJ+rox+YweDYKgrmYxdifPmwosLa3SdzDL84a2mnge8fXd
-         4qKjE64aBVwbNuKOZ4acic62wgkN2u+L+kfTP/CSzhxJvECGlQ8J7uRbnsXStXQ9Lnh2
-         8DoA==
+        b=Wm192hOB7EZle/AQW8O1UZGVpR20zvnfUX4tbYtgeAcz2gAoS/MnM6ouiXaZSj3Dyn
+         s8h6t2yTZwgZyThovk24Xeq6LvINb8Kh85DQpYcmXifwTveWW0Fl41aYljX1vc4DHo8C
+         QR2ny0hf846r83OGiVnPsmvTyW/6Yzm+4K3BSJlbKiYdlAc1jrARhHkTVNuXZuzCOy7K
+         K6sqO6KZzklVZFyHE3UXpky1PNfffYrasFmQ9ipnkIVuP9klL/nyX+DqzL74MlEao+9d
+         ktZfoeGRC3Ybo2JjjSDzWL/1Ev0hyjGF8b/FU40tCZ1c/sTqdZtVquDuEZC6fO2ugFCA
+         HDSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=BBeV+gPa6exSN5f9Ij71agEQGyyesbGBrZnLGz9yhJU=;
+        bh=GWz3UetJ1H2inkDCEy0FPsiHj6M0nuo6NxktZOcXvKA=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=NfxIxm4joi8ASAV29+nf6Nukg5cTJLxIeG+L0JUDKFmHq4LgHyzN72pqiZ61BWKiKT
-         L4feSBFCXVL4o7L37iktV10n4Le+KM5xALj2/YJXgaNv/ND02kxPBaC2HELGjLe9ygDp
-         DxFoFFbsLRKtwAEOf+lM+SgHKmJFeqRSk4aXvl0ZTfdI3jIi+79rvU8NX7vfZA/HX21M
-         m2WJR8ReW3QZd/pcW8gcmDECJ0D4z6ASxJwyfX1OHc/NAaDAIz/91Rx79XA81UlpgFdw
-         5gv9eNhsga0jMeSTBvrp4ST8qeJ5QWLrbaXQA9onIMyMyWXXmGsy2bohT8/cNjMUWR8L
-         8uEA==
+        b=BfzbIQcivl5+Gq7fz9faEsU/8RMgV7h1u1yFeBvzmqPcjX8Mt4HGHxPrQWWnqzILuZ
+         egXFDn3AIa5EuGgL1NNsJwC74jSDk72UjBWH/tVisvQf6i8yAa4x++l1Vz4R+dWUqe5f
+         HGO7G1FKGeD0jaeCFmSPOmcHu1kNQaaLEhoCAjCP4ZYI2pM/r6wKucmv3toT0D9TSqna
+         QLNxsxuBhZGtPhJd3Rt2JLQ/BgxyaPALXnyS362BM4f4kTFLT+Hc0Tdd6cLfQ4k4du5B
+         UR44wNQXgVTpiSYBFV/VF37HScayhlMp6cP6nnmDdYcXoZoX4AGNwH+Nx92D14buPM81
+         iBiw==
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
-        by mx.google.com with ESMTPS id q8-20020a05620a0d8800b0077d708299besi610162qkl.425.2023.12.07.13.24.04
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id ey23-20020a05622a4c1700b00423b6a1208asi759984qtb.8.2023.12.07.13.24.07
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:24:04 -0800 (PST)
+        Thu, 07 Dec 2023 13:24:07 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-513-c5k2d5eHNguavZ-p3pd7fw-1; Thu,
- 07 Dec 2023 16:24:03 -0500
-X-MC-Unique: c5k2d5eHNguavZ-p3pd7fw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-589-p5Nl0UrZM1WkTVkVaBmHkA-1; Thu,
+ 07 Dec 2023 16:24:05 -0500
+X-MC-Unique: p5Nl0UrZM1WkTVkVaBmHkA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D2B729AC016
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:24:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B5723C40B55
+	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:24:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 199C43C32; Thu,  7 Dec 2023 21:24:02 +0000 (UTC)
+	id 87A483C35; Thu,  7 Dec 2023 21:24:05 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E8473C35;
-	Thu,  7 Dec 2023 21:23:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D986B3C2E;
+	Thu,  7 Dec 2023 21:24:02 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,9 +121,9 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 32/59] netfs: Provide netfs_file_read_iter()
-Date: Thu,  7 Dec 2023 21:21:39 +0000
-Message-ID: <20231207212206.1379128-33-dhowells@redhat.com>
+Subject: [PATCH v3 33/59] netfs, cachefiles: Pass upper bound length to allow expansion
+Date: Thu,  7 Dec 2023 21:21:40 +0000
+Message-ID: <20231207212206.1379128-34-dhowells@redhat.com>
 In-Reply-To: <20231207212206.1379128-1-dhowells@redhat.com>
 References: <20231207212206.1379128-1-dhowells@redhat.com>
 MIME-Version: 1.0
@@ -146,8 +146,11 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Provide a top-level-ish function that can be pointed to directly by
-->read_iter file op.
+Make netfslib pass the maximum length to the ->prepare_write() op to tell
+the cache how much it can expand the length of a write to.  This allows a
+write to the server at the end of a file to be limited to a few bytes
+whilst writing an entire block to the cache (something required by direct
+I/O).
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -155,104 +158,208 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_read.c | 73 ++++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h    |  2 ++
- 2 files changed, 75 insertions(+)
+ fs/cachefiles/internal.h |  2 +-
+ fs/cachefiles/io.c       | 10 ++++++----
+ fs/cachefiles/ondemand.c |  2 +-
+ fs/netfs/fscache_io.c    |  2 +-
+ fs/netfs/io.c            |  2 +-
+ fs/netfs/objects.c       |  1 +
+ fs/netfs/output.c        | 25 ++++++++++---------------
+ fs/smb/client/fscache.c  |  2 +-
+ include/linux/netfs.h    |  5 +++--
+ 9 files changed, 25 insertions(+), 26 deletions(-)
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 950f63fc156a..a59e7b2edaac 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -558,3 +558,76 @@ int netfs_prefetch_for_write(struct file *file, struct folio *folio,
- 	_leave(" = %d", ret);
- 	return ret;
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index 4a87c9d714a9..d33169f0018b 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -246,7 +246,7 @@ extern bool cachefiles_begin_operation(struct netfs_cache_resources *cres,
+ 				       enum fscache_want_state want_state);
+ extern int __cachefiles_prepare_write(struct cachefiles_object *object,
+ 				      struct file *file,
+-				      loff_t *_start, size_t *_len,
++				      loff_t *_start, size_t *_len, size_t upper_len,
+ 				      bool no_space_allocated_yet);
+ extern int __cachefiles_write(struct cachefiles_object *object,
+ 			      struct file *file,
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index 5857241c5918..9fe69a60eb24 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -517,7 +517,7 @@ cachefiles_prepare_ondemand_read(struct netfs_cache_resources *cres,
+  */
+ int __cachefiles_prepare_write(struct cachefiles_object *object,
+ 			       struct file *file,
+-			       loff_t *_start, size_t *_len,
++			       loff_t *_start, size_t *_len, size_t upper_len,
+ 			       bool no_space_allocated_yet)
+ {
+ 	struct cachefiles_cache *cache = object->volume->cache;
+@@ -529,6 +529,8 @@ int __cachefiles_prepare_write(struct cachefiles_object *object,
+ 	down = start - round_down(start, PAGE_SIZE);
+ 	*_start = start - down;
+ 	*_len = round_up(down + len, PAGE_SIZE);
++	if (down < start || *_len > upper_len)
++		return -ENOBUFS;
+ 
+ 	/* We need to work out whether there's sufficient disk space to perform
+ 	 * the write - but we can skip that check if we have space already
+@@ -591,8 +593,8 @@ int __cachefiles_prepare_write(struct cachefiles_object *object,
  }
-+
-+/**
-+ * netfs_buffered_read_iter - Filesystem buffered I/O read routine
-+ * @iocb: kernel I/O control block
-+ * @iter: destination for the data read
-+ *
-+ * This is the ->read_iter() routine for all filesystems that can use the page
-+ * cache directly.
-+ *
-+ * The IOCB_NOWAIT flag in iocb->ki_flags indicates that -EAGAIN shall be
-+ * returned when no data can be read without waiting for I/O requests to
-+ * complete; it doesn't prevent readahead.
-+ *
-+ * The IOCB_NOIO flag in iocb->ki_flags indicates that no new I/O requests
-+ * shall be made for the read or for readahead.  When no data can be read,
-+ * -EAGAIN shall be returned.  When readahead would be triggered, a partial,
-+ * possibly empty read shall be returned.
-+ *
-+ * Return:
-+ * * number of bytes copied, even for partial reads
-+ * * negative error code (or 0 if IOCB_NOIO) if nothing was read
-+ */
-+ssize_t netfs_buffered_read_iter(struct kiocb *iocb, struct iov_iter *iter)
-+{
-+	struct inode *inode = file_inode(iocb->ki_filp);
-+	struct netfs_inode *ictx = netfs_inode(inode);
-+	ssize_t ret;
-+
-+	if (WARN_ON_ONCE((iocb->ki_flags & IOCB_DIRECT) ||
-+			 test_bit(NETFS_ICTX_UNBUFFERED, &ictx->flags)))
-+		return -EINVAL;
-+
-+	ret = netfs_start_io_read(inode);
-+	if (ret == 0) {
-+		ret = filemap_read(iocb, iter, 0);
-+		netfs_end_io_read(inode);
-+	}
-+	return ret;
-+}
-+EXPORT_SYMBOL(netfs_buffered_read_iter);
-+
-+/**
-+ * netfs_file_read_iter - Generic filesystem read routine
-+ * @iocb: kernel I/O control block
-+ * @iter: destination for the data read
-+ *
-+ * This is the ->read_iter() routine for all filesystems that can use the page
-+ * cache directly.
-+ *
-+ * The IOCB_NOWAIT flag in iocb->ki_flags indicates that -EAGAIN shall be
-+ * returned when no data can be read without waiting for I/O requests to
-+ * complete; it doesn't prevent readahead.
-+ *
-+ * The IOCB_NOIO flag in iocb->ki_flags indicates that no new I/O requests
-+ * shall be made for the read or for readahead.  When no data can be read,
-+ * -EAGAIN shall be returned.  When readahead would be triggered, a partial,
-+ * possibly empty read shall be returned.
-+ *
-+ * Return:
-+ * * number of bytes copied, even for partial reads
-+ * * negative error code (or 0 if IOCB_NOIO) if nothing was read
-+ */
-+ssize_t netfs_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
-+{
-+	struct netfs_inode *ictx = netfs_inode(iocb->ki_filp->f_mapping->host);
-+
-+	if ((iocb->ki_flags & IOCB_DIRECT) ||
-+	    test_bit(NETFS_ICTX_UNBUFFERED, &ictx->flags))
-+		return netfs_unbuffered_read_iter(iocb, iter);
-+
-+	return netfs_buffered_read_iter(iocb, iter);
-+}
-+EXPORT_SYMBOL(netfs_file_read_iter);
+ 
+ static int cachefiles_prepare_write(struct netfs_cache_resources *cres,
+-				    loff_t *_start, size_t *_len, loff_t i_size,
+-				    bool no_space_allocated_yet)
++				    loff_t *_start, size_t *_len, size_t upper_len,
++				    loff_t i_size, bool no_space_allocated_yet)
+ {
+ 	struct cachefiles_object *object = cachefiles_cres_object(cres);
+ 	struct cachefiles_cache *cache = object->volume->cache;
+@@ -608,7 +610,7 @@ static int cachefiles_prepare_write(struct netfs_cache_resources *cres,
+ 
+ 	cachefiles_begin_secure(cache, &saved_cred);
+ 	ret = __cachefiles_prepare_write(object, cachefiles_cres_file(cres),
+-					 _start, _len,
++					 _start, _len, upper_len,
+ 					 no_space_allocated_yet);
+ 	cachefiles_end_secure(cache, saved_cred);
+ 	return ret;
+diff --git a/fs/cachefiles/ondemand.c b/fs/cachefiles/ondemand.c
+index b8fbbb1961bb..5fd74ec60bef 100644
+--- a/fs/cachefiles/ondemand.c
++++ b/fs/cachefiles/ondemand.c
+@@ -50,7 +50,7 @@ static ssize_t cachefiles_ondemand_fd_write_iter(struct kiocb *kiocb,
+ 		return -ENOBUFS;
+ 
+ 	cachefiles_begin_secure(cache, &saved_cred);
+-	ret = __cachefiles_prepare_write(object, file, &pos, &len, true);
++	ret = __cachefiles_prepare_write(object, file, &pos, &len, len, true);
+ 	cachefiles_end_secure(cache, saved_cred);
+ 	if (ret < 0)
+ 		return ret;
+diff --git a/fs/netfs/fscache_io.c b/fs/netfs/fscache_io.c
+index 79171a687930..ad572f7ee897 100644
+--- a/fs/netfs/fscache_io.c
++++ b/fs/netfs/fscache_io.c
+@@ -237,7 +237,7 @@ void __fscache_write_to_cache(struct fscache_cookie *cookie,
+ 				    fscache_access_io_write) < 0)
+ 		goto abandon_free;
+ 
+-	ret = cres->ops->prepare_write(cres, &start, &len, i_size, false);
++	ret = cres->ops->prepare_write(cres, &start, &len, len, i_size, false);
+ 	if (ret < 0)
+ 		goto abandon_end;
+ 
+diff --git a/fs/netfs/io.c b/fs/netfs/io.c
+index 894c3305710d..5d9098db815a 100644
+--- a/fs/netfs/io.c
++++ b/fs/netfs/io.c
+@@ -199,7 +199,7 @@ static void netfs_rreq_do_write_to_cache(struct netfs_io_request *rreq)
+ 		}
+ 
+ 		ret = cres->ops->prepare_write(cres, &subreq->start, &subreq->len,
+-					       rreq->i_size, true);
++					       subreq->len, rreq->i_size, true);
+ 		if (ret < 0) {
+ 			trace_netfs_failure(rreq, subreq, ret, netfs_fail_prepare_write);
+ 			trace_netfs_sreq(subreq, netfs_sreq_trace_write_skip);
+diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
+index c1218b183197..16252cc4576e 100644
+--- a/fs/netfs/objects.c
++++ b/fs/netfs/objects.c
+@@ -33,6 +33,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 
+ 	rreq->start	= start;
+ 	rreq->len	= len;
++	rreq->upper_len	= len;
+ 	rreq->origin	= origin;
+ 	rreq->netfs_ops	= ctx->ops;
+ 	rreq->mapping	= mapping;
+diff --git a/fs/netfs/output.c b/fs/netfs/output.c
+index 560cbcea0c0a..cc9065733b42 100644
+--- a/fs/netfs/output.c
++++ b/fs/netfs/output.c
+@@ -280,7 +280,7 @@ EXPORT_SYMBOL(netfs_queue_write_request);
+  */
+ static void netfs_set_up_write_to_cache(struct netfs_io_request *wreq)
+ {
+-	struct netfs_cache_resources *cres;
++	struct netfs_cache_resources *cres = &wreq->cache_resources;
+ 	struct netfs_io_subrequest *subreq;
+ 	struct netfs_inode *ctx = netfs_inode(wreq->inode);
+ 	struct fscache_cookie *cookie = netfs_i_cookie(ctx);
+@@ -294,26 +294,21 @@ static void netfs_set_up_write_to_cache(struct netfs_io_request *wreq)
+ 	}
+ 
+ 	_debug("write to cache");
+-	subreq = netfs_create_write_request(wreq, NETFS_WRITE_TO_CACHE, start, len,
+-					    netfs_write_to_cache_op_worker);
+-	if (!subreq)
++	ret = fscache_begin_write_operation(cres, cookie);
++	if (ret < 0)
+ 		return;
+ 
+-	cres = &wreq->cache_resources;
+-	ret = fscache_begin_read_operation(cres, cookie);
+-	if (ret < 0) {
+-		netfs_write_subrequest_terminated(subreq, ret, false);
++	ret = cres->ops->prepare_write(cres, &start, &len, wreq->upper_len,
++				       i_size_read(wreq->inode), true);
++	if (ret < 0)
+ 		return;
+-	}
+ 
+-	ret = cres->ops->prepare_write(cres, &start, &len, i_size_read(wreq->inode),
+-				       true);
+-	if (ret < 0) {
+-		netfs_write_subrequest_terminated(subreq, ret, false);
++	subreq = netfs_create_write_request(wreq, NETFS_WRITE_TO_CACHE, start, len,
++					    netfs_write_to_cache_op_worker);
++	if (!subreq)
+ 		return;
+-	}
+ 
+-	netfs_queue_write_request(subreq);
++	netfs_write_to_cache_op(subreq);
+ }
+ 
+ /*
+diff --git a/fs/smb/client/fscache.c b/fs/smb/client/fscache.c
+index e5cad149f5a2..c4a3cb736881 100644
+--- a/fs/smb/client/fscache.c
++++ b/fs/smb/client/fscache.c
+@@ -180,7 +180,7 @@ static int fscache_fallback_write_pages(struct inode *inode, loff_t start, size_
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = cres.ops->prepare_write(&cres, &start, &len, i_size_read(inode),
++	ret = cres.ops->prepare_write(&cres, &start, &len, len, i_size_read(inode),
+ 				      no_space_allocated_yet);
+ 	if (ret == 0)
+ 		ret = fscache_write(&cres, start, &iter, NULL, NULL);
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 46c0a6b45bb8..638f42fdaef5 100644
+index 638f42fdaef5..f98deef22d06 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -381,6 +381,8 @@ struct netfs_cache_ops {
+@@ -263,6 +263,7 @@ struct netfs_io_request {
+ 	atomic_t		nr_copy_ops;	/* Number of copy-to-cache ops in progress */
+ 	size_t			submitted;	/* Amount submitted for I/O so far */
+ 	size_t			len;		/* Length of the request */
++	size_t			upper_len;	/* Length can be extended to here */
+ 	size_t			transferred;	/* Amount to be indicated as transferred */
+ 	short			error;		/* 0 or error that occurred */
+ 	enum netfs_io_origin	origin;		/* Origin of the request */
+@@ -360,8 +361,8 @@ struct netfs_cache_ops {
+ 	 * actually do.
+ 	 */
+ 	int (*prepare_write)(struct netfs_cache_resources *cres,
+-			     loff_t *_start, size_t *_len, loff_t i_size,
+-			     bool no_space_allocated_yet);
++			     loff_t *_start, size_t *_len, size_t upper_len,
++			     loff_t i_size, bool no_space_allocated_yet);
  
- /* High-level read API. */
- ssize_t netfs_unbuffered_read_iter(struct kiocb *iocb, struct iov_iter *iter);
-+ssize_t netfs_buffered_read_iter(struct kiocb *iocb, struct iov_iter *iter);
-+ssize_t netfs_file_read_iter(struct kiocb *iocb, struct iov_iter *iter);
- 
- /* High-level write API */
- ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
+ 	/* Prepare an on-demand read operation, shortening it to a cached/uncached
+ 	 * boundary as appropriate.
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
