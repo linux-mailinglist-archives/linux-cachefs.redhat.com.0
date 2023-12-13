@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBNU246VQMGQEFCCIGGI@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBOU246VQMGQEZKQJPYI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E34081167B
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:26:47 +0100 (CET)
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-58d53348a03sf8527487eaf.2
-        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:26:47 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1702481206; cv=pass;
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4EC581167C
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:26:51 +0100 (CET)
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-3b9b6e4dff7sf7000375b6e.1
+        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:26:51 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1702481211; cv=pass;
         d=google.com; s=arc-20160816;
-        b=g0jJoLqIEIcv434ecELwcsw5DOSDFkYX3ecdlEk6d0C2VXm+QxPRrCkVA2kZn98qtb
-         0E9vCtNxpOBWu+kT7NAp5+3hx7od7YVdJxXIjQUrOAkTrWouf2uZI8xaaqSzU1Oq5pJk
-         F0/fgYWtdGSqElh5MEhV4pnDkq9OvjLY7aRpoGB0dDXtjEsG6Tpe3LS8wBut15R/u8VE
-         vXXzyIe9YcaPiGuh7daHUtUexWo+d7rF03XtXK4UoeWkGcrnrFoB0pRlZ0VxvQq05Q9j
-         /Vq+S8LYFh5Fb2dOW52wjHTPmwSkJVbwcJ5AItqeIyBtLIgzZYW385s/CXz/u/jEHMTS
-         NZ0A==
+        b=PlXO8I55k98TwWxVmbaAu15JJ7h0SbNLY78JWNrJqR1aaQMWvZyh80hJIl4QB+RHIi
+         sF1Rfrz6RG8lvKShry62QqU7RBAptj1J6Kd4bNKMJTp3D2VGBUJ1DzqHezsydcn9+g9V
+         IjcOpyBksetj7PEp4mpZLWLFsS+p2Wj/EzW5A05whaQ4fy8HlKZuTXAn0sJ+jdcXqwAr
+         maxXb19BZoRF0phkbMLmHzWfu8CpOWyXLZidQgurtjFnJWRClAVHw6IdGgAE/w3bXaga
+         Tg4UcDj338XTJ8dRTVhv3aNTvERQMwdnMMNwum3vjQfnIFjoXeVOzBAuDrt3swjH9GjP
+         ekVQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=yE3ACjEefQh1L/AKS0/QPb0dIhqeQW3ns5E9ZgOL89k=;
+        bh=i9J9oMJGbF3Czk8WlipUn0OWND/+wdkJfNoay8bD0bQ=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=uUD9jg/7dLrLyU48wPSJy4mMpmT2xznvRMW5FfYkCJOeOKUmJyJbw8bzomslNGTkDG
-         UWXe/azorEn2WHuOgopjI4QmCD08DybhV4V9JF4eN8A0oK0P6ABsHk16+RjPuzVbVtr4
-         ApOJcasjz/9cEL3Nz3YaPoXdpvY4P9Pr9FZZy6+cg5aFQVrGwsY0k2vs9J5NEnrl2C4h
-         qDeiq2b/YIz6atO8zA0KoHd9Ndo9jCBXfttMayCFp7LTgDeFRV9K2VIwD+za+ai33Zyt
-         3NmLFtwseTjopwBwQeKhtO1hwgcojAHiaZLJ7UuoyOnUkxgDZcwNBnj/+zay3HJcuAUN
-         BKsQ==
+        b=m4Y7j/n5Jy1XonlRoLhcJJvLMY6DGYJTkLBhZoT9qRMYKNgPWx8IdVG19gNqTUs/8x
+         h3jOQDVGfTQEnoXb7Zuq+SCTtYEU046G6GMlokOBvLsPGKsIPOp22IM1/n7ab4e1ppUG
+         f5XcdadbrSmFUMfa4eGNhN+8uaTrMacPAy5V1N6117/RxZRbJFrblznvebSBuKqtwhUv
+         nRE0eqwRCBdhKXG6fG9NtV/7wockyZ4Zan88UaiHlKJHifW6pt64gVtyugwXiO7q+lxg
+         N+pv6AfepkQLPQia38kS8M42RI/beXy1g//BqlJKTZCWY/NzfOvS+HOpp/ExoMvG/wUC
+         ec6Q==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702481206; x=1703086006;
+        d=1e100.net; s=20230601; t=1702481211; x=1703086011;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yE3ACjEefQh1L/AKS0/QPb0dIhqeQW3ns5E9ZgOL89k=;
-        b=Bs3U451SBuifA4cBC84xQbR62oPsgixSQEBNYNb7sMvRZmHvcJkAdArqFAVhCYaJgN
-         Ni96dqGzk7E6abtU7Ezynvvbfi8eW8f8XkCTj6YBEn/EFbyOYI96iuD/J5EVcCuXJNAx
-         6/rluGj9MwNIII766BFhdq8K6Lpa5S9fr5E+w4NelGn3GvzDqRMCvFIc7vyjC0UleDr1
-         nGznIbmOdsf+CTMg0BzUQnPPGfhcAyg/PqvtV0/mtJG3N0ZshRPlroiQGSEOdUGnWBwo
-         ZndMstif22gn3HZ0/cTG92AHHU8BUSQh0e7vdD0woXhjt+/YdTxbE3Shl1FgikagiJ3V
-         OR+g==
-X-Gm-Message-State: AOJu0Yyd8xum367C8LoyHrmmmSpqtoj21yr7hqSrC/QYlE9e8630PDyS
-	EoOSZjBEPOLw1AHr4qrG4Hc0ZQ==
-X-Google-Smtp-Source: AGHT+IEhdzXLRQgyVHRuutyVTb01Vd9/R4HWmRzNdbCOKJw8yDyCw4T8WJHIfrre1t1X8axff5CHvg==
-X-Received: by 2002:a05:6820:162c:b0:590:89d0:9674 with SMTP id bb44-20020a056820162c00b0059089d09674mr5918608oob.3.1702481206178;
-        Wed, 13 Dec 2023 07:26:46 -0800 (PST)
+        bh=i9J9oMJGbF3Czk8WlipUn0OWND/+wdkJfNoay8bD0bQ=;
+        b=QwzSGiJ11+ixznuSj74K1lNhHg9FXw4PAhkEeYOZ2m+MVTRxt2INAAKnVZp9SsAH+j
+         fZZW9adYAd57ctcNs0h/L94aWZ8iS8h9/4RT0Cu6jj2HmvJ4mI4R31VVqzcpwXegvXFQ
+         TaFDRAmrH/ex9LL9rSzoWH9aod6rOj/a/JXgiku3puZHsYLgezDjpe5dpfDZEaVFxTIv
+         kjgtWEuHGPVKs306I0h2qs2GpwslQtEArr/RVLLmpogkDz1f85w7eAWOb5rXwvyWevcQ
+         MGPHYMWiBt9oOZ4IRPYwmXA94/BU7YLiZGQiXSJU0uvwyUquDMmlwxhJAAOOlWOfCa1T
+         LwFA==
+X-Gm-Message-State: AOJu0Yx1HRNfm0/DOhcFgoMEaS93UwS+u00tuQB3BNy1nyaN3D89vOtM
+	SkdB1VmE02tDjrtKjB6JfauoIw==
+X-Google-Smtp-Source: AGHT+IGujDgRNL+i+kIRIFPp/uwKVS0wqAftZxL6rEfLdFfCaLgggXkGRfg7LdS2SMb6WZLei1mh9w==
+X-Received: by 2002:a05:6808:1146:b0:3b8:b063:8938 with SMTP id u6-20020a056808114600b003b8b0638938mr6521109oiu.70.1702481210700;
+        Wed, 13 Dec 2023 07:26:50 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6820:602:b0:58d:7468:f975 with SMTP id
- e2-20020a056820060200b0058d7468f975ls2218503oow.0.-pod-prod-03-us; Wed, 13
- Dec 2023 07:26:45 -0800 (PST)
-X-Received: by 2002:a05:6808:640f:b0:3b9:f059:f5e3 with SMTP id fg15-20020a056808640f00b003b9f059f5e3mr9106802oib.40.1702481205500;
-        Wed, 13 Dec 2023 07:26:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1702481205; cv=none;
+Received: by 2002:a05:622a:1815:b0:423:7c51:c729 with SMTP id
+ t21-20020a05622a181500b004237c51c729ls235486qtc.2.-pod-prod-06-us; Wed, 13
+ Dec 2023 07:26:50 -0800 (PST)
+X-Received: by 2002:a05:620a:3cf:b0:775:d7d7:cdbb with SMTP id r15-20020a05620a03cf00b00775d7d7cdbbmr8985406qkm.38.1702481209957;
+        Wed, 13 Dec 2023 07:26:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1702481209; cv=none;
         d=google.com; s=arc-20160816;
-        b=TAoDNOR2Z1GjcJG0h8G+qtX4GOE4ZYCSbQWAbG0WO6dS90e9PR6+VBM9+JwlsK+Mlp
-         DPnVOgtEqKfjMnX1s1oU1Rtlhl6cQJzVIB6q+ap/hpuAgZxxdqZ5YWPJ5lPRjoXVOqvH
-         ufv5caYyJ88hSW+PfQwYwD8aOQz6Ktku8+oNOyS7AdrhAdy+ilNeo9syTiM7G/mNC4+Z
-         QzncPY2JMYcQKSmqWv/iN6AxvaFZk6owmPqd+OCoCu2Dr389yQPuleTtmRkJpdry259x
-         dnXAG6I33Ij73eu670Z+J24glc4hrzvPt8CpYfgbajVxlwpniPYiXJYij/PUNuxsScGD
-         3mNw==
+        b=MwGsBxV4taBBLQaTKah0ItINg6EaN9wEotN09FmHLxQ8O0UTQkUYp8Ma6t8ptiruX/
+         BQMK6RMToSKqpYRPOlOn8OBHAWcD0C7LsBoLlPs08vv0yYLnbmqJ+02ERz1dy8k8UN1D
+         qZjftqo2jU10Yp5G2Ue9gI0Np3gshYhz3TnnTcPOzzjQuNfMBXZMUW0torLF2Hm/+Etc
+         F0y4hIk8OSiJ+onBmLd3yZZXT905DoRENG3Vg1481YR0HNZ6i744lk4kmJxMhsr0PP53
+         0ikTNH2A9C6gAWk0LpuJC+Vah4G05i0kVduiubVbEIsjXNtCUBWeTl9gueyZBJ2gHgcd
+         U/UQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=/Ab7pD2nMsmL/2vj0tSsGNun7wyGJFCz58dAavqg0G8=;
+        bh=6OpDWo92EAz8lnWtd0lrwWk2hVduMlXr4iw80i0tX5o=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=lw2WPbvxjL8LZB3gp6qqLEYame3HHtREAJZaNzk4MeI1OiXQiHY9sTQytB8D+2LKe+
-         2w47hZJsLYJHXNPBlg0o/LqyqXEhq/MbX0+57UnL+qqfXSxBR6aD2Z0oDE+0livEGenh
-         dL6lM79DhHv6WlnsSQLKAnyykLXlyBJ1jciGQ1qU7LgnkugeKgmImof4KCObBPYXyrce
-         BAZIhywLxqKJpa6Sbe6WVaSKKpR1chLE2Zz49+OM0rlvMypnqg8R/7yLIz06tfoeBCwZ
-         txtVzPAFQvtxaGsmzSH8CHBxj//8Ti3Co1x2BFxq/lC5JeWCPuKhWL049stBkwuAs+Zg
-         O9WQ==
+        b=BdOPm1DGnZbXTJCPnRtqOildPD2JreTlclKi/fYAa/H5haBrxUl+sxcXxnUUUg/GB4
+         fdbYs4stbbAurQyA9BMTU92T5qMIMyU88pa3ShNOb7CkQcQkgwBUp+19dAcV+cQiGJfv
+         2fmDM32oFFy28x4oFBjIp525G2jkR0exqo+JptjilSmrMDc5msjchXufmrZ8654w4ZWy
+         8ah2i9h7Tjg/X5XUsyWUqXojgA9Tq7wwLUgc8I6vbW6aeWhDsQc3GxwObXoF/d+r5i4V
+         47eBhOR4xhziiDLWZCDZYpj5Vlum9WVsvd3MnYkb/2yAs7pt+Oa4aSkE1JSqoc1pC5N1
+         KHtA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id h5-20020ac81385000000b00423786b1582si12187915qtj.328.2023.12.13.07.26.45
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id r7-20020a05620a298700b0077dc534626fsi13379498qkp.409.2023.12.13.07.26.49
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Dec 2023 07:26:45 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-586-sYxb_kdnMra47yZPJGqq-A-1; Wed,
- 13 Dec 2023 10:26:43 -0500
-X-MC-Unique: sYxb_kdnMra47yZPJGqq-A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+        Wed, 13 Dec 2023 07:26:49 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-631-fFS7T3PxNqm7z0jNFHG45w-1; Wed, 13 Dec 2023 10:26:48 -0500
+X-MC-Unique: fFS7T3PxNqm7z0jNFHG45w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73DD31C18CC9
-	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:26:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA9EE890FC7
+	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:26:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7054D40C6EBA; Wed, 13 Dec 2023 15:26:43 +0000 (UTC)
+	id C46A85007; Wed, 13 Dec 2023 15:26:47 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.2])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6C3140C6EB9;
-	Wed, 13 Dec 2023 15:26:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 34DCE51E3;
+	Wed, 13 Dec 2023 15:26:44 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,20 +121,20 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 37/39] netfs: Optimise away reads above the point at which there can be no data
-Date: Wed, 13 Dec 2023 15:23:47 +0000
-Message-ID: <20231213152350.431591-38-dhowells@redhat.com>
+Subject: [PATCH v4 38/39] afs: Use the netfs write helpers
+Date: Wed, 13 Dec 2023 15:23:48 +0000
+Message-ID: <20231213152350.431591-39-dhowells@redhat.com>
 In-Reply-To: <20231213152350.431591-1-dhowells@redhat.com>
 References: <20231213152350.431591-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -146,283 +146,993 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Track the file position above which the server is not expected to have any
-data (the "zero point") and preemptively assume that we can satisfy
-requests by filling them with zeroes locally rather than attempting to
-download them if they're over that line - even if we've written data back
-to the server.  Assume that any data that was written back above that
-position is held in the local cache.  Note that we have to split requests
-that straddle the line.
-
-Make use of this to optimise away some reads from the server.  We need to
-set the zero point in the following circumstances:
-
- (1) When we see an extant remote inode and have no cache for it, we set
-     the zero_point to i_size.
-
- (2) On local inode creation, we set zero_point to 0.
-
- (3) On local truncation down, we reduce zero_point to the new i_size if
-     the new i_size is lower.
-
- (4) On local truncation up, we don't change zero_point.
-
- (5) On local modification, we don't change zero_point.
-
- (6) On remote invalidation, we set zero_point to the new i_size.
-
- (7) If stored data is discarded from the pagecache or culled from fscache,
-     we must set zero_point above that if the data also got written to the
-     server.
-
- (8) If dirty data is written back to the server, but not fscache, we must
-     set zero_point above that.
-
- (9) If a direct I/O write is made, set zero_point above that.
-
-Assuming the above, any read from the server at or above the zero_point
-position will return all zeroes.
-
-The zero_point value can be stored in the cache, provided the above rules
-are applied to it by any code that culls part of the local cache.
+Make afs use the netfs write helpers.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
 cc: Jeff Layton <jlayton@kernel.org>
+cc: linux-afs@lists.infradead.org
 cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/afs/inode.c            | 22 +++++++++++++---------
- fs/netfs/buffered_write.c |  2 +-
- fs/netfs/direct_write.c   |  4 ++++
- fs/netfs/io.c             | 10 ++++++++++
- fs/netfs/misc.c           |  5 +++++
- fs/smb/client/cifsfs.c    |  4 ++--
- include/linux/netfs.h     | 14 ++++++++++++--
- 7 files changed, 47 insertions(+), 14 deletions(-)
+ fs/afs/file.c              |  70 +++-
+ fs/afs/internal.h          |  10 +-
+ fs/afs/write.c             | 705 ++-----------------------------------
+ include/trace/events/afs.h |  23 --
+ 4 files changed, 84 insertions(+), 724 deletions(-)
 
-diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-index c43112dcbbbb..dfd940a64e0f 100644
---- a/fs/afs/inode.c
-+++ b/fs/afs/inode.c
-@@ -166,6 +166,7 @@ static void afs_apply_status(struct afs_operation *op,
- 	struct inode *inode = &vnode->netfs.inode;
- 	struct timespec64 t;
- 	umode_t mode;
-+	bool unexpected_jump = false;
- 	bool data_changed = false;
- 	bool change_size = vp->set_size;
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index aa95b4d6376c..3d33b221d9ca 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -34,7 +34,7 @@ const struct file_operations afs_file_operations = {
+ 	.release	= afs_release,
+ 	.llseek		= generic_file_llseek,
+ 	.read_iter	= afs_file_read_iter,
+-	.write_iter	= afs_file_write,
++	.write_iter	= netfs_file_write_iter,
+ 	.mmap		= afs_file_mmap,
+ 	.splice_read	= afs_file_splice_read,
+ 	.splice_write	= iter_file_splice_write,
+@@ -50,16 +50,15 @@ const struct inode_operations afs_file_inode_operations = {
+ };
  
-@@ -230,6 +231,7 @@ static void afs_apply_status(struct afs_operation *op,
- 		}
- 		change_size = true;
- 		data_changed = true;
-+		unexpected_jump = true;
- 	} else if (vnode->status.type == AFS_FTYPE_DIR) {
- 		/* Expected directory change is handled elsewhere so
- 		 * that we can locally edit the directory and save on a
-@@ -251,6 +253,8 @@ static void afs_apply_status(struct afs_operation *op,
- 		vnode->netfs.remote_i_size = status->size;
- 		if (change_size || status->size > i_size_read(inode)) {
- 			afs_set_i_size(vnode, status->size);
-+			if (unexpected_jump)
-+				vnode->netfs.zero_point = status->size;
- 			inode_set_ctime_to_ts(inode, t);
- 			inode_set_atime_to_ts(inode, t);
- 		}
-@@ -689,17 +693,17 @@ static void afs_setattr_success(struct afs_operation *op)
- static void afs_setattr_edit_file(struct afs_operation *op)
+ const struct address_space_operations afs_file_aops = {
++	.direct_IO	= noop_direct_IO,
+ 	.read_folio	= netfs_read_folio,
+ 	.readahead	= netfs_readahead,
+ 	.dirty_folio	= netfs_dirty_folio,
+-	.launder_folio	= afs_launder_folio,
++	.launder_folio	= netfs_launder_folio,
+ 	.release_folio	= netfs_release_folio,
+ 	.invalidate_folio = netfs_invalidate_folio,
+-	.write_begin	= afs_write_begin,
+-	.write_end	= afs_write_end,
+-	.writepages	= afs_writepages,
+ 	.migrate_folio	= filemap_migrate_folio,
++	.writepages	= afs_writepages,
+ };
+ 
+ const struct address_space_operations afs_symlink_aops = {
+@@ -352,7 +351,10 @@ static int afs_symlink_read_folio(struct file *file, struct folio *folio)
+ 
+ static int afs_init_request(struct netfs_io_request *rreq, struct file *file)
  {
- 	struct afs_vnode_param *vp = &op->file[0];
--	struct inode *inode = &vp->vnode->netfs.inode;
-+	struct afs_vnode *vnode = vp->vnode;
- 
- 	if (op->setattr.attr->ia_valid & ATTR_SIZE) {
- 		loff_t size = op->setattr.attr->ia_size;
- 		loff_t i_size = op->setattr.old_i_size;
- 
--		if (size < i_size)
--			truncate_pagecache(inode, size);
--		if (size != i_size)
--			fscache_resize_cookie(afs_vnode_cache(vp->vnode),
--					      vp->scb.status.size);
-+		if (size != i_size) {
-+			truncate_setsize(&vnode->netfs.inode, size);
-+			netfs_resize_file(&vnode->netfs, size, true);
-+			fscache_resize_cookie(afs_vnode_cache(vnode), size);
-+		}
- 	}
- }
- 
-@@ -767,11 +771,11 @@ int afs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 		 */
- 		if (!(attr->ia_valid & (supported & ~ATTR_SIZE & ~ATTR_MTIME)) &&
- 		    attr->ia_size < i_size &&
--		    attr->ia_size > vnode->status.size) {
--			truncate_pagecache(inode, attr->ia_size);
-+		    attr->ia_size > vnode->netfs.remote_i_size) {
-+			truncate_setsize(inode, attr->ia_size);
-+			netfs_resize_file(&vnode->netfs, size, false);
- 			fscache_resize_cookie(afs_vnode_cache(vnode),
- 					      attr->ia_size);
--			i_size_write(inode, attr->ia_size);
- 			ret = 0;
- 			goto out_unlock;
- 		}
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index dce6995fb644..d7ce424b9188 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -73,7 +73,7 @@ static enum netfs_how_to_modify netfs_how_to_modify(struct netfs_inode *ctx,
- 	if (folio_test_uptodate(folio))
- 		return NETFS_FOLIO_IS_UPTODATE;
- 
--	if (pos >= ctx->remote_i_size)
-+	if (pos >= ctx->zero_point)
- 		return NETFS_MODIFY_AND_CLEAR;
- 
- 	if (!maybe_trouble && offset == 0 && len >= flen)
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index bb0c2718f57b..aad05f2349a4 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -134,6 +134,7 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file->f_mapping->host;
- 	struct netfs_inode *ictx = netfs_inode(inode);
-+	unsigned long long end;
- 	ssize_t ret;
- 
- 	_enter("%llx,%zx,%llx", iocb->ki_pos, iov_iter_count(from), i_size_read(inode));
-@@ -155,6 +156,9 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	ret = kiocb_invalidate_pages(iocb, iov_iter_count(from));
- 	if (ret < 0)
- 		goto out;
-+	end = iocb->ki_pos + iov_iter_count(from);
-+	if (end > ictx->zero_point)
-+		ictx->zero_point = end;
- 
- 	fscache_invalidate(netfs_i_cookie(ictx), NULL, i_size_read(inode),
- 			   FSCACHE_INVAL_DIO_WRITE);
-diff --git a/fs/netfs/io.c b/fs/netfs/io.c
-index 5d9098db815a..41a6113aa7fa 100644
---- a/fs/netfs/io.c
-+++ b/fs/netfs/io.c
-@@ -569,6 +569,7 @@ netfs_rreq_prepare_read(struct netfs_io_request *rreq,
- 			struct iov_iter *io_iter)
- {
- 	enum netfs_io_source source = NETFS_DOWNLOAD_FROM_SERVER;
-+	struct netfs_inode *ictx = netfs_inode(rreq->inode);
- 	size_t lsize;
- 
- 	_enter("%llx-%llx,%llx", subreq->start, subreq->start + subreq->len, rreq->i_size);
-@@ -586,6 +587,14 @@ netfs_rreq_prepare_read(struct netfs_io_request *rreq,
- 		 * to make serial calls, it can indicate a short read and then
- 		 * we will call it again.
- 		 */
-+		if (rreq->origin != NETFS_DIO_READ) {
-+			if (subreq->start >= ictx->zero_point) {
-+				source = NETFS_FILL_WITH_ZEROES;
-+				goto set;
-+			}
-+			if (subreq->len > ictx->zero_point - subreq->start)
-+				subreq->len = ictx->zero_point - subreq->start;
-+		}
- 		if (subreq->len > rreq->i_size - subreq->start)
- 			subreq->len = rreq->i_size - subreq->start;
- 		if (rreq->rsize && subreq->len > rreq->rsize)
-@@ -607,6 +616,7 @@ netfs_rreq_prepare_read(struct netfs_io_request *rreq,
- 		}
- 	}
- 
-+set:
- 	if (subreq->len > rreq->len)
- 		pr_warn("R=%08x[%u] SREQ>RREQ %zx > %zx\n",
- 			rreq->debug_id, subreq->debug_index,
-diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
-index 40421ced4cd3..31e45dfad5b0 100644
---- a/fs/netfs/misc.c
-+++ b/fs/netfs/misc.c
-@@ -240,6 +240,11 @@ EXPORT_SYMBOL(netfs_invalidate_folio);
- bool netfs_release_folio(struct folio *folio, gfp_t gfp)
- {
- 	struct netfs_inode *ctx = netfs_inode(folio_inode(folio));
-+	unsigned long long end;
-+
-+	end = folio_pos(folio) + folio_size(folio);
-+	if (end > ctx->zero_point)
-+		ctx->zero_point = end;
- 
- 	if (folio_test_private(folio))
- 		return false;
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 96a65cf9b5ec..07cd88897c33 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1220,7 +1220,7 @@ static int cifs_precopy_set_eof(struct inode *src_inode, struct cifsInodeInfo *s
- 	if (rc < 0)
- 		goto set_failed;
- 
--	netfs_resize_file(&src_cifsi->netfs, src_end);
-+	netfs_resize_file(&src_cifsi->netfs, src_end, true);
- 	fscache_resize_cookie(cifs_inode_cookie(src_inode), src_end);
+-	rreq->netfs_priv = key_get(afs_file_key(file));
++	if (file)
++		rreq->netfs_priv = key_get(afs_file_key(file));
++	rreq->rsize = 256 * 1024;
++	rreq->wsize = 256 * 1024;
  	return 0;
- 
-@@ -1351,7 +1351,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 			smb_file_src, smb_file_target, off, len, destoff);
- 		if (rc == 0 && new_size > i_size_read(target_inode)) {
- 			truncate_setsize(target_inode, new_size);
--			netfs_resize_file(&target_cifsi->netfs, new_size);
-+			netfs_resize_file(&target_cifsi->netfs, new_size, true);
- 			fscache_resize_cookie(cifs_inode_cookie(target_inode),
- 					      new_size);
- 		}
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index fc77f7be220a..2005ad3b0e25 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -136,6 +136,8 @@ struct netfs_inode {
- 	struct fscache_cookie	*cache;
- #endif
- 	loff_t			remote_i_size;	/* Size of the remote file */
-+	loff_t			zero_point;	/* Size after which we assume there's no data
-+						 * on the server */
- 	unsigned long		flags;
- #define NETFS_ICTX_ODIRECT	0		/* The file has DIO in progress */
- #define NETFS_ICTX_UNBUFFERED	1		/* I/O should not use the pagecache */
-@@ -465,22 +467,30 @@ static inline void netfs_inode_init(struct netfs_inode *ctx,
- {
- 	ctx->ops = ops;
- 	ctx->remote_i_size = i_size_read(&ctx->inode);
-+	ctx->zero_point = ctx->remote_i_size;
- 	ctx->flags = 0;
- #if IS_ENABLED(CONFIG_FSCACHE)
- 	ctx->cache = NULL;
- #endif
-+	/* ->releasepage() drives zero_point */
-+	mapping_set_release_always(ctx->inode.i_mapping);
  }
  
- /**
-  * netfs_resize_file - Note that a file got resized
-  * @ctx: The netfs inode being resized
-  * @new_i_size: The new file size
-+ * @changed_on_server: The change was applied to the server
-  *
-  * Inform the netfs lib that a file got resized so that it can adjust its state.
+@@ -369,11 +371,36 @@ static void afs_free_request(struct netfs_io_request *rreq)
+ 	key_put(rreq->netfs_priv);
+ }
+ 
++static void afs_update_i_size(struct inode *inode, loff_t new_i_size)
++{
++	struct afs_vnode *vnode = AFS_FS_I(inode);
++	loff_t i_size;
++
++	write_seqlock(&vnode->cb_lock);
++	i_size = i_size_read(&vnode->netfs.inode);
++	if (new_i_size > i_size) {
++		i_size_write(&vnode->netfs.inode, new_i_size);
++		inode_set_bytes(&vnode->netfs.inode, new_i_size);
++	}
++	write_sequnlock(&vnode->cb_lock);
++	fscache_update_cookie(afs_vnode_cache(vnode), NULL, &new_i_size);
++}
++
++static void afs_netfs_invalidate_cache(struct netfs_io_request *wreq)
++{
++	struct afs_vnode *vnode = AFS_FS_I(wreq->inode);
++
++	afs_invalidate_cache(vnode, 0);
++}
++
+ const struct netfs_request_ops afs_req_ops = {
+ 	.init_request		= afs_init_request,
+ 	.free_request		= afs_free_request,
+ 	.check_write_begin	= afs_check_write_begin,
+ 	.issue_read		= afs_issue_read,
++	.update_i_size		= afs_update_i_size,
++	.invalidate_cache	= afs_netfs_invalidate_cache,
++	.create_write_requests	= afs_create_write_requests,
+ };
+ 
+ static void afs_add_open_mmap(struct afs_vnode *vnode)
+@@ -441,28 +468,39 @@ static vm_fault_t afs_vm_map_pages(struct vm_fault *vmf, pgoff_t start_pgoff, pg
+ 
+ static ssize_t afs_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+ {
+-	struct afs_vnode *vnode = AFS_FS_I(file_inode(iocb->ki_filp));
++	struct inode *inode = file_inode(iocb->ki_filp);
++	struct afs_vnode *vnode = AFS_FS_I(inode);
+ 	struct afs_file *af = iocb->ki_filp->private_data;
+-	int ret;
++	ssize_t ret;
+ 
+-	ret = afs_validate(vnode, af->key);
++	if (iocb->ki_flags & IOCB_DIRECT)
++		return netfs_unbuffered_read_iter(iocb, iter);
++
++	ret = netfs_start_io_read(inode);
+ 	if (ret < 0)
+ 		return ret;
+-
+-	return generic_file_read_iter(iocb, iter);
++	ret = afs_validate(vnode, af->key);
++	if (ret == 0)
++		ret = filemap_read(iocb, iter, 0);
++	netfs_end_io_read(inode);
++	return ret;
+ }
+ 
+ static ssize_t afs_file_splice_read(struct file *in, loff_t *ppos,
+ 				    struct pipe_inode_info *pipe,
+ 				    size_t len, unsigned int flags)
+ {
+-	struct afs_vnode *vnode = AFS_FS_I(file_inode(in));
++	struct inode *inode = file_inode(in);
++	struct afs_vnode *vnode = AFS_FS_I(inode);
+ 	struct afs_file *af = in->private_data;
+-	int ret;
++	ssize_t ret;
+ 
+-	ret = afs_validate(vnode, af->key);
++	ret = netfs_start_io_read(inode);
+ 	if (ret < 0)
+ 		return ret;
+-
+-	return filemap_splice_read(in, ppos, pipe, len, flags);
++	ret = afs_validate(vnode, af->key);
++	if (ret == 0)
++		ret = filemap_splice_read(in, ppos, pipe, len, flags);
++	netfs_end_io_read(inode);
++	return ret;
+ }
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index b638c0f87298..326eba1c89c7 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -1601,19 +1601,11 @@ bool afs_try_get_volume(struct afs_volume *volume, enum afs_volume_trace reason)
+ /*
+  * write.c
   */
--static inline void netfs_resize_file(struct netfs_inode *ctx, loff_t new_i_size)
-+static inline void netfs_resize_file(struct netfs_inode *ctx, loff_t new_i_size,
-+				     bool changed_on_server)
+-extern int afs_write_begin(struct file *file, struct address_space *mapping,
+-			loff_t pos, unsigned len,
+-			struct page **pagep, void **fsdata);
+-extern int afs_write_end(struct file *file, struct address_space *mapping,
+-			loff_t pos, unsigned len, unsigned copied,
+-			struct page *page, void *fsdata);
+-extern int afs_writepage(struct page *, struct writeback_control *);
+ extern int afs_writepages(struct address_space *, struct writeback_control *);
+-extern ssize_t afs_file_write(struct kiocb *, struct iov_iter *);
+ extern int afs_fsync(struct file *, loff_t, loff_t, int);
+ extern vm_fault_t afs_page_mkwrite(struct vm_fault *vmf);
+ extern void afs_prune_wb_keys(struct afs_vnode *);
+-int afs_launder_folio(struct folio *);
++void afs_create_write_requests(struct netfs_io_request *wreq, loff_t start, size_t len);
+ 
+ /*
+  * xattr.c
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index 959dfa8f1af0..74402d95a884 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -12,228 +12,17 @@
+ #include <linux/writeback.h>
+ #include <linux/pagevec.h>
+ #include <linux/netfs.h>
++#include <trace/events/netfs.h>
+ #include "internal.h"
+ 
+-static int afs_writepages_region(struct address_space *mapping,
+-				 struct writeback_control *wbc,
+-				 unsigned long long start,
+-				 unsigned long long end, loff_t *_next,
+-				 bool max_one_loop);
+-
+-static void afs_write_to_cache(struct afs_vnode *vnode, loff_t start, size_t len,
+-			       loff_t i_size, bool caching);
+-
+-#ifdef CONFIG_AFS_FSCACHE
+-static void afs_folio_start_fscache(bool caching, struct folio *folio)
+-{
+-	if (caching)
+-		folio_start_fscache(folio);
+-}
+-#else
+-static void afs_folio_start_fscache(bool caching, struct folio *folio)
+-{
+-}
+-#endif
+-
+-/*
+- * prepare to perform part of a write to a page
+- */
+-int afs_write_begin(struct file *file, struct address_space *mapping,
+-		    loff_t pos, unsigned len,
+-		    struct page **_page, void **fsdata)
+-{
+-	struct afs_vnode *vnode = AFS_FS_I(file_inode(file));
+-	struct folio *folio;
+-	int ret;
+-
+-	_enter("{%llx:%llu},%llx,%x",
+-	       vnode->fid.vid, vnode->fid.vnode, pos, len);
+-
+-	/* Prefetch area to be written into the cache if we're caching this
+-	 * file.  We need to do this before we get a lock on the page in case
+-	 * there's more than one writer competing for the same cache block.
+-	 */
+-	ret = netfs_write_begin(&vnode->netfs, file, mapping, pos, len, &folio, fsdata);
+-	if (ret < 0)
+-		return ret;
+-
+-try_again:
+-	/* See if this page is already partially written in a way that we can
+-	 * merge the new write with.
+-	 */
+-	if (folio_test_writeback(folio)) {
+-		trace_afs_folio_dirty(vnode, tracepoint_string("alrdy"), folio);
+-		folio_unlock(folio);
+-		goto wait_for_writeback;
+-	}
+-
+-	*_page = folio_file_page(folio, pos / PAGE_SIZE);
+-	_leave(" = 0");
+-	return 0;
+-
+-wait_for_writeback:
+-	ret = folio_wait_writeback_killable(folio);
+-	if (ret < 0)
+-		goto error;
+-
+-	ret = folio_lock_killable(folio);
+-	if (ret < 0)
+-		goto error;
+-	goto try_again;
+-
+-error:
+-	folio_put(folio);
+-	_leave(" = %d", ret);
+-	return ret;
+-}
+-
+-/*
+- * finalise part of a write to a page
+- */
+-int afs_write_end(struct file *file, struct address_space *mapping,
+-		  loff_t pos, unsigned len, unsigned copied,
+-		  struct page *subpage, void *fsdata)
+-{
+-	struct folio *folio = page_folio(subpage);
+-	struct afs_vnode *vnode = AFS_FS_I(file_inode(file));
+-	loff_t i_size, write_end_pos;
+-
+-	_enter("{%llx:%llu},{%lx}",
+-	       vnode->fid.vid, vnode->fid.vnode, folio_index(folio));
+-
+-	if (!folio_test_uptodate(folio)) {
+-		if (copied < len) {
+-			copied = 0;
+-			goto out;
+-		}
+-
+-		folio_mark_uptodate(folio);
+-	}
+-
+-	if (copied == 0)
+-		goto out;
+-
+-	write_end_pos = pos + copied;
+-
+-	i_size = i_size_read(&vnode->netfs.inode);
+-	if (write_end_pos > i_size) {
+-		write_seqlock(&vnode->cb_lock);
+-		i_size = i_size_read(&vnode->netfs.inode);
+-		if (write_end_pos > i_size)
+-			afs_set_i_size(vnode, write_end_pos);
+-		write_sequnlock(&vnode->cb_lock);
+-		fscache_update_cookie(afs_vnode_cache(vnode), NULL, &write_end_pos);
+-	}
+-
+-	if (folio_mark_dirty(folio))
+-		_debug("dirtied %lx", folio_index(folio));
+-
+-out:
+-	folio_unlock(folio);
+-	folio_put(folio);
+-	return copied;
+-}
+-
+-/*
+- * kill all the pages in the given range
+- */
+-static void afs_kill_pages(struct address_space *mapping,
+-			   loff_t start, loff_t len)
+-{
+-	struct afs_vnode *vnode = AFS_FS_I(mapping->host);
+-	struct folio *folio;
+-	pgoff_t index = start / PAGE_SIZE;
+-	pgoff_t last = (start + len - 1) / PAGE_SIZE, next;
+-
+-	_enter("{%llx:%llu},%llx @%llx",
+-	       vnode->fid.vid, vnode->fid.vnode, len, start);
+-
+-	do {
+-		_debug("kill %lx (to %lx)", index, last);
+-
+-		folio = filemap_get_folio(mapping, index);
+-		if (IS_ERR(folio)) {
+-			next = index + 1;
+-			continue;
+-		}
+-
+-		next = folio_next_index(folio);
+-
+-		folio_clear_uptodate(folio);
+-		folio_end_writeback(folio);
+-		folio_lock(folio);
+-		generic_error_remove_folio(mapping, folio);
+-		folio_unlock(folio);
+-		folio_put(folio);
+-
+-	} while (index = next, index <= last);
+-
+-	_leave("");
+-}
+-
+-/*
+- * Redirty all the pages in a given range.
+- */
+-static void afs_redirty_pages(struct writeback_control *wbc,
+-			      struct address_space *mapping,
+-			      loff_t start, loff_t len)
+-{
+-	struct afs_vnode *vnode = AFS_FS_I(mapping->host);
+-	struct folio *folio;
+-	pgoff_t index = start / PAGE_SIZE;
+-	pgoff_t last = (start + len - 1) / PAGE_SIZE, next;
+-
+-	_enter("{%llx:%llu},%llx @%llx",
+-	       vnode->fid.vid, vnode->fid.vnode, len, start);
+-
+-	do {
+-		_debug("redirty %llx @%llx", len, start);
+-
+-		folio = filemap_get_folio(mapping, index);
+-		if (IS_ERR(folio)) {
+-			next = index + 1;
+-			continue;
+-		}
+-
+-		next = index + folio_nr_pages(folio);
+-		folio_redirty_for_writepage(wbc, folio);
+-		folio_end_writeback(folio);
+-		folio_put(folio);
+-	} while (index = next, index <= last);
+-
+-	_leave("");
+-}
+-
+ /*
+  * completion of write to server
+  */
+ static void afs_pages_written_back(struct afs_vnode *vnode, loff_t start, unsigned int len)
  {
--	ctx->remote_i_size = new_i_size;
-+	if (changed_on_server)
-+		ctx->remote_i_size = new_i_size;
-+	if (new_i_size < ctx->zero_point)
-+		ctx->zero_point = new_i_size;
+-	struct address_space *mapping = vnode->netfs.inode.i_mapping;
+-	struct folio *folio;
+-	pgoff_t end;
+-
+-	XA_STATE(xas, &mapping->i_pages, start / PAGE_SIZE);
+-
+ 	_enter("{%llx:%llu},{%x @%llx}",
+ 	       vnode->fid.vid, vnode->fid.vnode, len, start);
+ 
+-	rcu_read_lock();
+-
+-	end = (start + len - 1) / PAGE_SIZE;
+-	xas_for_each(&xas, folio, end) {
+-		if (!folio_test_writeback(folio)) {
+-			kdebug("bad %x @%llx page %lx %lx",
+-			       len, start, folio_index(folio), end);
+-			ASSERT(folio_test_writeback(folio));
+-		}
+-
+-		trace_afs_folio_dirty(vnode, tracepoint_string("clear"), folio);
+-		folio_end_writeback(folio);
+-	}
+-
+-	rcu_read_unlock();
+-
+ 	afs_prune_wb_keys(vnode);
+ 	_leave("");
+ }
+@@ -370,337 +159,53 @@ static int afs_store_data(struct afs_vnode *vnode, struct iov_iter *iter, loff_t
+ 	return afs_put_operation(op);
  }
  
- /**
+-/*
+- * Extend the region to be written back to include subsequent contiguously
+- * dirty pages if possible, but don't sleep while doing so.
+- *
+- * If this page holds new content, then we can include filler zeros in the
+- * writeback.
+- */
+-static void afs_extend_writeback(struct address_space *mapping,
+-				 struct afs_vnode *vnode,
+-				 long *_count,
+-				 loff_t start,
+-				 loff_t max_len,
+-				 bool caching,
+-				 size_t *_len)
++static void afs_upload_to_server(struct netfs_io_subrequest *subreq)
+ {
+-	struct folio_batch fbatch;
+-	struct folio *folio;
+-	pgoff_t index = (start + *_len) / PAGE_SIZE;
+-	bool stop = true;
+-	unsigned int i;
+-
+-	XA_STATE(xas, &mapping->i_pages, index);
+-	folio_batch_init(&fbatch);
+-
+-	do {
+-		/* Firstly, we gather up a batch of contiguous dirty pages
+-		 * under the RCU read lock - but we can't clear the dirty flags
+-		 * there if any of those pages are mapped.
+-		 */
+-		rcu_read_lock();
+-
+-		xas_for_each(&xas, folio, ULONG_MAX) {
+-			stop = true;
+-			if (xas_retry(&xas, folio))
+-				continue;
+-			if (xa_is_value(folio))
+-				break;
+-			if (folio_index(folio) != index)
+-				break;
+-
+-			if (!folio_try_get_rcu(folio)) {
+-				xas_reset(&xas);
+-				continue;
+-			}
+-
+-			/* Has the folio moved or been split? */
+-			if (unlikely(folio != xas_reload(&xas))) {
+-				folio_put(folio);
+-				break;
+-			}
+-
+-			if (!folio_trylock(folio)) {
+-				folio_put(folio);
+-				break;
+-			}
+-			if (!folio_test_dirty(folio) ||
+-			    folio_test_writeback(folio) ||
+-			    folio_test_fscache(folio)) {
+-				folio_unlock(folio);
+-				folio_put(folio);
+-				break;
+-			}
+-
+-			index += folio_nr_pages(folio);
+-			*_count -= folio_nr_pages(folio);
+-			*_len += folio_size(folio);
+-			stop = false;
+-			if (*_len >= max_len || *_count <= 0)
+-				stop = true;
+-
+-			if (!folio_batch_add(&fbatch, folio))
+-				break;
+-			if (stop)
+-				break;
+-		}
+-
+-		if (!stop)
+-			xas_pause(&xas);
+-		rcu_read_unlock();
+-
+-		/* Now, if we obtained any folios, we can shift them to being
+-		 * writable and mark them for caching.
+-		 */
+-		if (!folio_batch_count(&fbatch))
+-			break;
+-
+-		for (i = 0; i < folio_batch_count(&fbatch); i++) {
+-			folio = fbatch.folios[i];
+-			trace_afs_folio_dirty(vnode, tracepoint_string("store+"), folio);
++	struct afs_vnode *vnode = AFS_FS_I(subreq->rreq->inode);
++	ssize_t ret;
+ 
+-			if (!folio_clear_dirty_for_io(folio))
+-				BUG();
+-			folio_start_writeback(folio);
+-			afs_folio_start_fscache(caching, folio);
+-			folio_unlock(folio);
+-		}
++	_enter("%x[%x],%zx",
++	       subreq->rreq->debug_id, subreq->debug_index, subreq->io_iter.count);
+ 
+-		folio_batch_release(&fbatch);
+-		cond_resched();
+-	} while (!stop);
++	trace_netfs_sreq(subreq, netfs_sreq_trace_submit);
++	ret = afs_store_data(vnode, &subreq->io_iter, subreq->start,
++			     subreq->rreq->origin == NETFS_LAUNDER_WRITE);
++	netfs_write_subrequest_terminated(subreq, ret < 0 ? ret : subreq->len,
++					  false);
+ }
+ 
+-/*
+- * Synchronously write back the locked page and any subsequent non-locked dirty
+- * pages.
+- */
+-static ssize_t afs_write_back_from_locked_folio(struct address_space *mapping,
+-						struct writeback_control *wbc,
+-						struct folio *folio,
+-						unsigned long long start,
+-						unsigned long long end)
++static void afs_upload_to_server_worker(struct work_struct *work)
+ {
+-	struct afs_vnode *vnode = AFS_FS_I(mapping->host);
+-	struct iov_iter iter;
+-	unsigned long long i_size = i_size_read(&vnode->netfs.inode);
+-	size_t len, max_len;
+-	bool caching = fscache_cookie_enabled(afs_vnode_cache(vnode));
+-	long count = wbc->nr_to_write;
+-	int ret;
+-
+-	_enter(",%lx,%llx-%llx", folio_index(folio), start, end);
+-
+-	folio_start_writeback(folio);
+-	afs_folio_start_fscache(caching, folio);
+-
+-	count -= folio_nr_pages(folio);
+-
+-	/* Find all consecutive lockable dirty pages that have contiguous
+-	 * written regions, stopping when we find a page that is not
+-	 * immediately lockable, is not dirty or is missing, or we reach the
+-	 * end of the range.
+-	 */
+-	trace_afs_folio_dirty(vnode, tracepoint_string("store"), folio);
+-
+-	len = folio_size(folio);
+-	if (start < i_size) {
+-		/* Trim the write to the EOF; the extra data is ignored.  Also
+-		 * put an upper limit on the size of a single storedata op.
+-		 */
+-		max_len = 65536 * 4096;
+-		max_len = min_t(unsigned long long, max_len, end - start + 1);
+-		max_len = min_t(unsigned long long, max_len, i_size - start);
+-
+-		if (len < max_len)
+-			afs_extend_writeback(mapping, vnode, &count,
+-					     start, max_len, caching, &len);
+-		len = min_t(unsigned long long, len, i_size - start);
+-	}
+-
+-	/* We now have a contiguous set of dirty pages, each with writeback
+-	 * set; the first page is still locked at this point, but all the rest
+-	 * have been unlocked.
+-	 */
+-	folio_unlock(folio);
+-
+-	if (start < i_size) {
+-		_debug("write back %zx @%llx [%llx]", len, start, i_size);
+-
+-		/* Speculatively write to the cache.  We have to fix this up
+-		 * later if the store fails.
+-		 */
+-		afs_write_to_cache(vnode, start, len, i_size, caching);
+-
+-		iov_iter_xarray(&iter, ITER_SOURCE, &mapping->i_pages, start, len);
+-		ret = afs_store_data(vnode, &iter, start, false);
+-	} else {
+-		_debug("write discard %zx @%llx [%llx]", len, start, i_size);
+-
+-		/* The dirty region was entirely beyond the EOF. */
+-		fscache_clear_page_bits(mapping, start, len, caching);
+-		afs_pages_written_back(vnode, start, len);
+-		ret = 0;
+-	}
+-
+-	switch (ret) {
+-	case 0:
+-		wbc->nr_to_write = count;
+-		ret = len;
+-		break;
+-
+-	default:
+-		pr_notice("kAFS: Unexpected error from FS.StoreData %d\n", ret);
+-		fallthrough;
+-	case -EACCES:
+-	case -EPERM:
+-	case -ENOKEY:
+-	case -EKEYEXPIRED:
+-	case -EKEYREJECTED:
+-	case -EKEYREVOKED:
+-	case -ENETRESET:
+-		afs_redirty_pages(wbc, mapping, start, len);
+-		mapping_set_error(mapping, ret);
+-		break;
+-
+-	case -EDQUOT:
+-	case -ENOSPC:
+-		afs_redirty_pages(wbc, mapping, start, len);
+-		mapping_set_error(mapping, -ENOSPC);
+-		break;
+-
+-	case -EROFS:
+-	case -EIO:
+-	case -EREMOTEIO:
+-	case -EFBIG:
+-	case -ENOENT:
+-	case -ENOMEDIUM:
+-	case -ENXIO:
+-		trace_afs_file_error(vnode, ret, afs_file_error_writeback_fail);
+-		afs_kill_pages(mapping, start, len);
+-		mapping_set_error(mapping, ret);
+-		break;
+-	}
++	struct netfs_io_subrequest *subreq =
++		container_of(work, struct netfs_io_subrequest, work);
+ 
+-	_leave(" = %d", ret);
+-	return ret;
++	afs_upload_to_server(subreq);
+ }
+ 
+ /*
+- * write a region of pages back to the server
++ * Set up write requests for a writeback slice.  We need to add a write request
++ * for each write we want to make.
+  */
+-static int afs_writepages_region(struct address_space *mapping,
+-				 struct writeback_control *wbc,
+-				 unsigned long long start,
+-				 unsigned long long end, loff_t *_next,
+-				 bool max_one_loop)
++void afs_create_write_requests(struct netfs_io_request *wreq, loff_t start, size_t len)
+ {
+-	struct folio *folio;
+-	struct folio_batch fbatch;
+-	ssize_t ret;
+-	unsigned int i;
+-	int n, skips = 0;
+-
+-	_enter("%llx,%llx,", start, end);
+-	folio_batch_init(&fbatch);
++	struct netfs_io_subrequest *subreq;
+ 
+-	do {
+-		pgoff_t index = start / PAGE_SIZE;
++	_enter("%x,%llx-%llx", wreq->debug_id, start, start + len);
+ 
+-		n = filemap_get_folios_tag(mapping, &index, end / PAGE_SIZE,
+-					PAGECACHE_TAG_DIRTY, &fbatch);
+-
+-		if (!n)
+-			break;
+-		for (i = 0; i < n; i++) {
+-			folio = fbatch.folios[i];
+-			start = folio_pos(folio); /* May regress with THPs */
+-
+-			_debug("wback %lx", folio_index(folio));
+-
+-			/* At this point we hold neither the i_pages lock nor the
+-			 * page lock: the page may be truncated or invalidated
+-			 * (changing page->mapping to NULL), or even swizzled
+-			 * back from swapper_space to tmpfs file mapping
+-			 */
+-try_again:
+-			if (wbc->sync_mode != WB_SYNC_NONE) {
+-				ret = folio_lock_killable(folio);
+-				if (ret < 0) {
+-					folio_batch_release(&fbatch);
+-					return ret;
+-				}
+-			} else {
+-				if (!folio_trylock(folio))
+-					continue;
+-			}
+-
+-			if (folio->mapping != mapping ||
+-			    !folio_test_dirty(folio)) {
+-				start += folio_size(folio);
+-				folio_unlock(folio);
+-				continue;
+-			}
+-
+-			if (folio_test_writeback(folio) ||
+-			    folio_test_fscache(folio)) {
+-				folio_unlock(folio);
+-				if (wbc->sync_mode != WB_SYNC_NONE) {
+-					folio_wait_writeback(folio);
+-#ifdef CONFIG_AFS_FSCACHE
+-					folio_wait_fscache(folio);
+-#endif
+-					goto try_again;
+-				}
+-
+-				start += folio_size(folio);
+-				if (wbc->sync_mode == WB_SYNC_NONE) {
+-					if (skips >= 5 || need_resched()) {
+-						*_next = start;
+-						folio_batch_release(&fbatch);
+-						_leave(" = 0 [%llx]", *_next);
+-						return 0;
+-					}
+-					skips++;
+-				}
+-				continue;
+-			}
+-
+-			if (!folio_clear_dirty_for_io(folio))
+-				BUG();
+-			ret = afs_write_back_from_locked_folio(mapping, wbc,
+-					folio, start, end);
+-			if (ret < 0) {
+-				_leave(" = %zd", ret);
+-				folio_batch_release(&fbatch);
+-				return ret;
+-			}
+-
+-			start += ret;
+-		}
+-
+-		folio_batch_release(&fbatch);
+-		cond_resched();
+-	} while (wbc->nr_to_write > 0);
+-
+-	*_next = start;
+-	_leave(" = 0 [%llx]", *_next);
+-	return 0;
++	subreq = netfs_create_write_request(wreq, NETFS_UPLOAD_TO_SERVER,
++					    start, len, afs_upload_to_server_worker);
++	if (subreq)
++		netfs_queue_write_request(subreq);
+ }
+ 
+ /*
+  * write some of the pending data back to the server
+  */
+-int afs_writepages(struct address_space *mapping,
+-		   struct writeback_control *wbc)
++int afs_writepages(struct address_space *mapping, struct writeback_control *wbc)
+ {
+ 	struct afs_vnode *vnode = AFS_FS_I(mapping->host);
+-	loff_t start, next;
+ 	int ret;
+ 
+-	_enter("");
+-
+ 	/* We have to be careful as we can end up racing with setattr()
+ 	 * truncating the pagecache since the caller doesn't take a lock here
+ 	 * to prevent it.
+@@ -710,68 +215,11 @@ int afs_writepages(struct address_space *mapping,
+ 	else if (!down_read_trylock(&vnode->validate_lock))
+ 		return 0;
+ 
+-	if (wbc->range_cyclic) {
+-		start = mapping->writeback_index * PAGE_SIZE;
+-		ret = afs_writepages_region(mapping, wbc, start, LLONG_MAX,
+-					    &next, false);
+-		if (ret == 0) {
+-			mapping->writeback_index = next / PAGE_SIZE;
+-			if (start > 0 && wbc->nr_to_write > 0) {
+-				ret = afs_writepages_region(mapping, wbc, 0,
+-							    start, &next, false);
+-				if (ret == 0)
+-					mapping->writeback_index =
+-						next / PAGE_SIZE;
+-			}
+-		}
+-	} else if (wbc->range_start == 0 && wbc->range_end == LLONG_MAX) {
+-		ret = afs_writepages_region(mapping, wbc, 0, LLONG_MAX,
+-					    &next, false);
+-		if (wbc->nr_to_write > 0 && ret == 0)
+-			mapping->writeback_index = next / PAGE_SIZE;
+-	} else {
+-		ret = afs_writepages_region(mapping, wbc,
+-					    wbc->range_start, wbc->range_end,
+-					    &next, false);
+-	}
+-
++	ret = netfs_writepages(mapping, wbc);
+ 	up_read(&vnode->validate_lock);
+-	_leave(" = %d", ret);
+ 	return ret;
+ }
+ 
+-/*
+- * write to an AFS file
+- */
+-ssize_t afs_file_write(struct kiocb *iocb, struct iov_iter *from)
+-{
+-	struct afs_vnode *vnode = AFS_FS_I(file_inode(iocb->ki_filp));
+-	struct afs_file *af = iocb->ki_filp->private_data;
+-	ssize_t result;
+-	size_t count = iov_iter_count(from);
+-
+-	_enter("{%llx:%llu},{%zu},",
+-	       vnode->fid.vid, vnode->fid.vnode, count);
+-
+-	if (IS_SWAPFILE(&vnode->netfs.inode)) {
+-		printk(KERN_INFO
+-		       "AFS: Attempt to write to active swap file!\n");
+-		return -EBUSY;
+-	}
+-
+-	if (!count)
+-		return 0;
+-
+-	result = afs_validate(vnode, af->key);
+-	if (result < 0)
+-		return result;
+-
+-	result = generic_file_write_iter(iocb, from);
+-
+-	_leave(" = %zd", result);
+-	return result;
+-}
+-
+ /*
+  * flush any dirty pages for this process, and check for write errors.
+  * - the return status from this call provides a reliable indication of
+@@ -800,49 +248,11 @@ int afs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+  */
+ vm_fault_t afs_page_mkwrite(struct vm_fault *vmf)
+ {
+-	struct folio *folio = page_folio(vmf->page);
+ 	struct file *file = vmf->vma->vm_file;
+-	struct inode *inode = file_inode(file);
+-	struct afs_vnode *vnode = AFS_FS_I(inode);
+-	struct afs_file *af = file->private_data;
+-	vm_fault_t ret = VM_FAULT_RETRY;
+-
+-	_enter("{{%llx:%llu}},{%lx}", vnode->fid.vid, vnode->fid.vnode, folio_index(folio));
+-
+-	afs_validate(vnode, af->key);
+-
+-	sb_start_pagefault(inode->i_sb);
+-
+-	/* Wait for the page to be written to the cache before we allow it to
+-	 * be modified.  We then assume the entire page will need writing back.
+-	 */
+-#ifdef CONFIG_AFS_FSCACHE
+-	if (folio_test_fscache(folio) &&
+-	    folio_wait_fscache_killable(folio) < 0)
+-		goto out;
+-#endif
+-
+-	if (folio_wait_writeback_killable(folio))
+-		goto out;
+-
+-	if (folio_lock_killable(folio) < 0)
+-		goto out;
+-
+-	if (folio_wait_writeback_killable(folio) < 0) {
+-		folio_unlock(folio);
+-		goto out;
+-	}
+-
+-	if (folio_test_dirty(folio))
+-		trace_afs_folio_dirty(vnode, tracepoint_string("mkwrite+"), folio);
+-	else
+-		trace_afs_folio_dirty(vnode, tracepoint_string("mkwrite"), folio);
+-	file_update_time(file);
+ 
+-	ret = VM_FAULT_LOCKED;
+-out:
+-	sb_end_pagefault(inode->i_sb);
+-	return ret;
++	if (afs_validate(AFS_FS_I(file_inode(file)), afs_file_key(file)) < 0)
++		return VM_FAULT_SIGBUS;
++	return netfs_page_mkwrite(vmf, NULL);
+ }
+ 
+ /*
+@@ -872,60 +282,3 @@ void afs_prune_wb_keys(struct afs_vnode *vnode)
+ 		afs_put_wb_key(wbk);
+ 	}
+ }
+-
+-/*
+- * Clean up a page during invalidation.
+- */
+-int afs_launder_folio(struct folio *folio)
+-{
+-	struct afs_vnode *vnode = AFS_FS_I(folio_inode(folio));
+-	struct iov_iter iter;
+-	struct bio_vec bv;
+-	unsigned long long fend, i_size = vnode->netfs.inode.i_size;
+-	size_t len;
+-	int ret = 0;
+-
+-	_enter("{%lx}", folio->index);
+-
+-	if (folio_clear_dirty_for_io(folio) && folio_pos(folio) < i_size) {
+-		len = folio_size(folio);
+-		fend = folio_pos(folio) + len;
+-		if (vnode->netfs.inode.i_size < fend)
+-			len = fend - i_size;
+-
+-		bvec_set_folio(&bv, folio, len, 0);
+-		iov_iter_bvec(&iter, WRITE, &bv, 1, len);
+-
+-		trace_afs_folio_dirty(vnode, tracepoint_string("launder"), folio);
+-		ret = afs_store_data(vnode, &iter, folio_pos(folio), true);
+-	}
+-
+-	trace_afs_folio_dirty(vnode, tracepoint_string("laundered"), folio);
+-	folio_wait_fscache(folio);
+-	return ret;
+-}
+-
+-/*
+- * Deal with the completion of writing the data to the cache.
+- */
+-static void afs_write_to_cache_done(void *priv, ssize_t transferred_or_error,
+-				    bool was_async)
+-{
+-	struct afs_vnode *vnode = priv;
+-
+-	if (IS_ERR_VALUE(transferred_or_error) &&
+-	    transferred_or_error != -ENOBUFS)
+-		afs_invalidate_cache(vnode, 0);
+-}
+-
+-/*
+- * Save the write to the cache also.
+- */
+-static void afs_write_to_cache(struct afs_vnode *vnode,
+-			       loff_t start, size_t len, loff_t i_size,
+-			       bool caching)
+-{
+-	fscache_write_to_cache(afs_vnode_cache(vnode),
+-			       vnode->netfs.inode.i_mapping, start, len, i_size,
+-			       afs_write_to_cache_done, vnode, caching);
+-}
+diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
+index 7780bd716ce0..8d73171cb9f0 100644
+--- a/include/trace/events/afs.h
++++ b/include/trace/events/afs.h
+@@ -902,29 +902,6 @@ TRACE_EVENT(afs_dir_check_failed,
+ 		      __entry->vnode, __entry->off, __entry->i_size)
+ 	    );
+ 
+-TRACE_EVENT(afs_folio_dirty,
+-	    TP_PROTO(struct afs_vnode *vnode, const char *where, struct folio *folio),
+-
+-	    TP_ARGS(vnode, where, folio),
+-
+-	    TP_STRUCT__entry(
+-		    __field(struct afs_vnode *,		vnode)
+-		    __field(const char *,		where)
+-		    __field(pgoff_t,			index)
+-		    __field(size_t,			size)
+-			     ),
+-
+-	    TP_fast_assign(
+-		    __entry->vnode = vnode;
+-		    __entry->where = where;
+-		    __entry->index = folio_index(folio);
+-		    __entry->size = folio_size(folio);
+-			   ),
+-
+-	    TP_printk("vn=%p ix=%05lx s=%05lx %s",
+-		      __entry->vnode, __entry->index, __entry->size, __entry->where)
+-	    );
+-
+ TRACE_EVENT(afs_call_state,
+ 	    TP_PROTO(struct afs_call *call,
+ 		     enum afs_call_state from,
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
