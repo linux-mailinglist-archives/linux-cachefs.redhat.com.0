@@ -1,33 +1,33 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBXFB46VQMGQEVACZC3I@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBXNB46VQMGQE5WIESPA@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mail.lfdr.de (Postfix) with ESMTPS id E76F58117A2
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:42:21 +0100 (CET)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-67ee7d18256sf27910656d6.0
-        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:42:21 -0800 (PST)
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id 858548117A3
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:42:22 +0100 (CET)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-3b88ac1f09csf10625532b6e.2
+        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:42:22 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1702482141; cv=pass;
         d=google.com; s=arc-20160816;
-        b=SzrcoWqy1hmSunrBuZNKFZ2m7QgvSRqqwJf/nJqOOQz0t17oMp9HiW65++8tyy9f3S
-         TCe4iRqk3oA0GumydkS8HLQhrzwVWLlm4DE57M9DqsJEX+7VHRWFDn75ob82p9KFvX/F
-         Jpxg6UlGUf+WrIhGJS2El6DvgvR776cfZISP9mq679orqEbtFcGFffdQgauqQfwkR/tE
-         MD4az4prFf8HuMM521r9oViOCpw6GwsOsz1U9ixA8t57o/JwAL7kpiUQZZK08xdj6j88
-         hsYXBLCZC6bFaignvkoY5pSw/2vmuhq8n5LWXUYZEclfYzNaLJDC/lW2HctkkvrJVGVh
-         YAZA==
+        b=sLV8WhD81jB2FzyvKX4F+R6GXMFmkPuUgSfTcVOB/oiF3kUzey0zwHuazUuZc19uKP
+         z0zJk3pevD7p3FotoO5QtIZyWx4WHqu4ZZmjtkODuVyKUZlGIdSmx/p/OJ4xp4kF2H/h
+         emqAUTe0NDtn4l+dw3BEJ/nzoCx84crRp7pLTYq+u1idh767f+FV9m4pM3emxnriNTjW
+         +UQTPUjrVUjxqIbFuSFLIY2VIUPeoKipYOfHeZEOOIJd7vaXhTN3H1+khOQ53q6bUcrA
+         0N57+9G8V5gqHdhFz/6WUM7zp7P1+rpFJ/VWh+gvJLMEviaZYSYBpV06oxMcUHhpLQLg
+         qznA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=YITRAcbRDE0o+GbcalLLpo2jBWMK+GWCLH6j6oXW6Xg=;
+        bh=+9gE3zPm2MJyUQYxBbsFlRSjALq3bP4vCNK6uOuaGWY=;
         fh=/d04rGhva23/oMvvc+i8J/J8+GzO8KYoVKSGWp4U6JE=;
-        b=GeXF3WZNP6oWxp4RSvTsulFqn4pnH12YaL4wEZbGHekK1YjzH5qwYP6vgK1C1Rt1jg
-         eV+NiqO1U0uohyEkvQ5R3A1XyAqIUlFNqz/+2kj2BNnGP6Prr9Yn2msnPI54O3NJqwVL
-         qZapODFJOjnlbV9RgkkzEkFyRZHEDY3l3WrN3iyo0kxWggP3Ga8yBY3Vbr1+LJjAwjKp
-         /QbTSuXVvOQU/JkoyE6s4kH1QwX7t78xIR+93BpXsfMJ0CMj1cYKQbWSBLux/129b5IY
-         aNUC3cUQBBTKf8KDtyqBV27t6vA4fh1PjpJvMFkVN6K2UF40TXpWY+SmFAjjVAIQliL/
-         DpEg==
+        b=Kqg/MqtYcR8jODoqlAuh8CVrhF3QtK/EafxG5NYLO/H5m3veenDgGsO9KMvj+utoQl
+         dziXEcIcOsudNIrPylYHms96yI771PZri8T9wl2mgIUtOrMWYVmTGcfKcvhwJzXnbkzC
+         ozIvm3+qYbPrr4aq0NS3Uy/yFqVV0WQ1lqcwGwVw8bDHjOPMyq1s775/96F4jfuwE35m
+         U4iSjuMb8PUphiaEWP65Mjgc0w4tovUJw4jP+Xbhx0eaQ1r08h1E+J7Mb0K0N/oCHBcM
+         3/Vt2KFcEAqWoLYtTTmwZeB/0WCmPAfEzfufnD6C/CVHy2kzxVoHYWECXSOBT9xcOAo9
+         M+ng==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1702482141; x=1703086941;
         h=list-unsubscribe:list-archive:list-help:list-post
@@ -36,68 +36,68 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YITRAcbRDE0o+GbcalLLpo2jBWMK+GWCLH6j6oXW6Xg=;
-        b=m+UeOFbQHZyTJgcmo7bfozO4qML+0ynjmCUPrS0X8WL+FdVUgO5MsJ/awp3xpf6v9R
-         LvSP3UftU7dbrbsEgIODUUWsuFMJRNKY+Wp/eox5/t+ZnCyZGsyHRKAONTcjzLijIHd9
-         ellKR3YKH84WTx/3mfxA/yNJDtVmXCv5VfKvU8SKvr7YneKZVGd0bDn57KETeBgi9zpO
-         4tOIvSuF7cymsw6vqaSKai4rgCRJOVr7WOq9bd/6mIoqhFAtkF5QelnOmfO3Avnl1q//
-         3mXRDcyhzrNS1HfA7CkZSgM7HtS91Fc07QAO86OJlQZk+Q5OU5aLJfXjInikOjo8XFzo
-         qt7w==
-X-Gm-Message-State: AOJu0Yw4MVE3hVE7aJC+FX/IfKVkrH/tEjO00vcni21C2VFMmZR24lec
-	xRrICniRsTGOX2jA2I3u+YaT8Q==
-X-Google-Smtp-Source: AGHT+IHPt9mCRPri0ArzRyl0+0zJmKz50FObJ9XRvrKERUBrWPlLqMVaWJpQihNktiT5ejrMEJlLMg==
-X-Received: by 2002:ad4:5c8b:0:b0:67a:a721:7854 with SMTP id o11-20020ad45c8b000000b0067aa7217854mr12884489qvh.121.1702482140927;
-        Wed, 13 Dec 2023 07:42:20 -0800 (PST)
+        bh=+9gE3zPm2MJyUQYxBbsFlRSjALq3bP4vCNK6uOuaGWY=;
+        b=jBzJeaRJDW/D1DjCstw/1QwAOjghtv1RfZOzbYY35G2NXLa2qIKL1OSJu3Yn06Vfpe
+         lt92bKrvvcsS64TgZ8wjMFHb2YF5aRrldI7DAC2Wr3JxigpUEDUxjFnjQHkapw8mkDlB
+         u6uf4zTpV0/ypwQ68NvEJ1npjdYVaY34u8sVi8Ug5w6kT8WlMDykjM5jK1bh1gUBLbGx
+         r/0RKFdF0S8QLPkK7xm5IC7PrQdg7m/JpU90FQUlwZ5/WkYEDVoyNKyuxy1t41Wlpa09
+         7SIK+kYPJRi/hS8NrCvNg02SB95Kar+316B7nOfeYymM0w6TnZVbUNAGhWAFLPY9C4Nq
+         w+EQ==
+X-Gm-Message-State: AOJu0YyPH7KhQcJ7hwUVCpX4F7yTk12lxrLyUJsSFF/UXzhkqtJfBYG4
+	eVU11g1dSP/zj+oo464tCt0/pA==
+X-Google-Smtp-Source: AGHT+IHZ/uFl0nkiQSeQItjzwyY7ID0Ui8MH7bvKp/arRxGVF+PuO0vA4B0jjHOw5pLPiQE3E1ZM+A==
+X-Received: by 2002:a05:6808:3196:b0:3ba:382:c0e1 with SMTP id cd22-20020a056808319600b003ba0382c0e1mr6089395oib.62.1702482141360;
+        Wed, 13 Dec 2023 07:42:21 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:1242:b0:67a:bf7a:7ba6 with SMTP id
- r2-20020a056214124200b0067abf7a7ba6ls329240qvv.1.-pod-prod-01-us; Wed, 13 Dec
- 2023 07:42:20 -0800 (PST)
-X-Received: by 2002:a0c:f812:0:b0:67e:e8e7:737e with SMTP id r18-20020a0cf812000000b0067ee8e7737emr2900765qvn.108.1702482140319;
+Received: by 2002:a05:622a:190b:b0:41e:8c36:f7a3 with SMTP id
+ w11-20020a05622a190b00b0041e8c36f7a3ls219591qtc.2.-pod-prod-03-us; Wed, 13
+ Dec 2023 07:42:20 -0800 (PST)
+X-Received: by 2002:a05:622a:1998:b0:425:7f1a:c4a2 with SMTP id u24-20020a05622a199800b004257f1ac4a2mr11475394qtc.7.1702482140700;
         Wed, 13 Dec 2023 07:42:20 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1702482140; cv=none;
         d=google.com; s=arc-20160816;
-        b=q0aVrUWQlXy/eVlLWcUEgLCShc7anWO/0Eor6rG5Fz4VD6xzM9wqqOSpYR2HREACoM
-         gE6BZMTOjKhyLYYYVQqhXv/ZtwkoLHOsBlGNXOeUl7trFmTSzzygbHIMTWEDEf/MdIkC
-         pM4g2mNTXldxH1FFiHowc7PTwdujEZvQ70vnpZKp4ZfBh974mYz9SZlo4IWGFzJ0XyuF
-         qnH+mk0opSYd6cG8zwqkb/vXlEeZwJvM3FpUwELIycGyyPuP1NcJN1aeXOC+rlu2GelJ
-         w5NSYmBZRZxsPdP/TtY/xLY6RKuGd4gHY8OP6nLW58iYeIkGYNc9OK2z11GjCiI3t/3B
-         831A==
+        b=d/cxW/RoJ9r2mJbM05MseMTVOIXse6CDKZphkUzqjK5SYbs6QtBZQsvgUH+2Z7EerV
+         jpizVV3+f2JAZaG4O9f08kkWSRlv9krj8jJvQpnOzCdXTBn2Z2M7Mp6gUf/u5Azt1omk
+         1DuAsjudknSFDKsyzugUz/wWI1gYfLwtJGQD8IT+og+LUN4ueNAyn275LjQ67hGnIBYP
+         t9CvZJY91ZrhbE1KOAIyQXCSn60ck3XI/Cp0K6W2MJ3RKu30VJepdvJHaZBLi7eieYws
+         b3jn/RgFDI8rsJgGIBLaKLfjbZirzMtfslRWYlOib3VMCmYoWtHLZniXCsC0k617tkrh
+         gzxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=V6gpcKG498zCkLz3S9k9pj/To6fBBxeNZurJXCdyIx0=;
+        bh=CTmXKlaARSc+/4qCQwpNxe6YLvLKHn4pqqsvYn+RGCg=;
         fh=/d04rGhva23/oMvvc+i8J/J8+GzO8KYoVKSGWp4U6JE=;
-        b=NQsb2qHkMBG/ICrB+e1vtGDOr2Pojv/t/ow5gL1vwX3Ez4o791MmB1wlywwv9bIzrG
-         r7lYHEme4YT0QGZgd83jm9lReR6rl985ewLRhwTu352wibESEC44BipPEdH+KhrZfQnu
-         ZWYcD4Z2TR7dT2tj28dWD5paYlbTWVnSpzq3UO+xU2yYS9Y4FHZBxgB8CtdWzF89Unfj
-         /L4KfH0jMh3CpdFYS7lmPtUni63VPIsN6sGCAR7qZmnCEsmN04/tAmsvBLlyjmMOAUYz
-         ntD3TrhWu3AXemK9XMr0zTlTCBcOKh/jduAaGph4ShcAJ3bfnwehf4MOHiWwPZGhTBJ0
-         JE3g==
+        b=QvnR6xUX8ywwvp/MuXzUQSr1tRmuMGAvrkvujDkP4SNJMNt+0SxSaMe10Yk9gFJPtX
+         Vqkv6ljS9CqyED1zfIUuorimSbt4ZhLbktHy2EKLIRzdpxJE2TDJE2wiArlF2uUcHb0w
+         KCoJmrD7l3jrllicVCjvGa9bYMVnm/hS6ZJbUTgr0hQ3vuY4r0AR7RrMmTycUZJc2PfU
+         y/RKCDZMjbnryPwOlqlRdf4x10+/HpkmrAfRYZxdyE0wb5EAHZE1egN25fmpNLAn7Y7l
+         /ibevE4fFfM2EElxTbOjAxjUNrE8mPzPGgAUtt9OaqnkhxuQs+nkv2PEzlxhDKa8fmul
+         94QQ==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id bm10-20020a05620a198a00b0077d688ae89asi14512162qkb.291.2023.12.13.07.42.20
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id f16-20020ac859d0000000b00425aece86a0si11666381qtf.499.2023.12.13.07.42.20
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 13 Dec 2023 07:42:20 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-510-t1V-phWFPmmIU02YBCV63g-1; Wed,
- 13 Dec 2023 10:42:15 -0500
-X-MC-Unique: t1V-phWFPmmIU02YBCV63g-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-553-Yha1XZ_gOcmKkzY_Mwz7lA-1; Wed, 13 Dec 2023 10:42:19 -0500
+X-MC-Unique: Yha1XZ_gOcmKkzY_Mwz7lA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B58E3C0E5CC
-	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:42:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCD3185A59A
+	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:42:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 584E12026961; Wed, 13 Dec 2023 15:42:15 +0000 (UTC)
+	id D72DD1121306; Wed, 13 Dec 2023 15:42:18 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.2])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 60CCF2026D66;
-	Wed, 13 Dec 2023 15:42:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1BA501121312;
+	Wed, 13 Dec 2023 15:42:15 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,20 +120,20 @@ Cc: David Howells <dhowells@redhat.com>,
 	Steve French <sfrench@samba.org>,
 	Shyam Prasad N <nspmangalore@gmail.com>,
 	Rohith Surabattula <rohiths.msft@gmail.com>
-Subject: [PATCH v4 08/13] cifs: Implement netfslib hooks
-Date: Wed, 13 Dec 2023 15:41:34 +0000
-Message-ID: <20231213154139.432922-9-dhowells@redhat.com>
+Subject: [PATCH v4 09/13] cifs: Move cifs_loose_read_iter() and cifs_file_write_iter() to file.c
+Date: Wed, 13 Dec 2023 15:41:35 +0000
+Message-ID: <20231213154139.432922-10-dhowells@redhat.com>
 In-Reply-To: <20231213154139.432922-1-dhowells@redhat.com>
 References: <20231213154139.432922-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -145,23 +145,9 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Provide implementation of the netfslib hooks that will be used by netfslib
-to ask cifs to set up and perform operations.  Of particular note are
-
- (*) cifs_clamp_length() - This is used to negotiate the size of the next
-     subrequest in a read request, taking into account the credit available
-     and the rsize.  The credits are attached to the subrequest.
-
- (*) cifs_req_issue_read() - This is used to issue a subrequest that has
-     been set up and clamped.
-
- (*) cifs_create_write_requests() - This is used to break the given span of
-     file positions into suboperations according to cifs's wsize and
-     available credits.  As each subop is created, it can be dispatched or
-     queued for dispatch.
-
-At this point, cifs is not wired up to actually *use* netfslib; that will
-be done in a subsequent patch.
+Move cifs_loose_read_iter() and cifs_file_write_iter() to file.c so that
+they are colocated with similar functions rather than being split with
+cifsfs.c.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Steve French <sfrench@samba.org>
@@ -173,485 +159,154 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_write.c    |   3 +
- fs/smb/client/Kconfig        |   1 +
- fs/smb/client/cifsglob.h     |  26 ++-
- fs/smb/client/file.c         | 357 +++++++++++++++++++++++++++++++++++
- include/linux/netfs.h        |   1 +
- include/trace/events/netfs.h |   1 +
- 6 files changed, 381 insertions(+), 8 deletions(-)
+ fs/smb/client/cifsfs.c | 55 ------------------------------------------
+ fs/smb/client/cifsfs.h |  2 ++
+ fs/smb/client/file.c   | 53 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 55 insertions(+), 55 deletions(-)
 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index d7ce424b9188..587ed7a9bab2 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -377,6 +377,9 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
- 	} while (iov_iter_count(iter));
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index ebe04c78a955..1cd9309e46f7 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -981,61 +981,6 @@ cifs_smb3_do_mount(struct file_system_type *fs_type,
+ 	return root;
+ }
  
- out:
-+	if (likely(written) && ctx->ops->post_modify)
-+		ctx->ops->post_modify(inode);
-+
- 	if (unlikely(wreq)) {
- 		ret = netfs_end_writethrough(wreq, iocb);
- 		wbc_detach_inode(&wbc);
-diff --git a/fs/smb/client/Kconfig b/fs/smb/client/Kconfig
-index 2927bd174a88..2517dc242386 100644
---- a/fs/smb/client/Kconfig
-+++ b/fs/smb/client/Kconfig
-@@ -2,6 +2,7 @@
- config CIFS
- 	tristate "SMB3 and CIFS support (advanced network filesystem)"
- 	depends on INET
-+	select NETFS_SUPPORT
- 	select NLS
- 	select NLS_UCS2_UTILS
- 	select CRYPTO
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index a0d348b166c2..7d17e515624f 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1432,15 +1432,23 @@ struct cifs_aio_ctx {
- 	bool			direct_io;
- };
- 
-+struct cifs_io_request {
-+	struct netfs_io_request		rreq;
-+	struct cifsFileInfo		*cfile;
-+};
-+
- /* asynchronous read support */
- struct cifs_io_subrequest {
--	struct netfs_io_subrequest	subreq;
--	struct cifsFileInfo		*cfile;
--	struct address_space		*mapping;
--	struct cifs_aio_ctx		*ctx;
-+	union {
-+		struct netfs_io_subrequest subreq;
-+		struct netfs_io_request *rreq;
-+		struct cifs_io_request *req;
-+	};
- 	ssize_t				got_bytes;
- 	pid_t				pid;
-+	unsigned int			xid;
- 	int				result;
-+	bool				have_credits;
- 	struct kvec			iov[2];
- 	struct TCP_Server_Info		*server;
- #ifdef CONFIG_CIFS_SMB_DIRECT
-@@ -1448,14 +1456,16 @@ struct cifs_io_subrequest {
- #endif
- 	struct cifs_credits		credits;
- 
--	enum writeback_sync_modes	sync_mode;
--	bool				uncached;
--	struct bio_vec			*bv;
 -
- 	// TODO: Remove following elements
- 	struct list_head		list;
- 	struct completion		done;
- 	struct work_struct		work;
-+	struct cifsFileInfo		*cfile;
-+	struct address_space		*mapping;
-+	struct cifs_aio_ctx		*ctx;
-+	enum writeback_sync_modes	sync_mode;
-+	bool				uncached;
-+	struct bio_vec			*bv;
- };
- 
- /*
+-static ssize_t
+-cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+-{
+-	ssize_t rc;
+-	struct inode *inode = file_inode(iocb->ki_filp);
+-
+-	if (iocb->ki_flags & IOCB_DIRECT)
+-		return cifs_user_readv(iocb, iter);
+-
+-	rc = cifs_revalidate_mapping(inode);
+-	if (rc)
+-		return rc;
+-
+-	return generic_file_read_iter(iocb, iter);
+-}
+-
+-static ssize_t cifs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+-{
+-	struct inode *inode = file_inode(iocb->ki_filp);
+-	struct cifsInodeInfo *cinode = CIFS_I(inode);
+-	ssize_t written;
+-	int rc;
+-
+-	if (iocb->ki_filp->f_flags & O_DIRECT) {
+-		written = cifs_user_writev(iocb, from);
+-		if (written > 0 && CIFS_CACHE_READ(cinode)) {
+-			cifs_zap_mapping(inode);
+-			cifs_dbg(FYI,
+-				 "Set no oplock for inode=%p after a write operation\n",
+-				 inode);
+-			cinode->oplock = 0;
+-		}
+-		return written;
+-	}
+-
+-	written = cifs_get_writer(cinode);
+-	if (written)
+-		return written;
+-
+-	written = generic_file_write_iter(iocb, from);
+-
+-	if (CIFS_CACHE_WRITE(CIFS_I(inode)))
+-		goto out;
+-
+-	rc = filemap_fdatawrite(inode->i_mapping);
+-	if (rc)
+-		cifs_dbg(FYI, "cifs_file_write_iter: %d rc on %p inode\n",
+-			 rc, inode);
+-
+-out:
+-	cifs_put_writer(cinode);
+-	return written;
+-}
+-
+ static loff_t cifs_llseek(struct file *file, loff_t offset, int whence)
+ {
+ 	struct cifsFileInfo *cfile = file->private_data;
+diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+index 3adea10aa9da..28c41c449205 100644
+--- a/fs/smb/client/cifsfs.h
++++ b/fs/smb/client/cifsfs.h
+@@ -100,6 +100,8 @@ extern ssize_t cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to);
+ extern ssize_t cifs_user_writev(struct kiocb *iocb, struct iov_iter *from);
+ extern ssize_t cifs_direct_writev(struct kiocb *iocb, struct iov_iter *from);
+ extern ssize_t cifs_strict_writev(struct kiocb *iocb, struct iov_iter *from);
++ssize_t cifs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
++ssize_t cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter);
+ extern int cifs_flock(struct file *pfile, int cmd, struct file_lock *plock);
+ extern int cifs_lock(struct file *, int, struct file_lock *);
+ extern int cifs_fsync(struct file *, loff_t, loff_t, int);
 diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index b47abeefe628..255d78581e56 100644
+index 255d78581e56..dfeb8cb86d61 100644
 --- a/fs/smb/client/file.c
 +++ b/fs/smb/client/file.c
-@@ -36,6 +36,363 @@
- #include "fs_context.h"
- #include "cifs_ioctl.h"
- #include "cached_dir.h"
-+#include <trace/events/netfs.h>
-+
-+static int cifs_reopen_file(struct cifsFileInfo *cfile, bool can_flush);
-+
-+static void cifs_upload_to_server(struct netfs_io_subrequest *subreq)
+@@ -4567,6 +4567,59 @@ ssize_t cifs_user_readv(struct kiocb *iocb, struct iov_iter *to)
+ 	return __cifs_readv(iocb, to, false);
+ }
+ 
++ssize_t cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter)
 +{
-+	struct cifs_io_subrequest *wdata =
-+		container_of(subreq, struct cifs_io_subrequest, subreq);
 +	ssize_t rc;
++	struct inode *inode = file_inode(iocb->ki_filp);
 +
-+	trace_netfs_sreq(subreq, netfs_sreq_trace_submit);
++	if (iocb->ki_flags & IOCB_DIRECT)
++		return cifs_user_readv(iocb, iter);
 +
-+	if (wdata->req->cfile->invalidHandle)
-+		rc = -EAGAIN;
-+	else
-+		rc = wdata->server->ops->async_writev(wdata);
-+	if (rc < 0)
-+		add_credits_and_wake_if(wdata->server, &wdata->credits, 0);
++	rc = cifs_revalidate_mapping(inode);
++	if (rc)
++		return rc;
++
++	return generic_file_read_iter(iocb, iter);
 +}
 +
-+static void cifs_upload_to_server_worker(struct work_struct *work)
++ssize_t cifs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
 +{
-+	struct netfs_io_subrequest *subreq =
-+		container_of(work, struct netfs_io_subrequest, work);
-+
-+	cifs_upload_to_server(subreq);
-+}
-+
-+/*
-+ * Set up write requests for a writeback slice.  We need to add a write request
-+ * for each write we want to make.
-+ */
-+static void cifs_create_write_requests(struct netfs_io_request *wreq,
-+				       loff_t start, size_t remain)
-+{
-+	struct netfs_io_subrequest *subreq;
-+	struct cifs_io_subrequest *wdata;
-+	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
-+	struct TCP_Server_Info *server;
-+	struct cifsFileInfo *open_file = req->cfile;
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(wreq->inode->i_sb);
-+	int rc = 0;
-+	size_t offset = 0;
-+	pid_t pid;
-+	unsigned int xid, max_segs = INT_MAX;
-+
-+	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
-+		pid = open_file->pid;
-+	else
-+		pid = current->tgid;
-+
-+	server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
-+	xid = get_xid();
-+
-+#ifdef CONFIG_CIFS_SMB_DIRECT
-+	if (server->smbd_conn)
-+		max_segs = server->smbd_conn->max_frmr_depth;
-+#endif
-+
-+	do {
-+		unsigned int nsegs = 0;
-+		size_t max_len, part, wsize;
-+
-+		subreq = netfs_create_write_request(wreq, NETFS_UPLOAD_TO_SERVER,
-+						    start, remain,
-+						    cifs_upload_to_server_worker);
-+		if (!subreq) {
-+			wreq->error = -ENOMEM;
-+			break;
-+		}
-+
-+		wdata = container_of(subreq, struct cifs_io_subrequest, subreq);
-+
-+	retry:
-+		if (signal_pending(current)) {
-+			wreq->error = -EINTR;
-+			break;
-+		}
-+
-+		if (open_file->invalidHandle) {
-+			rc = cifs_reopen_file(open_file, false);
-+			if (rc < 0) {
-+				if (rc == -EAGAIN)
-+					goto retry;
-+				break;
-+			}
-+		}
-+
-+		rc = server->ops->wait_mtu_credits(server, wreq->wsize, &wsize,
-+						   &wdata->credits);
-+		if (rc)
-+			break;
-+
-+		max_len = min(remain, wsize);
-+		if (!max_len) {
-+			rc = -EAGAIN;
-+			goto failed_return_credits;
-+		}
-+
-+		part = netfs_limit_iter(&wreq->io_iter, offset, max_len, max_segs);
-+		cifs_dbg(FYI, "create_write_request len=%zx/%zx nsegs=%u/%lu/%u\n",
-+			 part, max_len, nsegs, wreq->io_iter.nr_segs, max_segs);
-+		if (!part) {
-+			rc = -EIO;
-+			goto failed_return_credits;
-+		}
-+
-+		if (part < wdata->subreq.len) {
-+			wdata->subreq.len = part;
-+			iov_iter_truncate(&wdata->subreq.io_iter, part);
-+		}
-+
-+		wdata->server	= server;
-+		wdata->pid	= pid;
-+
-+		rc = adjust_credits(server, &wdata->credits, wdata->subreq.len);
-+		if (rc) {
-+			add_credits_and_wake_if(server, &wdata->credits, 0);
-+			if (rc == -EAGAIN)
-+				goto retry;
-+			goto failed;
-+		}
-+
-+		cifs_upload_to_server(subreq);
-+		//netfs_queue_write_request(subreq);
-+		start += part;
-+		offset += part;
-+		remain -= part;
-+	} while (remain > 0);
-+
-+	free_xid(xid);
-+	return;
-+
-+failed_return_credits:
-+	add_credits_and_wake_if(server, &wdata->credits, 0);
-+failed:
-+	netfs_write_subrequest_terminated(subreq, rc, false);
-+	free_xid(xid);
-+}
-+
-+/*
-+ * Split the read up according to how many credits we can get for each piece.
-+ * It's okay to sleep here if we need to wait for more credit to become
-+ * available.
-+ *
-+ * We also choose the server and allocate an operation ID to be cleaned up
-+ * later.
-+ */
-+static bool cifs_clamp_length(struct netfs_io_subrequest *subreq)
-+{
-+	struct netfs_io_request *rreq = subreq->rreq;
-+	struct TCP_Server_Info *server;
-+	struct cifs_io_subrequest *rdata = container_of(subreq, struct cifs_io_subrequest, subreq);
-+	struct cifs_io_request *req = container_of(subreq->rreq, struct cifs_io_request, rreq);
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-+	size_t rsize = 0;
++	struct inode *inode = file_inode(iocb->ki_filp);
++	struct cifsInodeInfo *cinode = CIFS_I(inode);
++	ssize_t written;
 +	int rc;
 +
-+	rdata->xid = get_xid();
-+
-+	server = cifs_pick_channel(tlink_tcon(req->cfile->tlink)->ses);
-+	rdata->server = server;
-+
-+	if (cifs_sb->ctx->rsize == 0)
-+		cifs_sb->ctx->rsize =
-+			server->ops->negotiate_rsize(tlink_tcon(req->cfile->tlink),
-+						     cifs_sb->ctx);
-+
-+
-+	rc = server->ops->wait_mtu_credits(server, cifs_sb->ctx->rsize, &rsize,
-+					   &rdata->credits);
-+	if (rc) {
-+		subreq->error = rc;
-+		return false;
++	if (iocb->ki_filp->f_flags & O_DIRECT) {
++		written = cifs_user_writev(iocb, from);
++		if (written > 0 && CIFS_CACHE_READ(cinode)) {
++			cifs_zap_mapping(inode);
++			cifs_dbg(FYI,
++				 "Set no oplock for inode=%p after a write operation\n",
++				 inode);
++			cinode->oplock = 0;
++		}
++		return written;
 +	}
 +
-+	rdata->have_credits = true;
-+	subreq->len = min_t(size_t, subreq->len, rsize);
-+#ifdef CONFIG_CIFS_SMB_DIRECT
-+	if (server->smbd_conn)
-+		subreq->max_nr_segs = server->smbd_conn->max_frmr_depth;
-+#endif
-+	return true;
-+}
++	written = cifs_get_writer(cinode);
++	if (written)
++		return written;
 +
-+/*
-+ * Issue a read operation on behalf of the netfs helper functions.  We're asked
-+ * to make a read of a certain size at a point in the file.  We are permitted
-+ * to only read a portion of that, but as long as we read something, the netfs
-+ * helper will call us again so that we can issue another read.
-+ */
-+static void cifs_req_issue_read(struct netfs_io_subrequest *subreq)
-+{
-+	struct netfs_io_request *rreq = subreq->rreq;
-+	struct cifs_io_subrequest *rdata = container_of(subreq, struct cifs_io_subrequest, subreq);
-+	struct cifs_io_request *req = container_of(subreq->rreq, struct cifs_io_request, rreq);
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-+	pid_t pid;
-+	int rc = 0;
++	written = generic_file_write_iter(iocb, from);
 +
-+	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_RWPIDFORWARD)
-+		pid = req->cfile->pid;
-+	else
-+		pid = current->tgid; // Ummm...  This may be a workqueue
++	if (CIFS_CACHE_WRITE(CIFS_I(inode)))
++		goto out;
 +
-+	cifs_dbg(FYI, "%s: op=%08x[%x] mapping=%p len=%zu/%zu\n",
-+		 __func__, rreq->debug_id, subreq->debug_index, rreq->mapping,
-+		 subreq->transferred, subreq->len);
-+
-+	if (req->cfile->invalidHandle) {
-+		do {
-+			rc = cifs_reopen_file(req->cfile, true);
-+		} while (rc == -EAGAIN);
-+		if (rc)
-+			goto out;
-+	}
-+
-+	__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
-+	rdata->pid = pid;
-+
-+	rc = adjust_credits(rdata->server, &rdata->credits, rdata->subreq.len);
-+	if (!rc) {
-+		if (rdata->req->cfile->invalidHandle)
-+			rc = -EAGAIN;
-+		else
-+			rc = rdata->server->ops->async_readv(rdata);
-+	}
++	rc = filemap_fdatawrite(inode->i_mapping);
++	if (rc)
++		cifs_dbg(FYI, "cifs_file_write_iter: %d rc on %p inode\n",
++			 rc, inode);
 +
 +out:
-+	if (rc)
-+		netfs_subreq_terminated(subreq, rc, false);
++	cifs_put_writer(cinode);
++	return written;
 +}
 +
-+/*
-+ * Initialise a request.
-+ */
-+static int cifs_init_request(struct netfs_io_request *rreq, struct file *file)
-+{
-+	struct cifs_io_request *req = container_of(rreq, struct cifs_io_request, rreq);
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-+	struct cifsFileInfo *open_file = NULL;
-+	int ret;
-+
-+	rreq->rsize = cifs_sb->ctx->rsize;
-+	rreq->wsize = cifs_sb->ctx->wsize;
-+
-+	if (file) {
-+		open_file = file->private_data;
-+		rreq->netfs_priv = file->private_data;
-+		req->cfile = cifsFileInfo_get(open_file);
-+	} else if (rreq->origin == NETFS_WRITEBACK ||
-+		   rreq->origin == NETFS_LAUNDER_WRITE) {
-+		ret = cifs_get_writable_file(CIFS_I(rreq->inode), FIND_WR_ANY, &req->cfile);
-+		if (ret) {
-+			cifs_dbg(VFS, "No writable handle in writepages ret=%d\n", ret);
-+			return ret;
-+		}
-+	} else {
-+		WARN_ON_ONCE(1);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Expand the size of a readahead to the size of the rsize, if at least as
-+ * large as a page, allowing for the possibility that rsize is not pow-2
-+ * aligned.
-+ */
-+static void cifs_expand_readahead(struct netfs_io_request *rreq)
-+{
-+	unsigned int rsize = rreq->rsize;
-+	loff_t misalignment, i_size = i_size_read(rreq->inode);
-+
-+	if (rsize < PAGE_SIZE)
-+		return;
-+
-+	if (rsize < INT_MAX)
-+		rsize = roundup_pow_of_two(rsize);
-+	else
-+		rsize = ((unsigned int)INT_MAX + 1) / 2;
-+
-+	misalignment = rreq->start & (rsize - 1);
-+	if (misalignment) {
-+		rreq->start -= misalignment;
-+		rreq->len += misalignment;
-+	}
-+
-+	rreq->len = round_up(rreq->len, rsize);
-+	if (rreq->start < i_size && rreq->len > i_size - rreq->start)
-+		rreq->len = i_size - rreq->start;
-+}
-+
-+/*
-+ * Completion of a request operation.
-+ */
-+static void cifs_rreq_done(struct netfs_io_request *rreq)
-+{
-+	struct timespec64 atime, mtime;
-+	struct inode *inode = rreq->inode;
-+
-+	/* we do not want atime to be less than mtime, it broke some apps */
-+	atime = inode_set_atime_to_ts(inode, current_time(inode));
-+	mtime = inode_get_mtime(inode);
-+	if (timespec64_compare(&atime, &mtime))
-+		inode_set_atime_to_ts(inode, inode_get_mtime(inode));
-+}
-+
-+static void cifs_post_modify(struct inode *inode)
-+{
-+	/* Indication to update ctime and mtime as close is deferred */
-+	set_bit(CIFS_INO_MODIFIED_ATTR, &CIFS_I(inode)->flags);
-+}
-+
-+static void cifs_free_request(struct netfs_io_request *rreq)
-+{
-+	struct cifs_io_request *req = container_of(rreq, struct cifs_io_request, rreq);
-+
-+	if (req->cfile)
-+		cifsFileInfo_put(req->cfile);
-+}
-+
-+static void cifs_free_subrequest(struct netfs_io_subrequest *subreq)
-+{
-+	struct cifs_io_subrequest *rdata =
-+		container_of(subreq, struct cifs_io_subrequest, subreq);
-+	int rc;
-+
-+	if (rdata->subreq.source == NETFS_DOWNLOAD_FROM_SERVER) {
-+#ifdef CONFIG_CIFS_SMB_DIRECT
-+		if (rdata->mr) {
-+			smbd_deregister_mr(rdata->mr);
-+			rdata->mr = NULL;
-+		}
-+#endif
-+
-+		if (rdata->have_credits)
-+			add_credits_and_wake_if(rdata->server, &rdata->credits, 0);
-+		rc = subreq->error;
-+		free_xid(rdata->xid);
-+	}
-+}
-+
-+const struct netfs_request_ops cifs_req_ops = {
-+	.io_request_size	= sizeof(struct cifs_io_request),
-+	.io_subrequest_size	= sizeof(struct cifs_io_subrequest),
-+	.init_request		= cifs_init_request,
-+	.free_request		= cifs_free_request,
-+	.free_subrequest	= cifs_free_subrequest,
-+	.expand_readahead	= cifs_expand_readahead,
-+	.clamp_length		= cifs_clamp_length,
-+	.issue_read		= cifs_req_issue_read,
-+	.done			= cifs_rreq_done,
-+	.post_modify		= cifs_post_modify,
-+	.create_write_requests	= cifs_create_write_requests,
-+};
- 
- /*
-  * Remove the dirty flags from a span of pages.
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index c927df141385..7e509ad022bd 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -314,6 +314,7 @@ struct netfs_request_ops {
- 
- 	/* Modification handling */
- 	void (*update_i_size)(struct inode *inode, loff_t i_size);
-+	void (*post_modify)(struct inode *inode);
- 
- 	/* Write request handling */
- 	void (*create_write_requests)(struct netfs_io_request *wreq,
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index 447a8c21cf57..06567b5be8fa 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -101,6 +101,7 @@
- #define netfs_sreq_ref_traces					\
- 	EM(netfs_sreq_trace_get_copy_to_cache,	"GET COPY2C ")	\
- 	EM(netfs_sreq_trace_get_resubmit,	"GET RESUBMIT")	\
-+	EM(netfs_sreq_trace_get_submit,		"GET SUBMIT")	\
- 	EM(netfs_sreq_trace_get_short_read,	"GET SHORTRD")	\
- 	EM(netfs_sreq_trace_new,		"NEW        ")	\
- 	EM(netfs_sreq_trace_put_clear,		"PUT CLEAR  ")	\
+ ssize_t
+ cifs_strict_readv(struct kiocb *iocb, struct iov_iter *to)
+ {
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
