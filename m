@@ -1,103 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB24Z46VQMGQE4LTBW2I@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB4UZ46VQMGQEO72QN4A@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBB3D81165A
-	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:25:32 +0100 (CET)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-4258d02fbdasf78280121cf.2
-        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:25:32 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1702481132; cv=pass;
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DAB481165F
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:25:39 +0100 (CET)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-203396d1b0fsf95290fac.3
+        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:25:39 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1702481138; cv=pass;
         d=google.com; s=arc-20160816;
-        b=yOCvJeVBhpDpQDgd7kVLYAQhHRHJ1j93lI81umKiMEtEjqEd3AvXW8McjvbVST+6pq
-         PJEBvQgpykqf9+YvTOmvlxDkzGU3pzwcEDYSkopNcjOAE26iLtlvjV6acAOb4GEqERTm
-         8VV+8J3L5gn3+KSrlMOWRVlFbplADI7m6x6y/LNR1leF8MqHKgoFMtG0L05YGFOCopUD
-         zGLtTIcih4KP3+HvqKidx4Dppw01koQoicWkkOoICpjxMTrZR2qkl6sRbizWK2n5ECgk
-         uKADPKDvmJAdCurFQgM6LT7V7UDZ1VigFqnEl7aDrW4ao0xi0jqyCUJgUfYKncd48Fn0
-         Md3A==
+        b=ZuFDUUpgJE2A013ZQ8g8LstviZ0nfJBQGHgFBnA3po1BuUl+YBAhCDDwOPkGTd6JNA
+         +2Y/+yC+FXX9St+M2Db+2bk6j8Swhn4PE04RfSgX7YIZ5mKQiJOenc59daHceZz24KsS
+         RdASjnT6oANz3rYkNQn/rJcxzaL9j+StoGeeA0hRHIwqsQVAosQcI5ITfV6C2b7tOFZh
+         2ZF3cwnNEmjSEIpWKnl/Jx49grbVEMua+tGw67SO+Ijg/jESLx+Dj06aYsUOKIVq2Skr
+         3tnacp7W+ur8pPd819RpRHWEurMx0Ri2yHcNRNi5Ua/h5atdDmpY4VdyzGYoK8kqxWMh
+         nFYQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=Z2x+hpdK7Ih09BWNQFa76B/SQ+Z0eAwdc9bKVryAuLw=;
+        bh=yWcqwaMnTUANaTfcct2mqRMnqOlXhef92JZjgH0JpLg=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=r7KYkCb75JRWOFpoNTSKGApK4rpnEfmKSj0W0SNXLrGJ/Ppn1wIhPT0BDbCP2GHf12
-         dxeSfHzoX/zzOnNSLxa0U3FA+R09hpkWHZGhIxrlDhnODgnQm2VMAHncGfTkkodC834R
-         BKYiOc1IshMI7CVm7X3DmPvPyjzUqDr0sjex5xGCnYpSLJiy/msYf1vxdg9zKocTWcww
-         1WFoxIFOlL8Rp73bChRZNYFLp3sbq6v+QSlgsuGxo8b9Ekp4F+arl1dPLRXHUdXhtPo5
-         zRQDUIH9VTYoiWXXV+x3zVtDtYdAP3nVuHvztyavHFPWiSY6+Y8FINYcWYVJ56WnQLkC
-         wEcw==
+        b=MumIpsKZbFB5eQQOA/Wd0U8P5IbTrkwbc4hLHVkbPPQHezL9uJ3UNDOcTcpCLTQWBD
+         3h8TbFHzj67J/1DslwbIh3rmNuYksHBlcnoZwhDhn3DqlZiVZq8TiIhZWg2L1Di1SNBw
+         NzsUGfUU4Q6322z+Iq38nozapfD4VOZfcDt1Rq6yA6YS0XV5qpfiCZwLOq1j3Bw5OGBA
+         szfKiZiwEpl3FQbHbR1AUoqXWSakMeDO1PEtvMN2J7jNIeS5X8DPrn2tWMz5XD5NHHb4
+         5F5cwAAx/y9fp+wvYJK5fEPZNMz62gmdP3w6HBfBJDiqkX7971/XMZ5Sj7yuZeCP7DFM
+         hxRQ==
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702481132; x=1703085932;
+        d=1e100.net; s=20230601; t=1702481138; x=1703085938;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z2x+hpdK7Ih09BWNQFa76B/SQ+Z0eAwdc9bKVryAuLw=;
-        b=SHICbi5SPiLyMsr2rO0gnLJZ2WddbjIeOcYVwHp1xHKAZ/dFud0kUKGOq0TAS1b0az
-         eTc+PZvhTYrJU+oqTUaGEqcGnGZlzXyM3xFJ1BHam9Wnx1h8EUHIso3gL05UZt79bEa5
-         HvxbxmkMtc8nBJfzqp3ajjGRs0oI82nkva5b/ox/xe039s27NFxs0OeZQHI/l/3FNMyo
-         RjMw4n2UJB90orFNY9igKRQekxTHephOwHO05na5BGwH88bShJQscJ8yqXIYPC/3IZNs
-         l6xFNkDrZSwa+jjB7fRChQ3InR70qecgkVmbyDaGaw/QedTm+2yWmBtwh1v5ohOUqQV/
-         aEGw==
-X-Gm-Message-State: AOJu0Yy2Wa4DLv2KaC136gQf+wbRUBkGtSOtpBLD9I7q0O+jsBGXfF+J
-	EVh0kSTHTzmGEtPs5B5OSHkIZQ==
-X-Google-Smtp-Source: AGHT+IH5c85F1GfMjC7ZA05prwqWtfeSyFSGCWZiXCDc7ksfSf9TtdbYaPc3h6m9Lyep8lP/HnC+wA==
-X-Received: by 2002:ac8:5f4f:0:b0:425:79a8:ad9c with SMTP id y15-20020ac85f4f000000b0042579a8ad9cmr8920598qta.22.1702481131896;
-        Wed, 13 Dec 2023 07:25:31 -0800 (PST)
+        bh=yWcqwaMnTUANaTfcct2mqRMnqOlXhef92JZjgH0JpLg=;
+        b=E6xXlJQ9SlLwEYyQsVp6B4fRNIcUihf5ucMM00JvSm/anfdA6SgN8kWRMQzIGPxA51
+         JoaQzkdHzkOj15UANzuORkASYsnkyZuU769QGjWI+jZGErtHfkMFkXHd/PpS/4ssWxVU
+         Jd5RjFaslWJWSFNiVtaKVRZur57OuhH99Dx2ngG900aTb7NC8o38bFmWK372zzKUhQvL
+         /65K/WSdppdmCPjTxLpoNwFUHlpdLmIP9ypqK5Mw09Umbrf+2mxQG17MvVcAtEVL7/G2
+         UF46VYps4FsW6VKziPym/1CJUImxjvYccKG6VavvlmdGZFUXdizUx94BMUOEgx8AvOiQ
+         kGAw==
+X-Gm-Message-State: AOJu0YxGPLgCHabbHSmRNZHQrW6ma6aNRMb58ofTQ5ym+0jXqDFmf+rg
+	rv11juYoMfKFCC//BUPbgpxByA==
+X-Google-Smtp-Source: AGHT+IGZUpUvXgllxRat5+Awd20nsve8OzC/9gnrFWHhhqeRvd+oGw2cXLnVrCqW67/f2twRahjlqw==
+X-Received: by 2002:a05:6870:b28d:b0:1fb:1a86:8db0 with SMTP id c13-20020a056870b28d00b001fb1a868db0mr10414877oao.8.1702481138229;
+        Wed, 13 Dec 2023 07:25:38 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:622a:190b:b0:41e:8c36:f7a3 with SMTP id
- w11-20020a05622a190b00b0041e8c36f7a3ls201050qtc.2.-pod-prod-03-us; Wed, 13
- Dec 2023 07:25:31 -0800 (PST)
-X-Received: by 2002:a05:620a:450e:b0:77f:2878:52e6 with SMTP id t14-20020a05620a450e00b0077f287852e6mr8935251qkp.155.1702481131301;
-        Wed, 13 Dec 2023 07:25:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1702481131; cv=none;
+Received: by 2002:a0c:fe90:0:b0:67a:b4d6:5fa0 with SMTP id d16-20020a0cfe90000000b0067ab4d65fa0ls295581qvs.2.-pod-prod-04-us;
+ Wed, 13 Dec 2023 07:25:37 -0800 (PST)
+X-Received: by 2002:a0c:ef0c:0:b0:67e:f854:a70 with SMTP id t12-20020a0cef0c000000b0067ef8540a70mr1324936qvr.30.1702481137547;
+        Wed, 13 Dec 2023 07:25:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1702481137; cv=none;
         d=google.com; s=arc-20160816;
-        b=S1C28hNf2SGr4QLy78jGkOeHvYyzrihJJvKNXbm12AR+pV0OoYUKTf0emoI6HBnYXA
-         0uW8MBzdrK7UM+5+JSYwUmvnnZ5nkLIUhv2Z4ZxubiIflWyPF9XFpFk8AFQ2mtSS6Pzg
-         N4+CZ5Hu/y53mW6jnFdra4rhGtu9pQ+B1CACBd6B+XOjk0rTDqg5kVjmgcDJUoXQobXL
-         9JxzfamEdO0H57wuCG2JikJlHbLLpcDKytFvsvDnvRcu4IaPUCGd9HmFLf5n8dXPtK8y
-         EUOhekLWvE+xv3+4iscxUFv77w3S6/8Kqu2LQrnl6ZBERkNHTF6SxRbo/m6t2JRuuPOP
-         8+Mw==
+        b=nP7KYJZbKW0gCP0xV5/bRH7SQLVriX8EVcFTbhwHY+vSfrbMF++6LfMrfUiL6+uOcM
+         tGH+MspzqnYXsVdBB82B4MPrrm0ggOkmx7PemUrBRDpzxOAs05xmv1qRgK3gPmFiPl1i
+         jTsIHCgq/l2PjBLQ3OPEmbg5zjnUSVsUDFmdupunkrybwsaw9ouf9V9OrclSKzbz2b8N
+         xo1FTOwXTHnaXqQrV+QAYFUarqjcchr39COFn87J+80YdC6woDdCgyCqmZbfdwWBrS6k
+         mgTaBPMLkIIlBFq48vhuegSmIPRt5E3If0Nsh/jVPoUIkSJ2+1hMrvjM+EE2zAaSlWuI
+         2vsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=9CUqcQhkx342wCXCrXY79eb8GLJZvNRKMGt3t1k0yyQ=;
+        bh=/P39zA4P9i416f7rYVx3fltLx7nFHwqFVafrmIB+g6A=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=ogz8J/zxhrnhinfm7hhWCnRsUBIAP2223kOX1I9YK0aL7GVXAPCptyc1Sz2uhohD0B
-         Bs/Gz23ZDXoLz9WcZDrogaeBznBYTOEQu+XwhW2DLFsX7PicPOYnkLSQj47izQpYijUB
-         a26RrNHEK69QuYWv5u/no70VAO/dtZTx4EWiqSHaxeOcVEtQj4U8+IDSTnxeY2ICojs5
-         puWswzsQaVSB+XL8AMk2ooeD+XkJhg3euP7+gMIQpalKjlsxRN+jozYh6EOXk99ada0i
-         RPkqCKlGu3jqYpGFdsUpwQW5dyFxglMLxIGU4AM3j00tCW3cAYAt44iY6TxL0STPiFnZ
-         XLdg==
+        b=gAq/I5WW/A4XDy85NF5BvlKrm1i/A10zf2c//Bf7nMsNE6IYxYQXyQk8nXtCKwxXCQ
+         wJs8LZDcLKGrCj9X/oIRCVZRVLtLQAbW6EPN6DMVwbbMPjQuG55tMELDDEdGz1lFDnnd
+         FzfZgNWvhp5xfbshQFeOidKxJQ44vDtILQVQ+TAo1kNL+NstMp6Jol5vFJNsVZv5r4Uo
+         6keY3Gi6pJYiVijKQkBALd/SUKJ5jlHNC5DAnwYSxt4oKaLGgDwYlXVGRZPnXL70LSVp
+         bHk6CddMCDAygMB4RVyIH6clB7vxbOLx9MoOzyJzncX5yd1NLquexE2ZhALcRuVLsa/H
+         iBew==
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id ov11-20020a05620a628b00b0077f081e30d0si3566659qkn.657.2023.12.13.07.25.31
+        by mx.google.com with ESMTPS id e20-20020ad442b4000000b0067ad8f2d4b7si13417193qvr.287.2023.12.13.07.25.37
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Dec 2023 07:25:31 -0800 (PST)
+        Wed, 13 Dec 2023 07:25:37 -0800 (PST)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-490-4miHHGsNNvesiZEIFJQvKg-1; Wed, 13 Dec 2023 10:25:29 -0500
-X-MC-Unique: 4miHHGsNNvesiZEIFJQvKg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-46-tk2W52mnMcy4qkzH7SfsOA-1; Wed,
+ 13 Dec 2023 10:25:34 -0500
+X-MC-Unique: tk2W52mnMcy4qkzH7SfsOA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61AA1890FD8
-	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:25:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 739751C18CDB
+	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:25:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E5641121306; Wed, 13 Dec 2023 15:25:29 +0000 (UTC)
+	id 712F5492BFD; Wed, 13 Dec 2023 15:25:33 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.2])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8FD7B112131D;
-	Wed, 13 Dec 2023 15:25:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 36718492BE6;
+	Wed, 13 Dec 2023 15:25:30 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,13 +120,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 22/39] netfs: Make the refcounting of netfs_begin_read() easier to use
-Date: Wed, 13 Dec 2023 15:23:32 +0000
-Message-ID: <20231213152350.431591-23-dhowells@redhat.com>
+Subject: [PATCH v4 23/39] netfs: Prep to use folio->private for write grouping and streaming write
+Date: Wed, 13 Dec 2023 15:23:33 +0000
+Message-ID: <20231213152350.431591-24-dhowells@redhat.com>
 In-Reply-To: <20231213152350.431591-1-dhowells@redhat.com>
 References: <20231213152350.431591-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -146,9 +145,29 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Make the refcounting of netfs_begin_read() easier to use by not eating the
-caller's ref on the netfs_io_request it's given.  This makes it easier to
-use when we need to look in the request struct after.
+Prepare to use folio->private to hold information write grouping and
+streaming write.  These are implemented in the same commit as they both
+make use of folio->private and will be both checked at the same time in
+several places.
+
+"Write grouping" involves ordering the writeback of groups of writes, such
+as is needed for ceph snaps.  A group is represented by a
+filesystem-supplied object which must contain a netfs_group struct.  This
+contains just a refcount and a pointer to a destructor.
+
+"Streaming write" is the storage of data in folios that are marked dirty,
+but not uptodate, to avoid unnecessary reads of data.  This is represented
+by a netfs_folio struct.  This contains the offset and length of the
+modified region plus the otherwise displaced write grouping pointer.
+
+The way folio->private is multiplexed is:
+
+ (1) If private is NULL then neither is in operation on a dirty folio.
+
+ (2) If private is set, with bit 0 clear, then this points to a group.
+
+ (3) If private is set, with bit 0 set, then this points to a netfs_folio
+     struct (with bit 0 AND'ed out).
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -156,145 +175,162 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_read.c     |  6 +++++-
- fs/netfs/io.c                | 28 +++++++++++++---------------
- include/trace/events/netfs.h |  9 +++++----
- 3 files changed, 23 insertions(+), 20 deletions(-)
+ fs/netfs/internal.h   | 28 ++++++++++++++++++++++++++
+ fs/netfs/misc.c       | 46 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/netfs.h | 41 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 115 insertions(+)
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 751556faa70b..6b9a44cafbac 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -210,6 +210,7 @@ void netfs_readahead(struct readahead_control *ractl)
- 		;
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 8d1bfc9c3e2f..1b83c534593a 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -149,6 +149,34 @@ static inline bool netfs_is_cache_enabled(struct netfs_inode *ctx)
+ #endif
+ }
  
- 	netfs_begin_read(rreq, false);
-+	netfs_put_request(rreq, false, netfs_rreq_trace_put_return);
- 	return;
- 
- cleanup_free:
-@@ -260,7 +261,9 @@ int netfs_read_folio(struct file *file, struct folio *folio)
- 	iov_iter_xarray(&rreq->iter, ITER_DEST, &mapping->i_pages,
- 			rreq->start, rreq->len);
- 
--	return netfs_begin_read(rreq, true);
-+	ret = netfs_begin_read(rreq, true);
-+	netfs_put_request(rreq, false, netfs_rreq_trace_put_return);
-+	return ret;
- 
- discard:
- 	netfs_put_request(rreq, false, netfs_rreq_trace_put_discard);
-@@ -429,6 +432,7 @@ int netfs_write_begin(struct netfs_inode *ctx,
- 	ret = netfs_begin_read(rreq, true);
- 	if (ret < 0)
- 		goto error;
-+	netfs_put_request(rreq, false, netfs_rreq_trace_put_return);
- 
- have_folio:
- 	ret = folio_wait_fscache_killable(folio);
-diff --git a/fs/netfs/io.c b/fs/netfs/io.c
-index c80b8eed1209..1795f8679be9 100644
---- a/fs/netfs/io.c
-+++ b/fs/netfs/io.c
-@@ -362,6 +362,7 @@ static void netfs_rreq_assess(struct netfs_io_request *rreq, bool was_async)
- 
- 	netfs_rreq_unlock_folios(rreq);
- 
-+	trace_netfs_rreq(rreq, netfs_rreq_trace_wake_ip);
- 	clear_bit_unlock(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
- 	wake_up_bit(&rreq->flags, NETFS_RREQ_IN_PROGRESS);
- 
-@@ -657,7 +658,6 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 
- 	if (rreq->len == 0) {
- 		pr_err("Zero-sized read [R=%x]\n", rreq->debug_id);
--		netfs_put_request(rreq, false, netfs_rreq_trace_put_zero_len);
- 		return -EIO;
- 	}
- 
-@@ -669,12 +669,10 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 
- 	INIT_WORK(&rreq->work, netfs_rreq_work);
- 
--	if (sync)
--		netfs_get_request(rreq, netfs_rreq_trace_get_hold);
--
- 	/* Chop the read into slices according to what the cache and the netfs
- 	 * want and submit each one.
- 	 */
-+	netfs_get_request(rreq, netfs_rreq_trace_get_for_outstanding);
- 	atomic_set(&rreq->nr_outstanding, 1);
- 	io_iter = rreq->io_iter;
- 	do {
-@@ -684,25 +682,25 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync)
- 	} while (rreq->submitted < rreq->len);
- 
- 	if (sync) {
--		/* Keep nr_outstanding incremented so that the ref always belongs to
--		 * us, and the service code isn't punted off to a random thread pool to
--		 * process.
-+		/* Keep nr_outstanding incremented so that the ref always
-+		 * belongs to us, and the service code isn't punted off to a
-+		 * random thread pool to process.  Note that this might start
-+		 * further work, such as writing to the cache.
- 		 */
--		for (;;) {
--			wait_var_event(&rreq->nr_outstanding,
--				       atomic_read(&rreq->nr_outstanding) == 1);
-+		wait_var_event(&rreq->nr_outstanding,
-+			       atomic_read(&rreq->nr_outstanding) == 1);
-+		if (atomic_dec_and_test(&rreq->nr_outstanding))
- 			netfs_rreq_assess(rreq, false);
--			if (!test_bit(NETFS_RREQ_IN_PROGRESS, &rreq->flags))
--				break;
--			cond_resched();
--		}
++/*
++ * Get a ref on a netfs group attached to a dirty page (e.g. a ceph snap).
++ */
++static inline struct netfs_group *netfs_get_group(struct netfs_group *netfs_group)
++{
++	if (netfs_group)
++		refcount_inc(&netfs_group->ref);
++	return netfs_group;
++}
 +
-+		trace_netfs_rreq(rreq, netfs_rreq_trace_wait_ip);
-+		wait_on_bit(&rreq->flags, NETFS_RREQ_IN_PROGRESS,
-+			    TASK_UNINTERRUPTIBLE);
++/*
++ * Dispose of a netfs group attached to a dirty page (e.g. a ceph snap).
++ */
++static inline void netfs_put_group(struct netfs_group *netfs_group)
++{
++	if (netfs_group && refcount_dec_and_test(&netfs_group->ref))
++		netfs_group->free(netfs_group);
++}
++
++/*
++ * Dispose of a netfs group attached to a dirty page (e.g. a ceph snap).
++ */
++static inline void netfs_put_group_many(struct netfs_group *netfs_group, int nr)
++{
++	if (netfs_group && refcount_sub_and_test(nr, &netfs_group->ref))
++		netfs_group->free(netfs_group);
++}
++
+ /*
+  * fscache-cache.c
+  */
+diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
+index 96014c3d1683..40421ced4cd3 100644
+--- a/fs/netfs/misc.c
++++ b/fs/netfs/misc.c
+@@ -177,9 +177,55 @@ EXPORT_SYMBOL(netfs_clear_inode_writeback);
+  */
+ void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
+ {
++	struct netfs_folio *finfo = NULL;
++	size_t flen = folio_size(folio);
++
+ 	_enter("{%lx},%zx,%zx", folio_index(folio), offset, length);
  
- 		ret = rreq->error;
- 		if (ret == 0 && rreq->submitted < rreq->len) {
- 			trace_netfs_failure(rreq, NULL, ret, netfs_fail_short_read);
- 			ret = -EIO;
- 		}
--		netfs_put_request(rreq, false, netfs_rreq_trace_put_hold);
- 	} else {
- 		/* If we decrement nr_outstanding to 0, the ref belongs to us. */
- 		if (atomic_dec_and_test(&rreq->nr_outstanding))
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index 4ea4e34d279f..6daadf2aac8a 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -34,7 +34,9 @@
- 	EM(netfs_rreq_trace_free,		"FREE   ")	\
- 	EM(netfs_rreq_trace_resubmit,		"RESUBMT")	\
- 	EM(netfs_rreq_trace_unlock,		"UNLOCK ")	\
--	E_(netfs_rreq_trace_unmark,		"UNMARK ")
-+	EM(netfs_rreq_trace_unmark,		"UNMARK ")	\
-+	EM(netfs_rreq_trace_wait_ip,		"WAIT-IP")	\
-+	E_(netfs_rreq_trace_wake_ip,		"WAKE-IP")
+ 	folio_wait_fscache(folio);
++
++	if (!folio_test_private(folio))
++		return;
++
++	finfo = netfs_folio_info(folio);
++
++	if (offset == 0 && length >= flen)
++		goto erase_completely;
++
++	if (finfo) {
++		/* We have a partially uptodate page from a streaming write. */
++		unsigned int fstart = finfo->dirty_offset;
++		unsigned int fend = fstart + finfo->dirty_len;
++		unsigned int end = offset + length;
++
++		if (offset >= fend)
++			return;
++		if (end <= fstart)
++			return;
++		if (offset <= fstart && end >= fend)
++			goto erase_completely;
++		if (offset <= fstart && end > fstart)
++			goto reduce_len;
++		if (offset > fstart && end >= fend)
++			goto move_start;
++		/* A partial write was split.  The caller has already zeroed
++		 * it, so just absorb the hole.
++		 */
++	}
++	return;
++
++erase_completely:
++	netfs_put_group(netfs_folio_group(folio));
++	folio_detach_private(folio);
++	folio_clear_uptodate(folio);
++	kfree(finfo);
++	return;
++reduce_len:
++	finfo->dirty_len = offset + length - finfo->dirty_offset;
++	return;
++move_start:
++	finfo->dirty_len -= offset - finfo->dirty_offset;
++	finfo->dirty_offset = offset;
+ }
+ EXPORT_SYMBOL(netfs_invalidate_folio);
  
- #define netfs_sreq_sources					\
- 	EM(NETFS_FILL_WITH_ZEROES,		"ZERO")		\
-@@ -65,14 +67,13 @@
- 	E_(netfs_fail_prepare_write,		"prep-write")
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index a14af93efccf..2406e11b41bd 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -140,6 +140,47 @@ struct netfs_inode {
+ #define NETFS_ICTX_ODIRECT	0		/* The file has DIO in progress */
+ };
  
- #define netfs_rreq_ref_traces					\
--	EM(netfs_rreq_trace_get_hold,		"GET HOLD   ")	\
-+	EM(netfs_rreq_trace_get_for_outstanding,"GET OUTSTND")	\
- 	EM(netfs_rreq_trace_get_subreq,		"GET SUBREQ ")	\
- 	EM(netfs_rreq_trace_put_complete,	"PUT COMPLT ")	\
- 	EM(netfs_rreq_trace_put_discard,	"PUT DISCARD")	\
- 	EM(netfs_rreq_trace_put_failed,		"PUT FAILED ")	\
--	EM(netfs_rreq_trace_put_hold,		"PUT HOLD   ")	\
-+	EM(netfs_rreq_trace_put_return,		"PUT RETURN ")	\
- 	EM(netfs_rreq_trace_put_subreq,		"PUT SUBREQ ")	\
--	EM(netfs_rreq_trace_put_zero_len,	"PUT ZEROLEN")	\
- 	E_(netfs_rreq_trace_new,		"NEW        ")
- 
- #define netfs_sreq_ref_traces					\
++/*
++ * A netfs group - for instance a ceph snap.  This is marked on dirty pages and
++ * pages marked with a group must be flushed before they can be written under
++ * the domain of another group.
++ */
++struct netfs_group {
++	refcount_t		ref;
++	void (*free)(struct netfs_group *netfs_group);
++};
++
++/*
++ * Information about a dirty page (attached only if necessary).
++ * folio->private
++ */
++struct netfs_folio {
++	struct netfs_group	*netfs_group;	/* Filesystem's grouping marker (or NULL). */
++	unsigned int		dirty_offset;	/* Write-streaming dirty data offset */
++	unsigned int		dirty_len;	/* Write-streaming dirty data length */
++};
++#define NETFS_FOLIO_INFO	0x1UL	/* OR'd with folio->private. */
++
++static inline struct netfs_folio *netfs_folio_info(struct folio *folio)
++{
++	void *priv = folio_get_private(folio);
++
++	if ((unsigned long)priv & NETFS_FOLIO_INFO)
++		return (struct netfs_folio *)((unsigned long)priv & ~NETFS_FOLIO_INFO);
++	return NULL;
++}
++
++static inline struct netfs_group *netfs_folio_group(struct folio *folio)
++{
++	struct netfs_folio *finfo;
++	void *priv = folio_get_private(folio);
++
++	finfo = netfs_folio_info(folio);
++	if (finfo)
++		return finfo->netfs_group;
++	return priv;
++}
++
+ /*
+  * Resources required to do operations on a cache.
+  */
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
