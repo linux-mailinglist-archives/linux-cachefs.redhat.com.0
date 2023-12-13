@@ -1,137 +1,137 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBZ77ZCVQMGQEH7GUG6I@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBDUZ46VQMGQEFVU27KQ@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF0E8094F8
-	for <lists+linux-cachefs@lfdr.de>; Thu,  7 Dec 2023 22:58:00 +0100 (CET)
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-5d340a9cf07sf16686057b3.3
-        for <lists+linux-cachefs@lfdr.de>; Thu, 07 Dec 2023 13:58:00 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1701986280; cv=pass;
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FB581161D
+	for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 16:23:59 +0100 (CET)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-425bbca60f7sf54317541cf.1
+        for <lists+linux-cachefs@lfdr.de>; Wed, 13 Dec 2023 07:23:59 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1702481039; cv=pass;
         d=google.com; s=arc-20160816;
-        b=RMHAmTSELw9eJFz1Zbpdz1CeftjfxLPFhKh7Napt74yrIJcPLwHnTi2IXhxONgk+ow
-         vBj/0Zlov2ovYA3CdMXnB3KgOwX11tNmXZrD2c8NjiL9M8l/TPWAlYu+p/UL0f6TgQW9
-         K9VsmQCEqyT1QKJ4gusatbAkUaKY8GObgf657Va8w/xF0/3DGeGUWYrqr2do4+CbJJN0
-         KBynxzcypcELoYH1ortJpr+jOmoymhfGNnOQtuxhwU+Fl437KDu6u5vEkYyE8FKWVLW9
-         k/KNe8V4fszn0vMer06PMR+MoSsTa2Hw8KqxPQAvAFK2VUU8edKcxN0lBmRAgsL7TiBz
-         6JnQ==
+        b=1GmKpia4J6Pp3MMWkkCKbopbngCwCAEKxbLKt1KSx9tFG3rJTqVGFoMfJ7FBerM0KT
+         Inw6V3G3AG3vFrkztjQiKQNQKOA/QnIJUOs4lNlKqVopdfeOmS7MGEVe/GB6uSzVhAhY
+         SDjG1G8awlrDZiMDtlwVNAZ3If8rMdomZj/moD6Pwt7uksRH6UN+F4XzQbC2FN0NSONY
+         5r91PH3wHujGSoiIiTrFSLlvYnfT6xHIzV98QuVNYk6rsHKdlrvwFQ2Oe35BELqqPHtk
+         9/Zbvd+mkb4kTf7hYw7tIUKgf+SGC21O9ALGT5/Nn/gtAmhPtvuPl1GjlIrUY0oLD5ae
+         gHFQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:content-id:message-id:date:mime-version
-         :subject:cc:to:references:in-reply-to:from:organization:delivered-to;
-        bh=pvGCPu1HsuvmLRAGG43e+RsGZp2CbPnwqPJXEwNIRvI=;
-        fh=yIDznifpxrrvsjZy3g+jijG4g7ja0E5j5HJqf3Ctp6k=;
-        b=uz3UsxkMoh2OEDYKo/L0K72UbpufeH/wJduEEjHTOxMYWHjiKmtrjy3c5E/SWEu/+m
-         YfnCg9PXTTpq3kvRqDVx8mEX943sVsBxVuwdE7pRf6ZBjiWuP4fQSPAbJt++To50Y36n
-         AAAQFYsCHtFhmqz3Rd4cxi5M3H9YMP5lWcQznLKIns7fQlmB1x2LPncPPlgY+QfwB7h5
-         8XRYBxKOW9vEk4CClHoaLH85VJr0oqWYlw+Mel9/ASedwwuNglxwlqMerF89RCOn187w
-         aXD/6udtlwcr8cPVA5urm4xzxIvZcoqYR6uewXK4mcchP6C9Pv49/QYEkNQ6d93DJaAO
-         p0Rw==
+         :mailing-list:precedence:mime-version:message-id:date:subject:cc:to
+         :from:delivered-to;
+        bh=sR1PFZ7y2K9kH9O+yHU25qnOKtjrEcg9M8sPUn49iWg=;
+        fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
+        b=wWmEwSyWDuvHBPVznVgz9v+0wV2cFp3BB12VupUhB506vQJe64pzOhA2AjLyG8cgf1
+         5LP5eRCKPIY8kAfDq4zIHOpxsMJy9RoY4HpH62r+1BUOU4Jwdwm48BB2vyKhN1RNz5Pr
+         wTSrrvutdNS9plKEmctARfK3fgdbem0zx4YHC9Q6C7dtJ+uS30Ud+v5p+/5j++MbToxA
+         ztPzHPixaOqAvNMq6NfLwfgdBlhEseqZFL33SL9tmoldLg8oKeuwgqpFNUUT/ys1G330
+         ZIfjfRMHV0wpum4+8syJhFrDMjaCtXj2lIrVIUtnGSogkR1LKgzjemwomOvgqPFIVAXI
+         Prww==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701986280; x=1702591080;
+        d=1e100.net; s=20230601; t=1702481039; x=1703085839;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:content-id
-         :message-id:date:mime-version:subject:cc:to:references:in-reply-to
-         :from:organization:delivered-to:x-beenthere:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pvGCPu1HsuvmLRAGG43e+RsGZp2CbPnwqPJXEwNIRvI=;
-        b=MsJJ+agDZoP/wyPqiHXJ6NGw+2JZzHV2+C8jIS6Zil2vZcU5g59vh8N7PiGY9wc69u
-         +pQDL5meROVfUWwOZXW6ppdAKAwTP6x6xZLh/hGgUNcAgvhmN8gpNjwc50Qy+y8YR7KK
-         4k8zvUiEL9NSXZk2k1b6vZPD0AUXI/nnRC94J8AA5o5p5CoYmu/M0SrJLDqVQVqAL+ft
-         06O0IIC9MXwYTCW772BSwFl3uD3vjoXzxBv//BP5rYJ8G8nKu5xCykZ4myKdsJVhRkdE
-         BlZ8OywkwlK5wANskaKNvZ7A2dCGkZM0SySY9qBgI1u5eyvAl56DPlqJ8PJ/JkMIFfKp
-         4JcQ==
-X-Gm-Message-State: AOJu0Yx5JuPCyUssvN3CtZ4uf8o7jeuMSYx/UlqsuueXptarHgy6mRfb
-	E2V/aH1r6zlgxd3FVAOSv2D5iQ==
-X-Google-Smtp-Source: AGHT+IESJYKupiYHFMUDcbAHFrki5NkppzbaeEMgigr9ESBqyeKZKiCOoxqfK8aS+r58K1k7qAL/SA==
-X-Received: by 2002:a81:6dd7:0:b0:5d4:195e:31db with SMTP id i206-20020a816dd7000000b005d4195e31dbmr3276918ywc.2.1701986279744;
-        Thu, 07 Dec 2023 13:57:59 -0800 (PST)
+         :x-original-authentication-results:x-original-sender:mime-version
+         :message-id:date:subject:cc:to:from:delivered-to:x-beenthere
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=sR1PFZ7y2K9kH9O+yHU25qnOKtjrEcg9M8sPUn49iWg=;
+        b=tXbu3wL0BdPqYuL0gsyeJzTCPx/kpFA3UImLgbAjjoRFtQpsBzpiQhgswGbWts/4V9
+         C8rBsPiXu0oDXZPzbkdOEcdtiWnyaENFEvqjaOqGR7PQ6SmeSUScH4UKmFMiHckYNDEJ
+         1N21QnoI3WyYDQGRpXOzlhUQX4QNPro7rF+GFGzPhm1gwsNqAsqMM4RmWRJi51ii/ncN
+         ikiNM9BKULJ/U0qX7FWqjTNxqtrESCVTfbPp24OTE7S88EZuS988Vc576PR42rbQO7d0
+         GpoaxIs9EkASE73Bifx1Y++ttKiQs7Cs13G/0bJ0nO7GryiUXWgMqA+XzeRgdEUZeKcn
+         HY3g==
+X-Gm-Message-State: AOJu0YxBtzTJERNrzi6YPjzMIHThaepLR6T7fNxaORS5zkYWhkwEquAa
+	F5iNRyvuubfF2g13cVl5w0TcNw==
+X-Google-Smtp-Source: AGHT+IHq20tlybp1AgM/9+rdqMvt+VvBjrMl1FAK5uYaqe8y0T7AZdn5s+X/XZaMp5SRiZGTZdr9Ew==
+X-Received: by 2002:a05:622a:1792:b0:425:89a1:b2ec with SMTP id s18-20020a05622a179200b0042589a1b2ecmr12274285qtk.100.1702481038801;
+        Wed, 13 Dec 2023 07:23:58 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a0c:bec6:0:b0:67a:a15d:e966 with SMTP id f6-20020a0cbec6000000b0067aa15de966ls1204723qvj.1.-pod-prod-05-us;
- Thu, 07 Dec 2023 13:57:59 -0800 (PST)
-X-Received: by 2002:ad4:5047:0:b0:67a:a721:cb02 with SMTP id m7-20020ad45047000000b0067aa721cb02mr3312128qvq.99.1701986279233;
-        Thu, 07 Dec 2023 13:57:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1701986279; cv=none;
+Received: by 2002:a05:622a:19a2:b0:423:7c51:c731 with SMTP id
+ u34-20020a05622a19a200b004237c51c731ls619698qtc.2.-pod-prod-05-us; Wed, 13
+ Dec 2023 07:23:58 -0800 (PST)
+X-Received: by 2002:a05:620a:a58:b0:77f:69ed:7f40 with SMTP id j24-20020a05620a0a5800b0077f69ed7f40mr7163059qka.7.1702481038045;
+        Wed, 13 Dec 2023 07:23:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1702481038; cv=none;
         d=google.com; s=arc-20160816;
-        b=aIa0Sv1FcL/qVfxPn0ocvN2X9wlMWWxCLLmvBYFdHixyIq431cDBIvE3QlHvBFIHla
-         6YRqL1i4teH4EJsajumugvUU6w30KFw0zhBLrXTD8HKJMOLFKsFOkqR7jE9Cbh3jsNXj
-         320UUQA9uypel6lZBa4PxwnHYP1Xs/IU0+bsuMIrSHncB+ir3KLs2v4DFfdevANMhSjP
-         a2s9DHUYgZ0mrXFXeE4KZN911ll6cKvs9a2cyGOZlPElDtCp386y9ZquUqAgzr2u/IUb
-         2qr+BoqD9nOsPNg3J0K+zQPEiAP/JbcFL6+6PTVZe9gS97ZonOymQzwc6EshHJzEDM6V
-         430A==
+        b=Zt5+Dsfj4d7dsIs9j31DdsPyiR+1lGN1M5qQFrxnuZ44NsIPT2LV37hsA/qF9/axhT
+         /AwAvVsatrcL6Hkw6U5kLHamKxCsSAmoLS3rT23OPqtbQ7vwcBfDDOrlXdMOp/8gY2WI
+         EjbDo7JUe9sMEOmMzszTKZf6/F/8HUm+o1W72OboWLbH27zVAkIZNUq2L8c1n6gitkrX
+         SaE4ZbBlEAfGWXidoycczJvGZ1By6i/5FzlN7wij1XqqP8kL9Rdil9PutcfEnmwh2t+1
+         AiM8xuDv6LFqIUoovz1Zsro0wjOyMNzhjtaXM+5BltHtutIRB6TwzRWnGPHp7JOTy1xH
+         0xGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-id:message-id:date:mime-version:subject:cc:to:references
-         :in-reply-to:from:organization:delivered-to;
-        bh=2gpuqenBf/seLQmhrTte/4HdPOyV33jxxLbSCYkPyeM=;
-        fh=yIDznifpxrrvsjZy3g+jijG4g7ja0E5j5HJqf3Ctp6k=;
-        b=vID8Q4uCT2rtT0eBcFdt0Sxl3ohGH7zN0AsiDhkadj5s1V+DfYSeN3IpwNBtzgSC6u
-         pYgp5kGq/ynIzFoD3wPfYsoPi/vDgxV9JjP5C2oH0eifFD3q0C05yJm5WtgZRGI0tqt3
-         Lk3HbtM0WPf2eMP8jTHijSXn1isB+UC/6766RywMBNyc2nxmgWmBW7cFQgRfbLz0SpJr
-         lf9+X014XCH2aEJg5ZPHPH22cRusGEKnudMmfwhOdZG8RBN2dNU3BdXkYgpzQNpDxFJ9
-         RrPG5TSfWfX9VGYUgq7Iikvhk8B8iQ2ZKtq5sAtALSJOmyB85FqxeyKYmc4mExfGMKof
-         73cw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:delivered-to;
+        bh=nElvBfJsqrTBHn7ca9kS/IDQA0m2TnErz3scXuPoO1A=;
+        fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
+        b=RPNRq4LMlvkXza6xaAvA4n9BuFK8f0+ZeoWo6eqSYDqH6VKQzITYUhazs5qwpE9uJz
+         4PV1M72QoavQDLcMMb0l2L6/+FjESwZcVg3cZijY9CjOIKtMx0GFnHULO6Ryut7BHSYb
+         SUXXtq9gRNfILqdcAfBoUF15lPFQqx9IK2AgEISqeVrh3NqETG+w/UdqRhTamtbh3NPG
+         A3tRxdNWCU3C+AmQxXn115LLD746A488dCYRuBo+Vt2zx+o+7gVr0yk73L/508dbDuem
+         JaHfI2eHL30HVvQFvpYf1268DlNf0em2uhLgqX1duvyqnwPpBKFcrKVpj+STFojjeK8S
+         OS0g==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id dp3-20020a05621409c300b0067ab8280dc4si654566qvb.492.2023.12.07.13.57.59
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id i16-20020a05620a27d000b0077d743cfb7fsi13239679qkp.224.2023.12.13.07.23.57
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Dec 2023 13:57:59 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-78-YYdKAUyYNc2lsEpDhedQAA-1; Thu,
- 07 Dec 2023 16:57:56 -0500
-X-MC-Unique: YYdKAUyYNc2lsEpDhedQAA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+        Wed, 13 Dec 2023 07:23:58 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-83-AYdpZwwZPv22ae_zlQeWAw-1; Wed, 13 Dec 2023 10:23:56 -0500
+X-MC-Unique: AYdpZwwZPv22ae_zlQeWAw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 816B629AC008
-	for <linux-cachefs@gapps.redhat.com>; Thu,  7 Dec 2023 21:57:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBE0B85A588
+	for <linux-cachefs@gapps.redhat.com>; Wed, 13 Dec 2023 15:23:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E0F21C0652C; Thu,  7 Dec 2023 21:57:56 +0000 (UTC)
+	id D5477C159B0; Wed, 13 Dec 2023 15:23:55 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from warthog.procyon.org.uk (unknown [10.42.28.161])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E59971C060AF;
-	Thu,  7 Dec 2023 21:57:53 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
+Received: from warthog.procyon.org.com (unknown [10.42.28.2])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B84EDC1596E;
+	Wed, 13 Dec 2023 15:23:52 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <ZXI7aGHkxZyiytXg@casper.infradead.org>
-References: <ZXI7aGHkxZyiytXg@casper.infradead.org> <20231207212206.1379128-1-dhowells@redhat.com> <20231207212206.1379128-60-dhowells@redhat.com>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: dhowells@redhat.com, Jeff Layton <jlayton@kernel.org>,
-    Steve French <smfrench@gmail.com>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Paulo Alcantara <pc@manguebit.com>,
-    Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Ilya Dryomov <idryomov@gmail.com>,
-    Christian Brauner <christian@brauner.io>, linux-cachefs@redhat.com,
-    linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-    linux-mm@kvack.org, netdev@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 59/59] netfs: Eliminate PG_fscache by setting folio->private and marking dirty
+To: Jeff Layton <jlayton@kernel.org>,
+	Steve French <smfrench@gmail.com>
+Cc: David Howells <dhowells@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Paulo Alcantara <pc@manguebit.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Christian Brauner <christian@brauner.io>,
+	linux-cachefs@redhat.com,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 00/39] netfs, afs, 9p: Delegate high-level I/O to netfslib
+Date: Wed, 13 Dec 2023 15:23:10 +0000
+Message-ID: <20231213152350.431591-1-dhowells@redhat.com>
 MIME-Version: 1.0
-Date: Thu, 07 Dec 2023 21:57:53 +0000
-Message-ID: <1451127.1701986273@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-ID: <1451125.1701986273.1@warthog.procyon.org.uk>
+Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -143,17 +143,276 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Matthew Wilcox <willy@infradead.org> wrote:
+Hi Jeff, Steve, Dominique,
 
-> On Thu, Dec 07, 2023 at 09:22:06PM +0000, David Howells wrote:
-> > With this, PG_fscache is no longer required.
-> 
-> ... for filesystems that use netfslib, right?  ie we can't delete
-> folio_wait_private_2_killable() and friends because nfs still uses it?
+I have been working on my netfslib helpers to the point that I can run
+xfstests on AFS to completion (both with write-back buffering and, with a
+small patch, write-through buffering in the pagecache).  I have a patch for
+9P, but am currently unable to test it.
 
-Yeah.  Though I have my eye on NFS too ;-)
+The patches remove a little over 800 lines from AFS, 300 from 9P, albeit with
+around 3000 lines added to netfs.  Hopefully, I will be able to remove a bunch
+of lines from Ceph too.
+
+I've split the CIFS patches out to a separate branch, cifs-netfs, where a
+further 2000+ lines are removed.  I can run a certain amount of xfstests on
+CIFS, though I'm running into ksmbd issues and not all the tests work
+correctly because of issues between fallocate and what the SMB protocol
+actually supports.
+
+I've also dropped the content-crypto patches out for the moment as they're
+only usable by the ceph changes which I'm still working on.
+
+The patch to use PG_writeback instead of PG_fscache for writing to the
+cache has also been deferred, pending 9p, afs, ceph and cifs all being
+converted.
+
+The main aims of these patches are to get high-level I/O and knowledge of
+the pagecache out of the filesystem drivers as much as possible and to get
+rid, as much of possible, of the knowledge that pages/folios exist.
+
+Further, I would like to see ->write_begin, ->write_end and ->launder_folio
+go away.
+
+Features that are added by these patches to that which is already there in
+netfslib:
+
+ (1) NFS-style (and Ceph-style) locking around DIO vs buffered I/O calls to
+     prevent these from happening at the same time.  mmap'd I/O can, of
+     necessity, happen at any time ignoring these locks.
+
+ (2) Support for unbuffered I/O.  The data is kept in the bounce buffer and
+     the pagecache is not used.  This can be turned on with an inode flag.
+
+ (3) Support for direct I/O.  This is basically unbuffered I/O with some
+     extra restrictions and no RMW.
+
+ (4) Support for using a bounce buffer in an operation.  The bounce buffer
+     may be bigger than the target data/buffer, allowing for crypto
+     rounding.
+
+ (5) ->write_begin() and ->write_end() are ignored in favour of merging all
+     of that into one function, netfs_perform_write(), thereby avoiding the
+     function pointer traversals.
+
+ (6) Support for write-through caching in the pagecache.
+     netfs_perform_write() adds the pages is modifies to an I/O operation
+     as it goes and directly marks them writeback rather than dirty.  When
+     writing back from write-through, it limits the range written back.
+     This should allow CIFS to deal with byte-range mandatory locks
+     correctly.
+
+ (7) O_*SYNC and RWF_*SYNC writes use write-through rather than writing to
+     the pagecache and then flushing afterwards.  An AIO O_*SYNC write will
+     notify of completion when the sub-writes all complete.
+
+ (8) Support for write-streaming where modifed data is held in !uptodate
+     folios, with a private struct attached indicating the range that is
+     valid.
+
+ (9) Support for write grouping, multiplexing a pointer to a group in the
+     folio private data with the write-streaming data.  The writepages
+     algorithm only writes stuff back that's in the nominated group.  This
+     is intended for use by Ceph to write is snaps in order.
+
+(10) Skipping reads for which we know the server could only supply zeros or
+     EOF (for instance if we've done a local write that leaves a hole in
+     the file and extends the local inode size).
+
+General notes:
+
+ (1) The fscache module is merged into the netfslib module to avoid cyclic
+     exported symbol usage that prevents either module from being loaded.
+
+ (2) Some helpers from fscache are reassigned to netfslib by name.
+
+ (3) netfslib now makes use of folio->private, which means the filesystem
+     can't use it.
+
+ (4) The filesystem provides wrappers to call the write helpers, allowing
+     it to do pre-validation, oplock/capability fetching and the passing in
+     of write group info.
+
+ (5) I want to try flushing the data when tearing down an inode before
+     invalidating it to try and render launder_folio unnecessary.
+
+ (6) Write-through caching will generate and dispatch write subrequests as
+     it gathers enough data to hit wsize and has whole pages that at least
+     span that size.  This needs to be a bit more flexible, allowing for a
+     filesystem such as CIFS to have a variable wsize.
+
+ (7) The filesystem driver is just given read and write calls with an
+     iov_iter describing the data/buffer to use.  Ideally, they don't see
+     pages or folios at all.  A function, extract_iter_to_sg(), is already
+     available to decant part of an iterator into a scatterlist for crypto
+     purposes.
+
+
+9P notes:
+
+ (1) I haven't managed to test this as I haven't been able to get Ganesha
+     to work correctly with 9P.
+
+ (2) Writes should now occur in larger-than-page-sized chunks.
+
+ (3) It should be possible to turn on multipage folio support in 9P now.
+
+
+Changes
+=======
+ver #4)
+ - Slimmed down the branch:
+   - Split the cifs-related patches off to a separate branch (cifs-netfs)
+   - Deferred the content-encryption to the in-progress ceph changes.
+   - Deferred the use-PG_writeback rather than PG_fscache patch
+ - Rebased on a later linux-next with afs-rotation patches.
+
+ver #3)
+ - Moved the fscache module into netfslib to avoid export cycles.
+ - Fixed a bunch of bugs.
+ - Got CIFS to pass as much of xfstests as possible.
+ - Added a patch to make 9P use all the helpers.
+ - Added a patch to stop using PG_fscache, but rather dirty pages on
+   reading and have writepages write to the cache.
+
+ver #2)
+ - Folded the addition of NETFS_RREQ_NONBLOCK/BLOCKED into first patch that
+   uses them.
+ - Folded addition of rsize member into first user.
+ - Don't set rsize in ceph (yet) and set it in kafs to 256KiB.  cifs sets
+   it dynamically.
+ - Moved direct_bv next to direct_bv_count in struct netfs_io_request and
+   labelled it with a __counted_by().
+ - Passed flags into netfs_xa_store_and_mark() rather than two bools.
+ - Removed netfs_set_up_buffer() as it wasn't used.
 
 David
+
+Link: https://lore.kernel.org/r/20231013160423.2218093-1-dhowells@redhat.com/ # v1
+Link: https://lore.kernel.org/r/20231117211544.1740466-1-dhowells@redhat.com/ # v2
+
+David Howells (39):
+  netfs, fscache: Move fs/fscache/* into fs/netfs/
+  netfs, fscache: Combine fscache with netfs
+  netfs, fscache: Remove ->begin_cache_operation
+  netfs, fscache: Move /proc/fs/fscache to /proc/fs/netfs and put in a
+    symlink
+  netfs: Move pinning-for-writeback from fscache to netfs
+  netfs: Add a procfile to list in-progress requests
+  netfs: Allow the netfs to make the io (sub)request alloc larger
+  netfs: Add a ->free_subrequest() op
+  afs: Don't use folio->private to record partial modification
+  netfs: Provide invalidate_folio and release_folio calls
+  netfs: Implement unbuffered/DIO vs buffered I/O locking
+  netfs: Add iov_iters to (sub)requests to describe various buffers
+  netfs: Add support for DIO buffering
+  netfs: Provide tools to create a buffer in an xarray
+  netfs: Add bounce buffering support
+  netfs: Add func to calculate pagecount/size-limited span of an
+    iterator
+  netfs: Limit subrequest by size or number of segments
+  netfs: Export netfs_put_subrequest() and some tracepoints
+  netfs: Extend the netfs_io_*request structs to handle writes
+  netfs: Add a hook to allow tell the netfs to update its i_size
+  netfs: Make netfs_put_request() handle a NULL pointer
+  netfs: Make the refcounting of netfs_begin_read() easier to use
+  netfs: Prep to use folio->private for write grouping and streaming
+    write
+  netfs: Dispatch write requests to process a writeback slice
+  netfs: Provide func to copy data to pagecache for buffered write
+  netfs: Make netfs_read_folio() handle streaming-write pages
+  netfs: Allocate multipage folios in the writepath
+  netfs: Implement support for unbuffered/DIO read
+  netfs: Implement unbuffered/DIO write support
+  netfs: Implement buffered write API
+  netfs: Allow buffered shared-writeable mmap through
+    netfs_page_mkwrite()
+  netfs: Provide netfs_file_read_iter()
+  netfs, cachefiles: Pass upper bound length to allow expansion
+  netfs: Provide a writepages implementation
+  netfs: Provide a launder_folio implementation
+  netfs: Implement a write-through caching option
+  netfs: Optimise away reads above the point at which there can be no
+    data
+  afs: Use the netfs write helpers
+  9p: Use netfslib read/write_iter
+
+ Documentation/filesystems/netfs_library.rst   |   23 +-
+ MAINTAINERS                                   |    2 +-
+ fs/9p/vfs_addr.c                              |  352 +----
+ fs/9p/vfs_file.c                              |   89 +-
+ fs/9p/vfs_inode.c                             |    5 +-
+ fs/9p/vfs_super.c                             |   14 +-
+ fs/Kconfig                                    |    1 -
+ fs/Makefile                                   |    1 -
+ fs/afs/file.c                                 |  213 +--
+ fs/afs/inode.c                                |   26 +-
+ fs/afs/internal.h                             |   72 +-
+ fs/afs/super.c                                |    2 +-
+ fs/afs/write.c                                |  826 +----------
+ fs/cachefiles/internal.h                      |    2 +-
+ fs/cachefiles/io.c                            |   10 +-
+ fs/cachefiles/ondemand.c                      |    2 +-
+ fs/ceph/addr.c                                |   25 +-
+ fs/ceph/cache.h                               |   35 +-
+ fs/ceph/inode.c                               |    2 +-
+ fs/fs-writeback.c                             |   10 +-
+ fs/fscache/Kconfig                            |   40 -
+ fs/fscache/Makefile                           |   16 -
+ fs/fscache/internal.h                         |  277 ----
+ fs/netfs/Kconfig                              |   39 +
+ fs/netfs/Makefile                             |   22 +-
+ fs/netfs/buffered_read.c                      |  229 ++-
+ fs/netfs/buffered_write.c                     | 1247 +++++++++++++++++
+ fs/netfs/direct_read.c                        |  252 ++++
+ fs/netfs/direct_write.c                       |  170 +++
+ fs/{fscache/cache.c => netfs/fscache_cache.c} |    0
+ .../cookie.c => netfs/fscache_cookie.c}       |    0
+ fs/netfs/fscache_internal.h                   |   14 +
+ fs/{fscache/io.c => netfs/fscache_io.c}       |   42 +-
+ fs/{fscache/main.c => netfs/fscache_main.c}   |   25 +-
+ fs/{fscache/proc.c => netfs/fscache_proc.c}   |   23 +-
+ fs/{fscache/stats.c => netfs/fscache_stats.c} |    4 +-
+ .../volume.c => netfs/fscache_volume.c}       |    0
+ fs/netfs/internal.h                           |  288 ++++
+ fs/netfs/io.c                                 |  214 ++-
+ fs/netfs/iterator.c                           |   97 ++
+ fs/netfs/locking.c                            |  215 +++
+ fs/netfs/main.c                               |  110 ++
+ fs/netfs/misc.c                               |  260 ++++
+ fs/netfs/objects.c                            |   63 +-
+ fs/netfs/output.c                             |  478 +++++++
+ fs/netfs/stats.c                              |   31 +-
+ fs/nfs/Kconfig                                |    4 +-
+ fs/nfs/fscache.c                              |    7 -
+ fs/smb/client/cifsfs.c                        |    9 +-
+ fs/smb/client/file.c                          |   18 +-
+ fs/smb/client/fscache.c                       |    2 +-
+ include/linux/fs.h                            |    2 +-
+ include/linux/fscache.h                       |   45 -
+ include/linux/netfs.h                         |  176 ++-
+ include/linux/writeback.h                     |    2 +-
+ include/trace/events/afs.h                    |   31 -
+ include/trace/events/netfs.h                  |  155 +-
+ mm/filemap.c                                  |    1 +
+ 58 files changed, 4197 insertions(+), 2123 deletions(-)
+ delete mode 100644 fs/fscache/Kconfig
+ delete mode 100644 fs/fscache/Makefile
+ delete mode 100644 fs/fscache/internal.h
+ create mode 100644 fs/netfs/buffered_write.c
+ create mode 100644 fs/netfs/direct_read.c
+ create mode 100644 fs/netfs/direct_write.c
+ rename fs/{fscache/cache.c => netfs/fscache_cache.c} (100%)
+ rename fs/{fscache/cookie.c => netfs/fscache_cookie.c} (100%)
+ create mode 100644 fs/netfs/fscache_internal.h
+ rename fs/{fscache/io.c => netfs/fscache_io.c} (86%)
+ rename fs/{fscache/main.c => netfs/fscache_main.c} (84%)
+ rename fs/{fscache/proc.c => netfs/fscache_proc.c} (58%)
+ rename fs/{fscache/stats.c => netfs/fscache_stats.c} (97%)
+ rename fs/{fscache/volume.c => netfs/fscache_volume.c} (100%)
+ create mode 100644 fs/netfs/locking.c
+ create mode 100644 fs/netfs/misc.c
+ create mode 100644 fs/netfs/output.c
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
