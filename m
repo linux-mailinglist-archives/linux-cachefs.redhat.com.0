@@ -1,137 +1,137 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBTEWQ6WAMGQEGUSGPIY@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBMPYRKWAMGQEBUWRTUI@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19DFF818D0C
-	for <lists+linux-cachefs@lfdr.de>; Tue, 19 Dec 2023 17:56:46 +0100 (CET)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-3b9d731fd1bsf5924306b6e.1
-        for <lists+linux-cachefs@lfdr.de>; Tue, 19 Dec 2023 08:56:46 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1703005005; cv=pass;
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2F0819C04
+	for <lists+linux-cachefs@lfdr.de>; Wed, 20 Dec 2023 11:04:34 +0100 (CET)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-780fefc0912sf42325985a.0
+        for <lists+linux-cachefs@lfdr.de>; Wed, 20 Dec 2023 02:04:34 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1703066673; cv=pass;
         d=google.com; s=arc-20160816;
-        b=UihcKFcHc+LxHHDTT4ZikyBzCiigvvDnFVqaZnlD5pVYQ2t1cKRv1eRDQ9HwLaWqu1
-         jA84LSYgTcabAlnCcfeTWcUiZQbgdQACmWNfWcpA9etz1ryE1OVrXOqpLahm3EVvKW7f
-         8HDZ65bm/0WomrhF9EBjQUZ3EJLieyn9MA7lih6ecnsZSAk6XPAroNRx/BvkJpTRssUS
-         jlLl/C5EEEd+VAeFwGn2oDEQquIbaxDfiEi0DPSzrZ7mn9Ef5zBcL4W3ZSP9lebqruon
-         2dVFXmASTrUg6XYV6i0pPLUIGS9W1gmGV+hVFg16Xm6EHqtKQ2PotD2CWzHiqIsQTUpg
-         eYMQ==
+        b=kDc/5p8/dPAyZc7TnKqbQPB2qlnI5tWYI6ifEcquxlewVnhEnixQeRa9yaGs1ivYik
+         rgilTQSipA2+D91+eYk9fuqv1dGvt8uuXGcBgYVhsuvnnh1abTXfjMyawHi38pJ7sPdR
+         TtuOUVdWsP/lN1lXBIPQJ5PkzDgcvI3p7dE6MESHl8egWucjNAqcCKW6yffIDIvj27lb
+         7y2fEZwz0Koruw2VHsOS6IyYulA2P3i4prkWlvzdAXoj0U4d6ZFulwdrCQMXm7yNVJHM
+         Vh1HEzuwy+x3uYhhgiddDAXV6pp3Cviy3mjoEYJndDQ8dOxcKJB0092eYYD/OWBOlPn4
+         ntrA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:content-id:message-id:date:mime-version
          :subject:cc:to:references:in-reply-to:from:organization:delivered-to;
-        bh=eeG/DRfRJiWtlBWQ9cEWFsisskxve0uKWvhkLSqvAy4=;
-        fh=oTSheoojIQWE85h15wIbFV5tdQ792s9VwZPsELvSY7c=;
-        b=0N21V+Fu83sHu0WyEu4guMlfk7aCL7d9RoZMm8/cL7pDc10ap6uwIwIPK1Y5Euz3O4
-         uPgIXcNTIOt6CisWUwvIEhU8NVBOiyYWqO77kZ7GSQycCfIuGbBzdcT2OT6kOpzJ0RVV
-         /dEv+u3gS7XzK6KfHyRM4dPY0Nj38gr5A65WqRbV3d50SoijrTQqsNiYwstskdfzbIo8
-         G1SKiajdVLmELsRk/ebRVDxZB3T4IEDw4Jmy6LyfqZbIzZOxEO3DdbQKDHJcL46DDMbF
-         v/WUmIV7RZImngNBTTH5SAO8l+/98mJzuez0PSVWmxE1v3qxzcKf1Cl+MCYvzlUt9QQu
-         GJOg==
+        bh=dKk2DAlcgTVRWBXi4lo+1I1jmkkqvIe3Axy3fl+ixyI=;
+        fh=OHBb9iCgy9UozJujGliSmQwHaxwEcgiKWa9S2zC2QS8=;
+        b=uYThX0WeDfMZvcl+lLjT7Mc9TWT6A/6QsR0uKZt+KKdr3yF/kXsD/VSU46ISHqooxJ
+         JwBM9f6fuIhD4KoX8eqE977Cg2m/i8jQxC8tZIkkjbVmCR08CexsZBGK/zwXzypoxoi/
+         Kvo2HOC/89yno3qmj4VK7LeIHmbgy5Y7b8Tbxv/V+8oTbmIxfNh8/e2l3DK7DC2HO8tD
+         zWARBpH31aIXyY7ax5HDeBrNh1lvQGm3+4AdcEPcNMvd3XeF/oTgtnjm+n9kap2VCsjt
+         pkSH3jWRi2U+0hnhJ2JmZjTrFwOXemcNc5ZrCPdbN98bFm4lxw9bJ4ICyHZddjEtwzpy
+         Wyzw==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703005005; x=1703609805;
+        d=1e100.net; s=20230601; t=1703066673; x=1703671473;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:content-id
          :message-id:date:mime-version:subject:cc:to:references:in-reply-to
          :from:organization:delivered-to:x-beenthere:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=eeG/DRfRJiWtlBWQ9cEWFsisskxve0uKWvhkLSqvAy4=;
-        b=DYmBqgFGmeUeUL4uX/J7f/j8y521AhtTUK73XxWy5UphT1tJiMy0Jwp1DGO5AhTwS2
-         VYJFQSJ0OhZXdjPuclWfdcIDuVHgHGpYjrsmmhOpySu3OE3W4VdNq07VmeRgqSUX2QkQ
-         sHE5LO9k8ZFSR1LLL8/ihK5b8i8bgchz/m20QTkAQOcdAZrl+jQHCMSui2g8LUt0Zmow
-         cRS/fC5VPHT8fNAeifLj6Xjly+YcPH54sKeUe8i8KHGJJiZ0n7T+E9+3cKho6J7KCWhN
-         cGSV1obWwtlmnPZXMDVsiBNW0w2BGDQ3qYPVnqk/BpckjbnGc37zONwLP9KHHoaiNKbP
-         9MCA==
-X-Gm-Message-State: AOJu0YywnN9Yiow9qz9OzfWGqZHP2X72fOi5oiwX+Hbgf4hMlf859UbA
-	/vypVznoZroJHFs494WLbq613A==
-X-Google-Smtp-Source: AGHT+IGWSZmQhYRiC70era3JOcgpOPNtUQrajzFCght5I3C8KRjIHY5YGICSThCcuzJ0kuJXeV6jJg==
-X-Received: by 2002:a05:6808:198d:b0:3b8:b063:6b8d with SMTP id bj13-20020a056808198d00b003b8b0636b8dmr24194983oib.60.1703005004989;
-        Tue, 19 Dec 2023 08:56:44 -0800 (PST)
+        bh=dKk2DAlcgTVRWBXi4lo+1I1jmkkqvIe3Axy3fl+ixyI=;
+        b=TlV1u9/C1vFW3cMO2gIYFSBjhfx9+PLDtKn8LEI88DTD28Q+kJqnscgx0bJuWCwX6m
+         hanazPZgjQ93Gk+wna1VWApA5G19RAt2eryhjHElr8rypd8w7C7wZLRPZ2zM95I/Zn7I
+         SGz2O5mlUl6Xco33n8gf46vJ0QxE/IKW8f8fBpGzRHnLvAStIBgGBHvsjBhf1qptG6UL
+         DgDskDzIVl6FPC7KMtVUWy7s3LChe0tPyZApvuqiK4g89mxptoH1IwlMuk3+659qIGF3
+         Tks5l8vxyUmJSG0jz6+AeT+SDesXxLAx2tToJYezxFrpCvWKnmZcoDL7Qe92pk+KGCGG
+         ETuA==
+X-Gm-Message-State: AOJu0Yw2DIkwIe/gSRXo4TNRFsVoxE3rmnvwlR5CYpVYx1Qqijc9TBge
+	hQMQsDVoqmNfBNreRctDQ/JNKA==
+X-Google-Smtp-Source: AGHT+IHjf3QQHSzFoT5iS1HmpFdt72740W1q2gakresFA1Rav4J/r0hkm2XBB9YG1LilTZMvE7++Cw==
+X-Received: by 2002:ac8:574f:0:b0:425:b5db:ee0 with SMTP id 15-20020ac8574f000000b00425b5db0ee0mr40957389qtx.3.1703066673176;
+        Wed, 20 Dec 2023 02:04:33 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ad4:4ea7:0:b0:670:a1c0:e4e2 with SMTP id ed7-20020ad44ea7000000b00670a1c0e4e2ls3027947qvb.1.-pod-prod-04-us;
- Tue, 19 Dec 2023 08:56:44 -0800 (PST)
-X-Received: by 2002:a05:6214:765:b0:67f:40cd:84df with SMTP id f5-20020a056214076500b0067f40cd84dfmr6403065qvz.29.1703005004422;
-        Tue, 19 Dec 2023 08:56:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1703005004; cv=none;
+Received: by 2002:a05:622a:1996:b0:425:7ea5:45f0 with SMTP id
+ u22-20020a05622a199600b004257ea545f0ls579504qtc.2.-pod-prod-04-us; Wed, 20
+ Dec 2023 02:04:32 -0800 (PST)
+X-Received: by 2002:ac8:5a43:0:b0:425:a4a5:a797 with SMTP id o3-20020ac85a43000000b00425a4a5a797mr25127624qta.109.1703066672442;
+        Wed, 20 Dec 2023 02:04:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1703066672; cv=none;
         d=google.com; s=arc-20160816;
-        b=KJF5uKFr8yYav7e5cXvnXaWEaZantdCfgHqYy0rZT4+IiH2ht9CAgskXXfeY0Sn7v9
-         fUR7dlvOHHUql/bKDNz4ckbicFM5JENM3o09Fn9r9atI+qexwV4pCeTht1k1atZFjrYm
-         No4jsIlxvcGJb0dupmAaTX0gI3CwtTnIEGjXaPbdmG9Xd0rUn4iNlTR2yFSBOX4ulKEh
-         XKus6H95rMtWpQTTaF93efefQfbhEK2TXUYewMU9RltjuBNvK72oArPs/Gouvd0aYVqc
-         hjWAdAnrGWllTgug5AnmkAM7VHDi5xXgV0dyIJDTe+ywDselxvoDlE1D7ATKnkmD8bRZ
-         jhzw==
+        b=z6XwibpsoIVz1AvtPIL2YDDgRTk79s8EKDGbzdoCRAr3sKFx0lZ8P9E3PltlTtdFgI
+         rJEaUpjzD1ax1qAQYQY8Tyx9v52rH0wVRfhnHCKXl/zP9GNv4kLskVBkfuUNkxadGm6S
+         PX2hdQ85VPYZLM61sbYKVe1EzJschstWvXkqMlbyeD3UrvHWat892oDNsxxsHSJrjoBc
+         9Eo1CzGVhbX8cHRODZmf2OuA4eUfjzSj46cVkxjZrPd0/U98tAsYcxdI7qrPr7iTFZKY
+         13DjdOnuPo3iLL3MupNk0wqnrXXdbc/fL+khnvzrjQ5moJA9IB5Tol5Z6GQEHOOGIe+C
+         NtTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-id:message-id:date:mime-version:subject:cc:to:references
-         :in-reply-to:from:organization:delivered-to;
-        bh=B719XTWiXIHllaEXvsXPz/Q4Bs162RLSRke3FIDQ97A=;
-        fh=oTSheoojIQWE85h15wIbFV5tdQ792s9VwZPsELvSY7c=;
-        b=hAu35Y75rea5Q9hoy0v87OHbiH5wOt6nBRG2X/Gf4lO7WjjcUDj4dqu1PCMdhFGCeK
-         bUnkVE+bjzmE0+o/pF1AwLABsDMLhufIKt0XMfrjiG/tZJjUbaUXGWhnqP8Y3k/jvih4
-         j6I56duMf3fYqtBU3D0J1mUb0/QWC7Ns3/niyJhFY4+Q8bKdnROSt8Zj8pTAxx2Xjr+P
-         B8QBMSvycf5M+W/UogSY4aT8xesgcT5kZHRjvBHmsmCyxWgVbVRGASN+XqTEMnaNCZLV
-         yeuYhXXjMr4FYt/sbEjZHjcc9SuSYkBLliCXgiQFzv/41K8W5Vn91Sv27QmqSTozm+vF
-         A8cw==
+        h=content-transfer-encoding:content-id:message-id:date:mime-version
+         :subject:cc:to:references:in-reply-to:from:organization:delivered-to;
+        bh=PdyNCO1BdqUsX6LenhPnm/I1uomWw265tftHOSOmEt4=;
+        fh=OHBb9iCgy9UozJujGliSmQwHaxwEcgiKWa9S2zC2QS8=;
+        b=zo8IJtnJ6LUaJNnDZjNFDMPehmV5lt+y54L3GO2u0qzdAdCl69DmCt67lDfqcefNBB
+         UZYYSGF7fogWFd65ghpaOu/rsqDEIYfctDkelGyAcAez/K4+pU22rPJcyiZlgQOIMetE
+         KeQPiOwaY1QkDjHQeDiIIuvMpuvrZLLC0B3IsGzmJ/MmhZUor4TbrWS4De2BRJy8igKM
+         5pwharyhVUsVp4Fo3bdMaZnH+xT2hstTThQuATuylG5O8O8neFtVsdy+guB4fLdoVg5H
+         qavJxTCluyPRnhVW6QOEuiDiZL5QF93f+C8QfwyyVZzB+xWZuRQr3yWiNena+JbaHgi+
+         11wA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id e27-20020a0cb45b000000b0067f032d7c53si13252112qvf.112.2023.12.19.08.56.44
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id cp10-20020a05622a420a00b00425433fec1csi27381313qtb.483.2023.12.20.02.04.32
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 Dec 2023 08:56:44 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-n-Ke4ugjMMOJa-PJR0um8Q-1; Tue, 19 Dec 2023 11:56:42 -0500
-X-MC-Unique: n-Ke4ugjMMOJa-PJR0um8Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+        Wed, 20 Dec 2023 02:04:32 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-359-gP7Tj-cLMrmf_emvrJ1MPw-1; Wed,
+ 20 Dec 2023 05:04:30 -0500
+X-MC-Unique: gP7Tj-cLMrmf_emvrJ1MPw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A783A832D1F
-	for <linux-cachefs@gapps.redhat.com>; Tue, 19 Dec 2023 16:56:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B1631C0513B
+	for <linux-cachefs@gapps.redhat.com>; Wed, 20 Dec 2023 10:04:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id A16BF2026F95; Tue, 19 Dec 2023 16:56:42 +0000 (UTC)
+	id 8844C51E3; Wed, 20 Dec 2023 10:04:30 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.39.195.169])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D48152026D66;
-	Tue, 19 Dec 2023 16:56:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8BFAB51D5;
+	Wed, 20 Dec 2023 10:04:27 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <8b9413cc37a231a97059c7d028d404ab35363764.camel@kernel.org>
-References: <8b9413cc37a231a97059c7d028d404ab35363764.camel@kernel.org> <20231213152350.431591-1-dhowells@redhat.com> <20231213152350.431591-38-dhowells@redhat.com>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: dhowells@redhat.com, Steve French <smfrench@gmail.com>,
+In-Reply-To: <ZXxUx_nh4HNTaDJx@codewreck.org>
+References: <ZXxUx_nh4HNTaDJx@codewreck.org> <20231213152350.431591-1-dhowells@redhat.com> <20231215-einziehen-landen-94a63dd17637@brauner>
+To: Dominique Martinet <asmadeus@codewreck.org>
+Cc: dhowells@redhat.com, Christian Brauner <brauner@kernel.org>,
+    Jeff Layton <jlayton@kernel.org>, Steve French <smfrench@gmail.com>,
     Matthew Wilcox <willy@infradead.org>,
     Marc Dionne <marc.dionne@auristor.com>,
     Paulo Alcantara <pc@manguebit.com>,
     Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-    Dominique Martinet <asmadeus@codewreck.org>,
     Eric Van Hensbergen <ericvh@kernel.org>,
-    Ilya Dryomov <idryomov@gmail.com>,
-    Christian Brauner <christian@brauner.io>, linux-cachefs@redhat.com,
+    Ilya Dryomov <idryomov@gmail.com>, linux-cachefs@redhat.com,
     linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
     linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
     v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
     linux-mm@kvack.org, netdev@vger.kernel.org,
     linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 37/39] netfs: Optimise away reads above the point at which there can be no data
+Subject: Re: [PATCH v4 00/39] netfs, afs, 9p: Delegate high-level I/O to netfslib
 MIME-Version: 1.0
-Date: Tue, 19 Dec 2023 16:56:39 +0000
-Message-ID: <1075373.1703004999@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
+Date: Wed, 20 Dec 2023 10:04:26 +0000
+Message-ID: <1384979.1703066666@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Content-ID: <1075372.1703004999.1@warthog.procyon.org.uk>
+Content-ID: <1384978.1703066666.1@warthog.procyon.org.uk>
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -143,26 +143,52 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Jeff Layton <jlayton@kernel.org> wrote:
+Dominique Martinet <asmadeus@codewreck.org> wrote:
 
-> >  (4) On local truncation up, we don't change zero_point.
-> > 
-> 
-> The above seems odd, but I guess the assumption is that if there are any
-> writes by a 3rd party above the old zero point, that that would cause an
-> invalidation?
+> I'll go back to dhowell's tree to finally test 9p a bit,
+> sorry for lack of involvement just low on time all around.
 
-All truncating up does is extend the region from which reading would return
-zeros, so it doesn't affect the zero_point.
+I've rebased my tree on -rc6 rather than linux-next for Christian to pull.
 
-If a third party interferes, then we have to invalidate the local caches and
-reset zero_point to the EOF.  But if a third party is writing to the file at
-the same time as you without both of you using locking or exclusive direct
-writes, your data is probably screwed anyway...
+Ganesha keeps falling over:
 
-Something cifs and ceph can use leasing to make this work; afs uses the data
-version number, notifications and the principle that you should use file
-locks.
+[root@carina build]# valgrind ./ganesha.nfsd -L /var/log/ganesha/ganesha.log -f /etc/ganesha/ganesha.conf -N NIV_EVENT -F
+==38960== Memcheck, a memory error detector
+==38960== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==38960== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==38960== Command: ./ganesha.nfsd -L /var/log/ganesha/ganesha.log -f /etc/ganesha/ganesha.conf -N NIV_EVENT -F
+==38960== 
+==38960== Thread 138:
+==38960== Invalid read of size 4
+==38960==    at 0x4DC32D6: pthread_cond_signal@@GLIBC_2.3.2 (pthread_cond_signal.c:41)
+==38960==    by 0x489700C: sync_cb (fsal_helper.c:1837)
+==38960==    by 0x49D79DF: mdc_read_super_cb (mdcache_file.c:559)
+==38960==    by 0x49D7AC5: mdc_read_cb (mdcache_file.c:582)
+==38960==    by 0x7B4B81F: vfs_read2 (file.c:1317)
+==38960==    by 0x49D7BCF: mdcache_read2 (mdcache_file.c:617)
+==38960==    by 0x4897173: fsal_read (fsal_helper.c:1849)
+==38960==    by 0x4A10FD4: _9p_read (9p_read.c:134)
+==38960==    by 0x4A0A024: _9p_process_buffer (9p_interpreter.c:181)
+==38960==    by 0x4A09DCB: _9p_tcp_process_request (9p_interpreter.c:133)
+==38960==    by 0x48CE182: _9p_execute (9p_dispatcher.c:315)
+==38960==    by 0x48CE508: _9p_worker_run (9p_dispatcher.c:412)
+==38960==  Address 0x24 is not stack'd, malloc'd or (recently) free'd
+==38960== 
+==38960== 
+==38960== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==38960==  Access not within mapped region at address 0x24
+==38960==    at 0x4DC32D6: pthread_cond_signal@@GLIBC_2.3.2 (pthread_cond_signal.c:41)
+==38960==    by 0x489700C: sync_cb (fsal_helper.c:1837)
+==38960==    by 0x49D79DF: mdc_read_super_cb (mdcache_file.c:559)
+==38960==    by 0x49D7AC5: mdc_read_cb (mdcache_file.c:582)
+==38960==    by 0x7B4B81F: vfs_read2 (file.c:1317)
+==38960==    by 0x49D7BCF: mdcache_read2 (mdcache_file.c:617)
+==38960==    by 0x4897173: fsal_read (fsal_helper.c:1849)
+==38960==    by 0x4A10FD4: _9p_read (9p_read.c:134)
+==38960==    by 0x4A0A024: _9p_process_buffer (9p_interpreter.c:181)
+==38960==    by 0x4A09DCB: _9p_tcp_process_request (9p_interpreter.c:133)
+==38960==    by 0x48CE182: _9p_execute (9p_dispatcher.c:315)
+==38960==    by 0x48CE508: _9p_worker_run (9p_dispatcher.c:412)
 
 David
 
