@@ -1,103 +1,103 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBAHZSCWAMGQEBNIEBBQ@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBBHZSCWAMGQEXWWZRAY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mail.lfdr.de (Postfix) with ESMTPS id D865A81B747
-	for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 14:24:17 +0100 (CET)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-67f27673b1dsf7594426d6.0
-        for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 05:24:17 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1703165057; cv=pass;
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mail.lfdr.de (Postfix) with ESMTPS id 374E881B749
+	for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 14:24:21 +0100 (CET)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-67f7b69433dsf12393016d6.1
+        for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 05:24:21 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1703165060; cv=pass;
         d=google.com; s=arc-20160816;
-        b=V5g2I7AUSYjn97KR1oGrXkhSQnEFZTdy8OOdm+yvEnUFF3VIHa27hvoqCJtbJobrhx
-         69Mjw6eMvbcdzVTfigqxTc2zPvlVrQFHQLZCdQV8v4o7zOxLsbSQYBHzFDH5l+CgFHeT
-         xMtYIVEuJnC2i7k802bHbVGBZ2ZY3pyrMKu9QvCCMxqTptNNwp2xlfAtNt+nkpEppAf6
-         bo/nnF/hHDXSRgzcBpIT0hNRmiowcVVMrubytMgqhG3YtsdsiSXtQflJlyara3HSz9V+
-         AXxwMp98bunrzPYl6/1jBctCpehS0vYnGZ0tUSuI7kKMN44xgRaRIf39hzuwbdTcDqQs
-         3RjQ==
+        b=k4e85ofiuAIHLERqZAOEp8xxJPmXebTzW8Km3EGZlm8wENs3Kw6UTOqoKCN1i9pIFT
+         rl6baEYZ4RDP0SvG7wjoyTWDB1jCfqdbzY1wL944vFsKxskCaXDgBqRDBnHFz9VAXZqD
+         xQCTLMh0hA6sFX7Tm9+5R7hTlm8g3gnraeiNdd0CL2OurtEIzPQZnz8pZLDCAqoDJYJD
+         2XZcAlOMCXY5ERq6lbKXyQtzBFpq0bRr/23GvizbWOLcZwTeves965XhB05x5Wm+FQhO
+         yZY9owDajgjDBnJisGcnGZ6BZX1h3FjrAgRS5xWR14UukA7gt7SUr2RyXfPdkh7+5ixz
+         cdTQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=ufSAwEfHu4yqkvEDQn5rtbhH/R41NBPqCwugFsS1cLo=;
+        bh=T34gn1BFpCJYQo6pH7w5oXt0PXGzT0Lbgpa4wsiJStM=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=0u4rOAsaVQPDfT46DptUqCoofO46Ttr2WjjUID8Zt9F6hNjzACeD1m/PgQjya27Fz2
-         3SmGRglLK0kzscFsI8695sxBrpfxbOi4Du/X6L5JuOcf5jZZoDOtjAVoYNZ8gGqW+aHG
-         fDQjUlcrHqxbvIFnYdBLuko8LmbKc6Vw7TCuNrg1gPxd1FDZlzPYRVEqaaau5cAR8cwI
-         3HTUTY25wx29cdLZvqN2nL3HM3pRZcKwDHZ5TcLNHtnNDR6ipYFCxdhPyFj92l2jW7R+
-         akWTihEkzSdUWIf+zCXl7ca7MdUzjHNsr3qtWUIph7DN7KKyHYFJ049bmBkKtfPkvlsM
-         2pNg==
+        b=XbW84OwUCSFZWjuAuUGxkvd8lR4d1iE7PCWkLMBNM1g9qr8K/y773lActeNjfhqset
+         /o73Rq0OOfenhsb93xGTGlY78E8zd3IKijooPE/XjmBz45A9Z5ZsotHW0oz4sjj2dj01
+         UQCnE3WLXgY2MYBZgp4VIx18H92LEeYOr+y8hNmafd/RC1XKvd6GJxm7G5yOH28OA//e
+         HViH5NJNN4vm1TJuAkZWZN9drj4xXrWHJLsd1wScrLUtQFM+2EuD9O1AJ4rQPD6M3yl6
+         CibGut09lhY0fNGunngdhf1oz+8oBDCIbm13mCJHtUsteakA/4BSst87zsw3zVUtxgWD
+         Z6qg==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703165057; x=1703769857;
+        d=1e100.net; s=20230601; t=1703165060; x=1703769860;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ufSAwEfHu4yqkvEDQn5rtbhH/R41NBPqCwugFsS1cLo=;
-        b=q9IHld4dyJ3LGep6cyw7WyqhjxjqvUOX9zwWdp0Ke0adJDz4IqxljbmVfWuvd99lg5
-         lxo1kGCqrg8N4IDuTKxnlSH1tibDkGnFWknmQwvYbAv/MT7tWFic59s3aknxHXjO1mX5
-         zigAlREkM349nxRcuBql7eDwHbyI80QFARmJ2RTQgKnf8ge/n0xz34ZRdhSWjvbhH4oV
-         8xOrwrM+d0eepBX67vBaWEL4LYXg9/i2ThHVGvYyPNlXh9ufLzEf22DR9A7M/al5ic7S
-         3up3M+1dVTokWyNr6pRL6Ly7XeNld22W1SUQbLRmgHxINUXEcFPbjAEo3lxTcu0XcUkH
-         POTA==
-X-Gm-Message-State: AOJu0Yyee2P6z9jx7SC3SH4MOt2z2R4EBijy7dOYDFysWFyRbzDsXevk
-	Sz20z7LToz84eEfKB4n8cdMLWg==
-X-Google-Smtp-Source: AGHT+IEhRaYL2iMgNL30tN57927vrUX0uE86IOfoIZtBd0MBUPrZEMekX+9MZw9kv93aZQahL30Ozg==
-X-Received: by 2002:a0c:c58d:0:b0:67a:8f89:a631 with SMTP id a13-20020a0cc58d000000b0067a8f89a631mr17285691qvj.23.1703165056706;
-        Thu, 21 Dec 2023 05:24:16 -0800 (PST)
+        bh=T34gn1BFpCJYQo6pH7w5oXt0PXGzT0Lbgpa4wsiJStM=;
+        b=DZeL252J2ukw43iMTt542E8mXz17531y3rZ9tmHbr/4VpnRwnl36v0clpJYQLctxk+
+         HTo3GPQNJmxR3KYjWdKZ0oXOXDw4mnr7qex9ZHKIVMjCJO+kATQUfxs8a0vBJGiJFZJx
+         j1ouAE6pLU46By6APzGnnr2YNLV5vEoLGk0nsvitWhTbvfj2QUxaZ/Xg6l/bv+PmMs3z
+         VBGFOr5aOzE6MymtWKr9HGkgfdrI9vegC1r6+v4oqdhf7SkwSqRh92vqp2HrpF+6k4Qe
+         /A+BCuHL5qxQ87X1FRZqNHHjXVv5dvi+Ywle7Qn3b27yWcijzVHeDw7WXjJhZdsRkpzp
+         C+IA==
+X-Gm-Message-State: AOJu0Yy+ywJIxHKjlxkMQDNW5RmCGhdUAksLSGACizwBEJIIDOh6XsK3
+	VxblFasO5NgbBq3m7mV6VCP90Q==
+X-Google-Smtp-Source: AGHT+IGICbkCD5sYHXby3Um+HCu18tYeuWK1K/NlMR3/eeUgQ5y/pxApNq993qXG4BfluTKbNJfL4A==
+X-Received: by 2002:a05:6214:b6b:b0:67f:5b62:297e with SMTP id ey11-20020a0562140b6b00b0067f5b62297emr6931542qvb.62.1703165060166;
+        Thu, 21 Dec 2023 05:24:20 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:4113:b0:67f:4e7a:d81e with SMTP id
- kc19-20020a056214411300b0067f4e7ad81els1112206qvb.2.-pod-prod-03-us; Thu, 21
- Dec 2023 05:24:15 -0800 (PST)
-X-Received: by 2002:a0c:ee47:0:b0:67a:99aa:38b0 with SMTP id m7-20020a0cee47000000b0067a99aa38b0mr18605896qvs.44.1703165055360;
-        Thu, 21 Dec 2023 05:24:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1703165055; cv=none;
+Received: by 2002:a05:6214:1bc9:b0:67a:b34a:6626 with SMTP id
+ m9-20020a0562141bc900b0067ab34a6626ls1682227qvc.0.-pod-prod-05-us; Thu, 21
+ Dec 2023 05:24:19 -0800 (PST)
+X-Received: by 2002:ad4:4ead:0:b0:67f:288c:81d2 with SMTP id ed13-20020ad44ead000000b0067f288c81d2mr16314529qvb.34.1703165059610;
+        Thu, 21 Dec 2023 05:24:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1703165059; cv=none;
         d=google.com; s=arc-20160816;
-        b=tJndcIsGVoE3cvN/xFCkfgco180Th6I1lTeSGxC1V9QNxWwz4eZtyEB2ru+p4dJ7v1
-         +8G0/k5c6imh/G5FBx53Gfk2WTbfwRUD1vroITtPF4H78lngIspiPbd84tHw7dfERf2r
-         FxulGRXfAv7c9TY74tJyOkLRcjua+9eYg1l0QkpD9vwFH4DERv+6Lsmm3AjE//ZERVBW
-         4XC23ucbfUdPATyv7QAInlyMTvhKVgIM8BlAYdGJ06FX1ZwjwvZuWFQFcQkjREtG4Yj5
-         S0lSV8zfJMwknAnap7yT1Rjj3O9+B8i4XF4XKDKcaGmZdzSCyWG2zzmUXhKVqJaY/YtH
-         QjDQ==
+        b=p9N3SDf+ErdUBS5uKfb4GZ3xrJNbAWHrbXdu3Xq8ZnYtsZ9IdG0O289h90WkdI5RFK
+         W+RMwXDECcLeCqqNQkZ0Syd00IQfUFt5jQzY25UB/H/a4n2FkK58+g9KyPbhfzlxG/iJ
+         r5RmbO9lVrAyrYOB89O3uuvjNtp2dLbT7fBh/eUyw07VNBE/fEJz6BaZ6+xEs+mL0Wv3
+         DkUalAX2ZQ11rvAyXpnvezXIwSsEnv4hZUblb+udB/dhA53jiKx0F6z1zMyEPjb619Oa
+         zObeSgtPqj8u6asNs6zOS6leRXVdKcIdcWAR2B9O3qx6HZSbYSnyhJ3BRwziXsRCygdh
+         ZRQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=kkbmPIA2D8CaTkkPQxJ1F8pFhLqrNM5ws1a493MJpSM=;
+        bh=wBzpmC0rJxDkvfFcXCiCIB5MfO/JtYwi4o+qNt5d+DE=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=SOoxabqNjAXQpFymdB084DH3CIDQ7W6fZxyBX+4QpaZiKTYv5TjWqY0Ry390le+6lj
-         7mugOrmYI+arsT4QlVmK7s+5HtRMvoM041e2AM6d/1Tqse6xKEcaLOxojphBhQPh3i82
-         qgB5x7QAnqqUgdMvEbAI8+DMfzYDTpbZTUfEod5qDhzPwdj5SpRnBQI66UpeW2Fddjja
-         s8L+rCeuDOJeLm2mDU9Rkl/c4rVJhksU3j3LpOjDX24Q7LqI2YGCi733StyHQvc0dvRM
-         rFRc2Kc015858Xt2nw8Gk19K1X3LgbmfQXqGqwX8HQKTdKPAsSr9UXrmhxj3rr4KncVs
-         3LqA==
+        b=riqSsIhKuunmyAUkTOCNFIvfAxVLLLmQAk8daOQWvdOXgVSOCrgrtSZPiJN8/2x6v4
+         v5FP8fXhBgflqRfEKTNdEmoQhJy5loFolAS2pGrLbm/X+NierDIjA52JZVLdT0dUQ+IX
+         fNy//n3WYSKZxFcbPycCQ6/TqMas5J2rFmjL+DIAjFrRwKLvTrVfRimxnDF3U3UKUW8L
+         phphRuepC4KP7IlYJpSBqOJU2dnblyEoOT8EvEF4mIne6AisUqKTO1Rqflqw9VUTvjxL
+         4P9SiLFIWml+tZCjeoT6VnqsSvFeHhl0kstV18srZE8s+YgcZRiLfEZ+KSxtv/LyJy5M
+         VJ9A==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id w7-20020a0cdf87000000b0067f3f1efa29si2043935qvl.53.2023.12.21.05.24.15
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id q12-20020a0c9a4c000000b0067a49f7a0d5si2042344qvd.549.2023.12.21.05.24.19
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Dec 2023 05:24:15 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-470--zJgCH_TPli4-3y1gemZPg-1; Thu,
- 21 Dec 2023 08:24:13 -0500
-X-MC-Unique: -zJgCH_TPli4-3y1gemZPg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+        Thu, 21 Dec 2023 05:24:19 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-91-fqfNzoKsPQC7Q5SIxfnZqQ-1; Thu, 21 Dec 2023 08:24:17 -0500
+X-MC-Unique: fqfNzoKsPQC7Q5SIxfnZqQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 522C91C06502
-	for <linux-cachefs@gapps.redhat.com>; Thu, 21 Dec 2023 13:24:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82CBF85CEA3
+	for <linux-cachefs@gapps.redhat.com>; Thu, 21 Dec 2023 13:24:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4EBBA492BFA; Thu, 21 Dec 2023 13:24:13 +0000 (UTC)
+	id 7C27C112132A; Thu, 21 Dec 2023 13:24:17 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.39.195.169])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5FBE5492BE6;
-	Thu, 21 Dec 2023 13:24:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 23DBD1121313;
+	Thu, 21 Dec 2023 13:24:14 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -121,20 +121,20 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 02/40] afs: Automatically generate trace tag enums
-Date: Thu, 21 Dec 2023 13:22:57 +0000
-Message-ID: <20231221132400.1601991-3-dhowells@redhat.com>
+Subject: [PATCH v5 03/40] netfs, fscache: Move fs/fscache/* into fs/netfs/
+Date: Thu, 21 Dec 2023 13:22:58 +0000
+Message-ID: <20231221132400.1601991-4-dhowells@redhat.com>
 In-Reply-To: <20231221132400.1601991-1-dhowells@redhat.com>
 References: <20231221132400.1601991-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -146,284 +146,344 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Automatically generate trace tag enums from the symbol -> string mapping
-tables rather than having the enums as well, thereby reducing duplicated
-data.
+There's a problem with dependencies between netfslib and fscache as each
+wants to access some functions of the other.  Deal with this by moving
+fs/fscache/* into fs/netfs/ and renaming those files to begin with
+"fscache-".
+
+For the moment, the moved files are changed as little as possible and an
+fscache module is still built.  A subsequent patch will integrate them.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeff Layton <jlayton@kernel.org>
-cc: linux-afs@lists.infradead.org
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+cc: Christian Brauner <christian@brauner.io>
 cc: linux-fsdevel@vger.kernel.org
+cc: linux-cachefs@redhat.com
 ---
- include/trace/events/afs.h | 233 +++++--------------------------------
- 1 file changed, 27 insertions(+), 206 deletions(-)
 
-diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
-index cfcd6452c156..597677acc6b1 100644
---- a/include/trace/events/afs.h
-+++ b/include/trace/events/afs.h
-@@ -18,97 +18,6 @@
- #ifndef __AFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
- #define __AFS_DECLARE_TRACE_ENUMS_ONCE_ONLY
+Notes:
+    Changes
+    =======
+    ver #5)
+     - Adjust MAINTAINERS file.
+
+ MAINTAINERS                                   | 21 ++++++----
+ fs/Kconfig                                    |  1 -
+ fs/Makefile                                   |  1 -
+ fs/fscache/Kconfig                            | 40 -------------------
+ fs/fscache/Makefile                           | 16 --------
+ fs/netfs/Kconfig                              | 39 ++++++++++++++++++
+ fs/netfs/Makefile                             | 14 ++++++-
+ fs/{fscache/cache.c => netfs/fscache_cache.c} |  0
+ .../cookie.c => netfs/fscache_cookie.c}       |  0
+ .../internal.h => netfs/fscache_internal.h}   |  0
+ fs/{fscache/io.c => netfs/fscache_io.c}       |  0
+ fs/{fscache/main.c => netfs/fscache_main.c}   |  0
+ fs/{fscache/proc.c => netfs/fscache_proc.c}   |  0
+ fs/{fscache/stats.c => netfs/fscache_stats.c} |  0
+ .../volume.c => netfs/fscache_volume.c}       |  0
+ fs/netfs/internal.h                           |  5 +++
+ fs/netfs/main.c                               |  5 ++-
+ 17 files changed, 73 insertions(+), 69 deletions(-)
+ delete mode 100644 fs/fscache/Kconfig
+ delete mode 100644 fs/fscache/Makefile
+ rename fs/{fscache/cache.c => netfs/fscache_cache.c} (100%)
+ rename fs/{fscache/cookie.c => netfs/fscache_cookie.c} (100%)
+ rename fs/{fscache/internal.h => netfs/fscache_internal.h} (100%)
+ rename fs/{fscache/io.c => netfs/fscache_io.c} (100%)
+ rename fs/{fscache/main.c => netfs/fscache_main.c} (100%)
+ rename fs/{fscache/proc.c => netfs/fscache_proc.c} (100%)
+ rename fs/{fscache/stats.c => netfs/fscache_stats.c} (100%)
+ rename fs/{fscache/volume.c => netfs/fscache_volume.c} (100%)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9104430e148e..b38e1723b505 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8135,6 +8135,19 @@ S:	Supported
+ F:	fs/iomap/
+ F:	include/linux/iomap.h
  
--enum afs_call_trace {
--	afs_call_trace_alloc,
--	afs_call_trace_free,
--	afs_call_trace_get,
--	afs_call_trace_put,
--	afs_call_trace_wake,
--	afs_call_trace_work,
--};
--
--enum afs_server_trace {
--	afs_server_trace_alloc,
--	afs_server_trace_callback,
--	afs_server_trace_destroy,
--	afs_server_trace_free,
--	afs_server_trace_gc,
--	afs_server_trace_get_by_addr,
--	afs_server_trace_get_by_uuid,
--	afs_server_trace_get_caps,
--	afs_server_trace_get_install,
--	afs_server_trace_get_new_cbi,
--	afs_server_trace_get_probe,
--	afs_server_trace_give_up_cb,
--	afs_server_trace_purging,
--	afs_server_trace_put_call,
--	afs_server_trace_put_cbi,
--	afs_server_trace_put_find_rsq,
--	afs_server_trace_put_probe,
--	afs_server_trace_put_slist,
--	afs_server_trace_put_slist_isort,
--	afs_server_trace_put_uuid_rsq,
--	afs_server_trace_update,
--};
--
--
--enum afs_volume_trace {
--	afs_volume_trace_alloc,
--	afs_volume_trace_free,
--	afs_volume_trace_get_alloc_sbi,
--	afs_volume_trace_get_cell_insert,
--	afs_volume_trace_get_new_op,
--	afs_volume_trace_get_query_alias,
--	afs_volume_trace_put_cell_dup,
--	afs_volume_trace_put_cell_root,
--	afs_volume_trace_put_destroy_sbi,
--	afs_volume_trace_put_free_fc,
--	afs_volume_trace_put_put_op,
--	afs_volume_trace_put_query_alias,
--	afs_volume_trace_put_validate_fc,
--	afs_volume_trace_remove,
--};
--
--enum afs_cell_trace {
--	afs_cell_trace_alloc,
--	afs_cell_trace_free,
--	afs_cell_trace_get_queue_dns,
--	afs_cell_trace_get_queue_manage,
--	afs_cell_trace_get_queue_new,
--	afs_cell_trace_get_vol,
--	afs_cell_trace_insert,
--	afs_cell_trace_manage,
--	afs_cell_trace_put_candidate,
--	afs_cell_trace_put_destroy,
--	afs_cell_trace_put_queue_fail,
--	afs_cell_trace_put_queue_work,
--	afs_cell_trace_put_vol,
--	afs_cell_trace_see_source,
--	afs_cell_trace_see_ws,
--	afs_cell_trace_unuse_alias,
--	afs_cell_trace_unuse_check_alias,
--	afs_cell_trace_unuse_delete,
--	afs_cell_trace_unuse_fc,
--	afs_cell_trace_unuse_lookup,
--	afs_cell_trace_unuse_mntpt,
--	afs_cell_trace_unuse_no_pin,
--	afs_cell_trace_unuse_parse,
--	afs_cell_trace_unuse_pin,
--	afs_cell_trace_unuse_probe,
--	afs_cell_trace_unuse_sbi,
--	afs_cell_trace_unuse_ws,
--	afs_cell_trace_use_alias,
--	afs_cell_trace_use_check_alias,
--	afs_cell_trace_use_fc,
--	afs_cell_trace_use_fc_alias,
--	afs_cell_trace_use_lookup,
--	afs_cell_trace_use_mntpt,
--	afs_cell_trace_use_pin,
--	afs_cell_trace_use_probe,
--	afs_cell_trace_use_sbi,
--	afs_cell_trace_wait,
--};
--
- enum afs_fs_operation {
- 	afs_FS_FetchData		= 130,	/* AFS Fetch file data */
- 	afs_FS_FetchACL			= 131,	/* AFS Fetch file ACL */
-@@ -202,121 +111,6 @@ enum yfs_cm_operation {
- 	yfs_CB_CallBack			= 64204,
- };
++FILESYSTEMS [NETFS LIBRARY]
++M:	David Howells <dhowells@redhat.com>
++L:	linux-cachefs@redhat.com (moderated for non-subscribers)
++L:	linux-fsdevel@vger.kernel.org
++S:	Supported
++F:	Documentation/filesystems/caching/
++F:	Documentation/filesystems/netfs_library.rst
++F:	fs/netfs/
++F:	include/linux/fscache*.h
++F:	include/linux/netfs.h
++F:	include/trace/events/fscache.h
++F:	include/trace/events/netfs.h
++
+ FINTEK F75375S HARDWARE MONITOR AND FAN CONTROLLER DRIVER
+ M:	Riku Voipio <riku.voipio@iki.fi>
+ L:	linux-hwmon@vger.kernel.org
+@@ -8569,14 +8582,6 @@ F:	Documentation/power/freezing-of-tasks.rst
+ F:	include/linux/freezer.h
+ F:	kernel/freezer.c
  
--enum afs_edit_dir_op {
--	afs_edit_dir_create,
--	afs_edit_dir_create_error,
--	afs_edit_dir_create_inval,
--	afs_edit_dir_create_nospc,
--	afs_edit_dir_delete,
--	afs_edit_dir_delete_error,
--	afs_edit_dir_delete_inval,
--	afs_edit_dir_delete_noent,
--};
+-FS-CACHE: LOCAL CACHING FOR NETWORK FILESYSTEMS
+-M:	David Howells <dhowells@redhat.com>
+-L:	linux-cachefs@redhat.com (moderated for non-subscribers)
+-S:	Supported
+-F:	Documentation/filesystems/caching/
+-F:	fs/fscache/
+-F:	include/linux/fscache*.h
 -
--enum afs_edit_dir_reason {
--	afs_edit_dir_for_create,
--	afs_edit_dir_for_link,
--	afs_edit_dir_for_mkdir,
--	afs_edit_dir_for_rename_0,
--	afs_edit_dir_for_rename_1,
--	afs_edit_dir_for_rename_2,
--	afs_edit_dir_for_rmdir,
--	afs_edit_dir_for_silly_0,
--	afs_edit_dir_for_silly_1,
--	afs_edit_dir_for_symlink,
--	afs_edit_dir_for_unlink,
--};
--
--enum afs_eproto_cause {
--	afs_eproto_bad_status,
--	afs_eproto_cb_count,
--	afs_eproto_cb_fid_count,
--	afs_eproto_cellname_len,
--	afs_eproto_file_type,
--	afs_eproto_ibulkst_cb_count,
--	afs_eproto_ibulkst_count,
--	afs_eproto_motd_len,
--	afs_eproto_offline_msg_len,
--	afs_eproto_volname_len,
--	afs_eproto_yvl_fsendpt4_len,
--	afs_eproto_yvl_fsendpt6_len,
--	afs_eproto_yvl_fsendpt_num,
--	afs_eproto_yvl_fsendpt_type,
--	afs_eproto_yvl_vlendpt4_len,
--	afs_eproto_yvl_vlendpt6_len,
--	afs_eproto_yvl_vlendpt_type,
--};
--
--enum afs_io_error {
--	afs_io_error_cm_reply,
--	afs_io_error_extract,
--	afs_io_error_fs_probe_fail,
--	afs_io_error_vl_lookup_fail,
--	afs_io_error_vl_probe_fail,
--};
--
--enum afs_file_error {
--	afs_file_error_dir_bad_magic,
--	afs_file_error_dir_big,
--	afs_file_error_dir_missing_page,
--	afs_file_error_dir_name_too_long,
--	afs_file_error_dir_over_end,
--	afs_file_error_dir_small,
--	afs_file_error_dir_unmarked_ext,
--	afs_file_error_mntpt,
--	afs_file_error_writeback_fail,
--};
--
--enum afs_flock_event {
--	afs_flock_acquired,
--	afs_flock_callback_break,
--	afs_flock_defer_unlock,
--	afs_flock_extend_fail,
--	afs_flock_fail_other,
--	afs_flock_fail_perm,
--	afs_flock_no_lockers,
--	afs_flock_release_fail,
--	afs_flock_silly_delete,
--	afs_flock_timestamp,
--	afs_flock_try_to_lock,
--	afs_flock_vfs_lock,
--	afs_flock_vfs_locking,
--	afs_flock_waited,
--	afs_flock_waiting,
--	afs_flock_work_extending,
--	afs_flock_work_retry,
--	afs_flock_work_unlocking,
--	afs_flock_would_block,
--};
--
--enum afs_flock_operation {
--	afs_flock_op_copy_lock,
--	afs_flock_op_flock,
--	afs_flock_op_grant,
--	afs_flock_op_lock,
--	afs_flock_op_release_lock,
--	afs_flock_op_return_ok,
--	afs_flock_op_return_eagain,
--	afs_flock_op_return_edeadlk,
--	afs_flock_op_return_error,
--	afs_flock_op_set_lock,
--	afs_flock_op_unlock,
--	afs_flock_op_wake,
--};
--
--enum afs_cb_break_reason {
--	afs_cb_break_no_break,
--	afs_cb_break_no_promise,
--	afs_cb_break_for_callback,
--	afs_cb_break_for_deleted,
--	afs_cb_break_for_lapsed,
--	afs_cb_break_for_s_reinit,
--	afs_cb_break_for_unlink,
--	afs_cb_break_for_v_break,
--	afs_cb_break_for_volume_callback,
--	afs_cb_break_for_zap,
--};
--
- #endif /* end __AFS_DECLARE_TRACE_ENUMS_ONCE_ONLY */
+ FSCRYPT: FILE SYSTEM LEVEL ENCRYPTION SUPPORT
+ M:	Eric Biggers <ebiggers@kernel.org>
+ M:	Theodore Y. Ts'o <tytso@mit.edu>
+diff --git a/fs/Kconfig b/fs/Kconfig
+index 42837617a55b..c935c341eb6e 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -140,7 +140,6 @@ source "fs/overlayfs/Kconfig"
+ menu "Caches"
  
- /*
-@@ -391,6 +185,7 @@ enum afs_cb_break_reason {
- 	EM(afs_cell_trace_unuse_fc,		"UNU fc    ") \
- 	EM(afs_cell_trace_unuse_lookup,		"UNU lookup") \
- 	EM(afs_cell_trace_unuse_mntpt,		"UNU mntpt ") \
-+	EM(afs_cell_trace_unuse_no_pin,		"UNU no-pin") \
- 	EM(afs_cell_trace_unuse_parse,		"UNU parse ") \
- 	EM(afs_cell_trace_unuse_pin,		"UNU pin   ") \
- 	EM(afs_cell_trace_unuse_probe,		"UNU probe ") \
-@@ -614,6 +409,32 @@ enum afs_cb_break_reason {
- 	EM(afs_cb_break_for_volume_callback,	"break-v-cb")		\
- 	E_(afs_cb_break_for_zap,		"break-zap")
+ source "fs/netfs/Kconfig"
+-source "fs/fscache/Kconfig"
+ source "fs/cachefiles/Kconfig"
  
-+/*
-+ * Generate enums for tracing information.
-+ */
-+#ifndef __AFS_GENERATE_TRACE_ENUMS_ONCE_ONLY
-+#define __AFS_GENERATE_TRACE_ENUMS_ONCE_ONLY
+ endmenu
+diff --git a/fs/Makefile b/fs/Makefile
+index 75522f88e763..af7632368e98 100644
+--- a/fs/Makefile
++++ b/fs/Makefile
+@@ -60,7 +60,6 @@ obj-$(CONFIG_DLM)		+= dlm/
+  
+ # Do not add any filesystems before this line
+ obj-$(CONFIG_NETFS_SUPPORT)	+= netfs/
+-obj-$(CONFIG_FSCACHE)		+= fscache/
+ obj-$(CONFIG_REISERFS_FS)	+= reiserfs/
+ obj-$(CONFIG_EXT4_FS)		+= ext4/
+ # We place ext4 before ext2 so that clean ext3 root fs's do NOT mount using the
+diff --git a/fs/fscache/Kconfig b/fs/fscache/Kconfig
+deleted file mode 100644
+index b313a978ae0a..000000000000
+--- a/fs/fscache/Kconfig
++++ /dev/null
+@@ -1,40 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-
+-config FSCACHE
+-	tristate "General filesystem local caching manager"
+-	select NETFS_SUPPORT
+-	help
+-	  This option enables a generic filesystem caching manager that can be
+-	  used by various network and other filesystems to cache data locally.
+-	  Different sorts of caches can be plugged in, depending on the
+-	  resources available.
+-
+-	  See Documentation/filesystems/caching/fscache.rst for more information.
+-
+-config FSCACHE_STATS
+-	bool "Gather statistical information on local caching"
+-	depends on FSCACHE && PROC_FS
+-	select NETFS_STATS
+-	help
+-	  This option causes statistical information to be gathered on local
+-	  caching and exported through file:
+-
+-		/proc/fs/fscache/stats
+-
+-	  The gathering of statistics adds a certain amount of overhead to
+-	  execution as there are a quite a few stats gathered, and on a
+-	  multi-CPU system these may be on cachelines that keep bouncing
+-	  between CPUs.  On the other hand, the stats are very useful for
+-	  debugging purposes.  Saying 'Y' here is recommended.
+-
+-	  See Documentation/filesystems/caching/fscache.rst for more information.
+-
+-config FSCACHE_DEBUG
+-	bool "Debug FS-Cache"
+-	depends on FSCACHE
+-	help
+-	  This permits debugging to be dynamically enabled in the local caching
+-	  management module.  If this is set, the debugging output may be
+-	  enabled by setting bits in /sys/modules/fscache/parameter/debug.
+-
+-	  See Documentation/filesystems/caching/fscache.rst for more information.
+diff --git a/fs/fscache/Makefile b/fs/fscache/Makefile
+deleted file mode 100644
+index afb090ea16c4..000000000000
+--- a/fs/fscache/Makefile
++++ /dev/null
+@@ -1,16 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0
+-#
+-# Makefile for general filesystem caching code
+-#
+-
+-fscache-y := \
+-	cache.o \
+-	cookie.o \
+-	io.o \
+-	main.o \
+-	volume.o
+-
+-fscache-$(CONFIG_PROC_FS) += proc.o
+-fscache-$(CONFIG_FSCACHE_STATS) += stats.o
+-
+-obj-$(CONFIG_FSCACHE) := fscache.o
+diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
+index b4db21022cb4..b4378688357c 100644
+--- a/fs/netfs/Kconfig
++++ b/fs/netfs/Kconfig
+@@ -21,3 +21,42 @@ config NETFS_STATS
+ 	  multi-CPU system these may be on cachelines that keep bouncing
+ 	  between CPUs.  On the other hand, the stats are very useful for
+ 	  debugging purposes.  Saying 'Y' here is recommended.
 +
-+#undef EM
-+#undef E_
-+#define EM(a, b) a,
-+#define E_(a, b) a
++config FSCACHE
++	tristate "General filesystem local caching manager"
++	select NETFS_SUPPORT
++	help
++	  This option enables a generic filesystem caching manager that can be
++	  used by various network and other filesystems to cache data locally.
++	  Different sorts of caches can be plugged in, depending on the
++	  resources available.
 +
-+enum afs_call_trace		{ afs_call_traces } __mode(byte);
-+enum afs_cb_break_reason	{ afs_cb_break_reasons } __mode(byte);
-+enum afs_cell_trace		{ afs_cell_traces } __mode(byte);
-+enum afs_edit_dir_op		{ afs_edit_dir_ops } __mode(byte);
-+enum afs_edit_dir_reason	{ afs_edit_dir_reasons } __mode(byte);
-+enum afs_eproto_cause		{ afs_eproto_causes } __mode(byte);
-+enum afs_file_error		{ afs_file_errors } __mode(byte);
-+enum afs_flock_event		{ afs_flock_events } __mode(byte);
-+enum afs_flock_operation	{ afs_flock_operations } __mode(byte);
-+enum afs_io_error		{ afs_io_errors } __mode(byte);
-+enum afs_server_trace		{ afs_server_traces } __mode(byte);
-+enum afs_volume_trace		{ afs_volume_traces } __mode(byte);
++	  See Documentation/filesystems/caching/fscache.rst for more information.
 +
-+#endif /* end __AFS_GENERATE_TRACE_ENUMS_ONCE_ONLY */
++config FSCACHE_STATS
++	bool "Gather statistical information on local caching"
++	depends on FSCACHE && PROC_FS
++	select NETFS_STATS
++	help
++	  This option causes statistical information to be gathered on local
++	  caching and exported through file:
 +
- /*
-  * Export enum symbols via userspace.
++		/proc/fs/fscache/stats
++
++	  The gathering of statistics adds a certain amount of overhead to
++	  execution as there are a quite a few stats gathered, and on a
++	  multi-CPU system these may be on cachelines that keep bouncing
++	  between CPUs.  On the other hand, the stats are very useful for
++	  debugging purposes.  Saying 'Y' here is recommended.
++
++	  See Documentation/filesystems/caching/fscache.rst for more information.
++
++config FSCACHE_DEBUG
++	bool "Debug FS-Cache"
++	depends on FSCACHE
++	help
++	  This permits debugging to be dynamically enabled in the local caching
++	  management module.  If this is set, the debugging output may be
++	  enabled by setting bits in /sys/modules/fscache/parameter/debug.
++
++	  See Documentation/filesystems/caching/fscache.rst for more information.
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index 386d6fb92793..bbb2b824bd5e 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -1,5 +1,17 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
++fscache-y := \
++	fscache_cache.o \
++	fscache_cookie.o \
++	fscache_io.o \
++	fscache_main.o \
++	fscache_volume.o
++
++fscache-$(CONFIG_PROC_FS) += fscache_proc.o
++fscache-$(CONFIG_FSCACHE_STATS) += fscache_stats.o
++
++obj-$(CONFIG_FSCACHE) := fscache.o
++
+ netfs-y := \
+ 	buffered_read.o \
+ 	io.o \
+@@ -9,4 +21,4 @@ netfs-y := \
+ 
+ netfs-$(CONFIG_NETFS_STATS) += stats.o
+ 
+-obj-$(CONFIG_NETFS_SUPPORT) := netfs.o
++obj-$(CONFIG_NETFS_SUPPORT) += netfs.o
+diff --git a/fs/fscache/cache.c b/fs/netfs/fscache_cache.c
+similarity index 100%
+rename from fs/fscache/cache.c
+rename to fs/netfs/fscache_cache.c
+diff --git a/fs/fscache/cookie.c b/fs/netfs/fscache_cookie.c
+similarity index 100%
+rename from fs/fscache/cookie.c
+rename to fs/netfs/fscache_cookie.c
+diff --git a/fs/fscache/internal.h b/fs/netfs/fscache_internal.h
+similarity index 100%
+rename from fs/fscache/internal.h
+rename to fs/netfs/fscache_internal.h
+diff --git a/fs/fscache/io.c b/fs/netfs/fscache_io.c
+similarity index 100%
+rename from fs/fscache/io.c
+rename to fs/netfs/fscache_io.c
+diff --git a/fs/fscache/main.c b/fs/netfs/fscache_main.c
+similarity index 100%
+rename from fs/fscache/main.c
+rename to fs/netfs/fscache_main.c
+diff --git a/fs/fscache/proc.c b/fs/netfs/fscache_proc.c
+similarity index 100%
+rename from fs/fscache/proc.c
+rename to fs/netfs/fscache_proc.c
+diff --git a/fs/fscache/stats.c b/fs/netfs/fscache_stats.c
+similarity index 100%
+rename from fs/fscache/stats.c
+rename to fs/netfs/fscache_stats.c
+diff --git a/fs/fscache/volume.c b/fs/netfs/fscache_volume.c
+similarity index 100%
+rename from fs/fscache/volume.c
+rename to fs/netfs/fscache_volume.c
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 43fac1b14e40..e96432499eb2 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -5,9 +5,12 @@
+  * Written by David Howells (dhowells@redhat.com)
   */
+ 
++#include <linux/slab.h>
++#include <linux/seq_file.h>
+ #include <linux/netfs.h>
+ #include <linux/fscache.h>
+ #include <trace/events/netfs.h>
++#include "fscache_internal.h"
+ 
+ #ifdef pr_fmt
+ #undef pr_fmt
+@@ -107,6 +110,7 @@ static inline bool netfs_is_cache_enabled(struct netfs_inode *ctx)
+ /*
+  * debug tracing
+  */
++#if 0
+ #define dbgprintk(FMT, ...) \
+ 	printk("[%-6.6s] "FMT"\n", current->comm, ##__VA_ARGS__)
+ 
+@@ -143,3 +147,4 @@ do {						\
+ #define _leave(FMT, ...) no_printk("<== %s()"FMT"", __func__, ##__VA_ARGS__)
+ #define _debug(FMT, ...) no_printk(FMT, ##__VA_ARGS__)
+ #endif
++#endif
+diff --git a/fs/netfs/main.c b/fs/netfs/main.c
+index 068568702957..237c54a01d97 100644
+--- a/fs/netfs/main.c
++++ b/fs/netfs/main.c
+@@ -8,8 +8,8 @@
+ #include <linux/module.h>
+ #include <linux/export.h>
+ #include "internal.h"
+-#define CREATE_TRACE_POINTS
+-#include <trace/events/netfs.h>
++//#define CREATE_TRACE_POINTS
++//#include <trace/events/netfs.h>
+ 
+ MODULE_DESCRIPTION("Network fs support");
+ MODULE_AUTHOR("Red Hat, Inc.");
+@@ -18,3 +18,4 @@ MODULE_LICENSE("GPL");
+ unsigned netfs_debug;
+ module_param_named(debug, netfs_debug, uint, S_IWUSR | S_IRUGO);
+ MODULE_PARM_DESC(netfs_debug, "Netfs support debugging mask");
++
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
