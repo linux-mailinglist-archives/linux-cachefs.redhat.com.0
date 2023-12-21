@@ -1,102 +1,102 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB6XZSCWAMGQEOQQA55I@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB7PZSCWAMGQEVTUNMFQ@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1CA81B780
-	for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 14:26:20 +0100 (CET)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-67f824983dasf9898486d6.1
-        for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 05:26:20 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1703165179; cv=pass;
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mail.lfdr.de (Postfix) with ESMTPS id 766F181B781
+	for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 14:26:22 +0100 (CET)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-6dbbe987e72sf43255a34.2
+        for <lists+linux-cachefs@lfdr.de>; Thu, 21 Dec 2023 05:26:22 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1703165181; cv=pass;
         d=google.com; s=arc-20160816;
-        b=CXArS7N157Tci8lZNLfhRZc7Ionk6AM8cQNwlthsGzazdZhMQHGCzTuk0JBsC6zPWv
-         iEGSECAJb1wkNd7v9AKE5K30K85L9FbLV3NImgtrKVA3X/8bsl9bVZ2RDrvvA7MshdMs
-         e/o5OfiFS+CVYvgkm3QXLgArGJnDiEs4G55GYTq2TuusylEvDEhvYj6bT99yutGl0qn+
-         lrnUTGAV7nJ3h3YUSnGIxeHa9duwMbQO7YZow49GAbi/0OEnpnhzr56v8wePayLZHtNu
-         ykFs5npG0gxnH8gNzivacylZ3D03KJXX4WhTepu6nvn07KcHlPzUdQzf+TitQXIBLntN
-         z1Wg==
+        b=exDCm1cXJycpsGpfq/ypk4EHQDN8daKKP2qrBdNnP2cL2H/r1oPzP3II1H/SalruVV
+         ExHRUwhKjQWll5urjfd3JJk6XWAXEVIG9r4OuXMQwWg/k8Xeo4fjandVSdq93GTSnkZ0
+         b4uItvTLr+srFo6+/8xZvEucWO+yhH86uzsA/7EiYiLCMNxUO8Khy03+KNxkeWD5T3WC
+         ZYPEaAmMTVrY8cXLatwQBga/4volvf6J9/Ja4fo1jrA9XHToLXjlFk2MnjEaf1duYU0X
+         xxUqUs16xLIIaPzhy+L6+2kL6AEinSWVIPelh2PanosZPqdoEci7dTnSPPRQhV4ll03A
+         fkPQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=H4Qk9B3D0v54BUTvAE80BLQVuEy+SfX/w1iFYbDawbs=;
+        bh=Mi6eWwTHEM0EUvjl9SQ4mTsERKfe8netGrAN+juoqNE=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=bGYeB7akpajopZwCrZaWG6bJg79IKJXfZmmsVu3La8TGdW+jrGToTOp+EeUTOeNJtY
-         rg85Y3SuTkhcVVKhmEQdVwNFjHHZP06bACTGS57+3aUEHYS3Uc7JXbCf5kFGQ73K7ipi
-         2MOWcDOPsoKmgmyFuDm7hpDMSKEgAbd29VeRtb7/oxiff7/fRShIcONNq6d2nnxuJ/5Q
-         Q1fDJi1+tn2Db6eEbkfIYcOf6pwGulyaVHxrvfbGGvDC9OFsiYAePMgZxS/a1NbSwmJR
-         QuOU14Gi1it+jIHndTDVjeHmnJNII+gW9uPVhgYlklm9UubSsFoEHEp+ufl5a4LkPS8/
-         2y7Q==
+        b=Vebec7O09N5Wu1V5z+A2R2+lT21Skc8BxCe0c8cdVe25JRjIYct2AJ96oJfS7JMUQK
+         EDePlCwNK/Py+4BZKFtPSvNGIm1giRrzwk9lEztd5gkQAoHihs4uQRv3W06P8EWkGOFR
+         gYDTNDCXDsgph8mpOjeawLUfI3Tt9XJS6a7OoRbdxx0vYLd+atKpjhYAKLMo2OVvsDsj
+         Q0RhroOJ+xLbpU/5C9Yvl5m/JFzNhPN1c4QytZQwgPO2TW0LuV9itvT8285ioISA6rGt
+         54eKmb67pKUiWgA7qXhiQYh0sNPNua8DNOfdq+7/1rzaIVGiqDU64Vggi6m8C0287/YM
+         zNdw==
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703165179; x=1703769979;
+        d=1e100.net; s=20230601; t=1703165181; x=1703769981;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H4Qk9B3D0v54BUTvAE80BLQVuEy+SfX/w1iFYbDawbs=;
-        b=SSFlGtV2hpLfcmfNecwNz6MXOtU0MhsaxpnmFp4I8z7xiL2FSlvuvzQG5JCc0TbTcj
-         rdMuw8F3qt5a58c/SX8eT7o3ckSAM+hdRNgcPlSRi1hAZDY8vACScXKq4UIkAmt5eqZu
-         KrjYpE1QnKanarV7OjaG3RU7MpjRk8zDDXNLLTFFINlndwfnNbN8crdmeLHKyBjO2YgS
-         Yy3/z6dXfpGDMjJCoG+iwZjYFJABTzNKPE3pkH/z3d0P2pgyUhg3oI9VM+u/0Kdezbbn
-         udGCHPJ78VtxDKLxAci+quNhzkm+t2dJQBq0iLf9Hxs20/X5+4h+IozrT4KsnHCh1wX2
-         aP2Q==
-X-Gm-Message-State: AOJu0YxQkJZSJoeIHKFnV7dCDvmoR23P8SbMj/Z2wB4kaF/EsIDANtzj
-	0c8IU9YT1o3ERM04FFwQ7IMh4w62cwtfFQ==
-X-Google-Smtp-Source: AGHT+IFhM90J1fVmEjeeMvj41cxj+T+8sIayJFUY2+gACjwzquxItuiMRTnxX2wLt9QRZZe0asKepw==
-X-Received: by 2002:a05:6214:c2b:b0:67a:a72d:fbb6 with SMTP id a11-20020a0562140c2b00b0067aa72dfbb6mr716699qvd.52.1703165179057;
-        Thu, 21 Dec 2023 05:26:19 -0800 (PST)
+        bh=Mi6eWwTHEM0EUvjl9SQ4mTsERKfe8netGrAN+juoqNE=;
+        b=gzF1iVzhkVwb+69heqYFC0X09Zrwx+O2QYCnecqi4rO2wCRSA29FPLWS9aXF5sW1iy
+         tKStLgGeUlCzuhNUT2gvWiq3M1+Tzdb+2r0QowflmN6Ixk+83RWtZtDuOHEXtNGB7L86
+         9geDPU59e7Rq5sd+XpgKhaLZOfPlqc7kcspMoxtIFEhFrHi0CipCF9mgIgAwgPuDbxzM
+         OA/1X9PwoXtshXQsh02hj+F0t1ZidrVs8DyRgLH5GoSrYO+4iglsq3fLc2Tmon7UCqvC
+         DwmyR6KZJjZPRXlCLn1tsx9B3F4T8eFzCcKh7gMpKdB/+XB2H7XUDsSTP1wP+4TYgtrR
+         k69A==
+X-Gm-Message-State: AOJu0YxLL5wIGk1GtnjCnme52SD6pXbZNCLNHyYFOwd4A0/7KvTG/v1a
+	pGuwau8N1SONKY6SSvCllen+Wg==
+X-Google-Smtp-Source: AGHT+IG4UNn6g23GyoG+v493JVEo586QC0TsWejnoKVgG1I9a/8j4XLOfUxzSpPif5S1F5hncrkySA==
+X-Received: by 2002:a9d:7ace:0:b0:6d7:d4bd:1fca with SMTP id m14-20020a9d7ace000000b006d7d4bd1fcamr17672201otn.17.1703165181346;
+        Thu, 21 Dec 2023 05:26:21 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ad4:5c6e:0:b0:67f:647a:94e6 with SMTP id i14-20020ad45c6e000000b0067f647a94e6ls112566qvh.0.-pod-prod-00-us;
- Thu, 21 Dec 2023 05:26:17 -0800 (PST)
-X-Received: by 2002:a05:6214:da1:b0:67f:2f9e:5184 with SMTP id h1-20020a0562140da100b0067f2f9e5184mr1052053qvh.15.1703165177018;
-        Thu, 21 Dec 2023 05:26:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1703165177; cv=none;
+Received: by 2002:ac8:470e:0:b0:427:8fb2:d1b7 with SMTP id f14-20020ac8470e000000b004278fb2d1b7ls1216482qtp.1.-pod-prod-02-us;
+ Thu, 21 Dec 2023 05:26:20 -0800 (PST)
+X-Received: by 2002:a05:620a:2989:b0:77e:ff8a:3a56 with SMTP id r9-20020a05620a298900b0077eff8a3a56mr25066839qkp.102.1703165180708;
+        Thu, 21 Dec 2023 05:26:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1703165180; cv=none;
         d=google.com; s=arc-20160816;
-        b=PU/R6rHmPiSgRmNddXRBMg1X3yBHTqA4S/DSU5l7uTfeRYrHICmGl9uH0DAQ9b7E91
-         SeuzKvOVhyp1GaciShGzVwtf2C7cHcLMQRakIiWaBwm9yKdf0gTab4KIUzXkwjytdLDe
-         iwPy2AG4RAtv0lTY8WojyAYjkUiEdIfmAOuEJPQ0Wt1vrCLDKlbth6iIp3pMLcWwmFOR
-         xCtdAgO2RqNtj/KwpFLAyCTcRT1UpNNCos2YeOn1I15FsgIlQNsazDFTpA4TONFUctd0
-         d1HCAjHSIPOpGmCwemgCztMYFtnOMcc99tRX2LsrQYHlRmniF0sjFw4bHfGeMYfZTfR4
-         kIhw==
+        b=Tc3yM6BqedfuFPAZpBicImmWgrYCCeUxRNwvNIHP+KNFFVN1diDm1YnCxRwB7vx1SO
+         t1d2lV+hBqmCha7LqgFTsYDFF7cmbdtuBG5ovs1E47z66MoyboAwfFUFeZc4oIcoBfhw
+         koCzVVIuqJl0sk+Ns4iERwG1gHl7AAzw7jBvkc5DjCuOfwrxA21xWnvMboj+1bMHpohQ
+         +NPyHC5rqLo0eg8jqTyDApKO25DoCn5VYtebzMMsLtC/KCqd30tWhNO1Zp3AKIlh5PIu
+         K4VQSytPDH4eEdbqDeKHO0+D+lnuMcv12xjgn+g4jAGNpKzhieX5ahdGhcOWolkGd42O
+         tUPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=W3b/58DKZf6q2DKR6s5ZzqWVaDITrZgP9V+mka10flk=;
+        bh=5nrdy05+O63ty6kfCVxiUL3UOguYz/ZaMv4KyXdTrG4=;
         fh=ib4gl95HfLmZdfX9QIMf3rTepWCH9JlNymcDKJTPhJg=;
-        b=WXUGqIpakGIcX/7CXzN1LEoVQlZk1FXXgAPOi8tLO7jeN20EpebbjSzYyEwHyuhEjr
-         jhZ/rYGIk020PRfkp2yug7c8aEaGxGchRstF+SbNzVFCn0xqoHfCPTGjL6DoMY/AWgex
-         lhMCgthsG42MAY6dNmYOYyQwmQV0m4Lc68mH+XRDO9C9V7QvuYWrQPNUMt6apgzqG3yq
-         WyHxAbYR2UmjQ6SDj3yvg2KQskDvPZYMIFaRaYU5YLle+opiWThmCwiz4Wlgkn0hOduh
-         QDcnxLKxhlg0dF8wo9uC20EvKWBzN0sMOhDaix9J2vV8yNZLPemkTbBhgVSbzXHsSdzO
-         UnQw==
+        b=v/tS+vouWm2FOwdfVo/fAbLDqEUW/Eb4R6u9g4iHDp+lAgoOHfZfVa18dU354IzfUK
+         JcxIZsgE/IHrPLDusjYu5qiATU61l9PzXKzh8nAIG4vJ2etge4t/+iR1W/edPWlsgOYq
+         RCRoyL5Zpq1kz209NhTBa0TX4KJPOge7Jav4817TPe1MU0XLhLdWVD2/KgockvXXl3p1
+         2iPMQIv16H/Ybx+Z9Qg5DOnspykf9+G1qYi8mnwqlpx9SsUBgA0tGf/odW2/Igei/Pbg
+         EPu0LQESKVQvqyGx6n/mB2a5pyCbI08eWjZZ186btUJYi+NZ5Qtq6dikiOdBkJnOdNLW
+         OgjQ==
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id w17-20020a0cdf91000000b0067f69d54b26si2143201qvl.572.2023.12.21.05.26.16
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id m18-20020a05620a221200b0077dabbe1b27si2131424qkh.196.2023.12.21.05.26.20
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Dec 2023 05:26:17 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-310-wLJuIhP-MtWKg5-W8EOdOQ-1; Thu,
- 21 Dec 2023 08:26:15 -0500
-X-MC-Unique: wLJuIhP-MtWKg5-W8EOdOQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+        Thu, 21 Dec 2023 05:26:20 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-119-bOIRV_fFPA2vREF9OFmg_w-1; Thu, 21 Dec 2023 08:26:19 -0500
+X-MC-Unique: bOIRV_fFPA2vREF9OFmg_w-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 407661C0650B
-	for <linux-cachefs@gapps.redhat.com>; Thu, 21 Dec 2023 13:26:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00A1088CDCC
+	for <linux-cachefs@gapps.redhat.com>; Thu, 21 Dec 2023 13:26:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3DA3F492BC8; Thu, 21 Dec 2023 13:26:15 +0000 (UTC)
+	id F01A7492BFD; Thu, 21 Dec 2023 13:26:18 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.39.195.169])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DDD43492BC6;
-	Thu, 21 Dec 2023 13:26:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 03196492BE6;
+	Thu, 21 Dec 2023 13:26:15 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Jeff Layton <jlayton@kernel.org>,
 	Steve French <smfrench@gmail.com>
@@ -120,20 +120,20 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 34/40] netfs: Provide a writepages implementation
-Date: Thu, 21 Dec 2023 13:23:29 +0000
-Message-ID: <20231221132400.1601991-35-dhowells@redhat.com>
+Subject: [PATCH v5 35/40] netfs: Provide a launder_folio implementation
+Date: Thu, 21 Dec 2023 13:23:30 +0000
+Message-ID: <20231221132400.1601991-36-dhowells@redhat.com>
 In-Reply-To: <20231221132400.1601991-1-dhowells@redhat.com>
 References: <20231221132400.1601991-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -145,8 +145,7 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Provide an implementation of writepages for network filesystems to delegate
-to.
+Provide a launder_folio implementation for netfslib.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
@@ -154,684 +153,154 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
-
-Notes:
-    Changes
-    =======
-    ver #5)
-     - Use netfs_folio_info() rather than open-coding pointer mangling.
-     - Use folio_get_private() rather than using folio->private.
-     - Don't check the folio private pointer before taking the folio ref during
-       writeback pagecache RCU xarray walk.
-
- fs/netfs/buffered_write.c | 636 ++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h     |   2 +
- 2 files changed, 638 insertions(+)
+ fs/netfs/buffered_write.c    | 74 ++++++++++++++++++++++++++++++++++++
+ fs/netfs/main.c              |  1 +
+ include/linux/netfs.h        |  2 +
+ include/trace/events/netfs.h |  3 ++
+ 4 files changed, 80 insertions(+)
 
 diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 70cb8e98d068..c078826f7fe6 100644
+index c078826f7fe6..50be8fe3ca43 100644
 --- a/fs/netfs/buffered_write.c
 +++ b/fs/netfs/buffered_write.c
-@@ -32,6 +32,18 @@ static void netfs_set_group(struct folio *folio, struct netfs_group *netfs_group
- 		folio_attach_private(folio, netfs_get_group(netfs_group));
- }
- 
-+#if IS_ENABLED(CONFIG_FSCACHE)
-+static void netfs_folio_start_fscache(bool caching, struct folio *folio)
-+{
-+	if (caching)
-+		folio_start_fscache(folio);
-+}
-+#else
-+static void netfs_folio_start_fscache(bool caching, struct folio *folio)
-+{
-+}
-+#endif
-+
- /*
-  * Decide how we should modify a folio.  We might be attempting to do
-  * write-streaming, in which case we don't want to a local RMW cycle if we can
-@@ -475,3 +487,627 @@ vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_gr
+@@ -1111,3 +1111,77 @@ int netfs_writepages(struct address_space *mapping,
  	return ret;
  }
- EXPORT_SYMBOL(netfs_page_mkwrite);
+ EXPORT_SYMBOL(netfs_writepages);
 +
 +/*
-+ * Kill all the pages in the given range
++ * Deal with the disposition of a laundered folio.
 + */
-+static void netfs_kill_pages(struct address_space *mapping,
-+			     loff_t start, loff_t len)
++static void netfs_cleanup_launder_folio(struct netfs_io_request *wreq)
 +{
-+	struct folio *folio;
-+	pgoff_t index = start / PAGE_SIZE;
-+	pgoff_t last = (start + len - 1) / PAGE_SIZE, next;
-+
-+	_enter("%llx-%llx", start, start + len - 1);
-+
-+	do {
-+		_debug("kill %lx (to %lx)", index, last);
-+
-+		folio = filemap_get_folio(mapping, index);
-+		if (IS_ERR(folio)) {
-+			next = index + 1;
-+			continue;
-+		}
-+
-+		next = folio_next_index(folio);
-+
-+		trace_netfs_folio(folio, netfs_folio_trace_kill);
-+		folio_clear_uptodate(folio);
-+		if (folio_test_fscache(folio))
-+			folio_end_fscache(folio);
-+		folio_end_writeback(folio);
-+		folio_lock(folio);
-+		generic_error_remove_page(mapping, &folio->page);
-+		folio_unlock(folio);
-+		folio_put(folio);
-+
-+	} while (index = next, index <= last);
-+
-+	_leave("");
-+}
-+
-+/*
-+ * Redirty all the pages in a given range.
-+ */
-+static void netfs_redirty_pages(struct address_space *mapping,
-+				loff_t start, loff_t len)
-+{
-+	struct folio *folio;
-+	pgoff_t index = start / PAGE_SIZE;
-+	pgoff_t last = (start + len - 1) / PAGE_SIZE, next;
-+
-+	_enter("%llx-%llx", start, start + len - 1);
-+
-+	do {
-+		_debug("redirty %llx @%llx", len, start);
-+
-+		folio = filemap_get_folio(mapping, index);
-+		if (IS_ERR(folio)) {
-+			next = index + 1;
-+			continue;
-+		}
-+
-+		next = folio_next_index(folio);
-+		trace_netfs_folio(folio, netfs_folio_trace_redirty);
-+		filemap_dirty_folio(mapping, folio);
-+		if (folio_test_fscache(folio))
-+			folio_end_fscache(folio);
-+		folio_end_writeback(folio);
-+		folio_put(folio);
-+	} while (index = next, index <= last);
-+
-+	balance_dirty_pages_ratelimited(mapping);
-+
-+	_leave("");
-+}
-+
-+/*
-+ * Completion of write to server
-+ */
-+static void netfs_pages_written_back(struct netfs_io_request *wreq)
-+{
-+	struct address_space *mapping = wreq->mapping;
-+	struct netfs_folio *finfo;
-+	struct netfs_group *group = NULL;
-+	struct folio *folio;
-+	pgoff_t last;
-+	int gcount = 0;
-+
-+	XA_STATE(xas, &mapping->i_pages, wreq->start / PAGE_SIZE);
-+
-+	_enter("%llx-%llx", wreq->start, wreq->start + wreq->len);
-+
-+	rcu_read_lock();
-+
-+	last = (wreq->start + wreq->len - 1) / PAGE_SIZE;
-+	xas_for_each(&xas, folio, last) {
-+		WARN(!folio_test_writeback(folio),
-+		     "bad %zx @%llx page %lx %lx\n",
-+		     wreq->len, wreq->start, folio_index(folio), last);
-+
-+		if ((finfo = netfs_folio_info(folio))) {
-+			/* Streaming writes cannot be redirtied whilst under
-+			 * writeback, so discard the streaming record.
-+			 */
-+			folio_detach_private(folio);
-+			group = finfo->netfs_group;
-+			gcount++;
-+			trace_netfs_folio(folio, netfs_folio_trace_clear_s);
-+			kfree(finfo);
-+		} else if ((group = netfs_folio_group(folio))) {
-+			/* Need to detach the group pointer if the page didn't
-+			 * get redirtied.  If it has been redirtied, then it
-+			 * must be within the same group.
-+			 */
-+			if (folio_test_dirty(folio)) {
-+				trace_netfs_folio(folio, netfs_folio_trace_redirtied);
-+				goto end_wb;
-+			}
-+			if (folio_trylock(folio)) {
-+				if (!folio_test_dirty(folio)) {
-+					folio_detach_private(folio);
-+					gcount++;
-+					trace_netfs_folio(folio, netfs_folio_trace_clear_g);
-+				} else {
-+					trace_netfs_folio(folio, netfs_folio_trace_redirtied);
-+				}
-+				folio_unlock(folio);
-+				goto end_wb;
-+			}
-+
-+			xas_pause(&xas);
-+			rcu_read_unlock();
-+			folio_lock(folio);
-+			if (!folio_test_dirty(folio)) {
-+				folio_detach_private(folio);
-+				gcount++;
-+				trace_netfs_folio(folio, netfs_folio_trace_clear_g);
-+			} else {
-+				trace_netfs_folio(folio, netfs_folio_trace_redirtied);
-+			}
-+			folio_unlock(folio);
-+			rcu_read_lock();
-+		} else {
-+			trace_netfs_folio(folio, netfs_folio_trace_clear);
-+		}
-+	end_wb:
-+		if (folio_test_fscache(folio))
-+			folio_end_fscache(folio);
-+		folio_end_writeback(folio);
++	if (wreq->error) {
++		pr_notice("R=%08x Laundering error %d\n", wreq->debug_id, wreq->error);
++		mapping_set_error(wreq->mapping, wreq->error);
 +	}
-+
-+	rcu_read_unlock();
-+	netfs_put_group_many(group, gcount);
-+	_leave("");
 +}
 +
-+/*
-+ * Deal with the disposition of the folios that are under writeback to close
-+ * out the operation.
-+ */
-+static void netfs_cleanup_buffered_write(struct netfs_io_request *wreq)
-+{
-+	struct address_space *mapping = wreq->mapping;
-+
-+	_enter("");
-+
-+	switch (wreq->error) {
-+	case 0:
-+		netfs_pages_written_back(wreq);
-+		break;
-+
-+	default:
-+		pr_notice("R=%08x Unexpected error %d\n", wreq->debug_id, wreq->error);
-+		fallthrough;
-+	case -EACCES:
-+	case -EPERM:
-+	case -ENOKEY:
-+	case -EKEYEXPIRED:
-+	case -EKEYREJECTED:
-+	case -EKEYREVOKED:
-+	case -ENETRESET:
-+	case -EDQUOT:
-+	case -ENOSPC:
-+		netfs_redirty_pages(mapping, wreq->start, wreq->len);
-+		break;
-+
-+	case -EROFS:
-+	case -EIO:
-+	case -EREMOTEIO:
-+	case -EFBIG:
-+	case -ENOENT:
-+	case -ENOMEDIUM:
-+	case -ENXIO:
-+		netfs_kill_pages(mapping, wreq->start, wreq->len);
-+		break;
-+	}
-+
-+	if (wreq->error)
-+		mapping_set_error(mapping, wreq->error);
-+	if (wreq->netfs_ops->done)
-+		wreq->netfs_ops->done(wreq);
-+}
-+
-+/*
-+ * Extend the region to be written back to include subsequent contiguously
-+ * dirty pages if possible, but don't sleep while doing so.
++/**
++ * netfs_launder_folio - Clean up a dirty folio that's being invalidated
++ * @folio: The folio to clean
 + *
-+ * If this page holds new content, then we can include filler zeros in the
-+ * writeback.
++ * This is called to write back a folio that's being invalidated when an inode
++ * is getting torn down.  Ideally, writepages would be used instead.
 + */
-+static void netfs_extend_writeback(struct address_space *mapping,
-+				   struct netfs_group *group,
-+				   struct xa_state *xas,
-+				   long *_count,
-+				   loff_t start,
-+				   loff_t max_len,
-+				   bool caching,
-+				   size_t *_len,
-+				   size_t *_top)
-+{
-+	struct netfs_folio *finfo;
-+	struct folio_batch fbatch;
-+	struct folio *folio;
-+	unsigned int i;
-+	pgoff_t index = (start + *_len) / PAGE_SIZE;
-+	size_t len;
-+	void *priv;
-+	bool stop = true;
-+
-+	folio_batch_init(&fbatch);
-+
-+	do {
-+		/* Firstly, we gather up a batch of contiguous dirty pages
-+		 * under the RCU read lock - but we can't clear the dirty flags
-+		 * there if any of those pages are mapped.
-+		 */
-+		rcu_read_lock();
-+
-+		xas_for_each(xas, folio, ULONG_MAX) {
-+			stop = true;
-+			if (xas_retry(xas, folio))
-+				continue;
-+			if (xa_is_value(folio))
-+				break;
-+			if (folio_index(folio) != index) {
-+				xas_reset(xas);
-+				break;
-+			}
-+
-+			if (!folio_try_get_rcu(folio)) {
-+				xas_reset(xas);
-+				continue;
-+			}
-+
-+			/* Has the folio moved or been split? */
-+			if (unlikely(folio != xas_reload(xas))) {
-+				folio_put(folio);
-+				xas_reset(xas);
-+				break;
-+			}
-+
-+			if (!folio_trylock(folio)) {
-+				folio_put(folio);
-+				xas_reset(xas);
-+				break;
-+			}
-+			if (!folio_test_dirty(folio) ||
-+			    folio_test_writeback(folio) ||
-+			    folio_test_fscache(folio)) {
-+				folio_unlock(folio);
-+				folio_put(folio);
-+				xas_reset(xas);
-+				break;
-+			}
-+
-+			stop = false;
-+			len = folio_size(folio);
-+			priv = folio_get_private(folio);
-+			if ((const struct netfs_group *)priv != group) {
-+				stop = true;
-+				finfo = netfs_folio_info(folio);
-+				if (finfo->netfs_group != group ||
-+				    finfo->dirty_offset > 0) {
-+					folio_unlock(folio);
-+					folio_put(folio);
-+					xas_reset(xas);
-+					break;
-+				}
-+				len = finfo->dirty_len;
-+			}
-+
-+			*_top += folio_size(folio);
-+			index += folio_nr_pages(folio);
-+			*_count -= folio_nr_pages(folio);
-+			*_len += len;
-+			if (*_len >= max_len || *_count <= 0)
-+				stop = true;
-+
-+			if (!folio_batch_add(&fbatch, folio))
-+				break;
-+			if (stop)
-+				break;
-+		}
-+
-+		xas_pause(xas);
-+		rcu_read_unlock();
-+
-+		/* Now, if we obtained any folios, we can shift them to being
-+		 * writable and mark them for caching.
-+		 */
-+		if (!folio_batch_count(&fbatch))
-+			break;
-+
-+		for (i = 0; i < folio_batch_count(&fbatch); i++) {
-+			folio = fbatch.folios[i];
-+			trace_netfs_folio(folio, netfs_folio_trace_store_plus);
-+
-+			if (!folio_clear_dirty_for_io(folio))
-+				BUG();
-+			folio_start_writeback(folio);
-+			netfs_folio_start_fscache(caching, folio);
-+			folio_unlock(folio);
-+		}
-+
-+		folio_batch_release(&fbatch);
-+		cond_resched();
-+	} while (!stop);
-+}
-+
-+/*
-+ * Synchronously write back the locked page and any subsequent non-locked dirty
-+ * pages.
-+ */
-+static ssize_t netfs_write_back_from_locked_folio(struct address_space *mapping,
-+						  struct writeback_control *wbc,
-+						  struct netfs_group *group,
-+						  struct xa_state *xas,
-+						  struct folio *folio,
-+						  unsigned long long start,
-+						  unsigned long long end)
++int netfs_launder_folio(struct folio *folio)
 +{
 +	struct netfs_io_request *wreq;
-+	struct netfs_folio *finfo;
-+	struct netfs_inode *ctx = netfs_inode(mapping->host);
-+	unsigned long long i_size = i_size_read(&ctx->inode);
-+	size_t len, max_len;
-+	bool caching = netfs_is_cache_enabled(ctx);
-+	long count = wbc->nr_to_write;
-+	int ret;
++	struct address_space *mapping = folio->mapping;
++	struct netfs_folio *finfo = netfs_folio_info(folio);
++	struct netfs_group *group = netfs_folio_group(folio);
++	struct bio_vec bvec;
++	unsigned long long i_size = i_size_read(mapping->host);
++	unsigned long long start = folio_pos(folio);
++	size_t offset = 0, len;
++	int ret = 0;
 +
-+	_enter(",%lx,%llx-%llx,%u", folio_index(folio), start, end, caching);
++	if (finfo) {
++		offset = finfo->dirty_offset;
++		start += offset;
++		len = finfo->dirty_len;
++	} else {
++		len = folio_size(folio);
++	}
++	len = min_t(unsigned long long, len, i_size - start);
 +
-+	wreq = netfs_alloc_request(mapping, NULL, start, folio_size(folio),
-+				   NETFS_WRITEBACK);
++	wreq = netfs_alloc_request(mapping, NULL, start, len, NETFS_LAUNDER_WRITE);
 +	if (IS_ERR(wreq)) {
-+		folio_unlock(folio);
-+		return PTR_ERR(wreq);
++		ret = PTR_ERR(wreq);
++		goto out;
 +	}
 +
 +	if (!folio_clear_dirty_for_io(folio))
-+		BUG();
-+	folio_start_writeback(folio);
-+	netfs_folio_start_fscache(caching, folio);
++		goto out_put;
 +
-+	count -= folio_nr_pages(folio);
++	trace_netfs_folio(folio, netfs_folio_trace_launder);
 +
-+	/* Find all consecutive lockable dirty pages that have contiguous
-+	 * written regions, stopping when we find a page that is not
-+	 * immediately lockable, is not dirty or is missing, or we reach the
-+	 * end of the range.
++	_debug("launder %llx-%llx", start, start + len - 1);
++
++	/* Speculatively write to the cache.  We have to fix this up later if
++	 * the store fails.
 +	 */
-+	trace_netfs_folio(folio, netfs_folio_trace_store);
++	wreq->cleanup = netfs_cleanup_launder_folio;
 +
-+	len = wreq->len;
-+	finfo = netfs_folio_info(folio);
-+	if (finfo) {
-+		start += finfo->dirty_offset;
-+		if (finfo->dirty_offset + finfo->dirty_len != len) {
-+			len = finfo->dirty_len;
-+			goto cant_expand;
-+		}
-+		len = finfo->dirty_len;
-+	}
++	bvec_set_folio(&bvec, folio, len, offset);
++	iov_iter_bvec(&wreq->iter, ITER_SOURCE, &bvec, 1, len);
++	__set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags);
++	ret = netfs_begin_write(wreq, true, netfs_write_trace_launder);
 +
-+	if (start < i_size) {
-+		/* Trim the write to the EOF; the extra data is ignored.  Also
-+		 * put an upper limit on the size of a single storedata op.
-+		 */
-+		max_len = 65536 * 4096;
-+		max_len = min_t(unsigned long long, max_len, end - start + 1);
-+		max_len = min_t(unsigned long long, max_len, i_size - start);
-+
-+		if (len < max_len)
-+			netfs_extend_writeback(mapping, group, xas, &count, start,
-+					       max_len, caching, &len, &wreq->upper_len);
-+	}
-+
-+cant_expand:
-+	len = min_t(unsigned long long, len, i_size - start);
-+
-+	/* We now have a contiguous set of dirty pages, each with writeback
-+	 * set; the first page is still locked at this point, but all the rest
-+	 * have been unlocked.
-+	 */
-+	folio_unlock(folio);
-+	wreq->start = start;
-+	wreq->len = len;
-+
-+	if (start < i_size) {
-+		_debug("write back %zx @%llx [%llx]", len, start, i_size);
-+
-+		/* Speculatively write to the cache.  We have to fix this up
-+		 * later if the store fails.
-+		 */
-+		wreq->cleanup = netfs_cleanup_buffered_write;
-+
-+		iov_iter_xarray(&wreq->iter, ITER_SOURCE, &mapping->i_pages, start,
-+				wreq->upper_len);
-+		__set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags);
-+		ret = netfs_begin_write(wreq, true, netfs_write_trace_writeback);
-+		if (ret == 0 || ret == -EIOCBQUEUED)
-+			wbc->nr_to_write -= len / PAGE_SIZE;
-+	} else {
-+		_debug("write discard %zx @%llx [%llx]", len, start, i_size);
-+
-+		/* The dirty region was entirely beyond the EOF. */
-+		fscache_clear_page_bits(mapping, start, len, caching);
-+		netfs_pages_written_back(wreq);
-+		ret = 0;
-+	}
-+
++out_put:
++	folio_detach_private(folio);
++	netfs_put_group(group);
++	kfree(finfo);
 +	netfs_put_request(wreq, false, netfs_rreq_trace_put_return);
-+	_leave(" = 1");
-+	return 1;
-+}
-+
-+/*
-+ * Write a region of pages back to the server
-+ */
-+static ssize_t netfs_writepages_begin(struct address_space *mapping,
-+				      struct writeback_control *wbc,
-+				      struct netfs_group *group,
-+				      struct xa_state *xas,
-+				      unsigned long long *_start,
-+				      unsigned long long end)
-+{
-+	const struct netfs_folio *finfo;
-+	struct folio *folio;
-+	unsigned long long start = *_start;
-+	ssize_t ret;
-+	void *priv;
-+	int skips = 0;
-+
-+	_enter("%llx,%llx,", start, end);
-+
-+search_again:
-+	/* Find the first dirty page in the group. */
-+	rcu_read_lock();
-+
-+	for (;;) {
-+		folio = xas_find_marked(xas, end / PAGE_SIZE, PAGECACHE_TAG_DIRTY);
-+		if (xas_retry(xas, folio) || xa_is_value(folio))
-+			continue;
-+		if (!folio)
-+			break;
-+
-+		if (!folio_try_get_rcu(folio)) {
-+			xas_reset(xas);
-+			continue;
-+		}
-+
-+		if (unlikely(folio != xas_reload(xas))) {
-+			folio_put(folio);
-+			xas_reset(xas);
-+			continue;
-+		}
-+
-+		/* Skip any dirty folio that's not in the group of interest. */
-+		priv = folio_get_private(folio);
-+		if ((const struct netfs_group *)priv != group) {
-+			finfo = netfs_folio_info(folio);
-+			if (finfo->netfs_group != group) {
-+				folio_put(folio);
-+				continue;
-+			}
-+		}
-+
-+		xas_pause(xas);
-+		break;
-+	}
-+	rcu_read_unlock();
-+	if (!folio)
-+		return 0;
-+
-+	start = folio_pos(folio); /* May regress with THPs */
-+
-+	_debug("wback %lx", folio_index(folio));
-+
-+	/* At this point we hold neither the i_pages lock nor the page lock:
-+	 * the page may be truncated or invalidated (changing page->mapping to
-+	 * NULL), or even swizzled back from swapper_space to tmpfs file
-+	 * mapping
-+	 */
-+lock_again:
-+	if (wbc->sync_mode != WB_SYNC_NONE) {
-+		ret = folio_lock_killable(folio);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		if (!folio_trylock(folio))
-+			goto search_again;
-+	}
-+
-+	if (folio->mapping != mapping ||
-+	    !folio_test_dirty(folio)) {
-+		start += folio_size(folio);
-+		folio_unlock(folio);
-+		goto search_again;
-+	}
-+
-+	if (folio_test_writeback(folio) ||
-+	    folio_test_fscache(folio)) {
-+		folio_unlock(folio);
-+		if (wbc->sync_mode != WB_SYNC_NONE) {
-+			folio_wait_writeback(folio);
-+#ifdef CONFIG_NETFS_FSCACHE
-+			folio_wait_fscache(folio);
-+#endif
-+			goto lock_again;
-+		}
-+
-+		start += folio_size(folio);
-+		if (wbc->sync_mode == WB_SYNC_NONE) {
-+			if (skips >= 5 || need_resched()) {
-+				ret = 0;
-+				goto out;
-+			}
-+			skips++;
-+		}
-+		goto search_again;
-+	}
-+
-+	ret = netfs_write_back_from_locked_folio(mapping, wbc, group, xas,
-+						 folio, start, end);
 +out:
-+	if (ret > 0)
-+		*_start = start + ret;
-+	_leave(" = %zd [%llx]", ret, *_start);
-+	return ret;
-+}
-+
-+/*
-+ * Write a region of pages back to the server
-+ */
-+static int netfs_writepages_region(struct address_space *mapping,
-+				   struct writeback_control *wbc,
-+				   struct netfs_group *group,
-+				   unsigned long long *_start,
-+				   unsigned long long end)
-+{
-+	ssize_t ret;
-+
-+	XA_STATE(xas, &mapping->i_pages, *_start / PAGE_SIZE);
-+
-+	do {
-+		ret = netfs_writepages_begin(mapping, wbc, group, &xas,
-+					     _start, end);
-+		if (ret > 0 && wbc->nr_to_write > 0)
-+			cond_resched();
-+	} while (ret > 0 && wbc->nr_to_write > 0);
-+
-+	return ret > 0 ? 0 : ret;
-+}
-+
-+/*
-+ * write some of the pending data back to the server
-+ */
-+int netfs_writepages(struct address_space *mapping,
-+		     struct writeback_control *wbc)
-+{
-+	struct netfs_group *group = NULL;
-+	loff_t start, end;
-+	int ret;
-+
-+	_enter("");
-+
-+	/* We have to be careful as we can end up racing with setattr()
-+	 * truncating the pagecache since the caller doesn't take a lock here
-+	 * to prevent it.
-+	 */
-+
-+	if (wbc->range_cyclic && mapping->writeback_index) {
-+		start = mapping->writeback_index * PAGE_SIZE;
-+		ret = netfs_writepages_region(mapping, wbc, group,
-+					      &start, LLONG_MAX);
-+		if (ret < 0)
-+			goto out;
-+
-+		if (wbc->nr_to_write <= 0) {
-+			mapping->writeback_index = start / PAGE_SIZE;
-+			goto out;
-+		}
-+
-+		start = 0;
-+		end = mapping->writeback_index * PAGE_SIZE;
-+		mapping->writeback_index = 0;
-+		ret = netfs_writepages_region(mapping, wbc, group, &start, end);
-+		if (ret == 0)
-+			mapping->writeback_index = start / PAGE_SIZE;
-+	} else if (wbc->range_start == 0 && wbc->range_end == LLONG_MAX) {
-+		start = 0;
-+		ret = netfs_writepages_region(mapping, wbc, group,
-+					      &start, LLONG_MAX);
-+		if (wbc->nr_to_write > 0 && ret == 0)
-+			mapping->writeback_index = start / PAGE_SIZE;
-+	} else {
-+		start = wbc->range_start;
-+		ret = netfs_writepages_region(mapping, wbc, group,
-+					      &start, wbc->range_end);
-+	}
-+
-+out:
++	folio_wait_fscache(folio);
 +	_leave(" = %d", ret);
 +	return ret;
 +}
-+EXPORT_SYMBOL(netfs_writepages);
++EXPORT_SYMBOL(netfs_launder_folio);
+diff --git a/fs/netfs/main.c b/fs/netfs/main.c
+index 8e4db9ff40c4..473f889e1bd1 100644
+--- a/fs/netfs/main.c
++++ b/fs/netfs/main.c
+@@ -30,6 +30,7 @@ static const char *netfs_origins[nr__netfs_io_origin] = {
+ 	[NETFS_READPAGE]		= "RP",
+ 	[NETFS_READ_FOR_WRITE]		= "RW",
+ 	[NETFS_WRITEBACK]		= "WB",
++	[NETFS_LAUNDER_WRITE]		= "LW",
+ 	[NETFS_UNBUFFERED_WRITE]	= "UW",
+ 	[NETFS_DIO_READ]		= "DR",
+ 	[NETFS_DIO_WRITE]		= "DW",
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 506c543f6888..71a70396c2f9 100644
+index 71a70396c2f9..3413d06033ed 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -398,6 +398,8 @@ int netfs_read_folio(struct file *, struct folio *);
- int netfs_write_begin(struct netfs_inode *, struct file *,
- 		      struct address_space *, loff_t pos, unsigned int len,
- 		      struct folio **, void **fsdata);
-+int netfs_writepages(struct address_space *mapping,
-+		     struct writeback_control *wbc);
- bool netfs_dirty_folio(struct address_space *mapping, struct folio *folio);
- int netfs_unpin_writeback(struct inode *inode, struct writeback_control *wbc);
+@@ -227,6 +227,7 @@ enum netfs_io_origin {
+ 	NETFS_READPAGE,			/* This read is a synchronous read */
+ 	NETFS_READ_FOR_WRITE,		/* This read is to prepare a write */
+ 	NETFS_WRITEBACK,		/* This write was triggered by writepages */
++	NETFS_LAUNDER_WRITE,		/* This is triggered by ->launder_folio() */
+ 	NETFS_UNBUFFERED_WRITE,		/* This is an unbuffered write */
+ 	NETFS_DIO_READ,			/* This is a direct I/O read */
+ 	NETFS_DIO_WRITE,		/* This is a direct I/O write */
+@@ -405,6 +406,7 @@ int netfs_unpin_writeback(struct inode *inode, struct writeback_control *wbc);
  void netfs_clear_inode_writeback(struct inode *inode, const void *aux);
+ void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+ bool netfs_release_folio(struct folio *folio, gfp_t gfp);
++int netfs_launder_folio(struct folio *folio);
+ 
+ /* VMA operations API. */
+ vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_group);
+diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
+index 914a24b03d08..cc998798e20a 100644
+--- a/include/trace/events/netfs.h
++++ b/include/trace/events/netfs.h
+@@ -25,6 +25,7 @@
+ 
+ #define netfs_write_traces					\
+ 	EM(netfs_write_trace_dio_write,		"DIO-WRITE")	\
++	EM(netfs_write_trace_launder,		"LAUNDER  ")	\
+ 	EM(netfs_write_trace_unbuffered_write,	"UNB-WRITE")	\
+ 	E_(netfs_write_trace_writeback,		"WRITEBACK")
+ 
+@@ -33,6 +34,7 @@
+ 	EM(NETFS_READPAGE,			"RP")		\
+ 	EM(NETFS_READ_FOR_WRITE,		"RW")		\
+ 	EM(NETFS_WRITEBACK,			"WB")		\
++	EM(NETFS_LAUNDER_WRITE,			"LW")		\
+ 	EM(NETFS_UNBUFFERED_WRITE,		"UW")		\
+ 	EM(NETFS_DIO_READ,			"DR")		\
+ 	E_(NETFS_DIO_WRITE,			"DW")
+@@ -127,6 +129,7 @@
+ 	EM(netfs_folio_trace_end_copy,		"end-copy")	\
+ 	EM(netfs_folio_trace_filled_gaps,	"filled-gaps")	\
+ 	EM(netfs_folio_trace_kill,		"kill")		\
++	EM(netfs_folio_trace_launder,		"launder")	\
+ 	EM(netfs_folio_trace_mkwrite,		"mkwrite")	\
+ 	EM(netfs_folio_trace_mkwrite_plus,	"mkwrite+")	\
+ 	EM(netfs_folio_trace_read_gaps,		"read-gaps")	\
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
