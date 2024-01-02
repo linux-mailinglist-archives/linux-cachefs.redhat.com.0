@@ -1,126 +1,125 @@
-Return-Path: <linux-cachefs+bncBCXIHK4S6EJRBJGFTOWAMGQEHBEMFFY@redhat.com>
+Return-Path: <linux-cachefs+bncBCXIHK4S6EJRB2NP2CWAMGQEKXLFX3Q@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3D981D435
-	for <lists+linux-cachefs@lfdr.de>; Sat, 23 Dec 2023 14:37:41 +0100 (CET)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-67f98fd5823sf16835876d6.2
-        for <lists+linux-cachefs@lfdr.de>; Sat, 23 Dec 2023 05:37:41 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1703338660; cv=pass;
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com [209.85.219.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E5E821D44
+	for <lists+linux-cachefs@lfdr.de>; Tue,  2 Jan 2024 15:04:26 +0100 (CET)
+Received: by mail-yb1-f200.google.com with SMTP id 3f1490d57ef6-db402e6f61dsf11018879276.3
+        for <lists+linux-cachefs@lfdr.de>; Tue, 02 Jan 2024 06:04:26 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1704204265; cv=pass;
         d=google.com; s=arc-20160816;
-        b=CdqLPYCXCJAclssmQZk/4sFgLl92mDQaOM/4FgIEEs641xwT/2VuZ2qoaXia1TlO2B
-         r0Elbf5WDE5iJB1yNCs6n8VDb80ojEt3SAKOHKxMAbUsADiWooKbHMb4NOfZtwTWwlho
-         25/KVDL4O7iYl/gkSnpyzTAUgTorqctGTD9i14meB1Gr5eDZJVnE689WGwb7Luy4C+u5
-         BDKPw0/DnGNmMO2uV1PvlnGNhCOiePDcV6ZMflAteI1qQP3bdMYH26k7VhmdlAGZnKZH
-         /BIRHpYMwIRIYZZclDvnGVl/oMaFZ5X8l3ZruxfCmCKaNtl8Q2eeacbbs6vHQLCFmpDN
-         N3CQ==
+        b=NgG9pnaD0YoOT5hUMwndCaHGYyo2rTNmrs/e/xsSpIAHF1IHVjyogjY+tEkConNjDT
+         lWmQbZjZbIF6gmRT640A906Cfc1MC1f5ljeI4unMbrM6BmUkrWfv6iF9qEKY5E1iSr06
+         2ptAk/RHED59o5RP7DNd+7cMSZcV6t0Q55YGtKPaHbXWrLwKAKLu+Ytt15pSgyYbLshI
+         d5k8sR8ls8opCBT9tKJVF6SNDWpxB0pQB8oj7TsE97NSzdVNdwtdfn8MRiciD0Eiy/Jo
+         PmvdkHlaHZoG8cp/dtuiVuwF7uTBtY4rc+uMA/rkeUzBJZMbrn1MaSsIKp+lEDynhraA
+         9L7w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:delivered-to;
-        bh=NFkk96SVfV/bzi9D6V0wof+8yCCZGe9Uq04ekCkJeho=;
-        fh=at6sTlwsco5lvpfZ8jI/x7lZGurq4GevZwAdgJcl/6I=;
-        b=HEFVdRILyAdaYyxMWA+tReJ4R7ae1fLhtHmq5C/cEAADaVnpCD0/509ClmnAB6LYEJ
-         ewWcQdNWm+PxrIue32ZPSFVwmnZmuBbRiVlzN293C3jiZB+zVf77gvnu96+V6ersHmD4
-         bj123O37bH7TFRE2XaZyFGx7G6LJgnYZjg+ThgKWuWS1qu4oAvrE5VN2fKIYhZD/AA80
-         /NAOMN1t4QkwGCmjuzIEzaca5eWkypw0B5VT7Z6HUQdT8/PZBqK3R8bHXi3P6VmRxrsn
-         LQudGhbOCn1+Fi7QEQngEoNehP7jSSC4ywuu7JfiWBYjA9VR0vfFRPdAq1A4EN9Clj2k
-         x36Q==
+        bh=uuGQpMUCxSk4TEVk0cKFjBMNpREJyIfFX2KV/y7h/H4=;
+        fh=stGEWgWyf+JTuHf1Tm+RxwFUEwp72MLxA4B5feIA99A=;
+        b=X76oA6U9dgv4LOQ+S+ddBghj9Qql8w1agjW7WEYE5H7bq/8fEUPFdRad6D4zOvaJJA
+         mkOIHGLFbiIir5a09J7z69QsTFHNcJRTeM/0vnOtR2NSMbnUCfwFU2g/GHX5x5kezWSt
+         M7TbVTTQQgX39IToaL4OCJ5daF0wnPFK8uZx3GKMbqEGEVtvwohIiN++Y2WXBmuV/eAk
+         2/g8i+IhX2TWeLi//elBYbAr0bQDibdJPTNoEG3jDk5VU+OmQOVApi+RLC6hb0LUG30E
+         shF0LSQvkhUNOEn/tB4xBK87499tMYjw6WZPVSq9bGTaiCSdhiTN12Y7njb0X3PMC0jZ
+         rFvQ==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.130 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.133 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703338660; x=1703943460;
+        d=1e100.net; s=20230601; t=1704204265; x=1704809065;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:in-reply-to
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:delivered-to:x-beenthere:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=NFkk96SVfV/bzi9D6V0wof+8yCCZGe9Uq04ekCkJeho=;
-        b=QpajNUS9JMvcrYgQh4hyHeTRLagT06gWiP82niRVqWNV/zULeCvaGI3NJH4cDPaA+x
-         gGxH1Bx7PeoADv55GPBnKDCjrR2EmrbweiCQQ4nYTGTH9qwN+deYAc7lae+vQlZh28zv
-         FA1+DfUsvVNwz0sBO1xRYdCXxHb9dDF0++Z16do6FrXwkO2Dia/4rNrUL8+GXIfj2tm5
-         EAxeGWUyXmKhH9r/NjzOISTVo4enmOmj/4TQKhvj4AsRAbMdMOi5l1WJSHJNM2wHC3Ll
-         ofgL9h9oSP35dhlTyVk0/cBdNQ5i9akIdqRuBiwmfaovyIHlahjqS52jWdsrKyBEB2Vx
-         DnTg==
-X-Gm-Message-State: AOJu0YxJDwMs50jappE/pfcrYG9QHkOOukNNoftOPRJG+q2xqEZeOxm4
-	P9Scq4xZIbGjvs/8OohQxk5YcbcsgFqq9Q==
-X-Google-Smtp-Source: AGHT+IFaTEWGTFiEvO1GKAz7uQdcb3xIxsIIvKFDH51CjwhTfmLHLcdRp8xr2xOXv7Hre90kZUIdOQ==
-X-Received: by 2002:ad4:5963:0:b0:67f:40d3:c9ee with SMTP id eq3-20020ad45963000000b0067f40d3c9eemr3811338qvb.78.1703338660652;
-        Sat, 23 Dec 2023 05:37:40 -0800 (PST)
+        bh=uuGQpMUCxSk4TEVk0cKFjBMNpREJyIfFX2KV/y7h/H4=;
+        b=b78RcoIGlQgZjDPnVwWt2PDMncFA/iTHzfmSmlTq8me7GGH3pt2qeTEmJIV99dKJ5t
+         rGoplbLZFcM/amQjtAfdroPmCVHEb5he3OtVIkd6ADqoHb34kY+q0zmK1DG14ogaD0gv
+         9Ib6iBAyHUZf5vBucm0+lk5oz7WC3EVl3hOS5gJfd0GeZs/e864C1DUVY4FxLxL9lJmo
+         mU1NsLjpsZg7G/G3bJeCR1iV8TYvtQ/Y561MsuBO9FaPU1NfddsTVgAXjyEtXqEv0s0h
+         jC/iMcvn61/g9EXcmumLeFtq+8JSkdcxWWN/9VkHZtx/yuT1Ob4PQaI1YumXyAM7m/fu
+         tpPA==
+X-Gm-Message-State: AOJu0YwLcUXKrOQ4rPjQ0jZE0+eUw7O4GVxavcMhbBwmNqMUtCt9MD5r
+	6IZH4v4EJoXEyVpOf9gD74IQu2RcTnUHNA==
+X-Google-Smtp-Source: AGHT+IGj1QECdsvf1xMeGpdhx36QHqZqwpEbmE3rOwdHWOZKdg3dCthUQoXO2Ei6UMUYdv5QX1/mEg==
+X-Received: by 2002:a25:8403:0:b0:dbd:b754:7e3e with SMTP id u3-20020a258403000000b00dbdb7547e3emr7797124ybk.115.1704204265562;
+        Tue, 02 Jan 2024 06:04:25 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ad4:5c6a:0:b0:67f:da:bf48 with SMTP id i10-20020ad45c6a000000b0067f00dabf48ls3376455qvh.1.-pod-prod-08-us;
- Sat, 23 Dec 2023 05:37:39 -0800 (PST)
-X-Received: by 2002:a05:620a:1596:b0:77d:a0ca:8ad9 with SMTP id d22-20020a05620a159600b0077da0ca8ad9mr2870435qkk.25.1703338659676;
-        Sat, 23 Dec 2023 05:37:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1703338659; cv=none;
+Received: by 2002:a25:cc01:0:b0:dbd:b014:5ca2 with SMTP id l1-20020a25cc01000000b00dbdb0145ca2ls1890397ybf.2.-pod-prod-08-us;
+ Tue, 02 Jan 2024 06:04:24 -0800 (PST)
+X-Received: by 2002:a25:2d1f:0:b0:dbd:aeac:ec1e with SMTP id t31-20020a252d1f000000b00dbdaeacec1emr9170275ybt.116.1704204264698;
+        Tue, 02 Jan 2024 06:04:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1704204264; cv=none;
         d=google.com; s=arc-20160816;
-        b=MgRvl7F10NddYoCw9Gnzre5UNSzRrSnOWl0XpnAbsr0AC7f+kZ0NMtoaNRqxiM/4IK
-         pC/EOVSI+pQV24ZBbFFdDCEkEKcXqX1E71KXZjjwhSFNP+z7mBjPnUHLh/7zKQND/tO3
-         0vr52yAV+ccWDYSM8Yeco9kg0VTEuEJS4s8y23RunDbjZix5zr9lekFY/Xx3ehvECFXU
-         sSd9Gucp2Ixfx/CMRNbNyEeJ9lBly9roRCBaj18bndiy04Rrsxz3lO+RNsZzIlMuCAPJ
-         rLPPUG5pL1/YbPEj13IgUUKpp5EeMX0//PvzsCi68FxIWanbaFreZr23HmTya2nigvCh
-         KqoA==
+        b=RWta8XZJ+oVKYyBFIXqPPitbhAtNNW5Q10yUfLsOdDg7L3X0DOiwPTzNnR9ujrU7Io
+         GcdXQ/nQMyaUlFA2yASlocbuVRyBSlQ/fvdTFYl3QzEKTMNO80PWM9AMgU99bJiI5Uq+
+         fTtNVo3GqpUpBPR6TBodwsEANRcn02VCmvL+bl1dcbuflefJkwZWXF2BwBUEn/yCirzS
+         Og6e+9KkT+DtG9VG3yTdkeVFOlJj+3wBoQy48JTXxfyh+oRMOxTF1HXFzsmoicPKpEnX
+         BCsIxVmAGfAo8a5PY+b0W0UuxlB//RBMD5uOR2PZQb56dxPFylNeQmy4bivrnG8i33r6
+         W2pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:delivered-to;
-        bh=mHtLgD4vL+XswVBYByVqVHM5FfBvinzzdh5hkBKfVE8=;
-        fh=at6sTlwsco5lvpfZ8jI/x7lZGurq4GevZwAdgJcl/6I=;
-        b=U5NHx1M+Ooekl5DZieJfohC3kov9AA8xHMjFuQfKKVIo8bXky9RHOlp5lH8mXFVjfn
-         xhDzSgQ8K+/MxrG3sfHbFsdvUe/xaYYUElcCzS++POt//MuQBM+eTldi9ThQT3SdW3iT
-         4M4DZC+KMKEs9uXAFa53ffqAjwVZYfjidYgDNKBMbkdUwNLEBlckb4jo+DCVmVN7rxOL
-         c3VJhoV0wHL8uh317qSGjy0ZN/WDwZFo84oHpmdgxlkNnJu/3BGaRppgntEyUo43XMv8
-         NfwQpuSt8B0IK4lKhNnZFonZ8zLir3Tja17o1dEbPpjWnRgVnKCN20WJE0Gdeh/SgLKP
-         NDfg==
+        bh=jHtxspFYMXLgbsoHlUfpova+2SNX3zK7sveiyj8ThoY=;
+        fh=stGEWgWyf+JTuHf1Tm+RxwFUEwp72MLxA4B5feIA99A=;
+        b=Hj07RNk7DnfwZVLlhD3kljy4OE+KdWS/OeZdrbimf7I7e6GM16ULZVGkx1/wQN7GdV
+         QIP7OnxcTMSYUZ1C9nJ35xF4upEjsqICqxAEBN5AjDl7pX0H30pelAYtS0W7l0u+azYr
+         /CrpbRYmhDbM15ryRMpRLYgPwWSX8/oK0P+rPE9PgRE02wQ5eQge2b+RaMNZVpEekbif
+         GxQxo74cN1x1L+a/br7vLKKQoz0EgD5J0PjdqDYjIeVHH5GW8IVAtjSzAMQp9o07Fe+1
+         dQ8duSgIsjTRnDj/APCNj5NAU2yHOMoWIlDU9nSZ84cG9RDhTIwmaPkcHL/wV4J78LeW
+         Eesg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.130 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id x3-20020a05620a448300b0077fc069244bsi7110162qkp.171.2023.12.23.05.37.39
+       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.133 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [170.10.128.131])
+        by mx.google.com with ESMTPS id k190-20020a253dc7000000b00dbd751f7c08si11943735yba.85.2024.01.02.06.04.24
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 23 Dec 2023 05:37:39 -0800 (PST)
-Received-SPF: pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.130 as permitted sender) client-ip=115.124.30.130;
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-654-MCTOhOPvMJmCXfpL223nmQ-1; Sat, 23 Dec 2023 08:37:38 -0500
-X-MC-Unique: MCTOhOPvMJmCXfpL223nmQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+        Tue, 02 Jan 2024 06:04:24 -0800 (PST)
+Received-SPF: pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.133 as permitted sender) client-ip=115.124.30.133;
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-3-ebvm995xNry4b3KG4OD4jQ-1; Tue,
+ 02 Jan 2024 09:04:23 -0500
+X-MC-Unique: ebvm995xNry4b3KG4OD4jQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E416885A58F
-	for <linux-cachefs@gapps.redhat.com>; Sat, 23 Dec 2023 13:37:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F415529AC00E
+	for <linux-cachefs@gapps.redhat.com>; Tue,  2 Jan 2024 14:04:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id DFC1040C6EB9; Sat, 23 Dec 2023 13:37:37 +0000 (UTC)
+	id F08A8492BC6; Tue,  2 Jan 2024 14:04:22 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D91B940C6E2B
-	for <linux-cachefs@redhat.com>; Sat, 23 Dec 2023 13:37:37 +0000 (UTC)
+Received: from mimecast-mx02.redhat.com (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9FCF492BC8
+	for <linux-cachefs@redhat.com>; Tue,  2 Jan 2024 14:04:22 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6D633816B4C
-	for <linux-cachefs@redhat.com>; Sat, 23 Dec 2023 13:37:37 +0000 (UTC)
-Received: from out30-130.freemail.mail.aliyun.com
- (out30-130.freemail.mail.aliyun.com [115.124.30.130]) by relay.mimecast.com
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9A13836F25
+	for <linux-cachefs@redhat.com>; Tue,  2 Jan 2024 14:04:22 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
- id us-mta-127-GXSmBFvTPyGtafhxApCthQ-1; Sat, 23 Dec 2023 08:37:35 -0500
-X-MC-Unique: GXSmBFvTPyGtafhxApCthQ-1
-X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hsiangkao@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0Vz1O0tF_1703338328
-Received: from 30.25.242.252(mailfrom:hsiangkao@linux.alibaba.com fp:SMTPD_---0Vz1O0tF_1703338328)
+ id us-mta-439-i6yvwzYCOZihPy3dP4zP_A-1; Tue, 02 Jan 2024 09:04:20 -0500
+X-MC-Unique: i6yvwzYCOZihPy3dP4zP_A-1
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046050;MF=hsiangkao@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0VzqtEDH_1704204253
+Received: from 192.168.33.9(mailfrom:hsiangkao@linux.alibaba.com fp:SMTPD_---0VzqtEDH_1704204253)
           by smtp.aliyun-inc.com;
-          Sat, 23 Dec 2023 21:32:11 +0800
-Message-ID: <fac01751-73dc-4d93-b9c0-b637fece8334@linux.alibaba.com>
-Date: Sat, 23 Dec 2023 21:32:07 +0800
+          Tue, 02 Jan 2024 22:04:14 +0800
+Message-ID: <750e8251-ba30-4f53-a17b-73c79e3739ce@linux.alibaba.com>
+Date: Tue, 2 Jan 2024 22:04:12 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Fix EROFS Kconfig
-To: Jingbo Xu <jefflexu@linux.alibaba.com>,
- David Howells <dhowells@redhat.com>, Gao Xiang <xiang@kernel.org>
-Cc: Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
- Steve French <smfrench@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+Subject: Re: [PATCH v5 33/40] netfs, cachefiles: Pass upper bound length to
+ allow expansion
+To: David Howells <dhowells@redhat.com>
+Cc: Matthew Wilcox <willy@infradead.org>,
  Marc Dionne <marc.dionne@auristor.com>, Paulo Alcantara <pc@manguebit.com>,
  Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
  Dominique Martinet <asmadeus@codewreck.org>,
@@ -129,22 +128,20 @@ Cc: Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
  linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
  linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org, v9fs@lists.linux.dev,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- Jeff Layton <jlayton@kernel.org>
-References: <20231221132400.1601991-5-dhowells@redhat.com>
- <20231221132400.1601991-1-dhowells@redhat.com>
- <2265065.1703250126@warthog.procyon.org.uk>
- <d50555e9-3b8e-41d4-bec6-317aaaec5ff0@linux.alibaba.com>
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+ Steve French <smfrench@gmail.com>
+References: <20231221132400.1601991-1-dhowells@redhat.com>
+ <20231221132400.1601991-34-dhowells@redhat.com>
 From: Gao Xiang <hsiangkao@linux.alibaba.com>
-In-Reply-To: <d50555e9-3b8e-41d4-bec6-317aaaec5ff0@linux.alibaba.com>
+In-Reply-To: <20231221132400.1601991-34-dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection Definition;Similar Internal Domain=false;Similar Monitored External Domain=false;Custom External Domain=false;Mimecast External Domain=false;Newly Observed Domain=false;Internal User Name=false;Custom Display Name List=false;Reply-to Address Mismatch=false;Targeted Threat Dictionary=false;Mimecast Threat Dictionary=false;Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.alibaba.com
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 X-Original-Sender: hsiangkao@linux.alibaba.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain of hsiangkao@linux.alibaba.com designates 115.124.30.130 as permitted
+ domain of hsiangkao@linux.alibaba.com designates 115.124.30.133 as permitted
  sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
@@ -157,121 +154,75 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Hi David and Jingbo,
+Hi David,
 
-On 2023/12/23 11:55, Jingbo Xu wrote:
-> Hi,
+On 2023/12/21 21:23, David Howells wrote:
+> Make netfslib pass the maximum length to the ->prepare_write() op to tell
+> the cache how much it can expand the length of a write to.  This allows a
+> write to the server at the end of a file to be limited to a few bytes
+> whilst writing an entire block to the cache (something required by direct
+> I/O).
 > 
-> On 12/22/23 9:02 PM, David Howells wrote:
->> This needs an additional change (see attached).
->>
->> diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
->> index 1d318f85232d..1949763e66aa 100644
->> --- a/fs/erofs/Kconfig
->> +++ b/fs/erofs/Kconfig
->> @@ -114,7 +114,8 @@ config EROFS_FS_ZIP_DEFLATE
->>   
->>   config EROFS_FS_ONDEMAND
->>   	bool "EROFS fscache-based on-demand read support"
->> -	depends on CACHEFILES_ONDEMAND && (EROFS_FS=m && FSCACHE || EROFS_FS=y && FSCACHE=y)
->> +	depends on CACHEFILES_ONDEMAND && FSCACHE && \
->> +		(EROFS_FS=m && NETFS_SUPPORT || EROFS_FS=y && NETFS_SUPPORT=y)
->>   	default n
->>   	help
->>   	  This permits EROFS to use fscache-backed data blobs with on-demand
->>
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> Reviewed-by: Jeff Layton <jlayton@kernel.org>
+> cc: linux-cachefs@redhat.com
+> cc: linux-fsdevel@vger.kernel.org
+> cc: linux-mm@kvack.org
+> ---
+>   fs/cachefiles/internal.h |  2 +-
+>   fs/cachefiles/io.c       | 10 ++++++----
+>   fs/cachefiles/ondemand.c |  2 +-
+>   fs/netfs/fscache_io.c    |  2 +-
+>   fs/netfs/io.c            |  2 +-
+>   fs/netfs/objects.c       |  1 +
+>   fs/netfs/output.c        | 25 ++++++++++---------------
+>   fs/smb/client/fscache.c  |  2 +-
+>   include/linux/netfs.h    |  5 +++--
+>   9 files changed, 25 insertions(+), 26 deletions(-)
 > 
-> Thanks for the special reminder.  I noticed that it has been included in
-> this commit[*] in the dev tree.
-> 
-> [*]
-> https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/commit/?h=netfs-lib&id=7472173cc3baf4a0bd8c803e56c37efdb8388f1c
-> 
-> 
-> Besides I noticed an issue when trying to configure EROFS_FS_ONDEMAND.
-> The above kconfig indicates that EROFS_FS_ONDEMAND depends on
-> NETFS_SUPPORT, while NETFS_SUPPORT has no prompt in menuconfig and can
-> only be selected by, e.g. fs/ceph/Kconfig:
-> 
-> 	config CEPH_FS
->          select NETFS_SUPPORT
-> 
-> IOW EROFS_FS_ONDEMAND will not be prompted and has no way being
-> configured if NETFS_SUPPORT itself is not selected by any other filesystem.
-> 
-> 
-> I tried to fix this in following way:
-> 
-> diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
-> index 1949763e66aa..5b7b71e537f1 100644
-> --- a/fs/erofs/Kconfig
-> +++ b/fs/erofs/Kconfig
-> @@ -5,6 +5,7 @@ config EROFS_FS
->          depends on BLOCK
->          select FS_IOMAP
->          select LIBCRC32C
-> +       select NETFS_SUPPORT if EROFS_FS_ONDEMAND
->          help
->            EROFS (Enhanced Read-Only File System) is a lightweight read-only
->            file system with modern designs (e.g. no buffer heads, inline
-> @@ -114,8 +115,10 @@ config EROFS_FS_ZIP_DEFLATE
-> 
->   config EROFS_FS_ONDEMAND
->          bool "EROFS fscache-based on-demand read support"
-> -       depends on CACHEFILES_ONDEMAND && FSCACHE && \
-> -               (EROFS_FS=m && NETFS_SUPPORT || EROFS_FS=y &&
-> NETFS_SUPPORT=y)
-> +       depends on EROFS_FS
-> +       select FSCACHE
->          default n
->          help
->            This permits EROFS to use fscache-backed data blobs with on-demand
-> 
-> 
-> But still the dependency for CACHEFILES_ONDEMAND and CACHEFILES can not
-> be resolved.  Though CACHEFILES is not a must during the linking stage
-> as EROFS only calls fscache APIs directly, CACHEFILES is indeed needed
-> to ensure that the EROFS on-demand functionality works at runtime.
-> 
-> If we let EROFS_FS_ONDEMAND select CACHEFILES_ONDEMAND, then only
-> CACHEFILES_ONDEMAND will be selected while CACHEFILES can be still N.
-> Maybe EROFS_FS_ONDEMAND needs to selct both CACHEFILES_ONDEMAND and
-> CACHEFILES?
+> diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+> index 2ad58c465208..1af48d576a34 100644
+> --- a/fs/cachefiles/internal.h
+> +++ b/fs/cachefiles/internal.h
+> @@ -233,7 +233,7 @@ extern bool cachefiles_begin_operation(struct netfs_cache_resources *cres,
+>   				       enum fscache_want_state want_state);
+>   extern int __cachefiles_prepare_write(struct cachefiles_object *object,
+>   				      struct file *file,
+> -				      loff_t *_start, size_t *_len,
+> +				      loff_t *_start, size_t *_len, size_t upper_len,
+>   				      bool no_space_allocated_yet);
+>   extern int __cachefiles_write(struct cachefiles_object *object,
+>   			      struct file *file,
+> diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+> index 009d23cd435b..bffffedce4a9 100644
+> --- a/fs/cachefiles/io.c
+> +++ b/fs/cachefiles/io.c
+> @@ -518,7 +518,7 @@ cachefiles_prepare_ondemand_read(struct netfs_cache_resources *cres,
+>    */
+>   int __cachefiles_prepare_write(struct cachefiles_object *object,
+>   			       struct file *file,
+> -			       loff_t *_start, size_t *_len,
+> +			       loff_t *_start, size_t *_len, size_t upper_len,
+>   			       bool no_space_allocated_yet)
+>   {
+>   	struct cachefiles_cache *cache = object->volume->cache;
+> @@ -530,6 +530,8 @@ int __cachefiles_prepare_write(struct cachefiles_object *object,
+>   	down = start - round_down(start, PAGE_SIZE);
+>   	*_start = start - down;
+>   	*_len = round_up(down + len, PAGE_SIZE);
+> +	if (down < start || *_len > upper_len)
+> +		return -ENOBUFS;
 
-I think the main point here is that we don't have an explicit
-menuconfig item for either netfs or fscache directly.
+Sorry for bothering. We just found some strange when testing
+today-next EROFS over fscache.
 
-In principle, EROFS ondemand feature only needs fscache "volume
-and cookie" management framework as well as cachefiles since
-they're all needed to manage EROFS cached blobs, but I'm fine
-if that needs NETFS_SUPPORT is also enabled.
+I'm not sure the meaning of
+     if (down < start
 
-If netfs doesn't have a plan for a new explicit menuconfig
-item for users to use, I think we have to enable as below:
+For example, if start is page-aligned, down == 0.
 
-diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
-index 1d318f85232d..fffd3919343e 100644
---- a/fs/erofs/Kconfig
-+++ b/fs/erofs/Kconfig
-@@ -114,8 +114,11 @@ config EROFS_FS_ZIP_DEFLATE
-
-  config EROFS_FS_ONDEMAND
-  	bool "EROFS fscache-based on-demand read support"
--	depends on CACHEFILES_ONDEMAND && (EROFS_FS=m && FSCACHE || EROFS_FS=y && FSCACHE=y)
--	default n
-+	depends on EROFS_FS
-+	select NETFS_SUPPORT
-+	select FSCACHE
-+	select CACHEFILES
-+	select CACHEFILES_ONDEMAND
-  	help
-  	  This permits EROFS to use fscache-backed data blobs with on-demand
-  	  read support.
---
-2.39.3
-
-But cachefiles won't be complied as modules anymore. Does it
-sounds good?
+so as long as start > 0 and page-aligned, it will return
+-ENOBUFS.  Does it an intended behavior?
 
 Thanks,
 Gao Xiang
