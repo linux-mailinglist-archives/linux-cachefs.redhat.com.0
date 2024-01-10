@@ -1,125 +1,130 @@
-Return-Path: <linux-cachefs+bncBCXIHK4S6EJRBTMY62WAMGQEOOUPJ5I@redhat.com>
+Return-Path: <linux-cachefs+bncBDKYBHUEQUPBBMEQ7KWAMGQE2T4PPLY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1B7A828C23
-	for <lists+linux-cachefs@lfdr.de>; Tue,  9 Jan 2024 19:11:26 +0100 (CET)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-680c651928esf60893566d6.2
-        for <lists+linux-cachefs@lfdr.de>; Tue, 09 Jan 2024 10:11:26 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1704823886; cv=pass;
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4AFF829A22
+	for <lists+linux-cachefs@lfdr.de>; Wed, 10 Jan 2024 13:06:09 +0100 (CET)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-5f7942a16c3sf51944407b3.3
+        for <lists+linux-cachefs@lfdr.de>; Wed, 10 Jan 2024 04:06:09 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1704888368; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wb0b3r3GekZOYR/45F9XHJdfONrP2mvyHlb0ffzNys+dryN4ICXjs/6fr8v4A697qn
-         Ndt+/QZmtzaCtrKWifuHReyduXTKUn2enP3GkIzwYoIuaP/KmJJDk5bcgBUNm5CCgXKe
-         Ihi4Db7vqqyNjAlv+M0Gn71tafEQ+vekMZDe9N7W3C9ogtyvRrkLY96f3XIt/31RUu/I
-         NTGHCVNy3K9sopnJKbICLlFY21NVGkp5QgUhQXncvRa7+bXFZZrV0ldLFUFv+fyqlNe0
-         0bT3nWO1Jlj7PPutQMiVGMJ0NAzEq9sq/MPBdZKmpz/cd8oG1I+4Vllqg9OqsAesTv1Y
-         TE5A==
+        b=D5/x1CH/yGMYqr/yCxInxd52uD1iBUR5nPTtX63bJx3bzlS6gsuWr2GMNxxRlaeiXr
+         oxB2X6+xiwtRCjF7YpifW7tUBVRer24yLpRMjgbZuLTYAQOmLGF0lmF3zAQVSc9BDXUK
+         BL0Q3T9e/fmQuqsMOI4lfOG4LnAZPKy9FeySw3V6yePcYGzH21rUJHDP22ivREXmWcZo
+         FtBST5kYAwaIO5fdfAh8bBu1C2MCSUZmYemxSNG9tX+ijz4EnAN/VVnJ9lYK1tZe3ZIq
+         buaRstOLFAfMNK6OadWFUvTstkHFmMmhYXVnJIZPERF6xAqHF4uAhC4ZzH9t18u5g+R1
+         XATw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:delivered-to;
-        bh=63ksWzggUDQ/XSbgu9j1DQJ/hxkfbONfaPUHdX79mO4=;
-        fh=4sZw2kzZN7mrNw2cF7nln3pFlWzIJzWBfyVU7vA/aoQ=;
-        b=N8g7SXCJdPBWoOEjrDuGfgnfG/wTNk08DJWJ9QGJm7af/yoe2YN0inOREEwufUj8ZE
-         6KqZzw0opVTpBQtBe/ppa1AFTPXlyJMGfwlOR1NTOv4JXrfHGiCgX/LG515A1WNRo7bM
-         w61IEBCL0BKdMWp2V3XdsvpqbB5FyADt5VthUhqypYSaZWjuVWdh+mByyqNgx6jDqluN
-         4P57Z+V+aIoHiNokqfUR8BQQC5imgQvUF2JCps7UlwStw+CJYkWWl2Qrt2NRvkZJs8FA
-         lFJu3pBRZRfwaqEb2YShHkEHdgtAIEN7sF8GAFVglXWjVZ/mwAqdUOnHHPNlOClFgByc
-         spHg==
+         :mailing-list:precedence:reply-to:content-transfer-encoding
+         :in-reply-to:from:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:delivered-to;
+        bh=lER1aWROPKbtJ73uR/67LQVZMIB/uxNrY+ZcbqwBEuY=;
+        fh=JnlVeDXKAtk0NOdBBrSMZwYciOOmCeYfB3kTcn7SgXE=;
+        b=q+gbiJ/FuFa991J42t48iugRCr/tHTYEtwcZwUir3hl3uexJ/blTxoewENlWinizwu
+         EOTodNX3GpiuEQlE9nY+dX/1vwZZaEuWpagD80TcXImstVZe5Z962T8ojT03Q6aVngo4
+         C1U3XyvlrS7FVfe135NsYhuOp1esDOJjZ3DWDvSotCQ7gaCsL5UnRnv4kB4qb5KmLyug
+         5VCsSH4yYoGMBofRZC37HSbHAx/WtJJaLD4Pmdq8FjqV/hoRLLHDn5LjdABwNESaW3z4
+         I/UnM/I3zcIeh7t+OGQZPmf30h9pgi7IrbfyQVzH2yqHfVtPZxQAmufz6M6uTEK7VZRW
+         yShg==
 ARC-Authentication-Results: i=2; mx.google.com;
-       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.98 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.210.181 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704823886; x=1705428686;
+        d=1e100.net; s=20230601; t=1704888368; x=1705493168;
         h=list-unsubscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:delivered-to:x-beenthere:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=63ksWzggUDQ/XSbgu9j1DQJ/hxkfbONfaPUHdX79mO4=;
-        b=NZwkjNz8v8G5qZZKwbTB0bPoUWEpcPnjO/E7tyHoVT9xy6msm5amaOIA2u9AKmcTRm
-         aDxB6T41DrxkjVD/NV5C4kfSMu+V6bLOxNOFQ7dbxeF7XsF44RjPeEFS+6x9uKPs4CYq
-         VgP0MUhqgZ8l/Ix5+JZ0fRtC/GEiEEmQwmfzLXCSSpGXe+CryCcasdYrddwi6fFOjDh5
-         pk0Rsr4MzmrSOtylZ5OVaTllcBFg0U347+1NLYuEOKk6ES4rO6LRS+T/2cZRvWQPCNsJ
-         2kgRpEVVyP4mcjcl0GpuRjN9LDqXQU+zzPmcGT58RVboZDudUGnDUzbabQJ1n1QwU0Ub
-         VzlA==
-X-Gm-Message-State: AOJu0Ywl92SSN+yMuzGtnROhw60cAi/Jq1eB74kwsN/jIExwbky2X4gc
-	gEqV4Xth40CsGAg2+2nFaXQ/pTozVKADXw==
-X-Google-Smtp-Source: AGHT+IEKQxywVEn24PvJEvcL2UNT3MFhCyO5XozwmAnLGHfdvceflEjXHc/38x6xKgqskVcPk54lNQ==
-X-Received: by 2002:a05:6214:f2d:b0:67a:a721:9e91 with SMTP id iw13-20020a0562140f2d00b0067aa7219e91mr6230576qvb.66.1704823885890;
-        Tue, 09 Jan 2024 10:11:25 -0800 (PST)
+         :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
+         :x-original-authentication-results:x-original-sender
+         :content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:delivered-to:x-beenthere
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lER1aWROPKbtJ73uR/67LQVZMIB/uxNrY+ZcbqwBEuY=;
+        b=Sj8RiBX6DayBNpz8XL9wjMc5Bj21Q+Q9YfQkGoASyCp6IYSxumej/lSWrJ1kQCX4Kl
+         ePnof8RQpTaKiP6lllI93sMja5VDqvFwp/7u9rKRJ8rYe6taov55mvsSH7pe6rl0XJT9
+         TgG8VPcPNhjaIwNVD7g/0IURN/Eem9Vf7960I7eKc1N/1o/H1aSf+ibt3F3T7t+/x213
+         jvHL9h7jsyp4v3vY8h4jTHDumKNxfbXCi5lJUJ+YQuyik1PJ1BdKJZN4skY4ETpbY/Lf
+         iS7gEGgjDp1GXsEjylzTwq9imef3Ki405vQo0xu3bbITq3cty6L3es85+ZuRzyEmoxEu
+         uy3A==
+X-Gm-Message-State: AOJu0YyJPoKOmlyA5A7T0r9uNTAvNb141h6vGEj8pGKFcOlpmx6q6fLb
+	S9WM8cZpmGxgWrRV5m8WA6TFN2h+N+Ko4Q==
+X-Google-Smtp-Source: AGHT+IFKzxqE4kOuRt5ixJ80eWFob1cWKen6fuBFBNR83ssiHQx6eHhpNFRIfkzOyXiAi6tHhwzqaw==
+X-Received: by 2002:a25:ae0d:0:b0:dbf:1795:3ec1 with SMTP id a13-20020a25ae0d000000b00dbf17953ec1mr664135ybj.72.1704888368401;
+        Wed, 10 Jan 2024 04:06:08 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:21e8:b0:67f:143c:57c3 with SMTP id
- p8-20020a05621421e800b0067f143c57c3ls1572509qvj.0.-pod-prod-03-us; Tue, 09
- Jan 2024 10:11:25 -0800 (PST)
-X-Received: by 2002:a05:6102:1526:b0:466:f7db:1f18 with SMTP id f38-20020a056102152600b00466f7db1f18mr2386397vsv.16.1704823885240;
-        Tue, 09 Jan 2024 10:11:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1704823885; cv=none;
+Received: by 2002:a25:b848:0:b0:dbe:ac1f:ac3f with SMTP id b8-20020a25b848000000b00dbeac1fac3fls2562844ybm.0.-pod-prod-04-us;
+ Wed, 10 Jan 2024 04:06:07 -0800 (PST)
+X-Received: by 2002:a25:9109:0:b0:dbe:d41f:e957 with SMTP id v9-20020a259109000000b00dbed41fe957mr676310ybl.76.1704888367678;
+        Wed, 10 Jan 2024 04:06:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1704888367; cv=none;
         d=google.com; s=arc-20160816;
-        b=D8aXnjQ9xB+GGBvX9c4GnHarVWpL6HtmM+DFkAqCQfxWvfCFowieYArRJnCuNDvjWu
-         I969x6Xg8cmpWbTx7YKxBD6T3ga7AVafbOA/DHfysy4vljN8iAWs+hosLKohaG53jwFI
-         deQfUinSz+XctBKPI6SiAHVRmyhYnyDNr+GLpifdr3JYbLQn64+9pcpCZrODPYqzEU5l
-         DbuHrLQqKCqbmrnflVyDmZ8nREBI+lRW7I2KuPBU1CMLandf3Eb5rBMHKETAptBwxGWJ
-         Ah8Xrn4h5gqIU+JphPfjh911gqUc0KcltFXhLffDhF1bFy2yft2Zf8PIKzI4PItAcvDE
-         0atA==
+        b=bhvDrWvepwoj5WvBJLFZR67AbxiohjkGANTRwKc16dw3wkwHACQn5YDi5OjFymDwkP
+         oqGMqsw7/hhjdMcaTE9CtRMiwXATuPuaXgRc2GTvs/qIf3UUGDHuh1PB7BJumtsBoapc
+         zdj9p6B0TsyiLl+u8KGLG6f5JCChlo+LJ2npOnIh/AQCPp2RMX+vRZ6pRqvF0a9Uu0Mg
+         QXWMsmJTneYTEu4sk/8DrMx8fuK9tzoGVek4YoynkTpK/DgcZ25fZHI28lpjYIFaL2K8
+         PTzxnIMeBKGpNztOECM5Zr9ZNupbVtg/WTg6uimhX+gzTW/nw+ysq9mZwL0ltpAXop3I
+         e96A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:delivered-to;
-        bh=Zq4C/p3LP7aTVTSvQDdWZw7hWF41Ime+Zohd6uLB4vM=;
-        fh=4sZw2kzZN7mrNw2cF7nln3pFlWzIJzWBfyVU7vA/aoQ=;
-        b=tg09WueqUfG50i7oEaq703wReeftqhIu221/kHce+gCzSTgwBRY4Wqr1XhRgpClt7M
-         d8H/ZUxGfWvgQ0Thi5ULFSfXreMxKMtS9EiRcT0Ko9V3pwZ3BO7Qi+7x7fXHc3CW1hjd
-         sgQu7su7ydnsVqSySvI5Mirs7v4DKsvKDvI5ZXUuK9tBFWOFKjv2+sCu7aNLLG9q8EKZ
-         Tvip3GxHjhfxhpHQWPws0rvzPaduC+bHkDpKXZPYjkdF/akAL/PcBWWw2NFgzvdqJ5Au
-         sIc2/H9OmbeL2TtZxH73bpvPDnb8Uw2I4DdA0NpQHUlyRW/A1J7yE1waw4VnvSDeHGCk
-         GPxw==
+        bh=l8cKztzv2ZktLOe0dzMuixqOyjC0S8dozIynxhbNLCA=;
+        fh=JnlVeDXKAtk0NOdBBrSMZwYciOOmCeYfB3kTcn7SgXE=;
+        b=uSJUl43QgY9xfObrXvAojKiwc2r+bcWBAJzVEV8gdr/S0IL8dn8+4uNz/TrFNBlrOF
+         UatMuGMGQWeMqtT3diWUGZqIo5iG8RpzyCbnxFiVU34X/Ck9xfXctKlMwBP9gef8b0Jk
+         OcicXTVLTrU3Z6kvtb6xcjqupISIggd9CqhguO5B02zVEItfjf2O3h9qpPKFuhLjzuT+
+         vDWYgq+RFNfRmIsDQQhyc4KjvS+JfmmxQEyor+ZUTeWL5XgL1F0kyVlSch+F4eRdHY9g
+         co0TgqpBd6PrzEh1oz8XlSVf2giNVf3Ga4+GlwxPy8P+ATRN0E4M1scO19DQk1lyB4dr
+         iWzA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.98 as permitted sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id m3-20020a67bb03000000b00467047a6b22si440862vsn.208.2024.01.09.10.11.24
+       spf=pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.210.181 as permitted sender) smtp.mailfrom=zhujia.zj@bytedance.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id g37-20020a25a4a8000000b00dbdb571ec99si1927008ybi.424.2024.01.10.04.06.07
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jan 2024 10:11:25 -0800 (PST)
-Received-SPF: pass (google.com: domain of hsiangkao@linux.alibaba.com designates 115.124.30.98 as permitted sender) client-ip=115.124.30.98;
+        Wed, 10 Jan 2024 04:06:07 -0800 (PST)
+Received-SPF: pass (google.com: domain of zhujia.zj@bytedance.com designates 209.85.210.181 as permitted sender) client-ip=209.85.210.181;
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-274-Ih3hxwN9M1CHIQ3eNEub9A-1; Tue, 09 Jan 2024 13:11:22 -0500
-X-MC-Unique: Ih3hxwN9M1CHIQ3eNEub9A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-685-JCyqCtSpMqGTtSF44U62CA-1; Wed, 10 Jan 2024 07:06:06 -0500
+X-MC-Unique: JCyqCtSpMqGTtSF44U62CA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3545185A786
-	for <linux-cachefs@gapps.redhat.com>; Tue,  9 Jan 2024 18:11:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E7F8185A784
+	for <linux-cachefs@gapps.redhat.com>; Wed, 10 Jan 2024 12:06:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id C03F91C060B1; Tue,  9 Jan 2024 18:11:21 +0000 (UTC)
+	id 1B8262026D6F; Wed, 10 Jan 2024 12:06:06 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
-Received: from mimecast-mx02.redhat.com (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B864B1C060AF
-	for <linux-cachefs@redhat.com>; Tue,  9 Jan 2024 18:11:21 +0000 (UTC)
+Received: from mimecast-mx02.redhat.com (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13A072026D66
+	for <linux-cachefs@redhat.com>; Wed, 10 Jan 2024 12:06:06 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 933211C05193
-	for <linux-cachefs@redhat.com>; Tue,  9 Jan 2024 18:11:21 +0000 (UTC)
-Received: from out30-98.freemail.mail.aliyun.com
- (out30-98.freemail.mail.aliyun.com [115.124.30.98]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
- id us-mta-360-9N1mpyANOKK2iD_3VjWPkQ-1; Tue, 09 Jan 2024 13:11:17 -0500
-X-MC-Unique: 9N1mpyANOKK2iD_3VjWPkQ-1
-X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=hsiangkao@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0W-JAUV5_1704823869
-Received: from 30.25.253.88(mailfrom:hsiangkao@linux.alibaba.com fp:SMTPD_---0W-JAUV5_1704823869)
-          by smtp.aliyun-inc.com;
-          Wed, 10 Jan 2024 02:11:12 +0800
-Message-ID: <97d0e776-d672-405a-9359-fb7f16969dc3@linux.alibaba.com>
-Date: Wed, 10 Jan 2024 02:11:08 +0800
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E63CB185A784
+	for <linux-cachefs@redhat.com>; Wed, 10 Jan 2024 12:06:05 +0000 (UTC)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-134-LO5HtdPcNKmM2x51wBChIw-1; Wed, 10 Jan 2024 07:06:04 -0500
+X-MC-Unique: LO5HtdPcNKmM2x51wBChIw-1
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-6d9a79a1ad4so1972366b3a.2
+        for <linux-cachefs@redhat.com>; Wed, 10 Jan 2024 04:06:03 -0800 (PST)
+X-Received: by 2002:a05:6a00:3204:b0:6da:63a5:3f32 with SMTP id bm4-20020a056a00320400b006da63a53f32mr612723pfb.66.1704888362874;
+        Wed, 10 Jan 2024 04:06:02 -0800 (PST)
+Received: from [10.255.187.86] ([139.177.225.245])
+        by smtp.gmail.com with ESMTPSA id i128-20020a625486000000b006d99056c4edsm3470845pfb.187.2024.01.10.04.05.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 10 Jan 2024 04:06:02 -0800 (PST)
+Message-ID: <abcc18ec-4006-4c51-96a8-e61d0ec2f092@bytedance.com>
+Date: Wed, 10 Jan 2024 20:05:50 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] erofs: Don't use certain internal folio_*() functions
+Subject: Re: [External] [PATCH 5/6] cachefiles: Fix signed/unsigned mixup
 To: David Howells <dhowells@redhat.com>,
  Christian Brauner <christian@brauner.io>, Jeff Layton <jlayton@kernel.org>,
+ Gao Xiang <hsiangkao@linux.alibaba.com>,
  Dominique Martinet <asmadeus@codewreck.org>
 Cc: Steve French <smfrench@gmail.com>, Matthew Wilcox <willy@infradead.org>,
  Marc Dionne <marc.dionne@auristor.com>, Paulo Alcantara <pc@manguebit.com>,
@@ -130,21 +135,24 @@ Cc: Steve French <smfrench@gmail.com>, Matthew Wilcox <willy@infradead.org>,
  ceph-devel@vger.kernel.org, v9fs@lists.linux.dev,
  linux-erofs@lists.ozlabs.org, linux-fsdevel@vger.kernel.org,
  linux-mm@kvack.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
- Yue Hu <huyue2@coolpad.com>, Jeffle Xu <jefflexu@linux.alibaba.com>
-References: <20240109180117.1669008-1-dhowells@redhat.com>
- <20240109180117.1669008-4-dhowells@redhat.com>
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-In-Reply-To: <20240109180117.1669008-4-dhowells@redhat.com>
+ Simon Horman <horms@kernel.org>, kernel test robot <lkp@intel.com>,
+ Yiqun Leng <yqleng@linux.alibaba.com>, zhujia.zj@bytedance.com
+References: <20240109112029.1572463-1-dhowells@redhat.com>
+ <20240109112029.1572463-6-dhowells@redhat.com>
+From: "'Jia Zhu' via linux-cachefs@redhat.com" <linux-cachefs@redhat.com>
+In-Reply-To: <20240109112029.1572463-6-dhowells@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection Definition;Similar Internal Domain=false;Similar Monitored External Domain=false;Custom External Domain=false;Mimecast External Domain=false;Newly Observed Domain=false;Internal User Name=false;Custom Display Name List=false;Reply-to Address Mismatch=false;Targeted Threat Dictionary=false;Mimecast Threat Dictionary=false;Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.alibaba.com
+X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Original-Sender: hsiangkao@linux.alibaba.com
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: zhujia.zj@bytedance.com
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com:
- domain of hsiangkao@linux.alibaba.com designates 115.124.30.98 as permitted
- sender) smtp.mailfrom=hsiangkao@linux.alibaba.com
+ domain of zhujia.zj@bytedance.com designates 209.85.210.181 as permitted
+ sender) smtp.mailfrom=zhujia.zj@bytedance.com
+X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
+Reply-To: Jia Zhu <zhujia.zj@bytedance.com>
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -156,72 +164,78 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
+Tested-by: Jia Zhu <zhujia.zj@bytedance.com>
 
-
-On 2024/1/10 02:01, David Howells wrote:
-> Filesystems should not be using folio->index not folio_index(folio) and
-> folio->mapping, not folio_mapping() or folio_file_mapping() in filesystem
-> code.
-> 
-> Change this automagically with:
-> 
-> perl -p -i -e 's/folio_mapping[(]([^)]*)[)]/\1->mapping/g' fs/erofs/*.c
-> perl -p -i -e 's/folio_file_mapping[(]([^)]*)[)]/\1->mapping/g' fs/erofs/*.c
-> perl -p -i -e 's/folio_index[(]([^)]*)[)]/\1->index/g' fs/erofs/*.c
-> 
-> Reported-by: Matthew Wilcox <willy@infradead.org>
+=E5=9C=A8 2024/1/9 19:20, David Howells =E5=86=99=E9=81=93:
+> In __cachefiles_prepare_write(), the start and pos variables were made
+> unsigned 64-bit so that the casts in the checking could be got rid of -
+> which should be fine since absolute file offsets can't be negative, excep=
+t
+> that an error code may be obtained from vfs_llseek(), which *would* be
+> negative.  This breaks the error check.
+>=20
+> Fix this for now by reverting pos and start to be signed and putting back
+> the casts.  Unfortunately, the error value checks cannot be replaced with
+> IS_ERR_VALUE() as long might be 32-bits.
+>=20
+> Fixes: 7097c96411d2 ("cachefiles: Fix __cachefiles_prepare_write()")
+> Reported-by: Simon Horman <horms@kernel.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202401071152.DbKqMQMu-lkp@i=
+ntel.com/
 > Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Gao Xiang <xiang@kernel.org>
-> cc: Chao Yu <chao@kernel.org>
-> cc: Yue Hu <huyue2@coolpad.com>
-> cc: Jeffle Xu <jefflexu@linux.alibaba.com>
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> cc: Gao Xiang <hsiangkao@linux.alibaba.com>
+> cc: Yiqun Leng <yqleng@linux.alibaba.com>
+> cc: Jia Zhu <zhujia.zj@bytedance.com>
+> cc: Jeff Layton <jlayton@kernel.org>
+> cc: linux-cachefs@redhat.com
 > cc: linux-erofs@lists.ozlabs.org
 > cc: linux-fsdevel@vger.kernel.org
-
-Thank you, David!
-
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-
-(I've asked Jingbo to find some free slot to refine
-  this part for later compressed data adaption.  Yet that
-  is another separate story.  The patch looks good to me.)
-
-Thanks,
-Gao Xiang
-
+> cc: linux-mm@kvack.org
 > ---
->   fs/erofs/fscache.c | 6 +++---
+>   fs/cachefiles/io.c | 6 +++---
 >   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/erofs/fscache.c b/fs/erofs/fscache.c
-> index 87ff35bff8d5..bc12030393b2 100644
-> --- a/fs/erofs/fscache.c
-> +++ b/fs/erofs/fscache.c
-> @@ -165,10 +165,10 @@ static int erofs_fscache_read_folios_async(struct fscache_cookie *cookie,
->   static int erofs_fscache_meta_read_folio(struct file *data, struct folio *folio)
+>=20
+> diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+> index 3eec26967437..9a2cb2868e90 100644
+> --- a/fs/cachefiles/io.c
+> +++ b/fs/cachefiles/io.c
+> @@ -522,7 +522,7 @@ int __cachefiles_prepare_write(struct cachefiles_obje=
+ct *object,
+>   			       bool no_space_allocated_yet)
 >   {
+>   	struct cachefiles_cache *cache =3D object->volume->cache;
+> -	unsigned long long start =3D *_start, pos;
+> +	loff_t start =3D *_start, pos;
+>   	size_t len =3D *_len;
 >   	int ret;
-> -	struct erofs_fscache *ctx = folio_mapping(folio)->host->i_private;
-> +	struct erofs_fscache *ctx = folio->mapping->host->i_private;
->   	struct erofs_fscache_request *req;
->   
-> -	req = erofs_fscache_req_alloc(folio_mapping(folio),
-> +	req = erofs_fscache_req_alloc(folio->mapping,
->   				folio_pos(folio), folio_size(folio));
->   	if (IS_ERR(req)) {
->   		folio_unlock(folio);
-> @@ -276,7 +276,7 @@ static int erofs_fscache_read_folio(struct file *file, struct folio *folio)
->   	struct erofs_fscache_request *req;
->   	int ret;
->   
-> -	req = erofs_fscache_req_alloc(folio_mapping(folio),
-> +	req = erofs_fscache_req_alloc(folio->mapping,
->   			folio_pos(folio), folio_size(folio));
->   	if (IS_ERR(req)) {
->   		folio_unlock(folio);
-> 
+>  =20
+> @@ -556,7 +556,7 @@ int __cachefiles_prepare_write(struct cachefiles_obje=
+ct *object,
+>   					  cachefiles_trace_seek_error);
+>   		return pos;
+>   	}
+> -	if (pos >=3D start + *_len)
+> +	if ((u64)pos >=3D (u64)start + *_len)
+>   		goto check_space; /* Unallocated region */
+>  =20
+>   	/* We have a block that's at least partially filled - if we're low on
+> @@ -575,7 +575,7 @@ int __cachefiles_prepare_write(struct cachefiles_obje=
+ct *object,
+>   					  cachefiles_trace_seek_error);
+>   		return pos;
+>   	}
+> -	if (pos >=3D start + *_len)
+> +	if ((u64)pos >=3D (u64)start + *_len)
+>   		return 0; /* Fully allocated */
+>  =20
+>   	/* Partially allocated, but insufficient space: cull. */
+>=20
 
--- 
-You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to linux-cachefs+unsubscribe@redhat.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+linux-cachefs@redhat.com" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to linux-cachefs+unsubscribe@redhat.com.
 
