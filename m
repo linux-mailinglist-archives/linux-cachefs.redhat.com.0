@@ -1,107 +1,107 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB4FYS2YAMGQEJ5Y7GNA@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB55YS2YAMGQECOJCYZY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BE7890559
-	for <lists+linux-cachefs@lfdr.de>; Thu, 28 Mar 2024 17:36:01 +0100 (CET)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-6967246e2a2sf13382826d6.0
-        for <lists+linux-cachefs@lfdr.de>; Thu, 28 Mar 2024 09:36:01 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1711643761; cv=pass;
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9AE89055C
+	for <lists+linux-cachefs@lfdr.de>; Thu, 28 Mar 2024 17:36:08 +0100 (CET)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-690ab2b0de1sf2027716d6.0
+        for <lists+linux-cachefs@lfdr.de>; Thu, 28 Mar 2024 09:36:08 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1711643768; cv=pass;
         d=google.com; s=arc-20160816;
-        b=pP7FcFw5jOs7eZfmKO2VtokRpwSU5LK/rc6OWuegS/r8kJ+5SvhzsOao4wXDmkXGM9
-         oziYYy4B3VPP4R/ILJXJsbxdVXB/yfieM/Q3qSTAVy5fC4H8ch3m714iX2aCjeQcWNN5
-         PpKrVQTWeaxfEqHEmPUJNnMMHWpT+p5pwiVXvSRmNn2+6i9JQKdljQXQSTkz8yQ8UyxV
-         X/ROnkXx4pMEm0A79HnjPRugU1WFdE6kTO2AwBtwO4VOQqC/DoU8hHXcp52YdR6G/cfx
-         PSuNJuSRqchc+9ge7RHRQHGo0H7TY0r5GM33FZ4miVxecZ0yiDmGLcybKWITEQlXC14Q
-         UMFw==
+        b=GEphpwtmpHfkxbUYi80hZFJmFAYsNwBW1M0zWT4D/5GOI+15XrPWL5EZCn5DPluwyo
+         APS79wq+cp7NqhZQxRFFgpISd186M5DJy7GQ74DHvoJQcLCdAOFGs+s843/+/1yDmlcv
+         4dR4Wr7LAG41YCdYT4FETpTyRGaOq3bioAWZE92r85dNdnPuf5CJoNNM/odvPuboe4w+
+         dMayyyutafLWbuPU+rqXUQb35pIRlHwAgGZnFLIgjqaAzbv2sQGmucRsbqhlIZTH/xmh
+         T6ulqJIc5sW8fNxCdjB8HuQXguJ5ydAOAe80Bgw6audEHkeIITViPBgdztYNKGmIsiBV
+         AwOA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=/NXTQIV/i/sODFk31SX+Notvcndvv/cXwZWLE0sqxa8=;
-        fh=BXnEAVNXKR6lkSbhaL/vCWETjh1gC+o1F1Su8kteVJ4=;
-        b=Hu8+iXvr81Q0VfHTbUdqV2lSp9c24rFii8CRv+duwgZ+gpP7GDgLmn+UxpcBSWXUDX
-         SUFvTjn9kCD1pbzVX1DYWqqZ7B5Fid70qHtjZoj0ZhR4M+vZJI/7wI6XD+vppNXcrT79
-         noVUBfrF8wJcfc5MksjCfQw2mGaAyHPLOdsN1GLfxiluhiqgC5SjSxx9HZuDKjldOBDb
-         KraPRs9MJjmS38Pvv0MPS3wfnS9rcNE9DcAA+QXEJrTAv3e3p97MkUXza7EI+fTwX172
-         bCpZaFeUzqY7Dlw43dR3fti0E6KlDISTQLeFs/NPzuW0sATfiCmpMbM6QVNILRxTtJ8H
-         yLhg==;
+        bh=213yOZKOJq+iZy0Z0Q+HcMeFKApQfhwnCjy2sAyUP0A=;
+        fh=12Ro21+VZMeunog1GWnAj0ubV9TSO0ln+Ae4SkT4K5s=;
+        b=cIZZwR1eEDOUANaYX3chNF3kAmVXgmDb44SKZ7o+0uNRIJjauuyGpMrbU/5tPBS17Y
+         mkARJy5LygRYNXHSgAoFBJ7GzefbKpJSIls0DfqUT2hMqh5OXjmza6r8j7vlRBrtn9FG
+         OO6RgQLiI2Mf/0wtgLUd153g8XM2fnZH3wW6zHQnlIH/JMk2nAIcqLZTSwnwsmlfOjMj
+         cZpNlgw/ZVwzx9xjI9+EcWA69g3+6tDXCWFhPYZHn1oOua5SQDCySW2+jDnV/N8uA7Ni
+         cfI1jq3JU2nDeiDznE0Iww3uWbT82Eil4INuVFeRv/b2SzZ/9fi7DSa2JgsyDjd3F1db
+         89Qg==;
         darn=lfdr.de
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711643761; x=1712248561;
+        d=1e100.net; s=20230601; t=1711643768; x=1712248568;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/NXTQIV/i/sODFk31SX+Notvcndvv/cXwZWLE0sqxa8=;
-        b=JAasB2484sX0gBWZckEeszWCKvVpfchuhXktdvj2Qcl0kmxzrRhmnYC1gAQl7gMoM+
-         xX0XzyZYFD2axJ0N/F3TxZG4/8Y2UpxzBUsa8C4s6VQYa/qAO+jYqKrcok+Hbekiqp06
-         illPgLA0AHMJ8JQnbrx5nOmMvzx7AXWx3+tIDCYlc8OOi4jDbj2HDS0nfAXSZIXHvMO4
-         dLmdSty9sDlwJhtehwF7+TH8MESPi57jZoAFaOIU4OaN0/Irj5mCMt8xWuzUE953TLzP
-         eCkwAhbSr0k7hmv76BFeVZcvRH4S8VqL12MR59xJ/gV/8EkmGC3mAuMTqnYW6jqvnUu9
-         ELQQ==
-X-Forwarded-Encrypted: i=2; AJvYcCWyN9TkcjB/9REP2gaVm9n2CtcCzUSit/2Ntz3mKVyQLmN8YN4TNtEp5s83n8s6xBNNyBhdyrcaw2c3/yTdHcdiv6gUHs4rdzTkEzg=
-X-Gm-Message-State: AOJu0YzOkL0HyxFW41U2GV+SyZR6S5SqIJropLcL5pK9VMbKhQfrUBPM
-	jA/hDRWiCVISYovYjNgauZxOlTUeo9MZazXiedagtisoSW9ykPzNc18GjEVn+tw=
-X-Google-Smtp-Source: AGHT+IFjICbI5dnqoBcJiPQ7JXRGVIqTWggfYodvRFBDzV9fjy7wjX5nHs9BuQ0pP7FXzOWC1Ksa8g==
-X-Received: by 2002:ad4:5fc6:0:b0:690:650e:f6b with SMTP id jq6-20020ad45fc6000000b00690650e0f6bmr4205120qvb.27.1711643760671;
-        Thu, 28 Mar 2024 09:36:00 -0700 (PDT)
+        bh=213yOZKOJq+iZy0Z0Q+HcMeFKApQfhwnCjy2sAyUP0A=;
+        b=NxloP075DqcEqEfGpe2ZMUQigEwf9ci0oKcyoaTYFnvBFFaJE4JKzUaPwNJDzKVNa2
+         y+OGNkYKjdyIQlzkNODyFz0n5N21tccdj1gAn3bRciZyh3bZYksJzHkOFDDlOITnG+yY
+         UY703ml8HVQfB9SCieJitiRc91c/9DiaDcsFYUOTe1j7WBhqLd27vAfoO/FBf0EJ3e/R
+         R9/ZI2AxF5ZEChIzygQ+cUlJZC5qXxv8TyrxKNDYAZRsp5Og1uLjlSa+owSi7/39SqSf
+         HBTBI2Ys3v7QBYTcugEQOUE1FLtqcKr2hFyX2ucI4NEZwhIvHFUuZ0TTm4XNOOukb76T
+         AsPg==
+X-Forwarded-Encrypted: i=2; AJvYcCVkCdgqK2qtq5b1uboEbgknI4XnzohDqYlezh82bY5vr/wBGVmpWd7FQDYQ2m1RB44Wqr2Ia2OYBXsu2zsFF1nVrtdlJVx74ksTfr0=
+X-Gm-Message-State: AOJu0YwWw73XK/URLQst6CFdugnbqKxRMCQm6vO7EcupvClVJUeFdiut
+	Fnio7G4TDJyIgaU0deCVnktPthWGtnYT9PdPQ5SrrgIjAbrzPwFuoJpqGNU1zmQ=
+X-Google-Smtp-Source: AGHT+IE+l+qUDfFD1XgCr5Uu41GaaOry2NDOHWEHszj7XRpx1xni5GYFMWNQhLr6FMx38iCA7HukhA==
+X-Received: by 2002:ad4:5044:0:b0:696:71eb:76a1 with SMTP id m4-20020ad45044000000b0069671eb76a1mr3187305qvq.0.1711643767581;
+        Thu, 28 Mar 2024 09:36:07 -0700 (PDT)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:f6d:b0:696:892c:9e58 with SMTP id
- iy13-20020a0562140f6d00b00696892c9e58ls492422qvb.2.-pod-prod-02-us; Thu, 28
- Mar 2024 09:36:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=2; AJvYcCXar7J/Jm7pXKFRBrN5UUMqmK7FHI8UaGnhRbS2/bCKglHw2Al40SpjtjhAdL7CYRl3Uj99UwL5s/CHAyYVTxrIkar3sS+lqTJrv/y30YI=
-X-Received: by 2002:a05:620a:4689:b0:78b:bef6:4066 with SMTP id bq9-20020a05620a468900b0078bbef64066mr2375636qkb.14.1711643759993;
-        Thu, 28 Mar 2024 09:35:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1711643759; cv=none;
+Received: by 2002:a05:6214:2606:b0:696:78dc:ab6a with SMTP id
+ gu6-20020a056214260600b0069678dcab6als1788636qvb.0.-pod-prod-06-us; Thu, 28
+ Mar 2024 09:36:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCX/2bVAQpdC9OT2u6NF6AetWA+kyzpTXnZusMl58lvIf3gDxk7/BGG7Z6Y9FldkKHFrxDON80vfmshmhm25gp3oMezUruUbkxQF6D2ljcg=
+X-Received: by 2002:a05:620a:17a5:b0:78b:c4ca:ff8c with SMTP id ay37-20020a05620a17a500b0078bc4caff8cmr860955qkb.4.1711643766910;
+        Thu, 28 Mar 2024 09:36:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1711643766; cv=none;
         d=google.com; s=arc-20160816;
-        b=TeazRdV4wjoQdmv0G4PJFFCFHhMqjc7hsgkymad7TOS3eSyKJ/qKKoF0BrPJA6j0SO
-         lsV02O2+ZwC1bIbzOdXCO62zmV4/cQURuuF5CnMbpjvDO5tnjPKU8YkFYal7dHdSxf9N
-         eAhLofbk6TRRMTiYAs/0Ysi50w1xCPZRnMfJGqAEgIvpPzQmwGBcTlHAs5a6oFbxSzex
-         sqdpJ18SdTo/lYdZK6ULC/x61g5J/Pzchm+lFhdzMO3+Or8wdSvVI/+3/gKgDHr4Zus5
-         uQjfRoN+b+oz92oBPU6exE60VZpkwvgQUJcvRExxJg2F38I+iSe2zsyoVj38Nz1MOEkl
-         csVw==
+        b=CmiCcfyk9cNK1SCiQcj6jsSxbRHhFM/YhVVyuy0Z1JWwhhbSLrnoXE9OVvHeTjauMn
+         KWx4OxF3R+HI2tCrbutzqyEkbVI/fQKlScE4kZ/9ntX4F1r9yeSPf8EECQ2itXIXVEt3
+         PhWh/H5ULGhL+xDmUG37f2ER/pj+sISDAiJfWk+bdm7l7J1eRaixtXRoGC+e2Pz/gXxa
+         bBPT4SfDjxp283cx7UrdCD/j4e+C3l3/pKRhST/zdHbnQ/lQvytwBbkb5Zq5RCmMGoiO
+         ynZQZrvwwzG46P4K9Gne7sSylBOfQQCjGc0E900lUPnf+wPujR28xZn+G364nASHuiBV
+         iupA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=iC09wgEn+nkMdm87RmEZnZWgl9jjcn1kRzVWvt93hHQ=;
-        fh=Mx5YNwULogeBSmY3v+oonPQZ33UrcPIv9zYecTiiMSA=;
-        b=HNr+g1wYV7f2b40n9QCxraVWZQuh4h4ayv8y5ulzxR+umGwGvd51mISKaQ2HcXHedP
-         SaXZf7egUi0RCOff9D+jiZYfZ0wowahVT1RsgwbOr+gaeZrdYEF9HCXFowoN4ntU36+c
-         fMas+6kMobYtTTp3avZaPzN+s8HCvj/sUs0wEjr2j1UTaWuXjCDfmkcii8xUFPerT7gD
-         ZOHAN1/MXN5clJtLES02N4nGNi7mLQEYhEls//lhw6DQQaD6HXv2cwekdUSmaX4qZhLi
-         YiZagCwlc3C7S6I/SRREkcGriXXXWBSWlN464kv56ksgar433q+hChdnTEJVH1OvbNUx
-         CFNA==;
+        bh=3tuMbXEALtXVN+9DP0lH6KC10UuXzf4Wno0E4exLjO4=;
+        fh=dijFYpEVp+4ijccmXeOrV1fnLJQjsqwgNfcTPuMjuvg=;
+        b=oKu/qA911vjJIrkXM3/V0nhRgF+0bNcdnIsQclqU+s/F2X7aFZPUH19zP3L0O0lX12
+         eVItF2+RVq2ZuFEw/yfd6xiYp5W16ZNRQGZoyZKbXN3gFDDAlibD8pqqwbp1LHGkxYUU
+         ctyop1OqYZFpXdjmz+clLjLzQw6E5MebPPkxe4dhcgC/JcSd1F13IEd79IWinnvlypKn
+         mgefJRZuyXkmr1JX7yGyGoC/co5EIDYbT3pqRBO+yAVSHhw4BTSxE2l/Q4uSwzScBvW4
+         AxRkB1AThr9SfwWoaaOWVEUCu8MTADmO2Sshx5n6xeQWsmBEPW0wCY/0tNaTVeljf4Dk
+         Ha4g==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
-        by mx.google.com with ESMTPS id f10-20020ae9ea0a000000b00789e7940afbsi1721472qkg.336.2024.03.28.09.35.59
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
+        by mx.google.com with ESMTPS id b15-20020a05620a126f00b0078a695a0553si1830113qkl.48.2024.03.28.09.36.06
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 Mar 2024 09:35:59 -0700 (PDT)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
+        Thu, 28 Mar 2024 09:36:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-2n8L01N7MbKYI5Qg3Z5H-w-1; Thu,
- 28 Mar 2024 12:35:57 -0400
-X-MC-Unique: 2n8L01N7MbKYI5Qg3Z5H-w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-370-NyS1G8TTPbeL-Ul__9EsRQ-1; Thu,
+ 28 Mar 2024 12:36:05 -0400
+X-MC-Unique: NyS1G8TTPbeL-Ul__9EsRQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FF111C05AE9
-	for <linux-cachefs@gapps.redhat.com>; Thu, 28 Mar 2024 16:35:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B376A3C40B5C
+	for <linux-cachefs@gapps.redhat.com>; Thu, 28 Mar 2024 16:36:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C56237F1; Thu, 28 Mar 2024 16:35:57 +0000 (UTC)
+	id AF91B2166B5D; Thu, 28 Mar 2024 16:36:04 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.146])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3573E3C54;
-	Thu, 28 Mar 2024 16:35:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 83BEC2166B31;
+	Thu, 28 Mar 2024 16:36:01 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>,
 	Jeff Layton <jlayton@kernel.org>,
@@ -127,27 +127,21 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiubo Li <xiubli@redhat.com>,
-	Steve French <sfrench@samba.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Anna Schumaker <anna@kernel.org>
-Subject: [PATCH 05/26] mm: Remove the PG_fscache alias for PG_private_2
-Date: Thu, 28 Mar 2024 16:33:57 +0000
-Message-ID: <20240328163424.2781320-6-dhowells@redhat.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 06/26] netfs: Remove deprecated use of PG_private_2 as a second writeback flag
+Date: Thu, 28 Mar 2024 16:33:58 +0000
+Message-ID: <20240328163424.2781320-7-dhowells@redhat.com>
 In-Reply-To: <20240328163424.2781320-1-dhowells@redhat.com>
 References: <20240328163424.2781320-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -159,399 +153,280 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Remove the PG_fscache alias for PG_private_2 and use the latter directly.
-Use of this flag for marking pages undergoing writing to the cache should
-be considered deprecated and the folios should be marked dirty instead and
-the write done in ->writepages().
-
-Note that PG_private_2 itself should be considered deprecated and up for
-future removal by the MM folks too.
+Remove the deprecated use of PG_private_2 in netfslib.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
 cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-cc: Ilya Dryomov <idryomov@gmail.com>
-cc: Xiubo Li <xiubli@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.com>
-cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-cc: Shyam Prasad N <sprasad@microsoft.com>
-cc: Tom Talpey <tom@talpey.com>
-cc: Bharath SM <bharathsm@microsoft.com>
-cc: Trond Myklebust <trond.myklebust@hammerspace.com>
-cc: Anna Schumaker <anna@kernel.org>
-cc: netfs@lists.linux.dev
-cc: ceph-devel@vger.kernel.org
-cc: linux-cifs@vger.kernel.org
-cc: linux-nfs@vger.kernel.org
+cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/ceph/addr.c           | 11 +++---
- fs/netfs/buffered_read.c |  4 +-
- fs/netfs/fscache_io.c    |  2 +-
- fs/netfs/io.c            |  2 +-
- fs/nfs/file.c            |  8 ++--
- fs/nfs/fscache.h         |  4 +-
- fs/nfs/write.c           |  4 +-
- fs/smb/client/file.c     | 16 ++++----
- include/linux/netfs.h    | 80 ++--------------------------------------
- mm/filemap.c             |  6 +--
- 10 files changed, 33 insertions(+), 104 deletions(-)
+ fs/ceph/addr.c           |  19 +-----
+ fs/netfs/buffered_read.c |   8 +--
+ fs/netfs/io.c            | 144 ---------------------------------------
+ 3 files changed, 2 insertions(+), 169 deletions(-)
 
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 57cbae134b37..75690f969ebc 100644
+index 75690f969ebc..2d0f13537c85 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -500,7 +500,7 @@ const struct netfs_request_ops ceph_netfs_ops = {
- #ifdef CONFIG_CEPH_FSCACHE
- static void ceph_set_page_fscache(struct page *page)
- {
--	set_page_fscache(page);
-+	folio_start_private_2(page_folio(page)); /* [DEPRECATED] */
- }
+@@ -498,11 +498,6 @@ const struct netfs_request_ops ceph_netfs_ops = {
+ };
  
+ #ifdef CONFIG_CEPH_FSCACHE
+-static void ceph_set_page_fscache(struct page *page)
+-{
+-	folio_start_private_2(page_folio(page)); /* [DEPRECATED] */
+-}
+-
  static void ceph_fscache_write_terminated(void *priv, ssize_t error, bool was_async)
-@@ -798,7 +798,7 @@ static int ceph_writepage(struct page *page, struct writeback_control *wbc)
+ {
+ 	struct inode *inode = priv;
+@@ -520,10 +515,6 @@ static void ceph_fscache_write_to_cache(struct inode *inode, u64 off, u64 len, b
+ 			       ceph_fscache_write_terminated, inode, true, caching);
+ }
+ #else
+-static inline void ceph_set_page_fscache(struct page *page)
+-{
+-}
+-
+ static inline void ceph_fscache_write_to_cache(struct inode *inode, u64 off, u64 len, bool caching)
+ {
+ }
+@@ -715,8 +706,6 @@ static int writepage_nounlock(struct page *page, struct writeback_control *wbc)
+ 		len = wlen;
+ 
+ 	set_page_writeback(page);
+-	if (caching)
+-		ceph_set_page_fscache(page);
+ 	ceph_fscache_write_to_cache(inode, page_off, len, caching);
+ 
+ 	if (IS_ENCRYPTED(inode)) {
+@@ -798,8 +787,6 @@ static int ceph_writepage(struct page *page, struct writeback_control *wbc)
  	    ceph_inode_to_fs_client(inode)->write_congested)
  		return AOP_WRITEPAGE_ACTIVATE;
  
--	wait_on_page_fscache(page);
-+	folio_wait_private_2(page_folio(page)); /* [DEPRECATED] */
- 
+-	folio_wait_private_2(page_folio(page)); /* [DEPRECATED] */
+-
  	err = writepage_nounlock(page, wbc);
  	if (err == -ERESTARTSYS) {
-@@ -1073,7 +1073,8 @@ static int ceph_writepages_start(struct address_space *mapping,
+ 		/* direct memory reclaimer was killed by SIGKILL. return 0
+@@ -1073,8 +1060,7 @@ static int ceph_writepages_start(struct address_space *mapping,
  				unlock_page(page);
  				break;
  			}
--			if (PageWriteback(page) || PageFsCache(page)) {
-+			if (PageWriteback(page) ||
-+			    PagePrivate2(page) /* [DEPRECATED] */) {
+-			if (PageWriteback(page) ||
+-			    PagePrivate2(page) /* [DEPRECATED] */) {
++			if (PageWriteback(page)) {
  				if (wbc->sync_mode == WB_SYNC_NONE) {
  					doutc(cl, "%p under writeback\n", page);
  					unlock_page(page);
-@@ -1081,7 +1082,7 @@ static int ceph_writepages_start(struct address_space *mapping,
+@@ -1082,7 +1068,6 @@ static int ceph_writepages_start(struct address_space *mapping,
  				}
  				doutc(cl, "waiting on writeback %p\n", page);
  				wait_on_page_writeback(page);
--				wait_on_page_fscache(page);
-+				folio_wait_private_2(page_folio(page)); /* [DEPRECATED] */
+-				folio_wait_private_2(page_folio(page)); /* [DEPRECATED] */
  			}
  
  			if (!clear_page_dirty_for_io(page)) {
-@@ -1511,7 +1512,7 @@ static int ceph_write_begin(struct file *file, struct address_space *mapping,
- 	if (r < 0)
- 		return r;
+@@ -1267,8 +1252,6 @@ static int ceph_writepages_start(struct address_space *mapping,
+ 			}
  
--	folio_wait_fscache(folio);
-+	folio_wait_private_2(folio); /* [DEPRECATED] */
- 	WARN_ON_ONCE(!folio_test_locked(folio));
- 	*pagep = &folio->page;
- 	return 0;
+ 			set_page_writeback(page);
+-			if (caching)
+-				ceph_set_page_fscache(page);
+ 			len += thp_size(page);
+ 		}
+ 		ceph_fscache_write_to_cache(inode, offset, len, caching);
 diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 6d49319c82c6..b3fd6e1fa322 100644
+index b3fd6e1fa322..1622cce535a3 100644
 --- a/fs/netfs/buffered_read.c
 +++ b/fs/netfs/buffered_read.c
-@@ -70,7 +70,7 @@ void netfs_rreq_unlock_folios(struct netfs_io_request *rreq)
- 				if (!folio_started && test_bit(NETFS_SREQ_COPY_TO_CACHE,
- 							       &subreq->flags)) {
- 					trace_netfs_folio(folio, netfs_folio_trace_copy_to_cache);
--					folio_start_fscache(folio);
-+					folio_start_private_2(folio);
- 					folio_started = true;
- 				}
- 			} else {
-@@ -506,7 +506,7 @@ int netfs_write_begin(struct netfs_inode *ctx,
+@@ -464,7 +464,7 @@ int netfs_write_begin(struct netfs_inode *ctx,
+ 	if (!netfs_is_cache_enabled(ctx) &&
+ 	    netfs_skip_folio_read(folio, pos, len, false)) {
+ 		netfs_stat(&netfs_n_rh_write_zskip);
+-		goto have_folio_no_wait;
++		goto have_folio;
+ 	}
+ 
+ 	rreq = netfs_alloc_request(mapping, file,
+@@ -505,12 +505,6 @@ int netfs_write_begin(struct netfs_inode *ctx,
+ 	netfs_put_request(rreq, false, netfs_rreq_trace_put_return);
  
  have_folio:
- 	if (test_bit(NETFS_ICTX_USE_PGPRIV2, &ctx->flags)) {
--		ret = folio_wait_fscache_killable(folio);
-+		ret = folio_wait_private_2_killable(folio);
- 		if (ret < 0)
- 			goto error;
- 	}
-diff --git a/fs/netfs/fscache_io.c b/fs/netfs/fscache_io.c
-index 5028f2ae30da..38637e5c9b57 100644
---- a/fs/netfs/fscache_io.c
-+++ b/fs/netfs/fscache_io.c
-@@ -183,7 +183,7 @@ void __fscache_clear_page_bits(struct address_space *mapping,
- 
- 		rcu_read_lock();
- 		xas_for_each(&xas, page, last) {
--			end_page_fscache(page);
-+			folio_end_private_2(page_folio(page));
- 		}
- 		rcu_read_unlock();
- 	}
+-	if (test_bit(NETFS_ICTX_USE_PGPRIV2, &ctx->flags)) {
+-		ret = folio_wait_private_2_killable(folio);
+-		if (ret < 0)
+-			goto error;
+-	}
+-have_folio_no_wait:
+ 	*_folio = folio;
+ 	_leave(" = 0");
+ 	return 0;
 diff --git a/fs/netfs/io.c b/fs/netfs/io.c
-index b3b9827a9709..60a19f96e0ce 100644
+index 60a19f96e0ce..2641238aae82 100644
 --- a/fs/netfs/io.c
 +++ b/fs/netfs/io.c
-@@ -129,7 +129,7 @@ static void netfs_rreq_unmark_after_write(struct netfs_io_request *rreq,
- 				continue;
- 			unlocked = folio_next_index(folio) - 1;
- 			trace_netfs_folio(folio, netfs_folio_trace_end_copy);
--			folio_end_fscache(folio);
-+			folio_end_private_2(folio);
- 			have_unlocked = true;
- 		}
- 	}
-diff --git a/fs/nfs/file.c b/fs/nfs/file.c
-index 407c6e15afe2..6bd127e6683d 100644
---- a/fs/nfs/file.c
-+++ b/fs/nfs/file.c
-@@ -433,7 +433,7 @@ static void nfs_invalidate_folio(struct folio *folio, size_t offset,
- 		return;
- 	/* Cancel any unstarted writes on this page */
- 	nfs_wb_folio_cancel(inode, folio);
--	folio_wait_fscache(folio);
-+	folio_wait_private_2(folio); /* [DEPRECATED] */
- 	trace_nfs_invalidate_folio(inode, folio);
+@@ -98,146 +98,6 @@ static void netfs_rreq_completed(struct netfs_io_request *rreq, bool was_async)
+ 	netfs_put_request(rreq, was_async, netfs_rreq_trace_put_complete);
  }
- 
-@@ -500,7 +500,7 @@ static int nfs_launder_folio(struct folio *folio)
- 	dfprintk(PAGECACHE, "NFS: launder_folio(%ld, %llu)\n",
- 		inode->i_ino, folio_pos(folio));
- 
--	folio_wait_fscache(folio);
-+	folio_wait_private_2(folio); /* [DEPRECATED] */
- 	ret = nfs_wb_folio(inode, folio);
- 	trace_nfs_launder_folio_done(inode, folio, ret);
- 	return ret;
-@@ -593,8 +593,8 @@ static vm_fault_t nfs_vm_page_mkwrite(struct vm_fault *vmf)
- 	sb_start_pagefault(inode->i_sb);
- 
- 	/* make sure the cache has finished storing the page */
--	if (folio_test_fscache(folio) &&
--	    folio_wait_fscache_killable(folio) < 0) {
-+	if (folio_test_private_2(folio) && /* [DEPRECATED] */
-+	    folio_wait_private_2_killable(folio) < 0) {
- 		ret = VM_FAULT_RETRY;
- 		goto out;
- 	}
-diff --git a/fs/nfs/fscache.h b/fs/nfs/fscache.h
-index 814363d1d7c7..fbed0027996f 100644
---- a/fs/nfs/fscache.h
-+++ b/fs/nfs/fscache.h
-@@ -103,10 +103,10 @@ extern int nfs_netfs_read_folio(struct file *file, struct folio *folio);
- 
- static inline bool nfs_fscache_release_folio(struct folio *folio, gfp_t gfp)
- {
--	if (folio_test_fscache(folio)) {
-+	if (folio_test_private_2(folio)) { /* [DEPRECATED] */
- 		if (current_is_kswapd() || !(gfp & __GFP_FS))
- 			return false;
--		folio_wait_fscache(folio);
-+		folio_wait_private_2(folio);
- 	}
- 	fscache_note_page_release(netfs_i_cookie(netfs_inode(folio->mapping->host)));
- 	return true;
-diff --git a/fs/nfs/write.c b/fs/nfs/write.c
-index 5de85d725fb9..2329cbb0e446 100644
---- a/fs/nfs/write.c
-+++ b/fs/nfs/write.c
-@@ -2120,10 +2120,10 @@ int nfs_migrate_folio(struct address_space *mapping, struct folio *dst,
- 	if (folio_test_private(src))
- 		return -EBUSY;
- 
--	if (folio_test_fscache(src)) {
-+	if (folio_test_private_2(src)) { /* [DEPRECATED] */
- 		if (mode == MIGRATE_ASYNC)
- 			return -EBUSY;
--		folio_wait_fscache(src);
-+		folio_wait_private_2(src);
- 	}
- 
- 	return migrate_folio(mapping, dst, src, mode);
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 16aadce492b2..59da572d3384 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -2953,12 +2953,12 @@ static ssize_t cifs_writepages_begin(struct address_space *mapping,
- 	}
- 
- 	if (folio_test_writeback(folio) ||
--	    folio_test_fscache(folio)) {
-+	    folio_test_private_2(folio)) { /* [DEPRECATED] */
- 		folio_unlock(folio);
- 		if (wbc->sync_mode != WB_SYNC_NONE) {
- 			folio_wait_writeback(folio);
- #ifdef CONFIG_CIFS_FSCACHE
--			folio_wait_fscache(folio);
-+			folio_wait_private_2(folio);
- #endif
- 			goto lock_again;
- 		}
-@@ -4431,8 +4431,8 @@ static vm_fault_t cifs_page_mkwrite(struct vm_fault *vmf)
- 	 * be modified.  We then assume the entire folio will need writing back.
- 	 */
- #ifdef CONFIG_CIFS_FSCACHE
--	if (folio_test_fscache(folio) &&
--	    folio_wait_fscache_killable(folio) < 0)
-+	if (folio_test_private_2(folio) && /* [DEPRECATED] */
-+	    folio_wait_private_2_killable(folio) < 0)
- 		return VM_FAULT_RETRY;
- #endif
- 
-@@ -4898,10 +4898,10 @@ static bool cifs_release_folio(struct folio *folio, gfp_t gfp)
- {
- 	if (folio_test_private(folio))
- 		return 0;
--	if (folio_test_fscache(folio)) {
-+	if (folio_test_private_2(folio)) { /* [DEPRECATED] */
- 		if (current_is_kswapd() || !(gfp & __GFP_FS))
- 			return false;
--		folio_wait_fscache(folio);
-+		folio_wait_private_2(folio);
- 	}
- 	fscache_note_page_release(cifs_inode_cookie(folio->mapping->host));
- 	return true;
-@@ -4910,7 +4910,7 @@ static bool cifs_release_folio(struct folio *folio, gfp_t gfp)
- static void cifs_invalidate_folio(struct folio *folio, size_t offset,
- 				 size_t length)
- {
--	folio_wait_fscache(folio);
-+	folio_wait_private_2(folio); /* [DEPRECATED] */
- }
- 
- static int cifs_launder_folio(struct folio *folio)
-@@ -4930,7 +4930,7 @@ static int cifs_launder_folio(struct folio *folio)
- 	if (folio_clear_dirty_for_io(folio))
- 		rc = cifs_writepage_locked(&folio->page, &wbc);
- 
--	folio_wait_fscache(folio);
-+	folio_wait_private_2(folio); /* [DEPRECATED] */
- 	return rc;
- }
- 
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index f5e9c5f84a0c..f36a6d8163d1 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -21,94 +21,22 @@
- 
- enum netfs_sreq_ref_trace;
  
 -/*
-- * Overload PG_private_2 to give us PG_fscache - this is used to indicate that
-- * a page is currently backed by a local disk cache
+- * [DEPRECATED] Deal with the completion of writing the data to the cache.  We
+- * have to clear the PG_fscache bits on the folios involved and release the
+- * caller's ref.
+- *
+- * May be called in softirq mode and we inherit a ref from the caller.
 - */
--#define folio_test_fscache(folio)	folio_test_private_2(folio)
--#define PageFsCache(page)		PagePrivate2((page))
--#define SetPageFsCache(page)		SetPagePrivate2((page))
--#define ClearPageFsCache(page)		ClearPagePrivate2((page))
--#define TestSetPageFsCache(page)	TestSetPagePrivate2((page))
--#define TestClearPageFsCache(page)	TestClearPagePrivate2((page))
+-static void netfs_rreq_unmark_after_write(struct netfs_io_request *rreq,
+-					  bool was_async)
+-{
+-	struct netfs_io_subrequest *subreq;
+-	struct folio *folio;
+-	pgoff_t unlocked = 0;
+-	bool have_unlocked = false;
 -
- /**
-- * folio_start_fscache - Start an fscache write on a folio.
-+ * folio_start_private_2 - Start an fscache write on a folio.  [DEPRECATED]
-  * @folio: The folio.
-  *
-  * Call this function before writing a folio to a local cache.  Starting a
-  * second write before the first one finishes is not allowed.
-+ *
-+ * Note that this should no longer be used.
+-	rcu_read_lock();
+-
+-	list_for_each_entry(subreq, &rreq->subrequests, rreq_link) {
+-		XA_STATE(xas, &rreq->mapping->i_pages, subreq->start / PAGE_SIZE);
+-
+-		xas_for_each(&xas, folio, (subreq->start + subreq->len - 1) / PAGE_SIZE) {
+-			if (xas_retry(&xas, folio))
+-				continue;
+-
+-			/* We might have multiple writes from the same huge
+-			 * folio, but we mustn't unlock a folio more than once.
+-			 */
+-			if (have_unlocked && folio->index <= unlocked)
+-				continue;
+-			unlocked = folio_next_index(folio) - 1;
+-			trace_netfs_folio(folio, netfs_folio_trace_end_copy);
+-			folio_end_private_2(folio);
+-			have_unlocked = true;
+-		}
+-	}
+-
+-	rcu_read_unlock();
+-	netfs_rreq_completed(rreq, was_async);
+-}
+-
+-static void netfs_rreq_copy_terminated(void *priv, ssize_t transferred_or_error,
+-				       bool was_async) /* [DEPRECATED] */
+-{
+-	struct netfs_io_subrequest *subreq = priv;
+-	struct netfs_io_request *rreq = subreq->rreq;
+-
+-	if (IS_ERR_VALUE(transferred_or_error)) {
+-		netfs_stat(&netfs_n_rh_write_failed);
+-		trace_netfs_failure(rreq, subreq, transferred_or_error,
+-				    netfs_fail_copy_to_cache);
+-	} else {
+-		netfs_stat(&netfs_n_rh_write_done);
+-	}
+-
+-	trace_netfs_sreq(subreq, netfs_sreq_trace_write_term);
+-
+-	/* If we decrement nr_copy_ops to 0, the ref belongs to us. */
+-	if (atomic_dec_and_test(&rreq->nr_copy_ops))
+-		netfs_rreq_unmark_after_write(rreq, was_async);
+-
+-	netfs_put_subrequest(subreq, was_async, netfs_sreq_trace_put_terminated);
+-}
+-
+-/*
+- * [DEPRECATED] Perform any outstanding writes to the cache.  We inherit a ref
+- * from the caller.
+- */
+-static void netfs_rreq_do_write_to_cache(struct netfs_io_request *rreq)
+-{
+-	struct netfs_cache_resources *cres = &rreq->cache_resources;
+-	struct netfs_io_subrequest *subreq, *next, *p;
+-	struct iov_iter iter;
+-	int ret;
+-
+-	trace_netfs_rreq(rreq, netfs_rreq_trace_copy);
+-
+-	/* We don't want terminating writes trying to wake us up whilst we're
+-	 * still going through the list.
+-	 */
+-	atomic_inc(&rreq->nr_copy_ops);
+-
+-	list_for_each_entry_safe(subreq, p, &rreq->subrequests, rreq_link) {
+-		if (!test_bit(NETFS_SREQ_COPY_TO_CACHE, &subreq->flags)) {
+-			list_del_init(&subreq->rreq_link);
+-			netfs_put_subrequest(subreq, false,
+-					     netfs_sreq_trace_put_no_copy);
+-		}
+-	}
+-
+-	list_for_each_entry(subreq, &rreq->subrequests, rreq_link) {
+-		/* Amalgamate adjacent writes */
+-		while (!list_is_last(&subreq->rreq_link, &rreq->subrequests)) {
+-			next = list_next_entry(subreq, rreq_link);
+-			if (next->start != subreq->start + subreq->len)
+-				break;
+-			subreq->len += next->len;
+-			list_del_init(&next->rreq_link);
+-			netfs_put_subrequest(next, false,
+-					     netfs_sreq_trace_put_merged);
+-		}
+-
+-		ret = cres->ops->prepare_write(cres, &subreq->start, &subreq->len,
+-					       subreq->len, rreq->i_size, true);
+-		if (ret < 0) {
+-			trace_netfs_failure(rreq, subreq, ret, netfs_fail_prepare_write);
+-			trace_netfs_sreq(subreq, netfs_sreq_trace_write_skip);
+-			continue;
+-		}
+-
+-		iov_iter_xarray(&iter, ITER_SOURCE, &rreq->mapping->i_pages,
+-				subreq->start, subreq->len);
+-
+-		atomic_inc(&rreq->nr_copy_ops);
+-		netfs_stat(&netfs_n_rh_write);
+-		netfs_get_subrequest(subreq, netfs_sreq_trace_get_copy_to_cache);
+-		trace_netfs_sreq(subreq, netfs_sreq_trace_write);
+-		cres->ops->write(cres, subreq->start, &iter,
+-				 netfs_rreq_copy_terminated, subreq);
+-	}
+-
+-	/* If we decrement nr_copy_ops to 0, the usage ref belongs to us. */
+-	if (atomic_dec_and_test(&rreq->nr_copy_ops))
+-		netfs_rreq_unmark_after_write(rreq, false);
+-}
+-
+-static void netfs_rreq_write_to_cache_work(struct work_struct *work) /* [DEPRECATED] */
+-{
+-	struct netfs_io_request *rreq =
+-		container_of(work, struct netfs_io_request, work);
+-
+-	netfs_rreq_do_write_to_cache(rreq);
+-}
+-
+-static void netfs_rreq_write_to_cache(struct netfs_io_request *rreq) /* [DEPRECATED] */
+-{
+-	rreq->work.func = netfs_rreq_write_to_cache_work;
+-	if (!queue_work(system_unbound_wq, &rreq->work))
+-		BUG();
+-}
+-
+ /*
+  * Handle a short read.
   */
--static inline void folio_start_fscache(struct folio *folio)
-+static inline void folio_start_private_2(struct folio *folio)
- {
- 	VM_BUG_ON_FOLIO(folio_test_private_2(folio), folio);
- 	folio_get(folio);
- 	folio_set_private_2(folio);
+@@ -410,10 +270,6 @@ static void netfs_rreq_assess(struct netfs_io_request *rreq, bool was_async)
+ 	clear_bit_unlock(NETFS_RREQ_IN_PROGRESS, &rreq->flags);
+ 	wake_up_bit(&rreq->flags, NETFS_RREQ_IN_PROGRESS);
+ 
+-	if (test_bit(NETFS_RREQ_COPY_TO_CACHE, &rreq->flags) &&
+-	    test_bit(NETFS_RREQ_USE_PGPRIV2, &rreq->flags))
+-		return netfs_rreq_write_to_cache(rreq);
+-
+ 	netfs_rreq_completed(rreq, was_async);
  }
  
--/**
-- * folio_end_fscache - End an fscache write on a folio.
-- * @folio: The folio.
-- *
-- * Call this function after the folio has been written to the local cache.
-- * This will wake any sleepers waiting on this folio.
-- */
--static inline void folio_end_fscache(struct folio *folio)
--{
--	folio_end_private_2(folio);
--}
--
--/**
-- * folio_wait_fscache - Wait for an fscache write on this folio to end.
-- * @folio: The folio.
-- *
-- * If this folio is currently being written to a local cache, wait for
-- * the write to finish.  Another write may start after this one finishes,
-- * unless the caller holds the folio lock.
-- */
--static inline void folio_wait_fscache(struct folio *folio)
--{
--	folio_wait_private_2(folio);
--}
--
--/**
-- * folio_wait_fscache_killable - Wait for an fscache write on this folio to end.
-- * @folio: The folio.
-- *
-- * If this folio is currently being written to a local cache, wait
-- * for the write to finish or for a fatal signal to be received.
-- * Another write may start after this one finishes, unless the caller
-- * holds the folio lock.
-- *
-- * Return:
-- * - 0 if successful.
-- * - -EINTR if a fatal signal was encountered.
-- */
--static inline int folio_wait_fscache_killable(struct folio *folio)
--{
--	return folio_wait_private_2_killable(folio);
--}
--
--static inline void set_page_fscache(struct page *page)
--{
--	folio_start_fscache(page_folio(page));
--}
--
--static inline void end_page_fscache(struct page *page)
--{
--	folio_end_private_2(page_folio(page));
--}
--
--static inline void wait_on_page_fscache(struct page *page)
--{
--	folio_wait_private_2(page_folio(page));
--}
--
--static inline int wait_on_page_fscache_killable(struct page *page)
--{
--	return folio_wait_private_2_killable(page_folio(page));
--}
--
- /* Marks used on xarray-based buffers */
- #define NETFS_BUF_PUT_MARK	XA_MARK_0	/* - Page needs putting  */
- #define NETFS_BUF_PAGECACHE_MARK XA_MARK_1	/* - Page needs wb/dirty flag wrangling */
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 7437b2bd75c1..25983f0f96e3 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1540,7 +1540,7 @@ EXPORT_SYMBOL(folio_end_private_2);
-  * folio_wait_private_2 - Wait for PG_private_2 to be cleared on a folio.
-  * @folio: The folio to wait on.
-  *
-- * Wait for PG_private_2 (aka PG_fscache) to be cleared on a folio.
-+ * Wait for PG_private_2 to be cleared on a folio.
-  */
- void folio_wait_private_2(struct folio *folio)
- {
-@@ -1553,8 +1553,8 @@ EXPORT_SYMBOL(folio_wait_private_2);
-  * folio_wait_private_2_killable - Wait for PG_private_2 to be cleared on a folio.
-  * @folio: The folio to wait on.
-  *
-- * Wait for PG_private_2 (aka PG_fscache) to be cleared on a folio or until a
-- * fatal signal is received by the calling task.
-+ * Wait for PG_private_2 to be cleared on a folio or until a fatal signal is
-+ * received by the calling task.
-  *
-  * Return:
-  * - 0 if successful.
 
 -- 
 You received this message because you are subscribed to the Google Groups "linux-cachefs@redhat.com" group.
