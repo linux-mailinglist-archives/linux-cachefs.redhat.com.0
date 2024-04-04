@@ -1,115 +1,116 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBJFYXGYAMGQEZBRBROA@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERB4N4XGYAMGQEO64RXNQ@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
 Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2822489827A
-	for <lists+linux-cachefs@lfdr.de>; Thu,  4 Apr 2024 09:52:06 +0200 (CEST)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-69929513885sf24101316d6.1
-        for <lists+linux-cachefs@lfdr.de>; Thu, 04 Apr 2024 00:52:06 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1712217124; cv=pass;
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E338982B2
+	for <lists+linux-cachefs@lfdr.de>; Thu,  4 Apr 2024 10:01:54 +0200 (CEST)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6993768b784sf910346d6.3
+        for <lists+linux-cachefs@lfdr.de>; Thu, 04 Apr 2024 01:01:54 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1712217714; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AFsxQ03ZU/2A/OI+m0cGLxCuugaMLYpOFxB8PdVrkLj/K0SAfD+tgSTMDsATOs81Gz
-         TJr8T3SeAjlwbQUXpcTIqTHV6/I6hIV+hNUarlIL7EmuyBQemVxS1kIY7zMvPaV+Vcig
-         wc2FfeGB0LioTkr5g2h24dDTI8Qon09QDDz9HQJ9TmdPjiScSKH1XCgymx3NuX2wKj1z
-         zAh6dj2bC5ABAI5jMksCdY76YEOSwbklNaIts5MOvgPHjtyHYhx206ve4/uxkhikPOu1
-         d2w6YpxGnPF/rgQybiIa18bKhJo7qAtgc5wT7SJQizKBo0kGVTLSG74JFTtJjmyNQzh1
-         lB1w==
+        b=sCbY2r2QnYGmf8lRhm5PBm10gDlQ+uozZ+FDbcddSnE8qUNf7zaWuli9LUpRVv45oD
+         pxscYd8C256miBeqIiZSBAdh30ojwXLKAO+RObN9JR1ETp/Rg+oNqsB9qJmgTzQIiFx6
+         7NLYVp2vF4DYfJP08R74nZTeecixXo400fpebgeXLU9RtS9/CIMLQ1+oSbvZ0aQ0OIk8
+         X/LYIP2yDG7ZZBNJJ7R5S4NsA1T9agjcjD0uhLs1k1Vc8FTok+AdcP3A9x1jZ2Btbt9N
+         Yxk/ymNcxDA2i60LVDjJ71OZsHLHg3Gyl7K1J3eSLLzy+ziIBLaOx0G7XJfQBLEB4sd0
+         AsDA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:content-id:message-id:date:mime-version
-         :subject:cc:references:in-reply-to:from:organization:delivered-to;
-        bh=w5eLga+kxsCcZ3NOOheHRFSemxQABAL8eU8nKO8L9eQ=;
-        fh=uRZ/uJ3ZJJbWLzh42lHlZkswlsvASAmNHHIUrM2Yhnc=;
-        b=NiQ+88zLg3emGVjvoXCnDw4G+XRVg1RdKsf3j/4Sm+gedXrSSJLtirtYxiumj9nvYW
-         vlenQyGGxplJZVG1IW7FeuhqIYoKAKQ87ND7rKboL0DuXj43X+4lBKN4AHXU8IbUatPe
-         oyAp6NQlQrW5q5vDcpqk6nqqCuzhtZi3XkAFCAbOjUxW/npX5NHNuXe9x0a7nlxyJoeQ
-         pjhQEBNUQpYD2RtMtOV+R5zGghX+Ww2lPajCGntmYCKsjnSB23+4OnlC61qqLVVv9g53
-         V1nJv2hCUKWzbklNTtjoqHyS31hGfW3H4BPMBF5+GvZR47/r5wrHkf7/uoCY3IQblajk
-         aWkQ==;
+         :subject:cc:to:references:in-reply-to:from:organization:delivered-to;
+        bh=ytiBZ3pKpxk1c4sSgCCDeqpkYh3DpoDrg0YHEHuzRys=;
+        fh=npYz7NVAxvwsEjPZmY9tVz0/mqlAxvYw4HUYcu9MR3w=;
+        b=QXOQhZQztL5c0RZ7CQ7IMM+dgB9OpGh2bD2HianqM65fMfw+nq85jmynJnlYc+0rG8
+         Fl5qn+Viir5ZY8xdVTIYF9/fyWJPPfzPcBQ3rLCxQUTBx/pkxZYJpYr3K08pf0DKm/MF
+         tJ25yuiogGRTdHDZtmVFANdGjLofjBRGbNEcdOT80m+37CqzXFfPrsYRCvp+ZOXEOKkB
+         2n7aR+Ih70WA9rl1aFhiN0wkCE8AmDmmhiasEswigxOY+CX1tCrd4lCxFdF1l/XFweDi
+         WWGjhbJZHQerrFhoYAbOQimha8rzm2fwUCutbiZOBIm//DwiRlepQsgAHWBKCstlGpT5
+         1YKw==;
         darn=lfdr.de
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712217124; x=1712821924;
+        d=1e100.net; s=20230601; t=1712217714; x=1712822514;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:content-id
-         :message-id:date:mime-version:subject:cc:references:in-reply-to:from
-         :organization:delivered-to:x-beenthere:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=w5eLga+kxsCcZ3NOOheHRFSemxQABAL8eU8nKO8L9eQ=;
-        b=i+KJulQ0yRV0zWQ9Asg+0bB45eSXlXpTS6HWJW4i88biRHlByGom5RwiHo+Kskgpl7
-         t7y6qgFl+jmiYGCfw6RU0VfyMyGJH/1euK/ka4sZptMY1SJ7XXWKrbEJpmRxG3qGbwnM
-         k1hTGxnqrpivszOjhLOdvOokHqtAipTNNwHiBmEtPqtGONaMXfZUYeIDREsk+uqQctyB
-         ITbZK3iF00lL+lXQUgqVqUhKjLdbECjJkqy8CTgZ6K2cBxa87NLk/B4/4qekgvezhGIg
-         75wM6PreEN2aWESOgrIHuIOKgZi34Yk7HzT3soLVVed/NnqVAsfEnmWXAarQJHO+RkB6
-         Lq/g==
-X-Forwarded-Encrypted: i=2; AJvYcCVmzvNWCFe4N7HUg2uncwcN83huJX9ItQumcqv+5QzisNFDQKAO/d2axavdgBPVzVVdwThyk8qRm2b69P2/Kshf9HenHs1o78j/Kp8=
-X-Gm-Message-State: AOJu0YzamVM+HNSRulNrD9GoJLYmq9WLqYfKfo8P+DDn/+0flTdCGBUE
-	Tu97QJFJJAABIee+SuSV1S8iV2i4Re9Z4ucCXSlwv3KQvA9y50JRV28fNmrJn88=
-X-Google-Smtp-Source: AGHT+IFCfTY91prNkH6ZQqFemSqzLrAplkCPGHkFoK0lFDe9B/8pKa9DtMyckVzfSVpL9yheYPXe6g==
-X-Received: by 2002:a0c:f2c9:0:b0:699:36c9:5a4f with SMTP id c9-20020a0cf2c9000000b0069936c95a4fmr379501qvm.4.1712217124624;
-        Thu, 04 Apr 2024 00:52:04 -0700 (PDT)
+         :message-id:date:mime-version:subject:cc:to:references:in-reply-to
+         :from:organization:delivered-to:x-beenthere:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ytiBZ3pKpxk1c4sSgCCDeqpkYh3DpoDrg0YHEHuzRys=;
+        b=FeLPTIbStADwy6ZqDvEFd2OqXMc+7YK11SB75LJyLY1LVxZJBte6amMGQmKHcY+BLB
+         +3+vyAeTxywwmhIK/svErX6pGQnwnXDC3FIj3QTbcGBBGWEAQzAndR3TuO+7xZIj5eOe
+         eRtcoXgYjRt+8GvKImYBUl0dswOXosgnqAytKzNqSjddkNTMiJMMw3CN5+D+m4QL1kBi
+         /6jWjV6g/ZY0oTV3RRuFonR6U6/ArVDWloRUBDzmTPPJPeTMPYfhKpVtYgvKfXy9RE++
+         HXQrzMkFxkJrqOWOzo1yWuRF9K9LY+7K5tIsqnVKCHJOqDLrvR6YUShcj/Sz0Md1yzVo
+         CHpQ==
+X-Forwarded-Encrypted: i=2; AJvYcCXHEHwXxoSZKApZjQIRrrYoCXCKsZo4x/9HUpAxeD4iFzGlDtZKdq6CXLX4117o1AJtfPvVYIOcO7q4G4g8SEh6BsHkqEAb66ZgD1A=
+X-Gm-Message-State: AOJu0YxBgqh+EMeU+Dr0Af/f+DvxUVinXNWM0oBXmxVaPiIJXIJ7dAYJ
+	8jwOzcjLRRoVk9ag7SH4qwcBXwuxHo+0/pYYycNhAYU4Sa+wEmWRScc/KlwjZtY=
+X-Google-Smtp-Source: AGHT+IGqizydtCivYaqo8P/magUOpMllzGIN8q8+fVn6bkNCY32c54PxUyK6UwlBpD73ybs0yUgS+w==
+X-Received: by 2002:a05:6214:2528:b0:699:267a:7894 with SMTP id gg8-20020a056214252800b00699267a7894mr1520237qvb.51.1712217713911;
+        Thu, 04 Apr 2024 01:01:53 -0700 (PDT)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ac8:5a4a:0:b0:432:d0ba:6add with SMTP id o10-20020ac85a4a000000b00432d0ba6addls1444907qta.0.-pod-prod-00-us;
- Thu, 04 Apr 2024 00:52:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=2; AJvYcCXzUEg4WJVNfxJPR3Ph7kw0mQ+hWl/xXAZQtc7uwg282IiqVnv2bOrSQWhqm7+sqrYLgvpAPh0cNMhucTC+CT2zaow8hxeHOUg0K4b8oVo=
-X-Received: by 2002:ac8:5ac1:0:b0:434:4a12:e3a0 with SMTP id d1-20020ac85ac1000000b004344a12e3a0mr3007745qtd.24.1712217123580;
-        Thu, 04 Apr 2024 00:52:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1712217123; cv=none;
+Received: by 2002:a05:6214:62a:b0:699:2bab:a332 with SMTP id
+ a10-20020a056214062a00b006992baba332ls1052084qvx.2.-pod-prod-04-us; Thu, 04
+ Apr 2024 01:01:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCUmAgGGmeFoRiE0F3lGY2XYYYttLFzK4sfRpZKHRXLPDe4hRSa1OoDTdTVgc9TGhfthPVjmT2h2+nUbgvMYdPXg/G+0+Lu+t54Og+uGpM0=
+X-Received: by 2002:a1f:fccb:0:b0:4d4:3fa5:e19e with SMTP id a194-20020a1ffccb000000b004d43fa5e19emr1425555vki.2.1712217713173;
+        Thu, 04 Apr 2024 01:01:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1712217713; cv=none;
         d=google.com; s=arc-20160816;
-        b=JTHJTe6L6j0PlM0vUEkO9gxB2H/UYg2+16ZX2BX1h8UgMCBhkZ9/m2UIE7BaPB7a1l
-         S03gmIbP7CNRT2chMUdeqFa0PRvXjtE+C3i6jWnGoqkN3SS/DGuY3zF6lWx3Q2kdEQ6n
-         oK7qImIXMFGyYaAAJmnEOPNBlIuzsHQdRDjDKHxwaq+JZOERMNCmgH3h/umlPJ/GDMax
-         ycdUmq7ZXlwAPIKoTt20I7rzMvXD65bdmzWl7qBQfJF57LVg4mdjkMN2nDlyHJxp+/4w
-         Bv0pQTVBLn0DOIdF6t+qIk2uMyXgS7vf6FboJGH9nxRZBCkjhV/OIiWrATXSl5yxw6ks
-         GNyw==
+        b=yi3QzCD5HExXp/mPW0rqWHU80kxAXncvtTKAhS1UNkb5aOUPIiIauzPuckShTlrNh2
+         BKlHJ2ysy1uoazKk44N1Rx1+OCA4EmbsOUGIKtctm/68LxXvTyebAmtXVkGjZ+q8GdBU
+         Sv8w3luQa8jh2BWRZBh4EagoK1WeuBkmzxtF2Rzif3IDMN/UB3QsjI9MT0nrtq99LTVh
+         Yb8TGqJB4P+vBI0gaFQIAkRHcr5YbEEtg8fzPABdObvAcw0sA0g9CzIH+NoLF60ZhlF4
+         XKDDNhg/sPI1zAfkVo7bm04mDL7KoxivPdUSrVKrbQ7I0sm8BKwWh472TgUTu3hVqHF/
+         Ar8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-id:message-id:date:mime-version:subject:cc:references
-         :in-reply-to:from:organization:delivered-to;
-        bh=C9vFcjZDN/Fxaa0QMjaZwgnMDGjE5U9a9cC8FQf1Wik=;
-        fh=trzqEJKyYBw3n01roX+QIoHQKLad71knxN4HASvT2+Y=;
-        b=GZbJ4FARd0GD5HPatzOPGtGPA1HG4PwQKkuQR6igorLK0M0fQd5yr13Gw5RKP0pRRr
-         QB72nVwkyPh1NZ3NaqQrTCnBq/cO2EEmq7EEaPMZXIX0gBlo61w4GB3Yq8v1FvmpzCKS
-         Q2IVUxXsvVE7htZia494RmipiPfalyQDElwtnwF7IOJkQv7xqXL5MBkV6Odiqn4dOR2p
-         43F6HtwTOKlABooPISYPuo/Y5W57h8oT3hChGg3fMEFwBRxHCDvztG4lGTRwNjAlBT0+
-         6YtI0Etp+V//oZuWk2PNb/z8BOY+wHs3duuTepay2gSPdUlQNz0AOWHIPe3CI6iJ8RIL
-         sqYw==;
+        h=content-transfer-encoding:content-id:message-id:date:mime-version
+         :subject:cc:to:references:in-reply-to:from:organization:delivered-to;
+        bh=NB8mnIPeIMJTUwbGSYoQ/Go3FbHf2JNTUCs3BWmBA90=;
+        fh=0CIerLb/cM50vy7gQm3XRz1x4J6a65cahl3DlMj5j9E=;
+        b=Frypa4xj4K6+md/ZyzAJ42YkT9DnST67E7BpxakcD2EIpAVu1udPXYq2SC9Q4KAOt2
+         VKwjmOPaTlseAbIg++EqHYfHcQQIgYtTjsrDqUquC8iGNaOduPLxqbH0W8gh8YNHVNZ1
+         P1KszZj9wbflmCoSnVYs9ub1htKaYinq8PtiDSXw9bNgzXvVDMPvu4zUgtvsUer/+baj
+         9R44Kf+4KK/KBcQt/VH1SFthb4Wkd1yRFj90G3KjvgY+bHCgDLC9f3KHwacesjkNFtHr
+         WEl2mEjFVRj6l4Gd845O5QUOA8jOKurimZKy6nXTEXBGz/sgUPKi+52u9QFvTDhsBl5X
+         wvrw==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=207.211.31.120 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com. [207.211.31.120])
-        by mx.google.com with ESMTPS id n16-20020a05622a11d000b00432f37ba893si8397741qtk.122.2024.04.04.00.52.03
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
+        by mx.google.com with ESMTPS id z7-20020a0cfec7000000b006992f1b2fbesi1715554qvs.375.2024.04.04.01.01.53
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Apr 2024 00:52:03 -0700 (PDT)
+        Thu, 04 Apr 2024 01:01:53 -0700 (PDT)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-599-fUSPpjbqPBOPGQI5a6_YGw-1; Thu,
- 04 Apr 2024 03:52:01 -0400
-X-MC-Unique: fUSPpjbqPBOPGQI5a6_YGw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-547-pVOhSrzWOUKAHP3F5YZ1LA-1; Thu, 04 Apr 2024 04:01:51 -0400
+X-MC-Unique: pVOhSrzWOUKAHP3F5YZ1LA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E30363C02717
-	for <linux-cachefs@gapps.redhat.com>; Thu,  4 Apr 2024 07:52:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52031805AA7
+	for <linux-cachefs@gapps.redhat.com>; Thu,  4 Apr 2024 08:01:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC02A2166B5D; Thu,  4 Apr 2024 07:52:00 +0000 (UTC)
+	id 4EC07C15771; Thu,  4 Apr 2024 08:01:51 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk (unknown [10.42.28.146])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 739012166B33;
-	Thu,  4 Apr 2024 07:51:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DD1EAC1576F;
+	Thu,  4 Apr 2024 08:01:47 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20240328163424.2781320-22-dhowells@redhat.com>
-References: <20240328163424.2781320-22-dhowells@redhat.com> <20240328163424.2781320-1-dhowells@redhat.com>
-Cc: dhowells@redhat.com, Christian Brauner <christian@brauner.io>,
-    Jeff Layton <jlayton@kernel.org>,
+In-Reply-To: <3655511.1712217111@warthog.procyon.org.uk>
+References: <3655511.1712217111@warthog.procyon.org.uk> <20240328163424.2781320-22-dhowells@redhat.com> <20240328163424.2781320-1-dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: dhowells@redhat.com, Jeff Layton <jlayton@kernel.org>,
     Gao Xiang <hsiangkao@linux.alibaba.com>,
     Dominique Martinet <asmadeus@codewreck.org>,
     Matthew Wilcox <willy@infradead.org>,
@@ -128,13 +129,13 @@ Cc: dhowells@redhat.com, Christian Brauner <christian@brauner.io>,
     Christian Schoenebeck <linux_oss@crudebyte.com>
 Subject: Re: [PATCH 21/26] netfs, 9p: Implement helpers for new write code
 MIME-Version: 1.0
-Date: Thu, 04 Apr 2024 08:51:51 +0100
-Message-ID: <3655511.1712217111@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
-X-Mimecast-Spam-Score: 2
+Date: Thu, 04 Apr 2024 09:01:43 +0100
+Message-ID: <3666291.1712217703@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Content-ID: <3655510.1712217111.1@warthog.procyon.org.uk>
+Content-ID: <3666290.1712217703.1@warthog.procyon.org.uk>
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
  (google.com: domain gapps.redhat.com configured 207.211.31.120 as internal
@@ -152,11 +153,46 @@ List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegro
 
 David Howells <dhowells@redhat.com> wrote:
 
-> +	size_t len = subreq->len - subreq->transferred;
+> > +	size_t len = subreq->len - subreq->transferred;
+> 
+> This actually needs to be 'int len' because of the varargs packet formatter.
 
-This actually needs to be 'int len' because of the varargs packet formatter.
+I think the attached change is what's required.
 
 David
+---
+diff --git a/net/9p/client.c b/net/9p/client.c
+index 844aca4fe4d8..04af2a7bf54b 100644
+--- a/net/9p/client.c
++++ b/net/9p/client.c
+@@ -1670,10 +1670,10 @@ p9_client_write_subreq(struct netfs_io_subrequest *subreq)
+ 	struct p9_client *clnt = fid->clnt;
+ 	struct p9_req_t *req;
+ 	unsigned long long start = subreq->start + subreq->transferred;
+-	size_t len = subreq->len - subreq->transferred;
+-	int written, err;
++	int written, len = subreq->len - subreq->transferred;
++	int err;
+ 
+-	p9_debug(P9_DEBUG_9P, ">>> TWRITE fid %d offset %llu len %zd\n",
++	p9_debug(P9_DEBUG_9P, ">>> TWRITE fid %d offset %llu len %d\n",
+ 		 fid->fid, start, len);
+ 
+ 	/* Don't bother zerocopy for small IO (< 1024) */
+@@ -1699,11 +1699,11 @@ p9_client_write_subreq(struct netfs_io_subrequest *subreq)
+ 	}
+ 
+ 	if (written > len) {
+-		pr_err("bogus RWRITE count (%d > %lu)\n", written, len);
++		pr_err("bogus RWRITE count (%d > %u)\n", written, len);
+ 		written = len;
+ 	}
+ 
+-	p9_debug(P9_DEBUG_9P, "<<< RWRITE count %zd\n", len);
++	p9_debug(P9_DEBUG_9P, "<<< RWRITE count %d\n", len);
+ 
+ 	p9_req_put(clnt, req);
+ 	netfs_write_subrequest_terminated(subreq, written, false);
 
 To unsubscribe from this group and stop receiving emails from it, send an email to linux-cachefs+unsubscribe@redhat.com.
 
