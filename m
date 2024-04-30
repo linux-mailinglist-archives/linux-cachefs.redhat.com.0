@@ -1,107 +1,107 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBT7TYOYQMGQEXFRVN4Y@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBU7TYOYQMGQEXNK6N2I@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2CA8B77DC
-	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 16:01:52 +0200 (CEST)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-6a0e76b13fesf3411656d6.2
-        for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 07:01:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1714485712; cv=pass;
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9030A8B77DF
+	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 16:01:56 +0200 (CEST)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-437618fda71sf3870211cf.2
+        for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 07:01:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1714485715; cv=pass;
         d=google.com; s=arc-20160816;
-        b=TtLbNle+Uixdj+QFLRCHFL8NllrK5S/aObmC1ooNgLfuo8NMip3z4Cj0nhwnbNZxY7
-         dN92Z+O+yTfnB33AvisuUeh/+lK1lnoYT0BDEysgEQGuObWLF6HXj0Rzzo2pa5pMOhDT
-         n9AfDeuvctK63TmgG0tWh5sd5ojbfyUFhmeG6XxJdGESqeLqVIoExSatiVUhKjRj8084
-         K4bTUgGcF5whFCWW/dkchCzgMRDdk7UhYRzVRtM7+Biy8PW31YI30cl0i1ktsy7Bo1nH
-         u7Ce7e7sx6MViUpgLQD5mbMKbKf3tDFFxSUokVazsAmoeKqQQbebaH+ajN+N98A3fsBZ
-         E6lg==
+        b=GgkktKZlSttpR1J9niA5ym7ecHccbXbXDJ1PAOv5fGntp7jigumRlPZ+diRXsQFwnx
+         +DP+tYmluEC1qenIeYx0m5yfCjEjjQalQ/nzppunkcFFiFEWM7rZA6Cy7L3VzrlFKFOu
+         fQJmrMwZmBnJRyEeCfiKDreR9l55d1c93ABYpRlU36I4eFp4+ADim8IVB8G3OGzTku4l
+         ibdx2MPbElvh2/YvgqXhQ7kkOG30xdJXgEmUYNkoam89sWAtcEz64rvlkK3X3xq55zyD
+         ZT1i4/e6ouzKEZcWvsf7sVBv+meXiZpTCvxIpyMetkZG+ekd+uIgfCj1irbgjOfRFUun
+         oVrw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=FilSB7a/2dunF2ki40Vsx74WzqCqIQlvTl3C1mA92j4=;
-        fh=ankupec5B1RaiXCdrhS72lyghRyYkWw+6NCemSiyeN4=;
-        b=YT/6cu0urhtuQzDNZRYrOm971elCrLfaMGRPEzMg33zSY4+fqWI5xLWnrYfe0e77U/
-         vRjSeYP7+J4Meoib0o9hR0e8CkOG5vouxckhhDdfdqbC66fyuqdfnThRvdccO0j+193x
-         IBIId409j7+n1i+ZoLMO9zuUlwGJGuGWBRFiQl4nNWIKVo3m4sPByxdyEgl+rpbllstb
-         mp8ag/e74WmUeaCgEY3mADSP7RXW4dspa7Vcg9kjj8H50FgwMMb27jjvVOjC74yAbPQs
-         ZSwpcBwNlHY+jtvc24bETvggRbD5F33seMKBGszq/7s5RxsvNHnUdRWzTJUb+paX8XrW
-         /Wiw==;
+        bh=ZQebI2FNMulPrmtmZGhgYchGpoSIbtU4JLmykekpT/s=;
+        fh=XMH1guqVnzNJvB1PUJWUmOcvFmlLD9TDuHICtr0RO2c=;
+        b=AbTfV3zlcpwETFOjTqpmeNkJtHaPaBXn2QRwvZhvcz2kvGrQA0eUOypLxBJRIvXRyC
+         Z1heRW9egKYRwT91tJHOYIgDu14vy4NfQF6Rk4Nowy9cWXzc5G+FkrP47hXjNyCBW9Wt
+         AQSYy9rNULe3riZKgPhM+pz6ssNZQygI9XuqsWwtG+fsklaZtKMqP25Ts/WbH13ls3l3
+         R8L3VTXYIQJnwRNKexBqu+NcD4pbcTJMC5Dp9QU2uMEL6H8QjBw9Wv4e+B2uU3ZyR7Gn
+         qp+PFxpjUjE3+RKqLlRX5ekBXn959EUkgxAPS1VGKLeZfDPVgs67xUUC4vxnHigtAadY
+         kINQ==;
         darn=lfdr.de
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714485712; x=1715090512;
+        d=1e100.net; s=20230601; t=1714485715; x=1715090515;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FilSB7a/2dunF2ki40Vsx74WzqCqIQlvTl3C1mA92j4=;
-        b=JjPpOZbqRvBZSNznkbgPVipnov64YNhXpDdVaZND0KKsJnSZ8xdv3rjmNnYwR0L2qv
-         PPAKRDdQWc/kBmWLSE0MWrdnIKpn/p5656G/40juMcfjllVgG6bTc3aaAzgPhXTMVYjk
-         KfHSiyuI4xzfTtO2u5jsAZNfsOX+Ug2ahvIQZQe/6HHWyelQfqd28PbqiJ8nW6INtsr4
-         wI+zmN9aULW2IRMQVCCY+H/YH3qrxc0QoHHhbi8F8K3ccVStZzscpxbogwQyedFQep5h
-         Hq8LjB2jE8XghbPWuYB1LbZTQl2QXzv1NeaSUipTUg01XVOffMSiar+Vgf8uXwaStXZ0
-         TWTw==
-X-Forwarded-Encrypted: i=2; AJvYcCXZXB0UY7tB7vrWq6YE67GgRV2QL1e2PKOAjOOHMn7qn9Fzmliqufu40gdsQj2LoHkSvcwcCtmpg9gsZr8fM+CNwjvVHd9rjEdELQo=
-X-Gm-Message-State: AOJu0YwYnzTJXnZItq5p6WMnE1LeWiDTI9loIpJ4IGvfxeCpqsndu1dL
-	+DxIyWd4FVLEB/YKKVaFaynNoAmEnS8a6N3xp2FAcmGH0Ut7egQ7OFvOdbv/GAY=
-X-Google-Smtp-Source: AGHT+IGlmughr5fozrVTzjFSAQItHp0w3WN4nd0bx9pw7LnIJFIGOMpYKCbfQ+IdfYyoUFwzB3h7Gg==
-X-Received: by 2002:a05:6214:21a2:b0:69b:2523:fcd3 with SMTP id t2-20020a05621421a200b0069b2523fcd3mr11110813qvc.60.1714485711661;
-        Tue, 30 Apr 2024 07:01:51 -0700 (PDT)
+        bh=ZQebI2FNMulPrmtmZGhgYchGpoSIbtU4JLmykekpT/s=;
+        b=gW9unmecChywMOl9H2HwHkGUxVPZUeYZ6ut8G1FdFbkjt2UyKae1LJe6rMSYgPynw9
+         AZ71dN4VFphPiTNrJXwAztEGyMugc9ujUCBki6A8MV2F6d5sg3sKlskjX1433X7D4yTv
+         rLoDHf/lepkS4UMjGX/ZuYBeTTdXbwMR0A/cfCiVZeHnR4kwVeVqWUod/nmAcQMjgf2x
+         7zQwkAvHCaA+1KLY3+sNaaBqw5QggWO+sAbg85vp5/Mz2omRYIbMDZcjlENw/qthqs69
+         bYEPhKT0BDonGWWNxM4S3U7SrgvErr1V6nd1chaZlmtL0rdA+Av8fDEggc9ZXSN7TSwa
+         m/8w==
+X-Forwarded-Encrypted: i=2; AJvYcCXb9D2N5M7eQb1J5cv4jR78spV0ddhkYZVoXYV/+nI3Dr7x+rf4njnTNQspyz5dWU7RnZB29auQFy546tCXM80rauOuQs/3Mmo1m1A=
+X-Gm-Message-State: AOJu0YzZQCwUV44ZHMiYA8Dpg02CSlZCBe9whRbJVb7Y0i+RHgawmUyw
+	gNkQUEdxLvbvV0EhI07wf9bqY46n+q9Nhnl9mM8Z2eVDV0BrISMLyt2DBXiCRGE=
+X-Google-Smtp-Source: AGHT+IESnray7O6cl+DmMm9UBLJyYVHloWB39ffbC14paumg6g1mfyHGu9wn2tgxkQA4bD5lEd/4RA==
+X-Received: by 2002:a05:622a:a090:b0:43a:5595:7410 with SMTP id jv16-20020a05622aa09000b0043a55957410mr12644013qtb.2.1714485715449;
+        Tue, 30 Apr 2024 07:01:55 -0700 (PDT)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6214:1c0b:b0:6a0:6ff5:70d4 with SMTP id
- 6a1803df08f44-6a09c61d125ls56056276d6.1.-pod-prod-01-us; Tue, 30 Apr 2024
- 07:01:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=2; AJvYcCUMvkzsWZopH0x5TVuVvMN07okDKPdAXUNk57TYznHHHQHSue3Omig9e3NDzyIZSHw9jN2LMgBD701g8pMxXxZaZ7p9ZYFEK/ZuRYSfmOY=
-X-Received: by 2002:a05:6102:b12:b0:47b:b129:2890 with SMTP id b18-20020a0561020b1200b0047bb1292890mr14618915vst.18.1714485708962;
-        Tue, 30 Apr 2024 07:01:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1714485708; cv=none;
+Received: by 2002:a05:622a:5a8f:b0:439:80de:9876 with SMTP id
+ d75a77b69052e-43a3aa6710als11567601cf.0.-pod-prod-00-us; Tue, 30 Apr 2024
+ 07:01:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCXzXR/5ZcZxJDD+qtKlrAdyAoyFvhPYdCrqKHRMT0+05bYn0BHOJP1c2kNmZpf0ImnVLDNL7uEbZ39bFjn+McmfVM5FKsFKQB/gza1J0pk=
+X-Received: by 2002:a05:622a:6119:b0:43a:9071:7f5b with SMTP id hg25-20020a05622a611900b0043a90717f5bmr3283350qtb.14.1714485713178;
+        Tue, 30 Apr 2024 07:01:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1714485713; cv=none;
         d=google.com; s=arc-20160816;
-        b=iYBio+H0hfyhU3az40mTgyPnfKMt4cFGvvX4kW9SUkLk+bqtM9bAcvmtkRF744973o
-         P3tnteH73JV++KdHnAFwnrsKsvR5yz7/TOI38oj+Z7hakD+osUhVaeZ4fCMJ69IfQ4yQ
-         94H7Y5I/tbKsmTXncwBfaVxxvfN3WZtAPctEfZS66x3clbDIzT2h8R8z0+s79YQyOyCC
-         kUdzGq5ppmQqsxiedBvStbPEkeKg1DdrcwpwYC0+WLawh7z1Pjlda0g4c04bSLZLhQRl
-         /ECNtSaJ3TLdk6CaSF76tyg1bEnaD+16Xs4mOmuZM4kBSPBvo/BpRq7Phzf3y8p0QEbQ
-         Oh5g==
+        b=ADm8X/dwXFj/9Bql6LP5RlcrNqtKuoH6MRZ4+o3CqcDzk8vcZotH4nXU1O2h+Q40GZ
+         IkMoSH7H3+bP5lum1bAG5KrxwdKaPT1COoUT4+vrEGDar5iDSIG0dUGOObfah+qIhx9q
+         FnBqdOXvqNenHH0Ej+yILmUzy4XLPASUcu/cVGL/BymBrFzB3a63vWI0mv//PDca8ax1
+         iKOa8BrAKW+N6EqnC64NeGpHPvdjVypYH39GjTymKKnk6FRZaa09ZVERdDhsm3ePatdC
+         L6PQ+4mjhue+vuJp7PY5JZdQZf4bvPj9OO+QUa4VvDVX5hck11W1umCAyYFuHEXu2U0B
+         XITA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=lxboyIOnAB/iBhiu6cMnQnAmXZl1NM4PiDGjMuEEdPE=;
-        fh=3XhF/YurkuF37sFWXE1uIAu37ZbY1OMi9XJf1oPTKLg=;
-        b=GLuOax8oy5tVpvPx78czWaw+3MZf5/HOWalmTTO0Awg7Kp/wc9j6wA7NIPWnEQyz3h
-         E/QjgC/JAlo6nB8hcCWCMdLhB3y2/EhP1RP+G/lmeKToCwM/4wMvlZZPPkN80gNtPNyW
-         HIUNMo2rLxjf98a44jEu5OKYzO1CF1P52hcGOuPj6JzwMI2DA4BhlUoEYBoTT0q2zNV5
-         i2nCAOAGbwL2F8z+PD2Rkbvc1RctZgmjWC9ruX8MQbRXuGym0EtgpwiSarCBIALf6+EG
-         wLXqbBqmllK0UShdsF1v/XdMBuKFYMtV3Wfi+mfdjIBcPvCfWQXNTDjyTVVJxx/pYTgE
-         k0IA==;
+        bh=gjD+U3QAvMJsWp5JWtEGQmPuhzWaXONmtLXPtsHvH4g=;
+        fh=dijFYpEVp+4ijccmXeOrV1fnLJQjsqwgNfcTPuMjuvg=;
+        b=RzS3o1q710uBGd5c9O0dSJwpFzMjeiV8UFrMr6KwEl7dEilkYwjMNXZRAbvG7G2lS8
+         0S4xC6VUxeRM+Y/O8F7hdWzDb1JNfc2300ievCkZ4qlhC0GTcgudbWMQS8B2yTpHxOoy
+         paecDm5ppr5ibxKAUGUeklWQvS43TZEmc1vNssq8zy8ygQ1azD/NFb6Yc00mBgE4PZVS
+         wo/vM3ac/4LNZYTT4o93T0fFYv166z524FwGi2oBbV7VF4VmIR7btifjZGl06DnzI/Va
+         AZ2CwRuuUlbx/FPG6ykazjH59XL/euoUHY4T/m8tUJPsuMWLctGtPUsLsntCFU5qLxDH
+         yXkQ==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id dd8-20020a056102568800b0047c4e11b4f3si819135vsb.388.2024.04.30.07.01.48
+        by mx.google.com with ESMTPS id c17-20020ab06ed1000000b007efd002f011si1504958uav.169.2024.04.30.07.01.53
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Apr 2024 07:01:48 -0700 (PDT)
+        Tue, 30 Apr 2024 07:01:53 -0700 (PDT)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-510-DHvPKsAPNMO0tFnNjxLYLg-1; Tue,
- 30 Apr 2024 10:01:45 -0400
-X-MC-Unique: DHvPKsAPNMO0tFnNjxLYLg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-630-yoZTwP5UOXeTpTsRrT7TzA-1; Tue, 30 Apr 2024 10:01:51 -0400
+X-MC-Unique: yoZTwP5UOXeTpTsRrT7TzA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B72F03C12825
-	for <linux-cachefs@gapps.redhat.com>; Tue, 30 Apr 2024 14:01:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58152104B513
+	for <linux-cachefs@gapps.redhat.com>; Tue, 30 Apr 2024 14:01:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id B3CF8EC681; Tue, 30 Apr 2024 14:01:44 +0000 (UTC)
+	id 5529940C5C3; Tue, 30 Apr 2024 14:01:48 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C7DC51BF;
-	Tue, 30 Apr 2024 14:01:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 38BD1492BC7;
+	Tue, 30 Apr 2024 14:01:45 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>,
 	Jeff Layton <jlayton@kernel.org>,
@@ -127,18 +127,14 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Steve French <sfrench@samba.org>,
-	devel@lists.orangefs.org
-Subject: [PATCH v2 10/22] netfs: Remove ->launder_folio() support
-Date: Tue, 30 Apr 2024 15:00:41 +0100
-Message-ID: <20240430140056.261997-11-dhowells@redhat.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 11/22] netfs: Use mempools for allocating requests and subrequests
+Date: Tue, 30 Apr 2024 15:00:42 +0100
+Message-ID: <20240430140056.261997-12-dhowells@redhat.com>
 In-Reply-To: <20240430140056.261997-1-dhowells@redhat.com>
 References: <20240430140056.261997-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -157,177 +153,274 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Remove support for ->launder_folio() from netfslib and expect filesystems
-to use filemap_invalidate_inode() instead.  netfs_launder_folio() can then
-be got rid of.
+Use mempools for allocating requests and subrequests in an effort to make
+sure that allocation always succeeds so that when performing writeback we
+can always make progress.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-cc: Eric Van Hensbergen <ericvh@kernel.org>
-cc: Latchesar Ionkov <lucho@ionkov.net>
-cc: Dominique Martinet <asmadeus@codewreck.org>
-cc: Christian Schoenebeck <linux_oss@crudebyte.com>
-cc: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Steve French <sfrench@samba.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: linux-mm@kvack.org
-cc: linux-fsdevel@vger.kernel.org
 cc: netfs@lists.linux.dev
-cc: v9fs@lists.linux.dev
-cc: linux-afs@lists.infradead.org
-cc: ceph-devel@vger.kernel.org
-cc: linux-cifs@vger.kernel.org
-cc: devel@lists.orangefs.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-mm@kvack.org
 ---
- fs/netfs/buffered_write.c    | 74 ------------------------------------
- fs/netfs/main.c              |  1 -
- include/linux/netfs.h        |  2 -
- include/trace/events/netfs.h |  3 --
- 4 files changed, 80 deletions(-)
+ fs/netfs/internal.h   |  2 ++
+ fs/netfs/main.c       | 51 ++++++++++++++++++++++++++++++++-----
+ fs/netfs/objects.c    | 59 ++++++++++++++++++++++++++++---------------
+ include/linux/netfs.h |  5 ++--
+ 4 files changed, 89 insertions(+), 28 deletions(-)
 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 57c6eab01261..d8f66ce94575 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -1200,77 +1200,3 @@ int netfs_writepages(struct address_space *mapping,
- 	return ret;
- }
- EXPORT_SYMBOL(netfs_writepages);
--
--/*
-- * Deal with the disposition of a laundered folio.
-- */
--static void netfs_cleanup_launder_folio(struct netfs_io_request *wreq)
--{
--	if (wreq->error) {
--		pr_notice("R=%08x Laundering error %d\n", wreq->debug_id, wreq->error);
--		mapping_set_error(wreq->mapping, wreq->error);
--	}
--}
--
--/**
-- * netfs_launder_folio - Clean up a dirty folio that's being invalidated
-- * @folio: The folio to clean
-- *
-- * This is called to write back a folio that's being invalidated when an inode
-- * is getting torn down.  Ideally, writepages would be used instead.
-- */
--int netfs_launder_folio(struct folio *folio)
--{
--	struct netfs_io_request *wreq;
--	struct address_space *mapping = folio->mapping;
--	struct netfs_folio *finfo = netfs_folio_info(folio);
--	struct netfs_group *group = netfs_folio_group(folio);
--	struct bio_vec bvec;
--	unsigned long long i_size = i_size_read(mapping->host);
--	unsigned long long start = folio_pos(folio);
--	size_t offset = 0, len;
--	int ret = 0;
--
--	if (finfo) {
--		offset = finfo->dirty_offset;
--		start += offset;
--		len = finfo->dirty_len;
--	} else {
--		len = folio_size(folio);
--	}
--	len = min_t(unsigned long long, len, i_size - start);
--
--	wreq = netfs_alloc_request(mapping, NULL, start, len, NETFS_LAUNDER_WRITE);
--	if (IS_ERR(wreq)) {
--		ret = PTR_ERR(wreq);
--		goto out;
--	}
--
--	if (!folio_clear_dirty_for_io(folio))
--		goto out_put;
--
--	trace_netfs_folio(folio, netfs_folio_trace_launder);
--
--	_debug("launder %llx-%llx", start, start + len - 1);
--
--	/* Speculatively write to the cache.  We have to fix this up later if
--	 * the store fails.
--	 */
--	wreq->cleanup = netfs_cleanup_launder_folio;
--
--	bvec_set_folio(&bvec, folio, len, offset);
--	iov_iter_bvec(&wreq->iter, ITER_SOURCE, &bvec, 1, len);
--	if (group != NETFS_FOLIO_COPY_TO_CACHE)
--		__set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags);
--	ret = netfs_begin_write(wreq, true, netfs_write_trace_launder);
--
--out_put:
--	folio_detach_private(folio);
--	netfs_put_group(group);
--	kfree(finfo);
--	netfs_put_request(wreq, false, netfs_rreq_trace_put_return);
--out:
--	_leave(" = %d", ret);
--	return ret;
--}
--EXPORT_SYMBOL(netfs_launder_folio);
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 156ab138e224..c67da478cd2b 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -37,6 +37,8 @@ int netfs_begin_read(struct netfs_io_request *rreq, bool sync);
+ extern unsigned int netfs_debug;
+ extern struct list_head netfs_io_requests;
+ extern spinlock_t netfs_proc_lock;
++extern mempool_t netfs_request_pool;
++extern mempool_t netfs_subrequest_pool;
+ 
+ #ifdef CONFIG_PROC_FS
+ static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq)
 diff --git a/fs/netfs/main.c b/fs/netfs/main.c
-index c5a73c9ed126..844efbb2e7a2 100644
+index 844efbb2e7a2..4805b9377364 100644
 --- a/fs/netfs/main.c
 +++ b/fs/netfs/main.c
-@@ -34,7 +34,6 @@ static const char *netfs_origins[nr__netfs_io_origin] = {
- 	[NETFS_COPY_TO_CACHE]		= "CC",
- 	[NETFS_WRITEBACK]		= "WB",
- 	[NETFS_WRITETHROUGH]		= "WT",
--	[NETFS_LAUNDER_WRITE]		= "LW",
- 	[NETFS_UNBUFFERED_WRITE]	= "UW",
- 	[NETFS_DIO_READ]		= "DR",
- 	[NETFS_DIO_WRITE]		= "DW",
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/module.h>
+ #include <linux/export.h>
++#include <linux/mempool.h>
+ #include <linux/proc_fs.h>
+ #include <linux/seq_file.h>
+ #include "internal.h"
+@@ -23,6 +24,11 @@ unsigned netfs_debug;
+ module_param_named(debug, netfs_debug, uint, S_IWUSR | S_IRUGO);
+ MODULE_PARM_DESC(netfs_debug, "Netfs support debugging mask");
+ 
++static struct kmem_cache *netfs_request_slab;
++static struct kmem_cache *netfs_subrequest_slab;
++mempool_t netfs_request_pool;
++mempool_t netfs_subrequest_pool;
++
+ #ifdef CONFIG_PROC_FS
+ LIST_HEAD(netfs_io_requests);
+ DEFINE_SPINLOCK(netfs_proc_lock);
+@@ -98,25 +104,54 @@ static int __init netfs_init(void)
+ {
+ 	int ret = -ENOMEM;
+ 
++	netfs_request_slab = kmem_cache_create("netfs_request",
++					       sizeof(struct netfs_io_request), 0,
++					       SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
++					       NULL);
++	if (!netfs_request_slab)
++		goto error_req;
++
++	if (mempool_init_slab_pool(&netfs_request_pool, 100, netfs_request_slab) < 0)
++		goto error_reqpool;
++
++	netfs_subrequest_slab = kmem_cache_create("netfs_subrequest",
++						  sizeof(struct netfs_io_subrequest), 0,
++						  SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
++						  NULL);
++	if (!netfs_subrequest_slab)
++		goto error_subreq;
++
++	if (mempool_init_slab_pool(&netfs_subrequest_pool, 100, netfs_subrequest_slab) < 0)
++		goto error_subreqpool;
++
+ 	if (!proc_mkdir("fs/netfs", NULL))
+-		goto error;
++		goto error_proc;
+ 	if (!proc_create_seq("fs/netfs/requests", S_IFREG | 0444, NULL,
+ 			     &netfs_requests_seq_ops))
+-		goto error_proc;
++		goto error_procfile;
+ #ifdef CONFIG_FSCACHE_STATS
+ 	if (!proc_create_single("fs/netfs/stats", S_IFREG | 0444, NULL,
+ 				netfs_stats_show))
+-		goto error_proc;
++		goto error_procfile;
+ #endif
+ 
+ 	ret = fscache_init();
+ 	if (ret < 0)
+-		goto error_proc;
++		goto error_fscache;
+ 	return 0;
+ 
+-error_proc:
++error_fscache:
++error_procfile:
+ 	remove_proc_entry("fs/netfs", NULL);
+-error:
++error_proc:
++	mempool_exit(&netfs_subrequest_pool);
++error_subreqpool:
++	kmem_cache_destroy(netfs_subrequest_slab);
++error_subreq:
++	mempool_exit(&netfs_request_pool);
++error_reqpool:
++	kmem_cache_destroy(netfs_request_slab);
++error_req:
+ 	return ret;
+ }
+ fs_initcall(netfs_init);
+@@ -125,5 +160,9 @@ static void __exit netfs_exit(void)
+ {
+ 	fscache_exit();
+ 	remove_proc_entry("fs/netfs", NULL);
++	mempool_exit(&netfs_subrequest_pool);
++	kmem_cache_destroy(netfs_subrequest_slab);
++	mempool_exit(&netfs_request_pool);
++	kmem_cache_destroy(netfs_request_slab);
+ }
+ module_exit(netfs_exit);
+diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
+index 8acc03a64059..1a4e2ce735ce 100644
+--- a/fs/netfs/objects.c
++++ b/fs/netfs/objects.c
+@@ -6,6 +6,8 @@
+  */
+ 
+ #include <linux/slab.h>
++#include <linux/mempool.h>
++#include <linux/delay.h>
+ #include "internal.h"
+ 
+ /*
+@@ -20,17 +22,22 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 	struct inode *inode = file ? file_inode(file) : mapping->host;
+ 	struct netfs_inode *ctx = netfs_inode(inode);
+ 	struct netfs_io_request *rreq;
++	mempool_t *mempool = ctx->ops->request_pool ?: &netfs_request_pool;
++	struct kmem_cache *cache = mempool->pool_data;
+ 	bool is_unbuffered = (origin == NETFS_UNBUFFERED_WRITE ||
+ 			      origin == NETFS_DIO_READ ||
+ 			      origin == NETFS_DIO_WRITE);
+ 	bool cached = !is_unbuffered && netfs_is_cache_enabled(ctx);
+ 	int ret;
+ 
+-	rreq = kzalloc(ctx->ops->io_request_size ?: sizeof(struct netfs_io_request),
+-		       GFP_KERNEL);
+-	if (!rreq)
+-		return ERR_PTR(-ENOMEM);
++	for (;;) {
++		rreq = mempool_alloc(mempool, GFP_KERNEL);
++		if (rreq)
++			break;
++		msleep(10);
++	}
+ 
++	memset(rreq, 0, kmem_cache_size(cache));
+ 	rreq->start	= start;
+ 	rreq->len	= len;
+ 	rreq->upper_len	= len;
+@@ -56,7 +63,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 	if (rreq->netfs_ops->init_request) {
+ 		ret = rreq->netfs_ops->init_request(rreq, file);
+ 		if (ret < 0) {
+-			kfree(rreq);
++			mempool_free(rreq, rreq->netfs_ops->request_pool ?: &netfs_request_pool);
+ 			return ERR_PTR(ret);
+ 		}
+ 	}
+@@ -88,6 +95,14 @@ void netfs_clear_subrequests(struct netfs_io_request *rreq, bool was_async)
+ 	}
+ }
+ 
++static void netfs_free_request_rcu(struct rcu_head *rcu)
++{
++	struct netfs_io_request *rreq = container_of(rcu, struct netfs_io_request, rcu);
++
++	mempool_free(rreq, rreq->netfs_ops->request_pool ?: &netfs_request_pool);
++	netfs_stat_d(&netfs_n_rh_rreq);
++}
++
+ static void netfs_free_request(struct work_struct *work)
+ {
+ 	struct netfs_io_request *rreq =
+@@ -110,8 +125,7 @@ static void netfs_free_request(struct work_struct *work)
+ 		}
+ 		kvfree(rreq->direct_bv);
+ 	}
+-	kfree_rcu(rreq, rcu);
+-	netfs_stat_d(&netfs_n_rh_rreq);
++	call_rcu(&rreq->rcu, netfs_free_request_rcu);
+ }
+ 
+ void netfs_put_request(struct netfs_io_request *rreq, bool was_async,
+@@ -143,20 +157,25 @@ void netfs_put_request(struct netfs_io_request *rreq, bool was_async,
+ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq)
+ {
+ 	struct netfs_io_subrequest *subreq;
+-
+-	subreq = kzalloc(rreq->netfs_ops->io_subrequest_size ?:
+-			 sizeof(struct netfs_io_subrequest),
+-			 GFP_KERNEL);
+-	if (subreq) {
+-		INIT_WORK(&subreq->work, NULL);
+-		INIT_LIST_HEAD(&subreq->rreq_link);
+-		refcount_set(&subreq->ref, 2);
+-		subreq->rreq = rreq;
+-		subreq->debug_index = atomic_inc_return(&rreq->subreq_counter);
+-		netfs_get_request(rreq, netfs_rreq_trace_get_subreq);
+-		netfs_stat(&netfs_n_rh_sreq);
++	mempool_t *mempool = rreq->netfs_ops->subrequest_pool ?: &netfs_subrequest_pool;
++	struct kmem_cache *cache = mempool->pool_data;
++
++	for (;;) {
++		subreq = mempool_alloc(rreq->netfs_ops->subrequest_pool ?: &netfs_subrequest_pool,
++				       GFP_KERNEL);
++		if (subreq)
++			break;
++		msleep(10);
+ 	}
+ 
++	memset(subreq, 0, kmem_cache_size(cache));
++	INIT_WORK(&subreq->work, NULL);
++	INIT_LIST_HEAD(&subreq->rreq_link);
++	refcount_set(&subreq->ref, 2);
++	subreq->rreq = rreq;
++	subreq->debug_index = atomic_inc_return(&rreq->subreq_counter);
++	netfs_get_request(rreq, netfs_rreq_trace_get_subreq);
++	netfs_stat(&netfs_n_rh_sreq);
+ 	return subreq;
+ }
+ 
+@@ -178,7 +197,7 @@ static void netfs_free_subrequest(struct netfs_io_subrequest *subreq,
+ 	trace_netfs_sreq(subreq, netfs_sreq_trace_free);
+ 	if (rreq->netfs_ops->free_subrequest)
+ 		rreq->netfs_ops->free_subrequest(subreq);
+-	kfree(subreq);
++	mempool_free(subreq, rreq->netfs_ops->subrequest_pool ?: &netfs_subrequest_pool);
+ 	netfs_stat_d(&netfs_n_rh_sreq);
+ 	netfs_put_request(rreq, was_async, netfs_rreq_trace_put_subreq);
+ }
 diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index ddafc6ebff42..3af589dabd7f 100644
+index 3af589dabd7f..0b6c2c2d3c23 100644
 --- a/include/linux/netfs.h
 +++ b/include/linux/netfs.h
-@@ -172,7 +172,6 @@ enum netfs_io_origin {
- 	NETFS_COPY_TO_CACHE,		/* This write is to copy a read to the cache */
- 	NETFS_WRITEBACK,		/* This write was triggered by writepages */
- 	NETFS_WRITETHROUGH,		/* This write was made by netfs_perform_write() */
--	NETFS_LAUNDER_WRITE,		/* This is triggered by ->launder_folio() */
- 	NETFS_UNBUFFERED_WRITE,		/* This is an unbuffered write */
- 	NETFS_DIO_READ,			/* This is a direct I/O read */
- 	NETFS_DIO_WRITE,		/* This is a direct I/O write */
-@@ -352,7 +351,6 @@ int netfs_unpin_writeback(struct inode *inode, struct writeback_control *wbc);
- void netfs_clear_inode_writeback(struct inode *inode, const void *aux);
- void netfs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
- bool netfs_release_folio(struct folio *folio, gfp_t gfp);
--int netfs_launder_folio(struct folio *folio);
+@@ -20,6 +20,7 @@
+ #include <linux/uio.h>
  
- /* VMA operations API. */
- vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_group);
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index e03fafb0c1e3..30769103638f 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -26,7 +26,6 @@
- #define netfs_write_traces					\
- 	EM(netfs_write_trace_copy_to_cache,	"COPY2CACH")	\
- 	EM(netfs_write_trace_dio_write,		"DIO-WRITE")	\
--	EM(netfs_write_trace_launder,		"LAUNDER  ")	\
- 	EM(netfs_write_trace_unbuffered_write,	"UNB-WRITE")	\
- 	EM(netfs_write_trace_writeback,		"WRITEBACK")	\
- 	E_(netfs_write_trace_writethrough,	"WRITETHRU")
-@@ -38,7 +37,6 @@
- 	EM(NETFS_COPY_TO_CACHE,			"CC")		\
- 	EM(NETFS_WRITEBACK,			"WB")		\
- 	EM(NETFS_WRITETHROUGH,			"WT")		\
--	EM(NETFS_LAUNDER_WRITE,			"LW")		\
- 	EM(NETFS_UNBUFFERED_WRITE,		"UW")		\
- 	EM(NETFS_DIO_READ,			"DR")		\
- 	E_(NETFS_DIO_WRITE,			"DW")
-@@ -135,7 +133,6 @@
- 	EM(netfs_folio_trace_end_copy,		"end-copy")	\
- 	EM(netfs_folio_trace_filled_gaps,	"filled-gaps")	\
- 	EM(netfs_folio_trace_kill,		"kill")		\
--	EM(netfs_folio_trace_launder,		"launder")	\
- 	EM(netfs_folio_trace_mkwrite,		"mkwrite")	\
- 	EM(netfs_folio_trace_mkwrite_plus,	"mkwrite+")	\
- 	EM(netfs_folio_trace_read_gaps,		"read-gaps")	\
+ enum netfs_sreq_ref_trace;
++typedef struct mempool_s mempool_t;
+ 
+ /**
+  * folio_start_private_2 - Start an fscache write on a folio.  [DEPRECATED]
+@@ -236,8 +237,8 @@ struct netfs_io_request {
+  * Operations the network filesystem can/must provide to the helpers.
+  */
+ struct netfs_request_ops {
+-	unsigned int	io_request_size;	/* Alloc size for netfs_io_request struct */
+-	unsigned int	io_subrequest_size;	/* Alloc size for netfs_io_subrequest struct */
++	mempool_t *request_pool;
++	mempool_t *subrequest_pool;
+ 	int (*init_request)(struct netfs_io_request *rreq, struct file *file);
+ 	void (*free_request)(struct netfs_io_request *rreq);
+ 	void (*free_subrequest)(struct netfs_io_subrequest *rreq);
 
 To unsubscribe from this group and stop receiving emails from it, send an email to linux-cachefs+unsubscribe@redhat.com.
 
