@@ -1,106 +1,107 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERBAPUYOYQMGQE4WSEEOQ@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBCHUYOYQMGQE25QMXQY@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB94D8B77FC
-	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 16:02:42 +0200 (CEST)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-6a0e1d67928sf8622586d6.3
-        for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 07:02:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1714485762; cv=pass;
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1CFE8B7800
+	for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 16:02:49 +0200 (CEST)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-43b0a5616ebsf18439091cf.3
+        for <lists+linux-cachefs@lfdr.de>; Tue, 30 Apr 2024 07:02:49 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1714485768; cv=pass;
         d=google.com; s=arc-20160816;
-        b=uFZKIQ7opY7hiV4QVeFatg1UycLxEoNFF3cdlYzv7ZeShSff/KJCKSqHBNXY8kGVHq
-         Cu3CXBKzIbi/N5Aas81ZBstDzQL8vOAZ6oU/54nq+nEg/XG/L/L/YY/l+LdnCqdh3Lqv
-         lRdohoDP5J2enAJIaJcMVXmzVjxdtOcBvCo9tebJaBiatsAHHmzT0+vXRCKVe2UOYMLP
-         1L+rz2VwFMKbX+PrUThlVZraGIxx++6dFh9TrLNLRgViwzOyt4/SoQAG/rzM2lfFYplu
-         gcpYo3avsRe4qpU1pOXciZHdUoUSiSWU4kSAOetlmSjcL5M6qF2LX96FKUDp3WTw8GPo
-         SooQ==
+        b=CFN4ZVChjKA3bcoBGgMGwcBqagWdUdiLCttG4FuPAOSPLzrmt2pasHST/gcNUPcTUl
+         kRjF4C24Nh3i5pdzrtUm0x4hikExfsmkIKibGOBflBq3ghFa9HCQ7FG+GIYWsKROaLJc
+         MZu10W7ApeSditeDX5VGoiozlywHz0eOvukXLJBq88HH5ZfLDNEetTKPE/GF9bg6zsD2
+         4IIIcYn0XwErlR5L6KGaxSN/wK+c47VBdv4hVrgooROMQdLLd4vUk0hKn//kd2l8DB/T
+         GzUbAlH7Ja7IOwdC1c825yD8PZYsUclJl+K0WtRbFrJjSX/vUBJUe0CSHVc3LAtwgxpM
+         ZfcA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=CPJCg7m1ZPiVrSI0YQBQkgkTvVZLFu15qmIUB7fsX+E=;
-        fh=JQUvkfJmsEH952WMBG+Y1JFZGCuGrNoA6OmwsrlE94k=;
-        b=haco6q3nBlPjQ8DJ0WEoa0yUQeNIeM+Hqu39ZVn8v9NWWMC8+R5jaEuEQaKkw+RURT
-         WA1dD/P6dAr1dGBb4jhXtgDK6DhrUkW5Jt9wIV1o8xI0oxbDVv+VsLdgoGkIdC/GwYHg
-         AXeRkC2zZFlfrDyqhwcTnpfRhlq0Kd/oOjPCmHWrVFH/HvrKVLxp7pdPLCk9TqslUMGS
-         5xUQ8jBG9xGWqNIb9aPBqH4af68/gbjYqPs8j4QXtxMTl0tEDLAeZDNwQlSWv9dvDFYo
-         Y6vxWxi5477NnJwaAZtVqi9GovbTM/WP91L2DaHO48p8Ek9WZNBdEuFPvaFXNfRLpJKD
-         FkDw==;
+        bh=VD8//qDjfnHjwoD7CR2EkqerMbRMA+xjUQbnb9SGc/Y=;
+        fh=SMj2kxF1V1nikBzNevxDqTbQwJOYCTYc1BOfyIXfnV0=;
+        b=CTB4nMMQzbhgE1IYjDEIvQU2IefBnuN63selbc2+N55Hb582DNnaWC/e4wAFr2IcCq
+         qf5zSTIdoqJ64EX/XnT/6Enp3eBZ6f/MD28T30Rp+49/8U4oNhJ+WvJtscQ4hy27L3rG
+         Jjxh/Rh/SfyggG19fAaiTAz3LgFVp0GmpquZDCSqe4KqC4DghspQYZq6h8V+LGoIk3zI
+         Fnb0Cg4fy/J1ZSbGdgmcIFKiLobtQBHPQko6Qj3wUMcLcXOGyvoWo73/9L/x6PKzGLFx
+         qTkHGasDc4iq5mJRx0W4qr/b4PzVLRJQo/RHU3eT9DMWSTWN6DX93GrTjinHSBCxnTNl
+         Kj7w==;
         darn=lfdr.de
 ARC-Authentication-Results: i=2; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714485761; x=1715090561;
+        d=1e100.net; s=20230601; t=1714485768; x=1715090568;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CPJCg7m1ZPiVrSI0YQBQkgkTvVZLFu15qmIUB7fsX+E=;
-        b=GaGdxct8d8MKBpN95dK8uf0Xtpd+PAGNd5TlkbyFVO/ZjFK81YWDAOlikGyn9X3QPY
-         7Vhs3FKJ+gT/0hg93RJE+K1G2oaM2SpQacgVDZCTbvvFJRHOJtjKhNy/Xx2mSPpamPhm
-         aNKpTJR3Vj9EUxLcIEgU8f6dKJLPMsfw8qTd/S7eYchQixLZmgeaMu1r3KpVsPklbhpH
-         3nXkVKyjXw1a53rfR1XVHvzM817L0d9CMO4zC/ZJFm1CfXUJz7l69Infgfn7E3QNnCGX
-         4zw25cS3DOKqfBSWyUyZk5bQEqDmI8kPejZCxOHZoIK5OepP2rjhVOie/rddpGDfHllR
-         iPKQ==
-X-Forwarded-Encrypted: i=2; AJvYcCV7ti82QycvNRx347m696GyqY0yCc0+3zS8hqHG61RJHE9yaJiziE8C/t+TBkmouPb1Ya6f0Oa+n2Tq808+KkrGbzGn+6R/VUfToLQ=
-X-Gm-Message-State: AOJu0YxIRU/eXM5QODCHk3ykofeG0dH1hFk++wxa72R3YTBpzemvmTtU
-	pG9FPsm/ydH2rHRWQHBOPOrJXJbZdlCzx11JyfH5N9PF60VUKJRmp9y1/RFZOtM=
-X-Google-Smtp-Source: AGHT+IHpAD9ufrfAgIvzL2gfW2rGtEK8Rt1BM01dpJsyOTHoHOZgxAOZg+CtHep+eOdV6Mm6BN45TA==
-X-Received: by 2002:a05:6214:2249:b0:6a0:cd3e:aeb3 with SMTP id c9-20020a056214224900b006a0cd3eaeb3mr7682749qvc.32.1714485761546;
-        Tue, 30 Apr 2024 07:02:41 -0700 (PDT)
+        bh=VD8//qDjfnHjwoD7CR2EkqerMbRMA+xjUQbnb9SGc/Y=;
+        b=sHzQ5DbW8HNQ9fHiKr0cv3XvEK9NgtFZj6ms7btzZxVI2q201BfBMl9jXQn0q9I+DS
+         MOFesRB9nuJWFMIVLrjQ9RzYGFo03HlR+MRPbC1+w9ggxiZhOT0PkYrHdoMpChjbWXO1
+         9Im5K7K7+eOyConX0UCi2HQ/EQ+RpjMddE40G/Fc/BXwdhsiO0uYk9u7dR/2PdWeTW/T
+         Y5GDuVSvlHyFTnRxHwnj3qtghQJtonsrBjo0q+5UCthH9jpdRIde3ZbL1PNtixfQvE6y
+         1LTSMHmKGSB5752O2hvkvAo+pYGBv1qdZCHYQNb06ntdsGES6dRGgByYq9bnw+njJYpg
+         QBOA==
+X-Forwarded-Encrypted: i=2; AJvYcCWb7Vmhy5+9WRvPppEgNG3JwOQYMgb6z+Ki/fX29yIOIf/gbU66vo+zpuBkq3+sYctghE0QaLcWcSrhZ5bVnVRrc8wawvJaYShKldk=
+X-Gm-Message-State: AOJu0YyH9hWY4f/mPUT0DPuH34wLLpLDIFrwI+Gm4tXMS089brEA10Gk
+	R4jA3IHGNkwFestdoAWOzgjWMmUezx29DMj2PMbN2t9CvvjM3bbfuVSyBurmMiI=
+X-Google-Smtp-Source: AGHT+IFeExuVdEGuC2rSkoNnn6nC2sbkgaAQDSWOvpdlipt6wVf4AfVAQVCglR48OZyEQXqEX0ySsw==
+X-Received: by 2002:a05:622a:181d:b0:43a:f1ef:fd8d with SMTP id t29-20020a05622a181d00b0043af1effd8dmr2986183qtc.1.1714485768547;
+        Tue, 30 Apr 2024 07:02:48 -0700 (PDT)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:ad4:4ee1:0:b0:698:ed81:bc0e with SMTP id 6a1803df08f44-6a09c61c343ls17406676d6.1.-pod-prod-06-us;
- Tue, 30 Apr 2024 07:02:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=2; AJvYcCU+zes4VRudc5kzvWQFQ9zFWoGEwo6VEA5toXEAs0ihmElpMUzxYRiLh23pz6ZWQBM4ECF3tkWP/JvNix8wejPaHXlXZbv88KswTIVnKZI=
-X-Received: by 2002:a05:620a:2194:b0:790:f4f2:4748 with SMTP id g20-20020a05620a219400b00790f4f24748mr5695911qka.20.1714485760849;
-        Tue, 30 Apr 2024 07:02:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1714485760; cv=none;
+Received: by 2002:a05:622a:64b:b0:43a:fa0d:68cc with SMTP id
+ d75a77b69052e-43afa0d69c8ls2693611cf.2.-pod-prod-03-us; Tue, 30 Apr 2024
+ 07:02:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCXpGm8r2c07EpNL4lIvSP0sJP+m8YKquuN03V0Zv2gFaowDUo7rZIlsGGQIz17YUuKf5BSAjTm5IOVV1Vwzh2eOg90ps9SMeWTpB65hr9Q=
+X-Received: by 2002:ac8:5952:0:b0:43a:e5b5:c2f3 with SMTP id 18-20020ac85952000000b0043ae5b5c2f3mr2794931qtz.64.1714485767557;
+        Tue, 30 Apr 2024 07:02:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1714485767; cv=none;
         d=google.com; s=arc-20160816;
-        b=fGsRywT1yGTNdkxdOPoIGlkN9DPGdic2jugbZkkN8UO8Is4OofIbTTqqR2G4LOQ1pR
-         SsfxjguLbbB+KLzUBBMT2ttAOtIgKVQ0vincVXUwxmrlh7KHrijXHTh7/Gj4o6TRhxk8
-         2bRl9QKZDw6GyMn5PO2lQ+Rw+/pSF2mBpgAcsaoOo5RLr9J9yxmgPWwfOVXFhdO+t/l8
-         URaFIhsfW1emVGq/K6oOuoyRHscdXtiWAKNuaoqLWaM944DAm1iLmWoGQz0j95MjCxBt
-         WQaHGLw83OdzzIfs1KaKu5CuIbIARQxKxEfIuTU4uzLf7bONj0OrOgx05XaAfOPaJ71E
-         xgug==
+        b=e1DCflD8q1tj+jvoJfduKiTPGt8lMdQmz/m/UJ93+PmzyGH+Fc18V0xzvQo7gwz++s
+         h1CiNjJiP1Drr9Zndh5PxVd27/rXjI0c97eYrf+G5DevrA/tsE5lunMF7VZL72i3MREj
+         kKt7HSXkt1kMT6XmY9kc2ZvKITaK4U8Kc3AZAjaVZUJp/TGZwyAlr4OpAlA+n8ibz8hE
+         AXtxJ9x18MsVt+edBQBmRpFnJ+My8JNygoJuqsgOG/DEVlarV/AqbqXlhEuMtmomrQoj
+         u1/AtKRAJpVnaTA6EN4Cp6FiT4PoEZFI25pMBVHhXoFLjptQnltOMpmTvJFjplQa3UFE
+         PlLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=91B27U8z7Iln6XJD9uh+fX/pmahLPw16tVNP6LRoyow=;
+        bh=qE1/HtHVuJU+rtbpz3xCSVYRFSW0bV70oYKE7mzCMW8=;
         fh=dijFYpEVp+4ijccmXeOrV1fnLJQjsqwgNfcTPuMjuvg=;
-        b=RRADV2VivW8l8pcv4s8x9zaejIUhWq47cIDmgDVZorl2ky8ERssUtOaQLgC2LNEW5z
-         Qq3vjpHbGzFhczeV22Tl/jR1+hEiU/ZPBmAuhCTw3YBC89VKDYC1i4rP7bBoEh3Nz6xt
-         YqWLxi3X0W+FKRGiNxNYkq3KFIoA0HUsUw+6idT/E5hW00ARiG8J3Eyr6Vl297/uO8Kl
-         WZ636085bt0j+CzVeVx7wj7uQq9CIGo+zkmEUIgWNm101knI/+wCjFVkENxAeXYRbRnp
-         YUlbOZLlPASDe4iwk3APkvVupF8XB7L3KR4/Rqe7SZ7mENGUTMXs9XMO3kvFtHaffPAv
-         JDbQ==;
+        b=ngxUYvHi49xTR5BiRQAW7rLsxVeps6+zYJvULakTQf49Hjs2LQgtdVBqcDZPuETg2v
+         H6t+9aREx2tpP3ZPoSAT/hXUyFAqCZPCacu0kbZC6krch35ZeO+tWjf71kQNgq94fu2S
+         Z+vA6PSKa5o5CCpzj1zbfje6tIKeKet1kfbvElxzjH9bnNVgQPhpe8BJ+yT+DguLaID2
+         hLJRmh/xjuPFWffSNHfIfqnYnZHRQ2KNW3hekmqj20xhzqClKpsYXKHD0/fKX0Y9sfaL
+         JZLHgfhWCToKf9u8vdHP635DHzcLEKIQW/nOAzVER/wsMS0e4vNXjmZErTxwIZ6wZO+3
+         MPbg==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
        gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
-        by mx.google.com with ESMTPS id p2-20020ae9f302000000b00790efb07778si5327705qkg.516.2024.04.30.07.02.40
+        by mx.google.com with ESMTPS id fc22-20020a05622a489600b0043a2b0032e0si15295249qtb.252.2024.04.30.07.02.47
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Apr 2024 07:02:40 -0700 (PDT)
+        Tue, 30 Apr 2024 07:02:47 -0700 (PDT)
 Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-Ei1ojTFrPS2O4X8zXZJ2Yw-1; Tue, 30 Apr 2024 10:02:37 -0400
-X-MC-Unique: Ei1ojTFrPS2O4X8zXZJ2Yw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-640-ZZXqG-ckO8WlMGKziMAjgQ-1; Tue, 30 Apr 2024 10:02:42 -0400
+X-MC-Unique: ZZXqG-ckO8WlMGKziMAjgQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA50F81F44E
-	for <linux-cachefs@gapps.redhat.com>; Tue, 30 Apr 2024 14:02:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F6E8104B529
+	for <linux-cachefs@gapps.redhat.com>; Tue, 30 Apr 2024 14:02:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
-	id D72221C06700; Tue, 30 Apr 2024 14:02:36 +0000 (UTC)
+	id 887512166B4F; Tue, 30 Apr 2024 14:02:40 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.com (unknown [10.42.28.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7904D1C0F133;
-	Tue, 30 Apr 2024 14:02:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5DCE72166B32;
+	Tue, 30 Apr 2024 14:02:37 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>,
 	Jeff Layton <jlayton@kernel.org>,
@@ -127,13 +128,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-mm@kvack.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 21/22] netfs: Miscellaneous tidy ups
-Date: Tue, 30 Apr 2024 15:00:52 +0100
-Message-ID: <20240430140056.261997-22-dhowells@redhat.com>
+Subject: [PATCH v2 22/22] netfs, afs: Use writeback retry to deal with alternate keys
+Date: Tue, 30 Apr 2024 15:00:53 +0100
+Message-ID: <20240430140056.261997-23-dhowells@redhat.com>
 In-Reply-To: <20240430140056.261997-1-dhowells@redhat.com>
 References: <20240430140056.261997-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
@@ -152,60 +153,369 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-Do a couple of miscellaneous tidy ups:
-
- (1) Add a qualifier into a file banner comment.
-
- (2) Put the writeback folio traces back into alphabetical order.
-
- (3) Remove some unused folio traces.
+Use a hook in the new writeback code's retry algorithm to rotate the keys
+once all the outstanding subreqs have failed rather than doing it
+separately on each subreq.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
 cc: netfs@lists.linux.dev
 cc: linux-fsdevel@vger.kernel.org
 ---
- fs/netfs/buffered_write.c    | 2 +-
- include/trace/events/netfs.h | 6 +-----
- 2 files changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 43d2cbcbe75c..d435f39547ef 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -1,5 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0-only
--/* Network filesystem high-level write support.
-+/* Network filesystem high-level buffered write support.
-  *
-  * Copyright (C) 2023 Red Hat, Inc. All Rights Reserved.
-  * Written by David Howells (dhowells@redhat.com)
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index e7700172ae7e..4ba553a6d71b 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -141,12 +141,9 @@
- 	EM(netfs_folio_trace_cancel_copy,	"cancel-copy")	\
- 	EM(netfs_folio_trace_clear,		"clear")	\
- 	EM(netfs_folio_trace_clear_cc,		"clear-cc")	\
--	EM(netfs_folio_trace_clear_s,		"clear-s")	\
- 	EM(netfs_folio_trace_clear_g,		"clear-g")	\
--	EM(netfs_folio_trace_copy,		"copy")		\
--	EM(netfs_folio_trace_copy_plus,		"copy+")	\
-+	EM(netfs_folio_trace_clear_s,		"clear-s")	\
- 	EM(netfs_folio_trace_copy_to_cache,	"mark-copy")	\
--	EM(netfs_folio_trace_end_copy,		"end-copy")	\
- 	EM(netfs_folio_trace_filled_gaps,	"filled-gaps")	\
- 	EM(netfs_folio_trace_kill,		"kill")		\
- 	EM(netfs_folio_trace_kill_cc,		"kill-cc")	\
-@@ -156,7 +153,6 @@
- 	EM(netfs_folio_trace_mkwrite_plus,	"mkwrite+")	\
- 	EM(netfs_folio_trace_not_under_wback,	"!wback")	\
- 	EM(netfs_folio_trace_read_gaps,		"read-gaps")	\
--	EM(netfs_folio_trace_redirty,		"redirty")	\
- 	EM(netfs_folio_trace_redirtied,		"redirtied")	\
- 	EM(netfs_folio_trace_store,		"store")	\
- 	EM(netfs_folio_trace_store_copy,	"store-copy")	\
+Notes:
+    Changes
+    =======
+    ver #2)
+     - Change a comma ending a statement to a semicolon.
+
+ fs/afs/file.c            |   1 +
+ fs/afs/internal.h        |   1 +
+ fs/afs/write.c           | 191 +++++++++++++++++++--------------------
+ fs/netfs/write_collect.c |   9 +-
+ include/linux/netfs.h    |   2 +
+ 5 files changed, 104 insertions(+), 100 deletions(-)
+
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index 8f983e3ecae7..c3f0c45ae9a9 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -368,6 +368,7 @@ static int afs_check_write_begin(struct file *file, loff_t pos, unsigned len,
+ static void afs_free_request(struct netfs_io_request *rreq)
+ {
+ 	key_put(rreq->netfs_priv);
++	afs_put_wb_key(rreq->netfs_priv2);
+ }
+ 
+ static void afs_update_i_size(struct inode *inode, loff_t new_i_size)
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index 887245f9336d..6e1d3c4daf72 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -1601,6 +1601,7 @@ extern int afs_check_volume_status(struct afs_volume *, struct afs_operation *);
+ void afs_prepare_write(struct netfs_io_subrequest *subreq);
+ void afs_issue_write(struct netfs_io_subrequest *subreq);
+ void afs_begin_writeback(struct netfs_io_request *wreq);
++void afs_retry_request(struct netfs_io_request *wreq, struct netfs_io_stream *stream);
+ extern int afs_writepages(struct address_space *, struct writeback_control *);
+ extern int afs_fsync(struct file *, loff_t, loff_t, int);
+ extern vm_fault_t afs_page_mkwrite(struct vm_fault *vmf);
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index b8505a8b622a..e959640694c2 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -29,43 +29,39 @@ static void afs_pages_written_back(struct afs_vnode *vnode, loff_t start, unsign
+ 
+ /*
+  * Find a key to use for the writeback.  We cached the keys used to author the
+- * writes on the vnode.  *_wbk will contain the last writeback key used or NULL
+- * and we need to start from there if it's set.
++ * writes on the vnode.  wreq->netfs_priv2 will contain the last writeback key
++ * record used or NULL and we need to start from there if it's set.
++ * wreq->netfs_priv will be set to the key itself or NULL.
+  */
+-static int afs_get_writeback_key(struct afs_vnode *vnode,
+-				 struct afs_wb_key **_wbk)
++static void afs_get_writeback_key(struct netfs_io_request *wreq)
+ {
+-	struct afs_wb_key *wbk = NULL;
+-	struct list_head *p;
+-	int ret = -ENOKEY, ret2;
++	struct afs_wb_key *wbk, *old = wreq->netfs_priv2;
++	struct afs_vnode *vnode = AFS_FS_I(wreq->inode);
++
++	key_put(wreq->netfs_priv);
++	wreq->netfs_priv = NULL;
++	wreq->netfs_priv2 = NULL;
+ 
+ 	spin_lock(&vnode->wb_lock);
+-	if (*_wbk)
+-		p = (*_wbk)->vnode_link.next;
++	if (old)
++		wbk = list_next_entry(old, vnode_link);
+ 	else
+-		p = vnode->wb_keys.next;
++		wbk = list_first_entry(&vnode->wb_keys, struct afs_wb_key, vnode_link);
+ 
+-	while (p != &vnode->wb_keys) {
+-		wbk = list_entry(p, struct afs_wb_key, vnode_link);
++	list_for_each_entry_from(wbk, &vnode->wb_keys, vnode_link) {
+ 		_debug("wbk %u", key_serial(wbk->key));
+-		ret2 = key_validate(wbk->key);
+-		if (ret2 == 0) {
++		if (key_validate(wbk->key) == 0) {
+ 			refcount_inc(&wbk->usage);
++			wreq->netfs_priv = key_get(wbk->key);
++			wreq->netfs_priv2 = wbk;
+ 			_debug("USE WB KEY %u", key_serial(wbk->key));
+ 			break;
+ 		}
+-
+-		wbk = NULL;
+-		if (ret == -ENOKEY)
+-			ret = ret2;
+-		p = p->next;
+ 	}
+ 
+ 	spin_unlock(&vnode->wb_lock);
+-	if (*_wbk)
+-		afs_put_wb_key(*_wbk);
+-	*_wbk = wbk;
+-	return 0;
++
++	afs_put_wb_key(old);
+ }
+ 
+ static void afs_store_data_success(struct afs_operation *op)
+@@ -88,72 +84,91 @@ static const struct afs_operation_ops afs_store_data_operation = {
+ };
+ 
+ /*
+- * write to a file
++ * Prepare a subrequest to write to the server.  This sets the max_len
++ * parameter.
+  */
+-static int afs_store_data(struct afs_vnode *vnode, struct iov_iter *iter, loff_t pos)
++void afs_prepare_write(struct netfs_io_subrequest *subreq)
+ {
++	//if (test_bit(NETFS_SREQ_RETRYING, &subreq->flags))
++	//	subreq->max_len = 512 * 1024;
++	//else
++	subreq->max_len = 256 * 1024 * 1024;
++}
++
++/*
++ * Issue a subrequest to write to the server.
++ */
++static void afs_issue_write_worker(struct work_struct *work)
++{
++	struct netfs_io_subrequest *subreq = container_of(work, struct netfs_io_subrequest, work);
++	struct netfs_io_request *wreq = subreq->rreq;
+ 	struct afs_operation *op;
+-	struct afs_wb_key *wbk = NULL;
+-	loff_t size = iov_iter_count(iter);
++	struct afs_vnode *vnode = AFS_FS_I(wreq->inode);
++	unsigned long long pos = subreq->start + subreq->transferred;
++	size_t len = subreq->len - subreq->transferred;
+ 	int ret = -ENOKEY;
+ 
+-	_enter("%s{%llx:%llu.%u},%llx,%llx",
++	_enter("R=%x[%x],%s{%llx:%llu.%u},%llx,%zx",
++	       wreq->debug_id, subreq->debug_index,
+ 	       vnode->volume->name,
+ 	       vnode->fid.vid,
+ 	       vnode->fid.vnode,
+ 	       vnode->fid.unique,
+-	       size, pos);
++	       pos, len);
+ 
+-	ret = afs_get_writeback_key(vnode, &wbk);
+-	if (ret) {
+-		_leave(" = %d [no keys]", ret);
+-		return ret;
+-	}
++#if 0 // Error injection
++	if (subreq->debug_index == 3)
++		return netfs_write_subrequest_terminated(subreq, -ENOANO, false);
+ 
+-	op = afs_alloc_operation(wbk->key, vnode->volume);
+-	if (IS_ERR(op)) {
+-		afs_put_wb_key(wbk);
+-		return -ENOMEM;
++	if (!test_bit(NETFS_SREQ_RETRYING, &subreq->flags)) {
++		set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
++		return netfs_write_subrequest_terminated(subreq, -EAGAIN, false);
+ 	}
++#endif
++
++	op = afs_alloc_operation(wreq->netfs_priv, vnode->volume);
++	if (IS_ERR(op))
++		return netfs_write_subrequest_terminated(subreq, -EAGAIN, false);
+ 
+ 	afs_op_set_vnode(op, 0, vnode);
+-	op->file[0].dv_delta = 1;
++	op->file[0].dv_delta	= 1;
+ 	op->file[0].modification = true;
+-	op->store.pos = pos;
+-	op->store.size = size;
+-	op->flags |= AFS_OPERATION_UNINTR;
+-	op->ops = &afs_store_data_operation;
++	op->store.pos		= pos;
++	op->store.size		= len;
++	op->flags		|= AFS_OPERATION_UNINTR;
++	op->ops			= &afs_store_data_operation;
+ 
+-try_next_key:
+ 	afs_begin_vnode_operation(op);
+ 
+-	op->store.write_iter = iter;
+-	op->store.i_size = max(pos + size, vnode->netfs.remote_i_size);
+-	op->mtime = inode_get_mtime(&vnode->netfs.inode);
++	op->store.write_iter	= &subreq->io_iter;
++	op->store.i_size	= umax(pos + len, vnode->netfs.remote_i_size);
++	op->mtime		= inode_get_mtime(&vnode->netfs.inode);
+ 
+ 	afs_wait_for_operation(op);
+-
+-	switch (afs_op_error(op)) {
++	ret = afs_put_operation(op);
++	switch (ret) {
+ 	case -EACCES:
+ 	case -EPERM:
+ 	case -ENOKEY:
+ 	case -EKEYEXPIRED:
+ 	case -EKEYREJECTED:
+ 	case -EKEYREVOKED:
+-		_debug("next");
+-
+-		ret = afs_get_writeback_key(vnode, &wbk);
+-		if (ret == 0) {
+-			key_put(op->key);
+-			op->key = key_get(wbk->key);
+-			goto try_next_key;
+-		}
++		/* If there are more keys we can try, use the retry algorithm
++		 * to rotate the keys.
++		 */
++		if (wreq->netfs_priv2)
++			set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+ 		break;
+ 	}
+ 
+-	afs_put_wb_key(wbk);
+-	_leave(" = %d", afs_op_error(op));
+-	return afs_put_operation(op);
++	netfs_write_subrequest_terminated(subreq, ret < 0 ? ret : subreq->len, false);
++}
++
++void afs_issue_write(struct netfs_io_subrequest *subreq)
++{
++	subreq->work.func = afs_issue_write_worker;
++	if (!queue_work(system_unbound_wq, &subreq->work))
++		WARN_ON_ONCE(1);
+ }
+ 
+ /*
+@@ -162,52 +177,32 @@ static int afs_store_data(struct afs_vnode *vnode, struct iov_iter *iter, loff_t
+  */
+ void afs_begin_writeback(struct netfs_io_request *wreq)
+ {
++	afs_get_writeback_key(wreq);
+ 	wreq->io_streams[0].avail = true;
+ }
+ 
+ /*
+- * Prepare a subrequest to write to the server.  This sets the max_len
+- * parameter.
+- */
+-void afs_prepare_write(struct netfs_io_subrequest *subreq)
+-{
+-	//if (test_bit(NETFS_SREQ_RETRYING, &subreq->flags))
+-	//	subreq->max_len = 512 * 1024;
+-	//else
+-	subreq->max_len = 256 * 1024 * 1024;
+-}
+-
+-/*
+- * Issue a subrequest to write to the server.
++ * Prepare to retry the writes in request.  Use this to try rotating the
++ * available writeback keys.
+  */
+-static void afs_issue_write_worker(struct work_struct *work)
++void afs_retry_request(struct netfs_io_request *wreq, struct netfs_io_stream *stream)
+ {
+-	struct netfs_io_subrequest *subreq = container_of(work, struct netfs_io_subrequest, work);
+-	struct afs_vnode *vnode = AFS_FS_I(subreq->rreq->inode);
+-	ssize_t ret;
+-
+-	_enter("%x[%x],%zx",
+-	       subreq->rreq->debug_id, subreq->debug_index, subreq->io_iter.count);
+-
+-#if 0 // Error injection
+-	if (subreq->debug_index == 3)
+-		return netfs_write_subrequest_terminated(subreq, -ENOANO, false);
++	struct netfs_io_subrequest *subreq =
++		list_first_entry(&stream->subrequests,
++				 struct netfs_io_subrequest, rreq_link);
+ 
+-	if (!test_bit(NETFS_SREQ_RETRYING, &subreq->flags)) {
+-		set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+-		return netfs_write_subrequest_terminated(subreq, -EAGAIN, false);
++	switch (subreq->error) {
++	case -EACCES:
++	case -EPERM:
++	case -ENOKEY:
++	case -EKEYEXPIRED:
++	case -EKEYREJECTED:
++	case -EKEYREVOKED:
++		afs_get_writeback_key(wreq);
++		if (!wreq->netfs_priv)
++			stream->failed = true;
++		break;
+ 	}
+-#endif
+-
+-	ret = afs_store_data(vnode, &subreq->io_iter, subreq->start);
+-	netfs_write_subrequest_terminated(subreq, ret < 0 ? ret : subreq->len, false);
+-}
+-
+-void afs_issue_write(struct netfs_io_subrequest *subreq)
+-{
+-	subreq->work.func = afs_issue_write_worker;
+-	if (!queue_work(system_unbound_wq, &subreq->work))
+-		WARN_ON_ONCE(1);
+ }
+ 
+ /*
+diff --git a/fs/netfs/write_collect.c b/fs/netfs/write_collect.c
+index f14c08bf605d..60112e4b2c5e 100644
+--- a/fs/netfs/write_collect.c
++++ b/fs/netfs/write_collect.c
+@@ -163,6 +163,13 @@ static void netfs_retry_write_stream(struct netfs_io_request *wreq,
+ 
+ 	_enter("R=%x[%x:]", wreq->debug_id, stream->stream_nr);
+ 
++	if (list_empty(&stream->subrequests))
++		return;
++
++	if (stream->source == NETFS_UPLOAD_TO_SERVER &&
++	    wreq->netfs_ops->retry_request)
++		wreq->netfs_ops->retry_request(wreq, stream);
++
+ 	if (unlikely(stream->failed))
+ 		return;
+ 
+@@ -182,8 +189,6 @@ static void netfs_retry_write_stream(struct netfs_io_request *wreq,
+ 		return;
+ 	}
+ 
+-	if (list_empty(&stream->subrequests))
+-		return;
+ 	next = stream->subrequests.next;
+ 
+ 	do {
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index c2ba364041b0..298552f5122c 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -235,6 +235,7 @@ struct netfs_io_request {
+ 	struct iov_iter		iter;		/* Unencrypted-side iterator */
+ 	struct iov_iter		io_iter;	/* I/O (Encrypted-side) iterator */
+ 	void			*netfs_priv;	/* Private data for the netfs */
++	void			*netfs_priv2;	/* Private data for the netfs */
+ 	struct bio_vec		*direct_bv;	/* DIO buffer list (when handling iovec-iter) */
+ 	unsigned int		direct_bv_count; /* Number of elements in direct_bv[] */
+ 	unsigned int		debug_id;
+@@ -306,6 +307,7 @@ struct netfs_request_ops {
+ 	void (*begin_writeback)(struct netfs_io_request *wreq);
+ 	void (*prepare_write)(struct netfs_io_subrequest *subreq);
+ 	void (*issue_write)(struct netfs_io_subrequest *subreq);
++	void (*retry_request)(struct netfs_io_request *wreq, struct netfs_io_stream *stream);
+ 	void (*invalidate_cache)(struct netfs_io_request *wreq);
+ };
+ 
 
 To unsubscribe from this group and stop receiving emails from it, send an email to linux-cachefs+unsubscribe@redhat.com.
 
