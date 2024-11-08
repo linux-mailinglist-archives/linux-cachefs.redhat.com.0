@@ -1,109 +1,109 @@
-Return-Path: <linux-cachefs+bncBDLIXLMFVAERB7EWXG4QMGQEQYBXUMQ@redhat.com>
+Return-Path: <linux-cachefs+bncBDLIXLMFVAERBGEXXG4QMGQE7KXVP3A@redhat.com>
 X-Original-To: lists+linux-cachefs@lfdr.de
 Delivered-To: lists+linux-cachefs@lfdr.de
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114119C2311
-	for <lists+linux-cachefs@lfdr.de>; Fri,  8 Nov 2024 18:33:50 +0100 (CET)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-710cbc3ddfcsf2329768a34.2
-        for <lists+linux-cachefs@lfdr.de>; Fri, 08 Nov 2024 09:33:50 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1731087228; cv=pass;
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B50C9C231D
+	for <lists+linux-cachefs@lfdr.de>; Fri,  8 Nov 2024 18:34:18 +0100 (CET)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-2909052f115sf2406097fac.0
+        for <lists+linux-cachefs@lfdr.de>; Fri, 08 Nov 2024 09:34:18 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1731087257; cv=pass;
         d=google.com; s=arc-20240605;
-        b=SrNC91qqbIWkbz8HU+X0KSNYKmUqIMutUvCsyNaYhp9tMsVwumsawdIRV9SdYOrBnv
-         FPUSH2bI+jyKcqGeA2tnOW5Iu0QE7pSMmOaf2f4hhxaoK3jzlI2wSIsOFQ3+unegQRTs
-         utkm67sJa7XRH1FwCgC8PGehWLngecs8pTnsEm4bz3siO/w+mEiv6g8dqiOuAIfHhOtP
-         1w6STvAEaQgW764Qr/n4ezE14IhsbFl1BXQUUVnQ5fOItKjFzDagdKxxPp+PF5gQCuoV
-         2hkfEpcMU4AR6YfJoOb0nF85AJDMKlGfBxuZO6Xn2A8FQnEG7aFn1Z51gMC3MhoOmrXR
-         HqLg==
+        b=aOJOmFni4u2C1DJTsujRqLBxcgcYiuaZoFwwKYqvC+uC5E0qnsjVzfR/QPVP7AdK/N
+         fuP6ESiuPUlujUrnEHHDuABo8PQtGLrGvNo36UmQX/qIxoJnObB7yvQgf9543Kb9zyrI
+         0zAG1NvnmpYO9xCA8uLm75G9qXoZ7sp6WwmQiZvTYEs3DCzK4F8pXb46ozXInx7Mt47g
+         KPXrMqUCyCYQklgmaCpthc1FM94GzTAkI+4jB78+kLDjrMl/B9Fhz2FHAhZNi0x8ZmqJ
+         SAqCNwDe1GK6h/glK9dq7HY5nntjCzMF5C5q6+4ZmX47nktWaXkAJ0udp76qY8kaQ7HV
+         FwHw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=list-unsubscribe:list-archive:list-help:list-post:list-id
          :mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=dP6CCksileIVWueqsSKN8i+dF/NyfRL91dgyRRKNQAk=;
-        fh=uHjd82EaqG/uvD6g9jjOWHyj97b8FqDpxF2nFLr0hUg=;
-        b=fKaKIN/Y1yegdFze1tsGTqpmZ53wcWgvSRyI2bWNvIKoUU9Y5DnRuvcUD8s95jamhC
-         vEhrxQyQZ1zjH0dYoH5vsoVnl7cQXtJMDwIU7oUlkoXcbJSIhslODtBqbpIuk1YC/LYG
-         LJxTig1QV99VrocDNyFXbkzz5ioUVEMTvGO18Q/NjB5mbSkvodn7vY2u2w6vNlYxX9g1
-         KTPjdCyhOSKQPqL2n9FTmeWlCZRIvCKXh3oy+jDQOGwEIX9hHhHYgho10m+iCC4LWorB
-         p3x66gnufTPPR9BCwUMdap+ASaMOCEQ3dXhtvaddD+XK5cTocLc71tVan3TEVWzwldym
-         xgtA==;
+        bh=D7fLZLjcvyo/Q3NNJcHUyMBXhE6DbF8MPpsasUup1dQ=;
+        fh=AmLowfJe7YIyED3e3nxxmh/vDhLwuY2kyac6tMTxPIg=;
+        b=hfMdBAVsylXOooqj1ifvekp0gi5dLU+PhaWRDZrrGhz0M+6YujGJFYszdyUBbGLs9M
+         rRwMtQv+3bo7jEcIxbI2ZFSnfSdMaziQ3pDtC2x7eu3izJXqAiHY4dQEQ8/lb4qWLkPw
+         nmFRKTBZYWkp5zRLbF/iEjyJGxq0F9vcOPJfvEre6GagbB8cB8Q+psp4Im0FwsgCU786
+         N9n8N1jez3l0+MrxfuUf6Ah9giEyT42Y5yemFt55xvrseLNHBWEBC2oyqnjHJQvqiDbs
+         fc9xVxRYma19dTWVJjLNv8W3ynrBE0IBxzF3/zNlrlukonyKBCWIUCNug60MiWWEzV0E
+         uPfQ==;
         darn=lfdr.de
 ARC-Authentication-Results: i=2; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 170.10.128.131 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=170.10.128.131 policy.d=gapps.redhat.com
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731087228; x=1731692028;
+        d=1e100.net; s=20230601; t=1731087257; x=1731692057;
         h=list-unsubscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :delivered-to:x-beenthere:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dP6CCksileIVWueqsSKN8i+dF/NyfRL91dgyRRKNQAk=;
-        b=a+ORhSM64MhuyZ7FKX+9HBifNbXo4jpu8N8Vacj32rmdWqtaHMtLnWhEyZWNeG3+8v
-         8B0EtxCelB1pSeqGv9PCg7hfqheoX/UHwS/1X/92RH8GLxxkE9+wFJbPMRRp1HWadFF0
-         YVuP3DluPIdtF7p+Phy3/NeM5HsQRGa4OGA0ZimtepHXgUE/bqRhcO9MfKQ7Vb3eg4sW
-         0qQYkzv+hk/oiCCNqX4ornLjV1ps9v4iEwtRoSxGExxbgB/E8AVF5bJkGRDxyJRtrALz
-         LX44MBBACOYxCml+NDhRpMN8/FXPqpsPW01sjXIgg7gdvbs6tkRP5YM0NU1P+l6X5vMb
-         L+pA==
-X-Forwarded-Encrypted: i=2; AJvYcCWRjinbUR2Ll0P2hvSZDWdJqk1mYAQQUzzxMOaAa9TmqJ0/9K8BTeBvU2z8/zB2F6v3rMDsfQ==@lfdr.de
-X-Gm-Message-State: AOJu0Yzxgd+rtQAy0wwEeGX5XInjG1mLR0Iq6gz6EFnA1XIgvzLdX2AV
-	IAxgerSa2NZwLny6xna50RD4On6s134DSUcSsRiniRBqfm1FtIgS9EEjRdY5gxM=
-X-Google-Smtp-Source: AGHT+IFxMoLJghpVdsvu/qhZO7ki3ucIWY2ulgXy+FqHVbNnTTeBJdUZHfMuGMtBKpaczLFY8s5Sng==
-X-Received: by 2002:a05:6871:292:b0:277:c216:5273 with SMTP id 586e51a60fabf-2956008f7a9mr3609746fac.18.1731087228363;
-        Fri, 08 Nov 2024 09:33:48 -0800 (PST)
+        bh=D7fLZLjcvyo/Q3NNJcHUyMBXhE6DbF8MPpsasUup1dQ=;
+        b=Yo9LAgId7/lYAKEZW22Zjk4bhZxZ6MZ/pWapzbg9WaJ25trzWbEq8U72vMm4+moBmN
+         zzDbl9fgBUX3il/vLFvAD/LRZHUVwW2WvSUD26VTCe5ixaoiPIm43qYioXupzspKO0Gm
+         KBh5q1KSda4C7bz0pxiXnz8jc+7f14IzGzUHCSOwjfOsIXjKR0ePLkiFOx/XUEdAqjPv
+         7qYuiN8R+FZv1hB6ez22SJRVUurUuk8+c1PB6bl+SAGRjYw7WI8oPt0LDXbEeFLQmvQ3
+         jV+yp46w8ny+IMHlkAR7VwaR7qh5ZcTMGEap7mSjp9HChDsxDRFj1cTP2oV+hnNuQ0vd
+         tG+Q==
+X-Forwarded-Encrypted: i=2; AJvYcCXzqPAntjUI2WLNyjeysTOoOIf0vJ6ieVPd0TWp08Tk4RXmYWQf6pffuL2SCM0oF5ulWohuGg==@lfdr.de
+X-Gm-Message-State: AOJu0YyVY/BtY5r1fhr/GrMf8AJ7JbfxcfOXsioB2LhZYD4DWf0ES8aA
+	J5P7BPd8lKjoHiYF6zQNADqgyKrOK0cr5hcHfJBbuZcf6fWwOruk+W03oaTHc7o=
+X-Google-Smtp-Source: AGHT+IGz3wq5hzSk0Tg0w7XjR8qLqDWkUXX/YN3IyUpGNO7xyJltw66iWpr/sBlalEabVcHAPW9oeQ==
+X-Received: by 2002:a05:6870:440d:b0:287:20ea:2db2 with SMTP id 586e51a60fabf-2956011180cmr3904662fac.25.1731087256869;
+        Fri, 08 Nov 2024 09:34:16 -0800 (PST)
 X-BeenThere: linux-cachefs@redhat.com
-Received: by 2002:a05:6870:c69f:b0:277:ef03:8cc7 with SMTP id
- 586e51a60fabf-29541016b9cls2087970fac.1.-pod-prod-08-us; Fri, 08 Nov 2024
- 09:33:47 -0800 (PST)
-X-Forwarded-Encrypted: i=2; AJvYcCXhLh/cqdPhhXCDDxPDOuqF8t3Y4GaX0DyQmP0AaXPrG/FmKR8YVtf50X35kUFM3JWARsZJXAfP3DOfEThE@gapps.redhat.com
-X-Received: by 2002:a05:6830:498d:b0:718:194d:8a6 with SMTP id 46e09a7af769-71a1c28846amr5383601a34.28.1731087227616;
-        Fri, 08 Nov 2024 09:33:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1731087227; cv=none;
+Received: by 2002:a05:6870:1656:b0:288:487d:4311 with SMTP id
+ 586e51a60fabf-29540fae3d2ls615548fac.1.-pod-prod-02-us; Fri, 08 Nov 2024
+ 09:34:16 -0800 (PST)
+X-Forwarded-Encrypted: i=2; AJvYcCVdX5v5JA8S4jCdvMrJrU5OkhThjv58oKhcO2COj2y6gCG5eupLv1BbwdGqrmLFq+k/a2ZvFYdrXwlmtFrL@gapps.redhat.com
+X-Received: by 2002:a05:6808:19a0:b0:3e7:61e9:f44f with SMTP id 5614622812f47-3e7946f09d7mr4403638b6e.36.1731087256152;
+        Fri, 08 Nov 2024 09:34:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1731087256; cv=none;
         d=google.com; s=arc-20240605;
-        b=DlMaQ3RtLqcWYmP1nfw1NEx5REt3snLVjTH7cxyVQYkkabQiKywBHMc3rTF26xyqfk
-         OZYYi6H5n44bc9nwCB4yNYjI18jR1m75K4NO5/5FlFTjw5YHncSVd/59obRGqYH0mygn
-         LJAdD8LdaphtotFrbWRZaN68rIcbVqYwk92N8FCht5mmz732QT9wMLuZYURRSaFPW/cp
-         UgvzDrfD6ezc+k3JRnUGXgiUyNfvsvBXEYvowMoxAy423zInq6LfZsx1Ba1BWJluuW0F
-         9JNfWwHXRKjbtaSlLarE0a0/r6D2rzATX/QjRV4zQ50qZaFZPqRUc2/OdGCpVBoP+Qdb
-         MSMg==
+        b=HBF3NsXEQnYRf0VR52o4gs0I6hfzVzpHk5f+VIPuRkYnQ0GRacd8hezFjp+iR/GFul
+         mHrAgZtSgLcm6/ZDuakQQ9OJxw34EfFq3aonNKdC+D+mo/LTL6JXWgrOJQ+gRv8eslDp
+         XvupeBTknT/O7+8HbYlADRBkOMBxBMfMSdoUd/g5s+zlXzEG3LoejuSQ1rWudnN+pLeG
+         ktfF6iYvH0PL8axiSFDFhxjBaPuzxLcNUSxbHAolIbrp76OlEYXn59u7YiVvUjadooUA
+         KSEZvJMIWRCo/2Lokbb4D0CrN7bQ4em47dnOg3g5Oi97gBu1KZmKuIq5i/z1nPsnlG6w
+         uRGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:delivered-to;
-        bh=X3twVFG043O59vporSoGB49KW0yXOb7j0HiRw4sYWo4=;
+        bh=Gu5E8tyC96H9fpVehZhchYQCXTYRja375CBx48Z0WNk=;
         fh=S9oLL764npqAlTwfYdPhiOTkO7VjwvYShFF/IFwF3l8=;
-        b=duzB5/KjM0qnTfG11jbCgsmi3j6oJV8QtY53XS+fyJvuD5SwbEJFUcacf67BFC6iHO
-         kTNfxvRkEBsoIRAUP+agCVwI2n+0t/7OTjEnmSn/3ucZAqAe6tHhZxdKIUVVpEo714u5
-         3/fHsDeyRoc3RRASC60GAfFQgXdsrqiZ7lEfq//DwzFkaTf9M8w/SlyvDztt1F06GopP
-         08f8XAXhzx0K8I5xwYACGIDZMxlLenFI1EJzjkYyYiIBn76FwyDZIDxvP849grOlRE/+
-         k6jWcclL1fpK5qk4u7enKC8qI2yCeAx1Aex153QD9A5gfKxD1jJ+Tb7C7DIn047a/rZM
-         fs/g==;
+        b=D0xErqi+aZr5QZU92q9gJXBmNZ973toKpNcrdtWo2vbiW5rUn4NgApS935ONvQxyRo
+         ZuxWnERwehE+sEEYbez+BSxHBI+t7Uguj3IfhqVAUlSI7UxxY5QcyTBkvw2hJk9FCzui
+         jZumacq7jkANO+FQ6bnKkOE3sM2xTib/SAsuqcMTmKCVjuS5P5bz5ybC9aqLjf8IY5Ck
+         mcg0yK6WddmnzlUSP/pUxMOgoEqv+RfTaGbfOgKqdkVQ/6qvRXLi/Wt7z1dFXbGklA5d
+         6NG9uRYUghci6EijyiTVZhmMmrsB0jk33uPAlMNA6O52wVvPnMjf9/c2fR5m2YpNQ970
+         6jKQ==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
-       gateway.spf=pass (google.com: domain gapps.redhat.com configured 170.10.128.131 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=170.10.128.131 policy.d=gapps.redhat.com
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [170.10.128.131])
-        by mx.google.com with ESMTPS id 71dfb90a1353d-513f325f470si1459836e0c.262.2024.11.08.09.33.47
+       gateway.spf=pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [205.139.110.120])
+        by mx.google.com with ESMTPS id 6a1803df08f44-6d3966b038csi45722146d6.447.2024.11.08.09.34.16
         for <linux-cachefs@gapps.redhat.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 Nov 2024 09:33:47 -0800 (PST)
-Received-SPF: pass (google.com: domain gapps.redhat.com configured 170.10.128.131 as internal address)
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+        Fri, 08 Nov 2024 09:34:16 -0800 (PST)
+Received-SPF: pass (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal address)
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-311-8QsM_7VLPea6Fhv001d65Q-1; Fri,
- 08 Nov 2024 12:33:46 -0500
-X-MC-Unique: 8QsM_7VLPea6Fhv001d65Q-1
-X-Mimecast-MFC-AGG-ID: 8QsM_7VLPea6Fhv001d65Q
-Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-362-j-e4zmvFOO2fVxr40O0jSg-1; Fri,
+ 08 Nov 2024 12:34:14 -0500
+X-MC-Unique: j-e4zmvFOO2fVxr40O0jSg-1
+X-Mimecast-MFC-AGG-ID: j-e4zmvFOO2fVxr40O0jSg
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 56C221956096
-	for <linux-cachefs@gapps.redhat.com>; Fri,  8 Nov 2024 17:33:45 +0000 (UTC)
-Received: by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
-	id 515621955E95; Fri,  8 Nov 2024 17:33:45 +0000 (UTC)
+	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BFC4019540EF
+	for <linux-cachefs@gapps.redhat.com>; Fri,  8 Nov 2024 17:34:13 +0000 (UTC)
+Received: by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
+	id BB752195E486; Fri,  8 Nov 2024 17:34:13 +0000 (UTC)
 Delivered-To: linux-cachefs@redhat.com
 Received: from warthog.procyon.org.uk.com (unknown [10.42.28.231])
-	by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C24C41956054;
-	Fri,  8 Nov 2024 17:33:38 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EE274195E481;
+	Fri,  8 Nov 2024 17:34:07 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>,
 	Steve French <smfrench@gmail.com>,
@@ -130,21 +130,21 @@ Cc: David Howells <dhowells@redhat.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-cachefs@redhat.com
-Subject: [PATCH v4 08/33] netfs: Make netfs_advance_write() return size_t
-Date: Fri,  8 Nov 2024 17:32:09 +0000
-Message-ID: <20241108173236.1382366-9-dhowells@redhat.com>
+Subject: [PATCH v4 12/33] netfs: Don't use bh spinlock
+Date: Fri,  8 Nov 2024 17:32:13 +0000
+Message-ID: <20241108173236.1382366-13-dhowells@redhat.com>
 In-Reply-To: <20241108173236.1382366-1-dhowells@redhat.com>
 References: <20241108173236.1382366-1-dhowells@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lDjxQcbHxL2AiFsWA74n6Vu6beqRwtXueMLR56K_8sY_1731087225
+X-Mimecast-MFC-PROC-ID: Z045z9aaoME4KZHpjgXXl38Fvu00rsVWAVx-WJUfnpc_1731087253
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"; x-default=true
 X-Original-Sender: dhowells@redhat.com
 X-Original-Authentication-Results: mx.google.com;       gateway.spf=pass
- (google.com: domain gapps.redhat.com configured 170.10.128.131 as internal
- address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=170.10.128.131 policy.d=gapps.redhat.com
+ (google.com: domain gapps.redhat.com configured 205.139.110.120 as internal
+ address) smtp.mailfrom=dhowells@redhat.com smtp.remote-ip=205.139.110.120 policy.d=gapps.redhat.com
 Precedence: list
 Mailing-list: list linux-cachefs@redhat.com; contact linux-cachefs+owners@redhat.com
 List-ID: <linux-cachefs.redhat.com>
@@ -156,9 +156,10 @@ List-Archive: <https://groups.google.com/a/redhat.com/group/linux-cachefs/>
 List-Unsubscribe: <mailto:googlegroups-manage+998933772329+unsubscribe@googlegroups.com>,
  <https://groups.google.com/a/redhat.com/group/linux-cachefs/subscribe>
 
-netfs_advance_write() calculates the amount of data it's attaching to a
-stream with size_t, but then returns this as an int.  Switch the return
-value to size_t for consistency.
+All the accessing of the subrequest lists is now done in process context,
+possibly in a workqueue, but not now in a BH context, so we don't need the
+lock against BH interference when taking the netfs_io_request::lock
+spinlock.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Jeff Layton <jlayton@kernel.org>
@@ -166,44 +167,207 @@ cc: linux-cachefs@redhat.com
 cc: linux-fsdevel@vger.kernel.org
 cc: linux-mm@kvack.org
 ---
- fs/netfs/internal.h    | 6 +++---
- fs/netfs/write_issue.c | 6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ fs/netfs/buffered_read.c |  4 ++--
+ fs/netfs/direct_read.c   |  4 ++--
+ fs/netfs/read_collect.c  | 20 ++++++++++----------
+ fs/netfs/read_retry.c    |  8 ++++----
+ fs/netfs/write_collect.c |  4 ++--
+ fs/netfs/write_issue.c   |  4 ++--
+ 6 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index ccd9058acb61..6aa2a8d49b37 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -178,9 +178,9 @@ void netfs_reissue_write(struct netfs_io_stream *stream,
- 			 struct iov_iter *source);
- void netfs_issue_write(struct netfs_io_request *wreq,
- 		       struct netfs_io_stream *stream);
--int netfs_advance_write(struct netfs_io_request *wreq,
--			struct netfs_io_stream *stream,
--			loff_t start, size_t len, bool to_eof);
-+size_t netfs_advance_write(struct netfs_io_request *wreq,
-+			   struct netfs_io_stream *stream,
-+			   loff_t start, size_t len, bool to_eof);
- struct netfs_io_request *netfs_begin_writethrough(struct kiocb *iocb, size_t len);
- int netfs_advance_writethrough(struct netfs_io_request *wreq, struct writeback_control *wbc,
- 			       struct folio *folio, size_t copied, bool to_page_end,
+diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
+index 6fd4f3bef3b4..4a48b79b8807 100644
+--- a/fs/netfs/buffered_read.c
++++ b/fs/netfs/buffered_read.c
+@@ -200,12 +200,12 @@ static void netfs_read_to_pagecache(struct netfs_io_request *rreq)
+ 		subreq->len	= size;
+ 
+ 		atomic_inc(&rreq->nr_outstanding);
+-		spin_lock_bh(&rreq->lock);
++		spin_lock(&rreq->lock);
+ 		list_add_tail(&subreq->rreq_link, &rreq->subrequests);
+ 		subreq->prev_donated = rreq->prev_donated;
+ 		rreq->prev_donated = 0;
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_added);
+-		spin_unlock_bh(&rreq->lock);
++		spin_unlock(&rreq->lock);
+ 
+ 		source = netfs_cache_prepare_read(rreq, subreq, rreq->i_size);
+ 		subreq->source = source;
+diff --git a/fs/netfs/direct_read.c b/fs/netfs/direct_read.c
+index 54027fd14904..1a20cc3979c7 100644
+--- a/fs/netfs/direct_read.c
++++ b/fs/netfs/direct_read.c
+@@ -68,12 +68,12 @@ static int netfs_dispatch_unbuffered_reads(struct netfs_io_request *rreq)
+ 		subreq->len	= size;
+ 
+ 		atomic_inc(&rreq->nr_outstanding);
+-		spin_lock_bh(&rreq->lock);
++		spin_lock(&rreq->lock);
+ 		list_add_tail(&subreq->rreq_link, &rreq->subrequests);
+ 		subreq->prev_donated = rreq->prev_donated;
+ 		rreq->prev_donated = 0;
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_added);
+-		spin_unlock_bh(&rreq->lock);
++		spin_unlock(&rreq->lock);
+ 
+ 		netfs_stat(&netfs_n_rh_download);
+ 		if (rreq->netfs_ops->prepare_read) {
+diff --git a/fs/netfs/read_collect.c b/fs/netfs/read_collect.c
+index 146abb2e399a..53ef7e0f3e9c 100644
+--- a/fs/netfs/read_collect.c
++++ b/fs/netfs/read_collect.c
+@@ -142,7 +142,7 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 	prev_donated = READ_ONCE(subreq->prev_donated);
+ 	next_donated =  READ_ONCE(subreq->next_donated);
+ 	if (prev_donated || next_donated) {
+-		spin_lock_bh(&rreq->lock);
++		spin_lock(&rreq->lock);
+ 		prev_donated = subreq->prev_donated;
+ 		next_donated =  subreq->next_donated;
+ 		subreq->start -= prev_donated;
+@@ -155,7 +155,7 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 			next_donated = subreq->next_donated = 0;
+ 		}
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_add_donations);
+-		spin_unlock_bh(&rreq->lock);
++		spin_unlock(&rreq->lock);
+ 	}
+ 
+ 	avail = subreq->transferred;
+@@ -184,18 +184,18 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 		} else if (fpos < start) {
+ 			excess = fend - subreq->start;
+ 
+-			spin_lock_bh(&rreq->lock);
++			spin_lock(&rreq->lock);
+ 			/* If we complete first on a folio split with the
+ 			 * preceding subreq, donate to that subreq - otherwise
+ 			 * we get the responsibility.
+ 			 */
+ 			if (subreq->prev_donated != prev_donated) {
+-				spin_unlock_bh(&rreq->lock);
++				spin_unlock(&rreq->lock);
+ 				goto donation_changed;
+ 			}
+ 
+ 			if (list_is_first(&subreq->rreq_link, &rreq->subrequests)) {
+-				spin_unlock_bh(&rreq->lock);
++				spin_unlock(&rreq->lock);
+ 				pr_err("Can't donate prior to front\n");
+ 				goto bad;
+ 			}
+@@ -211,7 +211,7 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 
+ 			if (subreq->consumed >= subreq->len)
+ 				goto remove_subreq_locked;
+-			spin_unlock_bh(&rreq->lock);
++			spin_unlock(&rreq->lock);
+ 		} else {
+ 			pr_err("fpos > start\n");
+ 			goto bad;
+@@ -239,11 +239,11 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 	/* Donate the remaining downloaded data to one of the neighbouring
+ 	 * subrequests.  Note that we may race with them doing the same thing.
+ 	 */
+-	spin_lock_bh(&rreq->lock);
++	spin_lock(&rreq->lock);
+ 
+ 	if (subreq->prev_donated != prev_donated ||
+ 	    subreq->next_donated != next_donated) {
+-		spin_unlock_bh(&rreq->lock);
++		spin_unlock(&rreq->lock);
+ 		cond_resched();
+ 		goto donation_changed;
+ 	}
+@@ -293,11 +293,11 @@ static bool netfs_consume_read_data(struct netfs_io_subrequest *subreq)
+ 	goto remove_subreq_locked;
+ 
+ remove_subreq:
+-	spin_lock_bh(&rreq->lock);
++	spin_lock(&rreq->lock);
+ remove_subreq_locked:
+ 	subreq->consumed = subreq->len;
+ 	list_del(&subreq->rreq_link);
+-	spin_unlock_bh(&rreq->lock);
++	spin_unlock(&rreq->lock);
+ 	netfs_put_subrequest(subreq, false, netfs_sreq_trace_put_consumed);
+ 	return true;
+ 
+diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
+index d1986cec3db7..264f3cb6a7dc 100644
+--- a/fs/netfs/read_retry.c
++++ b/fs/netfs/read_retry.c
+@@ -139,12 +139,12 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 			__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+ 			__set_bit(NETFS_SREQ_RETRYING, &subreq->flags);
+ 
+-			spin_lock_bh(&rreq->lock);
++			spin_lock(&rreq->lock);
+ 			list_add_tail(&subreq->rreq_link, &rreq->subrequests);
+ 			subreq->prev_donated += rreq->prev_donated;
+ 			rreq->prev_donated = 0;
+ 			trace_netfs_sreq(subreq, netfs_sreq_trace_retry);
+-			spin_unlock_bh(&rreq->lock);
++			spin_unlock(&rreq->lock);
+ 
+ 			BUG_ON(!len);
+ 
+@@ -215,9 +215,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 		__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+ 		__clear_bit(NETFS_SREQ_RETRYING, &subreq->flags);
+ 	}
+-	spin_lock_bh(&rreq->lock);
++	spin_lock(&rreq->lock);
+ 	list_splice_tail_init(&queue, &rreq->subrequests);
+-	spin_unlock_bh(&rreq->lock);
++	spin_unlock(&rreq->lock);
+ }
+ 
+ /*
+diff --git a/fs/netfs/write_collect.c b/fs/netfs/write_collect.c
+index 85e8e94da90a..d291b31dd074 100644
+--- a/fs/netfs/write_collect.c
++++ b/fs/netfs/write_collect.c
+@@ -238,14 +238,14 @@ static void netfs_collect_write_results(struct netfs_io_request *wreq)
+ 
+ 		cancel:
+ 			/* Remove if completely consumed. */
+-			spin_lock_bh(&wreq->lock);
++			spin_lock(&wreq->lock);
+ 
+ 			remove = front;
+ 			list_del_init(&front->rreq_link);
+ 			front = list_first_entry_or_null(&stream->subrequests,
+ 							 struct netfs_io_subrequest, rreq_link);
+ 			stream->front = front;
+-			spin_unlock_bh(&wreq->lock);
++			spin_unlock(&wreq->lock);
+ 			netfs_put_subrequest(remove, false,
+ 					     notes & SAW_FAILURE ?
+ 					     netfs_sreq_trace_put_cancel :
 diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
-index 993cc6def38e..c186221b45c0 100644
+index c186221b45c0..10b5300b9448 100644
 --- a/fs/netfs/write_issue.c
 +++ b/fs/netfs/write_issue.c
-@@ -271,9 +271,9 @@ void netfs_issue_write(struct netfs_io_request *wreq,
-  * we can avoid overrunning the credits obtained (cifs) and try to parallelise
-  * content-crypto preparation with network writes.
-  */
--int netfs_advance_write(struct netfs_io_request *wreq,
--			struct netfs_io_stream *stream,
--			loff_t start, size_t len, bool to_eof)
-+size_t netfs_advance_write(struct netfs_io_request *wreq,
-+			   struct netfs_io_stream *stream,
-+			   loff_t start, size_t len, bool to_eof)
- {
- 	struct netfs_io_subrequest *subreq = stream->construct;
- 	size_t part;
+@@ -203,7 +203,7 @@ static void netfs_prepare_write(struct netfs_io_request *wreq,
+ 	 * the list.  The collector only goes nextwards and uses the lock to
+ 	 * remove entries off of the front.
+ 	 */
+-	spin_lock_bh(&wreq->lock);
++	spin_lock(&wreq->lock);
+ 	list_add_tail(&subreq->rreq_link, &stream->subrequests);
+ 	if (list_is_first(&subreq->rreq_link, &stream->subrequests)) {
+ 		stream->front = subreq;
+@@ -214,7 +214,7 @@ static void netfs_prepare_write(struct netfs_io_request *wreq,
+ 		}
+ 	}
+ 
+-	spin_unlock_bh(&wreq->lock);
++	spin_unlock(&wreq->lock);
+ 
+ 	stream->construct = subreq;
+ }
 
 To unsubscribe from this group and stop receiving emails from it, send an email to linux-cachefs+unsubscribe@redhat.com.
 
